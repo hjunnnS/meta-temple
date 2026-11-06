@@ -4,6 +4,7 @@ import { Vector3, Matrix, Quaternion } from '@babylonjs/core/Maths/math.vector';
 import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
 import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
 import { HemisphericLight } from '@babylonjs/core/Lights/hemisphericLight';
+import { PointLight } from '@babylonjs/core/Lights/pointLight';
 import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
@@ -21,17 +22,29 @@ export type Quality = 'high' | 'low';
 export function createTemple(canvas:HTMLCanvasElement) {
  const engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},false);
  const scene=new Scene(engine); scene.clearColor=new Color4(.64,.7,.68,1);
- scene.fogMode=Scene.FOGMODE_EXP2;scene.fogDensity=.013;scene.fogColor=new Color3(.64,.7,.68);
+ scene.fogMode=Scene.FOGMODE_EXP2;scene.fogDensity=.0025;scene.fogColor=new Color3(.64,.7,.68);
  const camera=new ArcRotateCamera('camera',-Math.PI*.67,Math.PI*.37,36,new Vector3(0,3,2),scene);
  camera.lowerRadiusLimit=5;camera.upperRadiusLimit=65;camera.upperBetaLimit=Math.PI*.49;camera.lowerBetaLimit=.15;
  camera.minZ=.1;camera.wheelPrecision=18;camera.panningSensibility=70;camera.attachControl(canvas,true);
  const hemi=new HemisphericLight('sky',new Vector3(0,1,0),scene);hemi.intensity=.8;hemi.groundColor=new Color3(.22,.27,.24);
  const sun=new DirectionalLight('sun',new Vector3(-.45,-.85,.45),scene);sun.position=new Vector3(20,35,-20);sun.intensity=1.6;
- const shadows=new ShadowGenerator(1024,sun);shadows.usePercentageCloserFiltering=true;shadows.bias=.002;shadows.normalBias=.035;
- const glow=new GlowLayer('lantern-glow',scene,{mainTextureFixedSize:512,blurKernelSize:32});glow.intensity=.35;
+ const shadows=new ShadowGenerator(2048,sun);shadows.usePercentageCloserFiltering=true;shadows.bias=.002;shadows.normalBias=.035;
+ const glow=new GlowLayer('lantern-glow',scene,{mainTextureFixedSize:1024,blurKernelSize:48});glow.intensity=.35;
  const colors:Record<string,StandardMaterial>={};
  function mat(name:string,hex:string,emissive=0){const m=new StandardMaterial(name,scene);m.diffuseColor=Color3.FromHexString(hex);m.specularColor=new Color3(.06,.06,.06);m.emissiveColor=m.diffuseColor.scale(emissive);colors[name]=m;return m;}
- const stone=mat('stone','#9a9b90'),stoneDark=mat('dark-stone','#626b63'),wood=mat('aged-redwood','#713c2b'),roofMat=mat('roof','#34494a'),roofEdge=mat('ridge','#536565'),jade=mat('jade','#356e62'),red=mat('red','#984d35'),ochre=mat('gold','#c8a76d'),paper=mat('paper','#c4bb96',.1),leaves=mat('leaves','#344e3f'),trunk=mat('trunk','#555245'),groundMat=mat('earth','#66715c');
+ const stone=mat('stone','#a59b88'),stoneDark=mat('dark-stone','#494955'),wood=mat('aged-redwood','#783021'),roofMat=mat('roof','#202a39'),roofEdge=mat('ridge','#394757'),jade=mat('jade','#097b69'),red=mat('red','#c63c27'),ochre=mat('gold','#e8b952'),paper=mat('paper','#d8b67b',.1),leaves=mat('leaves','#123f32'),trunk=mat('trunk','#555245'),groundMat=mat('earth','#253e32');
+ // Original deterministic surface maps: fine wood grain, mineral flecks and roof weathering.
+ function surface(m:StandardMaterial,kind:'wood'|'stone'|'tile'){
+  const t=new DynamicTexture(`${kind}-surface`,{width:512,height:512},scene,true);const c=t.getContext() as CanvasRenderingContext2D;
+  c.fillStyle=kind==='wood'?'#b9a18e':'#bdbdbd';c.fillRect(0,0,512,512);let state=81;
+  const random=()=>{state=(Math.imul(state,1664525)+1013904223)>>>0;return state/4294967296;};
+  for(let i=0;i<16000;i++){const x=random()*512,y=random()*512,v=80+random()*150;c.fillStyle=`rgba(${v},${v},${v},${kind==='wood'?.13:.23})`;c.fillRect(x,y,kind==='wood'?1:random()*3,kind==='wood'?12+random()*60:random()*3);}
+  if(kind==='wood'){for(let x=0;x<512;x+=5){c.beginPath();c.strokeStyle='rgba(45,21,10,.22)';c.lineWidth=.8;for(let y=0;y<520;y+=8){const xx=x+3*Math.sin(y/43+x);if(y===0)c.moveTo(xx,y);else c.lineTo(xx,y);}c.stroke();}}
+  t.update();m.diffuseTexture=t;const bump=t.clone();if(bump){(bump.getContext() as CanvasRenderingContext2D).putImageData(c.getImageData(0,0,512,512),0,0);bump.update();bump.level=kind==='wood'?.14:.23;m.bumpTexture=bump;}
+ }
+ surface(wood,'wood');surface(stone,'stone');surface(stoneDark,'stone');surface(roofMat,'tile');surface(roofEdge,'tile');
+ roofMat.specularColor=new Color3(.24,.28,.32);roofMat.specularPower=55;
+ ochre.specularColor=new Color3(.55,.39,.13);ochre.specularPower=64;
  const staticMeshes:Mesh[]=[];
  function box(name:string,w:number,h:number,d:number,x:number,y:number,z:number,m:StandardMaterial,shadow=true){const a=MeshBuilder.CreateBox(name,{width:w,height:h,depth:d},scene);a.position.set(x,y,z);a.material=m;a.receiveShadows=true;staticMeshes.push(a);if(shadow)shadows.addShadowCaster(a);return a;}
  function cylinder(name:string,diameter:number,height:number,pos:Vector3,m:StandardMaterial){const a=MeshBuilder.CreateCylinder(name,{diameter,height,tessellation:12},scene);a.position=pos;a.material=m;staticMeshes.push(a);shadows.addShadowCaster(a);return a;}
@@ -55,9 +68,9 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(let i=0;i<9;i++)box('door-horizontal',2.65,.045,.04,x,1.65+i*.34,3.87,wood,false);
  }
  const texture=new DynamicTexture('original-dancheong',{width:1024,height:128},scene,false);
- const ctx=texture.getContext() as CanvasRenderingContext2D;ctx.fillStyle='#315d53';ctx.fillRect(0,0,1024,128);
- for(let y=0;y<3;y++){ctx.fillStyle=['#c9ac71','#9b4b38','#203f3b'][y];ctx.fillRect(0,y*9,1024,5);ctx.fillRect(0,123-y*9,1024,5);}
- for(let x=32;x<1024;x+=64){for(let p=0;p<8;p++){const angle=p*Math.PI/4;ctx.beginPath();ctx.fillStyle=p%2?'#bd704e':'#d6c18b';ctx.ellipse(x+Math.cos(angle)*17,64+Math.sin(angle)*17,11,5,angle,0,Math.PI*2);ctx.fill();}ctx.beginPath();ctx.fillStyle='#477d82';ctx.arc(x,64,9,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.fillStyle='#eddfad';ctx.arc(x,64,4,0,Math.PI*2);ctx.fill();}
+ const ctx=texture.getContext() as CanvasRenderingContext2D;ctx.fillStyle='#075e50';ctx.fillRect(0,0,1024,128);
+ for(let y=0;y<3;y++){ctx.fillStyle=['#f4c765','#cf3b26','#072e40'][y];ctx.fillRect(0,y*9,1024,5);ctx.fillRect(0,123-y*9,1024,5);}
+ for(let x=32;x<1024;x+=64){for(let p=0;p<8;p++){const angle=p*Math.PI/4;ctx.beginPath();ctx.fillStyle=p%2?'#e85439':'#f5c654';ctx.ellipse(x+Math.cos(angle)*17,64+Math.sin(angle)*17,11,5,angle,0,Math.PI*2);ctx.fill();}ctx.beginPath();ctx.fillStyle='#169ab2';ctx.arc(x,64,9,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.fillStyle='#eddfad';ctx.arc(x,64,4,0,Math.PI*2);ctx.fill();}
  texture.update();const painted=mat('dancheong','#ffffff');painted.diffuseTexture=texture;
  box('painted-beam',20,.65,.3,0,5.5,3.65,painted);box('rear-painted-beam',20,.65,.3,0,5.5,12.35,painted);
  for(let i=0;i<49;i++){let a=cylinder('rafter',.15,11,new Vector3(-10+i*.416,5.85,8),jade);a.rotation.x=Math.PI/2;}
@@ -70,37 +83,85 @@ export function createTemple(canvas:HTMLCanvasElement) {
  for(let i=0;i<=57;i++)for(const sign of [-1,1]){const x=-11.4+i*.4;const path=Array.from({length:15},(_,j)=>{const z=sign*(.05+j*5.85/14);return new Vector3(x,roofY(x,z)+.07,z+8);});const rib=MeshBuilder.CreateTube('tile-rib',{path,radius:.065,tessellation:5},scene);rib.material=roofEdge;staticMeshes.push(rib);}
  for(const z of [-5.9,0,5.9]){const path=Array.from({length:48},(_,i)=>{const x=-11.5+i*23/47;return new Vector3(x,roofY(x,z)+.13,z+8);});const edge=MeshBuilder.CreateTube('ridge',{path,radius:z===0?.2:.12,tessellation:8},scene);edge.material=roofEdge;staticMeshes.push(edge);}
  const signTexture=new DynamicTexture('sign',{width:512,height:192},scene,false);const sc=signTexture.getContext() as CanvasRenderingContext2D;sc.fillStyle='#202c29';sc.fillRect(0,0,512,192);sc.strokeStyle='#bb9b60';sc.lineWidth=8;sc.strokeRect(10,10,492,172);sc.fillStyle='#ddc592';sc.font='bold 100px serif';sc.textAlign='center';sc.fillText('大雄殿',256,133);signTexture.update();const signMat=mat('sign-material','#ffffff');signMat.diffuseTexture=signTexture;box('hall-sign',3.4,1.25,.18,0,5.2,3.35,signMat);
+ // Roof tile courses and lotus end-caps give the eaves an articulated silhouette.
+ for(const side of [-1,1])for(let row=1;row<15;row++){
+  const z=side*row*5.9/14;const path=Array.from({length:47},(_,i)=>{const x=-11.5+i*.5;return new Vector3(x,roofY(x,z)+.028,z+8);});
+  const seam=MeshBuilder.CreateTube('tile-course',{path,radius:.022,tessellation:4},scene);seam.material=roofEdge;staticMeshes.push(seam);
+ }
+ for(const side of [-1,1])for(let i=0;i<58;i++){
+  const x=-11.4+i*.4,z=side*5.9;
+  const disc=cylinder('eave-rosette',.19,.08,new Vector3(x,roofY(x,z)+.04,z+8),roofEdge);disc.rotation.x=Math.PI/2;
+  const medallion=MeshBuilder.CreateTorus('rosette-ring',{diameter:.12,thickness:.022,tessellation:10},scene);medallion.rotation.x=Math.PI/2;medallion.position.set(x,roofY(x,z)+.04,z+8+side*.05);medallion.material=ochre;staticMeshes.push(medallion);
+ }
+ for(const z of [3.7,12.3])for(const x of [-9,-6,-3,0,3,6,9]){
+  for(let level=0;level<3;level++)for(const side of [-1,1]){
+   const bracket=box('carved-bracket',.72,.14,.32,x+side*(.38+level*.2),5.1+level*.24,z-.38,jade);bracket.rotation.z=side*.2;
+   box('bracket-gold-trim',.7,.035,.34,x+side*(.38+level*.2),5.18+level*.24,z-.38,ochre,false);
+  }
+  for(const y of [1.7,4.8])box('column-paint-band',.5,.035,.5,x,y,z,ochre,false);
+ }
+ for(const z of [4.7,7.5,10.5])box('ceiling-painted-beam',19,.3,.38,0,5.05,z,painted);
+ for(const side of [-1,1]){
+  for(let i=0;i<10;i++){const z=3.5+i*.95;box('balustrade-post',.14,.75,.14,side*9.7,1.65,z,wood);box('balustrade-cap',.23,.08,.23,side*9.7,2.07,z,ochre);}
+  box('balustrade-rail',.15,.12,9.6,side*9.7,1.98,7.8,red);
+ }
+ for(let i=0;i<17;i++)box('plinth-carved-panel',.85,.3,.08,-9.3+i*1.16,.68,2.18,stoneDark,false);
+ // Warm architectural light pools, deliberately bounded to a handful of lights.
+ for(const x of [-7.5,0,7.5]){const light=new PointLight('hall-warm-light',new Vector3(x,3.5,2.7),scene);light.diffuse=Color3.FromHexString('#ffaf43');light.intensity=.35;light.range=8;}
  // Low walls and trees frame the sample, rather than a whole production map.
  for(const x of [-17,17]){box('wall',.5,1.7,37,x,.85,-4,stoneDark);box('wall-cap',.8,.16,37,x,1.78,-4,roofMat);}
  let seed=42;function rand(){seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;}
  for(let i=0;i<65;i++){const side=i%2?1:-1;const x=side*(20+rand()*30),z=-35+rand()*80,h=6+rand()*8;
  cylinder('tree-trunk',.4,h*.7,new Vector3(x,h*.35,z),trunk);
- for(let level=0;level<3;level++){const a=MeshBuilder.CreateCylinder('pine',{diameterTop:0,diameterBottom:4.8-level*.9,height:h*.48,tessellation:9},scene);a.position.set(x,h*.5+level*h*.17,z);a.material=leaves;staticMeshes.push(a);}
+ for(let level=0;level<5;level++)for(let branch=0;branch<3;branch++){
+  const angle=branch*Math.PI*2/3+level*1.1;const spread=(1-level*.12)*2;
+  const a=MeshBuilder.CreateSphere('pine-foliage',{diameter:3.8,segments:6},scene);a.scaling.set(1,.25,.8);a.position.set(x+Math.cos(angle)*spread,h*.5+level*h*.11,z+Math.sin(angle)*spread);a.material=leaves;staticMeshes.push(a);
+ }
+ }
+ for(const side of [-1,1])for(let i=0;i<18;i++){
+  const rock=MeshBuilder.CreateSphere('garden-granite',{diameter:1,segments:5},scene);rock.position.set(side*(17.8+rand()*3),.3,-20+i*2);rock.scaling.set(1+rand(),.5+rand()*.6,1+rand());rock.material=stoneDark;staticMeshes.push(rock);
+  const shrub=MeshBuilder.CreateSphere('garden-shrub',{diameter:1.8,segments:8},scene);shrub.position.set(side*(18+rand()*2),.65,-20+i*2);shrub.scaling.y=.65;shrub.material=leaves;staticMeshes.push(shrub);
  }
  // Merge static geometry by material. Shadow lists are rebuilt to avoid disposed casters.
  const grouped=new Map<StandardMaterial,Mesh[]>();for(const a of staticMeshes){const m=a.material as StandardMaterial;if(!grouped.has(m))grouped.set(m,[]);grouped.get(m)!.push(a);}
  shadows.getShadowMap()!.renderList=[];
  for(const [m,list] of grouped){const merged=Mesh.MergeMeshes(list,true,true,undefined,false,false);if(merged){merged.name=`architecture-${m.name}`;merged.receiveShadows=true;shadows.addShadowCaster(merged);merged.freezeWorldMatrix();}}
- const palette=['#d69b72','#d2b66b','#8bafb0','#bd7770','#a6ad7a'];
- const lanternMaterials=palette.map((c,i)=>mat(`paper-lantern-${i}`,c,.32));
- const ownedMat=mat('my-lantern','#ffd18a',.7);
+ const palette=['#ec244d','#ffb817','#04aa94','#ff5c23','#e03c8c'];
+ const lanternMaterials=palette.map((c,i)=>mat(`paper-lantern-${i}`,c,.22));
+ const ownedMat=mat('my-lantern','#efb44b',.38);for(const m of [...lanternMaterials,ownedMat])m.backFaceCulling=false;
  const lanternTexture=new DynamicTexture('original-lantern-paper',{width:256,height:128},scene,false);
- const lc=lanternTexture.getContext() as CanvasRenderingContext2D;lc.fillStyle='#fff8df';lc.fillRect(0,0,256,128);
- lc.strokeStyle='#c2b69b';lc.lineWidth=.6;for(let x=0;x<256;x+=16){lc.beginPath();lc.moveTo(x,0);lc.lineTo(x,128);lc.stroke();}
+ const lc=lanternTexture.getContext() as CanvasRenderingContext2D;lc.fillStyle='#ffffff';lc.fillRect(0,0,256,128);
+ lc.strokeStyle='#a28356';lc.lineWidth=.6;for(let x=0;x<256;x+=16){lc.beginPath();lc.moveTo(x,0);lc.lineTo(x,128);lc.stroke();}
  for(let x=32;x<256;x+=64){lc.strokeStyle='#aa9a7e';lc.lineWidth=1.2;for(let k=0;k<5;k++){lc.beginPath();lc.ellipse(x+(k-2)*4,76-Math.abs(k-2)*2,5,13,(k-2)*.32,0,Math.PI*2);lc.stroke();}}
  lanternTexture.update();for(const m of [...lanternMaterials,ownedMat]){m.diffuseTexture=lanternTexture;}
 
  let lanternRoot=new TransformNode('lantern-samples',scene),selected=23,density=100;
  let ownerBodies:Mesh[]=[];let marker:Mesh|null=null;
  function rebuildLanterns(count:number){
+  for(const mesh of lanternRoot.getChildMeshes())glow.removeIncludedOnlyMesh(mesh as Mesh);
   lanternRoot.dispose(false);lanternRoot=new TransformNode('lantern-samples',scene);ownerBodies=[];density=count;
-  const slots=lanternSlots(count),buckets=Array.from({length:5},()=>[] as Matrix[]);
-  for(const [i,s] of slots.entries()){
-   const p=Vector3.FromArray([...s.position]);const isOwn=(OWNED_INDICES as readonly number[]).includes(i);
-   if(isOwn){const a=MeshBuilder.CreateSphere(`owned-${i}`,{diameter:.72,segments:12},scene);a.scaling.y=1.15;a.position=p;a.material=ownedMat;a.parent=lanternRoot;ownerBodies.push(a);}else buckets[i%5].push(Matrix.Compose(new Vector3(1,1.15,1),Quaternion.Identity(),p));
+  const slots=lanternSlots(count),buckets=Array.from({length:15},()=>[] as Matrix[]);
+  function body(name:string,type:number){
+   if(type===0){const a=MeshBuilder.CreateSphere(name,{diameter:.74,segments:24},scene);a.scaling.y=1.12;a.bakeCurrentTransformIntoVertices();return a;}
+   if(type===1)return MeshBuilder.CreateCylinder(name,{diameter:.73,height:.88,tessellation:6},scene);
+   const parts:Mesh[]=[];const core=MeshBuilder.CreateSphere(name+'-core',{diameter:.53,segments:16},scene);parts.push(core);
+   for(let ring=0;ring<2;ring++)for(let k=0;k<8;k++){
+    const angle=k*Math.PI/4+ring*Math.PI/8,positions:number[]=[],indices:number[]=[],uvs:number[]=[];
+    for(let j=0;j<=10;j++)for(let i=0;i<=8;i++){const t=j/10,u=(i/8-.5)*2;const w=.21*Math.sin(Math.PI*t);const radius=.10+.35*Math.sin(t*Math.PI*.67)+ring*.04;const y=-.30+t*.63-ring*.08;const radial=radius-.07*u*u*Math.sin(Math.PI*t);positions.push(Math.sin(angle)*radial+Math.cos(angle)*u*w,y,Math.cos(angle)*radial-Math.sin(angle)*u*w);uvs.push(i/8,t);}
+    for(let j=0;j<10;j++)for(let i=0;i<8;i++){const a=j*9+i;indices.push(a,a+9,a+1,a+1,a+9,a+10);}
+    const petal=new Mesh(name+'-petal',scene),data=new VertexData(),normals:number[]=[];VertexData.ComputeNormals(positions,indices,normals);data.positions=positions;data.normals=normals;data.indices=indices;data.uvs=uvs;data.applyToMesh(petal);parts.push(petal);
+   }
+   return Mesh.MergeMeshes(parts,true,true)!;
   }
-  // Matrix.Translation + scale avoids per-lantern scene objects.
-  buckets.forEach((matrices,i)=>{if(!matrices.length)return;const a=MeshBuilder.CreateSphere(`lantern-group-${i}`,{diameter:.72,segments:12},scene);a.material=lanternMaterials[i];a.parent=lanternRoot;a.thinInstanceAdd(matrices);});
+  for(const [i,s] of slots.entries()){
+   const p=Vector3.FromArray([...s.position]);const isOwn=(OWNED_INDICES as readonly number[]).includes(i);const type=i%3;
+   if(isOwn){const a=body(`owned-${i}`,type);a.position=p;a.material=ownedMat;a.parent=lanternRoot;ownerBodies.push(a);glow.addIncludedOnlyMesh(a);}else buckets[(Math.floor(i/3)%5)*3+type].push(Matrix.Translation(p.x,p.y,p.z));
+  }
+  buckets.forEach((matrices,i)=>{if(!matrices.length)return;const a=body(`lantern-${['round','hexagonal','lotus'][i%3]}-${i}`,i%3);a.material=lanternMaterials[Math.floor(i/3)];a.parent=lanternRoot;a.thinInstanceAdd(matrices);glow.addIncludedOnlyMesh(a);});
+  // Gold ribs, pendants and small warm bulbs echo the reference's jewel-like light rhythm.
+  const ribs=MeshBuilder.CreateTorus('lantern-gold-band',{diameter:.74,thickness:.018,tessellation:24},scene);ribs.material=ochre;ribs.parent=lanternRoot;ribs.thinInstanceAdd(slots.filter((_,i)=>i%3===0).map(s=>Matrix.Translation(s.position[0],s.position[1],s.position[2])));
+  const tassel=MeshBuilder.CreateCylinder('silk-tassels',{diameterTop:.045,diameterBottom:.085,height:.32,tessellation:8},scene);tassel.material=ochre;tassel.parent=lanternRoot;tassel.thinInstanceAdd(slots.map(s=>Matrix.Translation(s.position[0],s.position[1]-.66,s.position[2])));
+  const bulb=MeshBuilder.CreateSphere('canopy-fairy-lights',{diameter:.065,segments:6},scene);bulb.material=ownedMat;bulb.parent=lanternRoot;bulb.thinInstanceAdd(slots.map(s=>Matrix.Translation(s.position[0]+.3,s.position[1]+.65,s.position[2])));glow.addIncludedOnlyMesh(bulb);
   const all=slots.map(s=>Matrix.Translation(s.position[0],s.position[1]-.43,s.position[2]));
   const cap=MeshBuilder.CreateCylinder('caps',{height:.12,diameter:.26,tessellation:8},scene);cap.material=ochre;cap.parent=lanternRoot;cap.thinInstanceAdd(all);
   const top=cap.clone('tops')!;top.parent=lanternRoot;top.thinInstanceSetBuffer('matrix',null);top.thinInstanceAdd(slots.map(s=>Matrix.Translation(s.position[0],s.position[1]+.43,s.position[2])));
@@ -110,10 +171,10 @@ export function createTemple(canvas:HTMLCanvasElement) {
  function setSelected(index:number){selected=index;if(marker){const p=lanternSlots(1000)[index].position;marker.position.set(p[0],p[1]-.65,p[2]);}}
  let reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  let currentTime:TimeOfDay='dusk';let quality:Quality='high';
- function time(value:TimeOfDay){currentTime=value;const skies={day:'#acbdbb',dusk:'#9eada6',night:'#142a35'};const c=Color3.FromHexString(skies[value]);scene.clearColor=new Color4(c.r,c.g,c.b,1);scene.fogColor=c;hemi.intensity=value==='night'?.3:.85;sun.intensity=value==='day'?1.8:value==='dusk'?1.1:.18;sun.diffuse=Color3.FromHexString(value==='day'?'#fff3db':value==='dusk'?'#ffd6a2':'#c1d5ec');sun.direction=new Vector3(-.65,value==='day'?-.95:-.5,.45);glow.intensity=value==='night'?.6:.25;paper.emissiveColor=paper.diffuseColor.scale(value==='night'?.35:.08);}
- function setQuality(value:Quality){quality=value;engine.setHardwareScalingLevel(value==='low'?Math.max(1,Math.min(canvas.clientWidth/640,canvas.clientHeight/720)):1);shadows.getShadowMap()!.resize(value==='low'?512:1024);glow.isEnabled=value==='high';}
+ function time(value:TimeOfDay){currentTime=value;const skies={day:'#6c9ac5',dusk:'#354865',night:'#080f24'};const c=Color3.FromHexString(skies[value]);scene.clearColor=new Color4(c.r,c.g,c.b,1);scene.fogColor=c;hemi.intensity=value==='night'?.45:value==='dusk'?.95:.85;hemi.diffuse=Color3.FromHexString('#b9d5ff');sun.intensity=value==='day'?1.5:value==='dusk'?1.5:.3;sun.diffuse=Color3.FromHexString(value==='day'?'#fff3db':value==='dusk'?'#ffc17b':'#c1d5ec');sun.direction=new Vector3(-.65,value==='day'?-.95:-.5,.45);glow.intensity=value==='night'?.75:value==='dusk'?.55:.3;paper.emissiveColor=paper.diffuseColor.scale(value==='night'?.22:value==='dusk'?.07:.03);}
+ function setQuality(value:Quality){quality=value;engine.setHardwareScalingLevel(value==='low'?Math.max(1,Math.min(canvas.clientWidth/640,canvas.clientHeight/720)):1);shadows.getShadowMap()!.resize(value==='low'?512:2048);glow.isEnabled=value==='high';}
  function view(name:string){if(name==='front'){camera.setTarget(new Vector3(0,3.5,6));camera.alpha=-Math.PI/2;camera.beta=1.28;camera.radius=30;}else if(name==='detail'){camera.setTarget(new Vector3(-4,5.5,4));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=lanternSlots(1000)[selected].position;camera.setTarget(Vector3.FromArray([...p]));camera.alpha=-Math.PI*.65;camera.beta=2.0;camera.radius=7;}else{camera.setTarget(new Vector3(0,3,2));camera.alpha=-Math.PI*.67;camera.beta=Math.PI*.37;camera.radius=36;}}
  rebuildLanterns(100);time('dusk');
- scene.onBeforeRenderObservable.add(()=>{const pulse=reduced?1:1+.12*Math.sin(performance.now()*.002);ownedMat.emissiveColor=Color3.FromHexString('#ffd18a').scale(.7*pulse);});
+ scene.onBeforeRenderObservable.add(()=>{const pulse=reduced?1:1+.12*Math.sin(performance.now()*.002);ownedMat.emissiveColor=Color3.FromHexString('#ffc45b').scale(.38*pulse);});
  return {engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {time:currentTime,quality,density,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }
