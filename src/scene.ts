@@ -19,7 +19,7 @@ import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator'
 import { GlowLayer } from '@babylonjs/core/Layers/glowLayer';
 import '@babylonjs/core/Meshes/thinInstanceMesh';
 import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
-import { lanternSlots, OWNED_INDICES, LANTERN_PALETTE, lanternColourIndex, normalizeLanternName } from './contracts.ts';
+import { lanternSlots, visibleLanternSlots, OWNED_INDICES, LANTERN_PALETTE, lanternColourIndex, normalizeLanternName } from './contracts.ts';
 export type TimeOfDay = 'day' | 'dusk' | 'night';
 export type Quality = 'high' | 'low';
 export function createTemple(canvas:HTMLCanvasElement) {
@@ -164,8 +164,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
  for(const [m,list] of grouped){const merged=Mesh.MergeMeshes(list,true,true,undefined,false,false);if(merged){merged.name=`architecture-${m.name}`;merged.receiveShadows=true;shadows.addShadowCaster(merged);merged.freezeWorldMatrix();}}
  const palette=LANTERN_PALETTE;
  function paperMaterial(name:string,hex:string){
-  const m=new PBRMaterial(name,scene);m.albedoColor=Color3.FromHexString(hex).toLinearSpace();m.metallic=0;m.roughness=.94;m.backFaceCulling=false;m.twoSidedLighting=true;
-  m.subSurface.isTranslucencyEnabled=true;m.subSurface.translucencyIntensity=.38;m.subSurface.minimumThickness=0;m.subSurface.maximumThickness=.035;m.subSurface.tintColor=m.albedoColor;
+  const m=new PBRMaterial(name,scene);m.albedoColor=Color3.FromHexString(hex).toLinearSpace();m.metallic=0;m.roughness=1;m.specularIntensity=.08;m.backFaceCulling=false;m.twoSidedLighting=true;
+  m.subSurface.isTranslucencyEnabled=true;m.subSurface.translucencyIntensity=.58;m.subSurface.minimumThickness=0;m.subSurface.maximumThickness=.003;m.subSurface.tintColor=m.albedoColor;
   m.emissiveColor=m.albedoColor.scale(.12);return m;
  }
  const lanternMaterials=palette.map((c,i)=>paperMaterial(`thin-dyed-paper-${i}`,c));
@@ -179,21 +179,26 @@ export function createTemple(canvas:HTMLCanvasElement) {
  for(let i=0;i<10000;i++){const x=(i*97)%512,y=(i*193)%512;lc.strokeStyle=i%3?'rgba(145,127,109,.035)':'rgba(255,255,255,.10)';lc.lineWidth=.4;lc.beginPath();lc.moveTo(x,y);lc.lineTo(x+Math.sin(i)*3,y+2+i%7);lc.stroke();}
  for(let x=0;x<512;x+=32){const g=lc.createLinearGradient(x,0,x+10,0);g.addColorStop(0,'rgba(139,120,97,.10)');g.addColorStop(1,'rgba(255,255,255,0)');lc.fillStyle=g;lc.fillRect(x,0,10,512);}
  lanternTexture.update();for(const m of [...lanternMaterials,...ownedMaterials]){m.albedoTexture=lanternTexture;m.emissiveTexture=lanternTexture;}
- const names=new Map<number,string>();const tagTextures=new Map<number,DynamicTexture>();
+ const paperNormal=new DynamicTexture('paper-crease-normal',{width:256,height:256},scene,true);const nc=paperNormal.getContext() as CanvasRenderingContext2D;const normalData=nc.createImageData(256,256);
+ for(let y=0;y<256;y++)for(let x=0;x<256;x++){const i=(y*256+x)*4;normalData.data[i]=128+5*Math.sin(x*.31+y*.08);normalData.data[i+1]=128+18*Math.cos(y*.75+Math.sin(x*.06));normalData.data[i+2]=253;normalData.data[i+3]=255;}
+ nc.putImageData(normalData,0,0);paperNormal.gammaSpace=false;paperNormal.level=.28;paperNormal.update();for(const m of [...lanternMaterials,...ownedMaterials])m.bumpTexture=paperNormal;
+ const transmittedLight=new DynamicTexture('light-through-paper',{width:512,height:512},scene,true);
+ const ec=transmittedLight.getContext() as CanvasRenderingContext2D;const internal=ec.createRadialGradient(256,256,25,256,256,340);internal.addColorStop(0,'#fff5db');internal.addColorStop(.48,'#ddd3bf');internal.addColorStop(1,'#99907d');ec.fillStyle=internal;ec.fillRect(0,0,512,512);
+ for(let y=0;y<512;y+=8){ec.fillStyle='rgba(38,31,24,.14)';ec.fillRect(0,y,512,1);}
+ transmittedLight.update();for(const m of [...lanternMaterials,...ownedMaterials])m.emissiveTexture=transmittedLight;
+ const names=new Map<number,string>([[23,'이름']]);const tagTextures=new Map<number,DynamicTexture>();
  function drawTag(texture:DynamicTexture,name:string){
   const c=texture.getContext() as CanvasRenderingContext2D;c.fillStyle='#fff9e8';c.fillRect(0,0,160,640);c.strokeStyle='#b84438';c.lineWidth=3;c.strokeRect(10,10,140,620);c.fillStyle='#ad4536';c.font='20px serif';c.textAlign='center';c.fillText('발 원',80,53);
   const chars=Array.from(name||'이름');const size=Math.min(55,420/Math.max(1,chars.length));c.fillStyle='#352c25';c.font=`${size}px serif`;chars.forEach((ch,i)=>c.fillText(ch,80,130+i*(size+5)));c.font='20px serif';c.fillStyle='#8a7764';c.fillText('사 사',80,604);texture.update();
  }
- function setName(value:string){const name=normalizeLanternName(value);names.set(selected,name);const t=tagTextures.get(selected);if(t)drawTag(t,name);return name;}
- const genericTagTexture=new DynamicTexture('sample-name-tag',{width:160,height:640},scene,true);drawTag(genericTagTexture,'소원성취');
- const genericTagMat=mat('unowned-name-paper','#ffffff',.12);genericTagMat.diffuseTexture=genericTagTexture;genericTagMat.backFaceCulling=false;
+ function setName(value:string){const name=normalizeLanternName(value);if(name)names.set(selected,name);else names.delete(selected);rebuildLanterns(density);return name;}
  let lanternRoot=new TransformNode('lantern-samples',scene),selected=23,density=300;
  let ownerBodies:Mesh[]=[];let ownerHalos:Mesh[]=[];let sparkles:{mesh:Mesh,center:Vector3,phase:number}[]=[];let marker:Mesh|null=null;
  function rebuildLanterns(count:number){
   for(const mesh of lanternRoot.getChildMeshes())glow.removeIncludedOnlyMesh(mesh as Mesh);
   for(const mesh of lanternRoot.getChildMeshes())if(mesh.name.startsWith('owned-tag'))mesh.material?.dispose(false,true);tagTextures.clear();
   lanternRoot.dispose(false);lanternRoot=new TransformNode('lantern-samples',scene);ownerBodies=[];ownerHalos=[];sparkles=[];density=count;
-  const slots=lanternSlots(count),buckets=Array.from({length:15},()=>[] as Matrix[]);
+  const slots=visibleLanternSlots(count),buckets=Array.from({length:15},()=>[] as Matrix[]);
   function body(name:string,type:number){
    if(type===0){const a=MeshBuilder.CreateSphere(name,{diameter:.74,segments:24},scene);a.scaling.y=1.12;a.bakeCurrentTransformIntoVertices();return a;}
    if(type===1)return MeshBuilder.CreateLathe(name,{shape:[new Vector3(.18,-.43,0),new Vector3(.39,-.22,0),new Vector3(.39,.22,0),new Vector3(.18,.43,0)],tessellation:8,cap:Mesh.CAP_ALL,closed:true},scene);
@@ -206,7 +211,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    }
    return Mesh.MergeMeshes(parts,true,true)!;
   }
-  for(const [i,s] of slots.entries()){
+  for(const s of slots){const i=Number(s.id.split(':').at(-1));
    const p=Vector3.FromArray([...s.position]);const isOwn=(OWNED_INDICES as readonly number[]).includes(i);const type=i%3;
    if(isOwn){const a=body(`owned-${i}`,type);a.position=p;a.material=ownedMaterials[lanternColourIndex(s.position)];a.parent=lanternRoot;ownerBodies.push(a);}else buckets[lanternColourIndex(s.position)*3+type].push(Matrix.Translation(p.x,p.y,p.z));
   }
@@ -219,25 +224,21 @@ export function createTemple(canvas:HTMLCanvasElement) {
   const frameParts:Mesh[]=[];
   for(let k=0;k<8;k++){const a=k*Math.PI/4;const path=[[-.43,.18],[-.22,.395],[.22,.395],[.43,.18]].map(([y,r])=>new Vector3(Math.sin(a)*r,y,Math.cos(a)*r));const rail=MeshBuilder.CreateTube('octagonal-frame-edge',{path,radius:.0035,tessellation:5},scene);frameParts.push(rail);}
   for(const y of [-.22,.22]){const points=Array.from({length:9},(_,k)=>new Vector3(Math.sin(k*Math.PI/4)*.395,y,Math.cos(k*Math.PI/4)*.395));frameParts.push(MeshBuilder.CreateTube('octagonal-frame-rim',{path:points,radius:.004,tessellation:5},scene));}
-  const frame=Mesh.MergeMeshes(frameParts,true,true)!;frame.material=bamboo;frame.parent=lanternRoot;frame.thinInstanceAdd(slots.filter((_,i)=>i%3===1).map(s=>Matrix.Translation(...s.position)));
+  const frame=Mesh.MergeMeshes(frameParts,true,true)!;frame.material=bamboo;frame.parent=lanternRoot;frame.thinInstanceAdd(slots.filter(s=>Number(s.id.split(':').at(-1))%3===1).map(s=>Matrix.Translation(...s.position)));
   // Gold ribs, pendants and small warm bulbs echo the reference's jewel-like light rhythm.
-  const ribs=MeshBuilder.CreateTorus('lantern-gold-band',{diameter:.74,thickness:.004,tessellation:24},scene);ribs.material=bamboo;ribs.parent=lanternRoot;ribs.thinInstanceAdd(slots.filter((_,i)=>i%3===0).map(s=>Matrix.Translation(s.position[0],s.position[1],s.position[2])));
-  // Thin, hanging paper name slips, with editable samples on owned fixtures only.
-  const genericTags:Matrix[]=[];
-  for(const [i,s] of slots.entries()){
+  const ribs=MeshBuilder.CreateTorus('lantern-gold-band',{diameter:.74,thickness:.004,tessellation:24},scene);ribs.material=bamboo;ribs.parent=lanternRoot;ribs.thinInstanceAdd(slots.filter(s=>Number(s.id.split(':').at(-1))%3===0).map(s=>Matrix.Translation(s.position[0],s.position[1],s.position[2])));
+  // Only requested name tags exist. The initial scene has one example (slot 23).
+  for(const s of slots){const i=Number(s.id.split(':').at(-1));const name=names.get(i);if(!name)continue;
    const p=Vector3.FromArray([...s.position]);const string=MeshBuilder.CreateLines('tag-thread',{points:[p.add(new Vector3(0,-.43,0)),p.add(new Vector3(0,-.64,0))]},scene);string.color=new Color3(.56,.43,.31);string.parent=lanternRoot;
-   if((OWNED_INDICES as readonly number[]).includes(i)){
-    const texture=new DynamicTexture(`name-tag-${i}`,{width:160,height:640},scene,true);drawTag(texture,names.get(i)||'이름');tagTextures.set(i,texture);
-    const material=mat(`tag-paper-${i}`,'#ffffff',.12);material.diffuseTexture=texture;material.backFaceCulling=false;
-    const tag=MeshBuilder.CreatePlane(`owned-tag-${i}`,{width:.21,height:.76,sideOrientation:Mesh.DOUBLESIDE},scene);tag.position=p.add(new Vector3(0,-1.02,0));tag.material=material;tag.parent=lanternRoot;tag.billboardMode=Mesh.BILLBOARDMODE_Y;
-   }else genericTags.push(Matrix.Translation(p.x,p.y-1.02,p.z));
+   const texture=new DynamicTexture(`name-tag-${i}`,{width:160,height:640},scene,true);drawTag(texture,name);tagTextures.set(i,texture);
+   const material=mat(`tag-paper-${i}`,'#ffffff',.12);material.diffuseTexture=texture;material.backFaceCulling=false;
+   const tag=MeshBuilder.CreatePlane(`owned-tag-${i}`,{width:.21,height:.76,sideOrientation:Mesh.DOUBLESIDE},scene);tag.position=p.add(new Vector3(0,-1.02,0));tag.material=material;tag.parent=lanternRoot;tag.billboardMode=Mesh.BILLBOARDMODE_Y;
   }
-  const tags=MeshBuilder.CreatePlane('sample-tags',{width:.21,height:.76,sideOrientation:Mesh.DOUBLESIDE},scene);tags.material=genericTagMat;tags.parent=lanternRoot;tags.thinInstanceAdd(genericTags);
   const bulb=MeshBuilder.CreateSphere('canopy-fairy-lights',{diameter:.065,segments:6},scene);bulb.material=bulbMat;bulb.parent=lanternRoot;bulb.thinInstanceAdd(slots.map(s=>Matrix.Translation(s.position[0]+.3,s.position[1]+.65,s.position[2])));glow.addIncludedOnlyMesh(bulb);
   const all=slots.map(s=>Matrix.Translation(s.position[0],s.position[1]-.43,s.position[2]));
   const cap=MeshBuilder.CreateCylinder('caps',{height:.018,diameter:.13,tessellation:8},scene);cap.material=bamboo;cap.parent=lanternRoot;cap.thinInstanceAdd(all);
   const top=cap.clone('tops')!;top.parent=lanternRoot;top.thinInstanceSetBuffer('matrix',null);top.thinInstanceAdd(slots.map(s=>Matrix.Translation(s.position[0],s.position[1]+.43,s.position[2])));
-  for(const x of new Set(slots.map(s=>s.position[0]))){const path=Array.from({length:33},(_,c)=>{const z=-28+c*.9;return new Vector3(x,6.25-.45*(1-Math.abs(c-15.5)/15.5),z);});const line=MeshBuilder.CreateLines('longitudinal-canopy-string',{points:path},scene);line.color=new Color3(.16,.14,.11);line.parent=lanternRoot;}
+  for(const x of new Set(slots.map(s=>s.position[0]))){const path=slots.filter(s=>s.position[0]===x).sort((a,b)=>a.position[2]-b.position[2]).map(s=>new Vector3(x,s.position[1]+.9,s.position[2]));const line=MeshBuilder.CreateLines('longitudinal-canopy-string',{points:path},scene);line.color=new Color3(.16,.14,.11);line.parent=lanternRoot;}
   for(const s of slots){const p=Vector3.FromArray([...s.position]);const line=MeshBuilder.CreateLines('suspension',{points:[p.add(new Vector3(0,.43,0)),p.add(new Vector3(0,.9,0))]},scene);line.color=new Color3(.25,.2,.12);line.parent=lanternRoot;}
 
   marker=MeshBuilder.CreateTorus('destination-marker',{diameter:1.05,thickness:.035,tessellation:32},scene);marker.material=haloMat;marker.parent=lanternRoot;setSelected(selected);
@@ -245,16 +246,16 @@ export function createTemple(canvas:HTMLCanvasElement) {
  function setSelected(index:number){selected=index;if(marker){const p=lanternSlots(1000)[index].position;marker.position.set(p[0],p[1]-.65,p[2]);}}
  let reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  let currentTime:TimeOfDay='day';let quality:Quality='high';
- function time(value:TimeOfDay){currentTime=value;paintSky(value);for(const m of lanternMaterials)m.emissiveColor=m.albedoColor.scale(value==='night'?.28:.14);const skies={day:'#a6dbfa',dusk:'#354865',night:'#080f24'};const c=Color3.FromHexString(skies[value]);scene.clearColor=new Color4(c.r,c.g,c.b,1);scene.fogColor=c;hemi.intensity=value==='night'?.35:value==='dusk'?.95:1.1;hemi.diffuse=Color3.FromHexString('#e4f2ff');sun.intensity=value==='day'?1.4:value==='dusk'?1.1:.25;sun.diffuse=Color3.FromHexString(value==='day'?'#fff3db':value==='dusk'?'#ffc17b':'#c1d5ec');sun.direction=new Vector3(-.65,value==='day'?-.95:-.5,.45);glow.intensity=value==='night'?.65:value==='dusk'?.5:.4;paper.emissiveColor=paper.diffuseColor.scale(value==='night'?.08:value==='dusk'?.025:0);}
+ function time(value:TimeOfDay){currentTime=value;paintSky(value);for(const m of lanternMaterials)m.emissiveColor=m.albedoColor.scale(value==='night'?1.75:value==='dusk'?.65:.14);const skies={day:'#a6dbfa',dusk:'#354865',night:'#080f24'};const c=Color3.FromHexString(skies[value]);scene.clearColor=new Color4(c.r,c.g,c.b,1);scene.fogColor=c;hemi.intensity=value==='night'?.35:value==='dusk'?.95:1.1;hemi.diffuse=Color3.FromHexString('#e4f2ff');sun.intensity=value==='day'?1.4:value==='dusk'?1.1:.25;sun.diffuse=Color3.FromHexString(value==='day'?'#fff3db':value==='dusk'?'#ffc17b':'#c1d5ec');sun.direction=new Vector3(-.65,value==='day'?-.95:-.5,.45);glow.intensity=value==='night'?.65:value==='dusk'?.5:.4;paper.emissiveColor=paper.diffuseColor.scale(value==='night'?.08:value==='dusk'?.025:0);}
  function setQuality(value:Quality){quality=value;engine.setHardwareScalingLevel(value==='low'?Math.max(1,Math.min(canvas.clientWidth/640,canvas.clientHeight/720)):1);shadows.getShadowMap()!.resize(value==='low'?512:2048);glow.isEnabled=value==='high';}
  function view(name:string){if(name==='canopy'){camera.setTarget(new Vector3(0,6,-16));camera.alpha=-Math.PI/2;camera.beta=2.1;camera.radius=9;}else if(name==='front'){camera.setTarget(new Vector3(0,4,4));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=38;}else if(name==='detail'){camera.setTarget(new Vector3(-4,5.5,4));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=lanternSlots(1000)[selected].position;camera.setTarget(Vector3.FromArray([...p]).add(new Vector3(0,-.4,0)));camera.alpha=-2.9;camera.beta=1.95;camera.radius=4;}else{camera.setTarget(new Vector3(0,3,2));camera.alpha=-Math.PI*.67;camera.beta=Math.PI*.37;camera.radius=36;}}
  rebuildLanterns(300);time('day');
  scene.onBeforeRenderObservable.add(()=>{
   camera.beta=Math.min(camera.beta,Math.acos(Math.max(-1,Math.min(1,(.6-camera.target.y)/camera.radius))));
-  const t=performance.now()*.001,pulse=reduced?1:1+.18*Math.sin(t*2);for(const m of ownedMaterials)m.emissiveColor=m.albedoColor.scale((currentTime==='night'?.34:.16)*pulse);
+  const t=performance.now()*.001,pulse=reduced?1:1+.18*Math.sin(t*2);for(const m of ownedMaterials)m.emissiveColor=m.albedoColor.scale((currentTime==='night'?1.95:currentTime==='dusk'?.75:.16)*pulse);
   haloMat.emissiveColor=Color3.FromHexString('#ffcb65').scale(1.1*pulse);
   for(const h of ownerHalos){const scale=Math.min(1.8,Math.max(1,Vector3.Distance(camera.position,h.position)/18));h.scaling.setAll(scale);}
   for(const {mesh,center,phase} of sparkles){const a=phase+(reduced?0:t*.23);mesh.position.set(center.x+Math.cos(a)*.65,center.y+Math.sin(a*1.7)*.55,center.z+Math.sin(a)*.3);mesh.scaling.setAll(reduced?1:.4+.9*Math.pow(Math.sin(t*2+phase),2));}
  });
- return {engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {time:currentTime,quality,density,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ return {engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {time:currentTime,quality,density,visibleLanternCount:visibleLanternSlots(density).length,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { lanternSlots, OWNED_INDICES, zones, LANTERN_PALETTE, lanternColourIndex, normalizeLanternName } from '../src/contracts.ts';
+import { lanternSlots, visibleLanternSlots, OWNED_INDICES, zones, LANTERN_PALETTE, lanternColourIndex, normalizeLanternName } from '../src/contracts.ts';
 import { frameSummary, Measurement } from '../src/metrics.ts';
 test('density changes preserve existing slot identities and positions',()=>{const low=lanternSlots(100),high=lanternSlots(1000);assert.deepEqual(low,high.slice(0,100));assert.equal(new Set(high.map(x=>x.id)).size,1000);for(const i of OWNED_INDICES)assert.deepEqual(low[i],high[i]);});
 test('reject malformed density rather than moving or dropping slots',()=>{for(const n of [-1,0,1001,1.5,NaN])assert.throws(()=>lanternSlots(n));});
@@ -13,3 +13,5 @@ test('sample rows run toward the hall and density does not rearrange them',()=>{
 
 test('reference palette has five spatial bands independent of density',()=>{assert.equal(LANTERN_PALETTE.length,5);const slots=lanternSlots(1000);assert.equal(new Set(slots.map(s=>lanternColourIndex(s.position))).size,5);for(const s of slots){const other=slots.find(x=>x.position[2]===s.position[2])!;assert.equal(lanternColourIndex(s.position),lanternColourIndex(other.position));}});
 test('name preview removes control characters and caps Unicode code points',()=>{assert.equal(normalizeLanternName('  김\n사사  '),'김사사');assert.equal(Array.from(normalizeLanternName('가'.repeat(20))).length,12);assert.equal(normalizeLanternName(' '),'');assert.equal(normalizeLanternName('🪷'.repeat(13)),'🪷'.repeat(12));});
+
+test('only lanterns wholly over the paved approach render without relocating slots',()=>{for(const count of [100,300,500,1000]){const original=lanternSlots(count);const visible=visibleLanternSlots(count);assert.equal(new Set(visible.map(s=>lanternColourIndex(s.position))).size,5);assert.ok(visible.length>0&&visible.length<count);for(const s of visible){assert.ok(Math.abs(s.position[0])+.5<=7.93);assert.ok(s.position[2]-.5>=-21.725);assert.ok(s.position[2]+.5<=1.5);assert.deepEqual(s,original.find(x=>x.id===s.id));}for(const i of OWNED_INDICES)assert.ok(visible.some(s=>s.id===original[i].id));}});

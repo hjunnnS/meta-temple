@@ -2,7 +2,7 @@
 export type ProductKind = 'lantern' | 'votive' | 'wish-plaque' | 'memorial';
 export type Vec3 = readonly [number, number, number];
 export interface Slot { id: string; zoneId: string; position: Vec3; rotationY: number; accepts: ProductKind }
-export const SCENE_VERSION = 'm1-slice-005';
+export const SCENE_VERSION = 'm1-slice-006';
 export const SAMPLE_OWNER = 'sample-owner-a';
 export function lanternSlots(count: number): Slot[] {
   if (!Number.isInteger(count) || count < 1 || count > 1000) throw new Error('Invalid density');
@@ -40,8 +40,13 @@ export const layoutDraft = { version:'layout-draft-001', status:'proposed', unit
 /** Reference-photo palette, in spatial band order; ownership never changes body colour. */
 export const LANTERN_PALETTE = ['#10b76a','#f582b6','#1765e8','#ffc329','#e93f46'] as const;
 export function lanternColourIndex(position: Vec3): number {
-  return Math.max(0,Math.min(4,Math.floor((position[2]+28)/5.76)));
+  return Math.max(0,Math.min(4,Math.floor((position[2]+21.225)/4.445)));
 }
 export function normalizeLanternName(value: string): string {
   return Array.from(value.replace(/[\u0000-\u001f\u007f-\u009f]/g,'').trim()).slice(0,12).join('');
+}
+
+/** Keep the complete lantern silhouette above the nine-column paved approach. */
+export function visibleLanternSlots(count: number): Slot[] {
+  return lanternSlots(count).filter(s=>Math.abs(s.position[0])+.5<=7.93 && s.position[2]-.5>=-21.725 && s.position[2]+.5<=1.5);
 }
