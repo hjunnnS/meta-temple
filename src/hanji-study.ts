@@ -11,15 +11,16 @@ import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
 import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData';
 import { ShaderMaterial } from '@babylonjs/core/Materials/shaderMaterial';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
+import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture';
 import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import { LANTERN_PALETTE } from './contracts.ts';
 
 const root=document.querySelector<HTMLDivElement>('#app')!;
 root.innerHTML=`<canvas id="study" aria-label="팔각 한지 연등 한 개. 드래그로 회전, 휠로 확대." tabindex="0"></canvas>
-<header><a href="/">사사 <small>SASA</small></a><span>한지 연등 · 재질 검수 01</span></header>
+<header><a href="/">사사 <small>SASA</small></a><span>한지 연등 · 재질 검수 02</span></header>
 <section class="caption"><span class="overline">종이 사이로 스며드는 빛</span><h1>한 장의 한지,<br>하나의 연등.</h1><p>섬유의 결, 접힌 자국, 빛이 스미는 얇은 면을<br>가까이 돌려보며 확인하세요.</p></section>
 <div id="loading">한지 연등을 준비하고 있어요…</div>
-<footer><div class="controls"><div class="light-buttons" aria-label="조명"><button data-light="day" aria-pressed="true">낮 · 종이결</button><button data-light="night" aria-pressed="false">밤 · 내부 점등</button></div><div class="swatches" aria-label="연등 색상">${['그린','핑크','블루','옐로우','레드'].map((n,i)=>`<button aria-label="${n}" data-color="${i}" aria-pressed="${i===4}" style="--swatch:${LANTERN_PALETTE[i]}"></button>`).join('')}</div><button id="closeup">한지 가까이</button><button id="reset">전체 보기</button></div><p>드래그하여 회전 · 휠 / 두 손가락으로 확대 <span>실시간 3D · 검토용 시안</span></p></footer>`;
+<footer><div class="controls"><div class="light-buttons" aria-label="조명"><button data-light="day" aria-pressed="true">낮 · 은은한 점등</button><button data-light="night" aria-pressed="false">밤 · 밝은 점등</button></div><div class="swatches" aria-label="연등 색상">${['그린','핑크','블루','옐로우','레드'].map((n,i)=>`<button aria-label="${n}" data-color="${i}" aria-pressed="${i===4}" style="--swatch:${LANTERN_PALETTE[i]}"></button>`).join('')}</div><button id="closeup">한지 가까이</button><button id="reset">전체 보기</button></div><p>드래그하여 회전 · 휠 / 두 손가락으로 확대 <span>실시간 3D · 검토용 시안</span></p></footer>`;
 const canvas=document.querySelector<HTMLCanvasElement>('#study')!;
 const engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true});
 const scene=new Scene(engine);scene.clearColor=new Color4(.88,.87,.83,1);
@@ -41,24 +42,29 @@ void main(){
  float pulp=dot(fibres,vec3(.299,.587,.114));
  // Dense fibres obscure light; thin patches pass more. No glossy/specular term.
  float fibrePattern=clamp((pulp-.83)*6.5,0.,1.);
- float density=mix(.78,.09,fibrePattern);
+ float density=mix(.48,.07,fibrePattern);
  float dx=dot(texture2D(paper,texUV+vec2(.0015,0.)).rgb,vec3(.333))-pulp;
  float dy=dot(texture2D(paper,texUV+vec2(0.,.0015)).rgb,vec3(.333))-pulp;
- vec3 tangent=normalize(cross(vec3(0.,1.,.001),n));vec3 bitangent=normalize(cross(n,tangent));n=normalize(n+12.*dx*tangent+12.*dy*bitangent);
+ vec3 tangent=normalize(cross(vec3(0.,1.,.001),n));vec3 bitangent=normalize(cross(n,tangent));n=normalize(n+4.*dx*tangent+4.*dy*bitangent);
  float key=max(dot(n,normalize(vec3(-.6,.8,-.7))),0.);
  float rear=max(dot(-n,normalize(vec3(-.6,.8,-.7))),0.);
  float seam=min(vUV.x,1.-vUV.x);
- float seamShadow=mix(.50,1.,smoothstep(.0,.025,seam));
+ float seamShadow=mix(.68,1.,smoothstep(.0,.012,seam));
  float edgeY=min(vUV.y,1.-vUV.y);
- float overlap=mix(.72,1.,smoothstep(0.,.025,edgeY));
+ float overlap=mix(.84,1.,smoothstep(0.,.012,edgeY));
  vec3 inside=vec3(.025,1.32,-.018)-vPosition;
- float internalFalloff=1./(1.+dot(inside,inside)*3.8);
- float transmission=exp(-density*1.65)*seamShadow*overlap;
+ float internalFalloff=1./(1.+dot(inside,inside)*16.);
+ // Thin interior hoops and backing ribs visible through the dyed paper.
+ float hoopDistance=abs(fract((vPosition.y-.89)/.115+.5)-.5)*.115;
+ float hoopShadow=mix(.65,1.,smoothstep(.001,.005,hoopDistance));
+ float backing=abs(sin(atan(vPosition.x,vPosition.z)*8.));
+ float backingShadow=mix(.79,1.,smoothstep(.015,.13,backing));
+ float transmission=exp(-density*.9)*seamShadow*overlap*hoopShadow*backingShadow;
  float wrinkle=.985+.015*sin(vUV.y*245.+sin(vUV.x*37.)*2.);
- vec3 daylight=dye*(.36+.65*key+.60*rear*transmission)*mix(.52,1.25,fibrePattern)*wrinkle;
- vec3 lamp=dye*(.08+3.1*internalFalloff*transmission)*vec3(1.,.88,.68)*wrinkle;
+ vec3 daylight=dye*(.32+.56*key+.38*rear*transmission)*mix(.82,1.12,fibrePattern)*wrinkle;
+ vec3 lamp=dye*internalFalloff*transmission*vec3(1.,.94,.82)*wrinkle;
  // A restrained light source preserves saturated dye and fibre contrast.
- vec3 color=mix(daylight,lamp,night);color=color/(vec3(1.)+color*.38);
+ vec3 color=daylight*mix(1.,.08,night)+lamp*mix(1.4,13.,night);color=color/(vec3(1.)+color);
  gl_FragColor=vec4(pow(max(color,0.),vec3(1./2.2)),1.);
 }`;
 const paper=new ShaderMaterial('hanji-transmission',scene,{vertexSource:vertex,fragmentSource:fragment},{attributes:['position','normal','uv'],uniforms:['world','worldViewProjection','dye','night'],samplers:['paper']});paper.backFaceCulling=false;paper.setTexture('paper',fibre);paper.setColor3('dye',Color3.FromHexString(LANTERN_PALETTE[4]).toLinearSpace());paper.setFloat('night',0);
@@ -74,8 +80,8 @@ for(let face=0;face<8;face++)for(let tier=0;tier<3;tier++){
   const x=(Math.sin(a0)*(1-u)+Math.sin(a1)*u)*r,z=(Math.cos(a0)*(1-u)+Math.cos(a1)*u)*r;
   // Millimetre-scale tension wrinkles, not inflated/padded faces.
   const envelope=Math.sin(Math.PI*u)*Math.sin(Math.PI*v);
-  const ripple=(.0016*Math.sin(v*63+face*1.7+Math.sin(u*19))+.0012*Math.sin(u*31+v*17))*envelope;
-  const sag=.004*envelope;const radial=Vector3.Normalize(new Vector3(x,0,z));positions.push(x+radial.x*(ripple-sag),y+1.35,z+radial.z*(ripple-sag));uvs.push(u,v);
+  const ripple=(.0022*Math.sin(v*63+face*1.7+Math.sin(u*19))+.0015*Math.sin(u*31+v*17))*envelope;
+  const sag=(.008+.002*Math.sin(face*2.3))*envelope;const radial=Vector3.Normalize(new Vector3(x,0,z));positions.push(x+radial.x*(ripple-sag),y+1.35,z+radial.z*(ripple-sag));uvs.push(u,v);
  }
  for(let j=0;j<V;j++)for(let i=0;i<U;i++){const a=j*(U+1)+i;indices.push(a,a+U+1,a+1,a+1,a+U+1,a+U+2);}
  const mesh=new Mesh(`hanji-face-${face}-${tier}`,scene),data=new VertexData(),normals:number[]=[];VertexData.ComputeNormals(positions,indices,normals);data.positions=positions;data.indices=indices;data.normals=normals;data.uvs=uvs;data.applyToMesh(mesh);mesh.material=paper;
@@ -88,9 +94,13 @@ for(let k=0;k<8;k++){
 for(const [y,r] of profile){const points=Array.from({length:9},(_,k)=>new Vector3(Math.sin(k*Math.PI/4)*r,y+1.35,Math.cos(k*Math.PI/4)*r));const hoop=MeshBuilder.CreateTube('paper-joined-fold',{path:points,radius:.0012,tessellation:6},scene);hoop.material=edgePaper;}
 const cord=MeshBuilder.CreateTube('suspension-cord',{path:[new Vector3(0,1.81,0),new Vector3(0,2.8,0)],radius:.0018,tessellation:8},scene);cord.material=frame;
 for(const side of [-1,1]){const handle=MeshBuilder.CreateTube('wire-handle',{path:[new Vector3(side*.15,1.81,0),new Vector3(side*.12,1.97,0),new Vector3(0,2.04,0)],radius:.0012,tessellation:6},scene);handle.material=frame;}
+// Very soft light spill outside the silhouette, separate from the readable paper surface.
+const haloTexture=new DynamicTexture('soft-lantern-spill',{width:256,height:256},scene,false);const hc=haloTexture.getContext() as CanvasRenderingContext2D;hc.clearRect(0,0,256,256);const hg=hc.createRadialGradient(128,128,20,128,128,128);hg.addColorStop(0,'rgba(255,255,255,.45)');hg.addColorStop(.45,'rgba(255,255,255,.18)');hg.addColorStop(1,'rgba(255,255,255,0)');hc.fillStyle=hg;hc.fillRect(0,0,256,256);haloTexture.hasAlpha=true;haloTexture.update();
+const haloMaterial=new StandardMaterial('paper-light-spill',scene);haloMaterial.disableLighting=true;haloMaterial.diffuseColor=Color3.Black();haloMaterial.emissiveColor=Color3.FromHexString(LANTERN_PALETTE[4]);haloMaterial.opacityTexture=haloTexture;haloMaterial.alpha=.07;haloMaterial.disableDepthWrite=true;haloMaterial.backFaceCulling=false;
+const halo=MeshBuilder.CreatePlane('soft-emission-halo',{width:1.65,height:1.8},scene);halo.position.set(0,1.35,0);halo.billboardMode=Mesh.BILLBOARDMODE_ALL;halo.material=haloMaterial;halo.isPickable=false;
 let night=false;const buttons=document.querySelectorAll<HTMLButtonElement>('[data-light]');
-for(const b of buttons)b.onclick=()=>{night=b.dataset.light==='night';paper.setFloat('night',night?1:0);scene.clearColor=night?new Color4(.035,.046,.065,1):new Color4(.88,.87,.83,1);sun.intensity=night?.12:1;document.body.classList.toggle('night',night);for(const other of buttons)other.setAttribute('aria-pressed',String(b===other));};
-for(const b of document.querySelectorAll<HTMLButtonElement>('[data-color]'))b.onclick=()=>{const c=LANTERN_PALETTE[Number(b.dataset.color)];paper.setColor3('dye',Color3.FromHexString(c).toLinearSpace());edgePaper.diffuseColor=Color3.FromHexString(c).scale(.65);for(const other of document.querySelectorAll('[data-color]'))other.setAttribute('aria-pressed',String(b===other));};
+for(const b of buttons)b.onclick=()=>{night=b.dataset.light==='night';paper.setFloat('night',night?1:0);haloMaterial.alpha=night?.65:.07;scene.clearColor=night?new Color4(.035,.046,.065,1):new Color4(.88,.87,.83,1);sun.intensity=night?.12:1;document.body.classList.toggle('night',night);for(const other of buttons)other.setAttribute('aria-pressed',String(b===other));};
+for(const b of document.querySelectorAll<HTMLButtonElement>('[data-color]'))b.onclick=()=>{const c=LANTERN_PALETTE[Number(b.dataset.color)];paper.setColor3('dye',Color3.FromHexString(c).toLinearSpace());haloMaterial.emissiveColor=Color3.FromHexString(c);edgePaper.diffuseColor=Color3.FromHexString(c).scale(.65);for(const other of document.querySelectorAll('[data-color]'))other.setAttribute('aria-pressed',String(b===other));};
 document.querySelector<HTMLButtonElement>('#closeup')!.onclick=()=>{camera.setTarget(new Vector3(.12,1.37,-.14));camera.alpha=-1.1;camera.beta=1.35;camera.radius=1.5;document.body.classList.add('closeup');};
 document.querySelector<HTMLButtonElement>('#reset')!.onclick=()=>{camera.setTarget(new Vector3(0,1.35,0));camera.alpha=-1.15;camera.beta=1.3;camera.radius=2.6;document.body.classList.remove('closeup');};
 engine.runRenderLoop(()=>{scene.render();if(scene.isReady())document.querySelector<HTMLElement>('#loading')!.hidden=true;});window.addEventListener('resize',()=>engine.resize());
