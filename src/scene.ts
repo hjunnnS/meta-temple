@@ -1,3 +1,4 @@
+import { templePlaces } from './temple-layout.ts';
 import { createHanjiMaterial } from './hanji-material.ts';
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Scene } from '@babylonjs/core/scene';
@@ -29,7 +30,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  scene.fogMode=Scene.FOGMODE_EXP2;scene.fogDensity=.0025;scene.fogColor=new Color3(.64,.7,.68);
  const skyTexture=new DynamicTexture('sunlit-sky',{width:2048,height:1024},scene,false);
  const skyMaterial=new StandardMaterial('sky-gradient',scene);skyMaterial.disableLighting=true;skyMaterial.emissiveTexture=skyTexture;skyMaterial.diffuseColor=Color3.Black();skyMaterial.fogEnabled=false;skyMaterial.imageProcessingConfiguration=new ImageProcessingConfiguration();
- const skyDome=MeshBuilder.CreateSphere('open-sky',{diameter:300,segments:32,sideOrientation:Mesh.BACKSIDE},scene);skyDome.material=skyMaterial;skyDome.infiniteDistance=true;skyDome.isPickable=false;
+ const skyDome=MeshBuilder.CreateSphere('open-sky',{diameter:2000,segments:32,sideOrientation:Mesh.BACKSIDE},scene);skyDome.material=skyMaterial;skyDome.infiniteDistance=true;skyDome.isPickable=false;
  function paintSky(value:TimeOfDay){
   const c=skyTexture.getContext() as CanvasRenderingContext2D;const g=c.createLinearGradient(0,0,0,1024);
   const shades=value==='day'?['#e5f7ff','#8ed2ff','#218de9']:value==='dusk'?['#ffe2bd','#b7cde9','#6483b9']:['#121c35','#101d38','#081025'];
@@ -40,7 +41,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   skyTexture.update();
  }
  const camera=new ArcRotateCamera('camera',-Math.PI*.67,Math.PI*.37,36,new Vector3(0,3,2),scene);
- camera.lowerRadiusLimit=2.5;camera.upperRadiusLimit=65;camera.upperBetaLimit=2.15;camera.lowerBetaLimit=.15;
+ camera.lowerRadiusLimit=2.5;camera.upperRadiusLimit=260;camera.upperBetaLimit=2.15;camera.lowerBetaLimit=.15;
  camera.minZ=.1;camera.wheelPrecision=18;camera.panningSensibility=70;camera.attachControl(canvas,true);
  const hemi=new HemisphericLight('sky',new Vector3(0,1,0),scene);hemi.intensity=.8;hemi.groundColor=new Color3(.22,.27,.24);
  const sun=new DirectionalLight('sun',new Vector3(-.45,-.85,.45),scene);sun.position=new Vector3(20,35,-20);sun.intensity=1.6;
@@ -78,6 +79,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  box('court',32,.15,44,0,-.03,-3,stoneDark,false);
  // Stone joints are geometry, using the same small palette and merged after creation.
  for(let iz=0;iz<26;iz++)for(let ix=0;ix<9;ix++)box('paving',1.7,.1,1.45,(ix-4)*1.77,.08,-21+iz*1.53,stone,false);
+ const hallStart=staticMeshes.length;
  for(let s=0;s<3;s++)box('plinth',21-s*.8,.35,12-s*.7,0,.25+s*.35,8,stone);
  for(let s=0;s<5;s++)box('step',6,.2,1.1,0,.12+s*.2,1.1+s*.5,stone);
  box('hall-floor',19,.24,9,0,1.25,8,wood);
@@ -89,6 +91,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  // Warm paper doors with a geometric timber lattice.
  for(let bay=0;bay<6;bay++){
+  if(bay===2||bay===3)continue;
   const x=-7.5+bay*3;box('door-frame',2.82,3.04,.25,x,3,4.02,wood);box('paper-door',2.65,2.8,.12,x,3,3.85,paper);
   for(let i=0;i<7;i++)box('door-vertical',.045,2.8,.04,x-1.25+i*.415,3,3.74,wood,false);
   for(let i=0;i<9;i++)box('door-horizontal',2.65,.045,.04,x,1.65+i*.34,3.73,wood,false);
@@ -143,12 +146,53 @@ export function createTemple(canvas:HTMLCanvasElement) {
  for(const x of [-9,-6,-3,0,3,6,9]){
   const foot=MeshBuilder.CreateCylinder('carved-column-foot',{height:.27,diameterTop:.58,diameterBottom:.85,tessellation:20},scene);foot.position.set(x,1.62,3.8);foot.material=stone;staticMeshes.push(foot);
  }
- // Warm architectural light pools, deliberately bounded to a handful of lights.
- for(const x of [-7.5,0,7.5]){const light=new PointLight('hall-warm-light',new Vector3(x,3.5,2.7),scene);light.diffuse=Color3.FromHexString('#ffaf43');light.intensity=.12;light.range=8;}
- // Low walls and trees frame the sample, rather than a whole production map.
- for(const x of [-17,17]){box('wall',.5,1.7,37,x,.85,-4,masonry);box('wall-cap',.8,.16,37,x,1.78,-4,roofMat);}
+ // Reuse the representative architecture for spatial review; individual art review follows.
+ const hallTemplate=staticMeshes.slice(hallStart);
+ for(const place of templePlaces.filter(p=>p.kind==='hall' && p.id!=='daeung')){
+  for(const original of hallTemplate){
+   if(original.name==='hall-sign')continue;
+   const copy=original.clone(`${place.id}-${original.name}`,null)!;
+   copy.scaling.scaleInPlace(place.scale);
+   copy.position.set(original.position.x*place.scale+place.x,original.position.y*place.scale,(original.position.z-8)*place.scale+place.z);
+   // Roof vertices are authored around z=8; clone translation compensates their baked origin.
+   if(original.name==='curved-roof'||original.name==='tile-rib'||original.name==='ridge'||original.name==='tile-course')copy.position.z=place.z-8*place.scale;
+   staticMeshes.push(copy);
+  }
+ }
+ for(const original of hallTemplate)original.position.z+=24;
+ function plaque(label:string,x:number,y:number,z:number){
+  const t=new DynamicTexture(`label-${label}`,{width:512,height:128},scene,false);const c=t.getContext() as CanvasRenderingContext2D;
+  c.fillStyle='#26372e';c.fillRect(0,0,512,128);c.strokeStyle='#bfa56e';c.lineWidth=5;c.strokeRect(6,6,500,116);c.fillStyle='#f4dfad';c.font='bold 68px serif';c.textAlign='center';c.fillText(label,256,89);t.update();
+  const m=mat(`plaque-${label}`,'#ffffff');m.diffuseTexture=t;box(`name-${label}`,3.2,.8,.12,x,y,z,m);
+ }
+ for(const place of templePlaces.filter(p=>p.kind==='hall'&&p.id!=='daeung'))plaque(place.name,place.x,5.2*place.scale,place.z-4.65*place.scale);
+ for(const place of templePlaces.filter(p=>p.kind==='gate'||p.kind==='bell')){
+  const w=place.kind==='bell'?5:place.id==='ilju'?8:12,d=place.kind==='bell'?5:4;
+  box(`${place.id}-base`,w+2,.25,d+2,place.x,.12,place.z,stone);
+  for(const x of [-w/2,w/2])for(const z of [-d/2,d/2])cylinder(`${place.id}-pillar`,.45,4.5,new Vector3(place.x+x,2.5,place.z+z),wood);
+  box(`${place.id}-beam`,w+1,.5,d,place.x,4.7,place.z,painted);
+  const gateRoof=roof.clone(`${place.id}-roof`,null)!;const sx=(w+3)/23,sz=(d+3)/11.8;gateRoof.scaling.set(sx,.65,sz);gateRoof.position.set(place.x,1,place.z-8*sz);staticMeshes.push(gateRoof);
+  plaque(place.name,place.x,4.3,place.z-d/2-.2);
+  if(place.kind==='bell'){
+   const bell=MeshBuilder.CreateCylinder('bronze-bell',{diameterTop:1.25,diameterBottom:1.9,height:2.2,tessellation:32},scene);bell.position.set(place.x,2.8,place.z);bell.material=ochre;staticMeshes.push(bell);
+   cylinder('bell-crown',.7,.45,new Vector3(place.x,4.1,place.z),ochre);
+  }
+ }
+ // Central court and southern entrance axis remain distinct from the fixed lantern slots.
+ box('central-court',40,.12,16,0,.03,15,stone,false);
+ box('entry-path',7,.12,47,0,.02,-48,stone,false);
+ for(const z of [-36,14,54])box('cross-path',62,.1,3,0,.04,z,stone,false);
+ for(const x of [-12,12])box('side-walk',3,.1,98,x,.03,7,stone,false);
+ for(let tier=0;tier<3;tier++){
+  box('pagoda-body',1.8-tier*.3,.9,1.8-tier*.3,0,1.1+tier*1.2,15,stone);
+  box('pagoda-eave',2.8-tier*.5,.2,2.8-tier*.5,0,1.65+tier*1.2,15,stoneDark);
+ }
+ box('pagoda-base',3.4,.5,3.4,0,.3,15,stone);
+ cylinder('pagoda-finial',.24,1.3,new Vector3(0,4.6,15),ochre);
+ for(const x of [-6,6]){cylinder('stone-lamp-post',.35,1.5,new Vector3(x,.85,15),stone);box('stone-lamp-chamber',.8,.65,.8,x,1.8,15,paper);box('stone-lamp-cap',1.1,.2,1.1,x,2.2,15,stoneDark);}
+ for(const x of [-37,37]){box('boundary-wall',.5,1.3,132,x,.65,-3,masonry);box('boundary-cap',.8,.16,132,x,1.36,-3,roofMat);}
  let seed=42;function rand(){seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;}
- for(let i=0;i<65;i++){const side=i%2?1:-1;const x=side*(20+rand()*30),z=-35+rand()*80,h=6+rand()*8;
+ for(let i=0;i<65;i++){const side=i%2?1:-1;const x=side*(42+rand()*25),z=-70+rand()*140,h=6+rand()*8;
  cylinder('tree-trunk',.4,h*.7,new Vector3(x,h*.35,z),trunk);
  for(let level=0;level<5;level++)for(let branch=0;branch<7;branch++){
   const angle=branch*Math.PI*2/7+level*1.1;const spread=(1-level*.12)*2;
@@ -156,9 +200,10 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  }
  for(const side of [-1,1])for(let i=0;i<18;i++){
-  const rock=MeshBuilder.CreateSphere('garden-granite',{diameter:1,segments:5},scene);rock.position.set(side*(17.8+rand()*3),.3,-20+i*2);rock.scaling.set(1+rand(),.5+rand()*.6,1+rand());rock.material=stoneDark;staticMeshes.push(rock);
-  const shrub=MeshBuilder.CreateSphere('garden-shrub',{diameter:1.8,segments:8},scene);shrub.position.set(side*(18+rand()*2),.65,-20+i*2);shrub.scaling.y=.65;shrub.material=leaves;staticMeshes.push(shrub);
+  const rock=MeshBuilder.CreateSphere('garden-granite',{diameter:1,segments:5},scene);rock.position.set(side*(38+rand()*3),.3,-20+i*2);rock.scaling.set(1+rand(),.5+rand()*.6,1+rand());rock.material=stoneDark;staticMeshes.push(rock);
+  const shrub=MeshBuilder.CreateSphere('garden-shrub',{diameter:1.8,segments:8},scene);shrub.position.set(side*(38+rand()*2),.65,-20+i*2);shrub.scaling.y=.65;shrub.material=leaves;staticMeshes.push(shrub);
  }
+ for(let i=0;i<18;i++){const x=19+(i%5)*3.5,z=47+Math.floor(i/5)*4; cylinder('meditation-tree',.35,5,new Vector3(x,2.5,z),trunk);const crown=MeshBuilder.CreateSphere('meditation-crown',{diameter:4.5,segments:8},scene);crown.position.set(x,5.8,z);crown.material=leaves;staticMeshes.push(crown);}
  // Merge static geometry by material. Shadow lists are rebuilt to avoid disposed casters.
  const grouped=new Map<StandardMaterial,Mesh[]>();for(const a of staticMeshes){const m=a.material as StandardMaterial;if(!grouped.has(m))grouped.set(m,[]);grouped.get(m)!.push(a);}
  shadows.getShadowMap()!.renderList=[];
@@ -247,7 +292,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  let currentTime:TimeOfDay='day';let quality:Quality='high';
  function time(value:TimeOfDay){currentTime=value;shadows.bias=value==='day'?.00015:.002;shadows.normalBias=value==='day'?.008:.035;shadows.getShadowMap()!.resize(quality==='low'?512:value==='day'?4096:2048);for(const caster of lanternCasters){shadows.removeShadowCaster(caster);if(value==='day')shadows.addShadowCaster(caster);}paintSky(value);for(const m of [...lanternMaterials,...ownedMaterials])m.setFloat('night',value==='night'?1:value==='dusk'?.45:0);const skies={day:'#a6dbfa',dusk:'#354865',night:'#080f24'};const c=Color3.FromHexString(skies[value]);scene.clearColor=new Color4(c.r,c.g,c.b,1);scene.fogColor=c;hemi.intensity=value==='night'?.35:value==='dusk'?.95:1.1;hemi.diffuse=Color3.FromHexString('#e4f2ff');sun.intensity=value==='day'?1.4:value==='dusk'?1.1:.25;sun.diffuse=Color3.FromHexString(value==='day'?'#fff3db':value==='dusk'?'#ffc17b':'#c1d5ec');sun.direction=value==='day'?new Vector3(-.35,-1.8,.25):new Vector3(-.65,-.5,.45);glow.intensity=value==='night'?.65:value==='dusk'?.5:.4;paper.emissiveColor=paper.diffuseColor.scale(value==='night'?.08:value==='dusk'?.025:0);}
  function setQuality(value:Quality){quality=value;engine.setHardwareScalingLevel(value==='low'?Math.max(1,Math.min(canvas.clientWidth/640,canvas.clientHeight/720)):1);shadows.getShadowMap()!.resize(value==='low'?512:currentTime==='day'?4096:2048);glow.isEnabled=value==='high';}
- function view(name:string){if(name==='canopy'){camera.setTarget(new Vector3(0,6,-16));camera.alpha=-Math.PI/2;camera.beta=2.1;camera.radius=9;}else if(name==='front'){camera.setTarget(new Vector3(0,4,4));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=38;}else if(name==='detail'){camera.setTarget(new Vector3(-4,5.5,4));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=lanternSlots(1000)[selected].position;camera.setTarget(Vector3.FromArray([...p]).add(new Vector3(0,-.4,0)));camera.alpha=-2.9;camera.beta=1.95;camera.radius=4;}else{camera.setTarget(new Vector3(0,3,2));camera.alpha=-Math.PI*.67;camera.beta=Math.PI*.37;camera.radius=36;}}
+ function view(name:string){const place=templePlaces.find(p=>p.id===name);if(place){camera.setTarget(new Vector3(place.x,3,place.z));camera.alpha=-Math.PI/2;camera.beta=1.15;camera.radius=place.kind==='forest'?25:place.scale*(canvas.clientWidth/canvas.clientHeight<.9?42:28);return;}if(name==='map'){camera.setTarget(new Vector3(0,0,-2));camera.alpha=-Math.PI/2;camera.beta=.24;camera.radius=210;return;}if(name==='canopy'){camera.setTarget(new Vector3(0,6,-16));camera.alpha=-Math.PI/2;camera.beta=2.1;camera.radius=9;}else if(name==='front'){camera.setTarget(new Vector3(0,4,28));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=38;}else if(name==='detail'){camera.setTarget(new Vector3(-4,5.5,28));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=lanternSlots(1000)[selected].position;camera.setTarget(Vector3.FromArray([...p]).add(new Vector3(0,-.4,0)));camera.alpha=-2.9;camera.beta=1.95;camera.radius=4;}else{camera.setTarget(new Vector3(0,2,-2));camera.alpha=-Math.PI*.58;camera.beta=.65;camera.radius=175;}}
  rebuildLanterns(1000);time('day');
  scene.onBeforeRenderObservable.add(()=>{
   camera.beta=Math.min(camera.beta,Math.acos(Math.max(-1,Math.min(1,(.6-camera.target.y)/camera.radius))));
@@ -256,5 +301,6 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const h of ownerHalos){const scale=Math.min(2.1,Math.max(1,Vector3.Distance(camera.position,h.position)/22));h.scaling.setAll(scale);}
   for(const {mesh,center,phase} of sparkles){const a=phase+(reduced?0:t*.10);mesh.position.set(center.x+Math.cos(a)*.50,center.y+Math.sin(a*1.7)*.43,center.z+Math.sin(a)*.30);const distanceScale=Math.min(4.5,Math.max(1,Vector3.Distance(camera.position,center)/12));const twinkle=reduced?1:.25+1.4*Math.pow((1+Math.sin(t*3.0+phase))/2,4);mesh.scaling.setAll(distanceScale*twinkle);}
  });
+ view('wide');
  return {engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {time:currentTime,quality,density,visibleLanternCount:canopyLanternSlots(density).length,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }

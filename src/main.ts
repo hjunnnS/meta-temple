@@ -1,15 +1,17 @@
 import './style.css';
+import { templePlaces } from './temple-layout.ts';
 import { createTemple, type TimeOfDay, type Quality } from './scene.ts';
 import { Measurement } from './metrics.ts';
 import { SCENE_VERSION, OWNED_INDICES } from './contracts.ts';
 const root=document.querySelector<HTMLDivElement>('#app')!;
 root.innerHTML=`
 <canvas id="world" aria-label="사찰 3D 장면. 드래그로 시점 회전, 휠이나 두 손가락으로 확대." tabindex="0"></canvas>
-<header><a class="brand" href="#" aria-label="사사 처음 시점"><span class="seal">山</span><span>사사<small>SASA · A MOMENT OF STILLNESS</small></span></a><span class="stage">대웅전 앞마당 <i></i> M1 미리보기</span><button id="settings" class="circle" aria-label="환경 설정 열기">☷</button></header>
+<header><a class="brand" href="#" aria-label="사사 처음 시점"><span class="seal">山</span><span>사사<small>SASA · A MOMENT OF STILLNESS</small></span></a><span class="stage">사찰 배치 검토 <i></i> 전체 풍경</span><button id="settings" class="circle" aria-label="환경 설정 열기">☷</button></header>
 <section class="intro"><span class="eyebrow">잠시, 일상에서 한 걸음</span><h1>빛을 따라,<br>마음이 머무는 곳.</h1><p>처마 아래 스며드는 빛과<br>조용히 흔들리는 마음을 바라봅니다.</p><button id="explore" class="primary">사찰 둘러보기 <span>↗</span></button></section>
 <div id="loading" role="status">사사의 빛을 준비하고 있어요…</div>
 <aside id="settings-panel" hidden aria-label="환경 설정"><div class="panel-title"><h2>머무는 방식</h2><button id="close-settings" aria-label="환경 설정 닫기">×</button></div><label>시간대<select id="time"><option value="day" selected>햇살 가득한 낮</option><option value="dusk">해질녘</option><option value="night">밤</option></select></label><label>화면 품질<select id="quality"><option value="high">섬세하게</option><option value="low">가볍게</option></select></label><label class="check"><input type="checkbox" id="reduced">반짝임 완화</label><label>내 연등 이름표<input id="lantern-name" maxlength="24" placeholder="이름 입력 · 최대 12자"></label><button id="apply-name" class="primary">이름표 미리보기</button><p id="name-status" class="note" role="status">현재 선택한 내 연등에 표시됩니다. 미리보기 이름은 서버에 저장하지 않습니다.</p><p class="note">무음 장면입니다. 내 연등은 모든 품질에서 같은 위치에 표시됩니다.</p></aside>
 <footer><div class="location"><span class="eyebrow">01 / 대웅전</span><p>고요를 담은 빛</p></div><nav aria-label="장면 보기"><button data-view="wide" aria-pressed="true">전체 풍경</button><button data-view="front" aria-pressed="false">대웅전</button><button data-view="canopy" aria-pressed="false">연등 아래</button><button data-view="detail" aria-pressed="false">단청</button><button data-view="lantern" aria-pressed="false">내 연등 <span class="dot"></span></button></nav><button id="diagnostics">검증 기록 ↗</button></footer>
+<label class="place-picker">공간 둘러보기 <select id="place"><option value="wide">전체 풍경</option><option value="map">배치도 · 위에서 보기</option>${templePlaces.map(p=>`<option value="${p.id}">${p.name}</option>`).join('')}</select></label>
 <div class="hint">드래그하여 둘러보기 · 휠 / 두 손가락으로 확대</div>
 <dialog id="diagnostic-dialog"><div class="panel-title"><h2>M1 장면 검증</h2><button id="close-diagnostics" aria-label="검증 기록 닫기">×</button></div><p>측정은 현재 기기의 결과이며, 모바일 실기기 또는 시각 품질 승인으로 자동 간주하지 않습니다.</p><label>기기 모델 (직접 입력)<input id="device" placeholder="미입력 · 실기기 미확인"></label><label>연등 후보 수<select id="density"><option>100</option><option>300</option><option>500</option><option value="1000" selected>전체 배치 · 작은 틈</option></select></label><label>내 연등 선택<select id="owned">${OWNED_INDICES.map((x,i)=>`<option value="${x}">내 연등 ${i+1} · 슬롯 ${x}</option>`).join('')}</select></label><p class="note">샘플 소유 표시입니다. 계정·결제·실제 소유권은 연결하지 않았습니다. 갈색 발판 길 위의 후보만 표시합니다.</p><output id="live" aria-live="off">준비 중</output><div class="actions"><button id="measure">측정 시작</button><button id="stop">측정 종료</button><button id="export">기록 저장</button></div><p class="note">시작 후 2초 예열. 정식 판정은 승인된 기기·밀도·동선·예열·측정 시간으로 별도 실행합니다. 측정 중 설정 변경·탭 숨김·화면 크기 변경 시 기록을 무효화합니다.</p><pre id="report" aria-live="polite">아직 측정하지 않았습니다.</pre></dialog>`;
 const $=<T extends HTMLElement=HTMLElement>(q:string)=>document.querySelector<T>(q)!;
@@ -41,3 +43,5 @@ function report(){const p=performance as Performance & {memory?:{usedJSHeapSize:
 $('#stop').onclick=()=>{measure.stop();latest=report();$('#report').textContent=JSON.stringify(latest,null,2);};
 $('#export').onclick=()=>{if(measure.active)measure.stop();latest=report();$('#report').textContent=JSON.stringify(latest,null,2);const blob=new Blob([JSON.stringify(latest,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`sasa-${SCENE_VERSION}-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!dialog.open&&!$('#settings-panel').hidden){$('#settings-panel').hidden=true;$('#settings').focus();}});
+
+$('#place').onchange=()=>{invalidate('검토 공간 변경');app.view($<HTMLSelectElement>('#place').value);document.body.classList.add('exploring');for(const b of document.querySelectorAll('[data-view]'))b.setAttribute('aria-pressed','false');};

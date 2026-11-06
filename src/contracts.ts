@@ -2,7 +2,7 @@
 export type ProductKind = 'lantern' | 'votive' | 'wish-plaque' | 'memorial';
 export type Vec3 = readonly [number, number, number];
 export interface Slot { id: string; zoneId: string; position: Vec3; rotationY: number; accepts: ProductKind }
-export const SCENE_VERSION = 'm1-slice-008';
+export const SCENE_VERSION = 'm1-layout-009';
 export const SAMPLE_OWNER = 'sample-owner-a';
 export function lanternSlots(count: number): Slot[] {
   if (!Number.isInteger(count) || count < 1 || count > 1000) throw new Error('Invalid density');
