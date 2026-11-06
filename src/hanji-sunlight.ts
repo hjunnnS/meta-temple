@@ -17,10 +17,10 @@ import { LANTERN_PALETTE } from './contracts.ts';
 
 const root=document.querySelector<HTMLDivElement>('#app')!;
 root.innerHTML=`<canvas id="study" aria-label="팔각 한지 연등 한 개. 드래그로 회전, 휠로 확대." tabindex="0"></canvas>
-<header><a href="/">사사 <small>SASA</small></a><span>한지 연등 · 햇빛 검수 01</span></header>
+<header><a href="/">사사 <small>SASA</small></a><span>한지 연등 · 햇빛 검수 02</span></header>
 <section class="caption"><span class="overline">종이 사이로 스며드는 빛</span><h1>한 장의 한지,<br>하나의 연등.</h1><p>섬유의 결, 접힌 자국, 빛이 스미는 얇은 면을<br>가까이 돌려보며 확인하세요.</p></section>
 <div id="loading">한지 연등을 준비하고 있어요…</div>
-<footer><div class="controls"><div class="light-buttons" aria-label="조명"><button data-light="day" aria-pressed="true">낮 · 햇빛 투과</button><button data-light="night" aria-pressed="false">밤 · 밝은 점등</button></div><div class="swatches" aria-label="연등 색상">${['그린','핑크','블루','옐로우','레드'].map((n,i)=>`<button aria-label="${n}" data-color="${i}" aria-pressed="${i===4}" style="--swatch:${LANTERN_PALETTE[i]}"></button>`).join('')}</div><button id="lamp" aria-pressed="true">내부 등 켜짐</button><button id="closeup">한지 가까이</button><button id="reset">전체 보기</button></div><p>드래그하여 회전 · 휠 / 두 손가락으로 확대 <span>실시간 3D · 검토용 시안</span></p></footer>`;
+<footer><div class="controls"><div class="light-buttons" aria-label="조명"><button data-light="day" aria-pressed="true">낮 · 햇빛 투과</button><button data-light="night" aria-pressed="false">밤 · 밝은 점등</button></div><div class="swatches" aria-label="연등 색상">${['그린','핑크','블루','옐로우','레드'].map((n,i)=>`<button aria-label="${n}" data-color="${i}" aria-pressed="${i===4}" style="--swatch:${LANTERN_PALETTE[i]}"></button>`).join('')}</div><button id="lamp" aria-pressed="true">내부 등 켜짐</button><button id="thickness" aria-pressed="true">한지 두께 표현 켜짐</button><button id="closeup">한지 가까이</button><button id="reset">전체 보기</button></div><p>드래그하여 회전 · 휠 / 두 손가락으로 확대 <span>실시간 3D · 검토용 시안</span></p></footer>`;
 const canvas=document.querySelector<HTMLCanvasElement>('#study')!;
 const engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true});
 const scene=new Scene(engine);scene.clearColor=new Color4(.88,.87,.83,1);
@@ -35,7 +35,7 @@ varying vec3 vPosition;varying vec3 vNormal;varying vec2 vUV;
 void main(){vPosition=(world*vec4(position,1.)).xyz;vNormal=normalize(mat3(world)*normal);vUV=uv;gl_Position=worldViewProjection*vec4(position,1.);}`;
 const fragment=`precision highp float;
 varying vec3 vPosition;varying vec3 vNormal;varying vec2 vUV;
-uniform sampler2D paper;uniform vec3 dye;uniform vec3 dayDye;uniform float night;uniform float lampOn;uniform vec3 eye;
+uniform sampler2D paper;uniform vec3 dye;uniform vec3 dayDye;uniform float night;uniform float lampOn;uniform vec3 eye;uniform float thicknessDetail;
 void main(){
  vec3 pigment=mix(dayDye,dye,night);
  vec3 n=normalize(vNormal);if(!gl_FrontFacing)n=-n;
@@ -83,13 +83,30 @@ void main(){
   vec3 reflected= pigment*(.24+.60*key)*mix(.88,1.08,fibrePattern)*fineHoops;
   // Small internal light contribution remains optional; sunlight is not tied to the bulb.
   vec3 dayBulb=warmBulb*transmitted*irradiance*.12*fineHoops*fineRibs*lampOn;
+  if(thicknessDetail>.5){
+   // A second fibre scale varies sheet thickness rather than painting dark surface dirt.
+   float coarse=dot(texture2D(paper,texUV*.37+vec2(.19,.27)).rgb,vec3(.299,.587,.114));
+   float pulpThickness=clamp((.98-coarse)*5.,0.,1.);
+   float sheetThickness=mix(.98,.28,fibrePattern)+.18*(pulpThickness-.5);
+   float opening=min(vUV.y,1.-vUV.y);
+   float thinEdge=1.-smoothstep(.003,.025,opening);
+   float overlap=1.-smoothstep(.010,.048,seam);
+   float crease=min(abs(vUV.y-.22),abs(vUV.y-.78));
+   float folded=1.-smoothstep(.002,.018,crease);
+   sheetThickness=max(.16,sheetThickness-.18*thinEdge)+.65*overlap+.16*folded;
+   vec3 sheetTransmission=exp(-absorption*sheetThickness);
+   // Preserve the existing light budget and dye; redistribute it through the sheet.
+   vec3 transmissionRatio=clamp(sheetTransmission/max(transmitted,vec3(.01)),vec3(.55),vec3(1.38));
+   sunlightThrough*=transmissionRatio*exp((.60-sheetThickness)*.32);
+   dayBulb*=transmissionRatio;
+  }
   color=reflected+sunlightThrough+dayBulb;
  }
  color=color/(vec3(1.)+color);
 
  gl_FragColor=vec4(pow(max(color,0.),vec3(1./2.2)),1.);
 }`;
-const paper=new ShaderMaterial('hanji-transmission',scene,{vertexSource:vertex,fragmentSource:fragment},{attributes:['position','normal','uv'],uniforms:['world','worldViewProjection','dye','dayDye','night','lampOn','eye'],samplers:['paper']});paper.backFaceCulling=false;paper.setTexture('paper',fibre);paper.setColor3('dye',Color3.FromHexString(LANTERN_PALETTE[4]).toLinearSpace());paper.setColor3('dayDye',Color3.FromHexString(LANTERN_PALETTE[4]).toLinearSpace());paper.setFloat('night',0);paper.setFloat('lampOn',1);paper.setVector3('eye',camera.position);
+const paper=new ShaderMaterial('hanji-transmission',scene,{vertexSource:vertex,fragmentSource:fragment},{attributes:['position','normal','uv'],uniforms:['world','worldViewProjection','dye','dayDye','night','lampOn','eye','thicknessDetail'],samplers:['paper']});paper.backFaceCulling=false;paper.setTexture('paper',fibre);paper.setColor3('dye',Color3.FromHexString(LANTERN_PALETTE[4]).toLinearSpace());paper.setColor3('dayDye',Color3.FromHexString(LANTERN_PALETTE[4]).toLinearSpace());paper.setFloat('night',0);paper.setFloat('lampOn',1);paper.setFloat('thicknessDetail',1);paper.setVector3('eye',camera.position);
 const frame=new StandardMaterial('interior-bamboo',scene);frame.diffuseColor=Color3.FromHexString('#785840');frame.specularColor=Color3.Black();
 const edgePaper=new StandardMaterial('paper-fold-edge',scene);edgePaper.diffuseColor=Color3.FromHexString('#9a302b');edgePaper.specularColor=Color3.Black();
 // Octagonal prism with folded shoulders; only the paper has small tension wrinkles.
@@ -132,3 +149,6 @@ document.querySelector<HTMLButtonElement>('#closeup')!.onclick=()=>{camera.setTa
 document.querySelector<HTMLButtonElement>('#reset')!.onclick=()=>{camera.setTarget(new Vector3(0,1.35,0));camera.alpha=-1.15;camera.beta=1.3;camera.radius=2.6;document.body.classList.remove('closeup');};
 engine.runRenderLoop(()=>{paper.setVector3('eye',camera.position);scene.render();if(scene.isReady())document.querySelector<HTMLElement>('#loading')!.hidden=true;});window.addEventListener('resize',()=>engine.resize());
 
+
+let thicknessDetail=true;
+document.querySelector<HTMLButtonElement>('#thickness')!.onclick=()=>{thicknessDetail=!thicknessDetail;paper.setFloat('thicknessDetail',thicknessDetail?1:0);const button=document.querySelector<HTMLButtonElement>('#thickness')!;button.setAttribute('aria-pressed',String(thicknessDetail));button.textContent=thicknessDetail?'한지 두께 표현 켜짐':'한지 두께 표현 꺼짐';};
