@@ -31,10 +31,10 @@ const fibre=new Texture('/textures/hanji-fibres-generated-v1.png',scene);fibre.a
 const vertex=`precision highp float;
 attribute vec3 position;attribute vec3 normal;attribute vec2 uv;
 uniform mat4 world;uniform mat4 worldViewProjection;
-varying vec3 vPosition;varying vec3 vNormal;varying vec2 vUV;
-void main(){vPosition=(world*vec4(position,1.)).xyz;vNormal=normalize(mat3(world)*normal);vUV=uv;gl_Position=worldViewProjection*vec4(position,1.);}`;
+varying vec3 vPosition;varying vec3 vNormal;varying vec2 vUV;varying vec3 vLocalPosition;
+void main(){vLocalPosition=position;vPosition=(world*vec4(position,1.)).xyz;vNormal=normalize(mat3(world)*normal);vUV=uv;gl_Position=worldViewProjection*vec4(position,1.);}`;
 const fragment=`precision highp float;
-varying vec3 vPosition;varying vec3 vNormal;varying vec2 vUV;
+varying vec3 vPosition;varying vec3 vNormal;varying vec2 vUV;varying vec3 vLocalPosition;
 uniform sampler2D paper;uniform vec3 dye;uniform vec3 dayDye;uniform float night;uniform float lampOn;uniform vec3 eye;uniform float thicknessDetail;
 void main(){
  vec3 pigment=mix(dayDye,dye,night);
@@ -56,7 +56,7 @@ void main(){
  float opticalDepth=density+glued*.65+smallFolds;
  vec3 absorption=-log(max(pigment,vec3(.025)))*1.15+vec3(.14);
  vec3 transmitted=exp(-absorption*opticalDepth);
- vec3 source=vec3(.035,1.38,-.025);vec3 ray=vPosition-source;
+ vec3 source=vec3(.035,1.38,-.025);vec3 ray=vLocalPosition-source;
  float d2=dot(ray,ray);
  vec3 towardsEye=normalize(eye-vPosition);
  float forwardLobe=.22+.78*pow(max(dot(normalize(ray),towardsEye),0.),9.);
@@ -152,3 +152,22 @@ engine.runRenderLoop(()=>{paper.setVector3('eye',camera.position);scene.render()
 
 let thicknessDetail=true;
 document.querySelector<HTMLButtonElement>('#thickness')!.onclick=()=>{thicknessDetail=!thicknessDetail;paper.setFloat('thicknessDetail',thicknessDetail?1:0);const button=document.querySelector<HTMLButtonElement>('#thickness')!;button.setAttribute('aria-pressed',String(thicknessDetail));button.textContent=thicknessDetail?'한지 두께 표현 켜짐':'한지 두께 표현 꺼짐';};
+
+// Group review reuses the exact same mesh geometry, shader, dye and illumination.
+if(new URLSearchParams(location.search).get('group')==='3'){
+ document.title='사사 · 한지 연등 3×3 거리 비교';
+ const originals=[...scene.meshes];
+ for(let row=-1;row<=1;row++)for(let col=-1;col<=1;col++){
+  if(row===0&&col===0)continue;
+  for(const original of originals){const copy=(original as Mesh).clone(`${original.name}-group-${row}-${col}`,null,true)!;copy.position.addInPlace(new Vector3(col*.9,0,row*.9));}
+ }
+ document.querySelector('header span')!.textContent='한지 연등 · 3 × 3 거리 비교';
+ document.querySelector('.caption')!.innerHTML='<span class="overline">같은 한지, 다른 거리</span><h1>아홉 개의 연등.</h1><p>중심 간격 0.9m · 재질과 조명 고정</p>';
+ document.querySelector('footer p')!.innerHTML='드래그하여 회전 · 휠 / 두 손가락으로 확대 <span>실제 중심 간격 0.9m · 동일 재질 9개</span>';
+ canvas.setAttribute('aria-label','같은 한지 연등 아홉 개를 3×3으로 배치한 거리 비교 장면');
+ const near=document.querySelector<HTMLButtonElement>('#closeup')!,far=document.querySelector<HTMLButtonElement>('#reset')!;
+ near.textContent='가까이 · 3×3';far.textContent='멀리 · 3×3';
+ function groupView(distant:boolean){camera.setTarget(new Vector3(0,1.35,0));camera.alpha=-1.15;camera.beta=2.0;camera.radius=distant?12:8;near.setAttribute('aria-pressed',String(!distant));far.setAttribute('aria-pressed',String(distant));}
+ camera.upperRadiusLimit=16;near.onclick=()=>groupView(false);far.onclick=()=>groupView(true);groupView(false);
+ document.body.classList.add('closeup');
+}
