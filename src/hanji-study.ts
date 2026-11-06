@@ -17,7 +17,7 @@ import { LANTERN_PALETTE } from './contracts.ts';
 
 const root=document.querySelector<HTMLDivElement>('#app')!;
 root.innerHTML=`<canvas id="study" aria-label="팔각 한지 연등 한 개. 드래그로 회전, 휠로 확대." tabindex="0"></canvas>
-<header><a href="/">사사 <small>SASA</small></a><span>한지 연등 · 재질 검수 04</span></header>
+<header><a href="/">사사 <small>SASA</small></a><span>한지 연등 · 재질 검수 05</span></header>
 <section class="caption"><span class="overline">종이 사이로 스며드는 빛</span><h1>한 장의 한지,<br>하나의 연등.</h1><p>섬유의 결, 접힌 자국, 빛이 스미는 얇은 면을<br>가까이 돌려보며 확인하세요.</p></section>
 <div id="loading">한지 연등을 준비하고 있어요…</div>
 <footer><div class="controls"><div class="light-buttons" aria-label="조명"><button data-light="day" aria-pressed="true">낮 · 은은한 점등</button><button data-light="night" aria-pressed="false">밤 · 밝은 점등</button></div><div class="swatches" aria-label="연등 색상">${['그린','핑크','블루','옐로우','레드'].map((n,i)=>`<button aria-label="${n}" data-color="${i}" aria-pressed="${i===4}" style="--swatch:${LANTERN_PALETTE[i]}"></button>`).join('')}</div><button id="lamp" aria-pressed="true">내부 등 켜짐</button><button id="closeup">한지 가까이</button><button id="reset">전체 보기</button></div><p>드래그하여 회전 · 휠 / 두 손가락으로 확대 <span>실시간 3D · 검토용 시안</span></p></footer>`;
@@ -64,7 +64,7 @@ void main(){
  float key=max(dot(n,normalize(vec3(-.6,.8,-.7))),0.);
  vec3 exterior=dye*(.24+.60*key)*mix(.88,1.08,fibrePattern)*mix(1.,.055,night);
  vec3 warmBulb=vec3(1.,.83,.57);
- vec3 interior=warmBulb*transmitted*irradiance*forwardLobe*sourceShadow*mix(.45,3.6,night)*lampOn;
+ vec3 interior=warmBulb*transmitted*irradiance*forwardLobe*sourceShadow*mix(.65,5.2,night)*lampOn;
  // Per-channel absorption reveals a warm core through thin paper, dyed edges and dark ribs.
  vec3 color=exterior+interior;color=color/(vec3(1.)+color);
 
