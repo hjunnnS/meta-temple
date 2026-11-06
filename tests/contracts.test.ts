@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { lanternSlots, OWNED_INDICES, zones } from '../src/contracts.ts';
+import { frameSummary, Measurement } from '../src/metrics.ts';
+test('density changes preserve existing slot identities and positions',()=>{const low=lanternSlots(100),high=lanternSlots(1000);assert.deepEqual(low,high.slice(0,100));assert.equal(new Set(high.map(x=>x.id)).size,1000);for(const i of OWNED_INDICES)assert.deepEqual(low[i],high[i]);});
+test('reject malformed density rather than moving or dropping slots',()=>{for(const n of [-1,0,1001,1.5,NaN])assert.throws(()=>lanternSlots(n));});
+test('all 12 planned spaces have unique identifiers and valid extents',()=>{assert.equal(zones.length,12);assert.equal(new Set(zones.map(z=>z.id)).size,12);assert.ok(zones.every(z=>z.center.every(Number.isFinite)&&z.size.every(n=>n>0)));});
+test('frame aggregation uses elapsed time and worst 1% frame durations',()=>{const s=frameSummary([...Array(99).fill(10),100])!;assert.ok(Math.abs(s.meanFps-100000/1090)<.001);assert.equal(s.onePercentLowFps,10);assert.equal(s.maxFrameMs,100);assert.equal(frameSummary([]),null);});
+test('a suspended or changed run is invalid and cannot collect more frames',()=>{const m=new Measurement();m.start(0);m.frame(16);m.invalidate('hidden');m.frame(100);assert.equal(m.frames.length,1);assert.equal(m.report().valid,false);assert.equal(m.report().invalidReason,'hidden');});
+test('changing settings after stop invalidates old measurement and preserves duration',()=>{const m=new Measurement();m.start(0);m.frame(20);const a=m.stop();const b=m.report();assert.equal(a.elapsedSeconds,b.elapsedSeconds);m.invalidate('quality changed');assert.equal(m.report().valid,false);assert.equal(m.report().elapsedSeconds,b.elapsedSeconds);});
