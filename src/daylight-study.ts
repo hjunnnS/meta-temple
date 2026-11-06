@@ -17,7 +17,7 @@ import '@babylonjs/core/Shaders/ShadersInclude/instancesDeclaration';
 import '@babylonjs/core/Shaders/ShadersInclude/instancesVertex';
 
 // Isolated daytime reference study. No temple slots, palette or night materials are mutated.
-document.querySelector<HTMLDivElement>('#app')!.innerHTML=`<canvas id="daylight" aria-label="촘촘한 팔각 연등 아래의 낮 비교 장면. 드래그로 둘러보기." tabindex="0"></canvas><header><a href="/">사사</a><span>햇살 아래 연등 · 비교 01</span></header><div id="loading">햇살 아래 연등을 준비하고 있어요…</div><footer><nav aria-label="비교 장면"><button id="wide" aria-pressed="true">연등 아래</button><button id="close" aria-pressed="false">한지 가까이</button><button id="transmit" aria-pressed="true">햇빛 투과 켜짐</button></nav><p>드래그로 둘러보기 · 내부 전구를 끈 낮 장면</p></footer>`;
+document.querySelector<HTMLDivElement>('#app')!.innerHTML=`<canvas id="daylight" aria-label="촘촘한 팔각 연등 아래의 낮 비교 장면. 드래그로 둘러보기." tabindex="0"></canvas><header><a href="/">사사</a><span>햇살 아래 연등 · 비교 02</span></header><div id="loading">햇살 아래 연등을 준비하고 있어요…</div><footer><nav aria-label="비교 장면"><button id="wide" aria-pressed="true">연등 아래</button><button id="close" aria-pressed="false">한지 가까이</button><button id="transmit" aria-pressed="true">햇빛 투과 켜짐</button></nav><p>드래그로 둘러보기 · 내부 전구를 끈 낮 장면</p></footer>`;
 const canvas=document.querySelector<HTMLCanvasElement>('#daylight')!;
 const engine=new Engine(canvas,true,{preserveDrawingBuffer:true});
 const scene=new Scene(engine);scene.clearColor=new Color4(.71,.86,.94,1);
@@ -45,24 +45,27 @@ void main(){
  float seam=1.-smoothstep(.008-edgeAA,.035+edgeAA,edge);
  float hoop=abs(fract(vUV.y*13.+.5)-.5);
  float hoopAA=max(.003,fwidth(vUV.y)*13.*.7);
- float rib=mix(.55,1.,smoothstep(.009-hoopAA,.045+hoopAA,hoop));
+ float rib=mix(.28,1.,smoothstep(.009-hoopAA,.045+hoopAA,hoop));
  float fold=min(abs(vUV.y-.22),abs(vUV.y-.78));
- rib*=mix(.66,1.,smoothstep(.003,.018,fold));
- float density=mix(.9,.35,airy)+.55*seam;
- vec3 toSun=normalize(vec3(.35,.95,-.22));
+ rib*=mix(.43,1.,smoothstep(.003,.018,fold));
+ float density=mix(1.05,.30,airy)+1.1*seam;
+ vec3 toSun=normalize(vec3(.8,.60,-.35));
  float front=max(dot(n,toSun),0.);float back=max(dot(-n,toSun),0.);
  // Sun and diffuse sky illuminate the thin sheet from outside, with no internal bulb.
  vec3 absorbed=exp(-(-log(max(dye,vec3(.012)))*.86+vec3(.1))*density);
- vec3 lightColour=mix(dye,absorbed,.30);
- vec3 reflected=dye*(.20+.38*front)*mix(.93,1.02,airy);
- float openSky=.62+.28*max(n.y,0.);
- vec3 transmitted=lightColour*(openSky+.65*back)*exp(-density*.22)*transmission;
- vec3 linear=(reflected+transmitted)*1.15*mix(.55,1.,1.-seam)*rib;
+ vec3 lightColour=mix(dye,absorbed,.055);
+ vec3 reflected=dye*(.12+.62*front)*mix(.85,1.06,airy);
+ float openSky=.26+.20*max(n.y,0.);
+ // Directional sunlight produces bright facets and shaded folds, rather than a uniform wash.
+ float sunPatch=.70+.30*smoothstep(.12,.85,vUV.y);
+ float paperOverlap=mix(.64,1.,smoothstep(.015,.10,edge));
+ vec3 transmitted=lightColour*(openSky+1.45*back*sunPatch)*exp(-density*.38)*paperOverlap*transmission;
+ vec3 linear=(reflected+transmitted)*1.65*mix(.40,1.,1.-seam)*rib;
  // Preserve channel ratios and saturated dye, while retaining brightness differences.
  float peak=max(linear.r,max(linear.g,linear.b));linear/=max(1.,peak/ .94);
  gl_FragColor=vec4(pow(max(linear,0.),vec3(1./2.2)),1.);
 }`;
-const colors=['#00ca69','#ff65a5','#0756ee','#ffbe0c','#f62529'];
+const colors=['#00c64e','#ff398a','#0345ef','#ffb900','#f51220'];
 const materials=colors.map((c,i)=>{const m=new ShaderMaterial(`sunlit-hanji-${i}`,scene,{vertexSource:vertex,fragmentSource:fragment},{attributes:['position','normal','uv'],uniforms:['world','viewProjection','dye','transmission'],samplers:['fibres']});m.backFaceCulling=false;m.setTexture('fibres',fibre);m.setColor3('dye',Color3.FromHexString(c).toLinearSpace());m.setFloat('transmission',1);return m;});
 function radius(v:number){return v<.22?.15+.18*v/.22:v>.78?.15+.18*(1-v)/.22:.33;}
 function lantern(name:string){
