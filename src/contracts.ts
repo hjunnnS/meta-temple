@@ -2,16 +2,19 @@
 export type ProductKind = 'lantern' | 'votive' | 'wish-plaque' | 'memorial';
 export type Vec3 = readonly [number, number, number];
 export interface Slot { id: string; zoneId: string; position: Vec3; rotationY: number; accepts: ProductKind }
-export const SCENE_VERSION = 'm1-slice-003';
+export const SCENE_VERSION = 'm1-slice-004';
 export const SAMPLE_OWNER = 'sample-owner-a';
 export function lanternSlots(count: number): Slot[] {
   if (!Number.isInteger(count) || count < 1 || count > 1000) throw new Error('Invalid density');
+  // 004 intentionally rotates SAMPLE layout into front-to-back rows (no purchased data).
   // Identity and position depend on the index only, never quality or selected density.
   return Array.from({length: count}, (_, i) => {
     const reverse5 = (n: number) => ((n&1)<<4)|((n&2)<<2)|(n&4)|((n&8)>>2)|((n&16)>>4);
-    const row = reverse5(Math.floor(i / 32)), col = reverse5(i % 32);
+    const firstColumns = [9,13,18,22];
+    const columns = [...firstColumns,...Array.from({length:32},(_,n)=>reverse5(n)).filter(n=>!firstColumns.includes(n))];
+    const row = reverse5(i % 32), col = columns[Math.floor(i / 32)];
     return { id: `sample:Z02:lantern:${String(i).padStart(4,'0')}`, zoneId: 'Z02',
-      position: [(col - 15.5)*0.9, 5.8 - 0.45*(1-Math.abs(col-15.5)/15.5), -28 + row*0.9] as Vec3,
+      position: [(col - 15.5)*0.9, 5.8 - 0.45*(1-Math.abs(row-15.5)/15.5), -28 + row*0.9] as Vec3,
       rotationY: 0, accepts: 'lantern' as const };
   });
 }
