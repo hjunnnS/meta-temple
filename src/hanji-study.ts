@@ -17,7 +17,7 @@ import { LANTERN_PALETTE } from './contracts.ts';
 
 const root=document.querySelector<HTMLDivElement>('#app')!;
 root.innerHTML=`<canvas id="study" aria-label="팔각 한지 연등 한 개. 드래그로 회전, 휠로 확대." tabindex="0"></canvas>
-<header><a href="/">사사 <small>SASA</small></a><span>한지 연등 · 재질 검수 03</span></header>
+<header><a href="/">사사 <small>SASA</small></a><span>한지 연등 · 재질 검수 04</span></header>
 <section class="caption"><span class="overline">종이 사이로 스며드는 빛</span><h1>한 장의 한지,<br>하나의 연등.</h1><p>섬유의 결, 접힌 자국, 빛이 스미는 얇은 면을<br>가까이 돌려보며 확인하세요.</p></section>
 <div id="loading">한지 연등을 준비하고 있어요…</div>
 <footer><div class="controls"><div class="light-buttons" aria-label="조명"><button data-light="day" aria-pressed="true">낮 · 은은한 점등</button><button data-light="night" aria-pressed="false">밤 · 밝은 점등</button></div><div class="swatches" aria-label="연등 색상">${['그린','핑크','블루','옐로우','레드'].map((n,i)=>`<button aria-label="${n}" data-color="${i}" aria-pressed="${i===4}" style="--swatch:${LANTERN_PALETTE[i]}"></button>`).join('')}</div><button id="lamp" aria-pressed="true">내부 등 켜짐</button><button id="closeup">한지 가까이</button><button id="reset">전체 보기</button></div><p>드래그하여 회전 · 휠 / 두 손가락으로 확대 <span>실시간 3D · 검토용 시안</span></p></footer>`;
@@ -73,8 +73,13 @@ void main(){
 const paper=new ShaderMaterial('hanji-transmission',scene,{vertexSource:vertex,fragmentSource:fragment},{attributes:['position','normal','uv'],uniforms:['world','worldViewProjection','dye','night','lampOn','eye'],samplers:['paper']});paper.backFaceCulling=false;paper.setTexture('paper',fibre);paper.setColor3('dye',Color3.FromHexString(LANTERN_PALETTE[4]).toLinearSpace());paper.setFloat('night',0);paper.setFloat('lampOn',1);paper.setVector3('eye',camera.position);
 const frame=new StandardMaterial('interior-bamboo',scene);frame.diffuseColor=Color3.FromHexString('#785840');frame.specularColor=Color3.Black();
 const edgePaper=new StandardMaterial('paper-fold-edge',scene);edgePaper.diffuseColor=Color3.FromHexString('#9a302b');edgePaper.specularColor=Color3.Black();
-function radiusAt(v:number){return .135+.295*Math.pow(Math.sin(Math.PI*v),.62);}
-// Eight continuous bowed ribs: no rigid upper/middle/lower box panels.
+// Octagonal prism with folded shoulders; only the paper has small tension wrinkles.
+function radiusAt(v:number){
+ if(v<.22)return .21+(.43-.21)*(v/.22);
+ if(v>.78)return .21+(.43-.21)*((1-v)/.22);
+ return .43;
+}
+// Eight flat-sided paper panels on slender ribs, with angular upper/lower shoulders.
 for(let face=0;face<8;face++){
  const a0=face*Math.PI/4,a1=(face+1)*Math.PI/4;const positions:number[]=[],uvs:number[]=[],indices:number[]=[];const U=40,V=100;
  for(let j=0;j<=V;j++)for(let i=0;i<=U;i++){
@@ -89,8 +94,8 @@ for(let face=0;face<8;face++){
  const mesh=new Mesh(`thin-hanji-panel-${face}`,scene),data=new VertexData(),normals:number[]=[];VertexData.ComputeNormals(positions,indices,normals);data.positions=positions;data.indices=indices;data.normals=normals;data.uvs=uvs;data.applyToMesh(mesh);mesh.material=paper;
 }
 for(let k=0;k<8;k++){
- const a=k*Math.PI/4;const path=Array.from({length:65},(_,j)=>{const v=j/64,r=radiusAt(v)-.002;return new Vector3(Math.sin(a)*r,.89+v*.92,Math.cos(a)*r);});
- const rib=MeshBuilder.CreateTube('bowed-inner-rib',{path,radius:.0013,tessellation:6},scene);rib.material=frame;
+ const a=k*Math.PI/4;const path=Array.from({length:101},(_,j)=>{const v=j/100,r=radiusAt(v)-.002;return new Vector3(Math.sin(a)*r,.89+v*.92,Math.cos(a)*r);});
+ const rib=MeshBuilder.CreateTube('octagonal-inner-rib',{path,radius:.0013,tessellation:6},scene);rib.material=frame;
 }
 for(const v of [0,1]){const r=radiusAt(v);const points=Array.from({length:9},(_,k)=>new Vector3(Math.sin(k*Math.PI/4)*r,.89+v*.92,Math.cos(k*Math.PI/4)*r));const hoop=MeshBuilder.CreateTube('thin-opening-rim',{path:points,radius:.0011,tessellation:6},scene);hoop.material=edgePaper;}
 const cord=MeshBuilder.CreateTube('suspension-cord',{path:[new Vector3(0,1.81,0),new Vector3(0,2.8,0)],radius:.0018,tessellation:8},scene);cord.material=frame;
