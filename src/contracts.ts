@@ -2,7 +2,7 @@
 export type ProductKind = 'lantern' | 'votive' | 'wish-plaque' | 'memorial';
 export type Vec3 = readonly [number, number, number];
 export interface Slot { id: string; zoneId: string; position: Vec3; rotationY: number; accepts: ProductKind }
-export const SCENE_VERSION = 'm1-slice-007';
+export const SCENE_VERSION = 'm1-slice-008';
 export const SAMPLE_OWNER = 'sample-owner-a';
 export function lanternSlots(count: number): Slot[] {
   if (!Number.isInteger(count) || count < 1 || count > 1000) throw new Error('Invalid density');
@@ -51,15 +51,7 @@ export function visibleLanternSlots(count: number): Slot[] {
   return lanternSlots(count).filter(s=>Math.abs(s.position[0])+.5<=7.93 && s.position[2]-.5>=-21.725 && s.position[2]+.5<=1.5);
 }
 
-/** Dense preview adds stable infill slots without relocating any existing/owned slot. */
+/** Spaced canopy keeps original fixed slots, with no between-row infill. */
 export function canopyLanternSlots(count:number):Slot[]{
- const base=visibleLanternSlots(count);
- if(count!==1000)return base;
- const infill:Slot[]=[];
- for(let row=0;row<24;row++)for(let col=0;col<17;col++){
-  const x=-7.2+col*.9,z=-20.35+row*.9;
-  const y=5.8-.45*(1-Math.abs((z+28)/.9-15.5)/15.5);
-  infill.push({id:`sample:Z02:lantern:${1000+row*17+col}`,zoneId:'Z02',position:[x,y,z],rotationY:0,accepts:'lantern'});
- }
- return [...base,...infill];
+ return visibleLanternSlots(count);
 }

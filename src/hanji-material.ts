@@ -63,7 +63,7 @@ void main(){
  float dayKey=max(dot(n,toSun),0.);
  float skyThrough=(.72+.20*max(-n.y,0.))*(skylight/1.1);
  vec3 sunlightThrough=mix(dye,transmitted,.24)*(skyThrough+.48*back*(sunlight/1.4))*sunTint;
- sunlightThrough*=mix(.80,1.08,fibrePattern)*exp(-glued*.45)*fineHoops*fineRibs;
+ sunlightThrough*=1.15*mix(.80,1.08,fibrePattern)*exp(-glued*.45)*fineHoops*fineRibs;
  vec3 reflected=dye*(.24+.60*dayKey)*mix(.88,1.08,fibrePattern)*fineHoops;
  vec3 dayBulb=warmBulb*transmitted*irradiance*.12*fineHoops*fineRibs*lampOn;
  vec3 daylight=reflected+sunlightThrough+dayBulb;

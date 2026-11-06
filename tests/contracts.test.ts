@@ -16,11 +16,11 @@ test('name preview removes control characters and caps Unicode code points',()=>
 
 test('only lanterns wholly over the paved approach render without relocating slots',()=>{for(const count of [100,300,500,1000]){const original=lanternSlots(count);const visible=visibleLanternSlots(count);assert.equal(new Set(visible.map(s=>lanternColourIndex(s.position))).size,5);assert.ok(visible.length>0&&visible.length<count);for(const s of visible){assert.ok(Math.abs(s.position[0])+.5<=7.93);assert.ok(s.position[2]-.5>=-21.725);assert.ok(s.position[2]+.5<=1.5);assert.deepEqual(s,original.find(x=>x.id===s.id));}for(const i of OWNED_INDICES)assert.ok(visible.some(s=>s.id===original[i].id));}});
 
-test('dense canopy fills the approach while preserving all existing slots and band colors',()=>{
+test('spaced canopy preserves owned positions and small light gaps',()=>{
  const base=visibleLanternSlots(1000),dense=canopyLanternSlots(1000);
- assert.ok(dense.length>750);assert.equal(new Set(dense.map(s=>s.id)).size,dense.length);
+ assert.equal(dense.length,384);assert.equal(new Set(dense.map(s=>s.id)).size,dense.length);
  for(const slot of base)assert.deepEqual(dense.find(s=>s.id===slot.id),slot);
  for(const slot of dense){const [x,,z]=slot.position;assert.ok(Math.abs(x)+.5<=7.93);assert.ok(z-.5>=-21.725&&z+.5<=1.5);}
- for(const slot of base){const nearest=Math.min(...dense.filter(s=>s.id!==slot.id).map(s=>Math.hypot(s.position[0]-slot.position[0],s.position[2]-slot.position[2])));assert.ok(nearest<.7);}
+ for(const slot of base){const nearest=Math.min(...dense.filter(s=>s.id!==slot.id).map(s=>Math.hypot(s.position[0]-slot.position[0],s.position[2]-slot.position[2])));assert.ok(nearest>=.899&&nearest<=.901);}
  assert.equal(new Set(dense.map(s=>lanternColourIndex(s.position))).size,5);
 });
