@@ -66,6 +66,21 @@ void main(){
  sunlightThrough*=1.15*mix(.80,1.08,fibrePattern)*exp(-glued*.45)*fineHoops*fineRibs;
  vec3 reflected=dye*(.24+.60*dayKey)*mix(.88,1.08,fibrePattern)*fineHoops;
  vec3 dayBulb=warmBulb*transmitted*irradiance*.12*fineHoops*fineRibs*lampOn;
+   // A second fibre scale varies sheet thickness rather than painting dark surface dirt.
+   float coarse=dot(texture2D(paper,texUV*.37+vec2(.19,.27)).rgb,vec3(.299,.587,.114));
+   float pulpThickness=clamp((.98-coarse)*5.,0.,1.);
+   float sheetThickness=mix(.98,.28,fibrePattern)+.18*(pulpThickness-.5);
+   float opening=min(vUV.y,1.-vUV.y);
+   float thinEdge=1.-smoothstep(.003,.025,opening);
+   float overlap=1.-smoothstep(.010,.048,seam);
+   float crease=min(abs(vUV.y-.22),abs(vUV.y-.78));
+   float folded=1.-smoothstep(.002,.018,crease);
+   sheetThickness=max(.16,sheetThickness-.18*thinEdge)+.65*overlap+.16*folded;
+   vec3 sheetTransmission=exp(-absorption*sheetThickness);
+   // Preserve the existing light budget and dye; redistribute it through the sheet.
+   vec3 transmissionRatio=clamp(sheetTransmission/max(transmitted,vec3(.01)),vec3(.55),vec3(1.38));
+   sunlightThrough*=transmissionRatio*exp((.60-sheetThickness)*.32);
+   dayBulb*=transmissionRatio;
  vec3 daylight=reflected+sunlightThrough+dayBulb;
  vec3 dayColor=daylight/(vec3(1.)+daylight);
  vec3 color=mix(dayColor,nightColor,night);
