@@ -20,7 +20,7 @@ void main(){
 }`;
 const fragment=`precision highp float;
 varying vec3 vPosition;varying vec3 vNormal;varying vec2 vUV;varying vec3 vRay;varying float vDistance;
-uniform sampler2D paper;uniform vec3 dye;uniform float night;uniform float lampOn;uniform vec3 eye;uniform float panels;uniform vec3 sunDirection;uniform vec3 sunTint;uniform float sunlight;uniform float skylight;
+uniform sampler2D paper;uniform vec3 dye;uniform float night;uniform float lampOn;uniform vec3 eye;uniform float panels;uniform float ownedLight;uniform vec3 sunDirection;uniform vec3 sunTint;uniform float sunlight;uniform float skylight;
 void main(){
  vec3 n=normalize(vNormal);if(!gl_FrontFacing)n=-n;
  vec2 paperUV=vec2(fract(vUV.x*panels),vUV.y);
@@ -52,7 +52,7 @@ void main(){
  vec3 warmBulb=vec3(1.,.83,.57);
  vec3 interior=warmBulb*transmitted*irradiance*forwardLobe*sourceShadow*mix(.65,5.2,night)*lampOn;
  // Per-channel absorption reveals a warm core through thin paper, dyed edges and dark ribs.
- vec3 nightColor=exterior+interior;nightColor=nightColor/(vec3(1.)+nightColor);
+ vec3 nightColor=exterior+interior+ownedLight*mix(dye,transmitted,.45)*.7*sourceShadow;nightColor=nightColor/(vec3(1.)+nightColor);
  // Approved single-lantern daylight: fine ribs and broad dyed-paper transmission.
  float closeHoop=abs(fract(vUV.y*34.+.5)-.5);
  float aa=max(.002,fwidth(vUV.y)*34.*.6);
@@ -81,7 +81,7 @@ void main(){
    vec3 transmissionRatio=clamp(sheetTransmission/max(transmitted,vec3(.01)),vec3(.55),vec3(1.38));
    sunlightThrough*=transmissionRatio*exp((.60-sheetThickness)*.32);
    dayBulb*=transmissionRatio;
- vec3 daylight=reflected+sunlightThrough+dayBulb;
+ vec3 daylight=reflected+sunlightThrough+dayBulb+ownedLight*mix(dye,sheetTransmission,.45)*1.8*fineHoops*fineRibs;
  vec3 dayColor=daylight/(vec3(1.)+daylight);
  vec3 color=mix(dayColor,nightColor,night);
 
@@ -89,6 +89,6 @@ void main(){
 }`;
 export function createHanjiMaterial(scene:Scene,name:string,hex:string,panels=1,center=new Vector3(.035,.03,-.025),texture?:Texture){
  const fibre=texture??new Texture('/textures/hanji-fibres-generated-v1.png',scene);fibre.anisotropicFilteringLevel=16;
- const paper=new ShaderMaterial(name,scene,{vertexSource:vertex,fragmentSource:fragment},{attributes:['position','normal','uv'],uniforms:['world','viewProjection','dye','night','lampOn','eye','lampCenter','panels','sunDirection','sunTint','sunlight','skylight'],samplers:['paper']});
- paper.setVector3('sunDirection',new Vector3(-.65,-.95,.45));paper.setColor3('sunTint',Color3.White());paper.setFloat('sunlight',1.4);paper.setFloat('skylight',1.1);paper.backFaceCulling=false;paper.setTexture('paper',fibre);paper.setColor3('dye',Color3.FromHexString(hex).toLinearSpace());paper.setFloat('night',0);paper.setFloat('lampOn',1);paper.setFloat('panels',panels);paper.setVector3('lampCenter',center);paper.setVector3('eye',scene.activeCamera?.position??Vector3.Zero());return paper;
+ const paper=new ShaderMaterial(name,scene,{vertexSource:vertex,fragmentSource:fragment},{attributes:['position','normal','uv'],uniforms:['world','viewProjection','dye','night','lampOn','eye','lampCenter','panels','ownedLight','sunDirection','sunTint','sunlight','skylight'],samplers:['paper']});
+ paper.setVector3('sunDirection',new Vector3(-.65,-.95,.45));paper.setColor3('sunTint',Color3.White());paper.setFloat('sunlight',1.4);paper.setFloat('skylight',1.1);paper.setFloat('ownedLight',0);paper.backFaceCulling=false;paper.setTexture('paper',fibre);paper.setColor3('dye',Color3.FromHexString(hex).toLinearSpace());paper.setFloat('night',0);paper.setFloat('lampOn',1);paper.setFloat('panels',panels);paper.setVector3('lampCenter',center);paper.setVector3('eye',scene.activeCamera?.position??Vector3.Zero());return paper;
 }
