@@ -9,6 +9,8 @@ import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
+import { ImageProcessingConfiguration } from '@babylonjs/core/Materials/imageProcessingConfiguration';
+import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture';
@@ -17,15 +19,27 @@ import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator'
 import { GlowLayer } from '@babylonjs/core/Layers/glowLayer';
 import '@babylonjs/core/Meshes/thinInstanceMesh';
 import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
-import { lanternSlots, OWNED_INDICES } from './contracts.ts';
+import { lanternSlots, OWNED_INDICES, LANTERN_PALETTE, lanternColourIndex, normalizeLanternName } from './contracts.ts';
 export type TimeOfDay = 'day' | 'dusk' | 'night';
 export type Quality = 'high' | 'low';
 export function createTemple(canvas:HTMLCanvasElement) {
  const engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},false);
  const scene=new Scene(engine); scene.imageProcessingConfiguration.toneMappingEnabled=true;scene.imageProcessingConfiguration.toneMappingType=1;scene.imageProcessingConfiguration.exposure=1.3;scene.imageProcessingConfiguration.contrast=1.12; scene.clearColor=new Color4(.64,.7,.68,1);
  scene.fogMode=Scene.FOGMODE_EXP2;scene.fogDensity=.0025;scene.fogColor=new Color3(.64,.7,.68);
+ const skyTexture=new DynamicTexture('sunlit-sky',{width:2048,height:1024},scene,false);
+ const skyMaterial=new StandardMaterial('sky-gradient',scene);skyMaterial.disableLighting=true;skyMaterial.emissiveTexture=skyTexture;skyMaterial.diffuseColor=Color3.Black();skyMaterial.fogEnabled=false;skyMaterial.imageProcessingConfiguration=new ImageProcessingConfiguration();
+ const skyDome=MeshBuilder.CreateSphere('open-sky',{diameter:300,segments:32,sideOrientation:Mesh.BACKSIDE},scene);skyDome.material=skyMaterial;skyDome.infiniteDistance=true;skyDome.isPickable=false;
+ function paintSky(value:TimeOfDay){
+  const c=skyTexture.getContext() as CanvasRenderingContext2D;const g=c.createLinearGradient(0,0,0,1024);
+  const shades=value==='day'?['#e5f7ff','#8ed2ff','#218de9']:value==='dusk'?['#ffe2bd','#b7cde9','#6483b9']:['#121c35','#101d38','#081025'];
+  g.addColorStop(0,shades[0]);g.addColorStop(.48,shades[1]);g.addColorStop(1,shades[2]);c.fillStyle=g;c.fillRect(0,0,2048,1024);
+  if(value!=='night')for(let cluster=0;cluster<12;cluster++)for(let puff=0;puff<8;puff++){
+   const x=(cluster*181+puff*23)%2048,y=510+(cluster%3)*72+Math.sin(puff)*18;const cloud=c.createRadialGradient(x,y,3,x,y,50);cloud.addColorStop(0,'rgba(255,255,255,.23)');cloud.addColorStop(1,'rgba(255,255,255,0)');c.fillStyle=cloud;c.fillRect(x-50,y-50,100,100);
+  }
+  skyTexture.update();
+ }
  const camera=new ArcRotateCamera('camera',-Math.PI*.67,Math.PI*.37,36,new Vector3(0,3,2),scene);
- camera.lowerRadiusLimit=5;camera.upperRadiusLimit=65;camera.upperBetaLimit=Math.PI*.49;camera.lowerBetaLimit=.15;
+ camera.lowerRadiusLimit=2.5;camera.upperRadiusLimit=65;camera.upperBetaLimit=2.15;camera.lowerBetaLimit=.15;
  camera.minZ=.1;camera.wheelPrecision=18;camera.panningSensibility=70;camera.attachControl(canvas,true);
  const hemi=new HemisphericLight('sky',new Vector3(0,1,0),scene);hemi.intensity=.8;hemi.groundColor=new Color3(.22,.27,.24);
  const sun=new DirectionalLight('sun',new Vector3(-.45,-.85,.45),scene);sun.position=new Vector3(20,35,-20);sun.intensity=1.6;
@@ -148,21 +162,36 @@ export function createTemple(canvas:HTMLCanvasElement) {
  const grouped=new Map<StandardMaterial,Mesh[]>();for(const a of staticMeshes){const m=a.material as StandardMaterial;if(!grouped.has(m))grouped.set(m,[]);grouped.get(m)!.push(a);}
  shadows.getShadowMap()!.renderList=[];
  for(const [m,list] of grouped){const merged=Mesh.MergeMeshes(list,true,true,undefined,false,false);if(merged){merged.name=`architecture-${m.name}`;merged.receiveShadows=true;shadows.addShadowCaster(merged);merged.freezeWorldMatrix();}}
- const palette=['#ec244d','#ffb817','#04aa94','#ff5c23','#e03c8c'];
- const lanternMaterials=palette.map((c,i)=>mat(`paper-lantern-${i}`,c,.10));
- const ownedMat=mat('my-lantern','#d99d40',.20);for(const m of [...lanternMaterials,ownedMat]){m.backFaceCulling=false;m.maxSimultaneousLights=2;m.specularColor=Color3.Black();}
+ const palette=LANTERN_PALETTE;
+ function paperMaterial(name:string,hex:string){
+  const m=new PBRMaterial(name,scene);m.albedoColor=Color3.FromHexString(hex).toLinearSpace();m.metallic=0;m.roughness=.94;m.backFaceCulling=false;m.twoSidedLighting=true;
+  m.subSurface.isTranslucencyEnabled=true;m.subSurface.translucencyIntensity=.38;m.subSurface.minimumThickness=0;m.subSurface.maximumThickness=.035;m.subSurface.tintColor=m.albedoColor;
+  m.emissiveColor=m.albedoColor.scale(.12);return m;
+ }
+ const lanternMaterials=palette.map((c,i)=>paperMaterial(`thin-dyed-paper-${i}`,c));
+ const ownedMaterials=palette.map((c,i)=>paperMaterial(`owned-thin-paper-${i}`,c));
  const haloMat=mat('ownership-light','#ffcb65',1.2);haloMat.disableLighting=true;
  const bulbMat=mat('warm-pin-lights','#e8bb74',.4);bulbMat.disableLighting=true;
- const lanternTexture=new DynamicTexture('original-lantern-paper',{width:256,height:128},scene,false);
- const lc=lanternTexture.getContext() as CanvasRenderingContext2D;lc.fillStyle='#ffffff';lc.fillRect(0,0,256,128);
- lc.strokeStyle='#a28356';lc.lineWidth=.6;for(let x=0;x<256;x+=16){lc.beginPath();lc.moveTo(x,0);lc.lineTo(x,128);lc.stroke();}
- for(let x=32;x<256;x+=64){lc.strokeStyle='#aa9a7e';lc.lineWidth=1.2;for(let k=0;k<5;k++){lc.beginPath();lc.ellipse(x+(k-2)*4,76-Math.abs(k-2)*2,5,13,(k-2)*.32,0,Math.PI*2);lc.stroke();}}
- lanternTexture.update();for(const m of [...lanternMaterials,ownedMat]){m.diffuseTexture=lanternTexture;}
-
- let lanternRoot=new TransformNode('lantern-samples',scene),selected=23,density=100;
+ const bamboo=mat('fine-bamboo-frame','#9a6844');bamboo.specularColor=Color3.Black();
+ const lanternTexture=new DynamicTexture('thin-paper-fibres',{width:512,height:512},scene,true);
+ const lc=lanternTexture.getContext() as CanvasRenderingContext2D;lc.fillStyle='#faf7ef';lc.fillRect(0,0,512,512);
+ // Fine translucent fibres and gentle creases, not dark printed lotus motifs.
+ for(let i=0;i<10000;i++){const x=(i*97)%512,y=(i*193)%512;lc.strokeStyle=i%3?'rgba(145,127,109,.035)':'rgba(255,255,255,.10)';lc.lineWidth=.4;lc.beginPath();lc.moveTo(x,y);lc.lineTo(x+Math.sin(i)*3,y+2+i%7);lc.stroke();}
+ for(let x=0;x<512;x+=32){const g=lc.createLinearGradient(x,0,x+10,0);g.addColorStop(0,'rgba(139,120,97,.10)');g.addColorStop(1,'rgba(255,255,255,0)');lc.fillStyle=g;lc.fillRect(x,0,10,512);}
+ lanternTexture.update();for(const m of [...lanternMaterials,...ownedMaterials]){m.albedoTexture=lanternTexture;m.emissiveTexture=lanternTexture;}
+ const names=new Map<number,string>();const tagTextures=new Map<number,DynamicTexture>();
+ function drawTag(texture:DynamicTexture,name:string){
+  const c=texture.getContext() as CanvasRenderingContext2D;c.fillStyle='#fff9e8';c.fillRect(0,0,160,640);c.strokeStyle='#b84438';c.lineWidth=3;c.strokeRect(10,10,140,620);c.fillStyle='#ad4536';c.font='20px serif';c.textAlign='center';c.fillText('발 원',80,53);
+  const chars=Array.from(name||'이름');const size=Math.min(55,420/Math.max(1,chars.length));c.fillStyle='#352c25';c.font=`${size}px serif`;chars.forEach((ch,i)=>c.fillText(ch,80,130+i*(size+5)));c.font='20px serif';c.fillStyle='#8a7764';c.fillText('사 사',80,604);texture.update();
+ }
+ function setName(value:string){const name=normalizeLanternName(value);names.set(selected,name);const t=tagTextures.get(selected);if(t)drawTag(t,name);return name;}
+ const genericTagTexture=new DynamicTexture('sample-name-tag',{width:160,height:640},scene,true);drawTag(genericTagTexture,'소원성취');
+ const genericTagMat=mat('unowned-name-paper','#ffffff',.12);genericTagMat.diffuseTexture=genericTagTexture;genericTagMat.backFaceCulling=false;
+ let lanternRoot=new TransformNode('lantern-samples',scene),selected=23,density=300;
  let ownerBodies:Mesh[]=[];let ownerHalos:Mesh[]=[];let sparkles:{mesh:Mesh,center:Vector3,phase:number}[]=[];let marker:Mesh|null=null;
  function rebuildLanterns(count:number){
   for(const mesh of lanternRoot.getChildMeshes())glow.removeIncludedOnlyMesh(mesh as Mesh);
+  for(const mesh of lanternRoot.getChildMeshes())if(mesh.name.startsWith('owned-tag'))mesh.material?.dispose(false,true);tagTextures.clear();
   lanternRoot.dispose(false);lanternRoot=new TransformNode('lantern-samples',scene);ownerBodies=[];ownerHalos=[];sparkles=[];density=count;
   const slots=lanternSlots(count),buckets=Array.from({length:15},()=>[] as Matrix[]);
   function body(name:string,type:number){
@@ -179,7 +208,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   }
   for(const [i,s] of slots.entries()){
    const p=Vector3.FromArray([...s.position]);const isOwn=(OWNED_INDICES as readonly number[]).includes(i);const type=i%3;
-   if(isOwn){const a=body(`owned-${i}`,type);a.position=p;a.material=ownedMat;a.parent=lanternRoot;ownerBodies.push(a);}else buckets[(Math.floor(i/3)%5)*3+type].push(Matrix.Translation(p.x,p.y,p.z));
+   if(isOwn){const a=body(`owned-${i}`,type);a.position=p;a.material=ownedMaterials[lanternColourIndex(s.position)];a.parent=lanternRoot;ownerBodies.push(a);}else buckets[lanternColourIndex(s.position)*3+type].push(Matrix.Translation(p.x,p.y,p.z));
   }
   buckets.forEach((matrices,i)=>{if(!matrices.length)return;const a=body(`lantern-${['round','octagonal','lotus'][i%3]}-${i}`,i%3);a.material=lanternMaterials[Math.floor(i/3)];a.parent=lanternRoot;a.thinInstanceAdd(matrices);});
   for(const owned of ownerBodies){
@@ -188,15 +217,25 @@ export function createTemple(canvas:HTMLCanvasElement) {
   }
   // Eight distinct corners and sloping shoulders, not a cylindrical paper tube.
   const frameParts:Mesh[]=[];
-  for(let k=0;k<8;k++){const a=k*Math.PI/4;const path=[[-.43,.18],[-.22,.395],[.22,.395],[.43,.18]].map(([y,r])=>new Vector3(Math.sin(a)*r,y,Math.cos(a)*r));const rail=MeshBuilder.CreateTube('octagonal-frame-edge',{path,radius:.012,tessellation:5},scene);frameParts.push(rail);}
-  for(const y of [-.22,.22]){const points=Array.from({length:9},(_,k)=>new Vector3(Math.sin(k*Math.PI/4)*.395,y,Math.cos(k*Math.PI/4)*.395));frameParts.push(MeshBuilder.CreateTube('octagonal-frame-rim',{path:points,radius:.014,tessellation:5},scene));}
-  const frame=Mesh.MergeMeshes(frameParts,true,true)!;frame.material=ochre;frame.parent=lanternRoot;frame.thinInstanceAdd(slots.filter((_,i)=>i%3===1).map(s=>Matrix.Translation(...s.position)));
+  for(let k=0;k<8;k++){const a=k*Math.PI/4;const path=[[-.43,.18],[-.22,.395],[.22,.395],[.43,.18]].map(([y,r])=>new Vector3(Math.sin(a)*r,y,Math.cos(a)*r));const rail=MeshBuilder.CreateTube('octagonal-frame-edge',{path,radius:.0035,tessellation:5},scene);frameParts.push(rail);}
+  for(const y of [-.22,.22]){const points=Array.from({length:9},(_,k)=>new Vector3(Math.sin(k*Math.PI/4)*.395,y,Math.cos(k*Math.PI/4)*.395));frameParts.push(MeshBuilder.CreateTube('octagonal-frame-rim',{path:points,radius:.004,tessellation:5},scene));}
+  const frame=Mesh.MergeMeshes(frameParts,true,true)!;frame.material=bamboo;frame.parent=lanternRoot;frame.thinInstanceAdd(slots.filter((_,i)=>i%3===1).map(s=>Matrix.Translation(...s.position)));
   // Gold ribs, pendants and small warm bulbs echo the reference's jewel-like light rhythm.
-  const ribs=MeshBuilder.CreateTorus('lantern-gold-band',{diameter:.74,thickness:.018,tessellation:24},scene);ribs.material=ochre;ribs.parent=lanternRoot;ribs.thinInstanceAdd(slots.filter((_,i)=>i%3===0).map(s=>Matrix.Translation(s.position[0],s.position[1],s.position[2])));
-  const tassel=MeshBuilder.CreateCylinder('silk-tassels',{diameterTop:.045,diameterBottom:.085,height:.32,tessellation:8},scene);tassel.material=ochre;tassel.parent=lanternRoot;tassel.thinInstanceAdd(slots.map(s=>Matrix.Translation(s.position[0],s.position[1]-.66,s.position[2])));
+  const ribs=MeshBuilder.CreateTorus('lantern-gold-band',{diameter:.74,thickness:.004,tessellation:24},scene);ribs.material=bamboo;ribs.parent=lanternRoot;ribs.thinInstanceAdd(slots.filter((_,i)=>i%3===0).map(s=>Matrix.Translation(s.position[0],s.position[1],s.position[2])));
+  // Thin, hanging paper name slips, with editable samples on owned fixtures only.
+  const genericTags:Matrix[]=[];
+  for(const [i,s] of slots.entries()){
+   const p=Vector3.FromArray([...s.position]);const string=MeshBuilder.CreateLines('tag-thread',{points:[p.add(new Vector3(0,-.43,0)),p.add(new Vector3(0,-.64,0))]},scene);string.color=new Color3(.56,.43,.31);string.parent=lanternRoot;
+   if((OWNED_INDICES as readonly number[]).includes(i)){
+    const texture=new DynamicTexture(`name-tag-${i}`,{width:160,height:640},scene,true);drawTag(texture,names.get(i)||'이름');tagTextures.set(i,texture);
+    const material=mat(`tag-paper-${i}`,'#ffffff',.12);material.diffuseTexture=texture;material.backFaceCulling=false;
+    const tag=MeshBuilder.CreatePlane(`owned-tag-${i}`,{width:.21,height:.76,sideOrientation:Mesh.DOUBLESIDE},scene);tag.position=p.add(new Vector3(0,-1.02,0));tag.material=material;tag.parent=lanternRoot;tag.billboardMode=Mesh.BILLBOARDMODE_Y;
+   }else genericTags.push(Matrix.Translation(p.x,p.y-1.02,p.z));
+  }
+  const tags=MeshBuilder.CreatePlane('sample-tags',{width:.21,height:.76,sideOrientation:Mesh.DOUBLESIDE},scene);tags.material=genericTagMat;tags.parent=lanternRoot;tags.thinInstanceAdd(genericTags);
   const bulb=MeshBuilder.CreateSphere('canopy-fairy-lights',{diameter:.065,segments:6},scene);bulb.material=bulbMat;bulb.parent=lanternRoot;bulb.thinInstanceAdd(slots.map(s=>Matrix.Translation(s.position[0]+.3,s.position[1]+.65,s.position[2])));glow.addIncludedOnlyMesh(bulb);
   const all=slots.map(s=>Matrix.Translation(s.position[0],s.position[1]-.43,s.position[2]));
-  const cap=MeshBuilder.CreateCylinder('caps',{height:.12,diameter:.26,tessellation:8},scene);cap.material=ochre;cap.parent=lanternRoot;cap.thinInstanceAdd(all);
+  const cap=MeshBuilder.CreateCylinder('caps',{height:.018,diameter:.13,tessellation:8},scene);cap.material=bamboo;cap.parent=lanternRoot;cap.thinInstanceAdd(all);
   const top=cap.clone('tops')!;top.parent=lanternRoot;top.thinInstanceSetBuffer('matrix',null);top.thinInstanceAdd(slots.map(s=>Matrix.Translation(s.position[0],s.position[1]+.43,s.position[2])));
   for(const x of new Set(slots.map(s=>s.position[0]))){const path=Array.from({length:33},(_,c)=>{const z=-28+c*.9;return new Vector3(x,6.25-.45*(1-Math.abs(c-15.5)/15.5),z);});const line=MeshBuilder.CreateLines('longitudinal-canopy-string',{points:path},scene);line.color=new Color3(.16,.14,.11);line.parent=lanternRoot;}
   for(const s of slots){const p=Vector3.FromArray([...s.position]);const line=MeshBuilder.CreateLines('suspension',{points:[p.add(new Vector3(0,.43,0)),p.add(new Vector3(0,.9,0))]},scene);line.color=new Color3(.25,.2,.12);line.parent=lanternRoot;}
@@ -205,16 +244,17 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  function setSelected(index:number){selected=index;if(marker){const p=lanternSlots(1000)[index].position;marker.position.set(p[0],p[1]-.65,p[2]);}}
  let reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
- let currentTime:TimeOfDay='dusk';let quality:Quality='high';
- function time(value:TimeOfDay){currentTime=value;for(const m of lanternMaterials)m.emissiveColor=m.diffuseColor.scale(value==='night'?.25:.10);const skies={day:'#6c9ac5',dusk:'#354865',night:'#080f24'};const c=Color3.FromHexString(skies[value]);scene.clearColor=new Color4(c.r,c.g,c.b,1);scene.fogColor=c;hemi.intensity=value==='night'?.35:value==='dusk'?.95:1.1;hemi.diffuse=Color3.FromHexString('#b9d5ff');sun.intensity=value==='day'?1.3:value==='dusk'?1.1:.25;sun.diffuse=Color3.FromHexString(value==='day'?'#fff3db':value==='dusk'?'#ffc17b':'#c1d5ec');sun.direction=new Vector3(-.65,value==='day'?-.95:-.5,.45);glow.intensity=value==='night'?.65:value==='dusk'?.5:.4;paper.emissiveColor=paper.diffuseColor.scale(value==='night'?.08:value==='dusk'?.025:0);}
+ let currentTime:TimeOfDay='day';let quality:Quality='high';
+ function time(value:TimeOfDay){currentTime=value;paintSky(value);for(const m of lanternMaterials)m.emissiveColor=m.albedoColor.scale(value==='night'?.28:.14);const skies={day:'#a6dbfa',dusk:'#354865',night:'#080f24'};const c=Color3.FromHexString(skies[value]);scene.clearColor=new Color4(c.r,c.g,c.b,1);scene.fogColor=c;hemi.intensity=value==='night'?.35:value==='dusk'?.95:1.1;hemi.diffuse=Color3.FromHexString('#e4f2ff');sun.intensity=value==='day'?1.4:value==='dusk'?1.1:.25;sun.diffuse=Color3.FromHexString(value==='day'?'#fff3db':value==='dusk'?'#ffc17b':'#c1d5ec');sun.direction=new Vector3(-.65,value==='day'?-.95:-.5,.45);glow.intensity=value==='night'?.65:value==='dusk'?.5:.4;paper.emissiveColor=paper.diffuseColor.scale(value==='night'?.08:value==='dusk'?.025:0);}
  function setQuality(value:Quality){quality=value;engine.setHardwareScalingLevel(value==='low'?Math.max(1,Math.min(canvas.clientWidth/640,canvas.clientHeight/720)):1);shadows.getShadowMap()!.resize(value==='low'?512:2048);glow.isEnabled=value==='high';}
- function view(name:string){if(name==='front'){camera.setTarget(new Vector3(0,4,4));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=38;}else if(name==='detail'){camera.setTarget(new Vector3(-4,5.5,4));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=lanternSlots(1000)[selected].position;camera.setTarget(Vector3.FromArray([...p]));camera.alpha=-2.9;camera.beta=1.6;camera.radius=4.6;}else{camera.setTarget(new Vector3(0,3,2));camera.alpha=-Math.PI*.67;camera.beta=Math.PI*.37;camera.radius=36;}}
- rebuildLanterns(100);time('dusk');
+ function view(name:string){if(name==='canopy'){camera.setTarget(new Vector3(0,6,-16));camera.alpha=-Math.PI/2;camera.beta=2.1;camera.radius=9;}else if(name==='front'){camera.setTarget(new Vector3(0,4,4));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=38;}else if(name==='detail'){camera.setTarget(new Vector3(-4,5.5,4));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=lanternSlots(1000)[selected].position;camera.setTarget(Vector3.FromArray([...p]).add(new Vector3(0,-.4,0)));camera.alpha=-2.9;camera.beta=1.95;camera.radius=4;}else{camera.setTarget(new Vector3(0,3,2));camera.alpha=-Math.PI*.67;camera.beta=Math.PI*.37;camera.radius=36;}}
+ rebuildLanterns(300);time('day');
  scene.onBeforeRenderObservable.add(()=>{
-  const t=performance.now()*.001,pulse=reduced?1:1+.18*Math.sin(t*2);ownedMat.emissiveColor=Color3.FromHexString('#ffc45b').scale((currentTime==='night'?.40:.20)*pulse);
+  camera.beta=Math.min(camera.beta,Math.acos(Math.max(-1,Math.min(1,(.6-camera.target.y)/camera.radius))));
+  const t=performance.now()*.001,pulse=reduced?1:1+.18*Math.sin(t*2);for(const m of ownedMaterials)m.emissiveColor=m.albedoColor.scale((currentTime==='night'?.34:.16)*pulse);
   haloMat.emissiveColor=Color3.FromHexString('#ffcb65').scale(1.1*pulse);
   for(const h of ownerHalos){const scale=Math.min(1.8,Math.max(1,Vector3.Distance(camera.position,h.position)/18));h.scaling.setAll(scale);}
   for(const {mesh,center,phase} of sparkles){const a=phase+(reduced?0:t*.23);mesh.position.set(center.x+Math.cos(a)*.65,center.y+Math.sin(a*1.7)*.55,center.z+Math.sin(a)*.3);mesh.scaling.setAll(reduced?1:.4+.9*Math.pow(Math.sin(t*2+phase),2));}
  });
- return {engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {time:currentTime,quality,density,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ return {engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {time:currentTime,quality,density,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }
