@@ -237,7 +237,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  rebuildLanterns(300);time('day');
  scene.onBeforeRenderObservable.add(()=>{
   camera.beta=Math.min(camera.beta,Math.acos(Math.max(-1,Math.min(1,(.6-camera.target.y)/camera.radius))));
-  const t=performance.now()*.001,pulse=reduced?1:1+.18*Math.sin(t*2);for(const m of [...lanternMaterials,...ownedMaterials])m.setVector3('eye',camera.position);for(const m of ownedMaterials)m.setFloat('lampOn',1.18*pulse);
+  const t=performance.now()*.001,pulse=reduced?1:1+.18*Math.sin(t*2);for(const m of [...lanternMaterials,...ownedMaterials]){m.setVector3('eye',camera.position);m.setVector3('sunDirection',sun.direction);m.setColor3('sunTint',sun.diffuse);m.setFloat('sunlight',sun.intensity);m.setFloat('skylight',hemi.intensity);}for(const m of ownedMaterials)m.setFloat('lampOn',1.18*pulse);
   haloMat.emissiveColor=Color3.FromHexString('#ffcb65').scale(1.1*pulse);
   for(const h of ownerHalos){const scale=Math.min(1.8,Math.max(1,Vector3.Distance(camera.position,h.position)/18));h.scaling.setAll(scale);}
   for(const {mesh,center,phase} of sparkles){const a=phase+(reduced?0:t*.23);mesh.position.set(center.x+Math.cos(a)*.65,center.y+Math.sin(a*1.7)*.55,center.z+Math.sin(a)*.3);mesh.scaling.setAll(reduced?1:.4+.9*Math.pow(Math.sin(t*2+phase),2));}
