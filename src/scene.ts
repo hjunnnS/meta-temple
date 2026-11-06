@@ -20,7 +20,7 @@ import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator'
 import { GlowLayer } from '@babylonjs/core/Layers/glowLayer';
 import '@babylonjs/core/Meshes/thinInstanceMesh';
 import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
-import { lanternSlots, visibleLanternSlots, OWNED_INDICES, LANTERN_PALETTE, lanternColourIndex, normalizeLanternName } from './contracts.ts';
+import { lanternSlots, canopyLanternSlots, OWNED_INDICES, LANTERN_PALETTE, lanternColourIndex, normalizeLanternName } from './contracts.ts';
 export type TimeOfDay = 'day' | 'dusk' | 'night';
 export type Quality = 'high' | 'low';
 export function createTemple(canvas:HTMLCanvasElement) {
@@ -177,13 +177,15 @@ export function createTemple(canvas:HTMLCanvasElement) {
   const chars=Array.from(name||'이름');const size=Math.min(55,420/Math.max(1,chars.length));c.fillStyle='#352c25';c.font=`${size}px serif`;chars.forEach((ch,i)=>c.fillText(ch,80,130+i*(size+5)));c.font='20px serif';c.fillStyle='#8a7764';c.fillText('사 사',80,604);texture.update();
  }
  function setName(value:string){const name=normalizeLanternName(value);if(name)names.set(selected,name);else names.delete(selected);rebuildLanterns(density);return name;}
- let lanternRoot=new TransformNode('lantern-samples',scene),selected=23,density=300;
+ let lanternRoot=new TransformNode('lantern-samples',scene),selected=23,density=1000;
+ let lanternCasters:Mesh[]=[];
  let ownerBodies:Mesh[]=[];let ownerHalos:Mesh[]=[];let sparkles:{mesh:Mesh,center:Vector3,phase:number}[]=[];let marker:Mesh|null=null;
  function rebuildLanterns(count:number){
+  for(const caster of lanternCasters)shadows.removeShadowCaster(caster);lanternCasters=[];
   for(const mesh of lanternRoot.getChildMeshes())glow.removeIncludedOnlyMesh(mesh as Mesh);
   for(const mesh of lanternRoot.getChildMeshes())if(mesh.name.startsWith('owned-tag'))mesh.material?.dispose(false,true);tagTextures.clear();
   lanternRoot.dispose(false);lanternRoot=new TransformNode('lantern-samples',scene);ownerBodies=[];ownerHalos=[];sparkles=[];density=count;
-  const slots=visibleLanternSlots(count),buckets=Array.from({length:15},()=>[] as Matrix[]);
+  const slots=canopyLanternSlots(count),buckets=Array.from({length:15},()=>[] as Matrix[]);
   function body(name:string,type:number){
    if(type===0){const a=MeshBuilder.CreateSphere(name,{diameter:.74,segments:24},scene);a.scaling.y=1.12;a.bakeCurrentTransformIntoVertices();return a;}
    if(type===1)return MeshBuilder.CreateLathe(name,{shape:[new Vector3(.18,-.43,0),new Vector3(.39,-.22,0),new Vector3(.39,.22,0),new Vector3(.18,.43,0)],tessellation:8,cap:Mesh.NO_CAP,closed:true},scene);
@@ -198,9 +200,9 @@ export function createTemple(canvas:HTMLCanvasElement) {
   }
   for(const s of slots){const i=Number(s.id.split(':').at(-1));
    const p=Vector3.FromArray([...s.position]);const isOwn=(OWNED_INDICES as readonly number[]).includes(i);const type=i%3;
-   if(isOwn){const a=body(`owned-${i}`,type);a.position=p;a.material=ownedMaterials[lanternColourIndex(s.position)*3+type];a.parent=lanternRoot;ownerBodies.push(a);}else buckets[lanternColourIndex(s.position)*3+type].push(Matrix.Translation(p.x,p.y,p.z));
+   if(isOwn){const a=body(`owned-${i}`,type);a.position=p;a.material=ownedMaterials[lanternColourIndex(s.position)*3+type];a.parent=lanternRoot;ownerBodies.push(a);lanternCasters.push(a);}else buckets[lanternColourIndex(s.position)*3+type].push(Matrix.Translation(p.x,p.y,p.z));
   }
-  buckets.forEach((matrices,i)=>{if(!matrices.length)return;const a=body(`lantern-${['round','octagonal','lotus'][i%3]}-${i}`,i%3);a.material=lanternMaterials[i];a.parent=lanternRoot;a.thinInstanceAdd(matrices);});
+  buckets.forEach((matrices,i)=>{if(!matrices.length)return;const a=body(`lantern-${['round','octagonal','lotus'][i%3]}-${i}`,i%3);a.material=lanternMaterials[i];a.parent=lanternRoot;a.thinInstanceAdd(matrices);lanternCasters.push(a);});
   for(const owned of ownerBodies){
    const ring=MeshBuilder.CreateTorus('owner-halo',{diameter:1.15,thickness:.012,tessellation:64},scene);ring.rotation.x=Math.PI/2;ring.bakeCurrentTransformIntoVertices();ring.position=owned.position.clone();ring.material=haloMat;ring.parent=lanternRoot;ring.billboardMode=Mesh.BILLBOARDMODE_ALL;ownerHalos.push(ring);glow.addIncludedOnlyMesh(ring);
    for(let k=0;k<9;k++){const a=MeshBuilder.CreateSphere('owner-sparkle',{diameter:.035,segments:6},scene);a.material=haloMat;a.parent=lanternRoot;glow.addIncludedOnlyMesh(a);sparkles.push({mesh:a,center:owned.position.clone(),phase:k*Math.PI*2/9});}
@@ -227,14 +229,15 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const s of slots){const p=Vector3.FromArray([...s.position]);const line=MeshBuilder.CreateLines('suspension',{points:[p.add(new Vector3(0,.43,0)),p.add(new Vector3(0,.9,0))]},scene);line.color=new Color3(.25,.2,.12);line.parent=lanternRoot;}
 
   marker=MeshBuilder.CreateTorus('destination-marker',{diameter:1.05,thickness:.035,tessellation:32},scene);marker.material=haloMat;marker.parent=lanternRoot;setSelected(selected);
+  if(currentTime==='day')for(const caster of lanternCasters)shadows.addShadowCaster(caster);
  }
  function setSelected(index:number){selected=index;if(marker){const p=lanternSlots(1000)[index].position;marker.position.set(p[0],p[1]-.65,p[2]);}}
  let reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  let currentTime:TimeOfDay='day';let quality:Quality='high';
- function time(value:TimeOfDay){currentTime=value;paintSky(value);for(const m of [...lanternMaterials,...ownedMaterials])m.setFloat('night',value==='night'?1:value==='dusk'?.45:0);const skies={day:'#a6dbfa',dusk:'#354865',night:'#080f24'};const c=Color3.FromHexString(skies[value]);scene.clearColor=new Color4(c.r,c.g,c.b,1);scene.fogColor=c;hemi.intensity=value==='night'?.35:value==='dusk'?.95:1.1;hemi.diffuse=Color3.FromHexString('#e4f2ff');sun.intensity=value==='day'?1.4:value==='dusk'?1.1:.25;sun.diffuse=Color3.FromHexString(value==='day'?'#fff3db':value==='dusk'?'#ffc17b':'#c1d5ec');sun.direction=new Vector3(-.65,value==='day'?-.95:-.5,.45);glow.intensity=value==='night'?.65:value==='dusk'?.5:.4;paper.emissiveColor=paper.diffuseColor.scale(value==='night'?.08:value==='dusk'?.025:0);}
- function setQuality(value:Quality){quality=value;engine.setHardwareScalingLevel(value==='low'?Math.max(1,Math.min(canvas.clientWidth/640,canvas.clientHeight/720)):1);shadows.getShadowMap()!.resize(value==='low'?512:2048);glow.isEnabled=value==='high';}
+ function time(value:TimeOfDay){currentTime=value;shadows.bias=value==='day'?.00015:.002;shadows.normalBias=value==='day'?.008:.035;shadows.getShadowMap()!.resize(quality==='low'?512:value==='day'?4096:2048);for(const caster of lanternCasters){shadows.removeShadowCaster(caster);if(value==='day')shadows.addShadowCaster(caster);}paintSky(value);for(const m of [...lanternMaterials,...ownedMaterials])m.setFloat('night',value==='night'?1:value==='dusk'?.45:0);const skies={day:'#a6dbfa',dusk:'#354865',night:'#080f24'};const c=Color3.FromHexString(skies[value]);scene.clearColor=new Color4(c.r,c.g,c.b,1);scene.fogColor=c;hemi.intensity=value==='night'?.35:value==='dusk'?.95:1.1;hemi.diffuse=Color3.FromHexString('#e4f2ff');sun.intensity=value==='day'?1.4:value==='dusk'?1.1:.25;sun.diffuse=Color3.FromHexString(value==='day'?'#fff3db':value==='dusk'?'#ffc17b':'#c1d5ec');sun.direction=new Vector3(-.65,value==='day'?-.95:-.5,.45);glow.intensity=value==='night'?.65:value==='dusk'?.5:.4;paper.emissiveColor=paper.diffuseColor.scale(value==='night'?.08:value==='dusk'?.025:0);}
+ function setQuality(value:Quality){quality=value;engine.setHardwareScalingLevel(value==='low'?Math.max(1,Math.min(canvas.clientWidth/640,canvas.clientHeight/720)):1);shadows.getShadowMap()!.resize(value==='low'?512:currentTime==='day'?4096:2048);glow.isEnabled=value==='high';}
  function view(name:string){if(name==='canopy'){camera.setTarget(new Vector3(0,6,-16));camera.alpha=-Math.PI/2;camera.beta=2.1;camera.radius=9;}else if(name==='front'){camera.setTarget(new Vector3(0,4,4));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=38;}else if(name==='detail'){camera.setTarget(new Vector3(-4,5.5,4));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=lanternSlots(1000)[selected].position;camera.setTarget(Vector3.FromArray([...p]).add(new Vector3(0,-.4,0)));camera.alpha=-2.9;camera.beta=1.95;camera.radius=4;}else{camera.setTarget(new Vector3(0,3,2));camera.alpha=-Math.PI*.67;camera.beta=Math.PI*.37;camera.radius=36;}}
- rebuildLanterns(300);time('day');
+ rebuildLanterns(1000);time('day');
  scene.onBeforeRenderObservable.add(()=>{
   camera.beta=Math.min(camera.beta,Math.acos(Math.max(-1,Math.min(1,(.6-camera.target.y)/camera.radius))));
   const t=performance.now()*.001,pulse=reduced?1:1+.18*Math.sin(t*2);for(const m of [...lanternMaterials,...ownedMaterials]){m.setVector3('eye',camera.position);m.setVector3('sunDirection',sun.direction);m.setColor3('sunTint',sun.diffuse);m.setFloat('sunlight',sun.intensity);m.setFloat('skylight',hemi.intensity);}for(const m of ownedMaterials)m.setFloat('lampOn',1.18*pulse);
@@ -242,5 +245,5 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const h of ownerHalos){const scale=Math.min(1.8,Math.max(1,Vector3.Distance(camera.position,h.position)/18));h.scaling.setAll(scale);}
   for(const {mesh,center,phase} of sparkles){const a=phase+(reduced?0:t*.23);mesh.position.set(center.x+Math.cos(a)*.65,center.y+Math.sin(a*1.7)*.55,center.z+Math.sin(a)*.3);mesh.scaling.setAll(reduced?1:.4+.9*Math.pow(Math.sin(t*2+phase),2));}
  });
- return {engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {time:currentTime,quality,density,visibleLanternCount:visibleLanternSlots(density).length,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ return {engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {time:currentTime,quality,density,visibleLanternCount:canopyLanternSlots(density).length,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }
