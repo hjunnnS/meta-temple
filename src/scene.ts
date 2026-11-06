@@ -171,9 +171,13 @@ export function createTemple(canvas:HTMLCanvasElement) {
  const haloMat=mat('selection-marker','#ffcb65',.6);
  const auraTexture=new DynamicTexture('owned-soft-aura',{width:128,height:128},scene,false);
  const ac=auraTexture.getContext() as CanvasRenderingContext2D;ac.clearRect(0,0,128,128);
- const ag=ac.createRadialGradient(64,64,8,64,64,64);ag.addColorStop(0,'rgba(255,255,255,.35)');ag.addColorStop(.45,'rgba(255,255,255,.18)');ag.addColorStop(1,'rgba(255,255,255,0)');ac.fillStyle=ag;ac.fillRect(0,0,128,128);auraTexture.hasAlpha=true;auraTexture.update();
+ const ag=ac.createRadialGradient(64,64,8,64,64,64);ag.addColorStop(0,'rgba(255,255,255,.60)');ag.addColorStop(.45,'rgba(255,255,255,.28)');ag.addColorStop(1,'rgba(255,255,255,0)');ac.fillStyle=ag;ac.fillRect(0,0,128,128);auraTexture.hasAlpha=true;auraTexture.update();
  const auraMaterials=palette.map((c,i)=>{const m=mat(`owned-aura-${i}`,c,1);m.disableLighting=true;m.diffuseColor=Color3.Black();m.opacityTexture=auraTexture;m.alpha=.35;m.disableDepthWrite=true;m.backFaceCulling=false;return m;});
- const sparkleMaterials=palette.map((c,i)=>{const m=mat(`owned-led-${i}`,c,1.4);m.disableLighting=true;return m;});
+ const starTexture=new DynamicTexture('owned-led-star',{width:128,height:128},scene,false);
+ const starContext=starTexture.getContext() as CanvasRenderingContext2D;starContext.clearRect(0,0,128,128);
+ const sg=starContext.createRadialGradient(64,64,0,64,64,62);sg.addColorStop(0,'rgba(255,255,255,1)');sg.addColorStop(.15,'rgba(255,255,255,.9)');sg.addColorStop(.42,'rgba(255,255,255,.2)');sg.addColorStop(1,'rgba(255,255,255,0)');starContext.fillStyle=sg;starContext.fillRect(0,0,128,128);
+ starContext.fillStyle='rgba(255,255,255,.85)';starContext.beginPath();starContext.moveTo(64,7);starContext.lineTo(69,59);starContext.lineTo(121,64);starContext.lineTo(69,69);starContext.lineTo(64,121);starContext.lineTo(59,69);starContext.lineTo(7,64);starContext.lineTo(59,59);starContext.closePath();starContext.fill();starTexture.hasAlpha=true;starTexture.update();
+ const sparkleMaterials=palette.map((c,i)=>{const m=mat(`owned-led-${i}`,c,1.4);m.disableLighting=true;m.emissiveColor=Color3.Lerp(Color3.FromHexString(c),Color3.White(),.65).scale(2);m.opacityTexture=starTexture;m.diffuseColor=Color3.Black();m.backFaceCulling=false;m.disableDepthWrite=true;return m;});
  const bulbMat=mat('warm-pin-lights','#e8bb74',.4);bulbMat.disableLighting=true;
  const bamboo=mat('fine-bamboo-frame','#9a6844');bamboo.specularColor=Color3.Black();
  const names=new Map<number,string>([[23,'이름']]);const tagTextures=new Map<number,DynamicTexture>();
@@ -210,8 +214,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
   buckets.forEach((matrices,i)=>{if(!matrices.length)return;const a=body(`lantern-${['round','octagonal','lotus'][i%3]}-${i}`,i%3);a.material=lanternMaterials[i];a.parent=lanternRoot;a.thinInstanceAdd(matrices);lanternCasters.push(a);});
   for(const owned of ownerBodies){
    const colorIndex=lanternColourIndex([owned.position.x,owned.position.y,owned.position.z]);
-   const aura=MeshBuilder.CreatePlane('owned-soft-glow',{width:1.5,height:1.65},scene);aura.position=owned.position.clone();aura.material=auraMaterials[colorIndex];aura.parent=lanternRoot;aura.billboardMode=Mesh.BILLBOARDMODE_ALL;aura.isPickable=false;ownerHalos.push(aura);
-   for(let k=0;k<6;k++){const a=MeshBuilder.CreateSphere('owner-sparkle',{diameter:.025,segments:6},scene);a.material=sparkleMaterials[colorIndex];a.parent=lanternRoot;glow.addIncludedOnlyMesh(a);sparkles.push({mesh:a,center:owned.position.clone(),phase:k*Math.PI*2/6});}
+   const aura=MeshBuilder.CreatePlane('owned-soft-glow',{width:2.0,height:2.15},scene);aura.position=owned.position.clone();aura.material=auraMaterials[colorIndex];aura.parent=lanternRoot;aura.billboardMode=Mesh.BILLBOARDMODE_ALL;aura.isPickable=false;ownerHalos.push(aura);
+   for(let k=0;k<8;k++){const a=MeshBuilder.CreatePlane('owner-sparkle',{size:.12},scene);a.billboardMode=Mesh.BILLBOARDMODE_ALL;a.isPickable=false;a.material=sparkleMaterials[colorIndex];a.parent=lanternRoot;glow.addIncludedOnlyMesh(a);sparkles.push({mesh:a,center:owned.position.clone(),phase:k*Math.PI*2/8});}
 
   }
   // Eight distinct corners and sloping shoulders, not a cylindrical paper tube.
@@ -247,10 +251,10 @@ export function createTemple(canvas:HTMLCanvasElement) {
  rebuildLanterns(1000);time('day');
  scene.onBeforeRenderObservable.add(()=>{
   camera.beta=Math.min(camera.beta,Math.acos(Math.max(-1,Math.min(1,(.6-camera.target.y)/camera.radius))));
-  const t=performance.now()*.001,pulse=reduced?1:1+.12*Math.sin(t*1.05);for(const m of [...lanternMaterials,...ownedMaterials]){m.setVector3('eye',camera.position);m.setVector3('sunDirection',sun.direction);m.setColor3('sunTint',sun.diffuse);m.setFloat('sunlight',sun.intensity);m.setFloat('skylight',hemi.intensity);}for(const m of ownedMaterials){m.setFloat('lampOn',currentTime==='night'?1.35:1);m.setFloat('ownedLight',pulse);}
-  for(const m of auraMaterials)m.alpha=(currentTime==='night'?.30:.40)*pulse;
-  for(const h of ownerHalos){const scale=Math.min(1.35,Math.max(1,Vector3.Distance(camera.position,h.position)/30));h.scaling.setAll(scale);}
-  for(const {mesh,center,phase} of sparkles){const a=phase+(reduced?0:t*.10);mesh.position.set(center.x+Math.cos(a)*.40,center.y+Math.sin(a*1.7)*.36,center.z+Math.sin(a)*.30);mesh.scaling.setAll(reduced?1:.5+.5*Math.pow(Math.sin(t*1.05+phase),2));}
+  const t=performance.now()*.001,pulse=reduced?1:1+.12*Math.sin(t*1.05);for(const m of [...lanternMaterials,...ownedMaterials]){m.setVector3('eye',camera.position);m.setVector3('sunDirection',sun.direction);m.setColor3('sunTint',sun.diffuse);m.setFloat('sunlight',sun.intensity);m.setFloat('skylight',hemi.intensity);}for(const m of ownedMaterials){m.setFloat('lampOn',currentTime==='night'?1.35:1);m.setFloat('ownedLight',1.35*pulse);}
+  for(const m of auraMaterials)m.alpha=(currentTime==='night'?.60:.85)*pulse;
+  for(const h of ownerHalos){const scale=Math.min(2.1,Math.max(1,Vector3.Distance(camera.position,h.position)/22));h.scaling.setAll(scale);}
+  for(const {mesh,center,phase} of sparkles){const a=phase+(reduced?0:t*.10);mesh.position.set(center.x+Math.cos(a)*.50,center.y+Math.sin(a*1.7)*.43,center.z+Math.sin(a)*.30);const distanceScale=Math.min(4.5,Math.max(1,Vector3.Distance(camera.position,center)/12));const twinkle=reduced?1:.25+1.4*Math.pow((1+Math.sin(t*3.0+phase))/2,4);mesh.scaling.setAll(distanceScale*twinkle);}
  });
  return {engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {time:currentTime,quality,density,visibleLanternCount:canopyLanternSlots(density).length,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }
