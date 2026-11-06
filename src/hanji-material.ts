@@ -53,21 +53,21 @@ void main(){
  vec3 interior=warmBulb*transmitted*irradiance*forwardLobe*sourceShadow*mix(.65,5.2,night)*lampOn;
  // Per-channel absorption reveals a warm core through thin paper, dyed edges and dark ribs.
  vec3 nightColor=exterior+interior;nightColor=nightColor/(vec3(1.)+nightColor);
- // Daylight passes through the back of the sheet as well as reflecting off its front.
- // Keep the approved night result independent of the brighter daylight treatment.
+ // Approved single-lantern daylight: fine ribs and broad dyed-paper transmission.
+ float closeHoop=abs(fract(vUV.y*34.+.5)-.5);
+ float aa=max(.002,fwidth(vUV.y)*34.*.6);
+ float fineHoops=mix(.48,1.,smoothstep(.006-aa,.045+aa,closeHoop));
+ float fineRibs=mix(.61,1.,smoothstep(.001,.012,seam));
  vec3 toSun=normalize(-sunDirection);
- float sunFront=max(dot(n,toSun),0.);
- float sunBack=max(dot(-n,toSun),0.);
- float thinness=exp(-opticalDepth*.65);
- float daylightThrough=(.65*skylight+sunBack*sunlight)*thinness;
- vec3 brightDye=pow(max(dye,vec3(.001)),vec3(.86));
- vec3 daylight=brightDye*(.95*skylight+sunFront*sunlight*.55)*mix(.97,1.03,fibrePattern);
- daylight+=brightDye*sunTint*daylightThrough*mix(.72,1.,sourceShadow)*1.5;
- daylight+=interior*.16;
- // One shared exposure scale preserves dye saturation instead of bleaching each channel.
- float peak=max(daylight.r,max(daylight.g,daylight.b));
- vec3 dayColor=daylight/(.48+peak);
- dayColor*=mix(.86,1.04,fibrePattern)*mix(.62,1.,sourceShadow);
+ float back=max(dot(-n,toSun),0.);
+ float dayKey=max(dot(n,toSun),0.);
+ float skyThrough=(.72+.20*max(-n.y,0.))*(skylight/1.1);
+ vec3 sunlightThrough=mix(dye,transmitted,.24)*(skyThrough+.48*back*(sunlight/1.4))*sunTint;
+ sunlightThrough*=mix(.80,1.08,fibrePattern)*exp(-glued*.45)*fineHoops*fineRibs;
+ vec3 reflected=dye*(.24+.60*dayKey)*mix(.88,1.08,fibrePattern)*fineHoops;
+ vec3 dayBulb=warmBulb*transmitted*irradiance*.12*fineHoops*fineRibs*lampOn;
+ vec3 daylight=reflected+sunlightThrough+dayBulb;
+ vec3 dayColor=daylight/(vec3(1.)+daylight);
  vec3 color=mix(dayColor,nightColor,night);
 
  gl_FragColor=vec4(pow(max(color,0.),vec3(1./2.2)),1.);
