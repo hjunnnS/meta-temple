@@ -1,3 +1,4 @@
+import { createHanjiMaterial } from './hanji-material.ts';
 import './hanji-study.css';
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Scene } from '@babylonjs/core/scene';
@@ -9,10 +10,8 @@ import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
 import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData';
-import { ShaderMaterial } from '@babylonjs/core/Materials/shaderMaterial';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture';
-import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import { LANTERN_PALETTE } from './contracts.ts';
 
 const root=document.querySelector<HTMLDivElement>('#app')!;
@@ -27,50 +26,7 @@ const scene=new Scene(engine);scene.clearColor=new Color4(.88,.87,.83,1);
 const camera=new ArcRotateCamera('study-camera',-1.15,1.3,2.6,new Vector3(0,1.35,0),scene);camera.attachControl(canvas,true);camera.lowerRadiusLimit=.85;camera.upperRadiusLimit=4;camera.lowerBetaLimit=.35;camera.upperBetaLimit=2.2;camera.minZ=.03;camera.wheelPrecision=80;camera.panningSensibility=0;
 new HemisphericLight('studio-fill',new Vector3(0,1,0),scene).intensity=.8;
 const sun=new DirectionalLight('daylight',new Vector3(.5,-.6,.8),scene);sun.intensity=1;
-const fibre=new Texture('/textures/hanji-fibres-generated-v1.png',scene);fibre.anisotropicFilteringLevel=16;
-const vertex=`precision highp float;
-attribute vec3 position;attribute vec3 normal;attribute vec2 uv;
-uniform mat4 world;uniform mat4 worldViewProjection;
-varying vec3 vPosition;varying vec3 vNormal;varying vec2 vUV;
-void main(){vPosition=(world*vec4(position,1.)).xyz;vNormal=normalize(mat3(world)*normal);vUV=uv;gl_Position=worldViewProjection*vec4(position,1.);}`;
-const fragment=`precision highp float;
-varying vec3 vPosition;varying vec3 vNormal;varying vec2 vUV;
-uniform sampler2D paper;uniform vec3 dye;uniform float night;uniform float lampOn;uniform vec3 eye;
-void main(){
- vec3 n=normalize(vNormal);if(!gl_FrontFacing)n=-n;
- vec2 texUV=vUV*vec2(.72,1.2);vec3 fibres=texture2D(paper,texUV).rgb;
- float pulp=dot(fibres,vec3(.299,.587,.114));
- // Optical density varies with fibres, wrinkles and glued seams.
- float fibrePattern=clamp((pulp-.83)*6.5,0.,1.);
- float density=mix(.90,.32,fibrePattern);
- float dx=dot(texture2D(paper,texUV+vec2(.0015,0.)).rgb,vec3(.333))-pulp;
- float dy=dot(texture2D(paper,texUV+vec2(0.,.0015)).rgb,vec3(.333))-pulp;
- vec3 tangent=normalize(cross(vec3(0.,1.,.001),n));vec3 bitangent=normalize(cross(n,tangent));n=normalize(n+3.*dx*tangent+3.*dy*bitangent);
- float seam=min(vUV.x,1.-vUV.x);
- float glued=1.-smoothstep(.008,.035,seam);
- float hoopDistance=abs(fract(vUV.y*16.+.5)-.5);
- float hoopShadow=mix(.46,1.,smoothstep(.012,.075,hoopDistance));
- float ribShadow=mix(.34,1.,smoothstep(.003,.028,seam));
- float smallFolds=.04*sin(vUV.y*210.+sin(vUV.x*21.)*2.);
- float opticalDepth=density+glued*.65+smallFolds;
- vec3 absorption=-log(max(dye,vec3(.025)))*1.15+vec3(.14);
- vec3 transmitted=exp(-absorption*opticalDepth);
- vec3 source=vec3(.035,1.38,-.025);vec3 ray=vPosition-source;
- float d2=dot(ray,ray);
- vec3 towardsEye=normalize(eye-vPosition);
- float forwardLobe=.22+.78*pow(max(dot(normalize(ray),towardsEye),0.),9.);
- float irradiance=1./(.16+d2*4.);
- float sourceShadow=hoopShadow*ribShadow;
- float key=max(dot(n,normalize(vec3(-.6,.8,-.7))),0.);
- vec3 exterior=dye*(.24+.60*key)*mix(.88,1.08,fibrePattern)*mix(1.,.055,night);
- vec3 warmBulb=vec3(1.,.83,.57);
- vec3 interior=warmBulb*transmitted*irradiance*forwardLobe*sourceShadow*mix(.65,5.2,night)*lampOn;
- // Per-channel absorption reveals a warm core through thin paper, dyed edges and dark ribs.
- vec3 color=exterior+interior;color=color/(vec3(1.)+color);
-
- gl_FragColor=vec4(pow(max(color,0.),vec3(1./2.2)),1.);
-}`;
-const paper=new ShaderMaterial('hanji-transmission',scene,{vertexSource:vertex,fragmentSource:fragment},{attributes:['position','normal','uv'],uniforms:['world','worldViewProjection','dye','night','lampOn','eye'],samplers:['paper']});paper.backFaceCulling=false;paper.setTexture('paper',fibre);paper.setColor3('dye',Color3.FromHexString(LANTERN_PALETTE[4]).toLinearSpace());paper.setFloat('night',0);paper.setFloat('lampOn',1);paper.setVector3('eye',camera.position);
+const paper=createHanjiMaterial(scene,'hanji-transmission',LANTERN_PALETTE[4],1,new Vector3(.035,1.38,-.025));
 const frame=new StandardMaterial('interior-bamboo',scene);frame.diffuseColor=Color3.FromHexString('#785840');frame.specularColor=Color3.Black();
 const edgePaper=new StandardMaterial('paper-fold-edge',scene);edgePaper.diffuseColor=Color3.FromHexString('#9a302b');edgePaper.specularColor=Color3.Black();
 // Octagonal prism with folded shoulders; only the paper has small tension wrinkles.
