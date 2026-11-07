@@ -14,13 +14,22 @@ test('sample rows run toward the hall and density does not rearrange them',()=>{
 test('reference palette has five spatial bands independent of density',()=>{assert.equal(LANTERN_PALETTE.length,5);const slots=lanternSlots(1000);assert.equal(new Set(slots.map(s=>lanternColourIndex(s.position))).size,5);for(const s of slots){const other=slots.find(x=>x.position[2]===s.position[2])!;assert.equal(lanternColourIndex(s.position),lanternColourIndex(other.position));}});
 test('name preview removes control characters and caps Unicode code points',()=>{assert.equal(normalizeLanternName('  김\n사사  '),'김사사');assert.equal(Array.from(normalizeLanternName('가'.repeat(20))).length,12);assert.equal(normalizeLanternName(' '),'');assert.equal(normalizeLanternName('🪷'.repeat(13)),'🪷'.repeat(12));});
 
-test('only lanterns wholly over the paved approach render without relocating slots',()=>{for(const count of [100,300,500,1000]){const original=lanternSlots(count);const visible=visibleLanternSlots(count);assert.equal(new Set(visible.map(s=>lanternColourIndex(s.position))).size,5);assert.ok(visible.length>0&&visible.length<count);for(const s of visible){assert.ok(Math.abs(s.position[0])+.5<=7.93);assert.ok(s.position[2]-.5>=-21.725);assert.ok(s.position[2]+.5<=1.5);assert.deepEqual(s,original.find(x=>x.id===s.id));}for(const i of OWNED_INDICES)assert.ok(visible.some(s=>s.id===original[i].id));}});
-
-test('spaced canopy preserves owned positions and small light gaps',()=>{
- const base=visibleLanternSlots(1000),dense=canopyLanternSlots(1000);
- assert.equal(dense.length,384);assert.equal(new Set(dense.map(s=>s.id)).size,dense.length);
- for(const slot of base)assert.deepEqual(dense.find(s=>s.id===slot.id),slot);
- for(const slot of dense){const [x,,z]=slot.position;assert.ok(Math.abs(x)+.5<=7.93);assert.ok(z-.5>=-21.725&&z+.5<=1.5);}
- for(const slot of base){const nearest=Math.min(...dense.filter(s=>s.id!==slot.id).map(s=>Math.hypot(s.position[0]-slot.position[0],s.position[2]-slot.position[2])));assert.ok(nearest>=.899&&nearest<=.901);}
- assert.equal(new Set(dense.map(s=>lanternColourIndex(s.position))).size,5);
+test('canopy widens from under the gate eaves and stops between the side halls',()=>{
+ const slots=canopyLanternSlots(1000);
+ const rows=new Map([...new Set(slots.map(s=>s.position[2]))].map(z=>[z,slots.filter(s=>s.position[2]===z)]));
+ const depths=[...rows.keys()].sort((a,b)=>a-b);
+ assert.equal(depths[0],-45.35);
+ assert.equal(depths.at(-1),-10);
+ assert.equal(depths.length,32);
+ const approach=depths.filter(z=>z<=-28);
+ const spacing=(approach.at(-1)!-approach[0])/(approach.length-1);
+ assert.ok(approach.slice(1).every((z,i)=>Math.abs(z-approach[i]-spacing)<1e-6));
+ const widths=depths.map(z=>Math.max(...rows.get(z)!.map(s=>Math.abs(s.position[0]))));
+ assert.ok(widths[0]<=2.5 && widths.at(-1)!>6.7);
+ assert.ok(widths.every((w,i)=>i===0||w>=widths[i-1]));
+ for(const count of [100,300,500,1000]){
+  const visible=visibleLanternSlots(count);
+  for(const i of [...OWNED_INDICES,2,34,66])assert.ok(visible.some(s=>s.id===lanternSlots(67)[i].id));
+  assert.equal(new Set(visible.map(s=>lanternColourIndex(s.position))).size,5);
+ }
 });

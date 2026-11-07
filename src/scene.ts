@@ -29,7 +29,7 @@ import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator'
 import { GlowLayer } from '@babylonjs/core/Layers/glowLayer';
 import '@babylonjs/core/Meshes/thinInstanceMesh';
 import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
-import { hallLampSlots, lanternSlots, canopyLanternSlots, OWNED_INDICES, LANTERN_PALETTE, lanternColourIndex, normalizeLanternName } from './contracts.ts';
+import { gateCanopyAnchor, hallLampSlots, lanternSlots, canopyLanternSlots, OWNED_INDICES, LANTERN_PALETTE, lanternColourIndex, normalizeLanternName } from './contracts.ts';
 export type TimeOfDay = 'day' | 'dusk' | 'night';
 export type Quality = 'high' | 'low';
 export function createTemple(canvas:HTMLCanvasElement) {
@@ -872,7 +872,16 @@ export function createTemple(canvas:HTMLCanvasElement) {
   const all=slots.map(s=>Matrix.Translation(s.position[0],s.position[1]-.43,s.position[2]));
   const cap=MeshBuilder.CreateCylinder('caps',{height:.018,diameter:.13,tessellation:8},scene);cap.material=bamboo;cap.parent=lanternRoot;cap.thinInstanceAdd(all);
   const top=cap.clone('tops')!;top.parent=lanternRoot;top.thinInstanceSetBuffer('matrix',null);top.thinInstanceAdd(slots.map(s=>Matrix.Translation(s.position[0],s.position[1]+.43,s.position[2])));
-  for(const x of new Set(slots.map(s=>s.position[0]))){const path=slots.filter(s=>s.position[0]===x).sort((a,b)=>a.position[2]-b.position[2]).map(s=>new Vector3(x,s.position[1]+.9,s.position[2]));const line=MeshBuilder.CreateLines('longitudinal-canopy-string',{points:path},scene);line.color=new Color3(.16,.14,.11);line.parent=lanternRoot;}
+  for(const x of new Set(slots.map(s=>s.position[0]))){
+   const path=slots.filter(s=>s.position[0]===x).sort((a,b)=>a.position[2]-b.position[2]).map(s=>new Vector3(x,s.position[1]+.9,s.position[2]));
+   if(Math.abs(x)<=gateCanopyAnchor.halfWidth){
+    const anchor=new Vector3(x,gateCanopyAnchor.y,gateCanopyAnchor.z-.04);
+    const tie=MeshBuilder.CreateTube('gate-eave-canopy-tie',{path:[anchor,path[0]],radius:.025,tessellation:6},scene);
+    tie.material=bamboo;tie.parent=lanternRoot;
+   }
+   const line=MeshBuilder.CreateLines('longitudinal-canopy-string',{points:path},scene);
+   line.color=new Color3(.16,.14,.11);line.parent=lanternRoot;
+  }
   const cords=slots.map(slot=>{
    const [x,y,z]=slot.position;
    return [new Vector3(x,y+.43,z),new Vector3(x,y+.9,z)];
@@ -914,6 +923,12 @@ export function createTemple(canvas:HTMLCanvasElement) {
  canvas.addEventListener('keydown',cancelGateWalk);
  function view(name:string){
   cancelGateWalk();
+  if(name==='gateEave'){
+   camera.fov=.92;camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
+   camera.setTarget(new Vector3(0,6.15,innerGate.z+6.4));
+   camera.setPosition(new Vector3(7.8,3.75,innerGate.z+13));
+   return;
+  }
   if(name==='gateWalk'||name==='guardianGallery'){
    camera.fov=1.12;
    camera.fovMode=canvas.clientWidth<canvas.clientHeight?ArcRotateCamera.FOVMODE_HORIZONTAL_FIXED:ArcRotateCamera.FOVMODE_VERTICAL_FIXED;

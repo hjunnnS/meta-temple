@@ -1,10 +1,20 @@
 /** M1 design-only fixtures. These are not server-issued purchase rights. */
-import { wishGarden, templePlaces, courtHalfWidth, courtDepth, courtSouthEdge } from './temple-layout.ts';
+import { wishGarden, templePlaces, courtHalfWidth, courtDepth, courtSouthEdge, sideHallCenterZ } from './temple-layout.ts';
 export type ProductKind = 'lantern' | 'votive' | 'wish-plaque' | 'memorial' | 'candle';
 export type Vec3 = readonly [number, number, number];
 export interface Slot { id: string; zoneId: string; position: Vec3; rotationY: number; accepts: ProductKind }
-export const SCENE_VERSION = 'm1-web-review-012';
+export const SCENE_VERSION = 'm1-web-review-013';
 export const SAMPLE_OWNER = 'sample-owner-a';
+// Hang the first row just under the 7 m north eave; the cord starts at its supporting beam.
+const gateZ = templePlaces.find(place => place.id === 'cheonwang')!.z;
+export const gateCanopyAnchor = { z: gateZ + 5.5, y: 7.35, halfWidth: 2.5 };
+const canopyStart = gateZ + 6.65;
+const canopyEnd = sideHallCenterZ;
+const plazaStart = canopyEnd - 18;
+function canopyWidthAt(z: number): number {
+  const progress = Math.max(0, Math.min(1, (z - canopyStart - 4) / (plazaStart - canopyStart - 4)));
+  return 6 + 10 * progress;
+}
 export function lanternSlots(count: number): Slot[] {
   if (!Number.isInteger(count) || count < 1 || count > 1000) throw new Error('Invalid density');
   // 004 intentionally rotates SAMPLE layout into front-to-back rows (no purchased data).
@@ -13,9 +23,15 @@ export function lanternSlots(count: number): Slot[] {
     const reverse5 = (n: number) => ((n&1)<<4)|((n&2)<<2)|(n&4)|((n&8)>>2)|((n&16)>>4);
     const firstColumns = [9,13,18,22];
     const columns = [...firstColumns,...Array.from({length:32},(_,n)=>reverse5(n)).filter(n=>!firstColumns.includes(n))];
-    const row = reverse5(i % 32), col = columns[Math.floor(i / 32)];
+    let row = reverse5(i % 32);
+    const col = columns[Math.floor(i / 32)];
+    // Keep the three application fixtures in the plaza and the owned sample on a visible row.
+    if (col === 9 && (row === 29 || row === 19)) row = row === 29 ? 19 : 29;
+    const z = row <= 20
+      ? plazaStart + row * .9
+      : plazaStart + (canopyStart - plazaStart) * ((row - 20) / 11);
     return { id: `sample:Z02:lantern:${String(i).padStart(4,'0')}`, zoneId: 'Z02',
-      position: [(col - 15.5)*0.9, 5.8 - 0.45*(1-Math.abs(row-15.5)/15.5), -28 + row*0.9] as Vec3,
+      position: [(col - 15.5)*0.9, 5.8 - 0.45*(1-Math.abs(row-15.5)/15.5), z] as Vec3,
       rotationY: 0, accepts: 'lantern' as const };
   });
 }
@@ -42,7 +58,7 @@ function placeCenter(id:(typeof templePlaces)[number]['id']):Vec3{
 }
 const zoneRows: [string,string,Vec3,readonly [number,number],string][] = [
  ['Z01','일주문·천왕문',[0,0,-60],[18,28],'통로'],
- ['Z02','연등 광장·연등길',[0,0,-10],[32,32],'외부'],
+ ['Z02','연등 광장·연등길',[0,0,(canopyStart+canopyEnd)/2],[32,canopyEnd-canopyStart+2],'외부'],
  ['Z03','중앙 마당·촛불함',[0,0,courtSouthEdge+courtDepth/2],[2*courtHalfWidth,courtDepth],'외부'],
  ['Z04','대웅전',placeCenter('daeung'),[36,30],'공개 실내 제안'],
  ['Z05','관음전',placeCenter('gwaneum'),[18,14],'공개 실내 제안'],
@@ -55,20 +71,20 @@ const zoneRows: [string,string,Vec3,readonly [number,number],string][] = [
  ['Z12','명상숲',placeCenter('forest'),[38,24],'외부'],
 ];
 export const zones: Zone[] = zoneRows.map(([id,name,center,size,interior])=>({id,name,center,size,interior}));
-export const layoutDraft = { version:'layout-web-012', status:'proposed', unit:'metre', handedness:'left', up:'+Y', forward:'+Z', zones };
+export const layoutDraft = { version:'layout-web-013', status:'proposed', unit:'metre', handedness:'left', up:'+Y', forward:'+Z', zones };
 
 /** Reference-photo palette, in spatial band order; ownership never changes body colour. */
 export const LANTERN_PALETTE = ['#10b76a','#f582b6','#1765e8','#ffc329','#e93f46'] as const;
 export function lanternColourIndex(position: Vec3): number {
-  return Math.max(0,Math.min(4,Math.floor((position[2]+21.225)/4.445)));
+  return Math.max(0,Math.min(4,Math.floor(5*(position[2]-canopyStart)/(canopyEnd-canopyStart))));
 }
 export function normalizeLanternName(value: string): string {
   return Array.from(value.replace(/[\u0000-\u001f\u007f-\u009f]/g,'').trim()).slice(0,12).join('');
 }
 
-/** Keep the complete lantern silhouette above the nine-column paved approach. */
+/** Keep the complete lantern silhouette inside the widening gate-to-plaza canopy. */
 export function visibleLanternSlots(count: number): Slot[] {
-  return lanternSlots(count).filter(s=>Math.abs(s.position[0])+.5<=7.93 && s.position[2]-.5>=-21.725 && s.position[2]+.5<=1.5);
+  return lanternSlots(count).filter(s=>Math.abs(s.position[0])+.5<=canopyWidthAt(s.position[2])/2);
 }
 
 /** Spaced canopy keeps original fixed slots, with no between-row infill. */
