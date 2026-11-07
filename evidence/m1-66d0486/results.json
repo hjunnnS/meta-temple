@@ -1,0 +1,188 @@
+{
+  "commit": "66d0486e42ecee881470e8ed523be8306b12b562",
+  "viewport": [
+    1280,
+    720
+  ],
+  "chrome": "156.0.8078.81",
+  "network": "localhost, 20 Mbps / 80ms CDP",
+  "visits": [
+    {
+      "visit": "first",
+      "readyMs": 6248
+    },
+    {
+      "visit": "return",
+      "readyMs": 2283
+    }
+  ],
+  "passes": [
+    {
+      "time": "day",
+      "schemaVersion": 1,
+      "sceneVersion": "m1-web-review-012",
+      "createdAt": "2026-11-07T13:44:49.468Z",
+      "device": "미확인",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "physicalDeviceVerified": false,
+      "acceptance": "unreviewed",
+      "settings": {
+        "time": "day",
+        "quality": "high",
+        "density": 1000,
+        "visibleLanternCount": 384,
+        "nameTagCount": 1,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      },
+      "currentSettings": {
+        "time": "day",
+        "quality": "high",
+        "density": 1000,
+        "visibleLanternCount": 384,
+        "nameTagCount": 1,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      },
+      "startCamera": {
+        "alpha": -2.9,
+        "beta": 1.95,
+        "radius": 4,
+        "target": [
+          -5.8500000000000005,
+          5.341935483870968,
+          -1.8999999999999986
+        ]
+      },
+      "camera": {
+        "alpha": -2.9,
+        "beta": 1.95,
+        "radius": 4,
+        "target": [
+          -5.8500000000000005,
+          5.341935483870968,
+          -1.8999999999999986
+        ]
+      },
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "timing": {
+        "navigationToFirstRenderedFrameMs": 2264.2000000476837,
+        "sceneConstructionToFirstFrameMs": 1821
+      },
+      "jsHeapBytes": 554653557,
+      "memoryCaveat": "JS heap only if exposed; not GPU or total process memory",
+      "measurement": {
+        "samples": 636,
+        "meanFps": 60.00339641880017,
+        "onePercentLowFps": 56.68016183389794,
+        "maxFrameMs": 17.700000047683716,
+        "elapsedSeconds": 12.597700000047684,
+        "warmupSeconds": 2,
+        "valid": true,
+        "invalidReason": null
+      }
+    },
+    {
+      "time": "night",
+      "schemaVersion": 1,
+      "sceneVersion": "m1-web-review-012",
+      "createdAt": "2026-11-07T13:45:13.819Z",
+      "device": "미확인",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "physicalDeviceVerified": false,
+      "acceptance": "unreviewed",
+      "settings": {
+        "time": "night",
+        "quality": "high",
+        "density": 1000,
+        "visibleLanternCount": 384,
+        "nameTagCount": 1,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      },
+      "currentSettings": {
+        "time": "night",
+        "quality": "high",
+        "density": 1000,
+        "visibleLanternCount": 384,
+        "nameTagCount": 1,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      },
+      "startCamera": {
+        "alpha": -2.9,
+        "beta": 1.95,
+        "radius": 4,
+        "target": [
+          -5.8500000000000005,
+          5.341935483870968,
+          -1.8999999999999986
+        ]
+      },
+      "camera": {
+        "alpha": -2.9,
+        "beta": 1.95,
+        "radius": 4,
+        "target": [
+          -5.8500000000000005,
+          5.341935483870968,
+          -1.8999999999999986
+        ]
+      },
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "timing": {
+        "navigationToFirstRenderedFrameMs": 2264.2000000476837,
+        "sceneConstructionToFirstFrameMs": 1821
+      },
+      "jsHeapBytes": 569964404,
+      "memoryCaveat": "JS heap only if exposed; not GPU or total process memory",
+      "measurement": {
+        "samples": 636,
+        "meanFps": 60.00283032218501,
+        "onePercentLowFps": 56.54281084390054,
+        "maxFrameMs": 17.800000071525574,
+        "elapsedSeconds": 12.600399999976158,
+        "warmupSeconds": 2,
+        "valid": true,
+        "invalidReason": null
+      }
+    }
+  ],
+  "errors": []
+}
