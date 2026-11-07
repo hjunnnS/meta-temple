@@ -786,7 +786,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  stone.maxSimultaneousLights=7;
  for(const lamp of lampLights)lamp.includedOnlyMeshes=scene.meshes.filter(mesh=>mesh.material===stone||mesh.material===granite);
  const nightWayfinding=new HemisphericLight('moonlit-path-and-sign',new Vector3(0,1,-.5),scene);
- nightWayfinding.intensity=.96;nightWayfinding.diffuse=Color3.FromHexString('#eddac0');
+ nightWayfinding.intensity=1.14;nightWayfinding.diffuse=Color3.FromHexString('#eddac0');
  nightWayfinding.includedOnlyMeshes=scene.meshes.filter(mesh=>mesh.material===signMat||slabs.some(material=>mesh.material===material));
  const palette=LANTERN_PALETTE;
  const hanjiTexture=new Texture('/textures/hanji-fibres-generated-v1.png',scene);
