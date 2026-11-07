@@ -1,3 +1,4 @@
+import { paving, boundaries } from './temple-terrain.ts';
 import { readApplication, type Offering } from './reception.ts';
 import '@babylonjs/core/Culling/ray';
 import { PointerEventTypes } from '@babylonjs/core/Events/pointerEvents';
@@ -460,10 +461,9 @@ export function createTemple(canvas:HTMLCanvasElement) {
    slab.material=slabs[(row+col*2)%slabs.length];staticMeshes.push(slab);
   }
  }
- flaggedPath('entrance',0,-71.5,0,courtSouthEdge,3);
+ for(const path of paving)flaggedPath(path.name,path.from[0],path.from[1],path.to[0],path.to[1],path.lanes);
  const bellCourt=templePlaces.find(p=>p.id==='bell')!;
  const votiveHall=templePlaces.find(p=>p.id==='indeung')!;
- const officeLandingX=office.x-(8-1.1+.55)*office.scale;
  const earth=mat('courtyard-compacted-soil','#afaaa2');
  earth.specularColor=Color3.Black();
  const grit=new DynamicTexture('fine-earth-and-gravel',512,scene,true);
@@ -512,13 +512,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  soilData.positions=soilVertices;soilData.indices=soilFaces;soilData.normals=soilNormals;soilData.uvs=soilUVs;
  soilData.applyToMesh(soilMesh);soilMesh.material=earth;soilMesh.receiveShadows=true;
- flaggedPath('office',1.97,office.z,officeLandingX,office.z);
- flaggedPath('bell',-1.97,bellCourt.z,bellCourt.x+3.5,bellCourt.z);
- flaggedPath('indeung',-1.97,votiveHall.z,votiveHall.x+7.45*votiveHall.scale,votiveHall.z);
- for(const side of [-1,1])flaggedPath('side-hall',side*1.97,sideHallCenterZ,side*21.4,sideHallCenterZ);
  const garden=wishGarden;
  const gravel=mat('warm-garden-gravel','#c6b899');
- flaggedPath('wish-garden',1.97,garden.z,garden.x-garden.width/2,garden.z);
  box('wish-garden-ground',garden.width,.12,garden.depth,garden.x,.05,garden.z,gravel,false);
  const rackLength=5;
  const rackSpacing=1.8; // 1.40 m clear between the stone feet.
@@ -751,15 +746,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  const outerGate=templePlaces.find(p=>p.id==='ilju')!;
  const innerGate=templePlaces.find(p=>p.id==='cheonwang')!;
- for(const side of [-1,1]){
-  const x=side*wallCenterX;
-  tiledWall(side*6,innerGate.z-5.5,x,innerGate.z-5.5,2.2);
-  tiledWall(side*4,outerGate.z-2,side*4,outerGate.z+2,4.45);
-  tiledWall(side*4,outerGate.z+2,side*6,innerGate.z-5.5,4.45);
-  tiledWall(x,innerGate.z-5.5,x,courtSouthEdge,1.44);
-  tiledWall(x,courtSouthEdge,x,courtSouthEdge+courtDepth,1.8);
-  tiledWall(x,courtSouthEdge+courtDepth,x,63,1.44);
- }
+ for(const wall of boundaries)tiledWall(wall.from[0],wall.from[1],wall.to[0],wall.to[1],wall.height);
  placeGuardians(scene,staticMeshes,innerGate.z);
  let seed=42;function rand(){seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;}
  for(let i=0;i<65;i++){const side=i%2?1:-1;const x=side*(42+rand()*25),z=-70+rand()*140,h=6+rand()*8;
