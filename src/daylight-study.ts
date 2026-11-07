@@ -1,3 +1,4 @@
+import { renderWhileViewing } from './preview-rendering.ts';
 import './daylight-study.css';
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Scene } from '@babylonjs/core/scene';
@@ -101,4 +102,4 @@ function setView(close:boolean){camera.setTarget(close?new Vector3(0,4.05,-3.38)
 document.querySelector<HTMLButtonElement>('#wide')!.onclick=()=>setView(false);
 document.querySelector<HTMLButtonElement>('#close')!.onclick=()=>setView(true);
 let transmit=true;document.querySelector<HTMLButtonElement>('#transmit')!.onclick=()=>{transmit=!transmit;for(const m of materials)m.setFloat('transmission',transmit?1:0);const b=document.querySelector<HTMLButtonElement>('#transmit')!;b.setAttribute('aria-pressed',String(transmit));b.textContent=transmit?'햇빛 투과 켜짐':'햇빛 투과 꺼짐';};
-engine.runRenderLoop(()=>{scene.render();if(scene.isReady())document.querySelector<HTMLElement>('#loading')!.hidden=true;});window.addEventListener('resize',()=>engine.resize());
+renderWhileViewing(engine,()=>{scene.render();if(scene.isReady())document.querySelector<HTMLElement>('#loading')!.hidden=true;});window.addEventListener('resize',()=>engine.resize());
