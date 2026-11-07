@@ -1,0 +1,77 @@
+{
+  "slotQuery": {
+    "schemaVersion": 1,
+    "layoutVersion": "layout-web-010",
+    "templeId": "sample:sasa",
+    "zoneId": "Z02",
+    "coordinateSystem": {
+      "units": "metre",
+      "up": "+Y",
+      "north": "+Z",
+      "rotation": "radian"
+    },
+    "slots": [
+      {
+        "slotId": "sample:Z02:lantern:0023",
+        "position": [
+          -5.8500000000000005,
+          5.741935483870968,
+          -1.8999999999999986
+        ],
+        "rotationY": 0,
+        "accepts": "lantern",
+        "sampleInstallation": {
+          "slotId": "sample:Z02:lantern:0023",
+          "installationId": "sample:installation:23",
+          "ownerId": "sample-owner-a",
+          "productKind": "lantern"
+        }
+      },
+      {
+        "slotId": "sample:Z02:lantern:0001",
+        "position": [
+          -5.8500000000000005,
+          5.364516129032258,
+          -13.6
+        ],
+        "rotationY": 0,
+        "accepts": "lantern"
+      }
+    ]
+  },
+  "join": {
+    "schemaVersion": 1,
+    "channelId": "sample:channel:1",
+    "layoutVersion": "layout-web-010",
+    "self": "sample:session:a",
+    "participants": [
+      {
+        "sessionId": "sample:session:b",
+        "sequence": 0,
+        "position": [
+          0,
+          0,
+          -68
+        ],
+        "yaw": 0,
+        "animation": "idle"
+      }
+    ]
+  },
+  "motion": {
+    "channelId": "sample:channel:1",
+    "sessionId": "sample:session:b",
+    "sequence": 1,
+    "position": [
+      0,
+      0,
+      -67.5
+    ],
+    "yaw": 0,
+    "animation": "walk"
+  },
+  "leave": {
+    "channelId": "sample:channel:1",
+    "sessionId": "sample:session:b"
+  }
+}
