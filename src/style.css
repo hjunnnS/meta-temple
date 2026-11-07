@@ -9,3 +9,6 @@
 #reception-panel button{background:#f5efdf;color:#283e33;border:0;border-radius:3px;margin:2px;padding:4px 10px;font-size:13px}
 #application-status:not(:empty){position:fixed;z-index:3;top:84px;left:20px;background:#20382d;color:#fff7df;padding:12px;border-radius:4px}
 @media(max-width:650px){#reception-panel{left:8px;bottom:123px;padding:9px;max-height:34dvh;overflow:auto}footer nav{flex-wrap:wrap}.place-picker{max-width:55vw}}
+#walk-pad{position:absolute;bottom:115px;left:18px;background:#20362ee8;color:white;padding:8px;border-radius:6px;font-size:12px}
+#walk-pad div{display:flex;gap:3px;margin-top:4px}
+#walk-pad button{min-width:44px;height:44px;border:1px solid #718276;background:#28463b;color:white;border-radius:4px;touch-action:none;user-select:none}
