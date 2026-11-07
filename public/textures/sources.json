@@ -2,41 +2,91 @@
   {
     "file": "public/textures/wood_planks_dirt_diff_1k.jpg",
     "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_planks_dirt/wood_planks_dirt_diff_1k.jpg",
-    "sha256": "230bb4aabaebde24ead3ae593a48f8f45e93705aaf3cfdc438589bb49c2a7af3"
+    "sha256": "230bb4aabaebde24ead3ae593a48f8f45e93705aaf3cfdc438589bb49c2a7af3",
+    "credit": "Rob Tuytel",
+    "rights": "CC0-1.0",
+    "material": "diffuse-srgb",
+    "bytes": 918123
   },
   {
     "file": "public/textures/wood_planks_dirt_nor_gl_1k.jpg",
     "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_planks_dirt/wood_planks_dirt_nor_gl_1k.jpg",
-    "sha256": "877bf561c0bc83a583238c5133c221026ff25052f8f567174c6b285af4b74f0e"
+    "sha256": "877bf561c0bc83a583238c5133c221026ff25052f8f567174c6b285af4b74f0e",
+    "credit": "Rob Tuytel",
+    "rights": "CC0-1.0",
+    "material": "normal-gl",
+    "bytes": 515002
   },
   {
     "file": "public/textures/stone_wall_nor_gl_1k.jpg",
     "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/stone_wall/stone_wall_nor_gl_1k.jpg",
-    "sha256": "801d7ff8bc472e5ad95872546c19a4c63cc776060b4ced629fece2d08591964e"
+    "sha256": "801d7ff8bc472e5ad95872546c19a4c63cc776060b4ced629fece2d08591964e",
+    "credit": "Charlotte Baglioni / Dario Barresi",
+    "rights": "CC0-1.0",
+    "material": "normal-gl",
+    "bytes": 1172420
   },
   {
     "file": "public/textures/stone_wall_diff_1k.jpg",
     "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/stone_wall/stone_wall_diff_1k.jpg",
-    "sha256": "390969aead48d9a10ac731a5e0af8761cc4ed89faa02ba775b913930b4398d87"
+    "sha256": "390969aead48d9a10ac731a5e0af8761cc4ed89faa02ba775b913930b4398d87",
+    "credit": "Charlotte Baglioni / Dario Barresi",
+    "rights": "CC0-1.0",
+    "material": "diffuse-srgb",
+    "bytes": 836975
   },
   {
     "file": "public/textures/grey_roof_tiles_nor_gl_1k.jpg",
     "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grey_roof_tiles/grey_roof_tiles_nor_gl_1k.jpg",
-    "sha256": "99546fdc2978d0950a2c61fe94dbd4230bb7825944bb4e4e7ad586839fdc721d"
+    "sha256": "99546fdc2978d0950a2c61fe94dbd4230bb7825944bb4e4e7ad586839fdc721d",
+    "credit": "Rob Tuytel",
+    "rights": "CC0-1.0",
+    "material": "normal-gl",
+    "bytes": 522186
   },
   {
     "file": "public/textures/grey_roof_tiles_diff_1k.jpg",
     "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grey_roof_tiles/grey_roof_tiles_diff_1k.jpg",
-    "sha256": "f61107b70cf56074c9db09384a332620c94c678ed2baabfae78029a8242e49a3"
+    "sha256": "f61107b70cf56074c9db09384a332620c94c678ed2baabfae78029a8242e49a3",
+    "credit": "Rob Tuytel",
+    "rights": "CC0-1.0",
+    "material": "diffuse-srgb",
+    "bytes": 596156
   },
   {
     "file": "public/textures/rock_face_nor_gl_1k.jpg",
     "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rock_face/rock_face_nor_gl_1k.jpg",
-    "sha256": "e2682e1286c8b6aca7e01ba7b8fe1726cb6606042b9ee70d097aa67470d410ef"
+    "sha256": "e2682e1286c8b6aca7e01ba7b8fe1726cb6606042b9ee70d097aa67470d410ef",
+    "credit": "Greg Zaal",
+    "rights": "CC0-1.0",
+    "material": "normal-gl",
+    "bytes": 1139857
   },
   {
     "file": "public/textures/rock_face_diff_1k.jpg",
     "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rock_face/rock_face_diff_1k.jpg",
-    "sha256": "cce4b50517161264bdef196f5e247e328ca3739083cd6044ad3cc54d88cb82e2"
+    "sha256": "cce4b50517161264bdef196f5e247e328ca3739083cd6044ad3cc54d88cb82e2",
+    "credit": "Greg Zaal",
+    "rights": "CC0-1.0",
+    "material": "diffuse-srgb",
+    "bytes": 732721
+  },
+  {
+    "file": "public/textures/flagstone-gray.jpg",
+    "source": "public/textures/rock_face_diff_1k.jpg",
+    "credit": "Greg Zaal / 사사 밝기·대비 조정",
+    "rights": "CC0-1.0",
+    "material": "diffuse-srgb",
+    "bytes": 67864,
+    "sha256": "0054bf6b12cf39e6a08b8ebc9f9561b74056d115cf5bffa9186eca1c7c99817f"
+  },
+  {
+    "file": "public/textures/hanji-fibres-generated-v1.png",
+    "source": "docs/hanji-study-01.md",
+    "credit": "사사 프로젝트 · 생성 텍스처",
+    "rights": "project-generated",
+    "material": "hanji-fibre",
+    "bytes": 2520050,
+    "sha256": "01618c755f23f23f2d7b4d478f43c9c23b843c7189921389b46d73973b9a7691"
   }
 ]
