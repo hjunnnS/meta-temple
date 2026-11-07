@@ -1,0 +1,527 @@
+{
+  "network": {
+    "latencyMs": 80,
+    "downloadMbps": 20,
+    "uploadMbps": 20,
+    "origin": "localhost",
+    "cache": "new browser context; same context and URL for revisit"
+  },
+  "visits": [
+    {
+      "visit": "first",
+      "timing": {
+        "navigationToFirstRenderedFrameMs": 5499,
+        "sceneConstructionToFirstFrameMs": 5012
+      },
+      "settings": {
+        "time": "day",
+        "quality": "high",
+        "density": 1000,
+        "visibleLanternCount": 384,
+        "nameTagCount": 1,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      },
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "resources": [
+        {
+          "path": "/assets/modulepreload-polyfill-P2Xu9kJm.js",
+          "bytes": 970
+        },
+        {
+          "path": "/assets/main-DmdZOnUi.js",
+          "bytes": 51961
+        },
+        {
+          "path": "/assets/shaderStore-D-XQlhUT.js",
+          "bytes": 769
+        },
+        {
+          "path": "/assets/logger-CuBYPcDK.js",
+          "bytes": 1126
+        },
+        {
+          "path": "/assets/engineStore-Bn2tApal.js",
+          "bytes": 1509
+        },
+        {
+          "path": "/assets/internalTexture-B3djGrls.js",
+          "bytes": 2346
+        },
+        {
+          "path": "/assets/rolldown-runtime-DK3Fl9T5.js",
+          "bytes": 458
+        },
+        {
+          "path": "/assets/performanceConfigurator-UtxC_Odd.js",
+          "bytes": 800
+        },
+        {
+          "path": "/assets/precisionDate-DtwGAGfs.js",
+          "bytes": 5253
+        },
+        {
+          "path": "/assets/thinEngine.pure-DD6qvOqC.js",
+          "bytes": 31288
+        },
+        {
+          "path": "/assets/math.scalar.functions-lnL7TJ7T.js",
+          "bytes": 1064
+        },
+        {
+          "path": "/assets/halfFloat-Cfx5m4ll.js",
+          "bytes": 938
+        },
+        {
+          "path": "/assets/contracts-WpP_LrX4.js",
+          "bytes": 1713
+        },
+        {
+          "path": "/assets/dynamicTexture.pure-Ba12tUBc.js",
+          "bytes": 1839
+        },
+        {
+          "path": "/assets/math.color.pure-BTk1mVkY.js",
+          "bytes": 18650
+        },
+        {
+          "path": "/assets/preview-rendering-BNL-eoQe.js",
+          "bytes": 240912
+        },
+        {
+          "path": "/assets/texture-H1iqUQtm.js",
+          "bytes": 367
+        },
+        {
+          "path": "/assets/instancesVertex-cKlwP7pn.js",
+          "bytes": 767
+        },
+        {
+          "path": "/assets/postProcess.pure-DhuL1J16.js",
+          "bytes": 7019
+        },
+        {
+          "path": "/assets/thinInstanceMesh-C4jxy93O.js",
+          "bytes": 3361
+        },
+        {
+          "path": "/assets/main-F7OjeOUD.css",
+          "bytes": 2197
+        },
+        {
+          "path": "/assets/shadowMap.fragment-Di-kbM2R.js",
+          "bytes": 1460
+        },
+        {
+          "path": "/assets/packingFunctions-DpGwbupU.js",
+          "bytes": 829
+        },
+        {
+          "path": "/assets/clipPlaneFragment-DVK0wgyZ.js",
+          "bytes": 659
+        },
+        {
+          "path": "/assets/shadowMap.vertex-D-qZoHWo.js",
+          "bytes": 1935
+        },
+        {
+          "path": "/assets/morphTargetsVertex-6N5r7oF1.js",
+          "bytes": 1290
+        },
+        {
+          "path": "/assets/clipPlaneVertex-CSW9OTRT.js",
+          "bytes": 1952
+        },
+        {
+          "path": "/assets/helperFunctions-D89zo_74.js",
+          "bytes": 2619
+        },
+        {
+          "path": "/assets/meshUboDeclaration-DYEo1Glw.js",
+          "bytes": 951
+        },
+        {
+          "path": "/assets/depthBoxBlur.fragment-CLEAG5DG.js",
+          "bytes": 834
+        },
+        {
+          "path": "/assets/shadowMapFragmentSoftTransparentShadow-R_iOKnyx.js",
+          "bytes": 670
+        },
+        {
+          "path": "/assets/kernelBlur.fragment-BvT73mHN.js",
+          "bytes": 1069
+        },
+        {
+          "path": "/assets/kernelBlurVaryingDeclaration-DP2Wr9Oc.js",
+          "bytes": 512
+        },
+        {
+          "path": "/assets/kernelBlur.vertex-C2dESVl-.js",
+          "bytes": 1189
+        },
+        {
+          "path": "/textures/rock_face_diff_1k.jpg",
+          "bytes": 733021
+        },
+        {
+          "path": "/textures/wood_planks_dirt_nor_gl_1k.jpg",
+          "bytes": 515302
+        },
+        {
+          "path": "/textures/stone_wall_diff_1k.jpg",
+          "bytes": 837275
+        },
+        {
+          "path": "/textures/wood_planks_dirt_diff_1k.jpg",
+          "bytes": 918423
+        },
+        {
+          "path": "/textures/rock_face_nor_gl_1k.jpg",
+          "bytes": 1140157
+        },
+        {
+          "path": "/textures/stone_wall_nor_gl_1k.jpg",
+          "bytes": 1172720
+        },
+        {
+          "path": "/textures/grey_roof_tiles_nor_gl_1k.jpg",
+          "bytes": 522486
+        },
+        {
+          "path": "/textures/grey_roof_tiles_diff_1k.jpg",
+          "bytes": 596456
+        },
+        {
+          "path": "/textures/hanji-fibres-generated-v1.png",
+          "bytes": 2520350
+        },
+        {
+          "path": "/assets/glowMapMerge.fragment-E4YwFGds.js",
+          "bytes": 1102
+        },
+        {
+          "path": "/assets/glowMapMerge.vertex-XcoH38fZ.js",
+          "bytes": 735
+        },
+        {
+          "path": "/assets/glowBlurPostProcess.fragment-DDN2NxnB.js",
+          "bytes": 878
+        },
+        {
+          "path": "/assets/default.vertex-DSKl5WqE.js",
+          "bytes": 4019
+        },
+        {
+          "path": "/assets/logDepthDeclaration-CTCYTVLm.js",
+          "bytes": 990
+        },
+        {
+          "path": "/assets/vertexColorMixing-B7dmaeCQ.js",
+          "bytes": 1051
+        },
+        {
+          "path": "/assets/default.fragment-C8-txkpq.js",
+          "bytes": 22704
+        },
+        {
+          "path": "/assets/fogFragment-CISE_m3s.js",
+          "bytes": 792
+        },
+        {
+          "path": "/assets/color.vertex-BoMlDi9w.js",
+          "bytes": 940
+        },
+        {
+          "path": "/assets/color.fragment-CxH-oW8C.js",
+          "bytes": 1229
+        },
+        {
+          "path": "/assets/glowMapGeneration.vertex-7JIOefkM.js",
+          "bytes": 1101
+        },
+        {
+          "path": "/assets/glowMapGeneration.fragment-CeHLhtIJ.js",
+          "bytes": 1031
+        },
+        {
+          "path": "/favicon.ico",
+          "bytes": 300
+        }
+      ]
+    },
+    {
+      "visit": "return",
+      "timing": {
+        "navigationToFirstRenderedFrameMs": 1936.8999999761581,
+        "sceneConstructionToFirstFrameMs": 1471.8999999761581
+      },
+      "settings": {
+        "time": "day",
+        "quality": "high",
+        "density": 1000,
+        "visibleLanternCount": 384,
+        "nameTagCount": 1,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      },
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "resources": [
+        {
+          "path": "/assets/main-DmdZOnUi.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/modulepreload-polyfill-P2Xu9kJm.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/engineStore-Bn2tApal.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/internalTexture-B3djGrls.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/logger-CuBYPcDK.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/shaderStore-D-XQlhUT.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/precisionDate-DtwGAGfs.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/rolldown-runtime-DK3Fl9T5.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/performanceConfigurator-UtxC_Odd.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/thinEngine.pure-DD6qvOqC.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/math.scalar.functions-lnL7TJ7T.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/halfFloat-Cfx5m4ll.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/math.color.pure-BTk1mVkY.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/preview-rendering-BNL-eoQe.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/contracts-WpP_LrX4.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/dynamicTexture.pure-Ba12tUBc.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/main-F7OjeOUD.css",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/texture-H1iqUQtm.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/instancesVertex-cKlwP7pn.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/postProcess.pure-DhuL1J16.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/thinInstanceMesh-C4jxy93O.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/shadowMap.fragment-Di-kbM2R.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/packingFunctions-DpGwbupU.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/clipPlaneFragment-DVK0wgyZ.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/shadowMap.vertex-D-qZoHWo.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/clipPlaneVertex-CSW9OTRT.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/morphTargetsVertex-6N5r7oF1.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/helperFunctions-D89zo_74.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/meshUboDeclaration-DYEo1Glw.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/depthBoxBlur.fragment-CLEAG5DG.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/shadowMapFragmentSoftTransparentShadow-R_iOKnyx.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/kernelBlur.fragment-BvT73mHN.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/kernelBlurVaryingDeclaration-DP2Wr9Oc.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/kernelBlur.vertex-C2dESVl-.js",
+          "bytes": 300
+        },
+        {
+          "path": "/textures/rock_face_diff_1k.jpg",
+          "bytes": 300
+        },
+        {
+          "path": "/textures/rock_face_nor_gl_1k.jpg",
+          "bytes": 300
+        },
+        {
+          "path": "/textures/wood_planks_dirt_diff_1k.jpg",
+          "bytes": 300
+        },
+        {
+          "path": "/textures/wood_planks_dirt_nor_gl_1k.jpg",
+          "bytes": 300
+        },
+        {
+          "path": "/textures/stone_wall_diff_1k.jpg",
+          "bytes": 300
+        },
+        {
+          "path": "/textures/stone_wall_nor_gl_1k.jpg",
+          "bytes": 300
+        },
+        {
+          "path": "/textures/grey_roof_tiles_diff_1k.jpg",
+          "bytes": 300
+        },
+        {
+          "path": "/textures/grey_roof_tiles_nor_gl_1k.jpg",
+          "bytes": 300
+        },
+        {
+          "path": "/textures/hanji-fibres-generated-v1.png",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/glowMapMerge.fragment-E4YwFGds.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/glowMapMerge.vertex-XcoH38fZ.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/glowBlurPostProcess.fragment-DDN2NxnB.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/default.vertex-DSKl5WqE.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/logDepthDeclaration-CTCYTVLm.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/vertexColorMixing-B7dmaeCQ.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/default.fragment-C8-txkpq.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/fogFragment-CISE_m3s.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/color.vertex-BoMlDi9w.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/color.fragment-CxH-oW8C.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/glowMapGeneration.vertex-7JIOefkM.js",
+          "bytes": 300
+        },
+        {
+          "path": "/assets/glowMapGeneration.fragment-CeHLhtIJ.js",
+          "bytes": 300
+        }
+      ]
+    }
+  ],
+  "keyboard": [
+    "settings focus and Escape return",
+    "diagnostic Escape return"
+  ],
+  "ownedSelections": [
+    37,
+    58,
+    23
+  ],
+  "errors": []
+}
