@@ -13,15 +13,17 @@ export const visitorSize={height:1.7,width:.65} as const;
 /** Snapshot the walk surfaces and solids before the scene batches them by material. */
 export function pedestrianWorld(parts:Mesh[]){
  type Rect={x0:number;x1:number;z0:number;z1:number;top:number;bottom:number};
- const surfaces:Rect[]=[],solids:Rect[]=[];
+ const surfaces:Rect[]=[],solids:Rect[]=[],ceilings:Rect[]=[];
  for(const part of parts){
   const surface=/(^|-)(step|plinth|hall-floor|floorboard|court|paving|base|stone)$/.test(part.name);
   const solid=/(^|-)(back-wall|side-wall|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front)$/.test(part.name);
-  if(!surface&&!solid)continue;
+  const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof)$/.test(part.name);
+  if(!surface&&!solid&&!roof)continue;
   part.computeWorldMatrix(true);
   const b=part.getBoundingInfo().boundingBox;
   const rect={x0:b.minimumWorld.x,x1:b.maximumWorld.x,z0:b.minimumWorld.z,z1:b.maximumWorld.z,top:b.maximumWorld.y,bottom:b.minimumWorld.y};
-  if(solid)solids.push(rect);
+  if(roof)ceilings.push(rect);
+  else if(solid)solids.push(rect);
   else if(rect.top<2.1)surfaces.push(rect);
  }
  const radius=visitorSize.width/2;
@@ -33,7 +35,16 @@ export function pedestrianWorld(parts:Mesh[]){
  function blocked(x:number,y:number,z:number){
   return !insideGround(x,z,radius)||solids.some(r=>x>r.x0-radius&&x<r.x1+radius&&z>r.z0-radius&&z<r.z1+radius&&y<r.top&&y+visitorSize.height>r.bottom);
  }
- return {floor,blocked};
+ function cameraLimit(target:Vector3,alpha:number,beta:number,length:number){
+  const dx=Math.cos(alpha)*Math.sin(beta),dy=Math.cos(beta),dz=Math.sin(alpha)*Math.sin(beta);
+  for(let d=.12;d<=length+.001;d+=.12){
+   const x=target.x+dx*d,y=target.y+dy*d,z=target.z+dz*d;
+   const intersects=(r:Rect)=>x>=r.x0-.1&&x<=r.x1+.1&&z>=r.z0-.1&&z<=r.z1+.1&&y>=r.bottom-.1&&y<=r.top+.1;
+   if(y<floor(x,z)+.12||solids.some(intersects)||ceilings.some(intersects)||!insideGround(x,z,.1))return Math.max(.08,d-.14);
+  }
+  return length;
+ }
+ return {floor,blocked,cameraLimit};
 }
 
 export function visitorMesh(scene:Scene,name:string){
@@ -58,7 +69,21 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  const keys=new Set<string>();
  const pad=document.querySelector<HTMLElement>('#walk-pad')!;
  const directions=new Set(['KeyW','KeyS','KeyA','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight']);
- let active=false,step=0;
+ let active=false,first=false,step=0;
+ const switchView=document.querySelector<HTMLButtonElement>('#walk-camera')!;
+ function changePerspective(on:boolean){
+  first=on;avatar.root.setEnabled(active&&!first);
+  switchView.textContent=first?'3인칭 보기':'1인칭 보기';switchView.setAttribute('aria-pressed',String(first));
+  if(!first&&document.pointerLockElement===canvas)document.exitPointerLock();
+ }
+ switchView.onclick=()=>{
+  changePerspective(!first);canvas.focus();
+  if(first&&matchMedia('(pointer:fine)').matches&&canvas.requestPointerLock){
+   Promise.resolve(canvas.requestPointerLock()).catch(()=>{/* Drag look remains available. */});
+  }
+ };
+ document.addEventListener('pointerlockchange',()=>{if(!document.pointerLockElement&&first)changePerspective(false);});
+ canvas.addEventListener('keydown',e=>{if(e.key==='Escape'&&first)changePerspective(false);});
  function clear(){keys.clear();}
  canvas.addEventListener('keydown',e=>{if(active&&directions.has(e.code)){e.preventDefault();keys.add(e.code);}});
  window.addEventListener('keyup',e=>keys.delete(e.code));
@@ -72,7 +97,8 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  function mode(on:boolean){
   if(active===on)return;
   if(orbitKeys){if(on)camera.inputs.remove(orbitKeys);else camera.inputs.add(orbitKeys);}
-  clear();active=on;pad.hidden=!on;avatar.root.setEnabled(on);
+  clear();active=on;pad.hidden=!on;changePerspective(false);
+  camera.lowerRadiusLimit=on?.04:2.5;camera.upperBetaLimit=on?Math.PI-.06:2.15;camera.lowerBetaLimit=on?.06:.15;
   if(on){
    camera.setTarget(avatar.root.position.add(new Vector3(0,1.2,0)));
    camera.fov=.92;camera.alpha=-Math.PI/2;camera.beta=1.26;camera.radius=3.2;
@@ -98,7 +124,8 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    if(distance>.00001){avatar.root.rotation.y=Math.atan2(p.x-ox,p.z-oz);step+=distance*4.8;}
    avatar.legs.forEach((leg,i)=>leg.rotation.x=distance>.00001?.35*Math.sin(step+i*Math.PI):0);
   }else avatar.legs.forEach(leg=>leg.rotation.x=0);
-  camera.target.copyFromFloats(p.x,p.y+1.2,p.z);
+  camera.target.copyFromFloats(p.x,p.y+(first?1.56:1.2),p.z);
+  camera.radius=first?.045:world.cameraLimit(camera.target,camera.alpha,camera.beta,3.2);
  }
  return {mode,update,get position(){return active?avatar.root.position.asArray():null;}};
 }
