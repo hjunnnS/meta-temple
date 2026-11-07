@@ -785,6 +785,9 @@ export function createTemple(canvas:HTMLCanvasElement) {
  for(const light of candleLights)light.includedOnlyMeshes=candleReceivers;
  stone.maxSimultaneousLights=7;
  for(const lamp of lampLights)lamp.includedOnlyMeshes=scene.meshes.filter(mesh=>mesh.material===stone||mesh.material===granite);
+ const nightWayfinding=new HemisphericLight('moonlit-path-and-sign',new Vector3(0,1,-.5),scene);
+ nightWayfinding.intensity=.96;nightWayfinding.diffuse=Color3.FromHexString('#eddac0');
+ nightWayfinding.includedOnlyMeshes=scene.meshes.filter(mesh=>mesh.material===signMat||slabs.some(material=>mesh.material===material));
  const palette=LANTERN_PALETTE;
  const hanjiTexture=new Texture('/textures/hanji-fibres-generated-v1.png',scene);
  // Three shape-specific UV mappings share the approved optical model and five dyes.
@@ -810,6 +813,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  function setName(value:string){const name=normalizeLanternName(value);if(name)names.set(selected,name);else names.delete(selected);rebuildLanterns(density);return name;}
  let lanternRoot=new TransformNode('lantern-samples',scene),selected=23,density=1000;
  let lanternCasters:Mesh[]=[];
+ let canopyCapacity=0,installedLanterns=0;
  let ownerBodies:Mesh[]=[];let ownerHalos:Mesh[]=[];let sparkles:{mesh:Mesh,center:Vector3,phase:number}[]=[];let marker:Mesh|null=null;
  const freeLanternIndices=[2,34,66];
  for(const slot of lanternSlots(67).filter(slot=>freeLanternIndices.includes(Number(slot.id.split(':').at(-1))))){
@@ -824,7 +828,9 @@ export function createTemple(canvas:HTMLCanvasElement) {
    const slot=lanternSlots(67)[index],record=readApplication(slot.id);
    if(record?.text)names.set(index,record.text);else names.delete(index);
   }
-  const slots=canopyLanternSlots(count).filter(slot=>!applicationSlots.has(slot.id)||!!readApplication(slot.id)),buckets=Array.from({length:15},()=>[] as Matrix[]);
+  const candidates=canopyLanternSlots(count);
+  const slots=candidates.filter(slot=>!applicationSlots.has(slot.id)||!!readApplication(slot.id)),buckets=Array.from({length:15},()=>[] as Matrix[]);
+  canopyCapacity=candidates.length;installedLanterns=slots.length;
   function body(name:string,type:number){
    if(type===0){const a=MeshBuilder.CreateSphere(name,{diameter:.74,segments:24},scene);a.scaling.y=1.12;a.bakeCurrentTransformIntoVertices();return a;}
    if(type===1)return MeshBuilder.CreateLathe(name,{shape:[new Vector3(.18,-.43,0),new Vector3(.39,-.22,0),new Vector3(.39,.22,0),new Vector3(.18,.43,0)],tessellation:8,cap:Mesh.NO_CAP,closed:true},scene);
@@ -882,6 +888,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  let reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  let currentTime:TimeOfDay='day';let quality:Quality='high';
  function time(value:TimeOfDay){
+  nightWayfinding.setEnabled(value==='night');
   amberLamp.emissiveColor=amberLamp.diffuseColor.scale(value==='night'?1.45:.55);
   pearlLamp.emissiveColor=pearlLamp.diffuseColor.scale(value==='night'?1.15:.48);
   flameMaterial.alpha=value==='night'?1:value==='dusk'?.88:.7;
@@ -1052,5 +1059,5 @@ export function createTemple(canvas:HTMLCanvasElement) {
   if(slot.kind==='lantern')rebuildLanterns(density);
   if(slot.kind==='plaque')writeWish(id);
  }
- return {applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {time:currentTime,quality,density,visibleLanternCount:canopyLanternSlots(density).length,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ return {applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {time:currentTime,quality,density,canopyCapacity,visibleLanternCount:installedLanterns,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }

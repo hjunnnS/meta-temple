@@ -1,6 +1,6 @@
 /** M1 design-only fixtures. These are not server-issued purchase rights. */
 import { wishGarden, templePlaces, courtHalfWidth, courtDepth, courtSouthEdge } from './temple-layout.ts';
-export type ProductKind = 'lantern' | 'votive' | 'wish-plaque' | 'memorial';
+export type ProductKind = 'lantern' | 'votive' | 'wish-plaque' | 'memorial' | 'candle';
 export type Vec3 = readonly [number, number, number];
 export interface Slot { id: string; zoneId: string; position: Vec3; rotationY: number; accepts: ProductKind }
 export const SCENE_VERSION = 'm1-web-review-012';
