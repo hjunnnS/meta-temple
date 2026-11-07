@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "sceneVersion": "m1-slice-001",
+  "createdAt": "2026-11-06T10:20:04.450Z",
+  "device": "미확인",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "physicalDeviceVerified": false,
+  "acceptance": "unreviewed",
+  "settings": {
+    "time": "dusk",
+    "quality": "high",
+    "density": 1000,
+    "selected": 23,
+    "reduced": false,
+    "owned": [
+      23,
+      37,
+      58
+    ],
+    "renderWidth": 593,
+    "renderHeight": 903
+  },
+  "currentSettings": {
+    "time": "dusk",
+    "quality": "high",
+    "density": 1000,
+    "selected": 23,
+    "reduced": false,
+    "owned": [
+      23,
+      37,
+      58
+    ],
+    "renderWidth": 593,
+    "renderHeight": 903
+  },
+  "startCamera": {
+    "alpha": -2.1048670779051615,
+    "beta": 1.1623892818282235,
+    "radius": 36,
+    "target": [
+      0,
+      3,
+      2
+    ]
+  },
+  "camera": {
+    "alpha": -2.1048670779051615,
+    "beta": 1.1623892818282235,
+    "radius": 36,
+    "target": [
+      0,
+      3,
+      2
+    ]
+  },
+  "renderer": {
+    "vendor": "Google Inc. (Apple)",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+  },
+  "timing": {
+    "navigationToFirstRenderedFrameMs": 162.19999992847443,
+    "sceneConstructionToFirstFrameMs": 129.29999995231628
+  },
+  "jsHeapBytes": 166401160,
+  "memoryCaveat": "JS heap only if exposed; not GPU or total process memory",
+  "measurement": {
+    "samples": 17583,
+    "meanFps": 119.99926292896245,
+    "onePercentLowFps": 106.48596300196176,
+    "maxFrameMs": 9.699999928474426,
+    "elapsedSeconds": 148.52510000002385,
+    "warmupSeconds": 2,
+    "valid": true,
+    "invalidReason": null
+  }
+}
