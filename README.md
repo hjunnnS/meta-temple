@@ -31,6 +31,6 @@ Node 24에서 `npm ci`, `npm run dev` 후 출력된 로컬 주소를 엽니다.
 - [I09 개발·검수 환경](docs/I09-development.md)
 - [I10 실제 완료 현황](docs/I10-status.md)
 
-기준: 기능정의서 v1.1, GitHub M1 #5–#13 및 조기 검증 보완. 문서 제안은 서비스 정책 승인과 다릅니다.
+기준: [기능정의서 v1.2](docs/feature-spec-v1.2.docx), GitHub M1 #5–#13 및 조기 검증 보완. 문서 제안은 서비스 정책 승인과 다릅니다.
 
 한지 연등 한 개의 재질 검수: 개발 서버의 [/hanji.html](http://127.0.0.1:5173/hanji.html). [구성·검증 기록](docs/hanji-study-01.md).

@@ -1,0 +1,23 @@
+{
+  "commit": "4fc540b",
+  "checks": [
+    {
+      "label": "initial",
+      "density": 1000,
+      "capacity": 384,
+      "installed": 381
+    },
+    {
+      "label": "after-local-installation",
+      "density": 1000,
+      "capacity": 384,
+      "installed": 382
+    },
+    {
+      "label": "after-reload",
+      "density": 1000,
+      "capacity": 384,
+      "installed": 382
+    }
+  ]
+}
