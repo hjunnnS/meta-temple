@@ -3,3 +3,9 @@
 @media(max-width:650px){nav{gap:0}nav button{padding:0 8px;font-size:11px}aside{max-height:calc(100dvh - 100px);overflow:auto}}
 
 .place-picker{position:absolute;top:100px;right:28px;display:grid;gap:8px;padding:14px 18px;background:rgba(20,34,30,.88);border:1px solid #778371;border-radius:12px;color:#fff;font-size:13px}.place-picker select{min-width:180px;padding:8px;background:#20362e;color:#fff;border:1px solid #829280;border-radius:6px}@media(max-width:700px){.place-picker{top:80px;right:12px;padding:8px;}}
+
+#reception-panel{position:fixed;z-index:2;left:24px;bottom:106px;width:min(240px,46vw);padding:14px 16px;background:#173328ef;color:#fff3d4;border:1px solid #b39e71;border-radius:6px}
+#reception-panel h2{font:19px serif;margin:0 0 8px}#reception-panel p{font-size:12px;line-height:1.45}
+#reception-panel button{background:#f5efdf;color:#283e33;border:0;border-radius:3px;margin:2px;padding:4px 10px;font-size:13px}
+#application-status:not(:empty){position:fixed;z-index:3;top:84px;left:20px;background:#20382d;color:#fff7df;padding:12px;border-radius:4px}
+@media(max-width:650px){#reception-panel{left:8px;bottom:123px;padding:9px;max-height:34dvh;overflow:auto}footer nav{flex-wrap:wrap}.place-picker{max-width:55vw}}

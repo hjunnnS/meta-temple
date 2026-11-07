@@ -1,9 +1,9 @@
 /** M1 design-only fixtures. These are not server-issued purchase rights. */
-import { templePlaces, courtHalfWidth, courtDepth, courtSouthEdge } from './temple-layout.ts';
+import { wishGarden, templePlaces, courtHalfWidth, courtDepth, courtSouthEdge } from './temple-layout.ts';
 export type ProductKind = 'lantern' | 'votive' | 'wish-plaque' | 'memorial';
 export type Vec3 = readonly [number, number, number];
 export interface Slot { id: string; zoneId: string; position: Vec3; rotationY: number; accepts: ProductKind }
-export const SCENE_VERSION = 'm1-web-review-010';
+export const SCENE_VERSION = 'm1-web-review-012';
 export const SAMPLE_OWNER = 'sample-owner-a';
 export function lanternSlots(count: number): Slot[] {
   if (!Number.isInteger(count) || count < 1 || count > 1000) throw new Error('Invalid density');
@@ -19,6 +19,21 @@ export function lanternSlots(count: number): Slot[] {
       rotationY: 0, accepts: 'lantern' as const };
   });
 }
+/** Lamp base centres in world space, counted left to right as seen from the entry. */
+export function hallLampSlots(kind:'votive'|'memorial'):Slot[]{
+ const votive=kind==='votive';
+ const hall=votive?templePlaces.find(p=>p.id==='indeung')!:templePlaces.find(p=>p.id==='jijang')!;
+ const zoneId=votive?'Z07':'Z06';
+ const columns=votive?6:4;
+ return Array.from({length:votive?columns*2:columns},(_,index)=>{
+  const dx=(votive?0:4.35)+(index%columns-(columns-1)/2)*(votive?.64:.55);
+  const dz=votive?1.65:1.8;
+  const y=1.4025*hall.scale+(votive?.69+Math.floor(index/columns)*.75:.83);
+  const angle=hall.yaw;
+  return {id:`sample:${zoneId}:${kind}:${String(index+1).padStart(2,'0')}`,zoneId,accepts:kind,rotationY:angle,
+   position:[hall.x+dx*Math.cos(angle)+dz*Math.sin(angle),y,hall.z-dx*Math.sin(angle)+dz*Math.cos(angle)]};
+ });
+}
 export const OWNED_INDICES = [23, 37, 58] as const;
 export interface Zone { id: string; name: string; center: Vec3; size: readonly [number,number]; interior: string }
 function placeCenter(id:(typeof templePlaces)[number]['id']):Vec3{
@@ -28,19 +43,19 @@ function placeCenter(id:(typeof templePlaces)[number]['id']):Vec3{
 const zoneRows: [string,string,Vec3,readonly [number,number],string][] = [
  ['Z01','일주문·천왕문',[0,0,-60],[18,28],'통로'],
  ['Z02','연등 광장·연등길',[0,0,-10],[32,32],'외부'],
- ['Z03','중앙 마당·석탑',[0,0,courtSouthEdge+courtDepth/2],[2*courtHalfWidth,courtDepth],'외부'],
+ ['Z03','중앙 마당·촛불함',[0,0,courtSouthEdge+courtDepth/2],[2*courtHalfWidth,courtDepth],'외부'],
  ['Z04','대웅전',placeCenter('daeung'),[36,30],'공개 실내 제안'],
  ['Z05','관음전',placeCenter('gwaneum'),[18,14],'공개 실내 제안'],
  ['Z06','지장전',placeCenter('jijang'),[18,14],'공개 실내 제안'],
  ['Z07','인등전',placeCenter('indeung'),[18,14],'공개 실내 제안'],
- ['Z08','소원패 정원',[32,0,-12],[20,18],'외부'],
+ ['Z08','소원패 정원',[wishGarden.x,0,wishGarden.z],[wishGarden.width,wishGarden.depth],'외부'],
  ['Z09','추모 구역',[34,0,42],[22,20],'외부'],
  ['Z10','종무소',placeCenter('office'),[18,12],'안내 실내 제안'],
  ['Z11','범종각',placeCenter('bell'),[12,12],'개방형'],
  ['Z12','명상숲',placeCenter('forest'),[38,24],'외부'],
 ];
 export const zones: Zone[] = zoneRows.map(([id,name,center,size,interior])=>({id,name,center,size,interior}));
-export const layoutDraft = { version:'layout-web-010', status:'proposed', unit:'metre', handedness:'left', up:'+Y', forward:'+Z', zones };
+export const layoutDraft = { version:'layout-web-012', status:'proposed', unit:'metre', handedness:'left', up:'+Y', forward:'+Z', zones };
 
 /** Reference-photo palette, in spatial band order; ownership never changes body colour. */
 export const LANTERN_PALETTE = ['#10b76a','#f582b6','#1765e8','#ffc329','#e93f46'] as const;

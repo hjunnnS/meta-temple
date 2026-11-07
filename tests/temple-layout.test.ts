@@ -6,8 +6,14 @@ test('reference layout preserves south/north order, west/east placement and non-
  const axis=['ilju','cheonwang','indeung','daeung','forest'].map(id=>get(id).z);
  assert.ok(axis.every((z,i)=>i===0||z>axis[i-1]));
  for(const [west,east] of [['bell','office'],['gwaneum','jijang']]){
-  assert.ok(get(west).x<0&&get(east).x>0);assert.equal(get(west).z,get(east).z);
+  assert.ok(get(west).x<0&&get(east).x>0);
  }
+ const westRow=['bell','indeung','gwaneum'].map(get);
+ assert.ok(westRow.every(p=>p.x===westRow[0].x));
+ assert.ok(westRow[0].z<westRow[1].z && westRow[1].z<westRow[2].z);
+ assert.equal(get('office').z,get('bell').z);
+ assert.equal(get('office').x,get('jijang').x);
+ assert.equal(get('gwaneum').z,get('jijang').z);
  const halls=templePlaces.filter(p=>p.kind==='hall');
  for(let i=0;i<halls.length;i++)for(let j=i+1;j<halls.length;j++){
   const a=halls[i],b=halls[j];

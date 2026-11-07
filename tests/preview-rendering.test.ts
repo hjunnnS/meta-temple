@@ -29,3 +29,20 @@ test('a background preview starts on return, stops offscreen and resumes exactly
   win.dispatchEvent(new Event('pageshow'));assert.equal(frames.size,1);
   assert.equal(starts,3);assert.equal(stops,2);
 });
+
+test('a visible unfocused preview draws its first ready frame, then pauses',()=>{
+ let focused=false, ready=false, renders=0;
+ const page=Object.assign(new EventTarget(),{hidden:true,hasFocus:()=>focused});
+ const win=new EventTarget();
+ Object.assign(globalThis,{document:page,window:win});
+ const frames=new Set<()=>void>();
+ renderWhileViewing({
+  runRenderLoop:fn=>frames.add(fn),stopRenderLoop:fn=>frames.delete(fn)
+ },()=>{renders++;},undefined,undefined,()=>ready);
+ assert.equal(frames.size,0);
+ page.hidden=false;page.dispatchEvent(new Event('visibilitychange'));
+ frames.forEach(fn=>fn());assert.equal(renders,1);assert.equal(frames.size,1);
+ ready=true;frames.forEach(fn=>fn());assert.equal(renders,2);assert.equal(frames.size,0);
+ focused=true;win.dispatchEvent(new Event('focus'));assert.equal(frames.size,1);
+ focused=false;win.dispatchEvent(new Event('blur'));assert.equal(frames.size,0);
+});

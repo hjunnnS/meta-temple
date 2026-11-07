@@ -8,19 +8,29 @@ export function renderWhileViewing(
   render: () => void,
   onPause?: () => void,
   onResume?: () => void,
+  firstFrameReady?: () => boolean,
 ) {
   let running = false;
   let pagePresent = true;
 
+  let preparing = firstFrameReady !== undefined;
+  const frame = firstFrameReady ? () => {
+    render();
+    if (preparing && firstFrameReady()) {
+      preparing = false;
+      sync();
+    }
+  } : render;
+
   function sync() {
-    const shouldRender = pagePresent && !document.hidden && document.hasFocus();
+    const shouldRender = pagePresent && !document.hidden && (preparing || document.hasFocus());
     if (shouldRender === running) return;
     running = shouldRender;
     if (running) {
       onResume?.();
-      engine.runRenderLoop(render);
+      engine.runRenderLoop(frame);
     } else {
-      engine.stopRenderLoop(render);
+      engine.stopRenderLoop(frame);
       onPause?.();
     }
   }

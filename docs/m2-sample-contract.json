@@ -1,7 +1,7 @@
 {
   "slotQuery": {
     "schemaVersion": 1,
-    "layoutVersion": "layout-web-010",
+    "layoutVersion": "layout-web-012",
     "templeId": "sample:sasa",
     "zoneId": "Z02",
     "coordinateSystem": {
@@ -42,7 +42,7 @@
   "join": {
     "schemaVersion": 1,
     "channelId": "sample:channel:1",
-    "layoutVersion": "layout-web-010",
+    "layoutVersion": "layout-web-012",
     "self": "sample:session:a",
     "participants": [
       {
