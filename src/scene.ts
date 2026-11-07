@@ -1063,7 +1063,25 @@ export function createTemple(canvas:HTMLCanvasElement) {
    const shimmer=reduced?0:Math.sin(t*(2.1+.12*(index%5))+index*2.4);
    flame.scaling.set(1+.045*shimmer,1+.09*shimmer,1);
   }
-  for(const {mesh,center,phase} of sparkles){const a=phase+(reduced?0:t*.10);mesh.position.set(center.x+Math.cos(a)*.50,center.y+Math.sin(a*1.7)*.43,center.z+Math.sin(a)*.30);const distanceScale=Math.min(4.5,Math.max(1,Vector3.Distance(camera.position,center)/12));const twinkle=reduced?1:.25+1.4*Math.pow((1+Math.sin(t*3.0+phase))/2,4);mesh.scaling.setAll(distanceScale*twinkle);}
+  for(const {mesh,center,phase} of sparkles){
+   const a=phase+(reduced?0:t*.10);
+   mesh.position.set(center.x+Math.cos(a)*.50,center.y+Math.sin(a*1.7)*.43,center.z+Math.sin(a)*.30);
+   const distance=Vector3.Distance(camera.position,center);
+   const twinkle=reduced?1:.25+1.4*Math.pow((1+Math.sin(t*3.0+phase))/2,4);
+   let scale=Math.min(4.5,Math.max(1,distance/12))*twinkle;
+   // One LED on the near shoulder stays legible as the paper body recedes.
+   if(phase===0 && distance>8){
+    const blend=Math.min(1,(distance-8)/12);
+    const towardEye=camera.position.subtract(center).normalize();
+    const pin=center.add(towardEye.scale(.55));
+    pin.y+=.36;
+    Vector3.LerpToRef(mesh.position,pin,blend,mesh.position);
+    const beat=reduced?.65:Math.pow(.5+.5*Math.cos(t*4.2),3);
+    const angularSize=.022+.046*beat;
+    scale+=(distance*angularSize/.12-scale)*blend;
+   }
+   mesh.scaling.setAll(scale);
+  }
  });
  view('gatePassage');
  function refreshApplication(id:string){
