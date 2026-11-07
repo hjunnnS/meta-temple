@@ -462,8 +462,6 @@ export function createTemple(canvas:HTMLCanvasElement) {
   }
  }
  for(const path of paving)flaggedPath(path.name,path.from[0],path.from[1],path.to[0],path.to[1],path.lanes);
- const bellCourt=templePlaces.find(p=>p.id==='bell')!;
- const votiveHall=templePlaces.find(p=>p.id==='indeung')!;
  const earth=mat('courtyard-compacted-soil','#afaaa2');
  earth.specularColor=Color3.Black();
  const grit=new DynamicTexture('fine-earth-and-gravel',512,scene,true);
@@ -899,6 +897,14 @@ export function createTemple(canvas:HTMLCanvasElement) {
  const startZ=outerGate.z+3;
  const exitZ=innerGate.z+7.2;
  let walkZ:number|null=null;
+ let walkEnd=exitZ;
+ function approachPose(z:number){
+  if(z<=exitZ){gateWalkPose(z);return;}
+  const lanterns=Math.exp(-((z+24)**2)/60);
+  const pagoda=Math.exp(-((z-6)**2)/25);
+  camera.setTarget(new Vector3(-6*pagoda,2.15+2.5*lanterns+.8*pagoda,z+7));
+  camera.setPosition(new Vector3(0,1.72,z));
+ }
  function gateWalkPose(z:number){
   const glance=Math.exp(-((z-(innerGate.z-2))**2)/13);
   camera.setTarget(new Vector3(-3.85*glance,2.15+3.15*glance,z+5.8-2*glance));
@@ -916,13 +922,16 @@ export function createTemple(canvas:HTMLCanvasElement) {
    camera.setPosition(new Vector3(7.8,3.75,innerGate.z+13));
    return;
   }
-  if(name==='gateWalk'||name==='guardianGallery'){
+  if(name==='templeApproach'||name==='gateWalk'||name==='guardianGallery'){
    camera.fov=1.12;
    camera.fovMode=canvas.clientWidth<canvas.clientHeight?ArcRotateCamera.FOVMODE_HORIZONTAL_FIXED:ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
    if(name==='guardianGallery'){
     camera.setTarget(new Vector3(-3.85,4.3,innerGate.z+2.65));camera.setPosition(new Vector3(.5,1.72,innerGate.z-1.7));
-   }else if(reduced){gateWalkPose(exitZ);}
-   else{walkZ=startZ;gateWalkPose(walkZ);}
+   }else{
+    walkEnd=name==='templeApproach'?courtSouthEdge+courtDepth-1:exitZ;
+    if(reduced){approachPose(walkEnd);}
+    else{walkZ=name==='templeApproach'?outerGate.z-5:startZ;approachPose(walkZ);}
+   }
    return;
   }
   if(name==='gateArrival'||name==='gatePassage'||name==='courtWall'){
@@ -1038,9 +1047,9 @@ export function createTemple(canvas:HTMLCanvasElement) {
  rebuildLanterns(1000);time('day');
  scene.onBeforeRenderObservable.add(()=>{
   if(walkZ!==null){
-   walkZ=Math.min(exitZ,walkZ+Math.min(engine.getDeltaTime(),60)*.0021);
-   gateWalkPose(walkZ);
-   if(walkZ>=exitZ)cancelGateWalk();
+   walkZ=Math.min(walkEnd,walkZ+Math.min(engine.getDeltaTime(),60)*.0021);
+   approachPose(walkZ);
+   if(walkZ>=walkEnd)cancelGateWalk();
   }
   camera.beta=Math.min(camera.beta,Math.acos(Math.max(-1,Math.min(1,(.6-camera.target.y)/camera.radius))));
   const t=performance.now()*.001,pulse=reduced?1:1+.12*Math.sin(t*1.05);for(const m of [...lanternMaterials,...ownedMaterials]){m.setVector3('eye',camera.position);m.setVector3('sunDirection',sun.direction);m.setColor3('sunTint',sun.diffuse);m.setFloat('sunlight',sun.intensity);m.setFloat('skylight',hemi.intensity);}for(const m of ownedMaterials){m.setFloat('lampOn',currentTime==='night'?1.35:1);m.setFloat('ownedLight',1.35*pulse);}

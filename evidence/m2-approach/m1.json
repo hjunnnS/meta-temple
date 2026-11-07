@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "sceneVersion": "m1-web-review-013",
+  "createdAt": "2026-11-07T23:44:40.142Z",
+  "device": "미확인",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "physicalDeviceVerified": false,
+  "acceptance": "unreviewed",
+  "settings": {
+    "time": "day",
+    "quality": "high",
+    "density": 1000,
+    "canopyCapacity": 440,
+    "visibleLanternCount": 437,
+    "nameTagCount": 1,
+    "selected": 23,
+    "reduced": true,
+    "owned": [
+      23,
+      37,
+      58
+    ],
+    "renderWidth": 1440,
+    "renderHeight": 810
+  },
+  "currentSettings": {
+    "time": "day",
+    "quality": "high",
+    "density": 1000,
+    "canopyCapacity": 440,
+    "visibleLanternCount": 437,
+    "nameTagCount": 1,
+    "selected": 23,
+    "reduced": true,
+    "owned": [
+      23,
+      37,
+      58
+    ],
+    "renderWidth": 1440,
+    "renderHeight": 810
+  },
+  "startCamera": {
+    "alpha": -1.8817946074004377,
+    "beta": 2.001120773539238,
+    "radius": 6.472248450113761,
+    "target": [
+      15,
+      7.5,
+      28.4
+    ]
+  },
+  "camera": {
+    "alpha": -1.8817946074004377,
+    "beta": 2.001120773539238,
+    "radius": 6.472248450113761,
+    "target": [
+      15,
+      7.5,
+      28.4
+    ]
+  },
+  "renderer": {
+    "vendor": "Google Inc. (Apple)",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+  },
+  "timing": {
+    "navigationToFirstRenderedFrameMs": 1915,
+    "sceneConstructionToFirstFrameMs": 1876.0999999046326
+  },
+  "jsHeapBytes": 270475254,
+  "memoryCaveat": "JS heap only if exposed; not GPU or total process memory",
+  "measurement": {
+    "samples": 606,
+    "meanFps": 60.00653536537946,
+    "onePercentLowFps": 55.51149874749418,
+    "maxFrameMs": 20.300000071525574,
+    "elapsedSeconds": 12.1,
+    "warmupSeconds": 2,
+    "valid": true,
+    "invalidReason": null
+  }
+}
