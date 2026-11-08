@@ -31,7 +31,14 @@ try{
  const current=(await request('channel/join',clients[1],{channel:1})).data.participants.find(p=>p.sessionId===latest.self);
  assert.equal(current.sequence,4);assert.equal(current.yaw,.5);
  for(let i=0;i<20;i++)assert.equal((await request('channel/leave',clients[i],{self:members[i].data.self})).status,200);
- assert.equal((await request('channel/join',clients[20],{channel:1})).data.count,1);
+ const loneVisitor=(await request('channel/join',clients[20],{channel:1})).data;
+ assert.equal(loneVisitor.count,1);
+ // Simulate a lost tab with no leave signal or heartbeat, then use the same authenticated session again.
+ await new Promise(resolve=>setTimeout(resolve,20100));
+ const stale=await request('channel/move',clients[20],{self:loneVisitor.self,position:[0,.245,-65],sequence:1,yaw:0,animation:'idle'});
+ assert.equal(stale.status,410);
+ const returned=(await request('channel/join',clients[20],{channel:1})).data;
+ assert.equal(returned.count,1);assert.notEqual(returned.self,loneVisitor.self);
  console.log('20 concurrent HTTP sessions, movement, worship, capacity, channel switch and leave:',Math.round(performance.now()-start),'ms');
  const id=accounts[0];
  const {rows:[slot]}=await pool.query("SELECT id FROM slots s WHERE kind='lantern' AND NOT EXISTS(SELECT 1 FROM reservations WHERE slot_id=s.id AND released_at IS NULL) AND NOT EXISTS(SELECT 1 FROM installations WHERE slot_id=s.id AND removed_at IS NULL) LIMIT 1");
