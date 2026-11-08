@@ -1,3 +1,4 @@
+import {t} from './locales';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
@@ -84,13 +85,13 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  function finishWorship(){
   worship=false;elapsed=0;avatar.root.rotation.x=0;
   for(const arm of avatar.arms)arm.rotation.set(0,0,0);
-  prayerButton.textContent=prayer?prayer.name+(practicing?' · 참배 시작':' · 불단 바라보기'):'';
+  prayerButton.textContent=prayer?t(prayer.name)+' · '+t(practicing?'참배 시작':'불단'):'';
  }
  prayerButton.onclick=()=>{
   if(!prayer)return;
   if(worship){finishWorship();canvas.focus();return;}
   camera.alpha=prayer.alpha;camera.beta=1.62;avatar.root.rotation.y=-Math.PI/2-prayer.alpha;
-  if(practicing){worship=true;elapsed=0;prayerButton.textContent='참배 마치기';}
+  if(practicing){worship=true;elapsed=0;prayerButton.textContent=t('참배 마치기');}
   canvas.focus();
  };
  const visitButton=document.querySelector<HTMLButtonElement>('#visit-point')!;
@@ -102,7 +103,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  const switchView=document.querySelector<HTMLButtonElement>('#walk-camera')!;
  function changePerspective(on:boolean){
   first=on;avatar.root.setEnabled(active&&!first);
-  switchView.textContent=first?'3인칭 보기':'1인칭 보기';switchView.setAttribute('aria-pressed',String(first));
+  switchView.textContent=t(first?'3인칭 보기':'1인칭 보기');switchView.setAttribute('aria-pressed',String(first));
   if(!first&&document.pointerLockElement===canvas)document.exitPointerLock();
  }
  switchView.onclick=()=>{
@@ -141,7 +142,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   const p=avatar.root.position;
   const nearby=visitorSites.find(site=>Math.hypot(p.x-site.x,p.z-site.z)<=site.radius);
   if(visitButton.dataset.view!==(nearby?.view??'')){
-   visitButton.hidden=!nearby;visitButton.textContent=nearby?.title??'';visitButton.dataset.view=nearby?.view??'';
+   visitButton.hidden=!nearby;visitButton.textContent=t(nearby?.title??'');visitButton.dataset.view=nearby?.view??'';
   }
   const nextPrayer=prayerSites.find(site=>Math.hypot(p.x-site.x,p.z-site.z)<=site.radius&&p.y>.8);
   if(prayer!==nextPrayer){

@@ -63,6 +63,7 @@ try{
  const visits=[];
  for(const visit of ['first','return']){
   await page.goto('http://127.0.0.1:4317');
+  await page.getByRole('button',{name:'한국어',exact:true}).click();
   await page.waitForSelector('body[data-ready=true]',{state:'attached'});
   const {timing,renderer,userAgent,currentSettings}=await report();
   visits.push({visit,timing,renderer,userAgent,currentSettings});

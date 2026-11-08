@@ -1,0 +1,90 @@
+{
+  "checks": [
+    {
+      "code": "ko",
+      "entry": true,
+      "account": true,
+      "offer": "7일 · 3,000원"
+    },
+    {
+      "code": "ja",
+      "entry": true,
+      "account": true,
+      "offer": "7 日 · ₩3,000"
+    },
+    {
+      "code": "en",
+      "entry": true,
+      "account": true,
+      "offer": "7 days · ₩3,000"
+    },
+    {
+      "code": "zh-Hans",
+      "entry": true,
+      "account": true,
+      "offer": "7天 · ₩3,000"
+    },
+    {
+      "code": "pt-PT",
+      "entry": true,
+      "account": true,
+      "offer": "7 dias · 3000 ₩"
+    },
+    {
+      "code": "es",
+      "entry": true,
+      "account": true,
+      "offer": "7 días · 3000 KRW"
+    },
+    {
+      "code": "fr",
+      "entry": true,
+      "account": true,
+      "offer": "7 jours · 3 000 ₩"
+    },
+    {
+      "code": "it",
+      "entry": true,
+      "account": true,
+      "offer": "7 giorni · 3000 KRW"
+    },
+    {
+      "code": "pt-BR",
+      "entry": true,
+      "account": true,
+      "offer": "7 dias · ₩ 3.000"
+    },
+    {
+      "code": "ms",
+      "entry": true,
+      "account": true,
+      "offer": "7 hari · ₩3,000"
+    },
+    {
+      "code": "de",
+      "entry": true,
+      "account": true,
+      "offer": "7 Tage · 3.000 ₩"
+    },
+    {
+      "code": "vi",
+      "entry": true,
+      "account": true,
+      "offer": "7 ngày · 3.000 ₩"
+    },
+    {
+      "code": "ru",
+      "entry": true,
+      "account": true,
+      "offer": "7 дней · 3 000 ₩"
+    },
+    {
+      "code": "tr",
+      "entry": true,
+      "account": true,
+      "offer": "7 gün · ₩3.000"
+    }
+  ],
+  "smallScreenKeyboard": true,
+  "errors": []
+}

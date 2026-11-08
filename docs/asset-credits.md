@@ -16,3 +16,5 @@ Poly Haven CC0 assets. License: https://polyhaven.com/license (확인 2026-11-06
 반입할 파일은 public 아래에 두고 textures/sources.json에 파일명·출처·제작자·권리·바이트 수·SHA-256 버전을 기록한다. 모델에는 metresPerUnit, 재질에는 material 용도를 지정한다. 프로젝트 생성 한지의 제작 근거는 hanji-study-01.md에 있다. 새 라이선스의 상업 이용·수정·배포 허용 여부는 반입자가 원문을 확인해 이 문서에 남긴다. npm run assets가 누락·중복·파일 변경을 검사하고 npm run check와 GitHub 검사에서도 실행된다. 숫자로 정한 전체 배포 예산은 P11 결정 대기다.
 
 M2 #26의 마당 바람, 숲바람과 새소리, 목탁 소리, 범종 여운은 src/temple-audio.ts에서 직접 합성한다. 외부 녹음이나 음원 파일을 사용하지 않는다.
+
+접속 언어 선택기의 국기 14종은 flag-icons 7.6.0의 4:3 SVG이다. [원본 프로젝트](https://github.com/lipis/flag-icons) · [동봉 라이선스](../public/flags/LICENSE.txt).

@@ -1,3 +1,4 @@
+import {locale,t} from './locales';
 import type { Scene } from '@babylonjs/core/scene';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { visitorMesh } from './walking.ts';
@@ -25,7 +26,7 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
    }
    if(peer.sequence>=remote.peer.sequence){remote.peer=peer;remote.target.set(...peer.position as [number,number,number]);}
   }
-  box.textContent='같은 공간 방문자 '+(s.count??1+avatars.size)+'명';
+  box.textContent=t('같은 공간 방문자')+' '+(s.count??1+avatars.size)+(locale==='ko'?'명':'');
  }
  scene.onBeforeRenderObservable.add(()=>{
   const dt=Math.min(.1,scene.getEngine().getDeltaTime()/1000);
@@ -47,7 +48,7 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
    if(generation!==epoch)return;
    if(channel&&[401,409].includes(response.status)){
     epoch++;session=null;for(const id of avatars.keys())clearPeer(id);
-    box.textContent=response.status===409?'만석입니다. 다른 채널을 선택하세요.':'로그인하면 다른 방문자가 보입니다.';return;
+    box.textContent=t(response.status===409?'만석입니다. 다른 채널을 선택하세요.':'로그인하면 다른 방문자가 보입니다.');return;
    }
    if(response.status===401||response.status===410){session=null;sequence=0;}
    if(!response.ok)throw Error('세션 연결 실패');
@@ -55,7 +56,7 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
    if(generation!==epoch)return;
    if(!current){if(!s.key&&!channel)throw Error('세션 키 누락');session={id:s.self,key:s.key??''};}
    reconcile(s);
-  }catch{if(generation===epoch){for(const id of avatars.keys())clearPeer(id);box.textContent='방문자 연결 재시도 중';}}
+  }catch{if(generation===epoch){for(const id of avatars.keys())clearPeer(id);box.textContent=t('방문자 연결 재시도 중');}}
   finally{if(generation===epoch)timer=window.setTimeout(()=>void sync(generation),session?160:650);}
  }
  window.addEventListener('pagehide',()=>{
