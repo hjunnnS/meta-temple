@@ -1,3 +1,4 @@
+import {watchPublic} from './public-refresh.ts';
 import { displayOffers } from './service-offers.ts';
 import { setupAccount } from './service-account.ts';
 import { templeAudio } from './temple-audio.ts';
@@ -235,20 +236,17 @@ if(import.meta.env.MODE==='service'){
  channelLabel.append(channel);settingsPanel.append(channelLabel,visitors);
  reviewPresence(app.scene,()=>app.visitorPose,visitors,channel);
  window.addEventListener('sasa:select',e=>app.selectOffering((e as CustomEvent<string|null>).detail));
- let revision=0,lastSnapshot='';
- async function syncServiceSlots(){
-  const generation=++revision;
-  try{
-   const zones=await Promise.all(offeringZones.map(async zone=>{
-    const res=await fetch('/api/service/temples/sample:sasa/zones/'+zone+'/slots',{cache:'no-store'});
-    if(!res.ok)throw Error();return parseReviewSlots(await res.json(),zone,true);
-   }));
-   const slots=zones.flat(),snapshot=JSON.stringify(slots.map(s=>[s.installationId,s.owned,s.reserved,s.name,s.text]));
-   if(generation===revision&&lastSnapshot!==snapshot){app.applyReviewSlots(slots);lastSnapshot=snapshot;}
-  }catch{if(generation===revision)$('#application-status').textContent='설치 상태를 다시 확인하고 있습니다.';}
- }
- void syncServiceSlots();window.addEventListener('sasa:installations',syncServiceSlots);
- window.setInterval(()=>{if(!document.hidden)void syncServiceSlots();},5000);
+ let lastSnapshot='';
+ const syncServiceSlots=watchPublic(async signal=>Promise.all(offeringZones.map(async zone=>{
+  const res=await fetch('/api/service/temples/sample:sasa/zones/'+zone+'/slots',{signal,cache:'no-store'});
+  if(!res.ok)throw Error();return parseReviewSlots(await res.json(),zone,true);
+ })),zones=>{
+  const slots=zones.flat(),snapshot=JSON.stringify(slots.map(s=>[s.installationId,s.owned,s.reserved,s.name,s.text]));
+  if(snapshot!==lastSnapshot){app.applyReviewSlots(slots);lastSnapshot=snapshot;}
+ },()=>{
+  if(lastSnapshot){app.applyReviewSlots([]);lastSnapshot='';}
+ });
+ window.addEventListener('sasa:installations',syncServiceSlots);
 
  const help=document.createElement('dialog');help.setAttribute('aria-label','첫 방문 안내');
  help.innerHTML='<h2>사찰 둘러보기</h2><p>방향키나 화면의 화살표로 걸으세요. 화면을 드래그하면 처마와 연등을 올려다볼 수 있습니다.</p><p>법당 불단 앞에서 참배할 수 있습니다. 내 아이템은 가까이 걸어가 빛을 확인하세요.</p><button>안내 닫기</button>';document.body.append(help);

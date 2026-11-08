@@ -20,7 +20,7 @@ async function settle(db){
   const {rows}=await db.query('SELECT e.* FROM entries e JOIN offers o ON o.id=e.offer_id WHERE e.slot_id=$1 AND o.enabled ORDER BY e.account_id',[draw.slot_id]);
   if(rows.length){
    const e=rows[randomInt(rows.length)];
-   await db.query("INSERT INTO reservations(account_id,slot_id,kind,offer_id,inscription,expires_at) SELECT $1,s.id,s.kind,$3,$4,$5::timestamptz+interval '5 minutes' FROM slots s WHERE s.id=$2 AND $5::timestamptz+interval '5 minutes'>now() ON CONFLICT DO NOTHING",[e.account_id,e.slot_id,e.offer_id,e.inscription,draw.closes_at]);
+   await db.query("INSERT INTO reservations(account_id,slot_id,kind,offer_id,inscription,quoted_price,quoted_days,expires_at) SELECT $1,s.id,s.kind,$3,$4,f.price_krw,f.days,$5::timestamptz+interval '5 minutes' FROM slots s JOIN offers f ON f.id=$3 WHERE s.id=$2 AND $5::timestamptz+interval '5 minutes'>now() ON CONFLICT DO NOTHING",[e.account_id,e.slot_id,e.offer_id,e.inscription,draw.closes_at]);
   }
   await db.query('DELETE FROM draws WHERE slot_id=$1',[draw.slot_id]);
  }
@@ -36,7 +36,8 @@ export async function trade(action,method,input,account){
   }
   if(method!=='POST')deny(405,'method');
   if(action==='enter'){
-   const {rows:[slot]}=await db.query('SELECT s.id,s.kind FROM slots s JOIN offers o ON o.kind=s.kind WHERE s.id=$1 AND o.id=$2 AND o.enabled',[input.slotId,input.offerId]);
+   const {rows:[slot]}=await db.query('SELECT s.id,s.kind,o.revision FROM slots s JOIN offers o ON o.kind=s.kind WHERE s.id=$1 AND o.id=$2 AND o.enabled',[input.slotId,input.offerId]);
+   if(slot&&slot.revision!==(input.revision??1))deny(409,'offer_changed');
    if(!slot)deny(409,'incompatible_offer');
    if(await held(db,account))deny(409,'already_reserved');
    const taken=await db.query('SELECT 1 FROM installations WHERE slot_id=$1 AND removed_at IS NULL UNION ALL SELECT 1 FROM reservations WHERE slot_id=$1 AND released_at IS NULL',[slot.id]);
@@ -58,7 +59,7 @@ export async function trade(action,method,input,account){
    if(!uuid(input.holdId))deny(400,'invalid_hold');
    const prior=await db.query('SELECT id,amount_krw,status FROM orders WHERE reservation_id=$1 AND account_id=$2',[input.holdId,account]);if(prior.rowCount)return [200,prior.rows[0]];
    const h=await held(db,account);if(!h||h.id!==input.holdId)deny(409,'expired_hold');
-   const {rows:[o]}=await db.query('INSERT INTO orders(reservation_id,account_id,slot_id,amount_krw,offer_id,term_days,inscription) SELECT r.id,r.account_id,r.slot_id,f.price_krw,f.id,f.days,r.inscription FROM reservations r JOIN offers f ON f.id=r.offer_id AND f.enabled WHERE r.id=$1 RETURNING id,amount_krw,status',[h.id]);
+   const {rows:[o]}=await db.query('INSERT INTO orders(reservation_id,account_id,slot_id,amount_krw,offer_id,term_days,inscription) SELECT r.id,r.account_id,r.slot_id,r.quoted_price,r.offer_id,r.quoted_days,r.inscription FROM reservations r WHERE r.id=$1 RETURNING id,amount_krw,status',[h.id]);
    if(!o)deny(409,'offer_stopped');
    await db.query('UPDATE reservations SET payment_lock=true WHERE id=$1',[h.id]);
    await db.query('INSERT INTO test_receipts(order_id,amount_krw,account_id) VALUES($1,$2,$3)',[o.id,o.amount_krw,account]);

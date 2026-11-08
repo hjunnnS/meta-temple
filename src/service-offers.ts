@@ -39,8 +39,8 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
   button('신청 내용 확인',async()=>{
    const d=new FormData(form),tag=d.has('tag'),name=tag?String(d.get('name')??'').trim():'',text=String(d.get('message')??'').trim(),publish=d.has('public');
    if(tag&&(!name||!publish)){note.textContent='이름표에는 표시 이름과 공개 동의가 필요합니다.';return;}
-   const payload={offerId:offer.id,slotId:choice.value,name,tag,text,public:publish};
-   controls.replaceChildren();note.textContent=[choice.value,offer.days+'일',offer.priceKrw+'원',publish?'공개':'비공개',name,text].filter(Boolean).join(' · ');
+   const payload={revision:quote.revision,offerId:offer.id,slotId:choice.value,name,tag,text,public:publish};
+   controls.replaceChildren();note.textContent=[choice.value,quote.days+'일',quote.priceKrw+'원',publish?'공개':'비공개',name,text].filter(Boolean).join(' · ');
    button('취소',restart);button('이 자리에 예약',async()=>{
     await service('trade/enter',payload);controls.replaceChildren();note.textContent='동시 신청을 확인하고 있습니다.';
     await new Promise(resolve=>setTimeout(resolve,1100));if(section.isConnected)await held();

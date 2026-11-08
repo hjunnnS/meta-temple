@@ -1,3 +1,4 @@
+import {staff} from './staff.mjs';
 import {createHash,randomBytes,randomUUID} from 'node:crypto';
 import {writeFile} from 'node:fs/promises';
 import {join} from 'node:path';
@@ -58,12 +59,12 @@ export async function serviceApi(){
     res.setHeader('Set-Cookie','sasa_session=; Path=/api/service; HttpOnly; SameSite=Strict; Max-Age=0');return send(200,{signedOut:true});
    }
    if(path==='/api/service/offers'&&req.method==='GET'){
-    const {rows}=await pool.query('SELECT id,kind,days,price_krw AS "priceKrw" FROM offers WHERE enabled ORDER BY kind,days');
+    const {rows}=await pool.query('SELECT id,revision,kind,days,price_krw AS "priceKrw" FROM offers WHERE enabled ORDER BY kind,days');
     return send(200,{testOnly:true,offers:rows});
    }
    if(path==='/api/service/quote'&&req.method==='POST'){
     if(typeof input.offerId!=='string'||Object.keys(input).some(k=>k!=='offerId'))return send(400,{error:'invalid_offer'});
-    const {rows:[offer]}=await pool.query('SELECT id,kind,days,price_krw AS "priceKrw" FROM offers WHERE id=$1 AND enabled',[input.offerId]);
+    const {rows:[offer]}=await pool.query('SELECT id,revision,kind,days,price_krw AS "priceKrw" FROM offers WHERE id=$1 AND enabled',[input.offerId]);
     if(!offer)return send(409,{error:'not_available'});
     return send(200,{testOnly:true,offer});
    }
@@ -81,6 +82,10 @@ export async function serviceApi(){
    }
    const {rows:[account]}=await pool.query('SELECT a.id,a.email FROM accounts a JOIN sessions s ON a.id=s.account_id WHERE s.digest=$1 AND s.expires_at>now()',[cookieHash]);
    if(!account)return send(401,{error:'login_required'});
+   if(path.startsWith('/api/service/staff/')){
+    const [code,body]=await staff(account.id,path.split('/').pop(),req.method,input);
+    return send(code,body);
+   }
    if(req.method==='POST'&&path.startsWith('/api/service/channel/')){
     const [code,result]=presence(account.id,cookieHash,path.split('/').pop(),input);
     return send(code,result);

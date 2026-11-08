@@ -7,3 +7,11 @@ Node 24와 PostgreSQL 17의 initdb, pg_ctl, psql, createdb가 PATH에 있는 Mac
 계정 메뉴에서 visitor@example.test처럼 시험 주소를 입력한다. 이 Mac의 .m3-local/mail에 생성된 가장 최근의 해당 수신자 메시지에서 링크를 열고 ‘로그인 완료’를 누른다. 외부 메일 발송은 실제 발송 환경 승인 후 연결한다. 링크는 10분 내 한 번만 사용할 수 있고 새 링크 요청 시 이전 링크는 폐기된다. 이 로컬 검수용 세션은 24시간 동안 유효하며 다른 브라우저에서 별도 링크로 같은 계정의 이력을 확인할 수 있다. 기본 탐방은 로그인 없이 이용한다.
 
 종료 시 Vite를 종료하고 `pg_ctl -D .m3-local/db -m fast stop`으로 이 프로젝트의 DB를 정지할 수 있다. 데이터와 시험 우편함은 Git에 포함되지 않는다.
+
+시험 운영 화면은 로그인 후 `/staff.html`에서 연다. 이 Mac의 데이터베이스 관리자가 기존 시험 계정에만 역할을 지정한다. 예를 들어 아래 SQL의 주소를 해당 시험 계정으로 바꾼다. 역할 값은 접수·환불 `desk`, 상품 운영 `catalog`, 공개 문구 감수 `moderation`이다.
+
+```sql
+INSERT INTO staff_roles(account_id,role)
+SELECT id,'catalog' FROM accounts WHERE email='operator@example.test'
+ON CONFLICT DO NOTHING;
+```
