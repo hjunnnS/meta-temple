@@ -21,3 +21,11 @@ test('rejects duplicate slots, altered positions or directions, incompatible ite
   const data=zoneLayout('Z03');change(data);assert.throws(()=>parseReviewSlots(data,'Z03'));
  }
 });
+
+test('owned sample highlights cover every product and only installed slots',()=>{
+ const rows=offeringZones.flatMap(zone=>parseReviewSlots(zoneLayout(zone),zone));
+ const owned=rows.filter(s=>s.owned);
+ assert.equal(owned.length,7);
+ assert.equal(new Set(owned.map(s=>s.accepts)).size,5);
+ assert.ok(owned.every(s=>s.installationId&&rows.some(other=>other.accepts===s.accepts&&!other.owned&&other.installationId)));
+});

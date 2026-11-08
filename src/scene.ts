@@ -32,7 +32,7 @@ import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator'
 import { GlowLayer } from '@babylonjs/core/Layers/glowLayer';
 import '@babylonjs/core/Meshes/thinInstanceMesh';
 import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
-import { candleCabinets, candleSlot, plaqueSlot, rackSpacing, gateCanopyAnchor, hallLampSlots, lanternSlots, canopyLanternSlots, OWNED_INDICES, LANTERN_PALETTE, lanternColourIndex, normalizeLanternName } from './contracts.ts';
+import { fixedSlots, ownedOfferingSamples, candleCabinets, candleSlot, plaqueSlot, rackSpacing, gateCanopyAnchor, hallLampSlots, lanternSlots, canopyLanternSlots, OWNED_INDICES, LANTERN_PALETTE, lanternColourIndex, normalizeLanternName } from './contracts.ts';
 export type TimeOfDay = 'day' | 'dusk' | 'night';
 export type Quality = 'high' | 'low';
 export function createTemple(canvas:HTMLCanvasElement) {
@@ -827,6 +827,43 @@ export function createTemple(canvas:HTMLCanvasElement) {
  let canopyCapacity=0,installedLanterns=0;
  let ownerBodies:Mesh[]=[];let ownerHalos:Mesh[]=[];let sparkles:{mesh:Mesh,center:Vector3,phase:number}[]=[];let marker:Mesh|null=null;
  const reviewSlots=new Map<string,ReviewSlot>();
+ const offeringMarkers=new Map<string,{rim:Mesh;star:Mesh;lift:number}>();
+ const gold=mat('owned-offering-rim','#ffd687',1);gold.disableLighting=true;
+ const starGold=mat('owned-offering-star','#fff3cc',1.4);
+ starGold.opacityTexture=starTexture;starGold.disableLighting=true;starGold.disableDepthWrite=true;
+ function markOffering(id:string,kind:Offering,point:Vector3,owned:boolean){
+  if(kind==='lantern')return;
+  const existing=offeringMarkers.get(id);
+  if(!owned){
+   if(existing){glow.removeIncludedOnlyMesh(existing.star);existing.rim.dispose();existing.star.dispose();offeringMarkers.delete(id);}
+   return;
+  }
+  if(existing)return;
+  // A fine open arc hugs the offering; its steady silhouette also works without bloom.
+  const width=kind==='plaque'?.20:kind==='candle'?.13:.22;
+  const height=kind==='plaque'?.29:kind==='candle'?.34:.27;
+  const path=Array.from({length:37},(_,i)=>{
+   const angle=(.60+i/36*1.80)*Math.PI;
+   return new Vector3(width*Math.cos(angle),height*Math.sin(angle),0);
+  });
+  const rim=MeshBuilder.CreateTube('owned-rim-'+id,{path,radius:.009,tessellation:6},scene);
+  rim.material=gold;rim.position.copyFrom(point);rim.billboardMode=Mesh.BILLBOARDMODE_ALL;rim.isPickable=false;
+  const star=MeshBuilder.CreatePlane('owned-pin-'+id,{size:.24},scene);
+  star.material=starGold;star.billboardMode=Mesh.BILLBOARDMODE_ALL;star.isPickable=false;
+  star.position.copyFrom(point);star.position.y+=height;glow.addIncludedOnlyMesh(star);
+  offeringMarkers.set(id,{rim,star,lift:height});
+ }
+ if(import.meta.env.MODE!=='review'){
+  for(const slot of fixedSlots()){
+   if(slot.accepts==='lantern')continue;
+   const local=applicationSlots.get(slot.id);
+   if(!ownedOfferingSamples.has(slot.id)&&!readApplication(slot.id))continue;
+   const point=Vector3.FromArray([...slot.position]);
+   if(slot.accepts==='votive'||slot.accepts==='memorial')point.y+=.25;
+   if(slot.accepts==='candle')point.y+=.32;
+   markOffering(slot.id,local?.kind??(slot.accepts==='wish-plaque'?'plaque':slot.accepts),local?.point??point,true);
+  }
+ }
  const claimedSlots=new Set<string>(import.meta.env.MODE==='review'?['sample:Z02:lantern:0023','sample:Z02:lantern:0002']:[]);
  const reviewMarks:Mesh[]=[];
  function applyReviewSlots(slots:ReviewSlot[]){
@@ -1108,6 +1145,13 @@ export function createTemple(canvas:HTMLCanvasElement) {
   const t=performance.now()*.001,pulse=reduced?1:1+.12*Math.sin(t*1.05);for(const m of [...lanternMaterials,...ownedMaterials]){m.setVector3('eye',camera.position);m.setVector3('sunDirection',sun.direction);m.setColor3('sunTint',sun.diffuse);m.setFloat('sunlight',sun.intensity);m.setFloat('skylight',hemi.intensity);}for(const m of ownedMaterials){m.setFloat('lampOn',currentTime==='night'?1.35:1);m.setFloat('ownedLight',1.35*pulse);}
   for(const m of auraMaterials)m.alpha=(currentTime==='night'?.60:.85)*pulse;
   for(const h of ownerHalos){const scale=Math.min(2.1,Math.max(1,Vector3.Distance(camera.position,h.position)/22));h.scaling.setAll(scale);}
+  for(const {rim,star,lift} of offeringMarkers.values()){
+   const distance=Vector3.Distance(camera.position,rim.position);
+   const toward=camera.position.subtract(rim.position).normalize();
+   star.position.copyFrom(rim.position);star.position.y+=lift;
+   star.position.addInPlace(toward.scale(.10));
+   star.scaling.setAll(Math.max(1,distance*.052)*(reduced?1:.93+.30*Math.sin(t*3.6)));
+  }
   for(const [index,flame] of offeringFlames.entries()){
    const shimmer=reduced?0:Math.sin(t*(2.1+.12*(index%5))+index*2.4);
    flame.scaling.set(1+.045*shimmer,1+.09*shimmer,1);
@@ -1140,6 +1184,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
   slot.mark.setEnabled(!filled);
   if(slot.kind==='lantern')rebuildLanterns(density);
   if(slot.kind==='plaque')writeWish(id);
+  const owned=reviewSlots.get(id)?.owned??!!readApplication(id);
+  markOffering(id,slot.kind,slot.point,filled&&owned);
  }
  function showOccupancy(value:'current'|'empty'|'full'){
   occupancy=value;

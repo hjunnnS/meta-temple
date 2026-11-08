@@ -1,4 +1,4 @@
-import {fixedSlots,layoutDraft,OWNED_INDICES} from '../src/contracts.ts';
+import {fixedSlots,layoutDraft,ownedOfferingSamples} from '../src/contracts.ts';
 
 function initiallyEmpty(slot){
  const suffix=slot.id.split(':').at(-1);
@@ -13,10 +13,9 @@ export function zoneLayout(zoneId){
  const slots=fixedSlots().filter(s=>s.zoneId===zoneId).map(s=>{
   const row={slotId:s.id,position:s.position,rotationY:s.rotationY,accepts:s.accepts};
   if(initiallyEmpty(s))return row;
-  const index=Number(s.id.split(':').at(-1));
   return {...row,sampleInstallation:{slotId:s.id,productKind:s.accepts,
    installationId:s.id==='sample:Z02:lantern:0023'?'sample:installation:23':'sample:installation:'+s.id.slice(7),
-   ownerId:s.accepts==='lantern'&&OWNED_INDICES.includes(index)?'sample-owner-a':'sample-community'}};
+   ownerId:ownedOfferingSamples.has(s.id)?'sample-owner-a':'sample-community'}};
  });
  return {schemaVersion:1,layoutVersion:layoutDraft.version,templeId:'sample:sasa',zoneId,
   coordinateSystem:{units:'metre',up:'+Y',north:'+Z',rotation:'radian'},slots};

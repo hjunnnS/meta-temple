@@ -113,3 +113,10 @@ export function fixedSlots():Slot[] {
   ...Array.from({length:54},(_,i)=>plaqueSlot(Math.floor(i/18),Math.floor(i/9)%2,i%9)),
   ...Array.from({length:21},(_,i)=>candleSlot(Math.floor(i/7),i%7))];
 }
+
+// Installed demonstration items for the same sample visitor across all five zones.
+export const ownedOfferingSamples = new Set([
+ ...OWNED_INDICES.map(i=>'sample:Z02:lantern:'+String(i).padStart(4,'0')),
+ 'sample:Z07:votive:09','sample:Z06:memorial:03',
+ 'sample:Z08:plaque:0-0-4','sample:Z03:candle:1-3'
+]);

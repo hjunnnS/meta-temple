@@ -33,6 +33,6 @@
 #settings-panel label,#settings-panel input,#settings-panel select{font-size:16px}
 #settings-panel :focus-visible{outline-color:#80602d}
 #world:focus-visible{outline:3px solid #d7b16a;outline-offset:-3px}
-@media(max-width:650px){
+@media(max-width:650px),(max-height:600px){
  body:not(.exploring) :is(footer,.place-picker,.hint){display:none}
 }
