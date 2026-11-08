@@ -10,7 +10,7 @@ import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { hallSeats, practiceSeat } from './hall-seats.ts';
 
 // Built separately from the exterior template so other buildings do not inherit the shrine.
-export function furnishHall(scene:Scene, meshes:Mesh[], timber:StandardMaterial, beam:StandardMaterial){
+export function furnishHall(scene:Scene, meshes:Mesh[], timber:StandardMaterial, beam:StandardMaterial,monkTime?:()=>number){
  const mat=(name:string,hex:string,fill=.32)=>{
   const m=new StandardMaterial(name,scene);m.diffuseColor=Color3.FromHexString(hex);
   m.emissiveColor=m.diffuseColor.scale(fill);m.specularColor=new Color3(.12,.1,.08);return m;
@@ -79,7 +79,7 @@ export function furnishHall(scene:Scene, meshes:Mesh[], timber:StandardMaterial,
  box('scripture-desk',0,floor+.48,43.23,1.5,.13,.54,timber);
  for(const x of [-.59,.59])box('desk-foot',x,floor+.22,43.23,.12,.44,.4,timber);
  box('sutra',-.2,floor+.565,43.2,.66,.05,.33,ivory);
- placeHallMonk(scene,-1.44,floor+.11,43.05);
+ placeHallMonk(scene,-1.44,floor+.11,43.05,monkTime);
  const coats=['#53677a','#75615b','#596659','#a17b74','#665971'].map((c,i)=>mat('visitor-coat-'+i,c));
  const skin=mat('skin','#cc9675'),pants=mat('trousers','#42434b');
  for(const [i,{x,z}] of hallSeats.entries()){

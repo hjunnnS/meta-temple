@@ -30,9 +30,15 @@ const timber=cloth('hall wood','#70452d'),beam=cloth('painted beam','#914836');
 const floor=MeshBuilder.CreateGround('hall floor',{width:34,height:24},scene);
 floor.material=timber;floor.position.set(0,1.69,38);
 const parts:Mesh[]=[];
-furnishHall(scene,parts,timber,beam);
+const previewView=new URLSearchParams(location.search).get('view');
+const monkReview=previewView==='monk-front'||previewView==='monk-side';
+let scrub:number|null=null,monkStart=performance.now();
+function monkTime(){return scrub??((performance.now()-monkStart)/1000)%19;}
+furnishHall(scene,parts,timber,beam,monkReview?monkTime:undefined);
 const groups=new Map<StandardMaterial,Mesh[]>();
 for(const mesh of parts){
+ // The front inspection camera sits inside the altar. Hide only its foreground scenery in this view.
+ if(previewView==='monk-front'&&mesh.position.z>=43.68){mesh.dispose();continue;}
  const material=mesh.material as StandardMaterial;
  if(!groups.has(material))groups.set(material,[]);
  groups.get(material)!.push(mesh);
@@ -43,7 +49,6 @@ facePicker(document.querySelector("header")!,avatar.setFace);
 avatar.root.position.set(practiceSeat.x,1.778,practiceSeat.z);
 camera.upperRadiusLimit=12;camera.setTarget(new Vector3(practiceSeat.x,2.95,practiceSeat.z));
 camera.setPosition(new Vector3(practiceSeat.x-1.55,4.15,practiceSeat.z-6.4));
-const previewView=new URLSearchParams(location.search).get('view');
 if(previewView==='bow'){
  camera.setTarget(new Vector3(practiceSeat.x,2.46,practiceSeat.z+.35));
  camera.setPosition(new Vector3(practiceSeat.x-2.60,2.53,practiceSeat.z+.88));
@@ -95,6 +100,24 @@ replay.onclick=()=>{
   if(completed&&!scene.getMeshByName('bow-rainbow-ring')){scene.onBeforeRenderObservable.remove(observer);replay.disabled=false;}
  });
 };
+if(monkReview){
+ const front=previewView==='monk-front';
+ document.querySelector('h1')!.textContent='대웅전 스님 · '+(front?'정면':'옆면');
+ document.querySelector('#face-picker')?.remove();
+ const bar=document.querySelector('footer')!;bar.replaceChildren();
+ const other=document.createElement('a');other.textContent=front?'옆면 보기':'정면 보기';other.href='?view=monk-'+(front?'side':'front');
+ const slider=document.createElement('input');slider.type='range';slider.min='0';slider.max='18.99';slider.step='.001';slider.setAttribute('aria-label','스님 동작 시점');
+ const play=document.createElement('button');play.textContent='일시정지';
+ slider.oninput=()=>{scrub=Number(slider.value);play.textContent='재생';};
+ play.onclick=()=>{if(scrub===null){scrub=monkTime();play.textContent='재생';}else{monkStart=performance.now()-scrub*1000;scrub=null;play.textContent='일시정지';}};
+ bar.append(other,slider,play);
+ const direction=front?new Vector3(.57,0,.82):new Vector3(.94,0,-.34);
+ const centre=new Vector3(-1.44,2.62,43.05);
+ camera.lowerRadiusLimit=.65;camera.minZ=front?1.55:1.3;
+ camera.setTarget(centre);camera.setPosition(centre.add(direction.scale(2.55)).add(new Vector3(0,.40,0)));
+ const fill=new HemisphericLight('monk-review-fill',direction.add(new Vector3(0,.5,0)),scene);fill.intensity=.38;
+ scene.onBeforeRenderObservable.add(()=>{if(scrub===null)slider.value=String(monkTime());});
+}
 const render=()=>scene.render();
 function visibility(){if(document.hidden)engine.stopRenderLoop(render);else engine.runRenderLoop(render);}
 visibility();document.addEventListener('visibilitychange',visibility);window.addEventListener('resize',()=>{engine.resize();framePreview();});

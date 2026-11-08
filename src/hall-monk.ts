@@ -7,7 +7,7 @@ import {Color3} from '@babylonjs/core/Maths/math.color';
 import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
 import type {Scene} from '@babylonjs/core/scene';
 
-export function placeHallMonk(scene:Scene,x:number,y:number,z:number){
+export function placeHallMonk(scene:Scene,x:number,y:number,z:number,previewTime?:()=>number){
  const root=new TransformNode('대웅전 스님',scene);
  root.position.set(x,y,z);root.rotation.y=Math.atan2(x,z-45.12);
  function material(name:string,hex:string){
@@ -16,7 +16,7 @@ export function placeHallMonk(scene:Scene,x:number,y:number,z:number){
   return m;
  }
  const cloth=material('ramie','#98958b'),collar=material('collar','#d7d3c5'),kasa=material('kasa','#a45b3b');
- const skin=material('skin','#b5afa1'),ink=material('features','#59443d'),wood=material('moktak','#834c2c');
+ const skin=material('skin','#d9ad90'),ink=material('features','#59443d'),wood=material('moktak','#834c2c');
  const torso=new TransformNode('monk-upper-body',scene);torso.parent=root;
  function oval(name:string,parent:TransformNode,m:StandardMaterial,px:number,py:number,pz:number,w:number,h:number,d:number){
   const mesh=MeshBuilder.CreateSphere(name,{diameter:1,segments:16},scene);
@@ -42,36 +42,56 @@ export function placeHallMonk(scene:Scene,x:number,y:number,z:number){
   const shoe=oval('monk-cloth-shoe',root,collar,0,.055,0,.17,.11,.23);
   return {side,thigh,shin,shoe};
  });
- const drum=oval('monk-woodblock',torso,wood,.03,.20,-.32,.245,.185,.19);
- oval('monk-sound-slit',torso,ink,.03,.20,-.411,.149,.013,.012);
- oval('monk-left-sleeve',torso,cloth,.202,.34,-.115,.215,.34,.31);
- oval('monk-supporting-hand',torso,skin,.127,.18,-.284,.107,.105,.128);
- const elbow=new TransformNode('monk-striking-arm',scene);
- elbow.parent=torso;elbow.position.set(-.197,.38,-.06);
- oval('monk-right-sleeve',elbow,cloth,-.015,-.045,-.11,.204,.205,.315);
- oval('monk-mallet-hand',elbow,skin,.003,-.085,-.259,.105,.105,.112);
- const stick=oval('monk-mallet',elbow,wood,.069,-.085,-.272,.184,.023,.023);
- oval('monk-mallet-tip',elbow,wood,stick.position.x+.099,-.085,-.272,.059,.065,.058);
+ // The striking surface is the crown of the woodblock; both hands use the same local frame.
+ const drumX=.065,drumY=.29,drumZ=-.35,drumRadiusY=.096,tipRadius=.032;
+ oval('monk-woodblock',torso,wood,drumX,drumY,drumZ,.25,drumRadiusY*2,.20);
+ oval('monk-sound-slit',torso,ink,drumX,drumY,drumZ-.097,.15,.014,.011);
+ const handle=MeshBuilder.CreateTorus('moktak-handle',{diameter:.114,thickness:.022,tessellation:24},scene);
+ handle.parent=torso;handle.material=wood;handle.rotation.x=Math.PI/2;handle.position.set(.175,drumY+.014,drumZ+.018);
+ oval('monk-left-sleeve',torso,cloth,.202,.38,-.124,.188,.26,.30);
+ const support=oval('monk-supporting-forearm',torso,cloth,.183,.30,-.226,.155,.16,.19);
+ support.rotation.x=-.27;
+ oval('monk-supporting-hand',torso,skin,.171,.296,-.302,.085,.095,.11);
+ const pivot=new TransformNode('monk-striking-wrist',scene);pivot.parent=torso;
+ const stickLength=.245,strikeYaw=.65;
+ pivot.rotation.y=strikeYaw;
+ pivot.position.set(drumX-stickLength*Math.cos(strikeYaw),drumY+drumRadiusY+tipRadius,drumZ+stickLength*Math.sin(strikeYaw));
+ oval('monk-grip',pivot,skin,0,0,0,.10,.10,.106);
+ oval('monk-mallet',pivot,wood,stickLength*.46,0,0,stickLength*1.16,.019,.021);
+ oval('monk-mallet-tip',pivot,wood,stickLength,0,0,tipRadius*2,tipRadius*2,tipRadius*2);
+ const upperSleeve=oval('monk-upper-sleeve',torso,cloth,0,0,0,.16,.24,.16);
+ const lowerSleeve=oval('monk-forearm-sleeve',torso,cloth,0,0,0,.135,.22,.134);
+ const lips=oval('chanting-lips',head,ink,0,-.107,.17,.049,.007,.013);
+ const cycle=19,firstBeat=8.2,interval=1.16;
  let time=0;
- function smooth(v:number){v=Math.max(0,Math.min(1,v));return v*v*(3-2*v);}
+ function ease(t:number,a:number,b:number){
+  const u=Math.max(0,Math.min(1,(t-a)/(b-a)));return u*u*(3-2*u);
+ }
  function animate(){
-  const transfer=smooth((time-8)/3.4)*(1-smooth((time-18)/3.4));
-  const planted=smooth(transfer/.38),rise=smooth((transfer-.22)/.78);
-  const lean=Math.sin(Math.PI*transfer);
-  const stand=rise,beat=(time-11.4)*Math.PI*2/1.25;
-  const hipY=.235+.51*rise,hipZ=-.115*lean;
-  torso.position.set(0,hipY,hipZ);torso.rotation.x=-.42*lean;
-  skirt.position.z=hipZ;skirt.scaling.y=(hipY+.045)/.77;
+  const prepare=ease(time,3.2,4.35)*(1-ease(time,16.4,18.25));
+  const rise=ease(time,4.35,6.8)*(1-ease(time,14.6,16.65));
+  const shift=.065*prepare*(1-rise);
+  const lean=prepare*(1-rise);
+  const hipY=.235+.53*rise,hipZ=-.105*lean-.095*rise;
+  torso.position.set(shift,hipY,hipZ);torso.rotation.x=-.32*lean-.04*(1-rise);
+  const hem=.025+.35*rise;
+  skirt.position.set(shift,hem,hipZ-.055*rise);skirt.scaling.y=(hipY+.045-hem)/.77;skirt.scaling.z=.84+.17*rise;
   skirt.scaling.x=1.09-.14*rise;
   for(const {side,thigh,shin,shoe} of legs){
-   const footX=side*(.045+.085*planted),footZ=-.09-.095*lean;
-   shoe.position.set(footX,.055,footZ);
-   const kneeX=side*(.29-.16*planted);
-   const kneeY=.16+.25*rise+.11*lean,kneeZ=-.10-.20*lean;
+   const step=side<0?ease(time,3.25,4.1)*(1-ease(time,17.2,18.2)):ease(time,3.95,4.75)*(1-ease(time,16.4,17.35));
+   const footX=side*(.045+.09*step),footZ=-.09-(side<0?.105:.025)*step;
+   const footY=.055+.043*Math.sin(Math.PI*step);
+   shoe.position.set(footX,footY,footZ);
+   const hip=new Vector3(shift+side*.13,hipY,hipZ),ankle=new Vector3(footX,footY+.035,footZ);
+   const axis=ankle.subtract(hip),span=axis.length();axis.normalize();
+   const bend=new Vector3(side*(1-step+.10),.15,-.5-step);
+   const out=bend.subtract(axis.scale(Vector3.Dot(bend,axis))).normalize();
+   const knee=Vector3.Center(hip,ankle).add(out.scale(Math.sqrt(Math.max(0,.36**2-span**2/4))));
+   const {x:kneeX,y:kneeY,z:kneeZ}=knee;
    // Lay each trouser segment between its joints, keeping the feet on the mat.
    for(const [part,ax,ay,az,bx,by,bz] of [
-    [thigh,side*.13,hipY,hipZ,kneeX,kneeY,kneeZ],
-    [shin,kneeX,kneeY,kneeZ,footX,.09,footZ]
+    [thigh,hip.x,hipY,hipZ,kneeX,kneeY,kneeZ],
+    [shin,kneeX,kneeY,kneeZ,footX,ankle.y,footZ]
    ] as const){
     const dx=bx-ax,dy=by-ay,dz=bz-az;
     part.position.set((ax+bx)/2,(ay+by)/2,(az+bz)/2);
@@ -79,12 +99,26 @@ export function placeHallMonk(scene:Scene,x:number,y:number,z:number){
     part.rotation.set(Math.atan2(dz,Math.hypot(dx,dy)),0,-Math.atan2(dx,dy));
    }
   }
-  head.rotation.x=-.10*(1-stand)-.13*lean+.018*Math.sin(time*2.1);
-  head.position.y=.80+.004*(1-stand)*Math.sin(time*4);
-  elbow.rotation.x=.24+stand*(.33-.61*Math.cos(beat));
-  drum.rotation.z=.025*stand*Math.cos(beat);
+  head.rotation.x=-.10*(1-rise)-.13*lean+.017*(1-prepare)*Math.sin(time*2.1);
+  lips.scaling.y=.006+.018*(1-prepare)*(.5+.5*Math.sin(time*8));
+  // Accelerate into contact, rebound quickly, then gather for the next beat.
+  const beat=(time-firstBeat+interval*10)%interval/interval;
+  const arc=.72*ease(beat,0,.18)+.24*ease(beat,.18,.73)-.96*ease(beat,.73,1);
+  const playing=ease(time,6.8,7.7)*(1-ease(time,13.1,14.5));
+  const angle=.45*(1-playing)+arc*playing;
+  pivot.rotation.z=angle;
+  pivot.position.y=drumY+drumRadiusY+tipRadius-.18*(1-playing)-.08*lean+.045*playing*Math.sin(angle);
+  pivot.position.z=drumZ+stickLength*Math.sin(strikeYaw)+.065*(1-playing);
+  const shoulder=new Vector3(-.195,.49,-.04);
+  const elbow=new Vector3(-.25,.29+.06*playing*Math.sin(angle),-.15);
+  for(const [sleeve,from,to] of [[upperSleeve,shoulder,elbow],[lowerSleeve,elbow,pivot.position]] as const){
+   sleeve.position.copyFrom(from).addInPlace(to).scaleInPlace(.5);
+   const offset=to.subtract(from);
+   sleeve.scaling.y=offset.length()+.095;
+   sleeve.rotation.set(Math.atan2(offset.z,Math.hypot(offset.x,offset.y)),0,-Math.atan2(offset.x,offset.y));
+  }
  }
  animate();
- scene.onBeforeRenderObservable.add(()=>{time=(time+Math.min(.1,scene.getEngine().getDeltaTime()/1000))%22;animate();});
+ scene.onBeforeRenderObservable.add(()=>{time=previewTime?.()??(time+Math.min(.1,scene.getEngine().getDeltaTime()/1000))%cycle;animate();});
  return root;
 }
