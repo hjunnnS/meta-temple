@@ -91,6 +91,10 @@ export function createTemple(canvas:HTMLCanvasElement) {
 
  // Stone joints are geometry, using the same small palette and merged after creation.
  for(let iz=19;iz<26;iz++)for(let ix=0;ix<9;ix++)box('paving',1.7,.1,1.45,(ix-4)*1.77,.08,-21+iz*1.53,stone,false);
+ const displayFixtures:Mesh[]=[];
+ const displayBatches:Mesh[]=[];
+ let occupancy:'current'|'empty'|'full'='current';
+ const displayKinds=new Set<Offering>(['plaque','votive','memorial']);
  const applicationSlots=new Map<string,{kind:Offering;point:Vector3;mark:Mesh;parts:Mesh[]}>();
  let onSlotClick:(id:string)=>void=()=>{};
  const pinTexture=new DynamicTexture('available-slot-sign',128,scene,false);
@@ -327,6 +331,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    }
    if(slot.id.endsWith('02')||slot.id.endsWith('04'))
     applicationSlot(slot.id,kind,new Vector3(lx,y+.25,lz),staticMeshes.splice(lampStart));
+   else displayFixtures.push(...staticMeshes.splice(lampStart));
   }
  }
  for(const door of facadeDoors){staticMeshes.splice(staticMeshes.indexOf(door),1);door.dispose();}
@@ -606,7 +611,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
      const id='sample:Z08:plaque:'+kind;
      applicationSlot(id,'plaque',new Vector3(rackX-.14,railY-drop-top,z),staticMeshes.splice(tabletStart));
      writeWish(id);
-    }
+    }else displayFixtures.push(...staticMeshes.splice(tabletStart));
    }
   }
  });
@@ -764,9 +769,23 @@ export function createTemple(canvas:HTMLCanvasElement) {
  furnishHall(scene,staticMeshes,wood,painted);
  // Merge static geometry by material. Shadow lists are rebuilt to avoid disposed casters.
  const walking=walkingController(scene,camera,canvas,pedestrianWorld(staticMeshes));
- const grouped=new Map<StandardMaterial,Mesh[]>();for(const a of staticMeshes){const m=a.material as StandardMaterial;if(!grouped.has(m))grouped.set(m,[]);grouped.get(m)!.push(a);}
  shadows.getShadowMap()!.renderList=[];
- for(const [m,list] of grouped){const merged=Mesh.MergeMeshes(list,true,true,undefined,false,false);if(merged){merged.name=`architecture-${m.name}`;merged.receiveShadows=true;shadows.addShadowCaster(merged);merged.freezeWorldMatrix();}}
+ function batchArchitecture(meshes:Mesh[],display:boolean){
+  const groups=new Map<StandardMaterial,Mesh[]>();
+  for(const mesh of meshes){
+   const material=mesh.material as StandardMaterial;
+   if(!groups.has(material))groups.set(material,[]);
+   groups.get(material)!.push(mesh);
+  }
+  for(const [material,parts] of groups){
+   const merged=Mesh.MergeMeshes(parts,true,true);
+   if(!merged)continue;
+   merged.name='architecture-'+material.name;merged.receiveShadows=true;
+   shadows.addShadowCaster(merged);merged.freezeWorldMatrix();
+   if(display)displayBatches.push(merged);
+  }
+ }
+ batchArchitecture(staticMeshes,false);batchArchitecture(displayFixtures,true);
  const luminousWindows=scene.meshes.find(mesh=>mesh.material===lampCore);
  if(luminousWindows instanceof Mesh)glow.addIncludedOnlyMesh(luminousWindows);
  const candleReceivers=scene.meshes.filter(mesh=>[stone,stoneDark,wood,ochre,wax].some(material=>mesh.material===material));
@@ -1110,11 +1129,16 @@ export function createTemple(canvas:HTMLCanvasElement) {
  view('gatePassage');
  function refreshApplication(id:string){
   const slot=applicationSlots.get(id);if(!slot)return;
-  const filled=!!readApplication(id);
+  const filled=displayKinds.has(slot.kind)&&occupancy!=='current'?occupancy==='full':!!readApplication(id);
   for(const mesh of slot.parts)mesh.setEnabled(filled);
   slot.mark.setEnabled(!filled);
   if(slot.kind==='lantern')rebuildLanterns(density);
   if(slot.kind==='plaque')writeWish(id);
  }
- return {get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount:installedLanterns,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ function showOccupancy(value:'current'|'empty'|'full'){
+  occupancy=value;
+  for(const mesh of displayBatches)mesh.setEnabled(value!=='empty');
+  for(const [id,slot] of applicationSlots)if(displayKinds.has(slot.kind))refreshApplication(id);
+ }
+ return {showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount:installedLanterns,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }

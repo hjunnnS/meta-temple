@@ -113,6 +113,8 @@ function receptionView(view:string){
  }
 }
 function openRequest(id:string){
+ const fixture=$<HTMLSelectElement>('#display-occupancy');
+ if(fixture&&fixture.value!=='current'){ $('#application-status').textContent='신청은 현재 배치에서 가능합니다.';return;}
  if(app.reviewSlots.has(id)){ $('#application-status').textContent='서버 검수용 자리입니다.';return;}
  const slot=app.applicationSlots.get(id);if(!slot||readApplication(id))return;
  const item=offerings[slot.kind];pendingId=id;
@@ -168,6 +170,11 @@ if(import.meta.env.MODE==='review'){
   finally{refresh.disabled=false;}
  }
  refresh.onclick=loadSlots;void loadSlots();
+ const densityLabel=document.createElement('label');densityLabel.textContent='인등·추모등·소원패 ';
+ const densitySelect=document.createElement('select');densitySelect.id='display-occupancy';
+ for(const [value,title] of [['current','현재 배치'],['empty','모두 빈 상태'],['full','만석']])densitySelect.add(new Option(title,value));
+ densitySelect.onchange=()=>app.showOccupancy(densitySelect.value as 'current'|'empty'|'full');
+ densityLabel.append(densitySelect);panel.append(densityLabel);
  const visitors=document.createElement('span');panel.append(visitors);
  reviewPresence(app.scene,()=>app.visitorPose,visitors);
 }

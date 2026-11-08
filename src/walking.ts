@@ -17,7 +17,7 @@ export function pedestrianWorld(parts:Mesh[]){
  const surfaces:Rect[]=[],solids:Rect[]=[],ceilings:Rect[]=[];
  for(const part of parts){
   const surface=/(^|-)(step|plinth|hall-floor|floorboard|court|paving|base|stone)$/.test(part.name);
-  const solid=/(^|-)(back-wall|side-wall|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk)$/.test(part.name);
+  const solid=/(^|-)(back-wall|side-wall|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth)$/.test(part.name);
   const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof)$/.test(part.name);
   if(!surface&&!solid&&!roof)continue;
   part.computeWorldMatrix(true);
