@@ -951,6 +951,36 @@ export function createTemple(canvas:HTMLCanvasElement) {
    }
   }
   buckets.forEach(({matrices,ids},i)=>{if(!matrices.length)return;const a=body(`lantern-${['round','octagonal','lotus'][i%3]}-${i}`,i%3);a.material=lanternMaterials[i];a.parent=lanternRoot;a.thinInstanceAdd(matrices);a.metadata={applicationIds:ids};a.thinInstanceEnablePicking=true;lanternCasters.push(a);});
+  // Decorative strings are outside the slot and picking systems.
+  const firstStepZ=daeung.z+(.55-8)*daeungDimensions.z;
+  const pathEnd=firstStepZ-1;
+  const countPerSide=16;
+  const ornaments:Matrix[][]=Array.from({length:5},()=>[]);
+  const hangers:Vector3[][]=[];
+  for(const side of [-1,1]){
+   const x=side*4.95;
+   const path=[new Vector3(x,6.7,sideHallCenterZ)];
+   for(let n=1;n<=countPerSide;n++){
+    const progress=n/countPerSide;
+    const z=sideHallCenterZ+(pathEnd-sideHallCenterZ)*progress;
+    const y=5.8-1.45*progress-.18*Math.sin(Math.PI*progress);
+    ornaments[(4+Math.floor((n-1)/4))%5].push(Matrix.Translation(x,y,z));
+    path.push(new Vector3(x,y+.9,z));
+    hangers.push([new Vector3(x,y+.43,z),path[path.length-1]]);
+   }
+   const pole=MeshBuilder.CreateCylinder('decorative-lantern-post',{diameter:.12,height:5.25},scene);
+   pole.position.set(x,2.625,pathEnd);pole.material=bamboo;pole.parent=lanternRoot;pole.isPickable=false;
+   const wire=MeshBuilder.CreateLines('decorative-lantern-wire',{points:path},scene);
+   wire.color=new Color3(.2,.17,.13);wire.parent=lanternRoot;wire.isPickable=false;
+  }
+  const drops=MeshBuilder.CreateLineSystem('decorative-lantern-hangers',{lines:hangers},scene);
+  drops.parent=lanternRoot;drops.color=new Color3(.25,.2,.12);drops.isPickable=false;
+  ornaments.forEach((matrices,color)=>{
+   if(!matrices.length)return;
+   const lantern=body('decorative-path-lantern',1);
+   lantern.material=lanternMaterials[color*3+1];lantern.parent=lanternRoot;
+   lantern.isPickable=false;lantern.thinInstanceAdd(matrices);lanternCasters.push(lantern);
+  });
   for(const owned of ownerBodies){
    const colorIndex=lanternColourIndex([owned.position.x,owned.position.y,owned.position.z]);
    const aura=MeshBuilder.CreatePlane('owned-soft-glow',{width:2.0,height:2.15},scene);aura.position=owned.position.clone();aura.material=auraMaterials[colorIndex];aura.parent=lanternRoot;aura.billboardMode=Mesh.BILLBOARDMODE_ALL;aura.isPickable=false;ownerHalos.push(aura);
@@ -1059,6 +1089,12 @@ export function createTemple(canvas:HTMLCanvasElement) {
   cancelGateWalk();
   walking.mode(name==='walk');
   if(name==='walk')return;
+  if(name==='gateHallSightline'){
+   camera.fov=.80;camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
+   camera.setTarget(new Vector3(0,5.15,daeung.z-9.3));
+   camera.setPosition(new Vector3(0,1.7,innerGate.z+4));
+   return;
+  }
   if(name==='gateEave'){
    camera.fov=.92;camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
    camera.setTarget(new Vector3(0,6.15,innerGate.z+6.4));

@@ -80,17 +80,9 @@ export function furnishHall(scene:Scene, meshes:Mesh[], timber:StandardMaterial,
  for(const x of [-.59,.59])box('desk-foot',x,floor+.22,43.23,.12,.44,.4,timber);
  box('sutra',-.2,floor+.565,43.2,.66,.05,.33,ivory);
  placeHallMonk(scene,-1.44,floor+.11,43.05,monkTime);
- const coats=['#53677a','#75615b','#596659','#a17b74','#665971'].map((c,i)=>mat('visitor-coat-'+i,c));
- const skin=mat('skin','#cc9675'),pants=mat('trousers','#42434b');
- for(const [i,{x,z}] of hallSeats.entries()){
-  const coat=coats[(i*3+Math.floor(i/10))%coats.length];
-  const practice=x===practiceSeat.x&&z===practiceSeat.z;
-  box('bow-cushion',x,floor+.044,z+(practice?.22:0),1.02,.088,practice?1.65:.87,matRed);
-  if(x===practiceSeat.x&&z===practiceSeat.z)continue;
-  oval('folded-legs',x,floor+.23,z+.09,.75,.28,.63,pants);
-  oval('seated-robe',x,floor+.56,z,.49,.69,.36,coat);
-  oval('head',x,floor+1.01,z,.225,.285,.23,skin);oval('hair',x,floor+1.085,z-.016,.238,.17,.235,black);
-  for(const side of [-1,1]){const arm=oval('sleeve',x+side*.225,floor+.59,z+.055,.16,.46,.19,coat);arm.rotation.x=-.3;oval('hand',x+side*.21,floor+.39,z+.15,.12,.13,.15,skin);}
+ for(const seat of hallSeats){
+  const practice=seat===practiceSeat;
+  box('bow-cushion',seat.x,floor+.044,seat.z+(practice?.22:0),1.02,.088,practice?1.65:.87,matRed);
  }
  // Hanging Korean eave bells: slender chain, flared bronze lip and clapper.
  for(const x of [-16.7,16.7])for(const z of [26.4,49.6]){

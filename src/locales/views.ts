@@ -2,7 +2,7 @@ import {locale,t} from './index';
 const views:Record<string,string[]>={
  plazaCourt:['연등광장','중앙 마당'],plazaHall:['연등광장','대웅전'],courtHall:['중앙 마당','대웅전'],eavesHall:['대웅전','처마'],
  gwaneumDoor:['관음전','입구'],gwaneumAltar:['관음전','불단'],gwaneumSeats:['관음전','내부'],
- gateArrival:['일주문','입구'],templeApproach:['일주문','대웅전'],gateWalk:['천왕문','내부'],gateEave:['천왕문','처마'],guardianGallery:['천왕문','사천왕'],courtWall:['중앙 마당','외관'],
+ gateHallSightline:['천왕문','대웅전'],gateArrival:['일주문','입구'],templeApproach:['일주문','대웅전'],gateWalk:['천왕문','내부'],gateEave:['천왕문','처마'],guardianGallery:['천왕문','사천왕'],courtWall:['중앙 마당','외관'],
  votiveShelves:['인등전','인등'],memorialLamps:['지장전','추모등'],indeungApproach:['인등전','외관'],pagodaCourt:['석탑'],stoneLanterns:['대웅전','석등'],candleCourt:['석탑 촛불함'],
  wishGarden:['소원패 정원'],wishAisle:['소원패 정원','내부'],officeReception:['종무소','등·소원 접수처'],lanternReception:['연등광장','연등'],
  entryRowMap:['배치도 · 위에서 보기','범종각','종무소'],gateExitOffice:['천왕문','종무소'],officeApproach:['종무소','외관'],bellApproach:['범종각','외관'],bellDetail:['범종각','내부'],

@@ -157,6 +157,20 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  const pad=document.querySelector<HTMLElement>('#walk-pad')!;
  const directions=new Set(['KeyW','KeyS','KeyA','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight']);
  let active=false,first=false,step=0,moving=false;
+ let followDistance=3.2,firstPersonFov=.92;
+ canvas.addEventListener('wheel',event=>{
+  if(!active)return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  const unit=event.deltaMode===1?16:event.deltaMode===2?canvas.clientHeight:1;
+  const factor=Math.exp(Math.max(-.45,Math.min(.45,event.deltaY*unit*.002)));
+  if(first){
+   firstPersonFov=Math.max(.42,Math.min(1.15,firstPersonFov*factor));
+   camera.fov=firstPersonFov;
+  }else{
+   followDistance=Math.max(.85,Math.min(11,followDistance*factor));
+  }
+ },{capture:true,passive:false});
  const prayerButton=document.querySelector<HTMLButtonElement>('#prayer-point')!;
  const worshipHalls=templePlaces.filter(p=>p.id==='daeung'||p.id==='gwaneum'||p.id==='jijang');
  const prayerSites=worshipHalls.map(hall=>{
@@ -195,7 +209,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  ].map(site=>{const place=templePlaces.find(p=>p.id===site.place)!;return {...site,x:place.x+site.dx,z:place.z+site.dz};});
  const switchView=document.querySelector<HTMLButtonElement>('#walk-camera')!;
  function changePerspective(on:boolean){
-  first=on;avatar.root.setEnabled(active&&!first);
+  first=on;if(active)camera.fov=on?firstPersonFov:.92;avatar.root.setEnabled(active&&!first);
   switchView.textContent=t(first?'3인칭 보기':'1인칭 보기');switchView.setAttribute('aria-pressed',String(first));
   if(!first&&document.pointerLockElement===canvas)document.exitPointerLock();
  }
@@ -237,7 +251,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   camera.lowerRadiusLimit=on?.04:2.5;camera.upperBetaLimit=on?Math.PI-.06:2.15;camera.lowerBetaLimit=on?.06:.15;
   if(on){
    camera.setTarget(avatar.root.position.add(new Vector3(0,1.2,0)));
-   camera.fov=.92;camera.alpha=-Math.PI/2;camera.beta=1.26;camera.radius=3.2;
+   camera.fov=.92;camera.alpha=-Math.PI/2;camera.beta=1.26;camera.radius=followDistance;
    canvas.focus();
   }
  }
@@ -281,7 +295,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    avatar.legs.forEach((leg,i)=>leg.rotation.x=distance>.00001?.35*Math.sin(step+i*Math.PI):0);
   }else if(!bows.bowing&&!worship)avatar.legs.forEach((leg,i)=>leg.rotation.x=moving?.35*Math.sin(step+i*Math.PI):0);
   camera.target.copyFromFloats(p.x,p.y+(first?1.56:1.2),p.z);
-  camera.radius=first?.045:world.cameraLimit(camera.target,camera.alpha,camera.beta,3.2);
+  camera.radius=first?.045:world.cameraLimit(camera.target,camera.alpha,camera.beta,followDistance);
  }
  return {mode,update,setFace:avatar.setFace,get pose(){return {face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,animation:worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
 }
