@@ -1,0 +1,88 @@
+{
+  "commit": "b362061c3afe67a27390ac6c303e7e50a8467381",
+  "schemaVersion": 1,
+  "sceneVersion": "m1-web-review-013",
+  "createdAt": "2026-11-08T05:55:57.173Z",
+  "device": "미확인",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "physicalDeviceVerified": false,
+  "acceptance": "unreviewed",
+  "settings": {
+    "visitor": null,
+    "time": "night",
+    "quality": "high",
+    "density": 1000,
+    "canopyCapacity": 440,
+    "visibleLanternCount": 440,
+    "nameTagCount": 0,
+    "selected": 23,
+    "reduced": false,
+    "owned": [
+      23,
+      37,
+      58
+    ],
+    "renderWidth": 1280,
+    "renderHeight": 720
+  },
+  "currentSettings": {
+    "visitor": null,
+    "time": "night",
+    "quality": "high",
+    "density": 1000,
+    "canopyCapacity": 440,
+    "visibleLanternCount": 440,
+    "nameTagCount": 0,
+    "selected": 23,
+    "reduced": false,
+    "owned": [
+      23,
+      37,
+      58
+    ],
+    "renderWidth": 1280,
+    "renderHeight": 720
+  },
+  "startCamera": {
+    "alpha": -1.5707963267948966,
+    "beta": 2.1,
+    "radius": 9,
+    "target": [
+      0,
+      6,
+      -16
+    ]
+  },
+  "camera": {
+    "alpha": -1.5707963267948966,
+    "beta": 2.1,
+    "radius": 9,
+    "target": [
+      0,
+      6,
+      -16
+    ]
+  },
+  "renderer": {
+    "vendor": "Google Inc. (Apple)",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+  },
+  "timing": {
+    "navigationToFirstRenderedFrameMs": 2414.5,
+    "sceneConstructionToFirstFrameMs": 1970.9000000953674
+  },
+  "jsHeapBytes": 558648340,
+  "memoryCaveat": "JS heap only if exposed; not GPU or total process memory",
+  "measurement": {
+    "samples": 786,
+    "meanFps": 59.998167994979575,
+    "onePercentLowFps": 56.737588652482266,
+    "maxFrameMs": 17.699999928474426,
+    "elapsedSeconds": 15.098899999976158,
+    "warmupSeconds": 2,
+    "valid": true,
+    "invalidReason": null
+  },
+  "errors": []
+}

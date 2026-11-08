@@ -1,0 +1,71 @@
+{
+  "commit": "b362061c3afe67a27390ac6c303e7e50a8467381",
+  "origin": "localhost",
+  "Mbps": 20,
+  "latencyMs": 80,
+  "visits": [
+    {
+      "visit": "first",
+      "timing": {
+        "navigationToFirstRenderedFrameMs": 6065.600000023842,
+        "sceneConstructionToFirstFrameMs": 5593.899999976158
+      },
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "currentSettings": {
+        "visitor": null,
+        "time": "day",
+        "quality": "high",
+        "density": 1000,
+        "canopyCapacity": 440,
+        "visibleLanternCount": 440,
+        "nameTagCount": 0,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      }
+    },
+    {
+      "visit": "return",
+      "timing": {
+        "navigationToFirstRenderedFrameMs": 2414.5,
+        "sceneConstructionToFirstFrameMs": 1970.9000000953674
+      },
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "currentSettings": {
+        "visitor": null,
+        "time": "day",
+        "quality": "high",
+        "density": 1000,
+        "canopyCapacity": 440,
+        "visibleLanternCount": 440,
+        "nameTagCount": 0,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      }
+    }
+  ],
+  "errors": []
+}

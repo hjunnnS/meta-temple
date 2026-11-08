@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {pool,migrate} from './database.mjs';
+import {trade} from './trade.mjs';
 import {maintainOrders} from './lifecycle.mjs';
 const account=randomUUID();
 try{
@@ -23,9 +24,15 @@ try{
  await maintainOrders();assert.equal((await state(failed)).status,'refund_failed');
  assert.equal((await pool.query('SELECT released_at FROM reservations r JOIN orders o ON o.reservation_id=r.id WHERE o.id=$1',[failed])).rows[0].released_at,null);
  await pool.query("INSERT INTO test_receipts VALUES ($1,3000,$2,'paid')",[failed,account]);
+ // Replayed provider success during refund recovery must never grant an installation.
+ await Promise.all([trade('reconcile','POST',{orderId:failed},account),maintainOrders()]);
+ assert.equal((await pool.query('SELECT 1 FROM installations WHERE order_id=$1',[failed])).rowCount,0);
  await pool.query('UPDATE orders SET next_attempt_at=now() WHERE id=$1',[failed]);await maintainOrders();await maintainOrders();assert.equal((await state(failed)).status,'refunded');
  await pool.query("UPDATE installations SET starts_at='2024-02-22T00:00:00Z',ends_at='2024-02-29T00:00:00Z' WHERE order_id=$1",[prior]);
  await maintainOrders();assert.equal((await state(prior)).status,'expired');
+ await trade('reconcile','POST',{orderId:failed},account);await maintainOrders();
+ assert.equal((await state(failed)).status,'refunded');
+ assert.equal((await pool.query('SELECT count(*)::int AS count FROM installations WHERE order_id=$1',[failed])).rows[0].count,0);
  console.log('PASS initial failure + 3 scheduled retries, refund failure keeps hold, confirmed refund releases, expiry keeps history.');
 }finally{
  for(const table of ['events','installations','test_receipts','orders','reservations','accounts'])await pool.query('DELETE FROM '+table+' WHERE '+(table==='accounts'?'id':'account_id')+'=$1',[account]);await pool.end();

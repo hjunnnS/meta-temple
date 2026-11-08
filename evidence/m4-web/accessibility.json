@@ -1,0 +1,18 @@
+[
+  {
+    "width": 1440,
+    "guestWalk": true,
+    "automaticFinder": false,
+    "reducedMotion": true,
+    "keyboardAndFocus": true,
+    "errors": []
+  },
+  {
+    "width": 320,
+    "guestWalk": true,
+    "automaticFinder": false,
+    "reducedMotion": true,
+    "keyboardAndFocus": true,
+    "errors": []
+  }
+]

@@ -25,6 +25,11 @@ try{
  assert(moves.every(r=>r.status===200&&r.data.count===20&&r.data.participants.length===19));
  assert(moves.slice(1).some(r=>r.data.participants.some(p=>p.animation==='worship')) || (await request('channel/join',clients[1],{channel:1})).data.participants.some(p=>p.animation==='worship'));
  assert.equal((await request('channel/move',clients[0],{self:members[0].data.self,position:[80,1,80],yaw:0,sequence:2,animation:'walk'})).status,422);
+ const latest={self:members[0].data.self,position:[.3,.245,-65],yaw:.5,sequence:4,animation:'idle'};
+ assert.equal((await request('channel/move',clients[0],latest)).status,200);
+ await request('channel/move',clients[0],{...latest,sequence:2,yaw:0});
+ const current=(await request('channel/join',clients[1],{channel:1})).data.participants.find(p=>p.sessionId===latest.self);
+ assert.equal(current.sequence,4);assert.equal(current.yaw,.5);
  for(let i=0;i<20;i++)assert.equal((await request('channel/leave',clients[i],{self:members[i].data.self})).status,200);
  assert.equal((await request('channel/join',clients[20],{channel:1})).data.count,1);
  console.log('20 concurrent HTTP sessions, movement, worship, capacity, channel switch and leave:',Math.round(performance.now()-start),'ms');
