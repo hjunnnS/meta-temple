@@ -17,7 +17,7 @@ export function pedestrianWorld(parts:Mesh[]){
  const surfaces:Rect[]=[],solids:Rect[]=[],ceilings:Rect[]=[];
  for(const part of parts){
   const surface=/(^|-)(step|plinth|hall-floor|floorboard|court|paving|base|stone)$/.test(part.name);
-  const solid=/(^|-)(back-wall|side-wall|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth)$/.test(part.name);
+  const solid=/(^|-)(back-wall|side-wall|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth|bell-shell|meditation-tree)$/.test(part.name);
   const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof)$/.test(part.name);
   if(!surface&&!solid&&!roof)continue;
   part.computeWorldMatrix(true);
@@ -81,6 +81,12 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  let prayer:typeof prayerSites[number]|undefined;
  prayerButton.onclick=()=>{if(!prayer)return;camera.alpha=prayer.alpha;camera.beta=1.62;
   avatar.root.rotation.y=-Math.PI/2-prayer.alpha;canvas.focus();};
+ const visitButton=document.querySelector<HTMLButtonElement>('#visit-point')!;
+ const visitorSites=[
+  {place:'office',dx:-1.4,dz:-1,radius:2.0,view:'officeReception',title:'종무소 접수 안내'},
+  {place:'bell',dx:2.4,dz:0,radius:2.6,view:'bellDetail',title:'범종과 당목 살펴보기'},
+  {place:'forest',dx:0,dz:0,radius:5,view:'forest',title:'명상숲에서 머무르기'},
+ ].map(site=>{const place=templePlaces.find(p=>p.id===site.place)!;return {...site,x:place.x+site.dx,z:place.z+site.dz};});
  const switchView=document.querySelector<HTMLButtonElement>('#walk-camera')!;
  function changePerspective(on:boolean){
   first=on;avatar.root.setEnabled(active&&!first);
@@ -120,6 +126,10 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   moving=false;
   if(!active)return;
   const p=avatar.root.position;
+  const nearby=visitorSites.find(site=>Math.hypot(p.x-site.x,p.z-site.z)<=site.radius);
+  if(visitButton.dataset.view!==(nearby?.view??'')){
+   visitButton.hidden=!nearby;visitButton.textContent=nearby?.title??'';visitButton.dataset.view=nearby?.view??'';
+  }
   const nextPrayer=prayerSites.find(site=>Math.hypot(p.x-site.x,p.z-site.z)<=site.radius&&p.y>.8);
   if(prayer!==nextPrayer){
    prayer=nextPrayer;prayerButton.hidden=!prayer;prayerButton.textContent=prayer?prayer.name+' · 불단 바라보기':'';

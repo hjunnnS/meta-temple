@@ -1,0 +1,29 @@
+[
+  {
+    "view": "officeReception",
+    "reached": [
+      24.928450000000005,
+      0.9116250202059746,
+      -47
+    ],
+    "resumed": true
+  },
+  {
+    "view": "bellDetail",
+    "reached": [
+      -22.23521999992131,
+      0.08949280871246798,
+      -46
+    ],
+    "resumed": true
+  },
+  {
+    "view": "forest",
+    "reached": [
+      -1.5833948325377555e-16,
+      0.01,
+      59.58588000007866
+    ],
+    "resumed": true
+  }
+]
