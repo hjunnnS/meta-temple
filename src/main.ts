@@ -1,3 +1,4 @@
+import {facePicker} from './face-picker';
 import {languages,locale,t,translateMarkup} from './locales';
 import {translateViews} from './locales/views';
 import {watchPublic} from './public-refresh.ts';
@@ -53,6 +54,7 @@ export async function start(){
 }
 let enterReady:()=>void,enterFailed:(reason:Error)=>void;
 function activate(){
+facePicker(document.querySelector("#walk-pad")!,app.setFace);
 translateMarkup(root);translateViews($<HTMLSelectElement>('#place'));
 const settingsLanguage=document.createElement('button');settingsLanguage.textContent=languages.find(x=>x[0]===locale)![1]+' '+t('언어 선택');
 settingsLanguage.onclick=()=>location.reload();$('#settings-panel').append(settingsLanguage);

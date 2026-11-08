@@ -84,7 +84,8 @@ export function furnishHall(scene:Scene, meshes:Mesh[], timber:StandardMaterial,
  const skin=mat('skin','#cc9675'),pants=mat('trousers','#42434b');
  for(const [i,{x,z}] of hallSeats.entries()){
   const coat=coats[(i*3+Math.floor(i/10))%coats.length];
-  box('bow-cushion',x,floor+.044,z,1.02,.088,.87,matRed);
+  const practice=x===practiceSeat.x&&z===practiceSeat.z;
+  box('bow-cushion',x,floor+.044,z+(practice?.22:0),1.02,.088,practice?1.65:.87,matRed);
   if(x===practiceSeat.x&&z===practiceSeat.z)continue;
   oval('folded-legs',x,floor+.23,z+.09,.75,.28,.63,pants);
   oval('seated-robe',x,floor+.56,z,.49,.69,.36,coat);

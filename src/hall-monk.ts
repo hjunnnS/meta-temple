@@ -1,3 +1,5 @@
+import {visitorFace} from './visitor-face';
+import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
 import {TransformNode} from '@babylonjs/core/Meshes/transformNode';
 import {Vector3} from '@babylonjs/core/Maths/math.vector';
@@ -14,7 +16,7 @@ export function placeHallMonk(scene:Scene,x:number,y:number,z:number){
   return m;
  }
  const cloth=material('ramie','#98958b'),collar=material('collar','#d7d3c5'),kasa=material('kasa','#a45b3b');
- const skin=material('skin','#ca9980'),ink=material('features','#59443d'),wood=material('moktak','#834c2c');
+ const skin=material('skin','#b5afa1'),ink=material('features','#59443d'),wood=material('moktak','#834c2c');
  const torso=new TransformNode('monk-upper-body',scene);torso.parent=root;
  function oval(name:string,parent:TransformNode,m:StandardMaterial,px:number,py:number,pz:number,w:number,h:number,d:number){
   const mesh=MeshBuilder.CreateSphere(name,{diameter:1,segments:16},scene);
@@ -27,15 +29,13 @@ export function placeHallMonk(scene:Scene,x:number,y:number,z:number){
  const skirt=robe('monk-robe-hem',root,[[.27,0],[.32,.12],[.24,.63],[.19,.77]],.84,cloth);
  robe('monk-jacket',torso,[[.24,0],[.22,.24],[.245,.52],[.17,.61],[.09,.65]],.80,cloth);
  const lapel=oval('monk-lapel',torso,collar,0,.48,-.155,.08,.35,.045);lapel.rotation.z=-.48;
- const sash=oval('monk-kasa',torso,kasa,.01,.30,-.175,.20,.72,.06);sash.rotation.z=-.56;
- const head=new TransformNode('monk-head',scene);head.parent=torso;head.position.y=.79;
- oval('monk-shaven-head',head,skin,0,0,0,.257,.32,.265);
- for(const side of [-1,1]){
-  oval('monk-ear',head,skin,side*.13,-.015,0,.044,.085,.05);
-  oval('monk-eye',head,ink,side*.05,.003,-.122,.053,.009,.01);
- }
- oval('monk-nose',head,skin,0,-.03,-.134,.041,.061,.046);
- const lips=oval('monk-mouth',head,ink,0,-.081,-.115,.043,.012,.012);
+ // Wrap a broad cloth panel over the shoulder and down the opposite hip.
+ const drape=MeshBuilder.CreateRibbon('monk-kasa',{pathArray:[-.085,0,.085].map(offset=>
+  [[.13,.58,-.088],[.105,.50,-.183],[.06,.39,-.199],[-.015,.27,-.206],[-.09,.15,-.183],[-.13,.04,-.16]].map(([x,y,z])=>new Vector3(x+offset,y,z+.038*Math.abs(offset)/.085))),
+  sideOrientation:Mesh.DOUBLESIDE},scene);
+ drape.parent=torso;drape.material=kasa;drape.isPickable=false;
+ oval('monk-neck',torso,skin,0,.655,0,.17,.18,.17);
+ const head=visitorFace(scene,torso,'human',true);head.position.y=.80;head.rotation.y=Math.PI;
  const legs=[-1,1].map(side=>{
   const thigh=oval('monk-thigh',root,cloth,0,0,0,.22,.42,.21);
   const shin=oval('monk-shin',root,cloth,0,0,0,.18,.42,.17);
@@ -80,10 +80,11 @@ export function placeHallMonk(scene:Scene,x:number,y:number,z:number){
    }
   }
   head.rotation.x=-.10*(1-stand)-.13*lean+.018*Math.sin(time*2.1);
-  lips.scaling.y=.009+.018*(1-stand)*(.5+.5*Math.sin(time*9));
+  head.position.y=.80+.004*(1-stand)*Math.sin(time*4);
   elbow.rotation.x=.24+stand*(.33-.61*Math.cos(beat));
   drum.rotation.z=.025*stand*Math.cos(beat);
  }
  animate();
  scene.onBeforeRenderObservable.add(()=>{time=(time+Math.min(.1,scene.getEngine().getDeltaTime()/1000))%22;animate();});
+ return root;
 }

@@ -1,3 +1,4 @@
+import {validFace,type Face} from './face-types';
 import {visitorRobe} from './visitor-robe';
 import {locale,t} from './locales';
 import type { Scene } from '@babylonjs/core/scene';
@@ -5,7 +6,7 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { visitorMesh } from './walking.ts';
 import { layoutDraft } from './contracts.ts';
 
-interface Motion {wearingRobe?:boolean;position:number[];yaw:number;animation:string}
+interface Motion {face?:Face;wearingRobe?:boolean;position:number[];yaw:number;animation:string}
 interface Peer extends Motion {sessionId:string;sequence:number}
 interface Snapshot {self:string;key?:string;layoutVersion:string;schemaVersion:number;channelId:string;count?:number;participants:Peer[]}
 
@@ -26,6 +27,7 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
     remote={body,robe:visitorRobe(scene,body),peer,bowTime:0,target:body.root.position.clone()};avatars.set(peer.sessionId,remote);
    }
    if(peer.sequence>=remote.peer.sequence){remote.peer=peer;
+    remote.body.setFace(validFace(peer.face)?peer.face:"human");
     if(remote.robe.wearing!==!!peer.wearingRobe)remote.robe.setWearing(!!peer.wearingRobe);
     remote.target.set(...peer.position as [number,number,number]);}
   }

@@ -12,7 +12,7 @@ import type {visitorMesh} from './walking';
 
 export function visitorRobe(scene:Scene,avatar:ReturnType<typeof visitorMesh>){
  const {root}=avatar;
- const outfit=new TransformNode('robe',scene);outfit.parent=avatar.chest;outfit.position.y=-.78;
+ const outfit=new TransformNode('robe',scene);outfit.parent=avatar.chest;outfit.scaling.y=.87;outfit.position.y=-.68;
  function cloth(name:string,color:string){
   const m=new StandardMaterial(name,scene);m.diffuseColor=Color3.FromHexString(color);m.specularColor=Color3.Black();return m;
  }
@@ -25,7 +25,7 @@ panel('overlapping coat',[[.32,.48],[.29,.7],[.225,.90],[.25,1.11],[.268,1.27],[
 panel('sash',[[.236,.87],[.237,.92],[.235,.95]],.91,belt);
 const looseSleeves:Mesh[]=[];
 for(const [i,side] of [-1,1].entries()){
- const sleeve=panel('loose sleeve',[[.126,-.26],[.115,.10],[.10,.24],[.066,.30]],.94,hemp);
+ const sleeve=panel('loose sleeve',[[.126,-.20],[.115,.10],[.10,.24],[.066,.30]],.94,hemp);
  sleeve.parent=avatar.arms[i];sleeve.position.set(side*.02,-.23,0);sleeve.rotation.z=side*.10;sleeve.setEnabled(false);sleeve.isPickable=false;looseSleeves.push(sleeve);
 }
 for(const [start,end] of [[new Vector3(-.098,1.399,.073),new Vector3(.157,1.06,.178)],[new Vector3(.098,1.399,.073),new Vector3(-.028,1.235,.221)]]){

@@ -1,3 +1,5 @@
+import {facePicker} from './face-picker';
+import {placeHallMonk} from './hall-monk';
 import {Engine} from '@babylonjs/core/Engines/engine';
 import {Scene} from '@babylonjs/core/scene';
 import {ArcRotateCamera} from '@babylonjs/core/Cameras/arcRotateCamera';
@@ -37,17 +39,36 @@ for(const mesh of parts){
 }
 for(const parts of groups.values())Mesh.MergeMeshes(parts,true,true);
 const avatar=visitorMesh(scene,'preview-visitor'),outfit=visitorRobe(scene,avatar);
+facePicker(document.querySelector("header")!,avatar.setFace);
 avatar.root.position.set(practiceSeat.x,1.778,practiceSeat.z);
 camera.upperRadiusLimit=12;camera.setTarget(new Vector3(practiceSeat.x,2.95,practiceSeat.z));
 camera.setPosition(new Vector3(practiceSeat.x-1.55,4.15,practiceSeat.z-6.4));
 const previewView=new URLSearchParams(location.search).get('view');
 if(previewView==='bow'){
  camera.setTarget(new Vector3(practiceSeat.x,2.46,practiceSeat.z+.35));
- camera.setPosition(new Vector3(practiceSeat.x-2.9,2.86,practiceSeat.z-1));
+ camera.setPosition(new Vector3(practiceSeat.x-2.60,2.53,practiceSeat.z+.88));
 }
 if(previewView==='monk'){
  camera.setTarget(new Vector3(-1.20,2.66,43.05));
  camera.setPosition(new Vector3(-3.7,3.0,40.9));
+}
+if(previewView==='characters'){
+ const x=70;
+ const fill=new HemisphericLight('portrait fill',new Vector3(-.25,.4,1),scene);fill.intensity=.68;fill.groundColor=new Color3(.47,.39,.34);
+ const ground=MeshBuilder.CreateGround('portrait ground',{width:24,height:24},scene);
+ ground.position.x=x;ground.material=cloth('warm limestone','#c5bca9');
+ avatar.root.position.set(x+1.0,0,0);
+ const dressed=visitorMesh(scene,'robed visitor');dressed.root.position.set(x,0,0);
+ visitorRobe(scene,dressed).setWearing(true);
+ const monk=placeHallMonk(scene,x-1,0,0);monk.rotation.y=Math.PI;
+ for(const px of [x-1,x,x+1]){
+  const shadow=MeshBuilder.CreateDisc('contact shade',{radius:.28,tessellation:40},scene);
+  shadow.rotation.x=Math.PI/2;shadow.position.set(px,.002,0);shadow.scaling.y=.68;
+  shadow.material=cloth('floor shadow','#aca18d');
+ }
+ camera.setTarget(new Vector3(x,.84,0));camera.setPosition(new Vector3(x,1.13,2.88));
+ document.querySelector('h1')!.textContent='방문자 평상복 · 법복 · 대웅전 스님';
+ document.querySelector('footer')!.hidden=true;document.querySelector('footer')!.style.display='none';
 }
 function framePreview(){
  camera.fovMode=canvas.clientWidth<canvas.clientHeight?ArcRotateCamera.FOVMODE_HORIZONTAL_FIXED:ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
@@ -61,15 +82,16 @@ function wear(on:boolean){
 }
 plain.onclick=()=>wear(false);robe.onclick=()=>wear(true);
 const status=document.querySelector<HTMLElement>('#phase')!;
+if(previewView==='bow')replay.textContent='옆에서 절 한 번 보기';
 replay.onclick=()=>{
- replay.disabled=true;status.textContent='108번째 절 · 수행 중';
- const light=prayerLight(scene,avatar.root.position);
+ replay.disabled=true;status.textContent=previewView==='bow'?'절 동작':'108번째 절 · 수행 중';
+ const light=previewView==='bow'?null:prayerLight(scene,avatar.root.position);
  let time=0,completed=false;
  const observer=scene.onBeforeRenderObservable.add(()=>{
   time+=Math.min(.1,engine.getDeltaTime()/1000);
   const phase=Math.min(1,Math.max(0,(time-.6)/4.8));
   avatar.bow(phase);
-  if(phase===1&&!completed){completed=true;light.fade();rainbow(scene,avatar.root.position);status.textContent='108배 완료';}
+  if(phase===1&&!completed){completed=true;if(light){light.fade();rainbow(scene,avatar.root.position);}status.textContent=light?'108배 완료':'절 동작 완료';}
   if(completed&&!scene.getMeshByName('bow-rainbow-ring')){scene.onBeforeRenderObservable.remove(observer);replay.disabled=false;}
  });
 };
