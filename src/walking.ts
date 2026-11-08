@@ -69,7 +69,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  const keys=new Set<string>();
  const pad=document.querySelector<HTMLElement>('#walk-pad')!;
  const directions=new Set(['KeyW','KeyS','KeyA','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight']);
- let active=false,first=false,step=0;
+ let active=false,first=false,step=0,moving=false;
  const switchView=document.querySelector<HTMLButtonElement>('#walk-camera')!;
  function changePerspective(on:boolean){
   first=on;avatar.root.setEnabled(active&&!first);
@@ -84,7 +84,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  };
  document.addEventListener('pointerlockchange',()=>{if(!document.pointerLockElement&&first)changePerspective(false);});
  canvas.addEventListener('keydown',e=>{if(e.key==='Escape'&&first)changePerspective(false);});
- function clear(){keys.clear();}
+ function clear(){keys.clear();moving=false;}
  canvas.addEventListener('keydown',e=>{if(active&&directions.has(e.code)){e.preventDefault();keys.add(e.code);}});
  window.addEventListener('keyup',e=>keys.delete(e.code));
  canvas.addEventListener('blur',clear);window.addEventListener('blur',clear);document.addEventListener('visibilitychange',clear);
@@ -106,6 +106,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   }
  }
  function update(dt:number){
+  moving=false;
   if(!active)return;
   const p=avatar.root.position;
   const x=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'));
@@ -121,11 +122,12 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    }
    move(p.x+dx,p.z);move(p.x,p.z+dz);
    const distance=Math.hypot(p.x-ox,p.z-oz);
-   if(distance>.00001){avatar.root.rotation.y=Math.atan2(p.x-ox,p.z-oz);step+=distance*4.8;}
+   moving=distance>.00001;
+   if(moving){avatar.root.rotation.y=Math.atan2(p.x-ox,p.z-oz);step+=distance*4.8;}
    avatar.legs.forEach((leg,i)=>leg.rotation.x=distance>.00001?.35*Math.sin(step+i*Math.PI):0);
   }else avatar.legs.forEach(leg=>leg.rotation.x=0);
   camera.target.copyFromFloats(p.x,p.y+(first?1.56:1.2),p.z);
   camera.radius=first?.045:world.cameraLimit(camera.target,camera.alpha,camera.beta,3.2);
  }
- return {mode,update,get position(){return active?avatar.root.position.asArray():null;}};
+ return {mode,update,get pose(){return {position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,animation:active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
 }

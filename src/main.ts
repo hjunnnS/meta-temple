@@ -1,3 +1,4 @@
+import { reviewPresence } from './review-presence.ts';
 import { parseReviewSlots } from './review-slots.ts';
 import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import { offerings, readApplication, storagePrefix, type Offering } from './reception.ts';
@@ -167,4 +168,6 @@ if(import.meta.env.MODE==='review'){
   finally{refresh.disabled=false;}
  }
  refresh.onclick=loadSlots;void loadSlots();
+ const visitors=document.createElement('span');panel.append(visitors);
+ reviewPresence(app.scene,()=>app.visitorPose,visitors);
 }

@@ -1,0 +1,48 @@
+{
+  "initial": [
+    {
+      "id": "sample:session:fce0ce34-d1bf-4688-9efb-3cf491f18115",
+      "position": [
+        0,
+        0.24499999731779099,
+        -65
+      ],
+      "moving": false
+    }
+  ],
+  "movement": [
+    {
+      "id": "sample:session:fce0ce34-d1bf-4688-9efb-3cf491f18115",
+      "position": [
+        -2.4151654552722114e-16,
+        0.08498851787908293,
+        -61.055735487238
+      ],
+      "moving": true
+    }
+  ],
+  "resting": [
+    {
+      "id": "sample:session:fce0ce34-d1bf-4688-9efb-3cf491f18115",
+      "position": [
+        -3.064697965421776e-16,
+        0.09296172378430974,
+        -59.994968398144586
+      ],
+      "moving": false
+    }
+  ],
+  "rejoined": [
+    {
+      "id": "sample:session:d571c0f5-ae5a-4fd7-921b-28b1e82fd511",
+      "position": [
+        0,
+        0.245,
+        -65
+      ],
+      "moving": false
+    }
+  ],
+  "afterLeave": 0,
+  "errors": []
+}
