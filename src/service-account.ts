@@ -14,8 +14,31 @@ export function setupAccount(){
  function accountChanged(){
   window.dispatchEvent(new Event('sasa:account'));window.dispatchEvent(new Event('sasa:installations'));
  }
- accountChanges?.addEventListener('message',()=>{
-  accountChanged();if(dialog.open)void refresh();
+ const returnHint=document.createElement('p');
+ returnHint.setAttribute('role','status');returnHint.hidden=true;dialog.append(returnHint);
+ let resumePractice=false,confirmedHere=false;
+ let resumeReservation:(()=>void)|undefined;
+ function finishLogin(){
+  if(resumeReservation&&dialog.open){
+   const reserve=resumeReservation;resumeReservation=undefined;dialog.close();reserve();return "reservation";
+  }
+  if(!resumePractice||!dialog.open)return false;
+  resumePractice=false;dialog.close();window.dispatchEvent(new Event('sasa:resume-practice'));return 'practice';
+ }
+ accountChanges?.addEventListener('message',event=>{
+  if(event.data==='practice-return'){
+   if(confirmedHere&&dialog.open){
+    returnHint.textContent=t('법당이 열린 탭으로 돌아가 절하기를 눌러 주세요.');returnHint.hidden=false;
+   }
+   return;
+  }
+  accountChanged();
+  if(event.data==='login'){
+   const resumed=finishLogin();
+   if(resumed==='practice')accountChanges?.postMessage('practice-return');
+   if(resumed)return;
+  }
+  if(dialog.open)void refresh();
  });
  let sequence=0,link=new URLSearchParams(location.hash.slice(1)).get('login');
  if(link)history.replaceState(null,'',location.pathname+location.search);
@@ -77,13 +100,15 @@ export function setupAccount(){
  }
  button.onclick=()=>{dialog.showModal();void refresh();};
  dialog.querySelector<HTMLButtonElement>('[data-close]')!.onclick=()=>dialog.close();
- dialog.onclose=()=>{sequence++;clear();form.reset();button.focus();};
+ window.addEventListener('sasa:practice-login',()=>{resumePractice=true;button.click();});
+ window.addEventListener('sasa:reservation-login',event=>{resumeReservation=(event as CustomEvent<()=>void>).detail;button.click();});
+ dialog.onclose=()=>{resumeReservation=undefined;resumePractice=false;confirmedHere=false;returnHint.hidden=true;sequence++;clear();form.reset();if(!document.activeElement||document.activeElement===document.body)button.focus();};
  form.onsubmit=async e=>{e.preventDefault();const n=sequence;
   try{await api('login-link',{email:new FormData(form).get('email')});if(n===sequence)status.textContent=t('이 Mac의 시험 우편함에 로그인 링크를 보냈습니다.');}
   catch{if(n===sequence)status.textContent=t('시험 이메일 주소와 연결 상태를 확인해 주세요.');}
  };
  confirm.onclick=async()=>{const raw=link;link=null;clear();
-  try{await api('login',{token:raw});accountChanged();accountChanges?.postMessage('changed');await refresh();}
+  try{await api('login',{token:raw});confirmedHere=true;accountChanged();accountChanges?.postMessage('login');if(!finishLogin())await refresh();}
   catch{await refresh();status.textContent=t('링크가 만료되었거나 이미 사용됐습니다. 새 링크를 받아 주세요.');}
  };
  logout.onclick=async()=>{clear();try{await api('logout',{});accountChanged();accountChanges?.postMessage('changed');await refresh();}catch{status.textContent=t('로그아웃을 완료하지 못했습니다.');logout.hidden=false;}};

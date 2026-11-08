@@ -72,7 +72,7 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
  function failed(error:unknown){
   if(error instanceof Error&&['401','409'].includes(error.message)){
    cancel();
-   if(error.message==='401')document.querySelector<HTMLButtonElement>('#service-account')?.click();
+   if(error.message==='401')window.dispatchEvent(new Event('sasa:practice-login'));
   }
   status.textContent=t(error instanceof Error&&error.message==='401'?'계정 메뉴에서 먼저 로그인하세요.':'다시 시도해 주세요.');
  }
@@ -96,6 +96,7 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
   }catch(error){if(version===generation)failed(error);}
   finally{if(version===generation){busy=false;draw();}}
  }
+ window.addEventListener('sasa:resume-practice',()=>{if(visible&&!id&&!busy)button.click();});
  stop.onclick=cancel;window.addEventListener('sasa:account',cancel);
  return {cancel,get active(){return !!id||busy;},get bowing(){return elapsed>=0;},
   show(value:boolean){if(value===visible)return;visible=value;if(!value)cancel();else draw();},

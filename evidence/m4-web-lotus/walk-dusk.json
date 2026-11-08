@@ -1,0 +1,102 @@
+{
+  "buildDigest": "6bb0e718a80364471001207180f56c6856a5b2e44b4f3a72946f25e618a12623",
+  "schemaVersion": 1,
+  "sceneVersion": "m1-web-review-013",
+  "createdAt": "2026-11-08T12:01:55.459Z",
+  "device": "미확인",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "physicalDeviceVerified": false,
+  "acceptance": "unreviewed",
+  "settings": {
+    "visitor": [
+      1.8668100001573569,
+      0.08341052828096726,
+      -31.7224699991346
+    ],
+    "time": "dusk",
+    "quality": "high",
+    "density": 1000,
+    "canopyCapacity": 440,
+    "visibleLanternCount": 440,
+    "nameTagCount": 0,
+    "selected": 23,
+    "reduced": false,
+    "owned": [
+      23,
+      37,
+      58
+    ],
+    "renderWidth": 1280,
+    "renderHeight": 720
+  },
+  "currentSettings": {
+    "visitor": [
+      1.8668100001573569,
+      0.08332598702458155,
+      -62.56690999897708
+    ],
+    "time": "dusk",
+    "quality": "high",
+    "density": 1000,
+    "canopyCapacity": 440,
+    "visibleLanternCount": 440,
+    "nameTagCount": 0,
+    "selected": 23,
+    "reduced": false,
+    "owned": [
+      23,
+      37,
+      58
+    ],
+    "renderWidth": 1280,
+    "renderHeight": 720
+  },
+  "startCamera": {
+    "alpha": -1.5707963267948966,
+    "beta": 1.26,
+    "radius": 3.2,
+    "target": [
+      1.8668100001573569,
+      1.2834105282809671,
+      -31.7224699991346
+    ]
+  },
+  "camera": {
+    "alpha": -1.5707963267948966,
+    "beta": 1.26,
+    "radius": 3.2,
+    "target": [
+      1.8668100001573569,
+      1.2833259870245814,
+      -62.56690999897708
+    ]
+  },
+  "renderer": {
+    "vendor": "Google Inc. (Apple)",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+  },
+  "timing": {
+    "navigationToFirstRenderedFrameMs": 2742.600000023842,
+    "sceneConstructionToFirstFrameMs": 1863.5
+  },
+  "jsHeapBytes": 311406904,
+  "memoryCaveat": "JS heap only if exposed; not GPU or total process memory",
+  "measurement": {
+    "samples": 17890,
+    "meanFps": 60.002589267696266,
+    "onePercentLowFps": 54.06384968946204,
+    "maxFrameMs": 18.899999976158142,
+    "elapsedSeconds": 300.15519999992847,
+    "warmupSeconds": 2,
+    "valid": true,
+    "invalidReason": null
+  },
+  "route": {
+    "minZ": -64.60465999897708,
+    "maxZ": 37.96462000110148,
+    "turns": 9,
+    "distanceMetres": 983.7022799996886
+  },
+  "errors": []
+}

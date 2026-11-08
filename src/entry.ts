@@ -65,3 +65,8 @@ enter.onclick=async()=>{
   }
  }finally{root.classList.remove('opening-lotus');root.removeAttribute('aria-busy');}
 };
+
+// A login link returns to the language already selected for the visit.
+if(import.meta.env.MODE==='service'&&new URLSearchParams(location.hash.slice(1)).has('login')){
+ enter.click();
+}

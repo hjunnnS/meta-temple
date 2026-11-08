@@ -62,10 +62,13 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
    if(!choice.value){note.textContent=t('다른 자리를 선택하세요');return;}
    const payload={revision:quote.revision,offerId:offer.id,slotId:choice.value,name,tag,text,public:publish};
    controls.replaceChildren();note.textContent=[choice.value,pass(quote.days,quote.priceKrw),t(publish?'공개':'비공개'),name,text].filter(Boolean).join(' · ');
-   button('취소',restart);button('이 자리에 예약',async()=>{
+   button('취소',restart);const reserve=button('이 자리에 예약',async()=>{
     const retry=()=>select(offer,payload.slotId,d,false,true);
     try{await service('trade/enter',payload);}catch(error){
-     if((error as {code?:string}).code==='login_required')document.querySelector<HTMLButtonElement>('#service-account')?.click();
+     if((error as {code?:string}).code==='login_required'){
+      window.dispatchEvent(new CustomEvent('sasa:reservation-login',{detail:()=>{if(reserve.isConnected)reserve.click();}}));
+      return;
+     }
      if((error as {code?:string}).code==='unavailable'){await retry();return;}
      throw error;
     }
