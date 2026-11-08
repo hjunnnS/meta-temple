@@ -1,6 +1,6 @@
 import { templeAudio } from './temple-audio.ts';
 import { reviewPresence } from './review-presence.ts';
-import { fixedSlots, ownedOfferingSamples, type Slot, offeringZones } from './contracts.ts';
+import { offeringZones } from './contracts.ts';
 import { parseReviewSlots } from './review-slots.ts';
 import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import { offerings, readApplication, storagePrefix, type Offering } from './reception.ts';
@@ -13,14 +13,13 @@ import { SCENE_VERSION, OWNED_INDICES } from './contracts.ts';
 const root=document.querySelector<HTMLDivElement>('#app')!;
 root.innerHTML=`
 <canvas id="world" aria-label="사찰 3D 장면. 드래그로 시점 회전, 휠이나 두 손가락으로 확대." tabindex="0"></canvas>
-<header><a class="brand" href="#" aria-label="사사 처음 시점"><span class="seal">山</span><span>사사<small>SASA · A MOMENT OF STILLNESS</small></span></a><span class="stage">사찰 배치 검토 <i></i> 두 문 사이 진입길</span><div class="header-tools"><button id="find-owned" aria-haspopup="dialog">내 아이템 찾기</button><button id="settings" class="circle" aria-haspopup="dialog" aria-controls="settings-panel" aria-label="환경 설정 열기">☷</button></div></header>
+<header><a class="brand" href="#" aria-label="사사 처음 시점"><span class="seal">山</span><span>사사<small>SASA · A MOMENT OF STILLNESS</small></span></a><span class="stage">사찰 배치 검토 <i></i> 두 문 사이 진입길</span><button id="settings" class="circle" aria-haspopup="dialog" aria-controls="settings-panel" aria-label="환경 설정 열기">☷</button></header>
 <section class="intro"><span class="eyebrow">잠시, 일상에서 한 걸음</span><h1>빛을 따라,<br>마음이 머무는 곳.</h1><p>처마 아래 스며드는 빛과<br>조용히 흔들리는 마음을 바라봅니다.</p><label class="entry-audio"><input id="entry-audio" type="checkbox"> 공간음과 함께 입장</label><button id="explore" class="primary">사찰 둘러보기 <span>↗</span></button></section>
 <div id="loading" role="status" tabindex="-1"><span>사사의 빛을 준비하고 있어요…</span><button id="load-retry" hidden>다시 불러오기</button></div>
 <dialog id="settings-panel" aria-labelledby="settings-title"><div class="panel-title"><h2 id="settings-title">환경 설정</h2><button id="close-settings" aria-label="환경 설정 닫기">×</button></div><label class="check"><input id="audio-on" type="checkbox"> 공간음 켜기</label><label>소리 크기<input id="audio-volume" type="range" min="0" max="100" value="35"></label><p class="note" id="audio-status" role="status">무음</p><label>시간대<select id="time"><option value="day" selected>햇살 가득한 낮</option><option value="dusk">해질녘</option><option value="night">밤</option></select></label><label>화면 품질<select id="quality"><option value="high">섬세하게</option><option value="low">가볍게</option></select></label><label class="check"><input type="checkbox" id="reduced">반짝임 완화</label><label>내 연등 이름표<input id="lantern-name" maxlength="24" placeholder="이름 입력 · 최대 12자"></label><button id="apply-name" class="primary">이름표 미리보기</button><p id="name-status" class="note" role="status">현재 선택한 내 연등에 표시됩니다. 미리보기 이름은 서버에 저장하지 않습니다.</p><p class="note">내 연등은 모든 품질에서 같은 위치에 표시됩니다.</p></dialog>
-<footer><div class="location"><span class="eyebrow">01 / 대웅전</span><p>고요를 담은 빛</p></div><nav aria-label="장면 보기"><button data-view="officeReception">등·소원 접수처</button><button data-view="wide" aria-pressed="false">전체 풍경</button><button data-view="front" aria-pressed="false">대웅전</button><button data-view="canopy" aria-pressed="false">연등 아래</button><button data-view="detail" aria-pressed="false">단청</button><button data-view="lantern" aria-pressed="false">내 연등 <span class="dot"></span></button></nav><button id="diagnostics">검증 기록 ↗</button></footer>
+<footer><div class="location"><span class="eyebrow">01 / 대웅전</span><p>고요를 담은 빛</p></div><nav aria-label="장면 보기"><button data-view="officeReception">등·소원 접수처</button><button data-view="wide" aria-pressed="false">전체 풍경</button><button data-view="front" aria-pressed="false">대웅전</button><button data-view="canopy" aria-pressed="false">연등 아래</button><button data-view="detail" aria-pressed="false">단청</button></nav><button id="diagnostics">검증 기록 ↗</button></footer>
 <label class="place-picker">공간 둘러보기 <select id="place"><option value="walk">아바타로 걷기</option><option value="wide">전체 풍경</option><option value="map">배치도 · 위에서 보기</option><option value="plazaCourt">연등 광장에서 본 중앙 마당</option><option value="plazaHall">연등 광장에서 본 대웅전</option><option value="courtHall">중앙 마당에서 본 대웅전</option><option value="eavesHall">대웅전 처마 아래</option><option value="gwaneumDoor">관음전 열린 입구</option><option value="gwaneumAltar">관음보살 불단</option><option value="gwaneumSeats">관음전 기도 자리</option><option value="gateArrival">일주문 앞 · 정면 담</option><option value="templeApproach">일주문부터 대웅전까지</option><option value="gateWalk">천왕문 통과하기</option><option value="gateEave">천왕문 처마와 첫 연등</option><option value="guardianGallery">천왕문 안 · 사천왕</option><option value="gatePassage" selected>두 문 사이 진입길</option><option value="courtWall">중앙 마당 가장자리</option><option value="votiveShelves">인등전 안 · 인등 선반</option><option value="memorialLamps">지장전 안 · 추모등</option><option value="indeungApproach">서쪽 길에서 본 인등전</option><option value="pagodaCourt">관음전 옆 석탑</option><option value="stoneLanterns">대웅전 앞 석등</option><option value="candleCourt">석탑 앞과 양옆 봉헌초</option><option value="wishGarden">소원패 정원 · 나무 걸이대</option><option value="wishAisle">소원패 정원 · 줄 사이</option><option value="officeReception">종무소 · 등·소원 접수처</option><option value="lanternReception">연등광장 · 신청 자리</option><option value="entryRowMap">배치도 · 범종각과 종무소</option><option value="gateExitOffice">천왕문 출구 · 오른쪽 종무소</option><option value="officeApproach">진입로에서 본 종무소</option><option value="bellApproach">천왕문 길에서 본 범종각</option><option value="bellDetail">범종과 당목 가까이</option><option value="jijangPlaza">연등 광장에서 본 지장전</option><option value="jijangInterior">지장전 안 · 추모 기도 자리</option><option value="entrance">마당에서 본 열린 법당</option><option value="sanctuary">대웅전 안 · 예불 자리</option><option value="seating">법당 안 · 50명 배치</option><option value="shrine">불단 가까이</option><option value="face">불상 얼굴 가까이</option><option value="chime">처마 끝 풍경</option>${templePlaces.map(p=>`<option value="${p.id}">${p.name}</option>`).join('')}</select></label>
-<dialog id="finder" aria-labelledby="finder-title"><div class="panel-title"><h2 id="finder-title">내 아이템 찾기</h2><button id="finder-close" aria-label="닫기">×</button></div><label>목적지<select id="destination"></select></label><canvas id="route-map" width="420" height="310" aria-label="북쪽이 위인 사찰 배치도"></canvas><p id="guide-info"></p><button class="primary" id="guide-go">이 자리로 걷기</button></dialog>
-<section id="walk-pad" aria-label="걷기 조작" hidden><span>WASD · 방향키로 걷기</span><span id="route-status"></span><button id="route-cancel" hidden>이동 취소</button><button id="visit-point" hidden></button><button id="prayer-point" hidden></button><button id="walk-camera" aria-pressed="false">1인칭 보기</button><div>${[['KeyA','←','왼쪽'],['KeyW','↑','앞'],['KeyS','↓','뒤'],['KeyD','→','오른쪽']].map(([key,text,label])=>`<button data-key="${key}" aria-label="${label}으로 걷기">${text}</button>`).join('')}</div></section>
+<section id="walk-pad" aria-label="걷기 조작" hidden><span>WASD · 방향키로 걷기</span><button id="visit-point" hidden></button><button id="prayer-point" hidden></button><button id="walk-camera" aria-pressed="false">1인칭 보기</button><div>${[['KeyA','←','왼쪽'],['KeyW','↑','앞'],['KeyS','↓','뒤'],['KeyD','→','오른쪽']].map(([key,text,label])=>`<button data-key="${key}" aria-label="${label}으로 걷기">${text}</button>`).join('')}</div></section>
 <section id="reception-panel" hidden aria-label="등·소원 접수처"></section>
 <dialog id="application"><form><div class="panel-title"><h2 id="request-title"></h2><button type="button" id="cancel-request" aria-label="신청 닫기">×</button></div>
 <p id="slot-location"></p><label>기간<select id="request-term"><option value="week">일주일</option><option value="month">한 달</option></select></label>
@@ -74,7 +73,7 @@ $('#close-settings').onclick=()=>settingsPanel.close();
 settingsPanel.onclose=()=>$('#settings').focus();
 $('#explore').onclick=()=>{if($<HTMLInputElement>('#entry-audio').checked)void audio.enable();else audio.mute();enterView('walk');$<HTMLSelectElement>('#place').value='walk';document.body.classList.add('exploring');canvas.focus();};
 $('.brand').onclick=e=>{e.preventDefault();audio.mute();enterView('gatePassage');$<HTMLSelectElement>('#place').value='gatePassage';document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed','false'));document.body.classList.remove('exploring');};
-$('#apply-name').onclick=()=>{invalidate('이름표 변경');const field=$<HTMLInputElement>('#lantern-name');field.value=app.setName(field.value);$('#name-status').textContent=field.value?'이름표에 반영했습니다. 새로고침하면 초기화됩니다.':'이름표를 제거했습니다.';enterView('lantern');document.body.classList.add('exploring');for(const b of document.querySelectorAll<HTMLElement>('[data-view]'))b.setAttribute('aria-pressed',String(b.dataset.view==='lantern'));settingsPanel.close();};
+$('#apply-name').onclick=()=>{invalidate('이름표 변경');const field=$<HTMLInputElement>('#lantern-name');field.value=app.setName(field.value);$('#name-status').textContent=field.value?'이름표에 반영했습니다. 새로고침하면 초기화됩니다.':'이름표를 제거했습니다.';settingsPanel.close();};
 $('#time').onchange=()=>{invalidate('시간대 변경');app.time($<HTMLSelectElement>('#time').value as TimeOfDay);};
 const qualityField=$<HTMLSelectElement>('#quality'),motionField=$<HTMLInputElement>('#reduced');
 const motionPreference=matchMedia('(prefers-reduced-motion: reduce)');
@@ -97,7 +96,7 @@ motionField.onchange=()=>{invalidate('효과 변경');motionOverride=String(moti
 for(const button of document.querySelectorAll<HTMLButtonElement>('[data-view]'))button.onclick=()=>{enterView(button.dataset.view!);document.body.classList.add('exploring');for(const b of document.querySelectorAll('[data-view]'))b.setAttribute('aria-pressed',String(b===button));};
 const dialog=$<HTMLDialogElement>('#diagnostic-dialog');$('#diagnostics').onclick=()=>dialog.showModal();$('#close-diagnostics').onclick=()=>dialog.close();dialog.onclose=()=>$('#diagnostics').focus();
 $('#density').onchange=()=>{invalidate('연등 밀도 변경');app.rebuildLanterns(Number($<HTMLSelectElement>('#density').value));};
-$('#owned').onchange=()=>{invalidate('선택 상품 변경');app.setSelected(Number($<HTMLSelectElement>('#owned').value));enterView('lantern');document.body.classList.add('exploring');for(const b of document.querySelectorAll<HTMLElement>('[data-view]'))b.setAttribute('aria-pressed',String(b.dataset.view==='lantern'));};
+$('#owned').onchange=()=>{invalidate('선택 상품 변경');app.setSelected(Number($<HTMLSelectElement>('#owned').value));};
 $('#measure').onclick=()=>{measure.start();latest=null;recordedSettings={...app.settings};startCamera={alpha:app.camera.alpha,beta:app.camera.beta,radius:app.camera.radius,target:app.camera.target.asArray()};$('#report').textContent='2초 예열 후 현재 설정으로 측정합니다.';};
 function report(){const p=performance as Performance & {memory?:{usedJSHeapSize:number}};return {schemaVersion:1,sceneVersion:SCENE_VERSION,createdAt:new Date().toISOString(),device:$<HTMLInputElement>('#device').value||'미확인',userAgent:navigator.userAgent,physicalDeviceVerified:false,acceptance:'unreviewed',settings:recordedSettings??app.settings,currentSettings:app.settings,startCamera,camera:{alpha:app.camera.alpha,beta:app.camera.beta,radius:app.camera.radius,target:app.camera.target.asArray()},renderer:app.engine.getGlInfo(),timing:{navigationToFirstRenderedFrameMs:firstFrameMs,sceneConstructionToFirstFrameMs:firstFrameMs===null?null:firstFrameMs-initStart},jsHeapBytes:p.memory?.usedJSHeapSize??null,memoryCaveat:'JS heap only if exposed; not GPU or total process memory',measurement:measure.report()};}
 $('#stop').onclick=()=>{measure.stop();latest=report();$('#report').textContent=JSON.stringify(latest,null,2);};
@@ -113,38 +112,6 @@ function goToPlace(view:string){
  placePicker.value=view;
  placePicker.dispatchEvent(new Event('change'));
 }
-const finder=$<HTMLDialogElement>('#finder'),destinations=$<HTMLSelectElement>('#destination');
-let choices:Slot[]=[];
-function drawGuide(){
- const slot=choices.find(s=>s.id===destinations.value);
- $('#guide-go').toggleAttribute('disabled',!slot);
- const map=$<HTMLCanvasElement>('#route-map'),c=map.getContext('2d')!;
- c.fillStyle='#e8e8d7';c.fillRect(0,0,map.width,map.height);
- const mx=(x:number)=>210+x*3.1,mz=(z:number)=>152-z*1.94;
- c.font='13px sans-serif';c.textAlign='center';
- for(const site of templePlaces){
-  c.fillStyle='#bcb79e';c.fillRect(mx(site.x)-22,mz(site.z)-7,44,14);
-  c.fillStyle='#364239';c.fillText(site.name.split(' ·')[0],mx(site.x),mz(site.z)+4);
- }
- const [px,,pz]=app.visitorPose.position;
- function dot(x:number,z:number,color:string){c.beginPath();c.arc(mx(x),mz(z),5,0,2*Math.PI);c.fillStyle=color;c.fill();}
- dot(px,pz,'#156d82');
- if(!slot){$('#guide-info').textContent='표시할 내 아이템이 없습니다.';return;}
- const [x,,z]=slot.position;dot(x,z,'#ac421d');
- const compass=['북','북동','동','남동','남','남서','서','북서'];
- const direction=compass[(Math.round(Math.atan2(x-px,z-pz)/(Math.PI/4))+8)%8];
- $('#guide-info').textContent='현재 위치(청록)에서 목적지(주황)까지 '+direction+'쪽 · 직선 '+Math.round(Math.hypot(x-px,z-pz))+' m';
-}
-$('#find-owned').onclick=()=>{
- choices=import.meta.env.MODE==='review'?[...app.reviewSlots.values()].filter(s=>s.owned&&s.installationId):fixedSlots().filter(s=>ownedOfferingSamples.has(s.id)||readApplication(s.id));
- destinations.replaceChildren(...choices.map(s=>new Option(offerings[s.accepts==='wish-plaque'?'plaque':s.accepts].label+' · '+s.id.split(':').at(-1),s.id)));
- drawGuide();finder.showModal();
-};
-destinations.onchange=drawGuide;$('#finder-close').onclick=()=>finder.close();
-$('#guide-go').onclick=()=>{
- const slot=choices.find(s=>s.id===destinations.value);if(!slot)return;
- finder.close();goToPlace('walk');app.guide(slot);
-};
 $('#visit-point').onclick=()=>{const destination=$('#visit-point').dataset.view;if(destination)goToPlace(destination);};
 function panelButton(label:string,act:()=>void){
  const button=document.createElement('button');button.textContent=label;button.onclick=act;
