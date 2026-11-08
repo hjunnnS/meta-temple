@@ -43,9 +43,29 @@ try{
  assert.equal((await request(link,'')).status,404);
  await pool.query("UPDATE installations SET hidden=false,ends_at=now()-interval '1 minute' WHERE id=$1",[item.id]);
  assert.equal((await request(link,'')).status,404);
+ await pool.query("UPDATE installations SET ends_at=now()+interval '1 day' WHERE id=$1",[item.id]);
+ const reason={id:item.id,category:'privacy'};
+ assert.equal((await request('report','',reason)).status,401);
+ for(let i=0;i<2;i++)assert.equal((await request('report',clients[1],reason)).status,200);
+ assert.equal((await request('staff/content',clients[1])).status,403);
+ await pool.query("INSERT INTO staff_roles VALUES ($1,'moderation'),($2,'desk')",[accounts[2],accounts[3]]);
+ const reports=await request('staff/content',clients[2]);
+ assert.equal(reports.data.rows.find(r=>r.id===item.id).text,'공개 문구');
+ for(const action of ['hide','delete']){
+  assert.equal((await request('staff/content',clients[2],{id:item.id,action,reason:'정책 검수'})).status,200);
+  assert.equal((await request(link,'')).status,404);
+ }
+ const retained=await pool.query('SELECT i.removed_at,o.status,o.inscription FROM orders o JOIN installations i ON i.order_id=o.id WHERE o.id=$1',[order.id]);
+ assert.deepEqual(retained.rows[0],{removed_at:null,status:'installed',inscription:{}});
+ assert.equal((await request('staff/orders?q='+order.id,clients[3])).data.rows[0].id,order.id);
+ assert.equal((await request('staff/orders',clients[3],{id:order.id,reason:'정상 설치'})).status,409);
+ console.log('Moderation and desk: report, restricted review, hide, delete, preserve purchase, order search and refund scope passed.');
  console.log('Shared detail: guest, consent withdrawal, owner hide, expiry and forbidden non-owner change passed.');
 }finally{
  await Promise.all(clients.map(key=>request('logout',key,{})));
+ await pool.query('DELETE FROM content_reports WHERE reporter=ANY($1::uuid[])',[accounts]);
+ await pool.query('DELETE FROM staff_audit WHERE actor=ANY($1::uuid[])',[accounts]);
+ await pool.query('DELETE FROM staff_roles WHERE account_id=ANY($1::uuid[])',[accounts]);
  for(const table of ['events','installations','orders','reservations','sessions','accounts'])
   await pool.query('DELETE FROM '+table+' WHERE '+(table==='accounts'?'id':'account_id')+'=ANY($1::uuid[])',[accounts]);
  await pool.end();

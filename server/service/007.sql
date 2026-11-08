@@ -1,0 +1,2 @@
+CREATE TABLE content_reports(id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY, installation_id uuid NOT NULL REFERENCES installations, reporter uuid NOT NULL REFERENCES accounts, category text NOT NULL CHECK(category IN ('privacy','harm','other')), state text NOT NULL DEFAULT 'open', created_at timestamptz NOT NULL DEFAULT now(), UNIQUE(installation_id,reporter));
+ALTER TABLE installations ADD COLUMN text_deleted boolean NOT NULL DEFAULT false;

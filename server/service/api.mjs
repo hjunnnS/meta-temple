@@ -82,8 +82,14 @@ export async function serviceApi(){
    }
    const {rows:[account]}=await pool.query('SELECT a.id,a.email FROM accounts a JOIN sessions s ON a.id=s.account_id WHERE s.digest=$1 AND s.expires_at>now()',[cookieHash]);
    if(!account)return send(401,{error:'login_required'});
+   if(path==='/api/service/report'&&req.method==='POST'){
+    if(!['privacy','harm','other'].includes(input.category)||typeof input.id!=='string')return send(400,{error:'invalid_report'});
+    const found=await pool.query('WITH visible AS (SELECT id FROM public_offerings WHERE id::text=$1), submitted AS (INSERT INTO content_reports(installation_id,reporter,category) SELECT id,$2,$3 FROM visible ON CONFLICT DO NOTHING) SELECT id FROM visible',[input.id,account.id,input.category]);
+    return found.rowCount?send(200,{reported:true}):send(404,{error:'unavailable'});
+   }
    if(path.startsWith('/api/service/staff/')){
-    const [code,body]=await staff(account.id,path.split('/').pop(),req.method,input);
+    const criteria=req.method==='GET'?Object.fromEntries(new URL(req.url,'http://localhost').searchParams):input;
+    const [code,body]=await staff(account.id,path.split('/').pop(),req.method,criteria);
     return send(code,body);
    }
    if(req.method==='POST'&&path.startsWith('/api/service/channel/')){
