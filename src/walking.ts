@@ -1,3 +1,4 @@
+import {bowPractice} from './bow-practice';
 import {t} from './locales';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
@@ -87,8 +88,17 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   for(const arm of avatar.arms)arm.rotation.set(0,0,0);
   prayerButton.textContent=prayer?t(prayer.name)+' · '+t(practicing?'참배 시작':'불단'):'';
  }
+ const bows=bowPractice(scene,avatar.root.position,()=>{
+  if(!prayer)return;
+  finishWorship();camera.alpha=prayer.alpha;camera.beta=1.48;
+  avatar.root.rotation.y=-Math.PI/2-prayer.alpha;canvas.focus();
+ },depth=>{
+  avatar.root.rotation.x=1.18*depth;avatar.root.scaling.y=1-.32*depth;
+  avatar.arms.forEach((arm,i)=>arm.rotation.set(-1.3*depth,0,(i===0?1:-1)*-.35*depth));
+ });
  prayerButton.onclick=()=>{
   if(!prayer)return;
+  if(bows.active)bows.cancel();
   if(worship){finishWorship();canvas.focus();return;}
   camera.alpha=prayer.alpha;camera.beta=1.62;avatar.root.rotation.y=-Math.PI/2-prayer.alpha;
   if(practicing){worship=true;elapsed=0;prayerButton.textContent=t('참배 마치기');}
@@ -113,7 +123,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   }
  };
  document.addEventListener('pointerlockchange',()=>{if(!document.pointerLockElement&&first)changePerspective(false);});
- canvas.addEventListener('keydown',e=>{if(e.key==='Escape'&&worship)finishWorship();if(e.key==='Escape'&&first)changePerspective(false);});
+ canvas.addEventListener('keydown',e=>{if(e.key==='Escape'&&bows.active)bows.cancel();if(e.key==='Escape'&&worship)finishWorship();if(e.key==='Escape'&&first)changePerspective(false);});
  function clear(){keys.clear();moving=false;}
  canvas.addEventListener('keydown',e=>{if(active&&directions.has(e.code)){e.preventDefault();keys.add(e.code);}});
  window.addEventListener('keyup',e=>keys.delete(e.code));
@@ -125,6 +135,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  }
  const orbitKeys=camera.inputs.attached.keyboard;
  function mode(on:boolean){
+  if(!on)bows.show(false);
   if(!on&&worship)finishWorship();
   if(active===on)return;
   if(orbitKeys){if(on)camera.inputs.remove(orbitKeys);else camera.inputs.add(orbitKeys);}
@@ -148,9 +159,12 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   if(prayer!==nextPrayer){
    prayer=nextPrayer;prayerButton.hidden=!prayer;finishWorship();
   }
+  bows.show(practicing&&!!prayer);
   const x=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'));
   const z=Number(keys.has('KeyW')||keys.has('ArrowUp'))-Number(keys.has('KeyS')||keys.has('ArrowDown'));
   const length=Math.hypot(x,z);
+  if(length&&bows.active)bows.cancel();
+  bows.update(dt);
   if(worship){
    if(length){finishWorship();}
    else{
@@ -177,5 +191,5 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   camera.target.copyFromFloats(p.x,p.y+(first?1.56:1.2),p.z);
   camera.radius=first?.045:world.cameraLimit(camera.target,camera.alpha,camera.beta,3.2);
  }
- return {mode,update,get pose(){return {position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,animation:worship?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
+ return {mode,update,get pose(){return {position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,animation:worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
 }

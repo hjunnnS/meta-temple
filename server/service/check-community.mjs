@@ -15,7 +15,8 @@ try{
   await pool.query('INSERT INTO accounts VALUES ($1,$2)',[id,id+'@example.test']);accounts.push(id);
   await pool.query("INSERT INTO sessions VALUES ($1,$2,now()+interval '5 minutes')",[createHash('sha256').update(key).digest('hex'),id]);clients.push(key);
  }
- assert.equal((await request('channel/join','',{channel:1})).status,401);
+ assert.equal((await request('channel/join','',{channel:3})).status,200);
+ assert.equal((await request('practice/start','',{})).status,401);
  const start=performance.now();
  const members=await Promise.all(clients.slice(0,20).map(key=>request('channel/join',key,{channel:1})));
  assert(members.every(r=>r.status===200));

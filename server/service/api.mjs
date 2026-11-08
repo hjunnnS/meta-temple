@@ -9,10 +9,11 @@ import {layoutDraft,offeringZones} from '../../src/contracts.ts';
 
 const token=()=>randomBytes(32).toString('hex');
 const digest=value=>createHash('sha256').update(value).digest('hex');
+import {bowPractice} from './bows.mjs';
 import {channels} from './channels.mjs';
 export async function serviceApi(){
  await migrate();
- const presence=channels();
+ const presence=channels(),practice=bowPractice();
  return async(req,res,next)=>{
   const path=new URL(req.url,'http://localhost').pathname;
   if(!path.startsWith('/api/service/'))return next();
@@ -21,6 +22,7 @@ export async function serviceApi(){
   if(req.method!=='GET'&&req.headers.origin!=='http://'+req.headers.host)return send(403,{error:'origin'});
   const cookie=(req.headers.cookie??'').split(';').map(c=>c.trim()).find(c=>c.startsWith('sasa_session='))?.slice(13)??'';
   const cookieHash=digest(cookie);
+  const guest=(req.headers.cookie??'').split(';').map(value=>value.trim()).find(value=>/^sasa_guest=[a-f0-9]{64}$/.test(value))?.slice(11);
   try{
    let input={};
    if(req.method==='POST'){
@@ -51,6 +53,7 @@ export async function serviceApi(){
      await db.query("INSERT INTO events(kind,account_id) VALUES ('login',$1)",[link.account_id]);return true;
     });
     if(!ok)return send(401,{error:'invalid_link'});
+    if(guest)presence('guest:'+digest(guest),digest(guest),'logout',{});
     res.setHeader('Set-Cookie','sasa_session='+raw+'; Path=/api/service; HttpOnly; SameSite=Strict; Max-Age=86400');
     return send(200,{signedIn:true});
    }
@@ -82,7 +85,21 @@ export async function serviceApi(){
     return send(200,{schemaVersion:1,layoutVersion:layoutDraft.version,templeId:'sample:sasa',zoneId:zone,coordinateSystem:{units:'metre',up:'+Y',north:'+Z',rotation:'radian'},slots:rows});
    }
    const {rows:[account]}=await pool.query('SELECT a.id,a.email FROM accounts a JOIN sessions s ON a.id=s.account_id WHERE s.digest=$1 AND s.expires_at>now()',[cookieHash]);
+   if(req.method==='POST'&&path.startsWith('/api/service/channel/')){
+    const action=path.split('/').pop();
+    let visitor=account?.id,session=cookieHash;
+    if(!visitor){
+     if(!guest&&action!=='join')return send(410,{});
+     const key=guest??token();
+     if(!guest)res.setHeader('Set-Cookie','sasa_guest='+key+'; Path=/api/service; HttpOnly; SameSite=Strict');
+     session=digest(key);visitor='guest:'+session;
+    }
+    const [code,result]=presence(visitor,session,action,input);return send(code,result);
+   }
    if(!account)return send(401,{error:'login_required'});
+   if(req.method==='POST'&&path.startsWith('/api/service/practice/')){
+    const [code,result]=practice(cookieHash,path.split('/').pop(),input);return send(code,result);
+   }
    if(path==='/api/service/me/delete'&&req.method==='POST'&&input.confirm===true)return send(200,await maintainPrivacy(account.id));
    if(path==='/api/service/report'&&req.method==='POST'){
     if(!['privacy','harm','other'].includes(input.category)||typeof input.id!=='string')return send(400,{error:'invalid_report'});
@@ -93,10 +110,6 @@ export async function serviceApi(){
     const criteria=req.method==='GET'?Object.fromEntries(new URL(req.url,'http://localhost').searchParams):input;
     const [code,body]=await staff(account.id,path.split('/').pop(),req.method,criteria);
     return send(code,body);
-   }
-   if(req.method==='POST'&&path.startsWith('/api/service/channel/')){
-    const [code,result]=presence(account.id,cookieHash,path.split('/').pop(),input);
-    return send(code,result);
    }
    if(path==='/api/service/hide'&&req.method==='POST'){
     const result=await pool.query('UPDATE installations SET hidden=true WHERE id::text=$1 AND account_id=$2',[input.id,account.id]);

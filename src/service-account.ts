@@ -10,6 +10,13 @@ export function setupAccount(){
  const form=dialog.querySelector('form')!,status=dialog.querySelector<HTMLElement>('[data-status]')!;
  const confirm=dialog.querySelector<HTMLButtonElement>('[data-confirm]')!,logout=dialog.querySelector<HTMLButtonElement>('[data-logout]')!;
  const list=dialog.querySelector('ul')!;
+ const accountChanges=typeof BroadcastChannel==='function'?new BroadcastChannel('sasa-account-changes'):null;
+ function accountChanged(){
+  window.dispatchEvent(new Event('sasa:account'));window.dispatchEvent(new Event('sasa:installations'));
+ }
+ accountChanges?.addEventListener('message',()=>{
+  accountChanged();if(dialog.open)void refresh();
+ });
  let sequence=0,link=new URLSearchParams(location.hash.slice(1)).get('login');
  if(link)history.replaceState(null,'',location.pathname+location.search);
  function clear(){window.dispatchEvent(new CustomEvent('sasa:select',{detail:null}));dialog.querySelector('[data-account-office]')?.remove();dialog.querySelector('[data-staff-link]')?.remove();list.replaceChildren();status.textContent='';form.hidden=true;logout.hidden=true;confirm.hidden=true;}
@@ -27,7 +34,7 @@ export function setupAccount(){
    if(staff.roles.length){const link=document.createElement('a');link.href='/staff.html';link.textContent=t('시험 운영 화면');link.dataset.staffLink='';list.before(link);}
    const erase=document.createElement('button');erase.textContent=t('시험 계정 삭제');list.append(erase);
    erase.onclick=async()=>{if(!window.confirm(t('진행 중인 거래가 끝나면 로그인 정보와 공개 문구를 지웁니다. 시험 거래 기록은 30일 뒤 삭제됩니다. 요청할까요?')))return;
-    try{const result=await api('me/delete',{confirm:true});window.dispatchEvent(new Event('sasa:account'));window.dispatchEvent(new Event('sasa:installations'));await refresh();status.textContent=t(result.waiting?'진행 중인 거래를 마치면 계정을 삭제합니다.':'시험 계정을 삭제했습니다.');}catch{status.textContent=t('삭제 요청을 접수하지 못했습니다.');}
+    try{const result=await api('me/delete',{confirm:true});accountChanged();accountChanges?.postMessage('changed');await refresh();status.textContent=t(result.waiting?'진행 중인 거래를 마치면 계정을 삭제합니다.':'시험 계정을 삭제했습니다.');}catch{status.textContent=t('삭제 요청을 접수하지 못했습니다.');}
    };
    const states:Record<string,string>={cancelled:'결제 취소',pending:'결제 대기',paid:'결제 확인',installed:'설치됨',recovering:'설치 복구 중',refund_pending:'환불 중',refund_failed:'환불 확인 중',refunded:'환불 완료',expired:'기간 만료'};
    let selected:HTMLDetailsElement|null=null;
@@ -76,10 +83,10 @@ export function setupAccount(){
   catch{if(n===sequence)status.textContent=t('시험 이메일 주소와 연결 상태를 확인해 주세요.');}
  };
  confirm.onclick=async()=>{const raw=link;link=null;clear();
-  try{await api('login',{token:raw});window.dispatchEvent(new Event('sasa:account'));window.dispatchEvent(new Event('sasa:installations'));await refresh();}
+  try{await api('login',{token:raw});accountChanged();accountChanges?.postMessage('changed');await refresh();}
   catch{await refresh();status.textContent=t('링크가 만료되었거나 이미 사용됐습니다. 새 링크를 받아 주세요.');}
  };
- logout.onclick=async()=>{clear();try{await api('logout',{});window.dispatchEvent(new Event('sasa:account'));window.dispatchEvent(new Event('sasa:installations'));await refresh();}catch{status.textContent=t('로그아웃을 완료하지 못했습니다.');logout.hidden=false;}};
+ logout.onclick=async()=>{clear();try{await api('logout',{});accountChanged();accountChanges?.postMessage('changed');await refresh();}catch{status.textContent=t('로그아웃을 완료하지 못했습니다.');logout.hidden=false;}};
  window.addEventListener('hashchange',()=>{
   const next=new URLSearchParams(location.hash.slice(1)).get('login');if(!next)return;
   link=next;history.replaceState(null,'',location.pathname+location.search);

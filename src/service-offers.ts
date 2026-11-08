@@ -65,6 +65,7 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
    button('취소',restart);button('이 자리에 예약',async()=>{
     const retry=()=>select(offer,payload.slotId,d,false,true);
     try{await service('trade/enter',payload);}catch(error){
+     if((error as {code?:string}).code==='login_required')document.querySelector<HTMLButtonElement>('#service-account')?.click();
      if((error as {code?:string}).code==='unavailable'){await retry();return;}
      throw error;
     }

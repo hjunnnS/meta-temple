@@ -46,9 +46,9 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
     body:current?JSON.stringify({...pose(),sequence:++sequence}):undefined,signal:AbortSignal.timeout(3000)
    });
    if(generation!==epoch)return;
-   if(channel&&[401,409].includes(response.status)){
+   if(channel&&response.status===409){
     epoch++;session=null;for(const id of avatars.keys())clearPeer(id);
-    box.textContent=t(response.status===409?'만석입니다. 다른 채널을 선택하세요.':'로그인하면 다른 방문자가 보입니다.');return;
+    box.textContent=t('만석입니다. 다른 채널을 선택하세요.');return;
    }
    if(response.status===401||response.status===410){session=null;sequence=0;}
    if(!response.ok)throw Error('세션 연결 실패');
