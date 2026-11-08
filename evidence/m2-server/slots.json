@@ -1,0 +1,94 @@
+{
+  "records": [
+    {
+      "slots": [
+        {
+          "id": "sample:Z02:lantern:0023",
+          "zoneId": "Z02",
+          "position": [
+            -5.8500000000000005,
+            5.451612903225806,
+            -10.899999999999999
+          ],
+          "rotationY": 0,
+          "accepts": "lantern",
+          "installationId": "sample:installation:23",
+          "owned": true
+        },
+        {
+          "id": "sample:Z02:lantern:0002",
+          "zoneId": "Z02",
+          "position": [
+            -5.8500000000000005,
+            5.567741935483871,
+            -20.8
+          ],
+          "rotationY": 0,
+          "accepts": "lantern",
+          "installationId": null,
+          "owned": false
+        }
+      ],
+      "position": [
+        -5.8500000000000005,
+        5.451612903225806,
+        -10.899999999999999
+      ],
+      "empty": [
+        -5.8500000000000005,
+        5.567741935483871,
+        -20.8
+      ]
+    },
+    {
+      "slots": [
+        {
+          "id": "sample:Z02:lantern:0023",
+          "zoneId": "Z02",
+          "position": [
+            -5.8500000000000005,
+            5.451612903225806,
+            -10.899999999999999
+          ],
+          "rotationY": 0,
+          "accepts": "lantern",
+          "installationId": "sample:installation:23",
+          "owned": true
+        },
+        {
+          "id": "sample:Z02:lantern:0002",
+          "zoneId": "Z02",
+          "position": [
+            -5.8500000000000005,
+            5.567741935483871,
+            -20.8
+          ],
+          "rotationY": 0,
+          "accepts": "lantern",
+          "installationId": null,
+          "owned": false
+        }
+      ],
+      "position": [
+        -5.8500000000000005,
+        5.451612903225806,
+        -10.899999999999999
+      ],
+      "empty": [
+        -5.8500000000000005,
+        5.567741935483871,
+        -20.8
+      ]
+    }
+  ],
+  "updatedPosition": [
+    -4.8500000000000005,
+    5.451612903225806,
+    -10.899999999999999
+  ],
+  "unknownId": 404,
+  "reload": true,
+  "empty": true,
+  "badVersion": true,
+  "retry": true
+}

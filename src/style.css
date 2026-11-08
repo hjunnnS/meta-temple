@@ -12,3 +12,5 @@
 #walk-pad{position:absolute;bottom:115px;left:18px;background:#20362ee8;color:white;padding:8px;border-radius:6px;font-size:12px}
 #walk-pad div{display:flex;gap:3px;margin-top:4px}
 #walk-pad button{min-width:44px;height:44px;border:1px solid #718276;background:#28463b;color:white;border-radius:4px;touch-action:none;user-select:none}
+#review-server{position:absolute;left:16px;top:92px;max-width:48vw;padding:8px;background:#20362eeb;color:white;font-size:12px;border-radius:5px}
+#review-server button{display:block;margin-top:4px}

@@ -1,7 +1,7 @@
 {
   "slotQuery": {
     "schemaVersion": 1,
-    "layoutVersion": "layout-web-012",
+    "layoutVersion": "layout-web-013",
     "templeId": "sample:sasa",
     "zoneId": "Z02",
     "coordinateSystem": {
@@ -15,8 +15,8 @@
         "slotId": "sample:Z02:lantern:0023",
         "position": [
           -5.8500000000000005,
-          5.741935483870968,
-          -1.8999999999999986
+          5.451612903225806,
+          -10.899999999999999
         ],
         "rotationY": 0,
         "accepts": "lantern",
@@ -28,11 +28,11 @@
         }
       },
       {
-        "slotId": "sample:Z02:lantern:0001",
+        "slotId": "sample:Z02:lantern:0002",
         "position": [
           -5.8500000000000005,
-          5.364516129032258,
-          -13.6
+          5.567741935483871,
+          -20.8
         ],
         "rotationY": 0,
         "accepts": "lantern"
@@ -42,7 +42,7 @@
   "join": {
     "schemaVersion": 1,
     "channelId": "sample:channel:1",
-    "layoutVersion": "layout-web-012",
+    "layoutVersion": "layout-web-013",
     "self": "sample:session:a",
     "participants": [
       {

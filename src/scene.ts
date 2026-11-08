@@ -1,3 +1,4 @@
+import type { ReviewSlot } from './review-slots.ts';
 import { pedestrianWorld, walkingController } from './walking.ts';
 import { paving, boundaries } from './temple-terrain.ts';
 import { readApplication, type Offering } from './reception.ts';
@@ -802,9 +803,30 @@ export function createTemple(canvas:HTMLCanvasElement) {
  let lanternCasters:Mesh[]=[];
  let canopyCapacity=0,installedLanterns=0;
  let ownerBodies:Mesh[]=[];let ownerHalos:Mesh[]=[];let sparkles:{mesh:Mesh,center:Vector3,phase:number}[]=[];let marker:Mesh|null=null;
+ const reviewSlots=new Map<string,ReviewSlot>();
+ const claimedSlots=new Set<string>(import.meta.env.MODE==='review'?['sample:Z02:lantern:0023','sample:Z02:lantern:0002']:[]);
+ const reviewMarks:Mesh[]=[];
+ function applyReviewSlots(slots:ReviewSlot[]){
+  // Previously supplied IDs remain server-managed after their removal.
+  reviewSlots.clear();
+  for(const mark of reviewMarks)mark.dispose();
+  reviewMarks.length=0;
+  for(const slot of slots){reviewSlots.set(slot.id,slot);claimedSlots.add(slot.id);}
+  for(const id of claimedSlots){
+   const local=applicationSlots.get(id);
+   if(local)local.mark.setEnabled(false);
+  }
+  for(const slot of slots.filter(s=>!s.installationId)){
+   const mark=MeshBuilder.CreatePlane('server-empty-slot',{size:.7},scene);
+   mark.position.set(...slot.position);mark.material=pinMaterial;mark.billboardMode=Mesh.BILLBOARDMODE_ALL;
+   mark.metadata={reviewSlotId:slot.id};reviewMarks.push(mark);
+  }
+  rebuildLanterns(density);
+ }
  const freeLanternIndices=[2,34,66];
  for(const slot of lanternSlots(67).filter(slot=>freeLanternIndices.includes(Number(slot.id.split(':').at(-1))))){
   applicationSlot(slot.id,'lantern',Vector3.FromArray([...slot.position]),[],.7);
+  if(claimedSlots.has(slot.id))applicationSlots.get(slot.id)!.mark.setEnabled(false);
  }
  function rebuildLanterns(count:number){
   for(const caster of lanternCasters)shadows.removeShadowCaster(caster);lanternCasters=[];
@@ -815,8 +837,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
    const slot=lanternSlots(67)[index],record=readApplication(slot.id);
    if(record?.text)names.set(index,record.text);else names.delete(index);
   }
-  const candidates=canopyLanternSlots(count);
-  const slots=candidates.filter(slot=>!applicationSlots.has(slot.id)||!!readApplication(slot.id)),buckets=Array.from({length:15},()=>[] as Matrix[]);
+  const candidates=[...canopyLanternSlots(count).filter(s=>!claimedSlots.has(s.id)),...reviewSlots.values()];
+  const slots=candidates.filter(slot=>reviewSlots.has(slot.id)?!!reviewSlots.get(slot.id)!.installationId:!applicationSlots.has(slot.id)||!!readApplication(slot.id)),buckets=Array.from({length:15},()=>[] as Matrix[]);
   canopyCapacity=candidates.length;installedLanterns=slots.length;
   function body(name:string,type:number){
    if(type===0){const a=MeshBuilder.CreateSphere(name,{diameter:.74,segments:24},scene);a.scaling.y=1.12;a.bakeCurrentTransformIntoVertices();return a;}
@@ -831,8 +853,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
    const lotus=Mesh.MergeMeshes(parts,true,true)!;lotus.scaling.set(.78,1,.78);lotus.bakeCurrentTransformIntoVertices();return lotus;
   }
   for(const s of slots){const i=Number(s.id.split(':').at(-1));
-   const p=Vector3.FromArray([...s.position]);const isOwn=(OWNED_INDICES as readonly number[]).includes(i)||applicationSlots.has(s.id);const type=i%3;
-   if(isOwn){const a=body(`owned-${i}`,type);a.position=p;a.material=ownedMaterials[lanternColourIndex(s.position)*3+type];a.parent=lanternRoot;ownerBodies.push(a);lanternCasters.push(a);}else buckets[lanternColourIndex(s.position)*3+type].push(Matrix.Translation(p.x,p.y,p.z));
+   const p=Vector3.FromArray([...s.position]);const isOwn=reviewSlots.get(s.id)?.owned??((OWNED_INDICES as readonly number[]).includes(i)||applicationSlots.has(s.id));const type=i%3;
+   if(isOwn){const a=body(`owned-${i}`,type);a.name=`owned-${i}`;a.position=p;a.rotation.y=s.rotationY;a.material=ownedMaterials[lanternColourIndex(s.position)*3+type];a.parent=lanternRoot;ownerBodies.push(a);lanternCasters.push(a);}else buckets[lanternColourIndex(s.position)*3+type].push(Matrix.Translation(p.x,p.y,p.z));
   }
   buckets.forEach((matrices,i)=>{if(!matrices.length)return;const a=body(`lantern-${['round','octagonal','lotus'][i%3]}-${i}`,i%3);a.material=lanternMaterials[i];a.parent=lanternRoot;a.thinInstanceAdd(matrices);lanternCasters.push(a);});
   for(const owned of ownerBodies){
@@ -880,7 +902,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
   marker=MeshBuilder.CreateTorus('destination-marker',{diameter:1.05,thickness:.035,tessellation:32},scene);marker.material=haloMat;marker.parent=lanternRoot;marker.isVisible=false;setSelected(selected);
   if(currentTime==='day')for(const caster of lanternCasters)shadows.addShadowCaster(caster);
  }
- function setSelected(index:number){selected=index;if(marker){const p=lanternSlots(1000)[index].position;marker.position.set(p[0],p[1]-.65,p[2]);}}
+ function selectedPosition(index:number){const sample=lanternSlots(1000)[index];return reviewSlots.get(sample.id)?.position??sample.position;}
+ function setSelected(index:number){selected=index;if(marker){const p=selectedPosition(index);marker.position.set(p[0],p[1]-.65,p[2]);}}
  let reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  let currentTime:TimeOfDay='day';let quality:Quality='high';
  function time(value:TimeOfDay){
@@ -1047,7 +1070,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
     : new Vector3(px,py,pz);
    camera.setTarget(toWorld(tx,ty,tz));camera.setPosition(toWorld(x,y,z));return;
   }
-  const place=templePlaces.find(p=>p.id===name);if(place){camera.setTarget(new Vector3(place.x,3,place.z));camera.alpha=-Math.PI/2-('yaw' in place?place.yaw:0);camera.beta=1.15;camera.radius=place.kind==='forest'?48:place.scale*(canvas.clientWidth/canvas.clientHeight<.9?42:28);return;}if(name==='map'){camera.setTarget(new Vector3(0,0,-2));camera.alpha=-Math.PI/2;camera.beta=.24;camera.radius=210;return;}if(name==='canopy'){camera.setTarget(new Vector3(0,6,-16));camera.alpha=-Math.PI/2;camera.beta=2.1;camera.radius=9;}else if(name==='front'){camera.setTarget(new Vector3(0,5,32));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=55;}else if(name==='detail'){camera.setTarget(new Vector3(-6,6.6,29));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=lanternSlots(1000)[selected].position;camera.setTarget(Vector3.FromArray([...p]).add(new Vector3(0,-.4,0)));camera.alpha=-2.9;camera.beta=1.95;camera.radius=4;}else{camera.setTarget(new Vector3(0,2,-2));camera.alpha=-Math.PI*.58;camera.beta=.65;camera.radius=175;}}
+  const place=templePlaces.find(p=>p.id===name);if(place){camera.setTarget(new Vector3(place.x,3,place.z));camera.alpha=-Math.PI/2-('yaw' in place?place.yaw:0);camera.beta=1.15;camera.radius=place.kind==='forest'?48:place.scale*(canvas.clientWidth/canvas.clientHeight<.9?42:28);return;}if(name==='map'){camera.setTarget(new Vector3(0,0,-2));camera.alpha=-Math.PI/2;camera.beta=.24;camera.radius=210;return;}if(name==='canopy'){camera.setTarget(new Vector3(0,6,-16));camera.alpha=-Math.PI/2;camera.beta=2.1;camera.radius=9;}else if(name==='front'){camera.setTarget(new Vector3(0,5,32));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=55;}else if(name==='detail'){camera.setTarget(new Vector3(-6,6.6,29));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=selectedPosition(selected);camera.setTarget(Vector3.FromArray([...p]).add(new Vector3(0,-.4,0)));camera.alpha=-2.9;camera.beta=1.95;camera.radius=4;}else{camera.setTarget(new Vector3(0,2,-2));camera.alpha=-Math.PI*.58;camera.beta=.65;camera.radius=175;}}
  rebuildLanterns(1000);time('day');
  scene.onBeforeRenderObservable.add(()=>{
   walking.update(engine.getDeltaTime()/1000);
@@ -1093,5 +1116,5 @@ export function createTemple(canvas:HTMLCanvasElement) {
   if(slot.kind==='lantern')rebuildLanterns(density);
   if(slot.kind==='plaque')writeWish(id);
  }
- return {applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount:installedLanterns,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ return {applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount:installedLanterns,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }

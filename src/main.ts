@@ -1,3 +1,4 @@
+import { parseReviewSlots } from './review-slots.ts';
 import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import { offerings, readApplication, storagePrefix, type Offering } from './reception.ts';
 import { renderWhileViewing } from './preview-rendering.ts';
@@ -111,6 +112,7 @@ function receptionView(view:string){
  }
 }
 function openRequest(id:string){
+ if(app.reviewSlots.has(id)){ $('#application-status').textContent='서버 검수용 자리입니다.';return;}
  const slot=app.applicationSlots.get(id);if(!slot||readApplication(id))return;
  const item=offerings[slot.kind];pendingId=id;
  const number=[...app.applicationSlots].filter(([,s])=>s.kind===slot.kind).findIndex(([key])=>key===id)+1;
@@ -147,3 +149,22 @@ for(const button of document.querySelectorAll<HTMLButtonElement>('[data-view]'))
  $('#application-status').textContent='';receptionView(view);
 });
 for(const selector of ['.brand','#explore','#apply-name','#owned'])$(selector).addEventListener(selector==='#owned'?'change':'click',()=>{receptionView('');$('#application-status').textContent='';});
+
+
+if(import.meta.env.MODE==='review'){
+ const panel=document.createElement('section');panel.id='review-server';panel.setAttribute('aria-label','로컬 서버 검수');
+ const status=document.createElement('span');status.setAttribute('role','status');
+ const refresh=document.createElement('button');refresh.textContent='슬롯 다시 조회';
+ panel.append(status,refresh);root.append(panel);
+ async function loadSlots(){
+  refresh.disabled=true;status.textContent='슬롯 조회 중';
+  try{
+   const response=await fetch('/api/review/temples/sample:sasa/zones/Z02/slots',{signal:AbortSignal.timeout(7000)});
+   if(!response.ok)throw Error('검수 서버 연결 실패');
+   const slots=parseReviewSlots(await response.json());app.applyReviewSlots(slots);
+   status.textContent='검수 슬롯 '+slots.length+'개 · 설치 '+slots.filter(s=>s.installationId).length+'개';
+  }catch(error){status.textContent=error instanceof Error?error.message:'슬롯 조회 실패';}
+  finally{refresh.disabled=false;}
+ }
+ refresh.onclick=loadSlots;void loadSlots();
+}
