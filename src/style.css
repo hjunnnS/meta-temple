@@ -16,3 +16,23 @@
 #review-server button{display:block;margin-top:4px}
 .entry-audio{pointer-events:auto;width:fit-content;display:flex;align-items:center;gap:.45rem;margin:0 0 1rem;font-size:.9rem}
 #settings-panel{max-height:calc(100dvh - 6rem);overflow-y:auto}
+#settings-panel{width:min(340px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overscroll-behavior:contain}
+#settings-panel label{min-height:44px}
+#settings-panel :is(select,input[type=text],input:not([type])){min-width:0;max-width:60%}
+#settings-panel :is(button,select){min-height:44px}
+#review-tools{position:absolute;left:16px;top:92px;max-width:48vw;background:#20362ef2;color:white;border-radius:5px;font-size:12px}
+#review-tools summary{padding:8px;cursor:pointer}
+#review-tools #review-server{position:static;max-width:100%;background:transparent}
+@media(max-width:700px){
+ #review-tools{left:8px;top:76px;max-width:38vw}
+ #review-tools summary{min-height:44px;display:flex;align-items:center}
+ .place-picker select{min-width:0;width:100%;min-height:44px}
+ .place-picker{max-width:54vw}
+ #walk-pad{bottom:155px}
+}
+#settings-panel label,#settings-panel input,#settings-panel select{font-size:16px}
+#settings-panel :focus-visible{outline-color:#80602d}
+#world:focus-visible{outline:3px solid #d7b16a;outline-offset:-3px}
+@media(max-width:650px){
+ body:not(.exploring) :is(footer,.place-picker,.hint){display:none}
+}

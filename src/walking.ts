@@ -137,7 +137,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   const x=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'));
   const z=Number(keys.has('KeyW')||keys.has('ArrowUp'))-Number(keys.has('KeyS')||keys.has('ArrowDown'));
   const length=Math.hypot(x,z);
-  if(length && document.activeElement===canvas && !document.querySelector('dialog[open],#settings-panel:not([hidden])')){
+  if(length && document.activeElement===canvas && !document.querySelector('dialog[open]')){
    const a=camera.alpha,scale=3.3*Math.min(.05,dt)/length;
    const dx=(x*-Math.sin(a)-z*Math.cos(a))*scale,dz=(x*Math.cos(a)-z*Math.sin(a))*scale;
    const ox=p.x,oz=p.z;

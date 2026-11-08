@@ -1,0 +1,18 @@
+[
+  {
+    "width": 1440,
+    "touchEmulation": false,
+    "quality": "low",
+    "reduced": true,
+    "canopyCapacity": 440,
+    "focusReturned": true
+  },
+  {
+    "width": 320,
+    "touchEmulation": true,
+    "quality": "low",
+    "reduced": true,
+    "canopyCapacity": 440,
+    "focusReturned": true
+  }
+]
