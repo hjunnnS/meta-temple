@@ -1,0 +1,49 @@
+{
+  "routes": [
+    {
+      "id": "sample:Z02:lantern:0023",
+      "info": "현재 위치(청록)에서 목적지(주황)까지 북쪽 · 직선 51 m",
+      "status": "내 아이템에 도착했습니다."
+    },
+    {
+      "id": "sample:Z02:lantern:0037",
+      "info": "현재 위치(청록)에서 목적지(주황)까지 동쪽 · 직선 4 m",
+      "status": "내 아이템에 도착했습니다."
+    },
+    {
+      "id": "sample:Z02:lantern:0058",
+      "info": "현재 위치(청록)에서 목적지(주황)까지 남동쪽 · 직선 8 m",
+      "status": "내 아이템에 도착했습니다."
+    },
+    {
+      "id": "sample:Z03:candle:1-3",
+      "info": "현재 위치(청록)에서 목적지(주황)까지 북서쪽 · 직선 39 m",
+      "status": "내 아이템에 도착했습니다."
+    },
+    {
+      "id": "sample:Z06:memorial:03",
+      "info": "현재 위치(청록)에서 목적지(주황)까지 남동쪽 · 직선 58 m",
+      "status": "내 아이템에 도착했습니다."
+    },
+    {
+      "id": "sample:Z07:votive:09",
+      "info": "현재 위치(청록)에서 목적지(주황)까지 서쪽 · 직선 58 m",
+      "status": "내 아이템에 도착했습니다."
+    },
+    {
+      "id": "sample:Z08:plaque:0-0-4",
+      "info": "현재 위치(청록)에서 목적지(주황)까지 동쪽 · 직선 53 m",
+      "status": "내 아이템에 도착했습니다."
+    },
+    {
+      "id": "sample:Z02:lantern:0023",
+      "info": "현재 위치(청록)에서 목적지(주황)까지 북동쪽 · 직선 28 m",
+      "status": "내 아이템에 도착했습니다."
+    }
+  ],
+  "views": 47,
+  "roundTrip": true,
+  "serverRetry": true,
+  "reconnected": true,
+  "errors": []
+}

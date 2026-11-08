@@ -7,6 +7,8 @@ import type { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { templePlaces } from './temple-layout.ts';
+import { walkRoute,safeStep } from './walk-route.ts';
+import type {Slot} from './contracts.ts';
 import { insideGround } from './temple-terrain.ts';
 
 export const visitorSize={height:1.7,width:.65} as const;
@@ -78,6 +80,28 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   if(hall.id==='daeung')return {name:hall.name,x:hall.x,z:hall.z,radius:2.8,alpha:-Math.PI/2};
   return {name:hall.name,x:hall.x,z:hall.z-(side>0?1.125:0),radius:1.75,alpha:side>0?Math.PI:0};
  });
+ let route:{x:number;z:number}[]=[],destination:Slot|null=null;
+ const routeStatus=document.querySelector<HTMLElement>('#route-status')!;
+ const cancelButton=document.querySelector<HTMLButtonElement>('#route-cancel')!;
+ function cancelRoute(message='자동 이동을 취소했습니다.'){
+  if(!destination)return;
+  route=[];destination=null;cancelButton.hidden=true;routeStatus.textContent=message;
+ }
+ cancelButton.onclick=()=>{cancelRoute();canvas.focus();};
+ function guide(slot:Slot){
+  cancelRoute();
+  const [x,,z]=slot.position;
+  const offset={lantern:0,votive:1.25,memorial:-1.35,'wish-plaque':-.85,candle:0}[slot.accepts];
+  const target={x:x+offset,z};
+  if(slot.accepts==='candle'){
+   const pagoda=templePlaces.find(p=>p.id==='gwaneum')!;
+   if(Math.abs(x-pagoda.x)>3)target.x+=Math.sign(x-pagoda.x)*1.25;
+   else target.z+=Math.sign(z-15)*1.25;
+  }
+  route=walkRoute(world,avatar.root.position,target);
+  if(!route.length){routeStatus.textContent='이 자리까지 걸을 경로를 찾지 못했습니다.';return;}
+  destination=slot;cancelButton.hidden=false;canvas.focus();
+ }
  let prayer:typeof prayerSites[number]|undefined;
  prayerButton.onclick=()=>{if(!prayer)return;camera.alpha=prayer.alpha;camera.beta=1.62;
   avatar.root.rotation.y=-Math.PI/2-prayer.alpha;canvas.focus();};
@@ -100,18 +124,19 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   }
  };
  document.addEventListener('pointerlockchange',()=>{if(!document.pointerLockElement&&first)changePerspective(false);});
- canvas.addEventListener('keydown',e=>{if(e.key==='Escape'&&first)changePerspective(false);});
+ canvas.addEventListener('keydown',e=>{if(e.key==='Escape')cancelRoute();if(e.key==='Escape'&&first)changePerspective(false);});
  function clear(){keys.clear();moving=false;}
- canvas.addEventListener('keydown',e=>{if(active&&directions.has(e.code)){e.preventDefault();keys.add(e.code);}});
+ canvas.addEventListener('keydown',e=>{if(active&&directions.has(e.code)){e.preventDefault();cancelRoute();keys.add(e.code);}});
  window.addEventListener('keyup',e=>keys.delete(e.code));
  canvas.addEventListener('blur',clear);window.addEventListener('blur',clear);document.addEventListener('visibilitychange',clear);
  for(const button of pad.querySelectorAll<HTMLButtonElement>('[data-key]')){
   const code=button.dataset.key!;
-  button.onpointerdown=e=>{e.preventDefault();canvas.focus();button.setPointerCapture(e.pointerId);keys.add(code);};
+  button.onpointerdown=e=>{e.preventDefault();cancelRoute();canvas.focus();button.setPointerCapture(e.pointerId);keys.add(code);};
   button.onlostpointercapture=()=>keys.delete(code);
  }
  const orbitKeys=camera.inputs.attached.keyboard;
  function mode(on:boolean){
+  if(!on)cancelRoute();
   if(active===on)return;
   if(orbitKeys){if(on)camera.inputs.remove(orbitKeys);else camera.inputs.add(orbitKeys);}
   clear();active=on;pad.hidden=!on;changePerspective(false);
@@ -126,6 +151,22 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   moving=false;
   if(!active)return;
   const p=avatar.root.position;
+  if(destination&&document.activeElement===canvas&&!document.querySelector('dialog[open]')){
+   const next=route[0],dx=next.x-p.x,dz=next.z-p.z,len=Math.hypot(dx,dz);
+   const f=len?Math.min(1,4*Math.min(dt,.1)/len):1;
+   const point={x:p.x+dx*f,z:p.z+dz*f};
+   if(!safeStep(world,p,point))cancelRoute('앞이 막혀 이동을 멈췄습니다.');
+   else{
+    p.set(point.x,world.floor(point.x,point.z),point.z);moving=true;
+    avatar.root.rotation.y=Math.atan2(dx,dz);step+=len*f*4.8;
+    if(f===1)route.shift();
+    if(!route.length){
+     const [x,,z]=destination.position;
+     camera.alpha=Math.atan2(p.z-z,p.x-x);camera.beta=destination.accepts==='lantern'?1.93:1.45;
+     cancelRoute('내 아이템에 도착했습니다.');
+    }else routeStatus.textContent='자동 이동 중 · '+Math.ceil(Math.hypot(destination.position[0]-p.x,destination.position[2]-p.z))+' m';
+   }
+  }
   const nearby=visitorSites.find(site=>Math.hypot(p.x-site.x,p.z-site.z)<=site.radius);
   if(visitButton.dataset.view!==(nearby?.view??'')){
    visitButton.hidden=!nearby;visitButton.textContent=nearby?.title??'';visitButton.dataset.view=nearby?.view??'';
@@ -150,9 +191,9 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    moving=distance>.00001;
    if(moving){avatar.root.rotation.y=Math.atan2(p.x-ox,p.z-oz);step+=distance*4.8;}
    avatar.legs.forEach((leg,i)=>leg.rotation.x=distance>.00001?.35*Math.sin(step+i*Math.PI):0);
-  }else avatar.legs.forEach(leg=>leg.rotation.x=0);
+  }else avatar.legs.forEach((leg,i)=>leg.rotation.x=moving?.35*Math.sin(step+i*Math.PI):0);
   camera.target.copyFromFloats(p.x,p.y+(first?1.56:1.2),p.z);
   camera.radius=first?.045:world.cameraLimit(camera.target,camera.alpha,camera.beta,3.2);
  }
- return {mode,update,get pose(){return {position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,animation:active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
+ return {mode,update,guide,get pose(){return {position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,animation:active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
 }

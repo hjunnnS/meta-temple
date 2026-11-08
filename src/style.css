@@ -36,3 +36,7 @@
 @media(max-width:650px),(max-height:600px){
  body:not(.exploring) :is(footer,.place-picker,.hint){display:none}
 }
+.header-tools{display:flex;align-items:center;gap:6px}
+#find-owned{color:white;background:#263e33;border:1px solid #85937c;border-radius:5px;padding:0 10px}
+#route-map{display:block;width:100%;max-height:45dvh;object-fit:contain}
+#route-status:not(:empty){display:block;margin:5px 0}
