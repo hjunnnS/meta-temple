@@ -1,15 +1,16 @@
+import {visitorRobe} from './visitor-robe';
 import {locale,t} from './locales';
 import type { Scene } from '@babylonjs/core/scene';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { visitorMesh } from './walking.ts';
 import { layoutDraft } from './contracts.ts';
 
-interface Motion {position:number[];yaw:number;animation:string}
+interface Motion {wearingRobe?:boolean;position:number[];yaw:number;animation:string}
 interface Peer extends Motion {sessionId:string;sequence:number}
 interface Snapshot {self:string;key?:string;layoutVersion:string;schemaVersion:number;channelId:string;count?:number;participants:Peer[]}
 
 export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,channel?:HTMLSelectElement){
- const avatars=new Map<string,{body:ReturnType<typeof visitorMesh>;target:Vector3;peer:Peer;bowTime:number}>();
+ const avatars=new Map<string,{body:ReturnType<typeof visitorMesh>;robe:ReturnType<typeof visitorRobe>;target:Vector3;peer:Peer;bowTime:number}>();
  let session:{id:string;key:string}|null=null,sequence=0,epoch=0,timer=0;
  function clearPeer(id:string){
   const remote=avatars.get(id);if(!remote)return;
@@ -22,9 +23,11 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
    let remote=avatars.get(peer.sessionId);
    if(!remote){
     const body=visitorMesh(scene,peer.sessionId);body.root.position.set(...peer.position as [number,number,number]);
-    remote={body,peer,bowTime:0,target:body.root.position.clone()};avatars.set(peer.sessionId,remote);
+    remote={body,robe:visitorRobe(scene,body),peer,bowTime:0,target:body.root.position.clone()};avatars.set(peer.sessionId,remote);
    }
-   if(peer.sequence>=remote.peer.sequence){remote.peer=peer;remote.target.set(...peer.position as [number,number,number]);}
+   if(peer.sequence>=remote.peer.sequence){remote.peer=peer;
+    if(remote.robe.wearing!==!!peer.wearingRobe)remote.robe.setWearing(!!peer.wearingRobe);
+    remote.target.set(...peer.position as [number,number,number]);}
   }
   box.textContent=t('같은 공간 방문자')+' '+(s.count??1+avatars.size)+(locale==='ko'?'명':'');
  }

@@ -88,5 +88,14 @@
     "material": "hanji-fibre",
     "bytes": 2520050,
     "sha256": "01618c755f23f23f2d7b4d478f43c9c23b843c7189921389b46d73973b9a7691"
+  },
+  {
+    "file": "public/entry-cheonwang.jpg",
+    "source": "src/language.css",
+    "sha256": "1b2e383d336d291685d1dadc4667c841a3e7d114be8272779c2f9a265c31c054",
+    "credit": "사사 프로젝트",
+    "rights": "프로젝트 자체 제작 장면 캡처",
+    "material": "entry-background-srgb",
+    "bytes": 221099
   }
 ]

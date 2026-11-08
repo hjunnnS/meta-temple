@@ -45,7 +45,12 @@ const original=[avatar.coat,...avatar.sleeves];
  outfit.setEnabled(false);
  for(const m of outfit.getChildMeshes())m.isPickable=false;
  let wearing=false,transitioning=false;
- return {get wearing(){return wearing;},change(on:boolean,done:()=>void){
+ function setWearing(on:boolean){
+  wearing=on;outfit.setEnabled(on);
+  for(const sleeve of looseSleeves)sleeve.setEnabled(on);
+  for(const mesh of original)mesh.setEnabled(!on);
+ }
+ return {setWearing,get wearing(){return wearing;},change(on:boolean,done:()=>void){
   if(transitioning||wearing===on)return;
   transitioning=true;
   const ring=goldRing(scene,1.25);ring.mesh.parent=root;ring.mesh.scaling.z=.82;
@@ -84,7 +89,7 @@ const original=[avatar.coat,...avatar.sleeves];
    ring.mesh.scaling.x=reduced?1:.68+.58*sweep;ring.mesh.scaling.z=ring.mesh.scaling.x*.82;
    ring.material.alpha=reduced?.55*sparks:Math.sin(Math.PI*sweep)*.98;
    if(p>=.47&&wearing!==on){
-    wearing=on;outfit.setEnabled(on);for(const sleeve of looseSleeves)sleeve.setEnabled(on);for(const mesh of original)mesh.setEnabled(!on);
+    setWearing(on);
    }
    if(p===1){
     scene.onBeforeRenderObservable.remove(observer);ring.mesh.dispose();ring.material.dispose(false,true);
