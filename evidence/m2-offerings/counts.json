@@ -1,0 +1,56 @@
+[
+  {
+    "kind": "votive",
+    "mode": "empty",
+    "total": 12,
+    "displayed": 0
+  },
+  {
+    "kind": "votive",
+    "mode": "full",
+    "total": 12,
+    "displayed": 12
+  },
+  {
+    "kind": "votive",
+    "mode": "current",
+    "total": 12,
+    "displayed": 10
+  },
+  {
+    "kind": "memorial",
+    "mode": "empty",
+    "total": 4,
+    "displayed": 0
+  },
+  {
+    "kind": "memorial",
+    "mode": "full",
+    "total": 4,
+    "displayed": 4
+  },
+  {
+    "kind": "memorial",
+    "mode": "current",
+    "total": 4,
+    "displayed": 2
+  },
+  {
+    "kind": "plaque",
+    "mode": "empty",
+    "total": 54,
+    "displayed": 0
+  },
+  {
+    "kind": "plaque",
+    "mode": "full",
+    "total": 54,
+    "displayed": 54
+  },
+  {
+    "kind": "plaque",
+    "mode": "current",
+    "total": 54,
+    "displayed": 51
+  }
+]

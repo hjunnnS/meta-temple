@@ -104,6 +104,11 @@ function receptionView(view:string){
  title.textContent=kind?offerings[kind].place+' · 빈자리':'등·소원 접수처';
  receptionPanel.append(title);
  if(kind){
+  const preview=$<HTMLSelectElement>('#display-occupancy')?.value;
+  if((kind==='votive'||kind==='memorial'||kind==='plaque')&&preview&&preview!=='current'){
+   title.textContent=offerings[kind].place+' · '+(preview==='full'?'만석':'빈 상태');
+   return;
+  }
   const slots=[...app.applicationSlots].filter(([,s])=>s.kind===kind);
   const available=slots.filter(([id])=>!readApplication(id));
   const hint=document.createElement('p');hint.textContent=available.length?'현장의 + 표시 또는 자리 번호를 선택하세요.':'이 공간의 신청 자리가 모두 찼습니다.';receptionPanel.append(hint);
@@ -114,7 +119,7 @@ function receptionView(view:string){
 }
 function openRequest(id:string){
  const fixture=$<HTMLSelectElement>('#display-occupancy');
- if(fixture&&fixture.value!=='current'){ $('#application-status').textContent='신청은 현재 배치에서 가능합니다.';return;}
+ if(fixture&&fixture.value!=='current'&&['plaque','votive','memorial'].includes(app.applicationSlots.get(id)?.kind??'')){ $('#application-status').textContent='신청은 현재 배치에서 가능합니다.';return;}
  if(app.reviewSlots.has(id)){ $('#application-status').textContent='서버 검수용 자리입니다.';return;}
  const slot=app.applicationSlots.get(id);if(!slot||readApplication(id))return;
  const item=offerings[slot.kind];pendingId=id;
@@ -173,7 +178,7 @@ if(import.meta.env.MODE==='review'){
  const densityLabel=document.createElement('label');densityLabel.textContent='인등·추모등·소원패 ';
  const densitySelect=document.createElement('select');densitySelect.id='display-occupancy';
  for(const [value,title] of [['current','현재 배치'],['empty','모두 빈 상태'],['full','만석']])densitySelect.add(new Option(title,value));
- densitySelect.onchange=()=>app.showOccupancy(densitySelect.value as 'current'|'empty'|'full');
+ densitySelect.onchange=()=>{app.showOccupancy(densitySelect.value as 'current'|'empty'|'full');receptionView(currentPanel);};
  densityLabel.append(densitySelect);panel.append(densityLabel);
  const visitors=document.createElement('span');panel.append(visitors);
  reviewPresence(app.scene,()=>app.visitorPose,visitors);
