@@ -377,10 +377,11 @@ export function createTemple(canvas:HTMLCanvasElement) {
    }
   }
  }
+ const wayfindingMaterials=new Set<StandardMaterial>([signMat]);
  function plaque(label:string,x:number,y:number,z:number){
   const t=new DynamicTexture(`label-${label}`,{width:512,height:128},scene,false);const c=t.getContext() as CanvasRenderingContext2D;
   c.fillStyle='#26372e';c.fillRect(0,0,512,128);c.strokeStyle='#bfa56e';c.lineWidth=5;c.strokeRect(6,6,500,116);c.fillStyle='#f4dfad';c.font='bold 68px serif';c.textAlign='center';c.fillText(label,256,89);t.update();
-  const m=mat(`plaque-${label}`,'#ffffff');m.diffuseTexture=t;return box(`name-${label}`,3.2,.8,.12,x,y,z,m);
+  const m=mat(`plaque-${label}`,'#ffffff');m.diffuseTexture=t;wayfindingMaterials.add(m);return box(`name-${label}`,3.2,.8,.12,x,y,z,m);
  }
  const office=templePlaces.find(p=>p.id==='office')!;
  const deskStart=staticMeshes.length,deskFloor=1.4025*office.scale;
@@ -796,7 +797,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
  for(const lamp of lampLights)lamp.includedOnlyMeshes=scene.meshes.filter(mesh=>mesh.material===stone||mesh.material===granite);
  const nightWayfinding=new HemisphericLight('moonlit-path-and-sign',new Vector3(0,1,-.5),scene);
  nightWayfinding.intensity=1.14;nightWayfinding.diffuse=Color3.FromHexString('#eddac0');
- nightWayfinding.includedOnlyMeshes=scene.meshes.filter(mesh=>mesh.material===signMat||slabs.some(material=>mesh.material===material));
+ for(const slab of slabs)wayfindingMaterials.add(slab);
+ nightWayfinding.includedOnlyMeshes=scene.meshes.filter(mesh=>mesh.material instanceof StandardMaterial&&wayfindingMaterials.has(mesh.material));
  const palette=LANTERN_PALETTE;
  const hanjiTexture=new Texture('/textures/hanji-fibres-generated-v1.png',scene);
  // Three shape-specific UV mappings share the approved optical model and five dyes.
