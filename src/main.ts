@@ -150,7 +150,11 @@ function receptionView(view:string){
  }
 }
 function openRequest(id:string){
- if(import.meta.env.MODE==='service'){$('#application-status').textContent='이 시험 환경에서는 아직 신청을 받지 않습니다.';return;}
+ if(import.meta.env.MODE==='service'){
+  const kind=app.reviewSlots.get(id)?.accepts;
+  if(kind){const item=kind==='wish-plaque'?'plaque':kind;goToPlace(offerings[item].view);const section=document.createElement('section');receptionPanel.replaceChildren(section);void displayOffers(section,item,id);}
+  return;
+ }
  const fixture=$<HTMLSelectElement>('#display-occupancy');
  if(fixture&&fixture.value!=='current'&&['plaque','votive','memorial'].includes(app.applicationSlots.get(id)?.kind??'')){ $('#application-status').textContent='신청은 현재 배치에서 가능합니다.';return;}
  if(app.reviewSlots.has(id)){ $('#application-status').textContent='서버 검수용 자리입니다.';return;}
@@ -226,6 +230,21 @@ if(import.meta.env.MODE==='review'){
 
 if(import.meta.env.MODE==='service'){
  setupAccount();
+ let revision=0,lastSnapshot='';
+ async function syncServiceSlots(){
+  const generation=++revision;
+  try{
+   const zones=await Promise.all(offeringZones.map(async zone=>{
+    const res=await fetch('/api/service/temples/sample:sasa/zones/'+zone+'/slots',{cache:'no-store'});
+    if(!res.ok)throw Error();return parseReviewSlots(await res.json(),zone,true);
+   }));
+   const slots=zones.flat(),snapshot=JSON.stringify(slots.map(s=>[s.installationId,s.owned,s.reserved,s.name,s.text]));
+   if(generation===revision&&lastSnapshot!==snapshot){app.applyReviewSlots(slots);lastSnapshot=snapshot;}
+  }catch{if(generation===revision)$('#application-status').textContent='설치 상태를 다시 확인하고 있습니다.';}
+ }
+ void syncServiceSlots();window.addEventListener('sasa:installations',syncServiceSlots);
+ window.setInterval(()=>{if(!document.hidden)void syncServiceSlots();},5000);
+
  const help=document.createElement('dialog');help.setAttribute('aria-label','첫 방문 안내');
  help.innerHTML='<h2>사찰 둘러보기</h2><p>방향키나 화면의 화살표로 걸으세요. 화면을 드래그하면 처마와 연등을 올려다볼 수 있습니다.</p><p>법당 불단 앞에서 참배할 수 있습니다. 내 아이템은 가까이 걸어가 빛을 확인하세요.</p><button>안내 닫기</button>';document.body.append(help);
  const again=document.createElement('button');again.textContent='조작 안내 다시 보기';settingsPanel.append(again);

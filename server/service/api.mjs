@@ -2,6 +2,7 @@ import {createHash,randomBytes,randomUUID} from 'node:crypto';
 import {writeFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {localRoot,pool,transaction,migrate} from './database.mjs';
+import {trade} from './trade.mjs';
 import {layoutDraft,offeringZones} from '../../src/contracts.ts';
 
 const token=()=>randomBytes(32).toString('hex');
@@ -65,14 +66,20 @@ export async function serviceApi(){
    }
    const zone=path.match(/^\/api\/service\/temples\/sample:sasa\/zones\/(Z\d+)\/slots$/)?.[1];
    if(req.method==='GET'&&offeringZones.includes(zone)){
-    const {rows}=await pool.query('SELECT s.id AS "slotId",ARRAY[s.x,s.y,s.z] AS position,s.rotation_y AS "rotationY",s.kind AS accepts,(i.id IS NOT NULL) AS installed FROM slots s LEFT JOIN installations i ON i.slot_id=s.id AND i.removed_at IS NULL AND i.starts_at<=now() AND i.ends_at>now() WHERE s.zone_id=$1 ORDER BY s.id',[zone]);
+    const {rows}=await pool.query(`SELECT s.id AS "slotId",ARRAY[s.x,s.y,s.z] AS position,s.rotation_y AS "rotationY",s.kind AS accepts,i.id AS "installationId",COALESCE(i.account_id=(SELECT account_id FROM sessions WHERE digest=$2 AND expires_at>now()),false) AS owned,
+     CASE WHEN o.inscription->>'public'='true' AND o.inscription->>'tag'='true' THEN o.inscription->>'name' END AS name,
+     CASE WHEN o.inscription->>'public'='true' THEN o.inscription->>'text' END AS text,(i.id IS NOT NULL) AS installed,CASE WHEN i.id IS NOT NULL THEN 'occupied' WHEN EXISTS(SELECT 1 FROM reservations r WHERE r.slot_id=s.id AND r.released_at IS NULL AND (r.payment_lock OR r.expires_at>now())) THEN 'reserved' ELSE 'free' END AS status FROM slots s LEFT JOIN installations i ON i.slot_id=s.id AND i.removed_at IS NULL AND i.starts_at<=now() AND i.ends_at>now() LEFT JOIN orders o ON o.id=i.order_id WHERE s.zone_id=$1 ORDER BY s.id`,[zone,cookieHash]);
     return send(200,{schemaVersion:1,layoutVersion:layoutDraft.version,templeId:'sample:sasa',zoneId:zone,coordinateSystem:{units:'metre',up:'+Y',north:'+Z',rotation:'radian'},slots:rows});
    }
    const {rows:[account]}=await pool.query('SELECT a.id,a.email FROM accounts a JOIN sessions s ON a.id=s.account_id WHERE s.digest=$1 AND s.expires_at>now()',[cookieHash]);
    if(!account)return send(401,{error:'login_required'});
+   if(path.startsWith('/api/service/trade/')){
+    const [status,result]=await trade(path.slice('/api/service/trade/'.length),req.method,input,account.id);
+    return send(status,result);
+   }
    if(req.method==='GET'&&path==='/api/service/me')return send(200,{email:account.email});
    if(req.method==='GET'&&path==='/api/service/me/offerings'){
-    const {rows}=await pool.query('SELECT o.id AS "orderId",o.slot_id AS "slotId", s.kind,i.id AS "installationId",i.starts_at AS "startsAt",i.ends_at AS "endsAt",i.removed_at AS "removedAt" FROM orders o JOIN slots s ON s.id=o.slot_id LEFT JOIN installations i ON i.order_id=o.id WHERE o.account_id=$1 ORDER BY o.created_at DESC',[account.id]);
+    const {rows}=await pool.query('SELECT o.id AS "orderId",o.slot_id AS "slotId", s.kind,i.id AS "installationId",i.starts_at AS "startsAt",i.ends_at AS "endsAt",i.removed_at AS "removedAt",o.status,o.amount_krw AS "amountKrw",s.zone_id AS "zoneId" FROM orders o JOIN slots s ON s.id=o.slot_id LEFT JOIN installations i ON i.order_id=o.id WHERE o.account_id=$1 ORDER BY o.created_at DESC',[account.id]);
     return send(200,{items:rows});
    }
    return send(404,{error:'unknown_resource'});

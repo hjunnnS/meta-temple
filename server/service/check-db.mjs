@@ -19,7 +19,7 @@ try{
   await client.query('SAVEPOINT checked');
   for(const [sql,args,code] of [
    ["INSERT INTO orders(reservation_id,account_id,slot_id,amount_krw) VALUES($1,$2,'sample:Z07:votive:09',100)",[r.id,b.id],'23503'],
-   ["INSERT INTO reservations(account_id,slot_id,kind,expires_at) VALUES($1,'sample:Z06:memorial:03','candle',now())",[a.id],'23503'],
+   ["INSERT INTO reservations(account_id,slot_id,kind,expires_at) VALUES($1,'sample:Z06:memorial:03','candle',now())",[b.id],'23503'],
    ["INSERT INTO reservations(account_id,slot_id,kind,expires_at) VALUES($1,'sample:Z07:votive:09','votive',now())",[b.id],'23505']
   ]){
    await assert.rejects(client.query(sql,args),{code});await client.query('ROLLBACK TO SAVEPOINT checked');
