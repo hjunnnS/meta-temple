@@ -53,6 +53,16 @@ export async function serviceApi(){
     await pool.query('DELETE FROM sessions WHERE digest=$1',[cookieHash]);
     res.setHeader('Set-Cookie','sasa_session=; Path=/api/service; HttpOnly; SameSite=Strict; Max-Age=0');return send(200,{signedOut:true});
    }
+   if(path==='/api/service/offers'&&req.method==='GET'){
+    const {rows}=await pool.query('SELECT id,kind,days,price_krw AS "priceKrw" FROM offers WHERE enabled ORDER BY kind,days');
+    return send(200,{testOnly:true,offers:rows});
+   }
+   if(path==='/api/service/quote'&&req.method==='POST'){
+    if(typeof input.offerId!=='string'||Object.keys(input).some(k=>k!=='offerId'))return send(400,{error:'invalid_offer'});
+    const {rows:[offer]}=await pool.query('SELECT id,kind,days,price_krw AS "priceKrw" FROM offers WHERE id=$1 AND enabled',[input.offerId]);
+    if(!offer)return send(409,{error:'not_available'});
+    return send(200,{testOnly:true,offer});
+   }
    const zone=path.match(/^\/api\/service\/temples\/sample:sasa\/zones\/(Z\d+)\/slots$/)?.[1];
    if(req.method==='GET'&&offeringZones.includes(zone)){
     const {rows}=await pool.query('SELECT s.id AS "slotId",ARRAY[s.x,s.y,s.z] AS position,s.rotation_y AS "rotationY",s.kind AS accepts,(i.id IS NOT NULL) AS installed FROM slots s LEFT JOIN installations i ON i.slot_id=s.id AND i.removed_at IS NULL AND i.starts_at<=now() AND i.ends_at>now() WHERE s.zone_id=$1 ORDER BY s.id',[zone]);

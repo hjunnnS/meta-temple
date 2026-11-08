@@ -1,3 +1,4 @@
+import { displayOffers } from './service-offers.ts';
 import { setupAccount } from './service-account.ts';
 import { templeAudio } from './temple-audio.ts';
 import { reviewPresence } from './review-presence.ts';
@@ -130,6 +131,11 @@ function receptionView(view:string){
  title.textContent=kind?offerings[kind].place+' · 빈자리':'등·소원 접수처';
  receptionPanel.append(title);
  if(kind){
+  if(import.meta.env.MODE==='service'){
+   title.textContent=offerings[kind].label+' · 시험 기간권';
+   const section=document.createElement('section');receptionPanel.append(section);
+   void displayOffers(section,kind);return;
+  }
   const preview=$<HTMLSelectElement>('#display-occupancy')?.value;
   if((kind==='votive'||kind==='memorial'||kind==='plaque')&&preview&&preview!=='current'){
    title.textContent=offerings[kind].place+' · '+(preview==='full'?'만석':'빈 상태');

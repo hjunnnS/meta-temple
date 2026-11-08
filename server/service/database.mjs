@@ -16,11 +16,17 @@ export async function migrate(){
  await transaction(async db=>{
   await db.query('SELECT pg_advisory_xact_lock(541930)');
   await db.query('CREATE TABLE IF NOT EXISTS migrations(version integer PRIMARY KEY)');
-  if((await db.query('SELECT version FROM migrations WHERE version=1')).rowCount)return;
-  await db.query(await readFile(new URL('./001.sql',import.meta.url),'utf8'));
-  const slots=fixedSlots();
-  for(const kind of new Set(slots.map(s=>s.accepts)))await db.query('INSERT INTO products VALUES ($1)',[kind]);
-  for(const s of slots)await db.query('INSERT INTO slots VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)',[s.id,'sample:sasa',s.zoneId,s.accepts,...s.position,s.rotationY,layoutDraft.version]);
-  await db.query('INSERT INTO migrations VALUES (1)');
+  const applied=new Set((await db.query('SELECT version FROM migrations')).rows.map(r=>r.version));
+  if(!applied.has(1)){
+   await db.query(await readFile(new URL('./001.sql',import.meta.url),'utf8'));
+   const slots=fixedSlots();
+   for(const kind of new Set(slots.map(s=>s.accepts)))await db.query('INSERT INTO products VALUES ($1)',[kind]);
+   for(const s of slots)await db.query('INSERT INTO slots VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)',[s.id,'sample:sasa',s.zoneId,s.accepts,...s.position,s.rotationY,layoutDraft.version]);
+   await db.query('INSERT INTO migrations VALUES (1)');
+  }
+  if(!applied.has(2)){
+   await db.query(await readFile(new URL('./002.sql',import.meta.url),'utf8'));
+   await db.query('INSERT INTO migrations VALUES (2)');
+  }
  });
 }
