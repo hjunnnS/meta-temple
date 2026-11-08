@@ -170,5 +170,13 @@
   "검증 기록 ↗": "Tanılama ↗",
   "연등 배치도": "Fener planı",
   "줄을 선택하세요": "Bir sıra seçin",
-  "줄": "Sıra"
+  "줄": "Sıra",
+  "다른 자리를 선택하세요": "Başka bir yer seçin",
+  "빈자리 자동 선택": "Boş yeri otomatik seç",
+  "내 봉헌 내역": "Adaklarım",
+  "주문 번호": "Sipariş numarası",
+  "문의 접수됨": "Talep alındı",
+  "종무소에 주문 문의": "Bu siparişi tapınak bürosuna sor",
+  "화면의 화살표로 걷고 손가락으로 화면을 밀어 둘러보세요.": "Yürümek için ekrandaki oklara dokunun, etrafa bakmak için kaydırın.",
+  "방향키로 걷고 마우스로 드래그해 둘러보세요.": "Yürümek için ok tuşlarını kullanın, etrafa bakmak için fareyi sürükleyin."
 }

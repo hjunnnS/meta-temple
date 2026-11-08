@@ -107,13 +107,13 @@ export function createTemple(canvas:HTMLCanvasElement) {
  scene.onPointerObservable.add(event=>{
   if(event.type!==PointerEventTypes.POINTERTAP)return;
   const pick=scene.pick(scene.pointerX,scene.pointerY,mesh=>mesh.isEnabled()&&
-   !!(mesh.metadata?.applicationId||mesh.metadata?.applicationIds));
+   mesh.isVisible&&!!(mesh.metadata?.blocksOfferingPick||mesh.metadata?.applicationId||mesh.metadata?.applicationIds));
   if(!pick?.pickedPoint||Vector3.DistanceSquared(camera.position,pick.pickedPoint)>24*24)return;
   const metadata=pick.pickedMesh?.metadata;
   const id=metadata?.applicationId??metadata?.applicationIds?.[pick.thinInstanceIndex];
   if(!id)return;
   const slot=reviewSlots.get(id);
-  if(slot?(slot.installationId||slot.reserved):(serviceMode||!applicationSlots.has(id)||readApplication(id)))return;
+  if(slot?(!serviceMode&&(slot.installationId||slot.reserved)):(serviceMode||!applicationSlots.has(id)||readApplication(id)))return;
   onSlotClick(id);
  });
  const hallStart=staticMeshes.length;
@@ -786,6 +786,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const [material,parts] of groups){
    const merged=Mesh.MergeMeshes(parts,true,true);
    if(!merged)continue;
+   merged.metadata={blocksOfferingPick:material.alpha>=1&&!material.opacityTexture};
    merged.name='architecture-'+material.name;merged.receiveShadows=true;
    shadows.addShadowCaster(merged);merged.freezeWorldMatrix();
    if(display)displayBatches.push(merged);

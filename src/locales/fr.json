@@ -170,5 +170,13 @@
   "검증 기록 ↗": "Diagnostic ↗",
   "연등 배치도": "Plan des lanternes",
   "줄을 선택하세요": "Choisissez une rangée",
-  "줄": "Rangée"
+  "줄": "Rangée",
+  "다른 자리를 선택하세요": "Choisissez un autre emplacement",
+  "빈자리 자동 선택": "Choisir une place libre automatiquement",
+  "내 봉헌 내역": "Mes offrandes",
+  "주문 번호": "Numéro de commande",
+  "문의 접수됨": "Demande reçue",
+  "종무소에 주문 문의": "Contacter le bureau du temple pour cette commande",
+  "화면의 화살표로 걷고 손가락으로 화면을 밀어 둘러보세요.": "Marchez avec les flèches à l’écran et balayez pour regarder autour de vous.",
+  "방향키로 걷고 마우스로 드래그해 둘러보세요.": "Utilisez les flèches du clavier pour marcher et faites glisser la souris pour regarder autour de vous."
 }

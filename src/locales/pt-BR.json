@@ -170,5 +170,13 @@
   "검증 기록 ↗": "Diagnóstico ↗",
   "연등 배치도": "Mapa das lanternas",
   "줄을 선택하세요": "Escolha uma fileira",
-  "줄": "Fileira"
+  "줄": "Fileira",
+  "다른 자리를 선택하세요": "Escolha outro lugar",
+  "빈자리 자동 선택": "Escolher um lugar livre automaticamente",
+  "내 봉헌 내역": "Minhas oferendas",
+  "주문 번호": "Número do pedido",
+  "문의 접수됨": "Consulta recebida",
+  "종무소에 주문 문의": "Consultar a secretaria do templo sobre o pedido",
+  "화면의 화살표로 걷고 손가락으로 화면을 밀어 둘러보세요.": "Use as setas na tela para andar e deslize para olhar ao redor.",
+  "방향키로 걷고 마우스로 드래그해 둘러보세요.": "Use as setas do teclado para andar e arraste o mouse para olhar ao redor."
 }

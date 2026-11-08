@@ -5,7 +5,10 @@ interface Offer {id:string;kind:string;days:number;priceKrw:number}
 const zones:Record<Offering,string>={lantern:'Z02',votive:'Z07',memorial:'Z06',plaque:'Z08',candle:'Z03'};
 async function service(path:string,body?:object){
  const response=await fetch('/api/service/'+path,body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{cache:'no-store'});
- if(!response.ok)throw Error(t(response.status===401?'계정 메뉴에서 먼저 로그인하세요.':'요청을 완료하지 못했습니다. 자리와 예약 상태를 다시 확인하세요.'));
+ if(!response.ok){
+  const result=await response.json().catch(()=>({}));
+  throw Object.assign(new Error(t(response.status===401?'계정 메뉴에서 먼저 로그인하세요.':'요청을 완료하지 못했습니다. 자리와 예약 상태를 다시 확인하세요.')),{code:result.error});
+ }
  return response.json();
 }
 export async function displayOffers(section:HTMLElement,kind:Offering,initialSlot?:string){
@@ -18,10 +21,10 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
  const duration=(days:number)=>new Intl.NumberFormat(locale,{style:'unit',unit:'day',unitDisplay:'long'}).format(days);
  const amount=(value:number)=>new Intl.NumberFormat(locale,{style:'currency',currency:'KRW',maximumFractionDigits:0}).format(value);
  const pass=(days:number,price:number)=>locale==='ko'?days+'일 · '+price.toLocaleString('ko-KR')+'원':duration(days)+' · '+amount(price);
- async function held(){
+ async function held(retry?:()=>Promise<void>){
   const result=await service('trade/hold');controls.replaceChildren();
-  if(result.waiting){note.textContent=t('동시 신청을 확인하고 있습니다.');button('결과 확인',held);return;}
-  if(!result.hold){note.textContent=t('현재 예약한 자리가 없습니다.');button(t('기간권 보기'),restart);return;}
+  if(result.waiting){note.textContent=t('동시 신청을 확인하고 있습니다.');button('결과 확인',()=>held(retry));return;}
+  if(!result.hold){if(retry){await retry();return;}note.textContent=t('현재 예약한 자리가 없습니다.');button(t('기간권 보기'),restart);return;}
   const h=result.hold;note.textContent=h.slotId+' · '+(h.paymentLock?t('결제 확인 중'):t('예약 만료')+' '+new Date(h.expiresAt).toLocaleTimeString(locale));
   if(!h.paymentLock)button('예약 취소',async()=>{await service('trade/cancel',{});await restart();});
   button('주문 확인',async()=>{
@@ -31,41 +34,54 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
    button('시험 결제하기',async()=>{const r=await service('trade/test-pay',{orderId:order.id});controls.replaceChildren();if(r.status==='installed'){note.textContent=t('시험 결제 및 설치 완료');window.dispatchEvent(new Event('sasa:installations'));button('기간권 보기',restart);}else{note.textContent=t('결제 완료 · 같은 자리 설치 확인 중');button('설치 다시 확인',async()=>{const next=await service('trade/reconcile',{orderId:order.id});if(next.status==='installed'){window.dispatchEvent(new Event('sasa:installations'));await restart();}});}});
   });
  }
- async function select(offer:Offer){
+ async function select(offer:Offer,preferred=initialSlot,draft?:FormData,automatic=false,reselect=false){
   const {offer:quote}=await service('quote',{offerId:offer.id});
   const data=await service('temples/sample:sasa/zones/'+zones[kind]+'/slots');
   controls.replaceChildren();note.textContent=t('시험 기간권')+' · '+pass(quote.days,quote.priceKrw);
   const free=data.slots.filter((s:{status:string})=>s.status==='free');
   if(!free.length){note.textContent=t('모든 자리가 찼습니다.');return;}
-  if(initialSlot&&!free.some((s:{slotId:string})=>s.slotId===initialSlot)){
-   note.textContent=t('요청을 완료하지 못했습니다. 자리와 예약 상태를 다시 확인하세요.');return;
-  }
+  if(automatic)preferred=free[Math.floor(Math.random()*free.length)].slotId;
+  const available=free.some((s:{slotId:string})=>s.slotId===preferred);
+  if(reselect||(preferred&&!available))note.textContent=t('다른 자리를 선택하세요');
   const form=document.createElement('form');
   form.innerHTML='<label>설치 자리<select name="slot"></select></label><label>소원·추모 문구<textarea name="message" maxlength="100"></textarea></label><label><input name="public" type="checkbox"> 문구 공개에 동의</label>';
   if(kind==='lantern')form.insertAdjacentHTML('beforeend','<label><input name="tag" type="checkbox"> 이름표 신청</label><label>표시 이름<input name="name" maxlength="12"></label>');
   translateMarkup(form);
   const choice=form.querySelector('select')!;for(const s of data.slots){const option=new Option(s.slotId.split(':').at(-1)+' · '+t(({free:'빈자리',reserved:'예약 중',occupied:'설치됨'}[s.status as string]??'확인 중')),s.slotId);option.disabled=s.status!=='free';choice.add(option);}
-  choice.value=initialSlot??free[0].slotId;
+  choice.value=available?preferred!:preferred?'':free[0].slotId;
+  if(draft){
+   for(const field of form.querySelectorAll<HTMLInputElement|HTMLTextAreaElement>('input,textarea')){
+    if(field instanceof HTMLInputElement&&field.type==='checkbox')field.checked=draft.has(field.name);
+    else field.value=String(draft.get(field.name)??'');
+   }
+  }
   controls.append(form);form.onsubmit=e=>e.preventDefault();
   const confirm=button('신청 내용 확인',async()=>{
    const d=new FormData(form),tag=d.has('tag'),name=tag?String(d.get('name')??'').trim():'',text=String(d.get('message')??'').trim(),publish=d.has('public');
    if(tag&&(!name||!publish)){note.textContent=t('이름표에는 표시 이름과 공개 동의가 필요합니다.');return;}
+   if(!choice.value){note.textContent=t('다른 자리를 선택하세요');return;}
    const payload={revision:quote.revision,offerId:offer.id,slotId:choice.value,name,tag,text,public:publish};
    controls.replaceChildren();note.textContent=[choice.value,pass(quote.days,quote.priceKrw),t(publish?'공개':'비공개'),name,text].filter(Boolean).join(' · ');
    button('취소',restart);button('이 자리에 예약',async()=>{
-    await service('trade/enter',payload);controls.replaceChildren();note.textContent=t('동시 신청을 확인하고 있습니다.');
-    await new Promise(resolve=>setTimeout(resolve,1100));if(section.isConnected)await held();
+    const retry=()=>select(offer,payload.slotId,d,false,true);
+    try{await service('trade/enter',payload);}catch(error){
+     if((error as {code?:string}).code==='unavailable'){await retry();return;}
+     throw error;
+    }
+    controls.replaceChildren();note.textContent=t('동시 신청을 확인하고 있습니다.');
+    await new Promise(resolve=>setTimeout(resolve,1100));if(section.isConnected)await held(retry);
    });
   });
   if(kind==='lantern'){
    choice.parentElement!.hidden=true;
    const fields=[...form.querySelectorAll('label')].slice(1);
-   const map=lanternMap(data.slots,initialSlot,id=>{
+   const map=lanternMap(data.slots,preferred,id=>{
     choice.value=id;confirm.disabled=!id;
     for(const field of fields)field.hidden=!id;
    });
    form.prepend(map);
   }
+  button('빈자리 자동 선택',()=>select(offer,undefined,new FormData(form),true));
   button(t('취소'),restart);
  }
  async function restart(){

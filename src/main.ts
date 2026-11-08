@@ -126,7 +126,9 @@ function panelButton(label:string,act:()=>void){
  const button=document.createElement('button');button.textContent=label;button.onclick=act;
  receptionPanel.append(button);
 }
+let detailSlot='';
 function receptionView(view:string){
+ detailSlot='';
  const placeName=[...placePicker.options].find(option=>option.value===view)?.textContent;
  const navName=document.querySelector<HTMLElement>('[data-view="'+view+'"]')?.textContent;
  $('.stage').textContent=placeName??navName??'사찰 둘러보기';
@@ -153,12 +155,29 @@ function receptionView(view:string){
   const hint=document.createElement('p');hint.textContent=available.length?'현장에서 원하는 아이템을 누르거나 자리 번호를 선택하세요.':'이 공간의 신청 자리가 모두 찼습니다.';receptionPanel.append(hint);
   for(const [id] of available)panelButton((slots.findIndex(([key])=>key===id)+1)+'번 자리',()=>openRequest(id));
  }else{
+  if(import.meta.env.MODE==='service')panelButton(t('내 봉헌 내역'),()=>$('#service-account').click());
   for(const k of productKinds)panelButton(t(offerings[k].label)+' · '+t(offerings[k].place),()=>goToPlace(offerings[k].view));
  }
 }
+function renderOfferingDetail(){
+ if(!detailSlot)return;
+ const slot=app.reviewSlots.get(detailSlot);
+ receptionPanel.hidden=false;receptionPanel.replaceChildren();
+ const heading=document.createElement('h2'),message=document.createElement('p');
+ if(slot){
+  const kind=slot.accepts==='wish-plaque'?'plaque':slot.accepts;
+  heading.textContent=t(offerings[kind].label)+' · '+t(offerings[kind].place);
+  message.textContent=[t(slot.installationId?'설치됨':slot.reserved?'예약 중':'빈자리'),slot.name,slot.text].filter(Boolean).join(' · ');
+ }else message.textContent=t('연결 상태를 확인해 주세요.');
+ receptionPanel.append(heading,message);
+ if(slot&&!slot.installationId&&!slot.reserved)panelButton(t('기간권 보기'),()=>openRequest(slot.id));
+ panelButton(t('닫기'),()=>receptionView(currentPanel));
+}
 function openRequest(id:string){
  if(import.meta.env.MODE==='service'){
-  const kind=app.reviewSlots.get(id)?.accepts;
+  const slot=app.reviewSlots.get(id);
+  if(slot?.installationId||slot?.reserved){detailSlot=id;renderOfferingDetail();return;}
+  const kind=slot?.accepts;
   if(kind){const item=kind==='wish-plaque'?'plaque':kind;goToPlace(offerings[item].view);const section=document.createElement('section');receptionPanel.replaceChildren(section);void displayOffers(section,item,id);}
   return;
  }
@@ -248,16 +267,21 @@ if(import.meta.env.MODE==='service'){
   if(!res.ok)throw Error();return parseReviewSlots(await res.json(),zone,true);
  })),zones=>{
   const slots=zones.flat(),snapshot=JSON.stringify(slots.map(s=>[s.installationId,s.owned,s.reserved,s.name,s.text]));
-  if(snapshot!==lastSnapshot){app.applyReviewSlots(slots);lastSnapshot=snapshot;}
+  if(snapshot!==lastSnapshot){app.applyReviewSlots(slots);lastSnapshot=snapshot;renderOfferingDetail();}
  },()=>{
-  if(lastSnapshot){app.applyReviewSlots([]);lastSnapshot='';}
+  if(lastSnapshot){app.applyReviewSlots([]);lastSnapshot='';renderOfferingDetail();}
  });
  window.addEventListener('sasa:installations',syncServiceSlots);
+ window.addEventListener('sasa:account',()=>{app.applyReviewSlots([]);lastSnapshot='';renderOfferingDetail();void syncServiceSlots();});
 
  const help=document.createElement('dialog');help.setAttribute('aria-label','첫 방문 안내');
  help.innerHTML='<h2>사찰 둘러보기</h2><p>방향키나 화면의 화살표로 걸으세요. 화면을 드래그하면 처마와 연등을 올려다볼 수 있습니다.</p><p>법당 불단 앞에서 참배할 수 있습니다. 내 아이템은 가까이 걸어가 빛을 확인하세요.</p><button>안내 닫기</button>';translateMarkup(help);document.body.append(help);
  const again=document.createElement('button');again.textContent=t('조작 안내 다시 보기');settingsPanel.append(again);
- again.onclick=()=>{settingsPanel.close();help.showModal();};help.querySelector('button')!.onclick=()=>help.close();
+ function openGuide(){
+  help.querySelector('p')!.textContent=t(matchMedia('(pointer: coarse)').matches?'화면의 화살표로 걷고 손가락으로 화면을 밀어 둘러보세요.':'방향키로 걷고 마우스로 드래그해 둘러보세요.');
+  help.showModal();
+ }
+ again.onclick=()=>{settingsPanel.close();openGuide();};help.querySelector('button')!.onclick=()=>help.close();
  help.onclose=()=>{try{localStorage.setItem('sasa:guide-seen','1');}catch{}canvas.focus();};
- $('#explore').addEventListener('click',()=>{let seen=false;try{seen=localStorage.getItem('sasa:guide-seen')==='1';}catch{}if(!seen)help.showModal();});
+ $('#explore').addEventListener('click',()=>{let seen=false;try{seen=localStorage.getItem('sasa:guide-seen')==='1';}catch{}if(!seen)openGuide();});
 }

@@ -1,4 +1,5 @@
 import {locale,t,translateMarkup} from './locales';
+import {offerings,type Offering} from './reception';
 export function setupAccount(){
  const button=document.createElement('button');button.textContent=t('계정');button.id='service-account';
  document.querySelector('header')!.insertBefore(button,document.querySelector('#settings'));
@@ -29,11 +30,31 @@ export function setupAccount(){
     try{const result=await api('me/delete',{confirm:true});window.dispatchEvent(new Event('sasa:account'));window.dispatchEvent(new Event('sasa:installations'));await refresh();status.textContent=t(result.waiting?'진행 중인 거래를 마치면 계정을 삭제합니다.':'시험 계정을 삭제했습니다.');}catch{status.textContent=t('삭제 요청을 접수하지 못했습니다.');}
    };
    const states:Record<string,string>={cancelled:'결제 취소',pending:'결제 대기',paid:'결제 확인',installed:'설치됨',recovering:'설치 복구 중',refund_pending:'환불 중',refund_failed:'환불 확인 중',refunded:'환불 완료',expired:'기간 만료'};
+   let selected:HTMLDetailsElement|null=null;
    for(const item of data.items){
     const li=document.createElement('li'),details=document.createElement('details'),title=document.createElement('summary'),info=document.createElement('p');
-    title.textContent=item.slotId+' · '+t(states[item.status]??item.status);
-    info.textContent=item.zoneId+' · '+Number(item.amountKrw).toLocaleString(locale)+(locale==='ko'?'원':' KRW')+(item.endsAt?' · '+new Date(item.startsAt).toLocaleString(locale)+' ~ '+new Date(item.endsAt).toLocaleString(locale):'');
-    details.ontoggle=()=>{if(details.open)window.dispatchEvent(new CustomEvent('sasa:select',{detail:item.slotId}));};details.append(title,info);if(item.shareable){
+    const product=offerings[(item.kind==='wish-plaque'?'plaque':item.kind) as Offering];
+    title.textContent=[t(product.label),t(product.place),t(states[item.status]??item.status)].join(' · ');
+    info.textContent=t('설치 자리')+' '+item.slotId.split(':').at(-1)+' · '+Number(item.amountKrw).toLocaleString(locale)+(locale==='ko'?'원':' KRW')+(item.endsAt?' · '+new Date(item.startsAt).toLocaleString(locale)+' ~ '+new Date(item.endsAt).toLocaleString(locale):'');
+    details.ontoggle=()=>{
+     if(!dialog.open||!details.isConnected)return;
+     if(details.open){
+      if(selected&&selected!==details)selected.open=false;
+      selected=details;
+     }else if(selected===details)selected=null;
+     else return;
+     window.dispatchEvent(new CustomEvent('sasa:select',{detail:selected&&item.status==='installed'?item.slotId:null}));
+    };
+    details.append(title,info);
+    const reference=document.createElement('p');reference.textContent=t('주문 번호')+' · '+item.orderId;
+    const inquire=document.createElement('button');inquire.textContent=t(item.inquired?'문의 접수됨':'종무소에 주문 문의');inquire.disabled=!!item.inquired;
+    inquire.onclick=async()=>{
+     inquire.disabled=true;
+     try{await api('me/order-inquiry',{id:item.orderId});inquire.textContent=t('문의 접수됨');}
+     catch{inquire.disabled=false;status.textContent=t('연결 상태를 확인해 주세요.');}
+    };
+    details.append(reference,inquire);
+    if(item.shareable){
      const share=document.createElement('a');share.textContent=t('공개 링크 열기');share.href='/shared.html?id='+encodeURIComponent(item.installationId);share.target='_blank';share.rel='noopener';
      const hide=document.createElement('button');hide.textContent=t('공개 중단');hide.onclick=async()=>{try{await api('hide',{id:item.installationId});window.dispatchEvent(new Event('sasa:installations'));await refresh();}catch{status.textContent=t('공개 중단을 완료하지 못했습니다.');}};
      details.append(share,hide);

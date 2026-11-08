@@ -52,7 +52,7 @@ export function lanternMap(slots:MapSlot[],initial:string|undefined,select:(id:s
   }
   if(!selected)grid.querySelector<HTMLButtonElement>('button:enabled')?.focus({preventScroll:true});
  }
- const index=columns.findIndex(([,row])=>row.some(s=>s.slotId===initial&&s.status==='free'));
- if(index>=0)detail(index,initial);else overview();
+ const index=columns.findIndex(([,row])=>row.some(s=>s.slotId===initial));
+ if(index>=0)detail(index,columns[index][1].some(s=>s.slotId===initial&&s.status==='free')?initial:undefined);else overview();
  return root;
 }

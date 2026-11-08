@@ -12,7 +12,7 @@ export function staff(account,area,method,input){
    if(area==='alerts')return [200,{rows:(await db.query('SELECT target AS id,kind,acknowledged_at FROM operation_alerts WHERE resolved_at IS NULL ORDER BY detected_at')).rows}];
    if(area==='orders'){
     const term=String(input.q??'').trim().slice(0,100);
-    const result=await db.query(`SELECT o.id,o.status,o.offer_id,o.slot_id,o.amount_krw,o.install_attempts,f.enabled,o.next_attempt_at FROM orders o LEFT JOIN offers f ON f.id=o.offer_id WHERE $1='' OR strpos(concat_ws(' ',o.id::text,o.slot_id,o.offer_id,o.status),$1)>0 OR ($1='판매 중지' AND NOT f.enabled) ORDER BY o.created_at DESC LIMIT 100`,[term]);
+    const result=await db.query(`SELECT EXISTS(SELECT 1 FROM events WHERE order_id=o.id AND kind='order_inquiry') AS inquired,o.id,o.status,o.offer_id,o.slot_id,o.amount_krw,o.install_attempts,f.enabled,o.next_attempt_at FROM orders o LEFT JOIN offers f ON f.id=o.offer_id WHERE $1='' OR strpos(concat_ws(' ',o.id::text,o.slot_id,o.offer_id,o.status),$1)>0 OR ($1='문의' AND EXISTS(SELECT 1 FROM events WHERE order_id=o.id AND kind='order_inquiry')) OR ($1='판매 중지' AND NOT f.enabled) ORDER BY o.created_at DESC LIMIT 100`,[term]);
     return [200,{rows:result.rows}];
    }
    if(area==='content'){

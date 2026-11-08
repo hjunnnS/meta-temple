@@ -78,7 +78,7 @@ export async function serviceApi(){
    if(req.method==='GET'&&offeringZones.includes(zone)){
     const {rows}=await pool.query(`SELECT s.id AS "slotId",ARRAY[s.x,s.y,s.z] AS position,s.rotation_y AS "rotationY",s.kind AS accepts,i.id AS "installationId",COALESCE(i.account_id=(SELECT account_id FROM sessions WHERE digest=$2 AND expires_at>now()),false) AS owned,
      pub.name,
-     pub.text,(i.id IS NOT NULL) AS installed,CASE WHEN i.id IS NOT NULL THEN 'occupied' WHEN EXISTS(SELECT 1 FROM reservations r WHERE r.slot_id=s.id AND r.released_at IS NULL AND (r.payment_lock OR r.expires_at>now())) THEN 'reserved' ELSE 'free' END AS status FROM slots s LEFT JOIN installations i ON i.slot_id=s.id AND i.removed_at IS NULL AND i.starts_at<=now() AND i.ends_at>now() LEFT JOIN public_offerings pub ON pub.id=i.id WHERE s.zone_id=$1 ORDER BY s.id`,[zone,cookieHash]);
+     CASE WHEN s.kind='wish-plaque' AND NOT i.text_deleted AND i.account_id=(SELECT account_id FROM sessions WHERE digest=$2 AND expires_at>now()) THEN o.inscription->>'text' ELSE pub.text END AS text,(i.id IS NOT NULL) AS installed,CASE WHEN i.id IS NOT NULL THEN 'occupied' WHEN EXISTS(SELECT 1 FROM reservations r WHERE r.slot_id=s.id AND r.released_at IS NULL AND (r.payment_lock OR r.expires_at>now())) THEN 'reserved' ELSE 'free' END AS status FROM slots s LEFT JOIN installations i ON i.slot_id=s.id AND i.removed_at IS NULL AND i.starts_at<=now() AND i.ends_at>now() LEFT JOIN orders o ON o.id=i.order_id LEFT JOIN public_offerings pub ON pub.id=i.id WHERE s.zone_id=$1 ORDER BY s.id`,[zone,cookieHash]);
     return send(200,{schemaVersion:1,layoutVersion:layoutDraft.version,templeId:'sample:sasa',zoneId:zone,coordinateSystem:{units:'metre',up:'+Y',north:'+Z',rotation:'radian'},slots:rows});
    }
    const {rows:[account]}=await pool.query('SELECT a.id,a.email FROM accounts a JOIN sessions s ON a.id=s.account_id WHERE s.digest=$1 AND s.expires_at>now()',[cookieHash]);
@@ -107,8 +107,17 @@ export async function serviceApi(){
     return send(status,result);
    }
    if(req.method==='GET'&&path==='/api/service/me')return send(200,{email:account.email});
+   if(req.method==='POST'&&path==='/api/service/me/order-inquiry'){
+    const found=await transaction(async db=>{
+     const {rows:[order]}=await db.query('SELECT id FROM orders WHERE id::text=$1 AND account_id=$2 FOR UPDATE',[input.id,account.id]);
+     if(!order)return false;
+     await db.query(`INSERT INTO events(kind,account_id,order_id) SELECT 'order_inquiry',$1,$2 WHERE NOT EXISTS(SELECT 1 FROM events WHERE order_id=$2 AND kind='order_inquiry')`,[account.id,order.id]);
+     return true;
+    });
+    return found?send(200,{received:true}):send(404,{error:'unavailable'});
+   }
    if(req.method==='GET'&&path==='/api/service/me/offerings'){
-    const {rows}=await pool.query('SELECT o.id AS "orderId",o.slot_id AS "slotId", s.kind,i.id AS "installationId",i.starts_at AS "startsAt",i.ends_at AS "endsAt",i.removed_at AS "removedAt",EXISTS(SELECT 1 FROM public_offerings pub WHERE pub.id=i.id) AS shareable,o.status,o.amount_krw AS "amountKrw",s.zone_id AS "zoneId" FROM orders o JOIN slots s ON s.id=o.slot_id LEFT JOIN installations i ON i.order_id=o.id WHERE o.account_id=$1 ORDER BY o.created_at DESC',[account.id]);
+    const {rows}=await pool.query(`SELECT o.id AS "orderId",EXISTS(SELECT 1 FROM events e WHERE e.order_id=o.id AND e.kind='order_inquiry') AS inquired,o.slot_id AS "slotId", s.kind,i.id AS "installationId",i.starts_at AS "startsAt",i.ends_at AS "endsAt",i.removed_at AS "removedAt",EXISTS(SELECT 1 FROM public_offerings pub WHERE pub.id=i.id) AS shareable,o.status,o.amount_krw AS "amountKrw",s.zone_id AS "zoneId" FROM orders o JOIN slots s ON s.id=o.slot_id LEFT JOIN installations i ON i.order_id=o.id WHERE o.account_id=$1 ORDER BY o.created_at DESC`,[account.id]);
     return send(200,{items:rows});
    }
    return send(404,{error:'unknown_resource'});

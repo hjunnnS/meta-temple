@@ -170,5 +170,13 @@
   "검증 기록 ↗": "Diagnóstico ↗",
   "연등 배치도": "Plano de faroles",
   "줄을 선택하세요": "Elige una fila",
-  "줄": "Fila"
+  "줄": "Fila",
+  "다른 자리를 선택하세요": "Elige otro lugar",
+  "빈자리 자동 선택": "Elegir un lugar libre automáticamente",
+  "내 봉헌 내역": "Mis ofrendas",
+  "주문 번호": "Número de pedido",
+  "문의 접수됨": "Consulta recibida",
+  "종무소에 주문 문의": "Consultar el pedido en la oficina del templo",
+  "화면의 화살표로 걷고 손가락으로 화면을 밀어 둘러보세요.": "Toca las flechas para caminar y desliza para mirar alrededor.",
+  "방향키로 걷고 마우스로 드래그해 둘러보세요.": "Usa las flechas para caminar y arrastra el ratón para mirar alrededor."
 }

@@ -10,13 +10,13 @@ async function openArea(area:string,term=''){
  activeArea=area;const current=++generation;section.replaceChildren();
  try{
   if(area==='orders'){
-   const search=document.createElement('form'),field=document.createElement('input'),submit=document.createElement('button');field.placeholder='주문 번호 · 상태 · 판매 중지';field.value=term;submit.textContent='주문 검색';search.append(field,submit);section.append(search);
+   const search=document.createElement('form'),field=document.createElement('input'),submit=document.createElement('button');field.placeholder='주문 번호 · 상태 · 문의 · 판매 중지';field.value=term;submit.textContent='주문 검색';search.append(field,submit);section.append(search);
    search.onsubmit=e=>{e.preventDefault();void openArea(area,field.value);};
   }
   const {rows}=await api(area+(term?'?q='+encodeURIComponent(term):''));if(current!==generation)return;
   for(const row of rows){
    const form=document.createElement('form'),title=document.createElement('p');form.append(title);section.append(form);
-   title.textContent=[row.id,row.status,row.slot_id,row.kind,row.name,row.text,row.categories?.join(', '),row.enabled===false?'판매 중지':''].filter(Boolean).join(' · ');
+   title.textContent=[row.id,row.status,row.slot_id,row.kind,row.name,row.text,row.categories?.join(', '),row.inquired?'문의 접수':'',row.enabled===false?'판매 중지':''].filter(Boolean).join(' · ');
    const price=document.createElement('input'),enabled=document.createElement('select');
    if(area==='offers'){
     price.type='number';price.min='1';price.required=true;price.value=String(row.price_krw);price.setAttribute('aria-label','시험 가격');
