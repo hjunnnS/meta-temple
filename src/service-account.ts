@@ -10,7 +10,7 @@ export function setupAccount(){
  const list=dialog.querySelector('ul')!;
  let sequence=0,link=new URLSearchParams(location.hash.slice(1)).get('login');
  if(link)history.replaceState(null,'',location.pathname+location.search);
- function clear(){dialog.querySelector('[data-account-office]')?.remove();list.replaceChildren();status.textContent='';form.hidden=true;logout.hidden=true;confirm.hidden=true;}
+ function clear(){window.dispatchEvent(new CustomEvent('sasa:select',{detail:null}));dialog.querySelector('[data-account-office]')?.remove();list.replaceChildren();status.textContent='';form.hidden=true;logout.hidden=true;confirm.hidden=true;}
  async function api(path:string,body?:object){
   const response=await fetch('/api/service/'+path,body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{cache:'no-store'});
   if(!response.ok)throw Error(String(response.status));return response.json();
@@ -27,7 +27,7 @@ export function setupAccount(){
     const li=document.createElement('li'),details=document.createElement('details'),title=document.createElement('summary'),info=document.createElement('p');
     title.textContent=item.slotId+' · '+(states[item.status]??item.status);
     info.textContent=item.zoneId+' · '+Number(item.amountKrw).toLocaleString('ko-KR')+'원'+(item.endsAt?' · '+new Date(item.startsAt).toLocaleString('ko-KR')+' ~ '+new Date(item.endsAt).toLocaleString('ko-KR'):'');
-    details.append(title,info);li.append(details);list.append(li);
+    details.ontoggle=()=>{if(details.open)window.dispatchEvent(new CustomEvent('sasa:select',{detail:item.slotId}));};details.append(title,info);li.append(details);list.append(li);
    }
    const office=document.createElement('button');office.textContent='종무소 접수 안내';office.onclick=()=>{dialog.close();document.querySelector<HTMLButtonElement>('[data-view="officeReception"]')?.click();};list.after(office);office.dataset.accountOffice='';
   }catch(error){

@@ -871,6 +871,15 @@ export function createTemple(canvas:HTMLCanvasElement) {
    markOffering(slot.id,local?.kind??(slot.accepts==='wish-plaque'?'plaque':slot.accepts),local?.point??point,true);
   }
  }
+ let selectedOffering:string|null=null;
+ const selectionBand=MeshBuilder.CreateTorus('selected-offering-band',{diameter:.7,thickness:.014,tessellation:32},scene);
+ selectionBand.material=gold;selectionBand.isPickable=false;selectionBand.setEnabled(false);
+ function selectOffering(id:string|null){
+  selectedOffering=id;
+  const s=id?reviewSlots.get(id):null;
+  selectionBand.setEnabled(!!s?.owned&&!!s.installationId);
+  if(s?.owned){selectionBand.position.set(...s.position);selectionBand.position.y+=s.accepts==='lantern'?-.5:.02;}
+ }
  const claimedSlots=new Set<string>(serviceMode?fixedSlots().map(s=>s.id):import.meta.env.MODE==='review'?['sample:Z02:lantern:0023','sample:Z02:lantern:0002']:[]);
  const reviewMarks:Mesh[]=[];
  function applyReviewSlots(slots:ReviewSlot[]){
@@ -890,7 +899,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    mark.position.set(...slot.position);mark.material=pinMaterial;mark.billboardMode=Mesh.BILLBOARDMODE_ALL;
    mark.metadata={applicationId:slot.id};reviewMarks.push(mark);
   }
-  rebuildLanterns(density);
+  selectOffering(selectedOffering);rebuildLanterns(density);
  }
  const freeLanternIndices=[2,34,66];
  for(const slot of lanternSlots(67).filter(slot=>freeLanternIndices.includes(Number(slot.id.split(':').at(-1))))){
@@ -1202,5 +1211,5 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const mesh of displayBatches)mesh.setEnabled(value!=='empty');
   for(const [id,slot] of applicationSlots)if(displayKinds.has(slot.kind))refreshApplication(id);
  }
- return {showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount:installedLanterns,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ return {selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount:installedLanterns,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }

@@ -1,0 +1,30 @@
+{
+  "verified": [
+    {
+      "kind": "lantern",
+      "slot": "sample:Z02:lantern:0000",
+      "same": true
+    },
+    {
+      "kind": "wish-plaque",
+      "slot": "sample:Z08:plaque:0",
+      "same": true
+    },
+    {
+      "kind": "votive",
+      "slot": "sample:Z07:votive:01",
+      "same": true
+    },
+    {
+      "kind": "memorial",
+      "slot": "sample:Z06:memorial:01",
+      "same": true
+    },
+    {
+      "kind": "candle",
+      "slot": "sample:Z03:candle:1-0",
+      "same": true
+    }
+  ],
+  "errors": []
+}

@@ -230,6 +230,7 @@ if(import.meta.env.MODE==='review'){
 
 if(import.meta.env.MODE==='service'){
  setupAccount();
+ window.addEventListener('sasa:select',e=>app.selectOffering((e as CustomEvent<string|null>).detail));
  let revision=0,lastSnapshot='';
  async function syncServiceSlots(){
   const generation=++revision;
