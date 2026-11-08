@@ -1,3 +1,4 @@
+import { setupAccount } from './service-account.ts';
 import { templeAudio } from './temple-audio.ts';
 import { reviewPresence } from './review-presence.ts';
 import { offeringZones } from './contracts.ts';
@@ -143,6 +144,7 @@ function receptionView(view:string){
  }
 }
 function openRequest(id:string){
+ if(import.meta.env.MODE==='service'){$('#application-status').textContent='이 시험 환경에서는 아직 신청을 받지 않습니다.';return;}
  const fixture=$<HTMLSelectElement>('#display-occupancy');
  if(fixture&&fixture.value!=='current'&&['plaque','votive','memorial'].includes(app.applicationSlots.get(id)?.kind??'')){ $('#application-status').textContent='신청은 현재 배치에서 가능합니다.';return;}
  if(app.reviewSlots.has(id)){ $('#application-status').textContent='서버 검수용 자리입니다.';return;}
@@ -214,4 +216,14 @@ if(import.meta.env.MODE==='review'){
  densityLabel.append(densitySelect);panel.append(densityLabel);
  const visitors=document.createElement('span');panel.append(visitors);
  reviewPresence(app.scene,()=>app.visitorPose,visitors);
+}
+
+if(import.meta.env.MODE==='service'){
+ setupAccount();
+ const help=document.createElement('dialog');help.setAttribute('aria-label','첫 방문 안내');
+ help.innerHTML='<h2>사찰 둘러보기</h2><p>방향키나 화면의 화살표로 걸으세요. 화면을 드래그하면 처마와 연등을 올려다볼 수 있습니다.</p><p>법당 불단 앞에서 참배할 수 있습니다. 내 아이템은 가까이 걸어가 빛을 확인하세요.</p><button>안내 닫기</button>';document.body.append(help);
+ const again=document.createElement('button');again.textContent='조작 안내 다시 보기';settingsPanel.append(again);
+ again.onclick=()=>{settingsPanel.close();help.showModal();};help.querySelector('button')!.onclick=()=>help.close();
+ help.onclose=()=>{try{localStorage.setItem('sasa:guide-seen','1');}catch{}canvas.focus();};
+ $('#explore').addEventListener('click',()=>{let seen=false;try{seen=localStorage.getItem('sasa:guide-seen')==='1';}catch{}if(!seen)help.showModal();});
 }

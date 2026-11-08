@@ -7,3 +7,4 @@ dist/
 *.local
 
 local-reference/
+.m3-local/

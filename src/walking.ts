@@ -58,9 +58,9 @@ export function visitorMesh(scene:Scene,name:string){
  }
  capsule('head',.28,.125,0,1.56,skin);
  capsule('coat',.78,.221,0,1.04,fabric);
- for(const side of [-1,1])capsule('sleeve',.55,.082,side*.24,1.02,fabric);
+ const arms=[-1,1].map(side=>capsule('sleeve',.55,.082,side*.24,1.02,fabric));
  const legs=[-1,1].map(side=>capsule('leg',.78,.096,side*.11,.39,fabric));
- return {root,legs};
+ return {root,legs,arms};
 }
 
 export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTMLCanvasElement,world:ReturnType<typeof pedestrianWorld>){
@@ -79,8 +79,20 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   return {name:hall.name,x:hall.x,z:hall.z-(side>0?1.125:0),radius:1.75,alpha:side>0?Math.PI:0};
  });
  let prayer:typeof prayerSites[number]|undefined;
- prayerButton.onclick=()=>{if(!prayer)return;camera.alpha=prayer.alpha;camera.beta=1.62;
-  avatar.root.rotation.y=-Math.PI/2-prayer.alpha;canvas.focus();};
+ const practicing=import.meta.env.MODE==='service';
+ let worship=false,elapsed=0;
+ function finishWorship(){
+  worship=false;elapsed=0;avatar.root.rotation.x=0;
+  for(const arm of avatar.arms)arm.rotation.set(0,0,0);
+  prayerButton.textContent=prayer?prayer.name+(practicing?' · 참배 시작':' · 불단 바라보기'):'';
+ }
+ prayerButton.onclick=()=>{
+  if(!prayer)return;
+  if(worship){finishWorship();canvas.focus();return;}
+  camera.alpha=prayer.alpha;camera.beta=1.62;avatar.root.rotation.y=-Math.PI/2-prayer.alpha;
+  if(practicing){worship=true;elapsed=0;prayerButton.textContent='참배 마치기';}
+  canvas.focus();
+ };
  const visitButton=document.querySelector<HTMLButtonElement>('#visit-point')!;
  const visitorSites=[
   {place:'office',dx:-1.4,dz:-1,radius:2.0,view:'officeReception',title:'종무소 접수 안내'},
@@ -100,7 +112,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   }
  };
  document.addEventListener('pointerlockchange',()=>{if(!document.pointerLockElement&&first)changePerspective(false);});
- canvas.addEventListener('keydown',e=>{if(e.key==='Escape'&&first)changePerspective(false);});
+ canvas.addEventListener('keydown',e=>{if(e.key==='Escape'&&worship)finishWorship();if(e.key==='Escape'&&first)changePerspective(false);});
  function clear(){keys.clear();moving=false;}
  canvas.addEventListener('keydown',e=>{if(active&&directions.has(e.code)){e.preventDefault();keys.add(e.code);}});
  window.addEventListener('keyup',e=>keys.delete(e.code));
@@ -112,6 +124,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  }
  const orbitKeys=camera.inputs.attached.keyboard;
  function mode(on:boolean){
+  if(!on&&worship)finishWorship();
   if(active===on)return;
   if(orbitKeys){if(on)camera.inputs.remove(orbitKeys);else camera.inputs.add(orbitKeys);}
   clear();active=on;pad.hidden=!on;changePerspective(false);
@@ -132,11 +145,20 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   }
   const nextPrayer=prayerSites.find(site=>Math.hypot(p.x-site.x,p.z-site.z)<=site.radius&&p.y>.8);
   if(prayer!==nextPrayer){
-   prayer=nextPrayer;prayerButton.hidden=!prayer;prayerButton.textContent=prayer?prayer.name+' · 불단 바라보기':'';
+   prayer=nextPrayer;prayerButton.hidden=!prayer;finishWorship();
   }
   const x=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'));
   const z=Number(keys.has('KeyW')||keys.has('ArrowUp'))-Number(keys.has('KeyS')||keys.has('ArrowDown'));
   const length=Math.hypot(x,z);
+  if(worship){
+   if(length){finishWorship();}
+   else{
+    elapsed+=Math.min(.1,dt);
+    const join=Math.min(1,elapsed*2),bow=Math.sin(Math.PI*Math.min(1,Math.max(0,(elapsed-.5)/2)));
+    avatar.root.rotation.x=.42*bow;
+    avatar.arms.forEach((arm,i)=>arm.rotation.set(-.95*join,0,(i===0?1:-1)*-.38*join));
+   }
+  }
   if(length && document.activeElement===canvas && !document.querySelector('dialog[open]')){
    const a=camera.alpha,scale=3.3*Math.min(.05,dt)/length;
    const dx=(x*-Math.sin(a)-z*Math.cos(a))*scale,dz=(x*Math.cos(a)-z*Math.sin(a))*scale;
