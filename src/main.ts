@@ -1,4 +1,5 @@
 import { reviewPresence } from './review-presence.ts';
+import { offeringZones } from './contracts.ts';
 import { parseReviewSlots } from './review-slots.ts';
 import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import { offerings, readApplication, storagePrefix, type Offering } from './reception.ts';
@@ -111,7 +112,7 @@ function receptionView(view:string){
    return;
   }
   const slots=[...app.applicationSlots].filter(([,s])=>s.kind===kind);
-  const available=slots.filter(([id])=>!readApplication(id));
+  const available=slots.filter(([id])=>app.reviewSlots.has(id)?!app.reviewSlots.get(id)!.installationId:!readApplication(id));
   const hint=document.createElement('p');hint.textContent=available.length?'현장의 + 표시 또는 자리 번호를 선택하세요.':'이 공간의 신청 자리가 모두 찼습니다.';receptionPanel.append(hint);
   for(const [id] of available)panelButton((slots.findIndex(([key])=>key===id)+1)+'번 자리',()=>openRequest(id));
  }else{
@@ -168,9 +169,14 @@ if(import.meta.env.MODE==='review'){
  async function loadSlots(){
   refresh.disabled=true;status.textContent='슬롯 조회 중';
   try{
-   const response=await fetch('/api/review/temples/sample:sasa/zones/Z02/slots',{signal:AbortSignal.timeout(7000)});
-   if(!response.ok)throw Error('검수 서버 연결 실패');
-   const slots=parseReviewSlots(await response.json());app.applyReviewSlots(slots);
+   const zones=await Promise.all(offeringZones.map(async zone=>{
+    const response=await fetch('/api/review/temples/sample:sasa/zones/'+zone+'/slots',{signal:AbortSignal.timeout(7000)});
+    if(!response.ok)throw Error('검수 서버 연결 실패');
+    return parseReviewSlots(await response.json(),zone);
+   }));
+   const slots=zones.flat(), installed=slots.flatMap(s=>s.installationId?[s.installationId]:[]);
+   if(new Set(installed).size!==installed.length)throw Error('중복 설치 번호');
+   app.applyReviewSlots(slots);receptionView(currentPanel);
    status.textContent='검수 슬롯 '+slots.length+'개 · 설치 '+slots.filter(s=>s.installationId).length+'개';
   }catch(error){status.textContent=error instanceof Error?error.message:'슬롯 조회 실패';}
   finally{refresh.disabled=false;}

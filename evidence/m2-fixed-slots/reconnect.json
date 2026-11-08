@@ -1,0 +1,80 @@
+[
+  {
+    "viewport": "desktop",
+    "quality": "high",
+    "counts": {
+      "lantern": 440,
+      "candle": 21,
+      "memorial": 4,
+      "votive": 12,
+      "wish-plaque": 54
+    },
+    "visibleLanterns": 437,
+    "hash": "8f914e94431c721913a5ae1f249e5cea8fa37bd1fb0cd93b42c310a7af452664"
+  },
+  {
+    "viewport": "desktop",
+    "quality": "low",
+    "counts": {
+      "lantern": 440,
+      "candle": 21,
+      "memorial": 4,
+      "votive": 12,
+      "wish-plaque": 54
+    },
+    "visibleLanterns": 437,
+    "hash": "8f914e94431c721913a5ae1f249e5cea8fa37bd1fb0cd93b42c310a7af452664"
+  },
+  {
+    "viewport": "desktop",
+    "quality": "revisit",
+    "counts": {
+      "lantern": 440,
+      "candle": 21,
+      "memorial": 4,
+      "votive": 12,
+      "wish-plaque": 54
+    },
+    "visibleLanterns": 437,
+    "hash": "8f914e94431c721913a5ae1f249e5cea8fa37bd1fb0cd93b42c310a7af452664"
+  },
+  {
+    "viewport": "mobile-emulation",
+    "quality": "high",
+    "counts": {
+      "lantern": 440,
+      "candle": 21,
+      "memorial": 4,
+      "votive": 12,
+      "wish-plaque": 54
+    },
+    "visibleLanterns": 437,
+    "hash": "8f914e94431c721913a5ae1f249e5cea8fa37bd1fb0cd93b42c310a7af452664"
+  },
+  {
+    "viewport": "mobile-emulation",
+    "quality": "low",
+    "counts": {
+      "lantern": 440,
+      "candle": 21,
+      "memorial": 4,
+      "votive": 12,
+      "wish-plaque": 54
+    },
+    "visibleLanterns": 437,
+    "hash": "8f914e94431c721913a5ae1f249e5cea8fa37bd1fb0cd93b42c310a7af452664"
+  },
+  {
+    "viewport": "mobile-emulation",
+    "quality": "revisit",
+    "counts": {
+      "lantern": 440,
+      "candle": 21,
+      "memorial": 4,
+      "votive": 12,
+      "wish-plaque": 54
+    },
+    "visibleLanterns": 437,
+    "hash": "8f914e94431c721913a5ae1f249e5cea8fa37bd1fb0cd93b42c310a7af452664"
+  }
+]

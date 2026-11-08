@@ -71,7 +71,7 @@ const zoneRows: [string,string,Vec3,readonly [number,number],string][] = [
  ['Z12','명상숲',placeCenter('forest'),[38,24],'외부'],
 ];
 export const zones: Zone[] = zoneRows.map(([id,name,center,size,interior])=>({id,name,center,size,interior}));
-export const layoutDraft = { version:'layout-web-013', status:'proposed', unit:'metre', handedness:'left', up:'+Y', forward:'+Z', zones };
+export const layoutDraft = { version:'layout-web-014', status:'fixed', unit:'metre', handedness:'left', up:'+Y', forward:'+Z', zones };
 
 /** Reference-photo palette, in spatial band order; ownership never changes body colour. */
 export const LANTERN_PALETTE = ['#10b76a','#f582b6','#1765e8','#ffc329','#e93f46'] as const;
@@ -90,4 +90,26 @@ export function visibleLanternSlots(count: number): Slot[] {
 /** Spaced canopy keeps original fixed slots, with no between-row infill. */
 export function canopyLanternSlots(count:number):Slot[]{
  return visibleLanternSlots(count);
+}
+
+export const offeringZones = ['Z02','Z03','Z06','Z07','Z08'] as const;
+export const rackSpacing = 1.8;
+export function plaqueSlot(rack:number,row:number,index:number):Slot {
+ const x=wishGarden.x+(rack-1)*rackSpacing;
+ const z=wishGarden.z-(rack-1)*.4+(index-4)*.49;
+ const y=2.11-row*.78-(.115+.022*Math.sin(index+row))-[.26,.208,.25][rack];
+ const suffix=row===0&&index===2?String(rack):[rack,row,index].join('-');
+ return {id:'sample:Z08:plaque:'+suffix,zoneId:'Z08',accepts:'wish-plaque',rotationY:-Math.PI/2,position:[x-.14,y,z]};
+}
+export const candleCabinets=[[5,0,0],[0,-5,Math.PI/2],[0,5,Math.PI/2]] as const;
+export function candleSlot(cabinet:number,index:number):Slot {
+ const [dx,dz,yaw]=candleCabinets[cabinet], z=(index-3)*.64;
+ const x=templePlaces.find(p=>p.id==='gwaneum')!.x+dx+z*Math.sin(yaw);
+ return {id:'sample:Z03:candle:'+(cabinet+1)+'-'+index,zoneId:'Z03',accepts:'candle',rotationY:yaw,
+  position:[x,1,courtSouthEdge+courtDepth/2+dz+z*Math.cos(yaw)]};
+}
+export function fixedSlots():Slot[] {
+ return [...canopyLanternSlots(1000),...hallLampSlots('votive'),...hallLampSlots('memorial'),
+  ...Array.from({length:54},(_,i)=>plaqueSlot(Math.floor(i/18),Math.floor(i/9)%2,i%9)),
+  ...Array.from({length:21},(_,i)=>candleSlot(Math.floor(i/7),i%7))];
 }

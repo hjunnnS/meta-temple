@@ -1,8 +1,9 @@
+import {layoutDraft} from '../src/contracts.ts';
 import { randomUUID } from 'node:crypto';
 
 export function localSessions(){
  const sessions=new Map();
- const channelId='sample:channel:1',layoutVersion='layout-web-013';
+ const channelId='sample:channel:1',layoutVersion=layoutDraft.version;
  function snapshot(self){
   return {schemaVersion:1,layoutVersion,channelId,self,participants:[...sessions.values()].map(s=>s.pose).filter(p=>p.sessionId!==self)};
  }

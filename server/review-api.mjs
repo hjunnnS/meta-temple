@@ -1,8 +1,9 @@
 import {localSessions} from './local-sessions.mjs';
 import {readFile} from 'node:fs/promises';
-import {fileURLToPath} from 'node:url';
+import {zoneLayout} from './review-layout.mjs';
+import {offeringZones} from '../src/contracts.ts';
 
-const fixture=fileURLToPath(new URL('../server/sample-slots.json',import.meta.url));
+
 export function reviewApi(){
  const sessionApi=localSessions();
  return async (req,res,next)=>{
@@ -12,9 +13,10 @@ export function reviewApi(){
   if(!['127.0.0.1','::1','::ffff:127.0.0.1'].includes(req.socket.remoteAddress)||!/^((localhost|127\.0\.0\.1)(:\d+)?|\[::1\](:\d+)?)$/.test(req.headers.host??''))return send(403,{error:'local_only'});
   if(req.headers.origin && req.headers.origin!=='http://'+req.headers.host)return send(403,{error:'origin'});
   if(url.pathname==='/api/review/sessions'||url.pathname.startsWith('/api/review/sessions/'))return sessionApi(req,send);
-  if(url.pathname!=='/api/review/temples/sample:sasa/zones/Z02/slots')return send(404,{error:'unknown_resource'});
+  const zone=url.pathname.match(/^\/api\/review\/temples\/sample:sasa\/zones\/(Z\d+)\/slots$/)?.[1];
+  if(!offeringZones.includes(zone))return send(404,{error:'unknown_resource'});
   if(req.method!=='GET')return send(405,{error:'method'});
-  try{send(200,JSON.parse(await readFile(process.env.TEMPLE_REVIEW_FIXTURE??fixture,'utf8')));}
+  try{send(200,process.env.TEMPLE_REVIEW_FIXTURE&&zone==='Z02'?JSON.parse(await readFile(process.env.TEMPLE_REVIEW_FIXTURE,'utf8')):zoneLayout(zone));}
   catch{send(503,{error:'fixture_unavailable'});}
  };
 }

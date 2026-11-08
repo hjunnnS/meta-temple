@@ -32,7 +32,7 @@ import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator'
 import { GlowLayer } from '@babylonjs/core/Layers/glowLayer';
 import '@babylonjs/core/Meshes/thinInstanceMesh';
 import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
-import { gateCanopyAnchor, hallLampSlots, lanternSlots, canopyLanternSlots, OWNED_INDICES, LANTERN_PALETTE, lanternColourIndex, normalizeLanternName } from './contracts.ts';
+import { candleCabinets, candleSlot, plaqueSlot, rackSpacing, gateCanopyAnchor, hallLampSlots, lanternSlots, canopyLanternSlots, OWNED_INDICES, LANTERN_PALETTE, lanternColourIndex, normalizeLanternName } from './contracts.ts';
 export type TimeOfDay = 'day' | 'dusk' | 'night';
 export type Quality = 'high' | 'low';
 export function createTemple(canvas:HTMLCanvasElement) {
@@ -329,7 +329,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
      petal.material=lotusPetal;staticMeshes.push(petal);
     }
    }
-   if(slot.id.endsWith('02')||slot.id.endsWith('04'))
+   if(import.meta.env.MODE==='review'||slot.id.endsWith('02')||slot.id.endsWith('04'))
     applicationSlot(slot.id,kind,new Vector3(lx,y+.25,lz),staticMeshes.splice(lampStart));
    else displayFixtures.push(...staticMeshes.splice(lampStart));
   }
@@ -521,7 +521,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  const gravel=mat('warm-garden-gravel','#c6b899');
  box('wish-garden-ground',garden.width,.12,garden.depth,garden.x,.05,garden.z,gravel,false);
  const rackLength=5;
- const rackSpacing=1.8; // 1.40 m clear between the stone feet.
+
  for(const side of [-1,1]){
   for(let k=0;k<5;k++){
    const shrub=MeshBuilder.CreateSphere('garden-groundcover',{diameter:1,segments:9},scene);
@@ -597,19 +597,19 @@ export function createTemple(canvas:HTMLCanvasElement) {
    const railY=2.11-row*.78;
    box('wish-rack-rail',.10,.078,rackLength-.30,rackX,railY,center,wood);
    for(let i=0;i<9;i++){
-    const z=center+(i-4)*.49;
+    const slot=plaqueSlot(kind,row,i);
+    const [,tabletY,z]=slot.position;
     const drop=.115+.022*Math.sin(i+row);
-    const top=Math.max(...profile.map(p=>p[1]));
     const tabletStart=staticMeshes.length;
-    wishTablet(profile,rackX,z,railY-drop-top,tablets[kind===1?1+(i+row)%3:(i+row+kind)%4]);
+    wishTablet(profile,rackX,z,tabletY,tablets[kind===1?1+(i+row)%3:(i+row+kind)%4]);
     for(const side of [-1,1]){
      const ends=[new Vector3(rackX,railY+.026,z),new Vector3(rackX-.13,railY-drop-.045,z+side*.048)];
      const tie=MeshBuilder.CreateTube('wish-cord',{path:ends,radius:.009,tessellation:6},scene);
      tie.material=cord;staticMeshes.push(tie);
     }
-    if(i===2 && row===0){
-     const id='sample:Z08:plaque:'+kind;
-     applicationSlot(id,'plaque',new Vector3(rackX-.14,railY-drop-top,z),staticMeshes.splice(tabletStart));
+    if(import.meta.env.MODE==='review'||(i===2 && row===0)){
+     const id=slot.id;
+     applicationSlot(id,'plaque',Vector3.FromArray([...slot.position]),staticMeshes.splice(tabletStart));
      writeWish(id);
     }else displayFixtures.push(...staticMeshes.splice(tabletStart));
    }
@@ -642,7 +642,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  flameMaterial.diffuseTexture=flameTexture;flameMaterial.useAlphaFromDiffuseTexture=true;
  const offeringFlames:Mesh[]=[];
  for(const material of [stone,stoneDark,wood,ochre,wax])material.maxSimultaneousLights=5;
- for(const [dx,dz,yaw] of [[5,0,0],[0,-5,Math.PI/2],[0,5,Math.PI/2]]){
+ for(const [dx,dz,yaw] of candleCabinets){
   // One soft source per row of flames, just inside the cabinet lip.
   const light=new PointLight('offering-candlelight',new Vector3(pagodaX+dx*.87,1.42,pagodaZ+dz*.87),scene);
   light.diffuse=Color3.FromHexString('#ffb16a');
@@ -661,6 +661,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(let slot=0;slot<7;slot++){
    const z=(slot-3)*.64;
    cylinder('candle-holder',.32,.07,new Vector3(0,.965,z),ochre);
+   const fixed=candleSlot(candleLights.length-1,slot);
+   const [wx,,wz]=fixed.position;
    const available=slot%3===1;
    const taperStart=staticMeshes.length;
    const height=.49+.10*Math.sin(slot*3.9+dx+dz);
@@ -669,12 +671,12 @@ export function createTemple(canvas:HTMLCanvasElement) {
    cylinder('offering-wick',.016,.032,new Vector3(0,tip+.016,z),wood);
    const flame=MeshBuilder.CreatePlane('offering-flame',{size:.66},scene);
    flame.material=flameMaterial;flame.billboardMode=Mesh.BILLBOARDMODE_ALL;flame.isPickable=false;
-   flame.position.set(pagodaX+dx+z*Math.sin(yaw),tip+.078,pagodaZ+dz+z*Math.cos(yaw));
+   flame.position.set(wx,tip+.078,wz);
    offeringFlames.push(flame);
-   if(available){
+   if(available||import.meta.env.MODE==='review'){
     const parts=staticMeshes.splice(taperStart);
-    for(const mesh of parts)mesh.position.set(pagodaX+dx+z*Math.sin(yaw),mesh.position.y,pagodaZ+dz+z*Math.cos(yaw));
-    applicationSlot('sample:Z03:candle:'+candleLights.length+'-'+slot,'candle',flame.position.subtract(new Vector3(0,.24,0)),[...parts,flame]);
+    for(const mesh of parts)mesh.position.set(wx,mesh.position.y,wz);
+    applicationSlot(fixed.id,'candle',flame.position.subtract(new Vector3(0,.24,0)),[...parts,flame]);
    }
   }
   for(const part of staticMeshes.slice(firstMesh)){
@@ -835,10 +837,12 @@ export function createTemple(canvas:HTMLCanvasElement) {
    const local=applicationSlots.get(id);
    if(local)local.mark.setEnabled(false);
   }
-  for(const slot of slots.filter(s=>!s.installationId)){
+  for(const slot of slots){
+   if(slot.accepts!=='lantern'){refreshApplication(slot.id);continue;}
+   if(slot.installationId)continue;
    const mark=MeshBuilder.CreatePlane('server-empty-slot',{size:.7},scene);
    mark.position.set(...slot.position);mark.material=pinMaterial;mark.billboardMode=Mesh.BILLBOARDMODE_ALL;
-   mark.metadata={reviewSlotId:slot.id};reviewMarks.push(mark);
+   mark.metadata={applicationId:slot.id};reviewMarks.push(mark);
   }
   rebuildLanterns(density);
  }
@@ -856,7 +860,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    const slot=lanternSlots(67)[index],record=readApplication(slot.id);
    if(record?.text)names.set(index,record.text);else names.delete(index);
   }
-  const candidates=[...canopyLanternSlots(count).filter(s=>!claimedSlots.has(s.id)),...reviewSlots.values()];
+  const candidates=[...canopyLanternSlots(count).filter(s=>!claimedSlots.has(s.id)),...[...reviewSlots.values()].filter(s=>s.accepts==='lantern'&&(Number(s.id.slice(-4))<count||s.owned))];
   const slots=candidates.filter(slot=>reviewSlots.has(slot.id)?!!reviewSlots.get(slot.id)!.installationId:!applicationSlots.has(slot.id)||!!readApplication(slot.id)),buckets=Array.from({length:15},()=>[] as Matrix[]);
   canopyCapacity=candidates.length;installedLanterns=slots.length;
   function body(name:string,type:number){
@@ -1129,7 +1133,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  view('gatePassage');
  function refreshApplication(id:string){
   const slot=applicationSlots.get(id);if(!slot)return;
-  const filled=displayKinds.has(slot.kind)&&occupancy!=='current'?occupancy==='full':!!readApplication(id);
+  const filled=displayKinds.has(slot.kind)&&occupancy!=='current'?occupancy==='full':reviewSlots.has(id)?!!reviewSlots.get(id)!.installationId:!!readApplication(id);
   for(const mesh of slot.parts)mesh.setEnabled(filled);
   slot.mark.setEnabled(!filled);
   if(slot.kind==='lantern')rebuildLanterns(density);
