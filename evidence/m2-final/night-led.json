@@ -1,0 +1,88 @@
+{
+  "commit": "a1974e75d31b75bd721a2b08cdb837fc1d79aea1",
+  "schemaVersion": 1,
+  "sceneVersion": "m1-web-review-013",
+  "createdAt": "2026-11-08T03:40:50.451Z",
+  "device": "미확인",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "physicalDeviceVerified": false,
+  "acceptance": "unreviewed",
+  "settings": {
+    "visitor": null,
+    "time": "night",
+    "quality": "high",
+    "density": 1000,
+    "canopyCapacity": 440,
+    "visibleLanternCount": 437,
+    "nameTagCount": 1,
+    "selected": 23,
+    "reduced": false,
+    "owned": [
+      23,
+      37,
+      58
+    ],
+    "renderWidth": 1280,
+    "renderHeight": 720
+  },
+  "currentSettings": {
+    "visitor": null,
+    "time": "night",
+    "quality": "high",
+    "density": 1000,
+    "canopyCapacity": 440,
+    "visibleLanternCount": 437,
+    "nameTagCount": 1,
+    "selected": 23,
+    "reduced": false,
+    "owned": [
+      23,
+      37,
+      58
+    ],
+    "renderWidth": 1280,
+    "renderHeight": 720
+  },
+  "startCamera": {
+    "alpha": -2.9,
+    "beta": 1.95,
+    "radius": 4,
+    "target": [
+      -5.8500000000000005,
+      5.051612903225806,
+      -10.899999999999999
+    ]
+  },
+  "camera": {
+    "alpha": -2.9,
+    "beta": 1.95,
+    "radius": 4,
+    "target": [
+      -5.8500000000000005,
+      5.051612903225806,
+      -10.899999999999999
+    ]
+  },
+  "renderer": {
+    "vendor": "Google Inc. (Apple)",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+  },
+  "timing": {
+    "navigationToFirstRenderedFrameMs": 2315.399999976158,
+    "sceneConstructionToFirstFrameMs": 1872.5
+  },
+  "jsHeapBytes": 558205617,
+  "memoryCaveat": "JS heap only if exposed; not GPU or total process memory",
+  "measurement": {
+    "samples": 786,
+    "meanFps": 60.002290163746714,
+    "onePercentLowFps": 56.338028074422304,
+    "maxFrameMs": 17.899999976158142,
+    "elapsedSeconds": 15.099100000023842,
+    "warmupSeconds": 2,
+    "valid": true,
+    "invalidReason": null
+  },
+  "errors": []
+}

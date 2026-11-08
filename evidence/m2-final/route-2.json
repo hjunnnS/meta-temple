@@ -1,0 +1,88 @@
+{
+  "commit": "a1974e75d31b75bd721a2b08cdb837fc1d79aea1",
+  "schemaVersion": 1,
+  "sceneVersion": "m1-web-review-013",
+  "createdAt": "2026-11-08T03:52:51.371Z",
+  "device": "미확인",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "physicalDeviceVerified": false,
+  "acceptance": "unreviewed",
+  "settings": {
+    "visitor": null,
+    "time": "dusk",
+    "quality": "high",
+    "density": 1000,
+    "canopyCapacity": 440,
+    "visibleLanternCount": 437,
+    "nameTagCount": 1,
+    "selected": 23,
+    "reduced": false,
+    "owned": [
+      23,
+      37,
+      58
+    ],
+    "renderWidth": 1280,
+    "renderHeight": 720
+  },
+  "currentSettings": {
+    "visitor": null,
+    "time": "dusk",
+    "quality": "high",
+    "density": 1000,
+    "canopyCapacity": 440,
+    "visibleLanternCount": 437,
+    "nameTagCount": 1,
+    "selected": 23,
+    "reduced": false,
+    "owned": [
+      23,
+      37,
+      58
+    ],
+    "renderWidth": 1280,
+    "renderHeight": 720
+  },
+  "startCamera": {
+    "alpha": -1.5707963267940253,
+    "beta": 1.644798872646051,
+    "radius": 5.815917812346821,
+    "target": [
+      -5.054237035125247e-12,
+      2.1500000000041353,
+      -67.05908999995255
+    ]
+  },
+  "camera": {
+    "alpha": -2.9,
+    "beta": 1.95,
+    "radius": 4,
+    "target": [
+      -5.8500000000000005,
+      5.051612903225806,
+      -10.899999999999999
+    ]
+  },
+  "renderer": {
+    "vendor": "Google Inc. (Apple)",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+  },
+  "timing": {
+    "navigationToFirstRenderedFrameMs": 2315.399999976158,
+    "sceneConstructionToFirstFrameMs": 1872.5
+  },
+  "jsHeapBytes": 279689070,
+  "memoryCaveat": "JS heap only if exposed; not GPU or total process memory",
+  "measurement": {
+    "samples": 17894,
+    "meanFps": 60.00274294422633,
+    "onePercentLowFps": 53.702148083234576,
+    "maxFrameMs": 21.90000009536743,
+    "elapsedSeconds": 300.2197000000477,
+    "warmupSeconds": 2,
+    "valid": true,
+    "invalidReason": null
+  },
+  "errors": []
+}
