@@ -6,6 +6,7 @@ import type { Mesh } from '@babylonjs/core/Meshes/mesh';
 import type { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
+import { templePlaces } from './temple-layout.ts';
 import { insideGround } from './temple-terrain.ts';
 
 export const visitorSize={height:1.7,width:.65} as const;
@@ -16,7 +17,7 @@ export function pedestrianWorld(parts:Mesh[]){
  const surfaces:Rect[]=[],solids:Rect[]=[],ceilings:Rect[]=[];
  for(const part of parts){
   const surface=/(^|-)(step|plinth|hall-floor|floorboard|court|paving|base|stone)$/.test(part.name);
-  const solid=/(^|-)(back-wall|side-wall|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front)$/.test(part.name);
+  const solid=/(^|-)(back-wall|side-wall|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk)$/.test(part.name);
   const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof)$/.test(part.name);
   if(!surface&&!solid&&!roof)continue;
   part.computeWorldMatrix(true);
@@ -70,6 +71,16 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  const pad=document.querySelector<HTMLElement>('#walk-pad')!;
  const directions=new Set(['KeyW','KeyS','KeyA','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight']);
  let active=false,first=false,step=0,moving=false;
+ const prayerButton=document.querySelector<HTMLButtonElement>('#prayer-point')!;
+ const worshipHalls=templePlaces.filter(p=>p.id==='daeung'||p.id==='gwaneum'||p.id==='jijang');
+ const prayerSites=worshipHalls.map(hall=>{
+  const side=hall.id==='gwaneum'?-1:1;
+  if(hall.id==='daeung')return {name:hall.name,x:hall.x,z:hall.z,radius:2.8,alpha:-Math.PI/2};
+  return {name:hall.name,x:hall.x,z:hall.z-(side>0?1.125:0),radius:1.75,alpha:side>0?Math.PI:0};
+ });
+ let prayer:typeof prayerSites[number]|undefined;
+ prayerButton.onclick=()=>{if(!prayer)return;camera.alpha=prayer.alpha;camera.beta=1.62;
+  avatar.root.rotation.y=-Math.PI/2-prayer.alpha;canvas.focus();};
  const switchView=document.querySelector<HTMLButtonElement>('#walk-camera')!;
  function changePerspective(on:boolean){
   first=on;avatar.root.setEnabled(active&&!first);
@@ -109,6 +120,10 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   moving=false;
   if(!active)return;
   const p=avatar.root.position;
+  const nextPrayer=prayerSites.find(site=>Math.hypot(p.x-site.x,p.z-site.z)<=site.radius&&p.y>.8);
+  if(prayer!==nextPrayer){
+   prayer=nextPrayer;prayerButton.hidden=!prayer;prayerButton.textContent=prayer?prayer.name+' · 불단 바라보기':'';
+  }
   const x=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'));
   const z=Number(keys.has('KeyW')||keys.has('ArrowUp'))-Number(keys.has('KeyS')||keys.has('ArrowDown'));
   const length=Math.hypot(x,z);
