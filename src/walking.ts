@@ -1,3 +1,5 @@
+import {practiceSeat} from './hall-seats';
+import {visitorRobe} from './visitor-robe';
 import {bowPractice} from './bow-practice';
 import {t} from './locales';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
@@ -58,11 +60,44 @@ export function visitorMesh(scene:Scene,name:string){
   const mesh=MeshBuilder.CreateCapsule(name+label,{height,radius,tessellation:10},scene);
   mesh.position.set(x,y,0);mesh.parent=root;mesh.material=material;mesh.isPickable=false;return mesh;
  }
- capsule('head',.28,.125,0,1.56,skin);
- capsule('coat',.78,.221,0,1.04,fabric);
- const arms=[-1,1].map(side=>capsule('sleeve',.55,.082,side*.24,1.02,fabric));
- const legs=[-1,1].map(side=>capsule('leg',.78,.096,side*.11,.39,fabric));
- return {root,legs,arms};
+ function joint(label:string,parent:TransformNode,x:number,y:number,z=0){
+  const node=new TransformNode(name+label,scene);node.parent=parent;node.position.set(x,y,z);return node;
+ }
+ const hips=joint('hips',root,0,.78),chest=joint('chest',hips,0,0);
+ function part(label:string,parent:TransformNode,height:number,radius:number,y:number,material:StandardMaterial){
+  const mesh=capsule(label,height,radius,0,y,material);mesh.parent=parent;return mesh;
+ }
+ part('head',chest,.28,.125,.78,skin);
+ const coat=part('coat',chest,.75,.221,.27,fabric);
+ const legs:TransformNode[]=[],shins:TransformNode[]=[],arms:TransformNode[]=[],forearms:TransformNode[]=[],sleeves:Mesh[]=[];
+ for(const side of [-1,1]){
+  const hip=joint('hip',hips,side*.11,0),knee=joint('knee',hip,0,-.35);
+  part('thigh',hip,.42,.099,-.175,fabric);part('shin',knee,.43,.089,-.175,fabric);
+  legs.push(hip);shins.push(knee);
+  const shoulder=joint('shoulder',chest,side*.235,.51),elbow=joint('elbow',shoulder,0,-.255);
+  sleeves.push(part('sleeve',shoulder,.32,.087,-.125,fabric));
+  sleeves.push(part('cuff',elbow,.28,.071,-.11,fabric));
+  part('hand',elbow,.14,.056,-.25,skin);
+  arms.push(shoulder);forearms.push(elbow);
+ }
+ function ease(phase:number,start:number,end:number){
+  const u=Math.min(1,Math.max(0,(phase-start)/(end-start)));return u*u*(3-2*u);
+ }
+ function bow(phase:number){
+  // Lower onto the knees first. Both ankles stay planted throughout the fold.
+  const down=Math.min(phase,1-phase)*2;
+  const kneel=ease(down,.03,.56),fold=ease(down,.45,.89),reach=ease(down,.33,.84);
+  const thigh=-1.30*kneel,shin=1.53*kneel;
+  hips.position.y=.08+.35*(Math.cos(thigh)+Math.cos(shin));
+  hips.position.z=.35*(Math.sin(thigh)+Math.sin(shin));
+  chest.rotation.x=.23*kneel+1.43*fold;
+  for(let i=0;i<2;i++){
+   legs[i].rotation.x=thigh;shins[i].rotation.x=shin-thigh;
+   arms[i].rotation.x=-.35*kneel-1.05*reach-chest.rotation.x;
+   forearms[i].rotation.x=-.8*kneel*(1-reach)-.07*reach;
+  }
+ }
+ return {root,legs,arms,chest,coat,sleeves,bow};
 }
 
 export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTMLCanvasElement,world:ReturnType<typeof pedestrianWorld>){
@@ -84,18 +119,16 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  const practicing=import.meta.env.MODE==='service';
  let worship=false,elapsed=0;
  function finishWorship(){
-  worship=false;elapsed=0;avatar.root.rotation.x=0;
+  worship=false;elapsed=0;avatar.bow(0);avatar.root.rotation.x=0;
   for(const arm of avatar.arms)arm.rotation.set(0,0,0);
   prayerButton.textContent=prayer?t(prayer.name)+' · '+t(practicing?'참배 시작':'불단'):'';
  }
  const bows=bowPractice(scene,avatar.root.position,()=>{
   if(!prayer)return;
+  if(prayer.name==='대웅전')avatar.root.position.set(practiceSeat.x,world.floor(practiceSeat.x,practiceSeat.z)+.088,practiceSeat.z);
   finishWorship();camera.alpha=prayer.alpha;camera.beta=1.48;
   avatar.root.rotation.y=-Math.PI/2-prayer.alpha;canvas.focus();
- },depth=>{
-  avatar.root.rotation.x=1.18*depth;avatar.root.scaling.y=1-.32*depth;
-  avatar.arms.forEach((arm,i)=>arm.rotation.set(-1.3*depth,0,(i===0?1:-1)*-.35*depth));
- });
+ },avatar.bow);
  prayerButton.onclick=()=>{
   if(!prayer)return;
   if(bows.active)bows.cancel();
@@ -116,6 +149,17 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   switchView.textContent=t(first?'3인칭 보기':'1인칭 보기');switchView.setAttribute('aria-pressed',String(first));
   if(!first&&document.pointerLockElement===canvas)document.exitPointerLock();
  }
+ const robe=visitorRobe(scene,avatar);
+ const robeButton=document.querySelector<HTMLButtonElement>('#walk-robe')!;
+ robeButton.onclick=()=>{
+  if(first)changePerspective(false);
+  robeButton.disabled=true;
+  robe.change(!robe.wearing,()=>{
+   robeButton.textContent=t(robe.wearing?'평상복 입기':'법복 입기');
+   robeButton.setAttribute('aria-pressed',String(robe.wearing));robeButton.disabled=false;
+  });
+  canvas.focus();
+ };
  switchView.onclick=()=>{
   changePerspective(!first);canvas.focus();
   if(first&&matchMedia('(pointer:fine)').matches&&canvas.requestPointerLock){
@@ -169,9 +213,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    if(length){finishWorship();}
    else{
     elapsed+=Math.min(.1,dt);
-    const join=Math.min(1,elapsed*2),bow=Math.sin(Math.PI*Math.min(1,Math.max(0,(elapsed-.5)/2)));
-    avatar.root.rotation.x=.42*bow;
-    avatar.arms.forEach((arm,i)=>arm.rotation.set(-.95*join,0,(i===0?1:-1)*-.38*join));
+    avatar.bow(Math.min(1,elapsed/4.8));
    }
   }
   if(length && document.activeElement===canvas && !document.querySelector('dialog[open]')){
@@ -187,7 +229,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    moving=distance>.00001;
    if(moving){avatar.root.rotation.y=Math.atan2(p.x-ox,p.z-oz);step+=distance*4.8;}
    avatar.legs.forEach((leg,i)=>leg.rotation.x=distance>.00001?.35*Math.sin(step+i*Math.PI):0);
-  }else avatar.legs.forEach((leg,i)=>leg.rotation.x=moving?.35*Math.sin(step+i*Math.PI):0);
+  }else if(!bows.bowing&&!worship)avatar.legs.forEach((leg,i)=>leg.rotation.x=moving?.35*Math.sin(step+i*Math.PI):0);
   camera.target.copyFromFloats(p.x,p.y+(first?1.56:1.2),p.z);
   camera.radius=first?.045:world.cameraLimit(camera.target,camera.alpha,camera.beta,3.2);
  }

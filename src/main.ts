@@ -24,7 +24,7 @@ root.innerHTML=`
 <dialog id="settings-panel" aria-labelledby="settings-title"><div class="panel-title"><h2 id="settings-title">환경 설정</h2><button id="close-settings" aria-label="환경 설정 닫기">×</button></div><label class="check"><input id="audio-on" type="checkbox"> 공간음 켜기</label><label>소리 크기<input id="audio-volume" type="range" min="0" max="100" value="35"></label><p class="note" id="audio-status" role="status">무음</p><label>시간대<select id="time"><option value="day" selected>햇살 가득한 낮</option><option value="dusk">해질녘</option><option value="night">밤</option></select></label><label>화면 품질<select id="quality"><option value="high">섬세하게</option><option value="low">가볍게</option></select></label><label class="check"><input type="checkbox" id="reduced">반짝임 완화</label><label>내 연등 이름표<input id="lantern-name" maxlength="24" placeholder="이름 입력 · 최대 12자"></label><button id="apply-name" class="primary">이름표 미리보기</button><p id="name-status" class="note" role="status">현재 선택한 내 연등에 표시됩니다. 미리보기 이름은 서버에 저장하지 않습니다.</p><p class="note">내 연등은 모든 품질에서 같은 위치에 표시됩니다.</p></dialog>
 <footer><div class="location"><span class="eyebrow">01 / 대웅전</span><p>고요를 담은 빛</p></div><nav aria-label="장면 보기"><button data-view="officeReception">등·소원 접수처</button><button data-view="wide" aria-pressed="false">전체 풍경</button><button data-view="front" aria-pressed="false">대웅전</button><button data-view="canopy" aria-pressed="false">연등 아래</button><button data-view="detail" aria-pressed="false">단청</button></nav><button id="diagnostics">검증 기록 ↗</button></footer>
 <label class="place-picker">공간 둘러보기 <select id="place"><option value="walk">아바타로 걷기</option><option value="wide">전체 풍경</option><option value="map">배치도 · 위에서 보기</option><option value="plazaCourt">연등 광장에서 본 중앙 마당</option><option value="plazaHall">연등 광장에서 본 대웅전</option><option value="courtHall">중앙 마당에서 본 대웅전</option><option value="eavesHall">대웅전 처마 아래</option><option value="gwaneumDoor">관음전 열린 입구</option><option value="gwaneumAltar">관음보살 불단</option><option value="gwaneumSeats">관음전 기도 자리</option><option value="gateArrival">일주문 앞 · 정면 담</option><option value="templeApproach">일주문부터 대웅전까지</option><option value="gateWalk">천왕문 통과하기</option><option value="gateEave">천왕문 처마와 첫 연등</option><option value="guardianGallery">천왕문 안 · 사천왕</option><option value="gatePassage" selected>두 문 사이 진입길</option><option value="courtWall">중앙 마당 가장자리</option><option value="votiveShelves">인등전 안 · 인등 선반</option><option value="memorialLamps">지장전 안 · 추모등</option><option value="indeungApproach">서쪽 길에서 본 인등전</option><option value="pagodaCourt">관음전 옆 석탑</option><option value="stoneLanterns">대웅전 앞 석등</option><option value="candleCourt">석탑 앞과 양옆 봉헌초</option><option value="wishGarden">소원패 정원 · 나무 걸이대</option><option value="wishAisle">소원패 정원 · 줄 사이</option><option value="officeReception">종무소 · 등·소원 접수처</option><option value="lanternReception">연등광장 · 신청 자리</option><option value="entryRowMap">배치도 · 범종각과 종무소</option><option value="gateExitOffice">천왕문 출구 · 오른쪽 종무소</option><option value="officeApproach">진입로에서 본 종무소</option><option value="bellApproach">천왕문 길에서 본 범종각</option><option value="bellDetail">범종과 당목 가까이</option><option value="jijangPlaza">연등 광장에서 본 지장전</option><option value="jijangInterior">지장전 안 · 추모 기도 자리</option><option value="entrance">마당에서 본 열린 법당</option><option value="sanctuary">대웅전 안 · 예불 자리</option><option value="seating">법당 안 · 50명 배치</option><option value="shrine">불단 가까이</option><option value="face">불상 얼굴 가까이</option><option value="chime">처마 끝 풍경</option>${templePlaces.map(p=>`<option value="${p.id}">${p.name}</option>`).join('')}</select></label>
-<section id="walk-pad" aria-label="걷기 조작" hidden><span>WASD · 방향키로 걷기</span><button id="visit-point" hidden></button><button id="prayer-point" hidden></button><button id="bow-start" hidden></button><button id="bow-stop" hidden></button><output id="bow-count" aria-live="polite"></output><button id="walk-camera" aria-pressed="false">1인칭 보기</button><div>${[['KeyA','←','왼쪽'],['KeyW','↑','앞'],['KeyS','↓','뒤'],['KeyD','→','오른쪽']].map(([key,text,label])=>`<button data-key="${key}" aria-label="${label}으로 걷기">${text}</button>`).join('')}</div></section>
+<section id="walk-pad" aria-label="걷기 조작" hidden><span>WASD · 방향키로 걷기</span><button id="visit-point" hidden></button><button id="prayer-point" hidden></button><button id="bow-start" hidden></button><button id="bow-stop" hidden></button><output id="bow-count" aria-live="polite"></output><button id="walk-robe" aria-pressed="false">법복 입기</button><button id="walk-camera" aria-pressed="false">1인칭 보기</button><div>${[['KeyA','←','왼쪽'],['KeyW','↑','앞'],['KeyS','↓','뒤'],['KeyD','→','오른쪽']].map(([key,text,label])=>`<button data-key="${key}" aria-label="${label}으로 걷기">${text}</button>`).join('')}</div></section>
 <section id="reception-panel" hidden aria-label="등·소원 접수처"></section>
 <dialog id="application"><form><div class="panel-title"><h2 id="request-title"></h2><button type="button" id="cancel-request" aria-label="신청 닫기">×</button></div>
 <p id="slot-location"></p><label>기간<select id="request-term"><option value="week">일주일</option><option value="month">한 달</option></select></label>
@@ -34,24 +34,41 @@ root.innerHTML=`
 <div id="application-status" role="status"></div><div class="hint">드래그하여 둘러보기 · 휠 / 두 손가락으로 확대</div>
 <dialog id="diagnostic-dialog"><div class="panel-title"><h2>M1 장면 검증</h2><button id="close-diagnostics" aria-label="검증 기록 닫기">×</button></div><p>측정은 현재 기기의 결과이며, 모바일 실기기 또는 시각 품질 승인으로 자동 간주하지 않습니다.</p><label>기기 모델 (직접 입력)<input id="device" placeholder="미입력 · 실기기 미확인"></label><label>연등 후보 수<select id="density"><option>100</option><option>300</option><option>500</option><option value="1000" selected>전체 배치 · 작은 틈</option></select></label><label>내 연등 선택<select id="owned">${OWNED_INDICES.map((x,i)=>`<option value="${x}">내 연등 ${i+1} · 슬롯 ${x}</option>`).join('')}</select></label><p class="note">샘플 소유 표시입니다. 계정·결제·실제 소유권은 연결하지 않았습니다. 갈색 발판 길 위의 후보만 표시합니다.</p><output id="live" aria-live="off">준비 중</output><div class="actions"><button id="measure">측정 시작</button><button id="stop">측정 종료</button><button id="export">기록 저장</button></div><p class="note">시작 후 2초 예열. 정식 판정은 승인된 기기·밀도·동선·예열·측정 시간으로 별도 실행합니다. 측정 중 설정 변경·탭 숨김·화면 크기 변경 시 기록을 무효화합니다.</p><pre id="report" aria-live="polite">아직 측정하지 않았습니다.</pre></dialog>`;
 const $=<T extends HTMLElement=HTMLElement>(q:string)=>document.querySelector<T>(q)!;
+const canvas=$<HTMLCanvasElement>('#world');
+const initStart=performance.now();
+let preparationError=false;
+Texture.OnTextureLoadErrorObservable.add(()=>{preparationError=true;});
+const app=createTemple(canvas);
+app.scene.render();
+const warm=app.scene.whenReadyAsync();
+export async function start(){
+ let timeout=0;
+ try{
+  await Promise.race([warm,new Promise<never>((_,reject)=>{timeout=window.setTimeout(()=>reject(Error('scene timeout')),30000);})]);
+  if(preparationError)throw Error('scene texture failed');
+ }finally{clearTimeout(timeout);}
+ const firstFrame= new Promise<void>((resolve,reject)=>{enterReady=resolve;enterFailed=reject;});
+ activate();
+ return firstFrame;
+}
+let enterReady:()=>void,enterFailed:(reason:Error)=>void;
+function activate(){
 translateMarkup(root);translateViews($<HTMLSelectElement>('#place'));
 const settingsLanguage=document.createElement('button');settingsLanguage.textContent=languages.find(x=>x[0]===locale)![1]+' '+t('언어 선택');
 settingsLanguage.onclick=()=>location.reload();$('#settings-panel').append(settingsLanguage);
 document.title='사사 · '+t('사찰 둘러보기');
-const canvas=$<HTMLCanvasElement>('#world');
-const measure=new Measurement();let app:ReturnType<typeof createTemple>;
+const measure=new Measurement();
 const audio=templeAudio((enabled,message)=>{
  $<HTMLInputElement>('#audio-on').checked=enabled;
  $('#audio-status').textContent=t(message);
 });
 $('#audio-on').onchange=()=>{if($<HTMLInputElement>('#audio-on').checked)void audio.enable();else audio.mute();};
 $('#audio-volume').oninput=()=>audio.setVolume(Number($<HTMLInputElement>('#audio-volume').value)/100);
-const initStart=performance.now();
 let loadFailed=false,pendingView:string|null=null;
 const loading=$('#loading'),retry=$<HTMLButtonElement>('#load-retry');
 let timer=window.setTimeout(()=>loadError('준비 시간이 길어지고 있습니다. 다시 시도해 주세요.'),30000);
 function loadError(message:string){
- window.clearTimeout(timer);loadFailed=true;loading.hidden=false;loading.querySelector('span')!.textContent=t(message);
+ enterFailed(new Error(message));window.clearTimeout(timer);loadFailed=true;loading.hidden=false;loading.querySelector('span')!.textContent=t(message);
  delete document.body.dataset.ready;retry.hidden=false;retry.focus();
 }
 retry.onclick=()=>location.reload();
@@ -63,9 +80,11 @@ function enterView(name:string){
  clearTimeout(timer);timer=window.setTimeout(()=>loadError('공간을 준비하지 못했습니다.'),30000);
 }
 
-try {app=createTemple(canvas);}catch(error){loadError('3D를 시작하지 못했습니다. WebGL 설정을 확인해 주세요.');console.error(error);throw error;}
 let firstFrameMs:number|null=null;let last=performance.now();let tick=0;let latest:Record<string,unknown>|null=null;let recordedSettings:unknown=null;let startCamera:unknown=null;
 renderWhileViewing(app.engine,()=>{const now=performance.now();const dt=now-last;last=now;app.scene.render();if(!loadFailed&&(firstFrameMs===null||pendingView!==null)&&app.scene.isReady()){
+ if(firstFrameMs===null&&pendingView===null){
+  document.body.classList.add('exploring');$<HTMLSelectElement>('#place').value='walk';app.beginArrival();enterReady();
+ }
  firstFrameMs??=performance.now();clearTimeout(timer);loading.hidden=true;document.body.dataset.ready='true';
  if(pendingView!==null){const name=pendingView;pendingView=null;app.view(name);}
 }if(audio.enabled){const p=app.settings.visitor;audio.update(p?.[0]??app.camera.target.x,p?.[2]??app.camera.target.z);}
@@ -284,4 +303,6 @@ if(import.meta.env.MODE==='service'){
  again.onclick=()=>{settingsPanel.close();openGuide();};help.querySelector('button')!.onclick=()=>help.close();
  help.onclose=()=>{try{localStorage.setItem('sasa:guide-seen','1');}catch{}canvas.focus();};
  $('#explore').addEventListener('click',()=>{let seen=false;try{seen=localStorage.getItem('sasa:guide-seen')==='1';}catch{}if(!seen)openGuide();});
+}
+
 }

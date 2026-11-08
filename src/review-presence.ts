@@ -9,7 +9,7 @@ interface Peer extends Motion {sessionId:string;sequence:number}
 interface Snapshot {self:string;key?:string;layoutVersion:string;schemaVersion:number;channelId:string;count?:number;participants:Peer[]}
 
 export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,channel?:HTMLSelectElement){
- const avatars=new Map<string,{body:ReturnType<typeof visitorMesh>;target:Vector3;peer:Peer}>();
+ const avatars=new Map<string,{body:ReturnType<typeof visitorMesh>;target:Vector3;peer:Peer;bowTime:number}>();
  let session:{id:string;key:string}|null=null,sequence=0,epoch=0,timer=0;
  function clearPeer(id:string){
   const remote=avatars.get(id);if(!remote)return;
@@ -22,7 +22,7 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
    let remote=avatars.get(peer.sessionId);
    if(!remote){
     const body=visitorMesh(scene,peer.sessionId);body.root.position.set(...peer.position as [number,number,number]);
-    remote={body,peer,target:body.root.position.clone()};avatars.set(peer.sessionId,remote);
+    remote={body,peer,bowTime:0,target:body.root.position.clone()};avatars.set(peer.sessionId,remote);
    }
    if(peer.sequence>=remote.peer.sequence){remote.peer=peer;remote.target.set(...peer.position as [number,number,number]);}
   }
@@ -30,12 +30,13 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
  }
  scene.onBeforeRenderObservable.add(()=>{
   const dt=Math.min(.1,scene.getEngine().getDeltaTime()/1000);
-  for(const {body,target,peer} of avatars.values()){
+  for(const remote of avatars.values()){
+   const {body,target,peer}=remote;
    Vector3.LerpToRef(body.root.position,target,1-Math.exp(-18*dt),body.root.position);
    body.root.rotation.y=peer.yaw;
-   body.root.rotation.x=peer.animation==='worship'?.35:0;
-   body.arms.forEach(arm=>arm.rotation.x=peer.animation==='worship'?-.8:0);
-   body.legs.forEach((l,i)=>l.rotation.x=peer.animation==='walk'?.35*Math.sin(performance.now()*.01+i*Math.PI):0);
+   remote.bowTime=peer.animation==='worship'?Math.min(4.8,remote.bowTime+dt):0;
+   body.bow(remote.bowTime/4.8);
+   if(peer.animation==='walk')body.legs.forEach((leg,i)=>leg.rotation.x=.35*Math.sin(performance.now()*.01+i*Math.PI));
   }
  });
  async function sync(generation:number){

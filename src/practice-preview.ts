@@ -1,0 +1,78 @@
+import {Engine} from '@babylonjs/core/Engines/engine';
+import {Scene} from '@babylonjs/core/scene';
+import {ArcRotateCamera} from '@babylonjs/core/Cameras/arcRotateCamera';
+import {HemisphericLight} from '@babylonjs/core/Lights/hemisphericLight';
+import {DirectionalLight} from '@babylonjs/core/Lights/directionalLight';
+import {Vector3} from '@babylonjs/core/Maths/math.vector';
+import {Color3,Color4} from '@babylonjs/core/Maths/math.color';
+import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
+import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
+import {visitorRobe} from './visitor-robe';
+import {prayerLight} from './practice-light';
+import {furnishHall} from './hall-interior';
+import {practiceSeat} from './hall-seats';
+import {Mesh} from '@babylonjs/core/Meshes/mesh';
+import {rainbow} from './bow-practice';
+import {visitorMesh} from './walking';
+
+const canvas=document.querySelector('canvas')!,engine=new Engine(canvas,true),scene=new Scene(engine);
+scene.clearColor=new Color4(.86,.84,.79,1);
+const camera=new ArcRotateCamera('preview-camera',Math.PI*.40,1.24,3.65,new Vector3(0,.85,0),scene);
+camera.attachControl(canvas,true);camera.lowerRadiusLimit=2.6;camera.upperRadiusLimit=5;camera.upperBetaLimit=1.5;camera.wheelPrecision=60;camera.panningSensibility=0;
+new HemisphericLight('sky',new Vector3(0,1,0),scene).intensity=.60;
+new DirectionalLight('sun',new Vector3(-.65,-1,-.6),scene).intensity=.57;
+function cloth(name:string,color:string){
+ const m=new StandardMaterial(name,scene);m.diffuseColor=Color3.FromHexString(color);m.specularColor=Color3.Black();return m;
+}
+const timber=cloth('hall wood','#70452d'),beam=cloth('painted beam','#914836');
+const floor=MeshBuilder.CreateGround('hall floor',{width:34,height:24},scene);
+floor.material=timber;floor.position.set(0,1.69,38);
+const parts:Mesh[]=[];
+furnishHall(scene,parts,timber,beam);
+const groups=new Map<StandardMaterial,Mesh[]>();
+for(const mesh of parts){
+ const material=mesh.material as StandardMaterial;
+ if(!groups.has(material))groups.set(material,[]);
+ groups.get(material)!.push(mesh);
+}
+for(const parts of groups.values())Mesh.MergeMeshes(parts,true,true);
+const avatar=visitorMesh(scene,'preview-visitor'),outfit=visitorRobe(scene,avatar);
+avatar.root.position.set(practiceSeat.x,1.778,practiceSeat.z);
+camera.upperRadiusLimit=12;camera.setTarget(new Vector3(practiceSeat.x,2.95,practiceSeat.z));
+camera.setPosition(new Vector3(practiceSeat.x-1.55,4.15,practiceSeat.z-6.4));
+const previewView=new URLSearchParams(location.search).get('view');
+if(previewView==='bow'){
+ camera.setTarget(new Vector3(practiceSeat.x,2.46,practiceSeat.z+.35));
+ camera.setPosition(new Vector3(practiceSeat.x-2.9,2.86,practiceSeat.z-1));
+}
+if(previewView==='monk'){
+ camera.setTarget(new Vector3(-1.20,2.66,43.05));
+ camera.setPosition(new Vector3(-3.7,3.0,40.9));
+}
+function framePreview(){
+ camera.fovMode=canvas.clientWidth<canvas.clientHeight?ArcRotateCamera.FOVMODE_HORIZONTAL_FIXED:ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
+}
+framePreview();
+const plain=document.querySelector<HTMLButtonElement>('#everyday')!,robe=document.querySelector<HTMLButtonElement>('#robe')!,replay=document.querySelector<HTMLButtonElement>('#replay')!;
+function wear(on:boolean){
+ if(outfit.wearing===on)return;
+ plain.disabled=robe.disabled=true;
+ outfit.change(on,()=>{plain.disabled=robe.disabled=false;plain.setAttribute('aria-pressed',String(!on));robe.setAttribute('aria-pressed',String(on));});
+}
+plain.onclick=()=>wear(false);robe.onclick=()=>wear(true);
+const status=document.querySelector<HTMLElement>('#phase')!;
+replay.onclick=()=>{
+ replay.disabled=true;status.textContent='108번째 절 · 수행 중';
+ const light=prayerLight(scene,avatar.root.position);
+ let time=0,completed=false;
+ const observer=scene.onBeforeRenderObservable.add(()=>{
+  time+=Math.min(.1,engine.getDeltaTime()/1000);
+  const phase=Math.min(1,Math.max(0,(time-.6)/4.8));
+  avatar.bow(phase);
+  if(phase===1&&!completed){completed=true;light.fade();rainbow(scene,avatar.root.position);status.textContent='108배 완료';}
+  if(completed&&!scene.getMeshByName('bow-rainbow-ring')){scene.onBeforeRenderObservable.remove(observer);replay.disabled=false;}
+ });
+};
+const render=()=>scene.render();
+function visibility(){if(document.hidden)engine.stopRenderLoop(render);else engine.runRenderLoop(render);}
+visibility();document.addEventListener('visibilitychange',visibility);window.addEventListener('resize',()=>{engine.resize();framePreview();});

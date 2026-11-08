@@ -9,6 +9,12 @@ const views:Record<string,string[]>={
  jijangPlaza:['지장전','외관'],jijangInterior:['지장전','내부'],entrance:['대웅전','입구'],sanctuary:['대웅전','내부'],seating:['대웅전','방석'],shrine:['대웅전','불단'],face:['대웅전','불상'],chime:['처마','풍경'],
 };
 export function translateViews(select:HTMLSelectElement){
- if(locale==='ko')return;
- for(const opt of select.options){const keys=views[opt.value];if(keys)opt.textContent=keys.map(t).join(' · ');}
+ const selected=select.value;
+ const options=Array.from(select.options);
+ if(locale!=='ko'){
+  for(const opt of options){const keys=views[opt.value];if(keys)opt.textContent=keys.map(t).join(' · ');}
+ }
+ const collator=new Intl.Collator(locale,{numeric:true});
+ options.sort((a,b)=>collator.compare(a.label,b.label));
+ select.replaceChildren(...options);select.value=selected;
 }

@@ -635,10 +635,12 @@ export function createTemple(canvas:HTMLCanvasElement) {
  halo.addColorStop(.55,'rgba(255,159,57,.12)');
  halo.addColorStop(1,'rgba(255,146,49,0)');
  brush.fillStyle=halo;brush.fillRect(0,0,128,128);
- brush.beginPath();brush.moveTo(65,46);
- brush.bezierCurveTo(64,56,51,72,63,77);
- brush.bezierCurveTo(75,76,68,58,65,46);
- brush.fillStyle='#fff4cb';brush.fill();
+ brush.beginPath();brush.moveTo(68,37);
+ brush.bezierCurveTo(67,54,49,72,63,78);
+ brush.bezierCurveTo(76,77,67,54,68,37);
+ const wickGlow=brush.createLinearGradient(64,37,64,78);
+ wickGlow.addColorStop(0,'#ffdda0');wickGlow.addColorStop(.55,'#fff9e1');wickGlow.addColorStop(1,'#fff0bf');
+ brush.fillStyle=wickGlow;brush.fill();
  flameTexture.hasAlpha=true;flameTexture.update();
  const flameMaterial=mat('offering-flame-gold','#ffffff');
  flameMaterial.disableLighting=true;flameMaterial.emissiveColor=new Color3(1.35,1.2,1);
@@ -675,7 +677,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    const flame=MeshBuilder.CreatePlane('offering-flame',{size:.66},scene);
    flame.material=flameMaterial;flame.billboardMode=Mesh.BILLBOARDMODE_ALL;flame.isPickable=false;
    flame.position.set(wx,tip+.078,wz);
-   offeringFlames.push(flame);
+   flame.metadata={wickY:flame.position.y};offeringFlames.push(flame);
    if(serverLayout||available)flame.setEnabled(!serverLayout&&!!readApplication(fixed.id));
    if(available||serverLayout){
     const parts=staticMeshes.splice(taperStart);
@@ -774,7 +776,30 @@ export function createTemple(canvas:HTMLCanvasElement) {
  for(const {x,z} of meditationTrees){ cylinder('meditation-tree',.35,5,new Vector3(x,2.5,z),trunk);const crown=MeshBuilder.CreateSphere('meditation-crown',{diameter:4.5,segments:8},scene);crown.position.set(x,5.8,z);crown.material=leaves;staticMeshes.push(crown);}
  furnishHall(scene,staticMeshes,wood,painted);
  // Merge static geometry by material. Shadow lists are rebuilt to avoid disposed casters.
- const walking=walkingController(scene,camera,canvas,pedestrianWorld(staticMeshes));
+ const walkWorld=pedestrianWorld(staticMeshes);
+ const walking=walkingController(scene,camera,canvas,walkWorld);
+ const entryTexture=new DynamicTexture('door-direction',128,scene,false);
+ const pen=entryTexture.getContext() as CanvasRenderingContext2D;
+ pen.strokeStyle='#ffe1a3';pen.shadowColor='#ffcb75';pen.shadowBlur=7;pen.lineWidth=3;pen.lineCap='round';
+ pen.beginPath();pen.moveTo(16,81);pen.lineTo(64,46);pen.lineTo(112,81);pen.stroke();
+ entryTexture.hasAlpha=true;entryTexture.update();
+ const doorGuides=templePlaces.filter(p=>['daeung','gwaneum','jijang','indeung'].includes(p.id)).map(place=>{
+  const yaw='yaw' in place?place.yaw:0;
+  const dz=place.id==='daeung'?daeungDimensions.z:place.scale;
+  const distance=7.45*dz+1.4;
+  const x=place.x-Math.sin(yaw)*distance,z=place.z-Math.cos(yaw)*distance;
+  const marks=Array.from({length:3},(_,i)=>{
+   const offset=(i-1)*.37;
+   const cx=x+Math.sin(yaw)*offset,cz=z+Math.cos(yaw)*offset;
+   const guide=MeshBuilder.CreateGround('hall-entry-chevron',{width:1.16,height:.76},scene);
+   guide.position.set(cx,walkWorld.floor(cx,cz)+.035,cz);guide.rotation.y=yaw;
+   guide.isPickable=false;
+   const ink=new StandardMaterial('threshold-light',scene);ink.disableLighting=true;ink.disableDepthWrite=true;
+   ink.emissiveColor=Color3.White();ink.diffuseTexture=entryTexture;ink.useAlphaFromDiffuseTexture=true;ink.alpha=.16;
+   guide.material=ink;return ink;
+  });
+  return {x,z,yaw,marks};
+ });
  shadows.getShadowMap()!.renderList=[];
  function batchArchitecture(meshes:Mesh[],display:boolean){
   const groups=new Map<StandardMaterial,Mesh[]>();
@@ -997,6 +1022,21 @@ export function createTemple(canvas:HTMLCanvasElement) {
  function setQuality(value:Quality){quality=value;engine.setHardwareScalingLevel(value==='low'?Math.max(1,Math.min(canvas.clientWidth/640,canvas.clientHeight/720)):1);shadows.getShadowMap()!.resize(value==='low'?512:currentTime==='day'?4096:2048);glow.isEnabled=value==='high';}
  const startZ=outerGate.z+3;
  const exitZ=innerGate.z+7.2;
+ let arrivalTime:number|null=null;
+ function finishArrival(){
+  arrivalTime=null;walking.mode(true);camera.alpha=-Math.PI/2;camera.beta=1.26;
+  walking.update(0);canvas.focus();
+ }
+ function arrivalPose(progress:number){
+  const ease=progress*progress*(3-2*progress);
+  camera.setTarget(new Vector3(0,2.3-1.09*ease,-14-51*ease));
+  camera.setPosition(new Vector3(0,15.8-13.61*ease,-78+9.95*ease));
+ }
+ function beginArrival(){
+  camera.fov=.92;camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
+  if(reduced){finishArrival();return;}
+  arrivalTime=0;arrivalPose(0);
+ }
  let walkZ:number|null=null;
  let walkEnd=exitZ;
  function approachPose(z:number){
@@ -1011,7 +1051,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   camera.setTarget(new Vector3(-3.85*glance,2.15+3.15*glance,z+5.8-2*glance));
   camera.setPosition(new Vector3(0,1.72,z));
  }
- function cancelGateWalk(){walkZ=null;}
+ function cancelGateWalk(){walkZ=null;if(arrivalTime!==null)finishArrival();}
  canvas.addEventListener('pointerdown',cancelGateWalk);
  canvas.addEventListener('wheel',cancelGateWalk);
  canvas.addEventListener('keydown',cancelGateWalk);
@@ -1149,6 +1189,10 @@ export function createTemple(canvas:HTMLCanvasElement) {
   const place=templePlaces.find(p=>p.id===name);if(place){camera.setTarget(new Vector3(place.x,3,place.z));camera.alpha=-Math.PI/2-('yaw' in place?place.yaw:0);camera.beta=1.15;camera.radius=place.kind==='forest'?48:place.scale*(canvas.clientWidth/canvas.clientHeight<.9?42:28);return;}if(name==='map'){camera.setTarget(new Vector3(0,0,-2));camera.alpha=-Math.PI/2;camera.beta=.24;camera.radius=210;return;}if(name==='canopy'){camera.setTarget(new Vector3(0,6,-16));camera.alpha=-Math.PI/2;camera.beta=2.1;camera.radius=9;}else if(name==='front'){camera.setTarget(new Vector3(0,5,32));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=55;}else if(name==='detail'){camera.setTarget(new Vector3(-6,6.6,29));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=selectedPosition(selected);camera.setTarget(Vector3.FromArray([...p]).add(new Vector3(0,-.4,0)));camera.alpha=-2.9;camera.beta=1.95;camera.radius=4;}else{camera.setTarget(new Vector3(0,2,-2));camera.alpha=-Math.PI*.58;camera.beta=.65;camera.radius=175;}}
  rebuildLanterns(1000);time('day');
  scene.onBeforeRenderObservable.add(()=>{
+  if(arrivalTime!==null){
+   arrivalTime+=Math.min(.1,engine.getDeltaTime()/1000);
+   if(arrivalTime>=2.5)finishArrival();else arrivalPose(arrivalTime/2.5);
+  }
   walking.update(engine.getDeltaTime()/1000);
   if(walkZ!==null){
    walkZ=Math.min(walkEnd,walkZ+Math.min(engine.getDeltaTime(),60)*.0021);
@@ -1166,9 +1210,17 @@ export function createTemple(canvas:HTMLCanvasElement) {
    star.position.addInPlace(toward.scale(.10));
    star.scaling.setAll(Math.max(1,distance*.052)*(reduced?1:.93+.30*Math.sin(t*3.6)));
   }
+  const walker=walking.position;
+  for(const {x,z,yaw,marks} of doorGuides){
+   const dx=walker?walker[0]-x:0,dz=walker?walker[2]-z:0;
+   const forward=dx*Math.sin(yaw)+dz*Math.cos(yaw);
+   const near=walker?Math.max(0,1-Math.hypot(dx,dz)/8):0;
+   marks.forEach((ink,i)=>{ink.alpha=walker&&forward>2?0:.15+near*(reduced?.55:.43+.19*Math.cos(t*3-i*1.05));});
+  }
   for(const [index,flame] of offeringFlames.entries()){
    const shimmer=reduced?0:Math.sin(t*(2.1+.12*(index%5))+index*2.4);
-   flame.scaling.set(1+.045*shimmer,1+.09*shimmer,1);
+   flame.scaling.set(1+.035*shimmer,1+.12*shimmer,1);
+   flame.position.y=flame.metadata.wickY+.078*.12*shimmer;
   }
   for(const {mesh,center,phase} of sparkles){
    const a=phase+(reduced?0:t*.10);
@@ -1209,5 +1261,5 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const mesh of displayBatches)mesh.setEnabled(value!=='empty');
   for(const [id,slot] of applicationSlots)if(displayKinds.has(slot.kind))refreshApplication(id);
  }
- return {selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ return {beginArrival,selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }

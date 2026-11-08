@@ -7,7 +7,7 @@ export default defineConfig(({mode})=>({server:{fs:{deny:['.env','.env.*','*.{cr
 }]:mode==='service'?[{
  name:'local-service',
  configureServer:attachService,configurePreviewServer:attachService
-}]:[],build:{rolldownOptions:{input:{faceStudy:'face-study.html',main:'index.html',shared:'shared.html',staff:'staff.html',hanji:'hanji.html',daylight:'daylight.html',colors:'hanji-colors.html',sunlight:'hanji-sunlight.html'}}}}));
+}]:[],build:{rolldownOptions:{input:{practicePreview:'practice-preview.html',faceStudy:'face-study.html',main:'index.html',shared:'shared.html',staff:'staff.html',hanji:'hanji.html',daylight:'daylight.html',colors:'hanji-colors.html',sunlight:'hanji-sunlight.html'}}}}));
 
 async function attachService(server){const {serviceApi}=await import('./server/service/api.mjs');server.middlewares.use(await serviceApi());
   const {maintainOrders}=await import('./server/service/lifecycle.mjs');

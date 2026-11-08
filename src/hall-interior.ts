@@ -1,3 +1,4 @@
+import {placeHallMonk} from './hall-monk';
 import { seatedFigure } from './gilt-figure.ts';
 import { PointLight } from '@babylonjs/core/Lights/pointLight';
 import { Scene } from '@babylonjs/core/scene';
@@ -6,7 +7,7 @@ import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { MeshBuilder as B } from '@babylonjs/core/Meshes/meshBuilder';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
-import { hallSeats } from './hall-seats.ts';
+import { hallSeats, practiceSeat } from './hall-seats.ts';
 
 // Built separately from the exterior template so other buildings do not inherit the shrine.
 export function furnishHall(scene:Scene, meshes:Mesh[], timber:StandardMaterial, beam:StandardMaterial){
@@ -74,16 +75,17 @@ export function furnishHall(scene:Scene, meshes:Mesh[], timber:StandardMaterial,
   lathe('tapered-flame',x,base+.87,z,[[.006,0],[.028,.025],[.023,.074],[.001,.157]],flame);
   oval('wax-drip',x-.02,base+.78,z-.05,.019,.104,.018,ivory);
  }
- box('monk-mat',0,floor+.055,42.52,1.36,.11,1.16,ochre);
+ box('monk-mat',-1.44,floor+.055,43.05,1.36,.11,1.16,ochre);
  box('scripture-desk',0,floor+.48,43.23,1.5,.13,.54,timber);
  for(const x of [-.59,.59])box('desk-foot',x,floor+.22,43.23,.12,.44,.4,timber);
  box('sutra',-.2,floor+.565,43.2,.66,.05,.33,ivory);
- oval('moktak',.48,floor+.67,43.18,.31,.19,.23,dark);
+ placeHallMonk(scene,-1.44,floor+.11,43.05);
  const coats=['#53677a','#75615b','#596659','#a17b74','#665971'].map((c,i)=>mat('visitor-coat-'+i,c));
  const skin=mat('skin','#cc9675'),pants=mat('trousers','#42434b');
  for(const [i,{x,z}] of hallSeats.entries()){
   const coat=coats[(i*3+Math.floor(i/10))%coats.length];
   box('bow-cushion',x,floor+.044,z,1.02,.088,.87,matRed);
+  if(x===practiceSeat.x&&z===practiceSeat.z)continue;
   oval('folded-legs',x,floor+.23,z+.09,.75,.28,.63,pants);
   oval('seated-robe',x,floor+.56,z,.49,.69,.36,coat);
   oval('head',x,floor+1.01,z,.225,.285,.23,skin);oval('hair',x,floor+1.085,z-.016,.238,.17,.235,black);

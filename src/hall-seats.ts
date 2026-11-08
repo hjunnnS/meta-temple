@@ -4,3 +4,6 @@ export const bowSpace={width:1.05,depth:1.85};
 export const hallSeats=Array.from({length:50},(_,i)=>({
  x:(i%10<5?-1:1)*(2.1+(i%5)*1.95),z:32.2+Math.floor(i/10)*2.05,
 }));
+
+// Inner cushion beside the aisle, reserved for the walking visitor.
+export const practiceSeat=hallSeats[35];
