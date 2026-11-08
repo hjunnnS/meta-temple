@@ -1,0 +1,11 @@
+{
+  "environment": "Mac localhost, PostgreSQL 17, desktop Chrome, synthetic accounts and payments",
+  "issues": {
+    "59": "Pending test payment completed before erasure. Public text, mail and login information cleared. Advancing the test retention timestamp past 30 days purged the order.",
+    "60": "A delayed payment produced one alert across repeated scans. Desk acknowledgement was recorded and completion resolved it. Installation and refund failures enter the alert queue in the same transaction as the failure.",
+    "61": "A daily dump restored into a new database. All 17 table fingerprints matched, including 531 slots, one order and one installation. Last timed restore 94 ms.",
+    "62": "Repeated settlement and receipt verification produced one installation. The 26f8b36 web build served with the current API and the same database. Chrome recovered five installed items at their original slots.",
+    "63": "Chrome cancelled an unpaid order, reselected its slot, left pending checkout, reopened the service and completed the same order. The account recovered its five installed offerings after reload."
+  },
+  "deferred": ["religious review of worship text and motion (#36)", "native apps and low-end physical handset performance", "production hosting, personal data policy and payments"]
+}

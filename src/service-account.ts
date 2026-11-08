@@ -23,7 +23,11 @@ export function setupAccount(){
    if(n!==sequence)return;
    status.textContent=account.email+' · 내 아이템 '+data.items.length+'개';logout.hidden=false;
    if(staff.roles.length){const link=document.createElement('a');link.href='/staff.html';link.textContent='시험 운영 화면';link.dataset.staffLink='';list.before(link);}
-   const states:Record<string,string>={pending:'결제 대기',paid:'결제 확인',installed:'설치됨',recovering:'설치 복구 중',refund_pending:'환불 중',refund_failed:'환불 확인 중',refunded:'환불 완료',expired:'기간 만료'};
+   const erase=document.createElement('button');erase.textContent='시험 계정 삭제';list.append(erase);
+   erase.onclick=async()=>{if(!window.confirm('진행 중인 거래가 끝나면 로그인 정보와 공개 문구를 지웁니다. 시험 거래 기록은 30일 뒤 삭제됩니다. 요청할까요?'))return;
+    try{const result=await api('me/delete',{confirm:true});window.dispatchEvent(new Event('sasa:account'));window.dispatchEvent(new Event('sasa:installations'));await refresh();status.textContent=result.waiting?'진행 중인 거래를 마치면 계정을 삭제합니다.':'시험 계정을 삭제했습니다.';}catch{status.textContent='삭제 요청을 접수하지 못했습니다.';}
+   };
+   const states:Record<string,string>={cancelled:'결제 취소',pending:'결제 대기',paid:'결제 확인',installed:'설치됨',recovering:'설치 복구 중',refund_pending:'환불 중',refund_failed:'환불 확인 중',refunded:'환불 완료',expired:'기간 만료'};
    for(const item of data.items){
     const li=document.createElement('li'),details=document.createElement('details'),title=document.createElement('summary'),info=document.createElement('p');
     title.textContent=item.slotId+' · '+(states[item.status]??item.status);

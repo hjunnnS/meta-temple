@@ -1,6 +1,6 @@
 import {transaction} from './database.mjs';
 
-const scopes={offers:'catalog',orders:'desk',content:'moderation'};
+const scopes={alerts:'desk',offers:'catalog',orders:'desk',content:'moderation'};
 export function staff(account,area,method,input){
  return transaction(async db=>{
   const {rows}=await db.query('SELECT role FROM staff_roles WHERE account_id=$1 FOR SHARE',[account]);
@@ -9,6 +9,7 @@ export function staff(account,area,method,input){
   const role=scopes[area];
   if(!roles.includes(role))return [403,{error:'forbidden'}];
   if(method==='GET'){
+   if(area==='alerts')return [200,{rows:(await db.query('SELECT target AS id,kind,acknowledged_at FROM operation_alerts WHERE resolved_at IS NULL ORDER BY detected_at')).rows}];
    if(area==='orders'){
     const term=String(input.q??'').trim().slice(0,100);
     const result=await db.query(`SELECT o.id,o.status,o.offer_id,o.slot_id,o.amount_krw,o.install_attempts,f.enabled,o.next_attempt_at FROM orders o LEFT JOIN offers f ON f.id=o.offer_id WHERE $1='' OR strpos(concat_ws(' ',o.id::text,o.slot_id,o.offer_id,o.status),$1)>0 OR ($1='판매 중지' AND NOT f.enabled) ORDER BY o.created_at DESC LIMIT 100`,[term]);
@@ -26,7 +27,11 @@ export function staff(account,area,method,input){
   if(method!=='POST'||typeof input.id!=='string'||typeof input.reason!=='string'||!input.reason.trim()||input.reason.length>200)return [400,{error:'invalid_action'}];
   await db.query('SELECT pg_advisory_xact_lock(541931)');
   let before,after,action;
-  if(area==='offers'){
+  if(area==='alerts'){
+   before={acknowledged:false};after={acknowledged:true};action='acknowledge';
+   const result=await db.query('UPDATE operation_alerts SET acknowledged_at=now() WHERE target=$1 AND kind=$2 AND resolved_at IS NULL AND acknowledged_at IS NULL',[input.id,input.kind]);
+   if(!result.rowCount)return [409,{}];
+  }else if(area==='offers'){
    if(typeof input.enabled!=='boolean'||!Number.isSafeInteger(input.price)||input.price<=0||input.price>2147483647)return [400,{error:'invalid_offer'}];
    before=(await db.query('SELECT enabled,price_krw,revision FROM offers WHERE id=$1 FOR UPDATE',[input.id])).rows[0];
    if(!before)return [404,{}];

@@ -1,3 +1,4 @@
+import {maintainPrivacy} from './operations.mjs';
 import {staff} from './staff.mjs';
 import {createHash,randomBytes,randomUUID} from 'node:crypto';
 import {writeFile} from 'node:fs/promises';
@@ -82,6 +83,7 @@ export async function serviceApi(){
    }
    const {rows:[account]}=await pool.query('SELECT a.id,a.email FROM accounts a JOIN sessions s ON a.id=s.account_id WHERE s.digest=$1 AND s.expires_at>now()',[cookieHash]);
    if(!account)return send(401,{error:'login_required'});
+   if(path==='/api/service/me/delete'&&req.method==='POST'&&input.confirm===true)return send(200,await maintainPrivacy(account.id));
    if(path==='/api/service/report'&&req.method==='POST'){
     if(!['privacy','harm','other'].includes(input.category)||typeof input.id!=='string')return send(400,{error:'invalid_report'});
     const found=await pool.query('WITH visible AS (SELECT id FROM public_offerings WHERE id::text=$1), submitted AS (INSERT INTO content_reports(installation_id,reporter,category) SELECT id,$2,$3 FROM visible ON CONFLICT DO NOTHING) SELECT id FROM visible',[input.id,account.id,input.category]);

@@ -12,4 +12,10 @@ fi
 if ! psql -h "$root/socket" -p 54839 -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='temple_test'" | grep -qx 1; then
  createdb -h "$root/socket" -p 54839 temple_test
 fi
+if [ -n "${M3_WEB_RELEASE:-}" ]; then
+ case "$M3_WEB_RELEASE" in *[!A-Za-z0-9_-]*|'') exit 2;; web-release-*) ;; *) exit 2;; esac
+ dir="$root/$M3_WEB_RELEASE/dist"
+ test -f "$dir/index.html"
+ exec ./node_modules/.bin/vite preview --mode service --outDir "$dir" --host 127.0.0.1 --port 4330 --strictPort
+fi
 exec ./node_modules/.bin/vite --mode service --host 127.0.0.1 --port 4330 --strictPort

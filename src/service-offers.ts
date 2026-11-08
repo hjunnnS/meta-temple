@@ -21,6 +21,7 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
   button('주문 확인',async()=>{
    const order=await service('trade/checkout',{holdId:h.id});controls.replaceChildren();
    note.textContent='선택한 자리 '+h.slotId+' · 시험 결제 '+order.amount_krw.toLocaleString('ko-KR')+'원';
+   button('시험 결제 취소',async()=>{await service('trade/test-cancel',{orderId:order.id});controls.replaceChildren();note.textContent='시험 결제를 취소하고 자리를 해제했습니다.';button('기간권 보기',restart);});
    button('시험 결제하기',async()=>{const r=await service('trade/test-pay',{orderId:order.id});controls.replaceChildren();if(r.status==='installed'){note.textContent='시험 결제 및 설치 완료';window.dispatchEvent(new Event('sasa:installations'));button('기간권 보기',restart);}else{note.textContent='결제 완료 · 같은 자리 설치 확인 중';button('설치 다시 확인',async()=>{const next=await service('trade/reconcile',{orderId:order.id});if(next.status==='installed'){window.dispatchEvent(new Event('sasa:installations'));await restart();}});}});
   });
  }

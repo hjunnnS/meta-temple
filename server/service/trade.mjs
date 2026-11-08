@@ -36,6 +36,7 @@ export async function trade(action,method,input,account){
   }
   if(method!=='POST')deny(405,'method');
   if(action==='enter'){
+   const eligible=await db.query('SELECT 1 FROM accounts WHERE id=$1 AND deletion_requested_at IS NULL',[account]);if(!eligible.rowCount)deny(409,'deletion_requested');
    const {rows:[slot]}=await db.query('SELECT s.id,s.kind,o.revision FROM slots s JOIN offers o ON o.kind=s.kind WHERE s.id=$1 AND o.id=$2 AND o.enabled',[input.slotId,input.offerId]);
    if(slot&&slot.revision!==(input.revision??1))deny(409,'offer_changed');
    if(!slot)deny(409,'incompatible_offer');
@@ -69,7 +70,16 @@ export async function trade(action,method,input,account){
   if(!uuid(input.orderId))deny(400,'invalid_order');
   const {rows:[order]}=await db.query('SELECT * FROM orders WHERE id=$1 AND account_id=$2',[input.orderId,account]);
   if(!order)deny(404,'unknown_order');
+  if(action==='test-cancel'){
+   if(order.status==='cancelled')return [200,{id:order.id,status:'cancelled'}];
+   const receipt=await db.query("UPDATE test_receipts SET status='cancelled' WHERE order_id=$1 AND status='pending' AND $2='pending'",[order.id,order.status]);
+   if(!receipt.rowCount)deny(409,'payment_already_processed');
+   await db.query("UPDATE orders SET status='cancelled' WHERE id=$1",[order.id]);
+   await db.query("UPDATE reservations SET released_at=now(),payment_lock=false WHERE id=$1",[order.reservation_id]);
+   return [200,{id:order.id,status:'cancelled'}];
+  }
   if(action==='test-pay'){
+   if(order.status==='cancelled')deny(409,'payment_cancelled');
    // This is a loopback-only test provider. The amount and buyer come from its own receipt.
    await db.query("UPDATE test_receipts SET status='paid' WHERE order_id=$1 AND status='pending'",[order.id]);
   }else if(action!=='reconcile')deny(404,'unknown_action');

@@ -1,5 +1,7 @@
 import {transaction} from './database.mjs';
 async function record(db,o,kind){
+ const fault={install_retry:'install_failure',refund_pending:'install_failure',refund_failed:'refund_failure'}[kind];
+ if(fault)await db.query('INSERT INTO operation_alerts(kind,target) VALUES($1,$2) ON CONFLICT(kind,target) DO UPDATE SET resolved_at=NULL,acknowledged_at=NULL,detected_at=now() WHERE operation_alerts.resolved_at IS NOT NULL',[fault,o.id]);
  await db.query('INSERT INTO events(kind,account_id,order_id) VALUES($1,$2,$3)',[kind,o.account_id,o.id]);
 }
 async function release(db,o){
