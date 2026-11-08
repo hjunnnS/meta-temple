@@ -37,3 +37,8 @@
  body:not(.exploring) :is(footer,.place-picker,.hint){display:none}
 }
 #service-account{margin-left:auto;margin-right:8px;background:#283c34;color:white;border:1px solid #849487;border-radius:5px;padding:0 12px}
+
+.ceremony-board{position:absolute;top:5.3rem;left:clamp(.75rem,2vw,2rem);max-width:min(22rem,80vw);padding:.7rem .95rem;background:rgba(21,38,31,.91);color:#fff5de;border:1px solid #bba77c;border-radius:.5rem;z-index:3;display:grid;gap:.3rem}
+.ceremony-board[hidden],.ceremony-board button[hidden]{display:none}
+.ceremony-board small{color:#e2d7c2}.ceremony-board button{justify-self:start;color:#fff5de;background:#365446;border:1px solid #9fba9c;border-radius:.3rem;padding:.3rem .65rem}
+@media(max-width:650px){.ceremony-board{top:auto;bottom:10rem;max-width:75vw;font-size:.8rem}}

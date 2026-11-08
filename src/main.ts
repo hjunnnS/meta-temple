@@ -4,6 +4,7 @@ import {translateViews} from './locales/views';
 import {watchPublic} from './public-refresh.ts';
 import { displayOffers } from './service-offers.ts';
 import { setupAccount } from './service-account.ts';
+import {ceremonyBoard} from './ceremony-board';
 import { templeAudio } from './temple-audio.ts';
 import { reviewPresence } from './review-presence.ts';
 import { offeringZones } from './contracts.ts';
@@ -66,6 +67,7 @@ const audio=templeAudio((enabled,message)=>{
 });
 $('#audio-on').onchange=()=>{if($<HTMLInputElement>('#audio-on').checked)void audio.enable();else audio.mute();};
 $('#audio-volume').oninput=()=>audio.setVolume(Number($<HTMLInputElement>('#audio-volume').value)/100);
+ceremonyBoard(root,()=>app.settings.visitor,()=>$<HTMLSelectElement>('#place').value,()=>Number($<HTMLInputElement>('#audio-volume').value)/100);
 let loadFailed=false,pendingView:string|null=null;
 const loading=$('#loading'),retry=$<HTMLButtonElement>('#load-retry');
 let timer=window.setTimeout(()=>loadError('준비 시간이 길어지고 있습니다. 다시 시도해 주세요.'),30000);

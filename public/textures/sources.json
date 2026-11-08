@@ -97,5 +97,53 @@
     "rights": "프로젝트 자체 제작 장면 캡처",
     "material": "entry-background-srgb",
     "bytes": 221099
+  },
+  {
+    "file": "public/ceremonies/bell.mp3",
+    "bytes": 64388,
+    "sha256": "5d00a9bc15ef04c8538426a05d8b68eb220e2d6ed0dc16e60f95e62938a42a7a",
+    "source": "scripts/make-ceremony-audio.py",
+    "credit": "사사 임시 한국어 안내 · macOS Yuna 음성 합성 및 자체 합성 타악음",
+    "rights": "비공개 후보 검수용 임시 음성. 공개 전 제작 음원으로 교체."
+  },
+  {
+    "file": "public/ceremonies/bow.mp3",
+    "bytes": 66164,
+    "sha256": "c6da6de0bad82a682431c09792939d4ba699878dce1be2544d311ea8df711226",
+    "source": "scripts/make-ceremony-audio.py",
+    "credit": "사사 임시 한국어 안내 · macOS Yuna 음성 합성 및 자체 합성 타악음",
+    "rights": "비공개 후보 검수용 임시 음성. 공개 전 제작 음원으로 교체."
+  },
+  {
+    "file": "public/ceremonies/chant.mp3",
+    "bytes": 157892,
+    "sha256": "f46d2fe30ab51aa088a11da574c9d685bcd04f7387ca5485b8ae35c6af73910f",
+    "source": "scripts/make-ceremony-audio.py",
+    "credit": "사사 임시 한국어 남성 낭독 · macOS Reed 음성 합성 및 자체 합성 목탁음",
+    "rights": "비공개 후보 검수용 임시 음성. 공개 전 제작 음원으로 교체."
+  },
+  {
+    "file": "public/ceremonies/moktak.mp3",
+    "bytes": 68708,
+    "sha256": "5baf72ad7f12f1ec7a0db49deb8828a1e8777cbc975061cedd4a53a56c58b6da",
+    "source": "scripts/make-ceremony-audio.py",
+    "credit": "사사 임시 한국어 안내 · macOS Yuna 음성 합성 및 자체 합성 타악음",
+    "rights": "비공개 후보 검수용 임시 음성. 공개 전 제작 음원으로 교체."
+  },
+  {
+    "file": "public/ceremonies/palms.mp3",
+    "bytes": 60260,
+    "sha256": "990e356c848ef38489e028f703959fa34836ce36cd635ffa4235853ceb49f4f8",
+    "source": "scripts/make-ceremony-audio.py",
+    "credit": "사사 임시 한국어 안내 · macOS Yuna 음성 합성 및 자체 합성 타악음",
+    "rights": "비공개 후보 검수용 임시 음성. 공개 전 제작 음원으로 교체."
+  },
+  {
+    "file": "public/ceremonies/wish.mp3",
+    "bytes": 63980,
+    "sha256": "35e1fd4c0da07b25ce9b7e6c51a25616fc4f091b57c68f43e0923a5280666ce3",
+    "source": "scripts/make-ceremony-audio.py",
+    "credit": "사사 임시 한국어 안내 · macOS Yuna 음성 합성 및 자체 합성 타악음",
+    "rights": "비공개 후보 검수용 임시 음성. 공개 전 제작 음원으로 교체."
   }
 ]

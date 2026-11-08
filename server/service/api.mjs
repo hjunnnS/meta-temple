@@ -39,6 +39,7 @@ export async function serviceApi(env=process.env){
     try{input=JSON.parse(data||'{}');}catch{return send(400,{error:'invalid_json'});}
     if(!input||typeof input!=='object')return send(400,{error:'invalid_input'});
    }
+   if(path==='/api/service/time'&&req.method==='GET')return send(200,{time:Date.now()});
    if(path==='/api/service/auth/methods'&&req.method==='GET')return send(200,{external:!!external,methods:external?.methods??[],client:external?.client});
    if(path==='/api/service/auth/finish'&&req.method==='POST'&&external){
     const identity=await verifiedIdentity(external,input.idToken,verify);
