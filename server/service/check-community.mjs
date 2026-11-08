@@ -45,6 +45,7 @@ try{
  assert.equal((await request(link,'')).status,404);
  console.log('Shared detail: guest, consent withdrawal, owner hide, expiry and forbidden non-owner change passed.');
 }finally{
+ await Promise.all(clients.map(key=>request('logout',key,{})));
  for(const table of ['events','installations','orders','reservations','sessions','accounts'])
   await pool.query('DELETE FROM '+table+' WHERE '+(table==='accounts'?'id':'account_id')+'=ANY($1::uuid[])',[accounts]);
  await pool.end();
