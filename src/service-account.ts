@@ -27,7 +27,12 @@ export function setupAccount(){
     const li=document.createElement('li'),details=document.createElement('details'),title=document.createElement('summary'),info=document.createElement('p');
     title.textContent=item.slotId+' · '+(states[item.status]??item.status);
     info.textContent=item.zoneId+' · '+Number(item.amountKrw).toLocaleString('ko-KR')+'원'+(item.endsAt?' · '+new Date(item.startsAt).toLocaleString('ko-KR')+' ~ '+new Date(item.endsAt).toLocaleString('ko-KR'):'');
-    details.ontoggle=()=>{if(details.open)window.dispatchEvent(new CustomEvent('sasa:select',{detail:item.slotId}));};details.append(title,info);li.append(details);list.append(li);
+    details.ontoggle=()=>{if(details.open)window.dispatchEvent(new CustomEvent('sasa:select',{detail:item.slotId}));};details.append(title,info);if(item.shareable){
+     const share=document.createElement('a');share.textContent='공개 링크 열기';share.href='/shared.html?id='+encodeURIComponent(item.installationId);share.target='_blank';share.rel='noopener';
+     const hide=document.createElement('button');hide.textContent='공개 중단';hide.onclick=async()=>{try{await api('hide',{id:item.installationId});window.dispatchEvent(new Event('sasa:installations'));await refresh();}catch{status.textContent='공개 중단을 완료하지 못했습니다.';}};
+     details.append(share,hide);
+    }
+    li.append(details);list.append(li);
    }
    const office=document.createElement('button');office.textContent='종무소 접수 안내';office.onclick=()=>{dialog.close();document.querySelector<HTMLButtonElement>('[data-view="officeReception"]')?.click();};list.after(office);office.dataset.accountOffice='';
   }catch(error){
@@ -44,10 +49,10 @@ export function setupAccount(){
   catch{if(n===sequence)status.textContent='시험 이메일 주소와 연결 상태를 확인해 주세요.';}
  };
  confirm.onclick=async()=>{const raw=link;link=null;clear();
-  try{await api('login',{token:raw});window.dispatchEvent(new Event('sasa:installations'));await refresh();}
+  try{await api('login',{token:raw});window.dispatchEvent(new Event('sasa:account'));window.dispatchEvent(new Event('sasa:installations'));await refresh();}
   catch{await refresh();status.textContent='링크가 만료되었거나 이미 사용됐습니다. 새 링크를 받아 주세요.';}
  };
- logout.onclick=async()=>{clear();try{await api('logout',{});window.dispatchEvent(new Event('sasa:installations'));await refresh();}catch{status.textContent='로그아웃을 완료하지 못했습니다.';logout.hidden=false;}};
+ logout.onclick=async()=>{clear();try{await api('logout',{});window.dispatchEvent(new Event('sasa:account'));window.dispatchEvent(new Event('sasa:installations'));await refresh();}catch{status.textContent='로그아웃을 완료하지 못했습니다.';logout.hidden=false;}};
  window.addEventListener('hashchange',()=>{
   const next=new URLSearchParams(location.hash.slice(1)).get('login');if(!next)return;
   link=next;history.replaceState(null,'',location.pathname+location.search);

@@ -230,6 +230,10 @@ if(import.meta.env.MODE==='review'){
 
 if(import.meta.env.MODE==='service'){
  setupAccount();
+ const channel=document.createElement('select'),channelLabel=document.createElement('label'),visitors=document.createElement('p');
+ channelLabel.textContent='방문 채널 ';for(const n of [1,2,3])channel.add(new Option(n+'채널',String(n)));
+ channelLabel.append(channel);settingsPanel.append(channelLabel,visitors);
+ reviewPresence(app.scene,()=>app.visitorPose,visitors,channel);
  window.addEventListener('sasa:select',e=>app.selectOffering((e as CustomEvent<string|null>).detail));
  let revision=0,lastSnapshot='';
  async function syncServiceSlots(){
