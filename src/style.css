@@ -14,3 +14,5 @@
 #walk-pad button{min-width:44px;height:44px;border:1px solid #718276;background:#28463b;color:white;border-radius:4px;touch-action:none;user-select:none}
 #review-server{position:absolute;left:16px;top:92px;max-width:48vw;padding:8px;background:#20362eeb;color:white;font-size:12px;border-radius:5px}
 #review-server button{display:block;margin-top:4px}
+.entry-audio{pointer-events:auto;width:fit-content;display:flex;align-items:center;gap:.45rem;margin:0 0 1rem;font-size:.9rem}
+#settings-panel{max-height:calc(100dvh - 6rem);overflow-y:auto}
