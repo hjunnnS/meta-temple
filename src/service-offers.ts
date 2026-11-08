@@ -39,7 +39,11 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
   const data=await service('temples/sample:sasa/zones/'+zones[kind]+'/slots');
   controls.replaceChildren();note.textContent=t('시험 기간권')+' · '+pass(quote.days,quote.priceKrw);
   const free=data.slots.filter((s:{status:string})=>s.status==='free');
-  if(!free.length){note.textContent=t('모든 자리가 찼습니다.');return;}
+  if(!free.length){
+   note.textContent=t('모든 자리가 찼습니다.');
+   if(kind==='lantern')controls.append(lanternMap(data.slots,undefined,()=>{}));
+   button('취소',restart);return;
+  }
   if(automatic)preferred=free[Math.floor(Math.random()*free.length)].slotId;
   const available=free.some((s:{slotId:string})=>s.slotId===preferred);
   if(reselect||(preferred&&!available))note.textContent=t('다른 자리를 선택하세요');

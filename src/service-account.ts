@@ -1,11 +1,12 @@
+import {loginFeedback} from './login-feedback';
 import {locale,t,translateMarkup} from './locales';
 import {offerings,type Offering} from './reception';
 export function setupAccount(){
  const button=document.createElement('button');button.textContent=t('계정');button.id='service-account';
  document.querySelector('header')!.insertBefore(button,document.querySelector('#settings'));
  const dialog=document.createElement('dialog');
- dialog.setAttribute('aria-label','시험 계정');
- dialog.innerHTML='<div class="panel-title"><h2>계정</h2><button aria-label="닫기" data-close>×</button></div><form><label>시험 이메일<input name="email" type="email" required placeholder="visitor@example.test"></label><button>로그인 링크 받기</button></form><button data-confirm hidden>로그인 완료</button><p data-status role="status"></p><ul></ul><button data-logout hidden>로그아웃</button>';
+ dialog.setAttribute('aria-labelledby','account-title');
+ dialog.innerHTML='<div class="panel-title"><h2 id="account-title">계정</h2><button aria-label="닫기" data-close>×</button></div><form><label>시험 이메일<input name="email" type="email" required placeholder="visitor@example.test"></label><button>로그인 링크 받기</button></form><button data-confirm hidden>로그인 완료</button><p data-status role="status"></p><ul></ul><button data-logout hidden>로그아웃</button>';
  translateMarkup(dialog);document.body.append(dialog);
  const form=dialog.querySelector('form')!,status=dialog.querySelector<HTMLElement>('[data-status]')!;
  const confirm=dialog.querySelector<HTMLButtonElement>('[data-confirm]')!,logout=dialog.querySelector<HTMLButtonElement>('[data-logout]')!;
@@ -18,7 +19,7 @@ export function setupAccount(){
  async function loginMethods(config:{external:boolean;methods:string[];client?:import("firebase/app").FirebaseOptions},n:number){
   if(config.client){firebase=(await import("./firebase-login")).firebaseLogin(config.client);if(n!==sequence)return;}
   external=config.external;form.hidden=external&&!config.methods.includes('email');
-  mailLabel.textContent=external?'Email':trialLabel;social.replaceChildren();
+  mailLabel.textContent=external?t('이메일'):trialLabel;social.replaceChildren();
   form.querySelector('input')!.placeholder=external?'name@example.org':'visitor@example.test';
   for(const provider of config.methods.filter(p=>p==='google'||p==='apple')){
    const action=document.createElement('button');action.type='button';
@@ -28,7 +29,7 @@ export function setupAccount(){
     try{
      await firebase!.social(provider);
      accountChanged();accountChanges?.postMessage('login');if(!finishLogin()&&dialog.open)await refresh();
-    }catch{status.textContent=t('연결 상태를 확인해 주세요.');}
+    }catch(error){status.textContent=t(loginFeedback(error));}
     finally{action.disabled=false;}
    };
   }
@@ -132,11 +133,11 @@ export function setupAccount(){
  dialog.onclose=()=>{resumeReservation=undefined;resumePractice=false;confirmedHere=false;returnHint.hidden=true;sequence++;clear();form.reset();if(!document.activeElement||document.activeElement===document.body)button.focus();};
  form.onsubmit=async e=>{e.preventDefault();const n=sequence;
   try{const email=String(new FormData(form).get('email')).trim();if(external)await firebase!.send(email);else await api('login-link',{email});if(n===sequence)status.textContent=t(external?'이메일로 로그인 링크를 보냈습니다. 같은 브라우저에서 열어 주세요.':'이 Mac의 시험 우편함에 로그인 링크를 보냈습니다.');}
-  catch{if(n===sequence)status.textContent=t(external?'연결 상태를 확인해 주세요.':'시험 이메일 주소와 연결 상태를 확인해 주세요.');}
+  catch(error){if(n===sequence)status.textContent=t(external?loginFeedback(error):'시험 이메일 주소와 연결 상태를 확인해 주세요.');}
  };
- confirm.onclick=async()=>{const raw=link;link=null;clear();
-  try{await api('login',{token:raw});confirmedHere=true;accountChanged();accountChanges?.postMessage('login');if(!finishLogin())await refresh();}
-  catch{await refresh();status.textContent=t('링크가 만료되었거나 이미 사용됐습니다. 새 링크를 받아 주세요.');}
+ confirm.onclick=async()=>{const raw=link;clear();
+  try{await api('login',{token:raw});link=null;confirmedHere=true;accountChanged();accountChanges?.postMessage('login');if(!finishLogin())await refresh();}
+  catch(error){const expired=String(error)==='Error: 401';if(expired)link=null;await refresh();status.textContent=t(expired?'링크가 만료되었거나 이미 사용됐습니다. 새 링크를 받아 주세요.':'연결 상태를 확인해 주세요.');}
  };
  logout.onclick=async()=>{clear();try{await api('logout',{});accountChanged();accountChanges?.postMessage('changed');await refresh();}catch{status.textContent=t('로그아웃을 완료하지 못했습니다.');logout.hidden=false;}};
  window.addEventListener('hashchange',()=>{

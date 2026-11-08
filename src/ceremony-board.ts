@@ -6,6 +6,7 @@ export function ceremonyBoard(root:HTMLElement,position:()=>number[]|null,view:(
  panel.className='ceremony-board';panel.hidden=true;
  const currentLine=document.createElement('strong'),nextLine=document.createElement('small'),action=document.createElement('button');
  panel.append(currentLine,nextLine,action);root.append(panel);
+ const minutes=new Intl.NumberFormat(locale,{style:'unit',unit:'minute',unitDisplay:'long'});
  const localTime=new Intl.DateTimeFormat(locale,{hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
  const localZone=localTime.resolvedOptions().timeZone;
  let base=Date.now()-performance.now(),synced=false,lastSync=-Infinity,syncing=false;
@@ -51,7 +52,7 @@ export function ceremonyBoard(root:HTMLElement,position:()=>number[]|null,view:(
   const inHall=p?Math.abs(p[0])<17&&Math.abs(p[2]-38)<12:['daeung','sanctuary','shrine','seating'].includes(view());
   panel.hidden=!document.body.classList.contains('exploring')||!(atGate||inHall||attending);
   if(panel.hidden&&!attending)return;
-  currentLine.textContent=current?t(current.title)+' · '+t('대웅전')+' · '+Math.ceil((current.start+current.minutes*60000-now())/60000)+' min':t('자율 수행');
+  currentLine.textContent=current?t(current.title)+' · '+t('대웅전')+' · '+t('{time} 남음').replace('{time}',minutes.format(Math.max(0,Math.ceil((current.start+current.minutes*60000-now())/60000)))):t('자율 수행');
   nextLine.textContent=t('다음 일정')+' · '+String(next.hour).padStart(2,'0')+':00 KST · '+t(next.title)+(localZone==='Asia/Seoul'?'':' ('+localTime.format(next.start)+')');
   action.hidden=!current;action.disabled=import.meta.env.MODE==='service'&&!synced;
   action.textContent=t(attending?'듣기 중지':failed?'다시 시도해 주세요.':'함께 듣기');

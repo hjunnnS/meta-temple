@@ -1,4 +1,9 @@
 {
+  "이메일": "E-posta",
+  "만석": "Dolu",
+  "{time} 남음": "Kalan süre: {time}",
+  "로그인을 취소했습니다. 다시 시도할 수 있습니다.": "Oturum açma iptal edildi. Tekrar deneyebilirsiniz.",
+  "이메일 주소를 확인해 주세요.": "E-posta adresinizi kontrol edin.",
   "새벽 예불": "Şafak ayini",
   "사시 기도": "Sabah duası",
   "저녁 예불": "Akşam ayini",

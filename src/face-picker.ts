@@ -1,5 +1,5 @@
-import {faces,type Face} from './face-types';
-import {locale} from './locales';
+import {faces,validFace,type Face} from './face-types';
+import {locale,t} from './locales';
 import type {Locale} from './locales/languages';
 import './face-picker.css';
 
@@ -27,16 +27,19 @@ export function facePicker(container:HTMLElement,apply:(face:Face)=>void){
  button.setAttribute('aria-label',title);button.setAttribute('aria-haspopup','dialog');container.append(button);
  dialog.className='face-dialog';dialog.setAttribute('aria-label',title);
  const header=document.createElement('header'),heading=document.createElement('h2'),close=document.createElement('button');
- heading.textContent=title;close.textContent='×';close.setAttribute('aria-label',({ko:'닫기',en:'Close'} as Record<string,string>)[locale]??'×');
+ heading.textContent=title;close.textContent='×';close.setAttribute('aria-label',t('닫기'));
  close.onclick=()=>dialog.close();header.append(heading,close);
  const grid=document.createElement('div');grid.className='face-grid';
  let selected:Face='human';
+ try{const saved=localStorage.getItem('sasa:visitor-face');if(validFace(saved))selected=saved;}catch{}
+ apply(selected);
  for(const [i,face] of faces.entries()){
   const option=document.createElement('button'),icon=document.createElement('span');
   icon.textContent=icons[i];icon.setAttribute('aria-hidden','true');option.append(icon,names[i]);option.dataset.face=face;
   option.setAttribute('aria-pressed',String(face===selected));grid.append(option);
   option.onclick=()=>{
    apply(face);selected=face;
+   try{localStorage.setItem('sasa:visitor-face',face);}catch{}
    for(const item of grid.children)item.setAttribute('aria-pressed',String((item as HTMLElement).dataset.face===face));
    dialog.close();
   };

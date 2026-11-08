@@ -1,4 +1,9 @@
 {
+  "이메일": "E-Mail",
+  "만석": "Voll",
+  "{time} 남음": "Noch {time}",
+  "로그인을 취소했습니다. 다시 시도할 수 있습니다.": "Anmeldung abgebrochen. Du kannst es erneut versuchen.",
+  "이메일 주소를 확인해 주세요.": "Prüfe deine E-Mail-Adresse.",
   "새벽 예불": "Morgenandacht",
   "사시 기도": "Vormittagsgebet",
   "저녁 예불": "Abendandacht",

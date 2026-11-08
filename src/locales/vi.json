@@ -1,4 +1,9 @@
 {
+  "이메일": "Email",
+  "만석": "Đã đầy",
+  "{time} 남음": "Còn {time}",
+  "로그인을 취소했습니다. 다시 시도할 수 있습니다.": "Đã hủy đăng nhập. Bạn có thể thử lại.",
+  "이메일 주소를 확인해 주세요.": "Hãy kiểm tra địa chỉ email.",
   "새벽 예불": "Lễ sáng sớm",
   "사시 기도": "Cầu nguyện buổi sáng",
   "저녁 예불": "Lễ chiều",

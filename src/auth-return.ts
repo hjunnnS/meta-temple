@@ -1,3 +1,4 @@
+import {loginFeedback} from './login-feedback';
 import {preferredLocale,selectLocale,t,translateMarkup} from './locales';
 import {firebaseLogin} from './firebase-login';
 
@@ -9,14 +10,17 @@ const confirm=document.querySelector('button')!,status=document.querySelector('p
 const email=document.querySelector('input')!;
 const expired=t('링크가 만료되었거나 이미 사용됐습니다. 새 링크를 받아 주세요.');
 status.textContent=expired;
-try{
+async function initialize(){
+ confirm.hidden=true;status.textContent=expired;
+ try{
  const response=await fetch('/api/service/auth/methods',{cache:'no-store'});
+ if(!response.ok)throw Error('Login settings unavailable');
  const config=await response.json();
  if(config.client&&config.methods.includes('email')){
   const login=firebaseLogin(config.client);
   if(login.isLink(link)){
-   email.value=login.savedEmail();email.hidden=false;confirm.hidden=false;
-   status.textContent='Email';
+   confirm.textContent=t('로그인 완료');email.value=login.savedEmail();email.hidden=false;confirm.hidden=false;
+   status.textContent=t('이메일');email.setAttribute('aria-label',t('이메일'));
    confirm.onclick=async()=>{
     if(!email.reportValidity())return;
     confirm.disabled=true;
@@ -26,8 +30,10 @@ try{
      if(typeof BroadcastChannel==='function'){
       const channel=new BroadcastChannel('sasa-account-changes');channel.postMessage('login');channel.close();
      }
-    }catch{status.textContent=expired;confirm.disabled=false;}
+    }catch(error){const message=loginFeedback(error);status.textContent=t(message);confirm.disabled=status.textContent===expired;}
    };
   }
  }
-}catch{status.textContent=t('연결 상태를 확인해 주세요.');}
+}catch{status.textContent=t('연결 상태를 확인해 주세요.');confirm.hidden=false;confirm.textContent=t('다시 시도해 주세요.');confirm.onclick=initialize;}
+}
+await initialize();
