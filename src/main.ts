@@ -150,7 +150,7 @@ function receptionView(view:string){
   }
   const slots=[...app.applicationSlots].filter(([,s])=>s.kind===kind);
   const available=slots.filter(([id])=>app.reviewSlots.has(id)?!app.reviewSlots.get(id)!.installationId:!readApplication(id));
-  const hint=document.createElement('p');hint.textContent=available.length?'현장의 + 표시 또는 자리 번호를 선택하세요.':'이 공간의 신청 자리가 모두 찼습니다.';receptionPanel.append(hint);
+  const hint=document.createElement('p');hint.textContent=available.length?'현장에서 원하는 아이템을 누르거나 자리 번호를 선택하세요.':'이 공간의 신청 자리가 모두 찼습니다.';receptionPanel.append(hint);
   for(const [id] of available)panelButton((slots.findIndex(([key])=>key===id)+1)+'번 자리',()=>openRequest(id));
  }else{
   for(const k of productKinds)panelButton(t(offerings[k].label)+' · '+t(offerings[k].place),()=>goToPlace(offerings[k].view));

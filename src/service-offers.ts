@@ -1,5 +1,6 @@
 import {locale,t,translateMarkup} from './locales';
 import type {Offering} from './reception.ts';
+import {lanternMap} from './lantern-map';
 interface Offer {id:string;kind:string;days:number;priceKrw:number}
 const zones:Record<Offering,string>={lantern:'Z02',votive:'Z07',memorial:'Z06',plaque:'Z08',candle:'Z03'};
 async function service(path:string,body?:object){
@@ -12,6 +13,7 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
  function button(label:string,action:()=>Promise<void>){
   const btn=document.createElement('button');btn.textContent=t(label);controls.append(btn);
   btn.onclick=async()=>{btn.disabled=true;try{await action();}catch(error){note.textContent=(error as Error).message;}finally{btn.disabled=false;}};
+  return btn;
  }
  const duration=(days:number)=>new Intl.NumberFormat(locale,{style:'unit',unit:'day',unitDisplay:'long'}).format(days);
  const amount=(value:number)=>new Intl.NumberFormat(locale,{style:'currency',currency:'KRW',maximumFractionDigits:0}).format(value);
@@ -35,14 +37,17 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
   controls.replaceChildren();note.textContent=t('시험 기간권')+' · '+pass(quote.days,quote.priceKrw);
   const free=data.slots.filter((s:{status:string})=>s.status==='free');
   if(!free.length){note.textContent=t('모든 자리가 찼습니다.');return;}
+  if(initialSlot&&!free.some((s:{slotId:string})=>s.slotId===initialSlot)){
+   note.textContent=t('요청을 완료하지 못했습니다. 자리와 예약 상태를 다시 확인하세요.');return;
+  }
   const form=document.createElement('form');
   form.innerHTML='<label>설치 자리<select name="slot"></select></label><label>소원·추모 문구<textarea name="message" maxlength="100"></textarea></label><label><input name="public" type="checkbox"> 문구 공개에 동의</label>';
   if(kind==='lantern')form.insertAdjacentHTML('beforeend','<label><input name="tag" type="checkbox"> 이름표 신청</label><label>표시 이름<input name="name" maxlength="12"></label>');
   translateMarkup(form);
   const choice=form.querySelector('select')!;for(const s of data.slots){const option=new Option(s.slotId.split(':').at(-1)+' · '+t(({free:'빈자리',reserved:'예약 중',occupied:'설치됨'}[s.status as string]??'확인 중')),s.slotId);option.disabled=s.status!=='free';choice.add(option);}
-  choice.value=free.some((s:{slotId:string})=>s.slotId===initialSlot)?initialSlot:free[0].slotId;
+  choice.value=initialSlot??free[0].slotId;
   controls.append(form);form.onsubmit=e=>e.preventDefault();
-  button('신청 내용 확인',async()=>{
+  const confirm=button('신청 내용 확인',async()=>{
    const d=new FormData(form),tag=d.has('tag'),name=tag?String(d.get('name')??'').trim():'',text=String(d.get('message')??'').trim(),publish=d.has('public');
    if(tag&&(!name||!publish)){note.textContent=t('이름표에는 표시 이름과 공개 동의가 필요합니다.');return;}
    const payload={revision:quote.revision,offerId:offer.id,slotId:choice.value,name,tag,text,public:publish};
@@ -52,6 +57,15 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
     await new Promise(resolve=>setTimeout(resolve,1100));if(section.isConnected)await held();
    });
   });
+  if(kind==='lantern'){
+   choice.parentElement!.hidden=true;
+   const fields=[...form.querySelectorAll('label')].slice(1);
+   const map=lanternMap(data.slots,initialSlot,id=>{
+    choice.value=id;confirm.disabled=!id;
+    for(const field of fields)field.hidden=!id;
+   });
+   form.prepend(map);
+  }
   button(t('취소'),restart);
  }
  async function restart(){

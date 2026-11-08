@@ -98,28 +98,23 @@ export function createTemple(canvas:HTMLCanvasElement) {
  const serviceMode=import.meta.env.MODE==='service';
  const serverLayout=serviceMode||import.meta.env.MODE==='review';
  const reviewSlots=new Map<string,ReviewSlot>();
- const applicationSlots=new Map<string,{kind:Offering;point:Vector3;mark:Mesh;parts:Mesh[]}>();
+ const applicationSlots=new Map<string,{kind:Offering;point:Vector3;parts:Mesh[]}>();
  let onSlotClick:(id:string)=>void=()=>{};
- const pinTexture=new DynamicTexture('available-slot-sign',128,scene,false);
- const pinBrush=pinTexture.getContext() as CanvasRenderingContext2D;
- pinBrush.fillStyle='#24574a';pinBrush.beginPath();pinBrush.arc(64,64,54,0,Math.PI*2);pinBrush.fill();
- pinBrush.lineWidth=6;pinBrush.strokeStyle='#ffe6a7';pinBrush.stroke();
- pinBrush.fillStyle='#fff4d3';pinBrush.fillRect(38,60,52,8);pinBrush.fillRect(60,38,8,52);
- pinTexture.hasAlpha=true;pinTexture.update();
- const pinMaterial=mat('available-place','#ffffff');pinMaterial.diffuseTexture=pinTexture;
- pinMaterial.useAlphaFromDiffuseTexture=true;pinMaterial.disableLighting=true;pinMaterial.emissiveColor=Color3.White();
- function applicationSlot(id:string,kind:Offering,point:Vector3,parts:Mesh[]=[],size=.36){
-  const mark=MeshBuilder.CreatePlane('apply-'+id,{size},scene);mark.billboardMode=Mesh.BILLBOARDMODE_ALL;
-  mark.position.copyFrom(point);mark.material=pinMaterial;mark.metadata={applicationId:id};
-  const filled=!serviceMode&&!!readApplication(id);mark.setEnabled(!filled);
-  for(const mesh of parts)mesh.setEnabled(filled);
-  applicationSlots.set(id,{kind,point,parts,mark});
+ function applicationSlot(id:string,kind:Offering,point:Vector3,parts:Mesh[]=[]){
+  for(const mesh of parts)mesh.metadata={...mesh.metadata,applicationId:id};
+  applicationSlots.set(id,{kind,point,parts});
  }
  scene.onPointerObservable.add(event=>{
   if(event.type!==PointerEventTypes.POINTERTAP)return;
-  const pick=scene.pick(scene.pointerX,scene.pointerY,mesh=>mesh.isEnabled()&&!!mesh.metadata?.applicationId&&Vector3.DistanceSquared(camera.position,mesh.position)<24*24);
-  const id=pick?.pickedMesh?.metadata?.applicationId;
-  if(id)onSlotClick(id);
+  const pick=scene.pick(scene.pointerX,scene.pointerY,mesh=>mesh.isEnabled()&&
+   !!(mesh.metadata?.applicationId||mesh.metadata?.applicationIds));
+  if(!pick?.pickedPoint||Vector3.DistanceSquared(camera.position,pick.pickedPoint)>24*24)return;
+  const metadata=pick.pickedMesh?.metadata;
+  const id=metadata?.applicationId??metadata?.applicationIds?.[pick.thinInstanceIndex];
+  if(!id)return;
+  const slot=reviewSlots.get(id);
+  if(slot?(slot.installationId||slot.reserved):(serviceMode||!applicationSlots.has(id)||readApplication(id)))return;
+  onSlotClick(id);
  });
  const hallStart=staticMeshes.length;
  for(let s=0;s<3;s++)box('plinth',21-s*.8,.35,12-s*.7,0,.25+s*.35,8,stone);
@@ -535,7 +530,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
 
  const wishes=['가족건강','평안','감사','행복'];
- const tablets=wishes.map((wish,index)=>{
+ const tablets=wishes.map((_,index)=>{
   const tex=new DynamicTexture('inscribed-wood-'+index,{width:128,height:256},scene,true);
   const c=tex.getContext() as CanvasRenderingContext2D;
   c.fillStyle=['#d6aa74','#e4c395','#d8b887','#cfa779'][index];c.fillRect(0,0,128,256);
@@ -545,8 +540,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   }
   c.strokeStyle='#ac855c';
   c.font='bold 28px serif';c.fillStyle='#503925';c.textAlign='center';
-  [...wish].forEach((ch,n)=>c.fillText(ch,64,120-(wish.length-2)*17+n*35));
-  c.fillStyle='#904537';c.fillRect(57,213,14,14);tex.update();
+  tex.update();
   const m=mat('wish-tablet-'+index,'#ffffff',.14);m.diffuseTexture=tex;return m;
  });
  const cord=mat('braided-wish-cord','#934a3f',.12);
@@ -572,7 +566,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  function writeWish(id:string){
   const slot=applicationSlots.get(id);
-  const inscription=serviceMode?reviewSlots.get(id)?.text:readApplication(id)?.text;
+  const installed=reviewSlots.get(id);
+  const inscription=serviceMode?(installed?.installationId?installed.text:''):readApplication(id)?.text;
   if(serviceMode&&slot?.parts[0]){
    const tablet=slot.parts[0];tablet.metadata??={};tablet.metadata.plain??=tablet.material;
    if(!inscription)tablet.material=tablet.metadata.plain;
@@ -681,6 +676,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    flame.material=flameMaterial;flame.billboardMode=Mesh.BILLBOARDMODE_ALL;flame.isPickable=false;
    flame.position.set(wx,tip+.078,wz);
    offeringFlames.push(flame);
+   if(serverLayout||available)flame.setEnabled(!serverLayout&&!!readApplication(fixed.id));
    if(available||serverLayout){
     const parts=staticMeshes.splice(taperStart);
     for(const mesh of parts)mesh.position.set(wx,mesh.position.y,wz);
@@ -831,7 +827,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  function setName(value:string){const name=normalizeLanternName(value);if(name)names.set(selected,name);else names.delete(selected);rebuildLanterns(density);return name;}
  let lanternRoot=new TransformNode('lantern-samples',scene),selected=23,density=1000;
  let lanternCasters:Mesh[]=[];
- let canopyCapacity=0,installedLanterns=0;
+ let canopyCapacity=0,visibleLanternCount=0;
  let ownerBodies:Mesh[]=[];let ownerHalos:Mesh[]=[];let sparkles:{mesh:Mesh,center:Vector3,phase:number}[]=[];let marker:Mesh|null=null;
 
  const offeringMarkers=new Map<string,{rim:Mesh;star:Mesh;lift:number}>();
@@ -881,44 +877,33 @@ export function createTemple(canvas:HTMLCanvasElement) {
   if(s?.owned){selectionBand.position.set(...s.position);selectionBand.position.y+=s.accepts==='lantern'?-.5:.02;}
  }
  const claimedSlots=new Set<string>(serviceMode?fixedSlots().map(s=>s.id):import.meta.env.MODE==='review'?['sample:Z02:lantern:0023','sample:Z02:lantern:0002']:[]);
- const reviewMarks:Mesh[]=[];
  function applyReviewSlots(slots:ReviewSlot[]){
-  // Previously supplied IDs remain server-managed after their removal.
   reviewSlots.clear();
-  for(const mark of reviewMarks)mark.dispose();
-  reviewMarks.length=0;
   for(const slot of slots){reviewSlots.set(slot.id,slot);claimedSlots.add(slot.id);}
-  for(const id of claimedSlots){
-   const local=applicationSlots.get(id);
-   if(local)local.mark.setEnabled(false);
-  }
-  for(const slot of slots){
-   if(slot.accepts!=='lantern'){refreshApplication(slot.id);continue;}
-   if(slot.installationId||slot.reserved)continue;
-   const mark=MeshBuilder.CreatePlane('server-empty-slot',{size:.7},scene);
-   mark.position.set(...slot.position);mark.material=pinMaterial;mark.billboardMode=Mesh.BILLBOARDMODE_ALL;
-   mark.metadata={applicationId:slot.id};reviewMarks.push(mark);
-  }
+  for(const [id,slot] of applicationSlots)if(slot.kind!=='lantern')refreshApplication(id);
   selectOffering(selectedOffering);rebuildLanterns(density);
  }
  const freeLanternIndices=[2,34,66];
  for(const slot of lanternSlots(67).filter(slot=>freeLanternIndices.includes(Number(slot.id.split(':').at(-1))))){
-  applicationSlot(slot.id,'lantern',Vector3.FromArray([...slot.position]),[],.7);
-  if(claimedSlots.has(slot.id))applicationSlots.get(slot.id)!.mark.setEnabled(false);
+  applicationSlot(slot.id,'lantern',Vector3.FromArray([...slot.position]));
  }
  function rebuildLanterns(count:number){
   for(const caster of lanternCasters)shadows.removeShadowCaster(caster);lanternCasters=[];
   for(const mesh of lanternRoot.getChildMeshes())glow.removeIncludedOnlyMesh(mesh as Mesh);
   for(const mesh of lanternRoot.getChildMeshes())if(mesh.name.startsWith('owned-tag'))mesh.material?.dispose(false,true);tagTextures.clear();
   lanternRoot.dispose(false);lanternRoot=new TransformNode('lantern-samples',scene);ownerBodies=[];ownerHalos=[];sparkles=[];density=count;
-  if(serviceMode){names.clear();for(const s of reviewSlots.values())if(s.name&&s.accepts==='lantern')names.set(Number(s.id.slice(-4)),s.name);}
+  if(serviceMode){names.clear();for(const s of reviewSlots.values())if(s.installationId&&s.name&&s.accepts==='lantern')names.set(Number(s.id.slice(-4)),s.name);}
   else for(const index of freeLanternIndices){
    const slot=lanternSlots(67)[index],record=readApplication(slot.id);
    if(record?.text)names.set(index,record.text);else names.delete(index);
   }
-  const candidates=[...canopyLanternSlots(count).filter(s=>!claimedSlots.has(s.id)),...[...reviewSlots.values()].filter(s=>s.accepts==='lantern'&&(Number(s.id.slice(-4))<count||s.owned))];
-  const slots=candidates.filter(slot=>reviewSlots.has(slot.id)?!!reviewSlots.get(slot.id)!.installationId:!applicationSlots.has(slot.id)||!!readApplication(slot.id)),buckets=Array.from({length:15},()=>[] as Matrix[]);
-  canopyCapacity=candidates.length;installedLanterns=slots.length;
+  const layout=new Map(canopyLanternSlots(count).map(slot=>[slot.id,slot]));
+  for(const slot of reviewSlots.values()){
+   if(slot.accepts==='lantern'&&(Number(slot.id.slice(-4))<count||slot.owned))layout.set(slot.id,slot);
+  }
+  const slots=[...layout.values()];
+  const buckets=Array.from({length:15},()=>({matrices:[] as Matrix[],ids:[] as string[]}));
+  canopyCapacity=slots.length;visibleLanternCount=slots.length;
   if(!slots.length){marker=null;return;}
   function body(name:string,type:number){
    if(type===0){const a=MeshBuilder.CreateSphere(name,{diameter:.74,segments:24},scene);a.scaling.y=1.12;a.bakeCurrentTransformIntoVertices();return a;}
@@ -933,10 +918,13 @@ export function createTemple(canvas:HTMLCanvasElement) {
    const lotus=Mesh.MergeMeshes(parts,true,true)!;lotus.scaling.set(.78,1,.78);lotus.bakeCurrentTransformIntoVertices();return lotus;
   }
   for(const s of slots){const i=Number(s.id.split(':').at(-1));
-   const p=Vector3.FromArray([...s.position]);const isOwn=reviewSlots.get(s.id)?.owned??((OWNED_INDICES as readonly number[]).includes(i)||applicationSlots.has(s.id));const type=i%3;
-   if(isOwn){const a=body(`owned-${i}`,type);a.name=`owned-${i}`;a.position=p;a.rotation.y=s.rotationY;a.material=ownedMaterials[lanternColourIndex(s.position)*3+type];a.parent=lanternRoot;ownerBodies.push(a);lanternCasters.push(a);}else buckets[lanternColourIndex(s.position)*3+type].push(Matrix.Translation(p.x,p.y,p.z));
+   const p=Vector3.FromArray([...s.position]);const isOwn=reviewSlots.get(s.id)?.owned??(!claimedSlots.has(s.id)&&((OWNED_INDICES as readonly number[]).includes(i)||(applicationSlots.has(s.id)&&!!readApplication(s.id))));const type=i%3;
+   if(isOwn){const a=body(`owned-${i}`,type);a.name=`owned-${i}`;a.metadata={applicationId:s.id};a.position=p;a.rotation.y=s.rotationY;a.material=ownedMaterials[lanternColourIndex(s.position)*3+type];a.parent=lanternRoot;ownerBodies.push(a);lanternCasters.push(a);}else {
+    const bucket=buckets[lanternColourIndex(s.position)*3+type];
+    bucket.matrices.push(Matrix.Translation(p.x,p.y,p.z));bucket.ids.push(s.id);
+   }
   }
-  buckets.forEach((matrices,i)=>{if(!matrices.length)return;const a=body(`lantern-${['round','octagonal','lotus'][i%3]}-${i}`,i%3);a.material=lanternMaterials[i];a.parent=lanternRoot;a.thinInstanceAdd(matrices);lanternCasters.push(a);});
+  buckets.forEach(({matrices,ids},i)=>{if(!matrices.length)return;const a=body(`lantern-${['round','octagonal','lotus'][i%3]}-${i}`,i%3);a.material=lanternMaterials[i];a.parent=lanternRoot;a.thinInstanceAdd(matrices);a.metadata={applicationIds:ids};a.thinInstanceEnablePicking=true;lanternCasters.push(a);});
   for(const owned of ownerBodies){
    const colorIndex=lanternColourIndex([owned.position.x,owned.position.y,owned.position.z]);
    const aura=MeshBuilder.CreatePlane('owned-soft-glow',{width:2.0,height:2.15},scene);aura.position=owned.position.clone();aura.material=auraMaterials[colorIndex];aura.parent=lanternRoot;aura.billboardMode=Mesh.BILLBOARDMODE_ALL;aura.isPickable=false;ownerHalos.push(aura);
@@ -987,6 +975,12 @@ export function createTemple(canvas:HTMLCanvasElement) {
  function setSelected(index:number){selected=index;if(marker){const p=selectedPosition(index);marker.position.set(p[0],p[1]-.65,p[2]);}}
  let reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  let currentTime:TimeOfDay='day';let quality:Quality='high';
+ function updateCandleLights(value:TimeOfDay){
+  candleLights.forEach((light,index)=>{
+   const count=offeringFlames.slice(index*7,index*7+7).filter(flame=>flame.isEnabled()).length;
+   light.intensity=1.85*count/7;light.setEnabled(value==='night'&&count>0);
+  });
+ }
  function time(value:TimeOfDay){
   nightWayfinding.setEnabled(value==='night');
   amberLamp.emissiveColor=amberLamp.diffuseColor.scale(value==='night'?1.45:.55);
@@ -997,7 +991,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    lamp.setEnabled(value!=='day');
   }
   lampCore.emissiveColor=Color3.FromHexString('#ffb161').scale(value==='night'?2.65:value==='dusk'?.65:.06);
-  for(const light of candleLights)light.setEnabled(value==='night');
+  updateCandleLights(value);
   currentTime=value;shadows.bias=value==='day'?.00015:.002;shadows.normalBias=value==='day'?.008:.035;shadows.getShadowMap()!.resize(quality==='low'?512:value==='day'?4096:2048);for(const caster of lanternCasters){shadows.removeShadowCaster(caster);if(value==='day')shadows.addShadowCaster(caster);}paintSky(value);for(const m of [...lanternMaterials,...ownedMaterials])m.setFloat('night',value==='night'?1:value==='dusk'?.45:0);const skies={day:'#a6dbfa',dusk:'#354865',night:'#080f24'};const c=Color3.FromHexString(skies[value]);scene.clearColor=new Color4(c.r,c.g,c.b,1);scene.fogColor=c;hemi.intensity=value==='night'?.35:value==='dusk'?.95:1.1;hemi.diffuse=Color3.FromHexString('#e4f2ff');sun.intensity=value==='day'?1.4:value==='dusk'?1.1:.25;sun.diffuse=Color3.FromHexString(value==='day'?'#fff3db':value==='dusk'?'#ffc17b':'#c1d5ec');sun.direction=value==='day'?new Vector3(-.35,-1.8,.25):new Vector3(-.65,-.5,.45);glow.intensity=value==='night'?.65:value==='dusk'?.5:.4;paper.emissiveColor=paper.diffuseColor.scale(value==='night'?.08:value==='dusk'?.025:0);}
  function setQuality(value:Quality){quality=value;engine.setHardwareScalingLevel(value==='low'?Math.max(1,Math.min(canvas.clientWidth/640,canvas.clientHeight/720)):1);shadows.getShadowMap()!.resize(value==='low'?512:currentTime==='day'?4096:2048);glow.isEnabled=value==='high';}
  const startZ=outerGate.z+3;
@@ -1199,11 +1193,14 @@ export function createTemple(canvas:HTMLCanvasElement) {
  function refreshApplication(id:string){
   const slot=applicationSlots.get(id);if(!slot)return;
   const filled=displayKinds.has(slot.kind)&&occupancy!=='current'?occupancy==='full':reviewSlots.has(id)?!!reviewSlots.get(id)!.installationId:!!readApplication(id);
-  for(const mesh of slot.parts)mesh.setEnabled(filled);
-  slot.mark.setEnabled(!filled&&!reviewSlots.get(id)?.reserved);
+
   if(slot.kind==='lantern')rebuildLanterns(density);
+  if(slot.kind==='candle'){
+   slot.parts.find(part=>part.name==='offering-flame')?.setEnabled(filled&&(!serviceMode||!!reviewSlots.get(id)?.installationId));
+   updateCandleLights(currentTime);
+  }
   if(slot.kind==='plaque')writeWish(id);
-  const owned=reviewSlots.get(id)?.owned??!!readApplication(id);
+  const owned=reviewSlots.get(id)?.owned??(!claimedSlots.has(id)&&!!readApplication(id));
   markOffering(id,slot.kind,slot.point,filled&&owned);
  }
  function showOccupancy(value:'current'|'empty'|'full'){
@@ -1211,5 +1208,5 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const mesh of displayBatches)mesh.setEnabled(value!=='empty');
   for(const [id,slot] of applicationSlots)if(displayKinds.has(slot.kind))refreshApplication(id);
  }
- return {selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount:installedLanterns,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ return {selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }

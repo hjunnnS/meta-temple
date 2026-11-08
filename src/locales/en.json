@@ -167,5 +167,8 @@
   "내부": "Interior",
   "불단": "Altar",
   "처마": "Eaves",
-  "검증 기록 ↗": "Diagnostics ↗"
+  "검증 기록 ↗": "Diagnostics ↗",
+  "연등 배치도": "Lantern map",
+  "줄을 선택하세요": "Choose a row",
+  "줄": "Row"
 }

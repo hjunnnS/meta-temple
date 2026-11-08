@@ -1,0 +1,14 @@
+#reception-panel:has(.lantern-map){width:min(420px,calc(100vw - 40px));box-sizing:border-box;max-height:calc(100dvh - 180px);overflow:auto}
+.lantern-map{background:#faf5e9;color:#273c32;border-radius:6px;padding:14px;margin:8px 0}
+.lantern-map h3{margin:0;font:600 18px serif}
+#reception-panel .lantern-map p{margin:5px 0}
+.lantern-plan{display:flex;height:155px;background:#e8e3d3;border-radius:5px;overflow:hidden}
+#reception-panel .lantern-plan button{flex:1;position:relative;background:transparent;margin:0;padding:0}
+#reception-panel .lantern-plan button:is(:hover,:focus-visible){background:#c4cbb7;outline:2px solid #405b45;outline-offset:-2px}
+.lantern-plan i{position:absolute;width:min(72%,8px);height:3px;left:50%;transform:translateX(-50%);border-radius:2px}
+.lantern-seats{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+#reception-panel .lantern-seats button{border:1px solid #b9b298;border-top:4px solid var(--dye);padding:3px;margin:0;background:#fffaf0}
+.lantern-seats button small{display:block;font-size:10px}
+#reception-panel .lantern-seats button[aria-pressed=true]{background:#284b3f;color:white}
+.lantern-seats button:disabled{opacity:.6}
+#reception-panel form label[hidden]{display:none}
