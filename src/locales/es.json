@@ -184,5 +184,8 @@
   "108배 시작": "Iniciar 108 reverencias",
   "절하기": "Hacer una reverencia",
   "108배 완료": "108 reverencias completadas",
-  "법당이 열린 탭으로 돌아가 절하기를 눌러 주세요.": "Vuelve a la pestaña de la sala de oración y pulsa el botón de postración."
+  "법당이 열린 탭으로 돌아가 절하기를 눌러 주세요.": "Vuelve a la pestaña de la sala de oración y pulsa el botón de postración.",
+  "로그인했습니다. 원래 사찰 탭으로 돌아가세요.": "Has iniciado sesión. Vuelve a la pestaña del templo.",
+  "로그인 창을 열 수 없습니다. 팝업을 허용해 주세요.": "Permite las ventanas emergentes para iniciar sesión.",
+  "이메일로 로그인 링크를 보냈습니다. 같은 브라우저에서 열어 주세요.": "Enlace enviado. Ábrelo en el mismo navegador."
 }

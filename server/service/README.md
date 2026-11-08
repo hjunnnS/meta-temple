@@ -25,3 +25,9 @@ ON CONFLICT DO NOTHING;
 웹 버전을 되돌릴 때는 `sh scripts/m3-rollback-web.sh 26f8b36`으로 검증한 웹 파일을 별도 디렉터리에 준비한다. 해당 디렉터리의 정적 파일을 기존 웹 주소에 제공하고 `/api/service`는 현재 서비스로 연결한다. 호환 범위는 아래 증거에서 검수한 버전이다. 동일 데이터베이스와 현재의 거래·삭제 워커를 유지한다. 로컬 미리보기는 기본적으로 현재 소스를 제공한다. 실제 호스팅 배포는 별도 단계다.
 
 로컬 롤백을 실행하려면 미리보기 서버를 종료한 후 위 명령이 출력한 디렉터리의 이름을 지정해 `M3_WEB_RELEASE=web-release-XXXXXX npm run service`를 실행한다. 4330에서 이전 웹 화면과 현재 API·워커를 함께 제공한다. 최신 화면으로 복귀할 때는 해당 변수 없이 실행한다.
+
+### Firebase 로그인 비공개 검수
+
+Firebase Authentication에서 이메일 링크(이메일/비밀번호 및 이메일 링크 옵션), Google, Apple 중 검수할 방식을 활성화한다. Firebase 웹 앱의 공개 설정 네 개를 .env.example에 따라 .env.service.local에 입력하고 SASA_AUTH_METHODS에 활성화한 방식만 지정한다. 사용 중인 후보본 호스트(예: 127.0.0.1)를 승인 도메인에 등록한다. Apple의 Services ID 및 키는 Firebase 콘솔에서 설정한다. 이메일 링크의 복귀 주소는 후보본의 /auth.html이다.
+
+후보본을 다시 시작한 뒤 같은 브라우저에서 링크를 열거나 Google·Apple 창에서 로그인하고 원래 예약·108배 화면을 확인한다. 서버가 Firebase ID 토큰의 서명과 대상 프로젝트를 검증한 후 기존 사찰 세션을 발급한다. 앱 데이터베이스에는 프로젝트와 Firebase UID에서 파생한 계정 식별자를 저장한다. 웹 앱 설정이 모두 비어 있으면 기존 로컬 시험 우편함을 사용한다.

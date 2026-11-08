@@ -1,3 +1,4 @@
+import {authConfig,firebaseVerifier,verifiedIdentity} from './external-auth.mjs';
 import {maintainPrivacy} from './operations.mjs';
 import {staff} from './staff.mjs';
 import {createHash,randomBytes,randomUUID} from 'node:crypto';
@@ -11,7 +12,15 @@ const token=()=>randomBytes(32).toString('hex');
 const digest=value=>createHash('sha256').update(value).digest('hex');
 import {bowPractice} from './bows.mjs';
 import {channels} from './channels.mjs';
-export async function serviceApi(){
+const sessionCookie=raw=>'sasa_session='+raw+'; Path=/api/service; HttpOnly; SameSite=Strict; Max-Age=86400';
+async function issueSession(db,id,raw,previous){
+ await db.query('DELETE FROM sessions WHERE digest=$1 OR expires_at<=now()',[previous]);
+ await db.query("INSERT INTO sessions VALUES ($1,$2,now()+interval '1 day')",[digest(raw),id]);
+ await db.query("INSERT INTO events(kind,account_id) VALUES ('login',$1)",[id]);
+}
+export async function serviceApi(env=process.env){
+ const external=authConfig(env);
+ const verify=external&&firebaseVerifier(external);
  await migrate();
  const presence=channels(),practice=bowPractice();
  return async(req,res,next)=>{
@@ -26,11 +35,24 @@ export async function serviceApi(){
   try{
    let input={};
    if(req.method==='POST'){
-    let data='';for await(const chunk of req){data+=chunk;if(data.length>2048)return send(413,{error:'size'});}
+    let data='';for await(const chunk of req){data+=chunk;if(data.length>(path==='/api/service/auth/finish'?18000:2048))return send(413,{error:'size'});}
     try{input=JSON.parse(data||'{}');}catch{return send(400,{error:'invalid_json'});}
     if(!input||typeof input!=='object')return send(400,{error:'invalid_input'});
    }
-   if(path==='/api/service/login-link'&&req.method==='POST'){
+   if(path==='/api/service/auth/methods'&&req.method==='GET')return send(200,{external:!!external,methods:external?.methods??[],client:external?.client});
+   if(path==='/api/service/auth/finish'&&req.method==='POST'&&external){
+    const identity=await verifiedIdentity(external,input.idToken,verify);
+    if(!identity)return send(401,{error:'invalid_login'});
+    const raw=token();
+    await transaction(async db=>{
+     const {rows:[a]}=await db.query('INSERT INTO accounts(auth_identity) VALUES ($1) ON CONFLICT(auth_identity) DO UPDATE SET auth_identity=EXCLUDED.auth_identity RETURNING id',[identity]);
+     await issueSession(db,a.id,raw,cookieHash);
+    });
+    if(guest)presence('guest:'+digest(guest),digest(guest),'logout',{});
+    res.setHeader('Set-Cookie',sessionCookie(raw));
+    return send(200,{signedIn:true});
+   }
+   if(!external&&path==='/api/service/login-link'&&req.method==='POST'){
     const email=typeof input.email==='string'?input.email.trim().toLowerCase():'';
     if(!/^[a-z0-9][a-z0-9._+-]{0,63}@example\.test$/.test(email))return send(400,{error:'test_email_required'});
     const raw=token();
@@ -42,19 +64,17 @@ export async function serviceApi(){
     });
     return send(202,{sent:true});
    }
-   if(path==='/api/service/login'&&req.method==='POST'){
+   if(!external&&path==='/api/service/login'&&req.method==='POST'){
     if(typeof input.token!=='string'||!/^[a-f0-9]{64}$/.test(input.token))return send(400,{error:'invalid_link'});
     const raw=token();
     const ok=await transaction(async db=>{
      const {rows:[link]}=await db.query('DELETE FROM login_links WHERE digest=$1 AND expires_at>now() RETURNING account_id',[digest(input.token)]);
      if(!link)return false;
-     await db.query('DELETE FROM sessions WHERE digest=$1 OR expires_at<=now()',[cookieHash]);
-     await db.query("INSERT INTO sessions VALUES ($1,$2,now()+interval '1 day')",[digest(raw),link.account_id]);
-     await db.query("INSERT INTO events(kind,account_id) VALUES ('login',$1)",[link.account_id]);return true;
+     await issueSession(db,link.account_id,raw,cookieHash);return true;
     });
     if(!ok)return send(401,{error:'invalid_link'});
     if(guest)presence('guest:'+digest(guest),digest(guest),'logout',{});
-    res.setHeader('Set-Cookie','sasa_session='+raw+'; Path=/api/service; HttpOnly; SameSite=Strict; Max-Age=86400');
+    res.setHeader('Set-Cookie',sessionCookie(raw));
     return send(200,{signedIn:true});
    }
    if(path==='/api/service/logout'&&req.method==='POST'){

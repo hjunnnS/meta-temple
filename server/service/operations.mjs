@@ -19,7 +19,7 @@ export async function maintainPrivacy(requester){
    await db.query("UPDATE reservations SET inscription='{}',released_at=COALESCE(released_at,now()) WHERE account_id=$1",[id]);
    await db.query('UPDATE installations SET hidden=true,text_deleted=true WHERE account_id=$1',[id]);
    await db.query("UPDATE staff_audit SET reason='계정 삭제' WHERE actor=$1 OR target IN(SELECT id::text FROM orders WHERE account_id=$1 UNION ALL SELECT id::text FROM installations WHERE account_id=$1)",[id]);
-   await db.query('UPDATE accounts SET email=NULL,erased_at=now() WHERE id=$1',[id]);
+   await db.query('UPDATE accounts SET email=NULL,auth_identity=NULL,erased_at=now() WHERE id=$1',[id]);
   }
   const {rows:due}=await db.query("SELECT id FROM accounts WHERE erased_at<=now()-interval '30 days' FOR UPDATE");
   for(const {id} of due){

@@ -184,5 +184,8 @@
   "108배 시작": "108 secdeye başla",
   "절하기": "Secde et",
   "108배 완료": "108 secde tamamlandı",
-  "법당이 열린 탭으로 돌아가 절하기를 눌러 주세요.": "Dua salonunun açık olduğu sekmeye dönün ve secde düğmesine basın."
+  "법당이 열린 탭으로 돌아가 절하기를 눌러 주세요.": "Dua salonunun açık olduğu sekmeye dönün ve secde düğmesine basın.",
+  "로그인했습니다. 원래 사찰 탭으로 돌아가세요.": "Giriş yapıldı. Tapınak sekmesine dönün.",
+  "로그인 창을 열 수 없습니다. 팝업을 허용해 주세요.": "Giriş yapmak için açılır pencerelere izin verin.",
+  "이메일로 로그인 링크를 보냈습니다. 같은 브라우저에서 열어 주세요.": "Bağlantı gönderildi. Aynı tarayıcıda açın."
 }

@@ -184,5 +184,8 @@
   "108배 시작": "Inizia le 108 prostrazioni",
   "절하기": "Prostrati",
   "108배 완료": "108 prostrazioni completate",
-  "법당이 열린 탭으로 돌아가 절하기를 눌러 주세요.": "Torna alla scheda della sala di preghiera e premi il pulsante per la prostrazione."
+  "법당이 열린 탭으로 돌아가 절하기를 눌러 주세요.": "Torna alla scheda della sala di preghiera e premi il pulsante per la prostrazione.",
+  "로그인했습니다. 원래 사찰 탭으로 돌아가세요.": "Accesso effettuato. Torna alla scheda del tempio.",
+  "로그인 창을 열 수 없습니다. 팝업을 허용해 주세요.": "Consenti i popup per accedere.",
+  "이메일로 로그인 링크를 보냈습니다. 같은 브라우저에서 열어 주세요.": "Link inviato. Aprilo nello stesso browser."
 }

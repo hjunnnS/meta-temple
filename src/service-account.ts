@@ -10,6 +10,29 @@ export function setupAccount(){
  const form=dialog.querySelector('form')!,status=dialog.querySelector<HTMLElement>('[data-status]')!;
  const confirm=dialog.querySelector<HTMLButtonElement>('[data-confirm]')!,logout=dialog.querySelector<HTMLButtonElement>('[data-logout]')!;
  const list=dialog.querySelector('ul')!;
+ const social=document.createElement('div');dialog.insertBefore(social,confirm);
+ const mailLabel=form.querySelector('label')!.firstChild!;
+ const trialLabel=mailLabel.textContent;
+ let external=false;
+ let firebase:ReturnType<typeof import("./firebase-login").firebaseLogin>|undefined;
+ async function loginMethods(config:{external:boolean;methods:string[];client?:import("firebase/app").FirebaseOptions},n:number){
+  if(config.client){firebase=(await import("./firebase-login")).firebaseLogin(config.client);if(n!==sequence)return;}
+  external=config.external;form.hidden=external&&!config.methods.includes('email');
+  mailLabel.textContent=external?'Email':trialLabel;social.replaceChildren();
+  form.querySelector('input')!.placeholder=external?'name@example.org':'visitor@example.test';
+  for(const provider of config.methods.filter(p=>p==='google'||p==='apple')){
+   const action=document.createElement('button');action.type='button';
+   action.textContent=provider==='google'?'Google':'Apple';social.append(action);
+   action.onclick=async()=>{
+    action.disabled=true;
+    try{
+     await firebase!.social(provider);
+     accountChanged();accountChanges?.postMessage('login');if(!finishLogin()&&dialog.open)await refresh();
+    }catch{status.textContent=t('연결 상태를 확인해 주세요.');}
+    finally{action.disabled=false;}
+   };
+  }
+ }
  const accountChanges=typeof BroadcastChannel==='function'?new BroadcastChannel('sasa-account-changes'):null;
  function accountChanged(){
   window.dispatchEvent(new Event('sasa:account'));window.dispatchEvent(new Event('sasa:installations'));
@@ -42,7 +65,7 @@ export function setupAccount(){
  });
  let sequence=0,link=new URLSearchParams(location.hash.slice(1)).get('login');
  if(link)history.replaceState(null,'',location.pathname+location.search);
- function clear(){window.dispatchEvent(new CustomEvent('sasa:select',{detail:null}));dialog.querySelector('[data-account-office]')?.remove();dialog.querySelector('[data-staff-link]')?.remove();list.replaceChildren();status.textContent='';form.hidden=true;logout.hidden=true;confirm.hidden=true;}
+ function clear(){social.replaceChildren();window.dispatchEvent(new CustomEvent('sasa:select',{detail:null}));dialog.querySelector('[data-account-office]')?.remove();dialog.querySelector('[data-staff-link]')?.remove();list.replaceChildren();status.textContent='';form.hidden=true;logout.hidden=true;confirm.hidden=true;}
  async function api(path:string,body?:object){
   const response=await fetch('/api/service/'+path,body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{cache:'no-store'});
   if(!response.ok)throw Error(String(response.status));return response.json();
@@ -53,7 +76,7 @@ export function setupAccount(){
   try{
    const [account,data,staff]=await Promise.all([api('me'),api('me/offerings'),api('staff/roles')]);
    if(n!==sequence)return;
-   status.textContent=account.email+' · '+t('내 아이템')+' '+data.items.length+(locale==='ko'?'개':'');logout.hidden=false;
+   status.textContent=(account.email?account.email+' · ':'')+t('내 아이템')+' '+data.items.length+(locale==='ko'?'개':'');logout.hidden=false;
    if(staff.roles.length){const link=document.createElement('a');link.href='/staff.html';link.textContent=t('시험 운영 화면');link.dataset.staffLink='';list.before(link);}
    const erase=document.createElement('button');erase.textContent=t('시험 계정 삭제');list.append(erase);
    erase.onclick=async()=>{if(!window.confirm(t('진행 중인 거래가 끝나면 로그인 정보와 공개 문구를 지웁니다. 시험 거래 기록은 30일 뒤 삭제됩니다. 요청할까요?')))return;
@@ -94,7 +117,11 @@ export function setupAccount(){
    const office=document.createElement('button');office.textContent=t('종무소 접수 안내');office.onclick=()=>{dialog.close();document.querySelector<HTMLButtonElement>('[data-view="officeReception"]')?.click();};list.after(office);office.dataset.accountOffice='';
   }catch(error){
    if(n!==sequence)return;
-   if(String(error)==='Error: 401'){form.hidden=false;status.textContent=t('@example.test 시험 주소를 사용하세요.');}
+   if(String(error)==='Error: 401'){
+    try{const config=await api('auth/methods');if(n!==sequence)return;await loginMethods(config,n);if(n!==sequence)return;
+     status.textContent=external?'':t('@example.test 시험 주소를 사용하세요.');}
+    catch{if(n===sequence)status.textContent=t('연결 상태를 확인해 주세요.');}
+   }
    else status.textContent=t('계정 정보를 불러오지 못했습니다.');
   }
  }
@@ -104,8 +131,8 @@ export function setupAccount(){
  window.addEventListener('sasa:reservation-login',event=>{resumeReservation=(event as CustomEvent<()=>void>).detail;button.click();});
  dialog.onclose=()=>{resumeReservation=undefined;resumePractice=false;confirmedHere=false;returnHint.hidden=true;sequence++;clear();form.reset();if(!document.activeElement||document.activeElement===document.body)button.focus();};
  form.onsubmit=async e=>{e.preventDefault();const n=sequence;
-  try{await api('login-link',{email:new FormData(form).get('email')});if(n===sequence)status.textContent=t('이 Mac의 시험 우편함에 로그인 링크를 보냈습니다.');}
-  catch{if(n===sequence)status.textContent=t('시험 이메일 주소와 연결 상태를 확인해 주세요.');}
+  try{const email=String(new FormData(form).get('email')).trim();if(external)await firebase!.send(email);else await api('login-link',{email});if(n===sequence)status.textContent=t(external?'이메일로 로그인 링크를 보냈습니다. 같은 브라우저에서 열어 주세요.':'이 Mac의 시험 우편함에 로그인 링크를 보냈습니다.');}
+  catch{if(n===sequence)status.textContent=t(external?'연결 상태를 확인해 주세요.':'시험 이메일 주소와 연결 상태를 확인해 주세요.');}
  };
  confirm.onclick=async()=>{const raw=link;link=null;clear();
   try{await api('login',{token:raw});confirmedHere=true;accountChanged();accountChanges?.postMessage('login');if(!finishLogin())await refresh();}

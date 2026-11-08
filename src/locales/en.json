@@ -184,5 +184,8 @@
   "108배 시작": "Begin 108 bows",
   "절하기": "Bow",
   "108배 완료": "108 bows complete",
-  "법당이 열린 탭으로 돌아가 절하기를 눌러 주세요.": "Return to the tab with the prayer hall and select Bow."
+  "법당이 열린 탭으로 돌아가 절하기를 눌러 주세요.": "Return to the tab with the prayer hall and select Bow.",
+  "로그인했습니다. 원래 사찰 탭으로 돌아가세요.": "Signed in. Return to your temple tab.",
+  "로그인 창을 열 수 없습니다. 팝업을 허용해 주세요.": "Allow pop-ups to open the sign-in window.",
+  "이메일로 로그인 링크를 보냈습니다. 같은 브라우저에서 열어 주세요.": "Login link sent. Open it in the same browser."
 }

@@ -184,5 +184,8 @@
   "108배 시작": "Commencer les 108 prosternations",
   "절하기": "Se prosterner",
   "108배 완료": "108 prosternations terminées",
-  "법당이 열린 탭으로 돌아가 절하기를 눌러 주세요.": "Revenez à l’onglet de la salle de prière et appuyez sur le bouton de prosternation."
+  "법당이 열린 탭으로 돌아가 절하기를 눌러 주세요.": "Revenez à l’onglet de la salle de prière et appuyez sur le bouton de prosternation.",
+  "로그인했습니다. 원래 사찰 탭으로 돌아가세요.": "Connexion réussie. Revenez à l’onglet du temple.",
+  "로그인 창을 열 수 없습니다. 팝업을 허용해 주세요.": "Autorisez les fenêtres contextuelles pour vous connecter.",
+  "이메일로 로그인 링크를 보냈습니다. 같은 브라우저에서 열어 주세요.": "Lien envoyé. Ouvrez-le dans le même navigateur."
 }
