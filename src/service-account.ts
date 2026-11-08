@@ -10,7 +10,7 @@ export function setupAccount(){
  const list=dialog.querySelector('ul')!;
  let sequence=0,link=new URLSearchParams(location.hash.slice(1)).get('login');
  if(link)history.replaceState(null,'',location.pathname+location.search);
- function clear(){window.dispatchEvent(new CustomEvent('sasa:select',{detail:null}));dialog.querySelector('[data-account-office]')?.remove();list.replaceChildren();status.textContent='';form.hidden=true;logout.hidden=true;confirm.hidden=true;}
+ function clear(){window.dispatchEvent(new CustomEvent('sasa:select',{detail:null}));dialog.querySelector('[data-account-office]')?.remove();dialog.querySelector('[data-staff-link]')?.remove();list.replaceChildren();status.textContent='';form.hidden=true;logout.hidden=true;confirm.hidden=true;}
  async function api(path:string,body?:object){
   const response=await fetch('/api/service/'+path,body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{cache:'no-store'});
   if(!response.ok)throw Error(String(response.status));return response.json();
@@ -19,9 +19,10 @@ export function setupAccount(){
   const n=++sequence;clear();
   if(link){confirm.hidden=false;status.textContent='이 브라우저에서 시험 계정에 로그인합니다.';return;}
   try{
-   const account=await api('me'),data=await api('me/offerings');
+   const [account,data,staff]=await Promise.all([api('me'),api('me/offerings'),api('staff/roles')]);
    if(n!==sequence)return;
    status.textContent=account.email+' · 내 아이템 '+data.items.length+'개';logout.hidden=false;
+   if(staff.roles.length){const link=document.createElement('a');link.href='/staff.html';link.textContent='시험 운영 화면';link.dataset.staffLink='';list.before(link);}
    const states:Record<string,string>={pending:'결제 대기',paid:'결제 확인',installed:'설치됨',recovering:'설치 복구 중',refund_pending:'환불 중',refund_failed:'환불 확인 중',refunded:'환불 완료',expired:'기간 만료'};
    for(const item of data.items){
     const li=document.createElement('li'),details=document.createElement('details'),title=document.createElement('summary'),info=document.createElement('p');
