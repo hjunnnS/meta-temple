@@ -1,10 +1,11 @@
+import {origin} from './local-candidate.mjs';
 import assert from 'node:assert/strict';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE??'playwright');
 const browser=await chromium.launch({channel:'chrome',args:['--enable-gpu']});
 try{
  const a=await browser.newContext({locale:'ko-KR'}),b=await browser.newContext({locale:'ko-KR'});
  const p=await a.newPage(),q=await b.newPage();
- async function enter(page){await page.goto('http://127.0.0.1:4340');await page.locator('.enter-temple').click();await page.locator('.entry-overlay').waitFor({state:'detached'});}
+ async function enter(page){await page.goto(origin);await page.locator('.enter-temple').click();await page.locator('.entry-overlay').waitFor({state:'detached'});}
  await enter(q);await enter(p);
  const guide=p.locator('#visit-guide');await guide.waitFor();await p.locator('#world').focus();
  await p.keyboard.press('ArrowUp');await guide.getByText(/휠/).waitFor();

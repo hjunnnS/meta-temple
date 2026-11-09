@@ -85,7 +85,8 @@ export function setupAccount(){
    };
    const states:Record<string,string>={cancelled:'결제 취소',pending:'결제 대기',paid:'결제 확인',installed:'설치됨',recovering:'설치 복구 중',refund_pending:'환불 중',refund_failed:'환불 확인 중',refunded:'환불 완료',expired:'기간 만료'};
    let selected:HTMLDetailsElement|null=null;
-   for(const item of data.items){
+   type AccountItem={orderId:string;kind:string;slotId:string;status:string;amountKrw:number;startsAt:string;endsAt:string;inquired:boolean;shareable:boolean;installationId:string};
+   function renderItem(item:AccountItem){
     const li=document.createElement('li'),details=document.createElement('details'),title=document.createElement('summary'),info=document.createElement('p');
     const product=offerings[(item.kind==='wish-plaque'?'plaque':item.kind) as Offering];
     title.textContent=[t(product.label),t(product.place),t(states[item.status]??item.status)].join(' · ');
@@ -113,8 +114,36 @@ export function setupAccount(){
      const hide=document.createElement('button');hide.textContent=t('공개 중단');hide.onclick=async()=>{try{await api('hide',{id:item.installationId});window.dispatchEvent(new Event('sasa:installations'));await refresh();}catch{status.textContent=t('공개 중단을 완료하지 못했습니다.');}};
      details.append(share,hide);
     }
-    li.append(details);list.append(li);
+    li.append(details);return li;
    }
+   const rows=new Map<string,{element:HTMLLIElement;snapshot:string}>();
+   function updateItems(items:AccountItem[]){
+    const ids=new Set(items.map(item=>item.orderId));
+    for(const [id,row] of rows)if(!ids.has(id)){row.element.remove();rows.delete(id);}
+    for(const [index,item] of items.entries()){
+     const previous=rows.get(item.orderId),snapshot=JSON.stringify(item);
+     if(previous?.snapshot===snapshot)continue;
+     const row=renderItem(item),details=row.querySelector('details')!;
+     const wasOpen=previous?.element.querySelector('details')?.open;
+     const focused=previous?[...previous.element.querySelectorAll('summary,button,a')].indexOf(document.activeElement as HTMLElement):-1;
+     if(previous)previous.element.replaceWith(row);
+     else list.insertBefore(row,list.querySelectorAll('li')[index]??null);
+     if(wasOpen)details.open=true;
+     if(focused>=0)row.querySelectorAll<HTMLElement>('summary,button,a')[focused]?.focus();
+     rows.set(item.orderId,{element:row,snapshot});
+    }
+    status.textContent=(account.email?account.email+' · ':'')+t('내 아이템')+' '+items.length+(locale==='ko'?'개':'');
+   }
+   updateItems(data.items);
+   async function poll(){
+    if(n!==sequence||!dialog.open)return;
+    if(!document.hidden){
+     try{const next=await api('me/offerings');if(n===sequence&&dialog.open)updateItems(next.items);}
+     catch(error){if(n!==sequence)return;if(String(error)==='Error: 401'){await refresh();return;}status.textContent=t('연결 상태를 확인해 주세요.');}
+    }
+    if(n===sequence&&dialog.open)window.setTimeout(poll,3000);
+   }
+   window.setTimeout(poll,3000);
    const office=document.createElement('button');office.textContent=t('종무소 접수 안내');office.onclick=()=>{dialog.close();document.querySelector<HTMLButtonElement>('[data-view="officeReception"]')?.click();};list.after(office);office.dataset.accountOffice='';
   }catch(error){
    if(n!==sequence)return;

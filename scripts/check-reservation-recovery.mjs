@@ -1,3 +1,4 @@
+import {origin} from './local-candidate.mjs';
 import assert from 'node:assert/strict';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE??'playwright');
 const browser=await chromium.launch({channel:'chrome',args:['--enable-gpu']});
@@ -20,7 +21,7 @@ try{
   if(taken)data.slots.find(s=>s.slotId===chosen).status='reserved';
   await route.fulfill({json:data});
  });
- await page.goto('http://127.0.0.1:4340');await page.locator('.enter-temple').click();
+ await page.goto(origin);await page.locator('.enter-temple').click();
  await page.locator('.entry-overlay').waitFor({state:'detached'});
  async function open(){
   await page.locator('[data-view="officeReception"]').first().click();

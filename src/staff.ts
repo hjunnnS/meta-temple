@@ -7,7 +7,7 @@ async function api(area:string,input?:object){
 const areas=[['desk','alerts','장애 알림'],['desk','orders','접수·환불'],['catalog','offers','상품 운영'],['moderation','content','공개 문구 감수']];
 let generation=0,activeArea='';
 async function openArea(area:string,term=''){
- activeArea=area;const current=++generation;section.replaceChildren();
+ activeArea=area;status.textContent='';const current=++generation;section.replaceChildren();
  try{
   if(area==='orders'){
    const search=document.createElement('form'),field=document.createElement('input'),submit=document.createElement('button');field.placeholder='주문 번호 · 상태 · 문의 · 판매 중지';field.value=term;submit.textContent='주문 검색';search.append(field,submit);section.append(search);
@@ -22,7 +22,13 @@ async function openArea(area:string,term=''){
     price.type='number';price.min='1';price.required=true;price.value=String(row.price_krw);price.setAttribute('aria-label','시험 가격');
     enabled.add(new Option('판매 중','true'));enabled.add(new Option('판매 중지','false'));enabled.value=String(row.enabled);form.append(price,enabled);
    }
-   if(area==='alerts'){const hint=document.createElement('p');hint.textContent=row.acknowledged_at?'담당자 확인 완료':'주문 검색에서 거래 상태를 확인하고 대응 사유를 기록하세요.';form.append(hint);if(row.acknowledged_at)continue;}
+   if(area==='alerts'){
+    const orderAlert=['payment_delay','install_failure','refund_failure'].includes(row.kind);
+    if(orderAlert){
+     const open=document.createElement('button');open.type='button';open.textContent='해당 주문 보기';
+     open.onclick=()=>void openArea('orders',row.id);form.append(open);
+    }
+    const hint=document.createElement('p');hint.textContent=row.acknowledged_at?'담당자 확인 완료':(orderAlert?'해당 주문의 상태를 확인하고 대응 사유를 기록하세요.':'예약 지연을 확인하고 대응 사유를 기록하세요.');form.append(hint);if(row.acknowledged_at)continue;}
    if(area==='orders'&&!['recovering','refund_pending','refund_failed'].includes(row.status))continue;
    const action=document.createElement('select');
    if(area==='content'){for(const [value,label] of [['hide','공개 숨김'],['delete','문구·이름 삭제'],['dismiss','신고 종결']])action.add(new Option(label,value));form.append(action);}
@@ -34,7 +40,7 @@ async function openArea(area:string,term=''){
    };
   }
   if(!rows.length)status.textContent='해당 항목이 없습니다.';
- }catch{section.replaceChildren();status.textContent='조회 권한과 로그인 상태를 확인하세요.';}
+ }catch{if(current!==generation)return;section.replaceChildren();status.textContent='조회 권한과 로그인 상태를 확인하세요.';}
 }
 async function init(){
  try{

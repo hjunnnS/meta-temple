@@ -19,7 +19,7 @@ async function issueSession(db,id,raw,previous){
  await db.query("INSERT INTO events(kind,account_id) VALUES ('login',$1)",[id]);
 }
 export async function serviceApi(env=process.env){
- const external=authConfig(env);
+ const external=env.SASA_LOCAL_INTEGRATION==='1'?null:authConfig(env);
  const verify=external&&firebaseVerifier(external);
  await migrate();
  const presence=channels(),practice=bowPractice();
@@ -27,7 +27,7 @@ export async function serviceApi(env=process.env){
   const path=new URL(req.url,'http://localhost').pathname;
   if(!path.startsWith('/api/service/'))return next();
   const send=(status,body)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(body));};
-  if(!['127.0.0.1','::1','::ffff:127.0.0.1'].includes(req.socket.remoteAddress)||!['127.0.0.1:4330','localhost:4330','127.0.0.1:4340','localhost:4340'].includes(req.headers.host))return send(403,{error:'local_only'});
+  if(!['127.0.0.1','::1','::ffff:127.0.0.1'].includes(req.socket.remoteAddress)||!['127.0.0.1:4330','localhost:4330','127.0.0.1:4340','localhost:4340',...(env.SASA_LOCAL_INTEGRATION==='1'?['127.0.0.1:4341']:[])].includes(req.headers.host))return send(403,{error:'local_only'});
   if(req.method!=='GET'&&req.headers.origin!=='http://'+req.headers.host)return send(403,{error:'origin'});
   const cookie=(req.headers.cookie??'').split(';').map(c=>c.trim()).find(c=>c.startsWith('sasa_session='))?.slice(13)??'';
   const cookieHash=digest(cookie);

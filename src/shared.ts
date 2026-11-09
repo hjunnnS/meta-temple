@@ -7,11 +7,14 @@ const status=document.querySelector('[role=status]')!,name=document.querySelecto
 const report=document.querySelector('form')!;
 watchPublic(async signal=>{
  const response=await fetch('/api/service/shared/'+encodeURIComponent(id),{signal,cache:'no-store'});
+ if([401,403,404,410].includes(response.status))return null;
  if(!response.ok)throw Error();
  return response.json();
 },item=>{
+ if(!item){clearContent('현재 볼 수 없는 봉헌입니다.');return;}
  report.hidden=false;status.textContent=t(kinds[item.kind]??'공개 봉헌');name.textContent=item.name??'';message.textContent=item.text??'';
-},()=>{report.hidden=true;status.textContent=t('현재 볼 수 없는 봉헌입니다.');name.textContent='';message.textContent='';});
+},()=>clearContent('연결 상태를 확인해 주세요.'));
+function clearContent(label:string){report.hidden=true;status.textContent=t(label);name.textContent='';message.textContent='';}
 
 report.onsubmit=async e=>{
  e.preventDefault();const result=document.querySelector('#report-status')!;

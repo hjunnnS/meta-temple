@@ -1,10 +1,11 @@
+import {origin,mailbox} from './local-candidate.mjs';
 // Run against the private candidate with its local test mailbox. Allow ten minutes.
 import assert from 'node:assert/strict';
 import {mkdir, readFile, readdir} from 'node:fs/promises';
 import {randomUUID} from 'node:crypto';
 const {chromium} = await import(process.env.PLAYWRIGHT_MODULE ?? 'playwright');
-const origin = 'http://127.0.0.1:4340';
-const mailbox = '.m3-local/mail';
+
+
 const evidence = 'evidence/bow-journey';
 const email = 'bow-' + randomUUID() + '@example.test';
 const before = new Set(await readdir(mailbox));

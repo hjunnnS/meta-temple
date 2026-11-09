@@ -4,7 +4,7 @@ import {resolve} from 'node:path';
 import {userInfo} from 'node:os';
 import {fixedSlots,layoutDraft} from '../../src/contracts.ts';
 
-export const localRoot=resolve('.m3-local');
+export const localRoot=resolve('.m3-local',process.env.SASA_LOCAL_INTEGRATION==='1'?'qa':'.');
 export const pool=new pg.Pool({host:resolve(localRoot,'socket'),port:54839,database:'temple_test',user:userInfo().username,max:5});
 export async function transaction(work){
  const client=await pool.connect();

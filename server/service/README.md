@@ -31,3 +31,5 @@ ON CONFLICT DO NOTHING;
 Firebase Authentication에서 이메일 링크(이메일/비밀번호 및 이메일 링크 옵션), Google, Apple 중 검수할 방식을 활성화한다. Firebase 웹 앱의 공개 설정 네 개를 .env.example에 따라 .env.service.local에 입력하고 SASA_AUTH_METHODS에 활성화한 방식만 지정한다. 사용 중인 후보본 호스트(예: 127.0.0.1)를 승인 도메인에 등록한다. Apple의 Services ID 및 키는 Firebase 콘솔에서 설정한다. 이메일 링크의 복귀 주소는 후보본의 /auth.html이다.
 
 후보본을 다시 시작한 뒤 같은 브라우저에서 링크를 열거나 Google·Apple 창에서 로그인하고 원래 예약·108배 화면을 확인한다. 서버가 Firebase ID 토큰의 서명과 대상 프로젝트를 검증한 후 기존 사찰 세션을 발급한다. 앱 데이터베이스에는 프로젝트와 Firebase UID에서 파생한 계정 식별자를 저장한다. 웹 앱 설정이 모두 비어 있으면 기존 로컬 시험 우편함을 사용한다.
+
+`npm run check:local`은 기본 검사와 최신 서비스 빌드, Chrome 방문·예약 검수를 차례로 실행한다. 검수 서버는 127.0.0.1:4341에서만 열리고 종료 시 닫힌다. 시험 DB와 우편함은 .m3-local/qa에 보관한다. Node 24, PostgreSQL 17, Chrome, Playwright가 필요하다. 저장소 밖에 설치한 Playwright는 PLAYWRIGHT_MODULE로 지정할 수 있다.

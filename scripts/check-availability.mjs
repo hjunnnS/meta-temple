@@ -1,6 +1,7 @@
+import {origin} from './local-candidate.mjs';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE??'playwright');
 import assert from 'node:assert/strict';
-const origin='http://127.0.0.1:4340',browser=await chromium.launch({channel:'chrome',args:['--enable-gpu']});
+const browser=await chromium.launch({channel:'chrome',args:['--enable-gpu']});
 try{
  const p=await browser.newPage({viewport:{width:320,height:720},locale:'ko-KR'});
  let all=false;

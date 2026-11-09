@@ -2,6 +2,10 @@
 set -eu
 umask 077
 root="$(pwd)/.m3-local"
+if [ "${1:-}" = "--integration" ]; then
+ root="$root/qa"
+ export SASA_LOCAL_INTEGRATION=1
+fi
 mkdir -p "$root/socket" "$root/mail"
 if [ ! -f "$root/db/PG_VERSION" ]; then
  initdb -D "$root/db" --encoding=UTF8 --locale=C --auth-local=peer --auth-host=reject >/dev/null
@@ -11,6 +15,10 @@ if ! pg_ctl -D "$root/db" status >/dev/null; then
 fi
 if ! psql -h "$root/socket" -p 54839 -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='temple_test'" | grep -qx 1; then
  createdb -h "$root/socket" -p 54839 temple_test
+fi
+if [ "${1:-}" = "--integration" ]; then
+ ./node_modules/.bin/vite build --mode service --outDir "$root/integration"
+ exec ./node_modules/.bin/vite preview --mode service --outDir "$root/integration" --host 127.0.0.1 --port 4341 --strictPort
 fi
 if [ "${1:-}" = "--candidate" ]; then
  ./node_modules/.bin/vite build --mode service --outDir "$root/candidate"

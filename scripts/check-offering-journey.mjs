@@ -1,9 +1,10 @@
+import {origin,mailbox} from './local-candidate.mjs';
 // Run against the local candidate and its test mailbox. No checkout is performed.
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {readFile,readdir} from 'node:fs/promises';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE??'playwright');
-const origin='http://127.0.0.1:4340';
+
 const browser=await chromium.launch({channel:'chrome',args:['--enable-gpu']});
 try {
  for(const label of ['연등','소원패','인등','추모등','봉헌초']){
@@ -58,7 +59,7 @@ try {
    await panel.getByRole('button',{name:'이 자리에 예약'}).click();
    assert.equal((await guest).status(),401);
    const account=page.locator('dialog[open]').filter({has:page.locator('input[name=email]')});
-   const existing=new Set(await readdir('.m3-local/mail'));
+   const existing=new Set(await readdir(mailbox));
    await account.locator('input').fill(email);
    if(label==='연등'){
     await page.route('**/api/service/login-link',r=>r.abort(),{times:1});
@@ -67,9 +68,9 @@ try {
    await account.locator('form button').click();
    await account.getByText('이 Mac의 시험 우편함에 로그인 링크를 보냈습니다.').waitFor();
    let link;
-   for(const file of await readdir('.m3-local/mail')){
+   for(const file of await readdir(mailbox)){
     if(existing.has(file))continue;
-    const [recipient,url]=(await readFile('.m3-local/mail/'+file,'utf8')).split('\n');
+    const [recipient,url]=(await readFile(mailbox+'/'+file,'utf8')).split('\n');
     if(recipient===email){link=new URL(url);break;}
    }
    assert.equal(link?.origin,origin);
