@@ -1,11 +1,12 @@
 import pg from 'pg';
 import {readFile} from 'node:fs/promises';
-import {resolve} from 'node:path';
-import {userInfo} from 'node:os';
+import {databaseSettings} from './runtime-config.mjs';
 import {fixedSlots,layoutDraft} from '../../src/contracts.ts';
 
-export const localRoot=resolve('.m3-local',process.env.SASA_LOCAL_INTEGRATION==='1'?'qa':'.');
-export const pool=new pg.Pool({host:resolve(localRoot,'socket'),port:54839,database:'temple_test',user:userInfo().username,max:5});
+const settings=databaseSettings();
+export const localRoot=settings.state;
+export const connection=settings.connection;
+export const pool=new pg.Pool({...connection,max:5,connectionTimeoutMillis:3000});
 export async function transaction(work){
  const client=await pool.connect();
  try{await client.query('BEGIN');const result=await work(client);await client.query('COMMIT');return result;}

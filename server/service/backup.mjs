@@ -5,10 +5,10 @@ import {join} from 'node:path';
 import {randomUUID} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
 import pg from 'pg';
-import {localRoot,pool} from './database.mjs';
+import {localRoot,pool,connection} from './database.mjs';
 const run=promisify(execFile);
 const folder=join(localRoot,'backups');
-const env={...process.env,PGHOST:join(localRoot,'socket'),PGPORT:'54839'};
+const env={...process.env,PGHOST:connection.host,PGPORT:String(connection.port),PGUSER:connection.user};
 const day=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul'}).format(new Date());
 async function manifest(db){
  const {rows}=await db.query("SELECT tablename FROM pg_tables WHERE schemaname='public' AND tablename NOT IN ('sessions','login_links') ORDER BY tablename");
@@ -30,7 +30,7 @@ export async function dailyBackup(){
   if(await stat(target).catch(e=>{if(e.code!=='ENOENT')throw e;}))return;
   tmp=await mkdtemp(join(folder,'.pending-'));
   const snapshot=(await db.query('SELECT pg_export_snapshot() AS id')).rows[0].id;
-  await run('pg_dump',['-Fc','--snapshot='+snapshot,'--exclude-table-data=public.sessions','--exclude-table-data=public.login_links','-f',join(tmp,'temple.dump'),'temple_test'],{env});
+  await run('pg_dump',['-Fc','--snapshot='+snapshot,'--exclude-table-data=public.sessions','--exclude-table-data=public.login_links','-f',join(tmp,'temple.dump'),connection.database],{env});
   await writeFile(join(tmp,'manifest.json'),JSON.stringify(await manifest(db)),{mode:0o600});
   await rename(tmp,target);tmp=undefined;
  }finally{try{await db.query('ROLLBACK');if(tmp)await rm(tmp,{recursive:true,force:true});}finally{db.release();}}
@@ -39,7 +39,7 @@ export async function verifyRestore(){
  await dailyBackup();const target=join(folder,day()),dbName='temple_verify_'+randomUUID().replaceAll('-','');
  const started=Date.now();
  await run('createdb',[dbName],{env});
- const client=new pg.Client({host:env.PGHOST,port:54839,database:dbName});
+ const client=new pg.Client({...connection,database:dbName});
  try{
   await run('pg_restore',['--exit-on-error','--single-transaction','-d',dbName,join(target,'temple.dump')],{env});
   await client.connect();const actual=await manifest(client),expected=JSON.parse(await readFile(join(target,'manifest.json'),'utf8'));

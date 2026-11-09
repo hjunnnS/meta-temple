@@ -38,3 +38,13 @@ M1은 기존 GitHub Actions와 로컬 정적 빌드를 사용한다. M2 샘플 �
 [검수용 응답 예시](m2-sample-contract.json)에는 실제 장면에 존재하는 설치 슬롯 하나, 빈 슬롯 하나, 별도 시험 세션의 입장·이동·퇴장을 담았다. 예시는 계약을 설명하는 파일이다. #72와 #52가 이 형식으로 실제 서버 왕복을 검증한다.
 
 2026-11-08 P13 사용자 승인. M2 검수 서버는 이 Mac의 루프백 주소로 제한한다. npm run review로 실행하고 http://127.0.0.1:4320 에서 확인한다. #24에서 승인한 다섯 아이템의 배치 규격은 layout-web-014이다. 맵과 검수 서버는 src/contracts.ts의 좌표·방향·종류를 함께 사용한다. server/review-layout.mjs가 각 구역의 샘플 설치 상태를 제공한다. server/sample-slots.json은 #72에서 사용한 이전 버전의 두 자리 예시다. 검수 화면의 ‘슬롯 다시 조회’로 다섯 구역을 함께 갱신한다. 레이아웃이나 응답 구조 변경 시 버전을 올려 클라이언트 검사와 함께 변경한다. 일반 배포 빌드에는 검수 API를 제공하지 않는다.
+
+## 계정 없이 실행하는 단일 서버 후보
+
+`npm run candidate:local`은 Node 24와 PostgreSQL 17이 있는 이 Mac에서 서비스용 웹을 빌드하고 http://127.0.0.1:4342 에서 제공한다. 브라우저의 3D 렌더링, 같은 주소의 서비스 API, PostgreSQL 및 주기적인 주문 복구·개인정보 처리·백업으로 구성한다. Node 서버는 빌드 결과만 제공하며 Vite는 빌드 단계에 사용한다. 방문 채널과 수행 상태는 서버 프로세스 메모리에, 계정·주문·설치 내역은 DB에 보관한다.
+
+기본 미리보기(4340), 자동 검수(4341), 이 후보(4342)는 별도 프로세스다. 후보의 DB는 `.m3-local/standalone/socket`의 54840번 `temple_candidate`이고 웹·우편·백업은 같은 상태 디렉터리의 web, mail, backups에 보관한다. 브라우저 접속은 루프백으로 제한한다. 종료는 실행 터미널에서 Ctrl+C, DB까지 정지하려면 `pg_ctl -D .m3-local/standalone/db -m fast stop`을 사용한다.
+
+이미 준비한 빌드와 로컬 DB를 실행할 때는 `node server/candidate.mjs`에 SASA_STATE_DIR(web/index.html 포함), SASA_DB_HOST(로컬 소켓 또는 루프백), SASA_DB_PORT, SASA_DB_NAME, SASA_DB_USER, SASA_HTTP_PORT를 지정한다. 백업·복원 CLI에도 같은 DB와 상태 경로를 지정한다. /health/live는 프로세스 응답, /health/ready는 실제 DB 질의 성공 여부를 알려 준다. `npm run check:local`은 4341에서 같은 서버 실행 파일로 별도의 시험 데이터를 검수한다.
+
+AWS 이전 시에는 서버·DB 위치와 예산, 외부 백업 보관, HTTPS 도메인과 인증·결제 제공자를 먼저 확정한다. 이 로컬 실행 설정은 단일 프로세스의 시험 거래 전용이다.
