@@ -98,7 +98,7 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
  }
  window.addEventListener('sasa:resume-practice',()=>{if(visible&&!id&&!busy)button.click();});
  stop.onclick=cancel;window.addEventListener('sasa:account',cancel);
- return {cancel,get active(){return !!id||busy;},get bowing(){return elapsed>=0;},
+ return {cancel,get active(){return !!id||busy;},get progress(){return Math.max(0,Math.min(1,elapsed/4.8));},get bowing(){return elapsed>=0;},
   show(value:boolean){if(value===visible)return;visible=value;if(!value)cancel();else draw();},
   update(dt:number){if(elapsed<0)return;elapsed+=Math.min(.1,dt);
    const phase=Math.min(1,elapsed/4.8);pose(phase);

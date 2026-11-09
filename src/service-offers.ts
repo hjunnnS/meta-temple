@@ -1,6 +1,6 @@
 import {locale,t,translateMarkup} from './locales';
 import type {Offering} from './reception.ts';
-import {lanternMap} from './lantern-map';
+import {lanternMap,type MapSlot} from './lantern-map';
 interface Offer {id:string;kind:string;days:number;priceKrw:number}
 const zones:Record<Offering,string>={lantern:'Z02',votive:'Z07',memorial:'Z06',plaque:'Z08',candle:'Z03'};
 async function service(path:string,body?:object){
@@ -39,12 +39,11 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
   const data=await service('temples/sample:sasa/zones/'+zones[kind]+'/slots');
   controls.replaceChildren();note.textContent=t('시험 기간권')+' · '+pass(quote.days,quote.priceKrw);
   const free=data.slots.filter((s:{status:string})=>s.status==='free');
-  if(!free.length){
+  if(!free.length&&kind!=='lantern'){
    note.textContent=t('모든 자리가 찼습니다.');
-   if(kind==='lantern')controls.append(lanternMap(data.slots,undefined,()=>{}));
    button('취소',restart);return;
   }
-  if(automatic)preferred=free[Math.floor(Math.random()*free.length)].slotId;
+  if(automatic&&free.length)preferred=free[Math.floor(Math.random()*free.length)].slotId;
   const available=free.some((s:{slotId:string})=>s.slotId===preferred);
   if(reselect||(preferred&&!available))note.textContent=t('다른 자리를 선택하세요');
   const form=document.createElement('form');
@@ -52,7 +51,7 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
   if(kind==='lantern')form.insertAdjacentHTML('beforeend','<label><input name="tag" type="checkbox"> 이름표 신청</label><label>표시 이름<input name="name" maxlength="12"></label>');
   translateMarkup(form);
   const choice=form.querySelector('select')!;for(const s of data.slots){const option=new Option(s.slotId.split(':').at(-1)+' · '+t(({free:'빈자리',reserved:'예약 중',occupied:'설치됨'}[s.status as string]??'확인 중')),s.slotId);option.disabled=s.status!=='free';choice.add(option);}
-  choice.value=available?preferred!:preferred?'':free[0].slotId;
+  choice.value=available?preferred!:preferred?'':(free[0]?.slotId??'');
   if(draft){
    for(const field of form.querySelectorAll<HTMLInputElement|HTMLTextAreaElement>('input,textarea')){
     if(field instanceof HTMLInputElement&&field.type==='checkbox')field.checked=draft.has(field.name);
@@ -80,6 +79,7 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
     await new Promise(resolve=>setTimeout(resolve,1100));if(section.isConnected)await held(retry);
    });
   });
+  const pickFree=button('빈자리 자동 선택',()=>select(offer,undefined,new FormData(form),true));
   if(kind==='lantern'){
    choice.parentElement!.hidden=true;
    const fields=[...form.querySelectorAll('label')].slice(1);
@@ -87,9 +87,27 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
     choice.value=id;confirm.disabled=!id;
     for(const field of fields)field.hidden=!id;
    });
-   form.prepend(map);
+   form.prepend(map.root);
+   const passNote=note.textContent;
+   function showAvailability(hasFree:boolean){
+    pickFree.disabled=!hasFree;
+    if(!hasFree)note.textContent=t('모든 자리가 찼습니다.');
+    else if(note.textContent===t('모든 자리가 찼습니다.'))note.textContent=passNote;
+   }
+   showAvailability(free.length>0);
+   let lastAvailability='';
+   map.root.addEventListener('sasa:slot-status',event=>{
+    const statuses=(event as CustomEvent<Map<string,MapSlot['status']>>).detail;
+    const availability=JSON.stringify(Array.from(statuses));
+    if(availability===lastAvailability)return;
+    lastAvailability=availability;
+    const previous=choice.value;
+    map.update(statuses);
+    if(previous&&statuses.get(previous)!=='free')note.textContent=t('다른 자리를 선택하세요');
+    for(const option of choice.options)option.disabled=statuses.get(option.value)!=='free';
+    showAvailability([...statuses.values()].includes('free'));
+   });
   }
-  button('빈자리 자동 선택',()=>select(offer,undefined,new FormData(form),true));
   button(t('취소'),restart);
  }
  async function restart(){

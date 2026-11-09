@@ -42,3 +42,8 @@
 .ceremony-board[hidden],.ceremony-board button[hidden]{display:none}
 .ceremony-board small{color:#e2d7c2}.ceremony-board button{justify-self:start;color:#fff5de;background:#365446;border:1px solid #9fba9c;border-radius:.3rem;padding:.3rem .65rem}
 @media(max-width:650px){.ceremony-board{top:auto;bottom:10rem;max-width:75vw;font-size:.8rem}}
+
+#visit-guide{position:absolute;z-index:4;left:50%;bottom:5rem;transform:translateX(-50%);background:#233c32f2;color:#fff4d9;padding:.55rem .8rem;border-radius:.5rem;display:flex;align-items:center;gap:.65rem;max-width:82vw;width:max-content;pointer-events:none}
+#visit-guide[hidden],body:not(.exploring) #visit-guide{display:none}
+#visit-guide button{pointer-events:auto;flex-shrink:0;color:inherit;background:transparent;border:1px solid #aeab93;padding:.35rem}
+@media(max-width:650px){#visit-guide{bottom:auto;top:4.8rem;font-size:.8rem}}

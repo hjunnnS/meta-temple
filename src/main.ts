@@ -298,6 +298,11 @@ if(import.meta.env.MODE==='service'){
   if(!res.ok)throw Error();return parseReviewSlots(await res.json(),zone,true);
  })),zones=>{
   const slots=zones.flat(),snapshot=JSON.stringify(slots.map(s=>[s.installationId,s.owned,s.reserved,s.name,s.text]));
+  const map=receptionPanel.querySelector('.lantern-map');
+  if(map){
+   const statuses=new Map(slots.filter(s=>s.accepts==='lantern').map(s=>[s.id,s.installationId?'occupied':s.reserved?'reserved':'free']));
+   map.dispatchEvent(new CustomEvent('sasa:slot-status',{detail:statuses}));
+  }
   if(snapshot!==lastSnapshot){app.applyReviewSlots(slots);lastSnapshot=snapshot;renderOfferingDetail();}
  },()=>{
   if(lastSnapshot){app.applyReviewSlots([]);lastSnapshot='';renderOfferingDetail();}
@@ -305,16 +310,25 @@ if(import.meta.env.MODE==='service'){
  window.addEventListener('sasa:installations',syncServiceSlots);
  window.addEventListener('sasa:account',()=>{app.applyReviewSlots([]);lastSnapshot='';renderOfferingDetail();void syncServiceSlots();});
 
- const help=document.createElement('dialog');help.setAttribute('aria-label','첫 방문 안내');
- help.innerHTML='<h2>사찰 둘러보기</h2><p>방향키나 화면의 화살표로 걸으세요. 화면을 드래그하면 처마와 연등을 올려다볼 수 있습니다.</p><p>법당 불단 앞에서 참배할 수 있습니다. 내 아이템은 가까이 걸어가 빛을 확인하세요.</p><button>안내 닫기</button>';translateMarkup(help);document.body.append(help);
+ const help=document.createElement('aside');help.id='visit-guide';help.hidden=true;
+ const hint=document.createElement('span'),skip=document.createElement('button');
+ hint.setAttribute('aria-live','polite');skip.textContent=t('안내 닫기');help.append(hint,skip);root.append(help);
+ const steps=[t(matchMedia('(pointer: coarse)').matches?'화면의 화살표로 걷고 손가락으로 화면을 밀어 둘러보세요.':'방향키로 걷고 마우스로 드래그해 둘러보세요.'),t('드래그하여 둘러보기 · 휠 / 두 손가락으로 확대'),t('천왕문')+' · '+t('다음 일정')+' · '+t('함께 듣기')];
+ let step=0;
+ function guideStep(index:number){step=index;hint.textContent=steps[index];}
+ function openGuide(){guideStep(0);help.hidden=false;}
+ function closeGuide(){help.hidden=true;try{localStorage.setItem('sasa:guide-seen','1');}catch{}canvas.focus();}
+ skip.onclick=closeGuide;
  const again=document.createElement('button');again.textContent=t('조작 안내 다시 보기');settingsPanel.append(again);
- function openGuide(){
-  help.querySelector('p')!.textContent=t(matchMedia('(pointer: coarse)').matches?'화면의 화살표로 걷고 손가락으로 화면을 밀어 둘러보세요.':'방향키로 걷고 마우스로 드래그해 둘러보세요.');
-  help.showModal();
- }
- again.onclick=()=>{settingsPanel.close();openGuide();};help.querySelector('button')!.onclick=()=>help.close();
- help.onclose=()=>{try{localStorage.setItem('sasa:guide-seen','1');}catch{}canvas.focus();};
- $('#explore').addEventListener('click',()=>{let seen=false;try{seen=localStorage.getItem('sasa:guide-seen')==='1';}catch{}if(!seen)openGuide();});
+ again.onclick=()=>{settingsPanel.close();openGuide();canvas.focus();};
+ const moved=()=>{if(!help.hidden&&step===0)guideStep(1);};
+ canvas.addEventListener('keydown',e=>{if(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))moved();});
+ $('#walk-pad').addEventListener('pointerdown',e=>{if((e.target as Element).closest('[data-key]'))moved();});
+ const zoomed=()=>{if(!help.hidden&&step===1)guideStep(2);};
+ window.addEventListener('wheel',e=>{if(e.target===canvas)zoomed();},{capture:true,passive:true});
+ canvas.addEventListener('touchmove',e=>{if(e.touches.length===2)zoomed();},{passive:true});
+ window.addEventListener('sasa:lotus-entry',()=>{try{if(localStorage.getItem('sasa:guide-seen')==='1')return;localStorage.setItem('sasa:guide-seen','1');}catch{}openGuide();});
+
 }
 
 }

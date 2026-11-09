@@ -2,7 +2,7 @@ import {LANTERN_PALETTE,lanternColourIndex,type Vec3} from './contracts';
 import {t} from './locales';
 import './lantern-map.css';
 
-interface MapSlot {slotId:string;position:Vec3;status:'free'|'reserved'|'occupied'}
+export interface MapSlot {slotId:string;position:Vec3;status:'free'|'reserved'|'occupied'}
 const statusText={free:'빈자리',reserved:'예약 중',occupied:'설치됨'};
 export function lanternMap(slots:MapSlot[],initial:string|undefined,select:(id:string)=>void){
  const root=document.createElement('section');root.className='lantern-map';
@@ -12,6 +12,7 @@ export function lanternMap(slots:MapSlot[],initial:string|undefined,select:(id:s
   if(!rows.has(x))rows.set(x,[]);
   rows.get(x)!.push(slot);
  }
+ const byId=new Map(slots.map(slot=>[slot.slotId,slot]));
  const columns=[...rows.entries()].sort(([a],[b])=>a-b);
  const zs=slots.map(s=>s.position[2]),north=Math.max(...zs),south=Math.min(...zs);
  function heading(text:string){const h=document.createElement('h3');h.textContent=text;root.append(h);}
@@ -29,7 +30,7 @@ export function lanternMap(slots:MapSlot[],initial:string|undefined,select:(id:s
    const number=document.createElement('strong'),availability=document.createElement('small'),strip=document.createElement('span');
    number.textContent=t('줄')+' '+(i+1);
    availability.textContent=free?t('빈자리')+' '+free:t('만석');
-   b.disabled=free===0;strip.className='row-strip';strip.setAttribute('aria-hidden','true');
+   b.dataset.row=String(i);b.disabled=free===0;strip.className='row-strip';strip.setAttribute('aria-hidden','true');
    b.append(strip,number,availability);
    for(const s of row){
     const dot=document.createElement('i');dot.style.top=(3+94*(north-s.position[2])/Math.max(1,north-south))+'%';
@@ -53,12 +54,24 @@ export function lanternMap(slots:MapSlot[],initial:string|undefined,select:(id:s
    const id=document.createElement('strong');id.textContent=slot.slotId.slice(-4);
    const status=document.createElement('small');status.textContent=t(statusText[slot.status]);
    b.style.setProperty('--dye',LANTERN_PALETTE[lanternColourIndex(slot.position)]);
-   b.disabled=slot.status!=='free';b.setAttribute('aria-pressed',String(slot.slotId===selected));
+   b.dataset.slot=slot.slotId;b.disabled=slot.status!=='free';b.setAttribute('aria-pressed',String(slot.slotId===selected));
    b.append(id,status);grid.append(b);
   }
   if(!selected)grid.querySelector<HTMLButtonElement>('button:enabled')?.focus();
  }
+ function update(statuses:Map<string,MapSlot['status']>){
+  for(const [id,status] of statuses){const slot=byId.get(id);if(slot)slot.status=status;}
+  for(const row of root.querySelectorAll<HTMLButtonElement>('[data-row]')){
+   const free=columns[Number(row.dataset.row)][1].filter(slot=>slot.status==='free').length;
+   row.disabled=!free;row.querySelector('small')!.textContent=free?t('빈자리')+' '+free:t('만석');
+  }
+  for(const seat of root.querySelectorAll<HTMLButtonElement>('[data-slot]')){
+   const status=byId.get(seat.dataset.slot!)!.status;
+   seat.disabled=status!=='free';seat.querySelector('small')!.textContent=t(statusText[status]);
+   if(seat.disabled&&seat.getAttribute('aria-pressed')==='true'){seat.setAttribute('aria-pressed','false');select('');}
+  }
+ }
  const index=columns.findIndex(([,row])=>row.some(s=>s.slotId===initial));
  if(index>=0)detail(index,columns[index][1].some(s=>s.slotId===initial&&s.status==='free')?initial:undefined);else overview();
- return root;
+ return {root,update};
 }

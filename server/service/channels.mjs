@@ -23,15 +23,15 @@ export function channels(clock=Date.now){
    if(!v||v.session!==session||input.self!==v.id)return [410,{}];
    if(action==='leave'){members.delete(account);return [200,{}];}
    const {sequence,position,yaw,animation}=input;
-   if(action!=='move'||(input.face!==undefined&&!validFace(input.face))||(input.wearingRobe!==undefined&&typeof input.wearingRobe!=='boolean')||!Number.isSafeInteger(sequence)||sequence<1||!Array.isArray(position)||position.length!==3||!position.every(n=>Number.isFinite(n)&&Math.abs(n)<=85)||position[1]<-1||position[1]>5||!Number.isFinite(yaw)||!['idle','walk','worship'].includes(animation))return [400,{}];
+   if(action!=='move'||(input.bowProgress!==undefined&&(!Number.isFinite(input.bowProgress)||input.bowProgress<0||input.bowProgress>1))||(input.face!==undefined&&!validFace(input.face))||(input.wearingRobe!==undefined&&typeof input.wearingRobe!=='boolean')||!Number.isSafeInteger(sequence)||sequence<1||!Array.isArray(position)||position.length!==3||!position.every(n=>Number.isFinite(n)&&Math.abs(n)<=85)||position[1]<-1||position[1]>5||!Number.isFinite(yaw)||!['idle','walk','worship'].includes(animation))return [400,{}];
    if(sequence>v.sequence){
     if(v.sequence&&Math.hypot(...position.map((n,i)=>n-v.position[i]))>1+9*(now-v.moved)/1000)return [422,{}];
-    Object.assign(v,{sequence,position,yaw,animation,face:input.face??v.face,wearingRobe:input.wearingRobe??v.wearingRobe,moved:now});
+    Object.assign(v,{sequence,position,yaw,animation,bowProgress:input.bowProgress,face:input.face??v.face,wearingRobe:input.wearingRobe??v.wearingRobe,moved:now});
    }
   }
   v.seen=now;
   const peers=[...members.values()].filter(m=>m.channel===v.channel);
-  const participants=peers.filter(m=>m!==v&&zoneAt(m.position)===zoneAt(v.position)).map(m=>({sessionId:m.id,position:m.position,yaw:m.yaw,animation:m.animation,face:m.face,wearingRobe:m.wearingRobe,sequence:m.sequence}));
+  const participants=peers.filter(m=>m!==v&&zoneAt(m.position)===zoneAt(v.position)).map(m=>({sessionId:m.id,position:m.position,yaw:m.yaw,animation:m.animation,bowProgress:m.bowProgress,face:m.face,wearingRobe:m.wearingRobe,sequence:m.sequence}));
   return [200,{schemaVersion:1,layoutVersion:layoutDraft.version,channelId:String(v.channel),self:v.id,count:peers.length,participants}];
  };
 }

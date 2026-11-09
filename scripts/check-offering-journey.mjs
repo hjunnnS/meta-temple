@@ -7,7 +7,7 @@ const origin='http://127.0.0.1:4340';
 const browser=await chromium.launch({channel:'chrome',args:['--enable-gpu']});
 try {
  for(const label of ['연등','소원패','인등','추모등','봉헌초']){
-  const context=await browser.newContext({locale:'ko-KR',reducedMotion:'reduce',viewport:{width:1100,height:800}});
+  const context=await browser.newContext({locale:'ko-KR',reducedMotion:'reduce',viewport:{width:320,height:720}});
   try {
    const page=await context.newPage();
    const email='reserve-'+randomUUID()+'@example.test';
@@ -22,13 +22,31 @@ try {
    await panel.getByRole('button',{name:/^7일/}).click();
    const choice=panel.locator('select[name=slot]');
    if(label==='연등'){
-    await panel.locator('.lantern-plan button').nth(1).click();
-    await panel.locator('.lantern-seats button:enabled').last().click();
+    const rows=panel.locator('.lantern-plan button');
+    await rows.first().waitFor();
+    assert.equal((await rows.allTextContents()).reduce((n,text)=>n+Number(text.split('빈자리')[1]??0),0),await choice.locator('option:enabled').count());
+    assert.equal(await choice.locator('option').count(),440);
+    const row=rows.nth(1);await row.focus();await page.keyboard.press('Enter');
+    await panel.getByRole('button',{name:'‹ 연등 배치도'}).focus();await page.keyboard.press('Enter');
+    assert(await row.evaluate(el=>el===document.activeElement));await page.keyboard.press('Enter');
+    await panel.locator('.lantern-seats button:enabled').last().focus();await page.keyboard.press('Enter');
    }else{
     const available=choice.locator('option:enabled');
     await choice.selectOption(await available.last().getAttribute('value'));
    }
    const selected=await choice.inputValue();
+   let observer,watched;
+   if(label==='연등'){
+    observer=await browser.newPage({locale:'ko-KR',viewport:{width:960,height:720}});
+    await observer.goto(origin);await observer.locator('.enter-temple').click();
+    await observer.locator('.entry-overlay').waitFor({state:'detached'});
+    await observer.locator('[data-view="officeReception"]').first().click();
+    const reception=observer.locator('#reception-panel');
+    await reception.getByRole('button',{name:/^연등 ·/}).click();await reception.getByRole('button',{name:/^7일/}).click();
+    await reception.locator('.lantern-plan button').nth(1).click();
+    watched=reception.locator('[data-slot="'+selected+'"]');await watched.click();
+    await reception.locator('textarea').fill('유지할 초안');
+   }
    const message=label+' 시험 신청';
    await panel.locator('textarea').fill(message);
    await panel.getByRole('button',{name:'신청 내용 확인'}).click();
@@ -42,6 +60,10 @@ try {
    const account=page.locator('dialog[open]').filter({has:page.locator('input[name=email]')});
    const existing=new Set(await readdir('.m3-local/mail'));
    await account.locator('input').fill(email);
+   if(label==='연등'){
+    await page.route('**/api/service/login-link',r=>r.abort(),{times:1});
+    await account.locator('form button').click();await account.getByRole('status').filter({hasText:'연결 상태'}).first().waitFor();
+   }
    await account.locator('form button').click();
    await account.getByText('이 Mac의 시험 우편함에 로그인 링크를 보냈습니다.').waitFor();
    let link;
@@ -65,9 +87,14 @@ try {
    assert.deepEqual(attempts[1],attempts[0]);
    assert.equal(attempts[1].text,message);
    assert.equal(attempts[1].slotId,selected);
+   if(observer){await observer.bringToFront();await watched.getByText('예약 중').waitFor();assert(await watched.isDisabled());}
    const released=page.waitForResponse(r=>r.url().endsWith('/trade/cancel'));
    await cancel.click();
    assert((await released).ok());
+   if(observer){
+    await observer.bringToFront();await watched.getByText('빈자리').waitFor();await watched.click();
+    assert.equal(await observer.locator('#reception-panel textarea').inputValue(),'유지할 초안');await observer.close();
+   }
    console.log(label,selected,'예약 확인 및 해제');
   } finally {await context.close();}
  }

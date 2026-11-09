@@ -58,7 +58,7 @@ enter.onclick=async()=>{
   game.inert=false;
   root.classList.add('revealing-temple');
   await new Promise(resolve=>setTimeout(resolve,matchMedia('(prefers-reduced-motion: reduce)').matches?0:450));
-  root.remove();document.querySelector<HTMLCanvasElement>('#world')?.focus();
+  root.remove();if(!loginReturn)window.dispatchEvent(new Event('sasa:lotus-entry'));document.querySelector<HTMLCanvasElement>('#world')?.focus();
  }catch{
   if(root.contains(enter)){
    prompt.textContent=t('다시 불러오기');enter.disabled=false;enter.onclick=()=>location.reload();
@@ -67,6 +67,7 @@ enter.onclick=async()=>{
 };
 
 // A login link returns to the language already selected for the visit.
-if(import.meta.env.MODE==='service'&&new URLSearchParams(location.hash.slice(1)).has('login')){
+const loginReturn=import.meta.env.MODE==='service'&&new URLSearchParams(location.hash.slice(1)).has('login');
+if(loginReturn){
  enter.click();
 }
