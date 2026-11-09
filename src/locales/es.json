@@ -1,4 +1,8 @@
 {
+  "한 줄로 입력해 주세요.": "Escribe en una sola línea.",
+  "최대 {limit}자까지 입력할 수 있습니다.": "Introduce hasta {limit} caracteres.",
+  "변경된 가격을 확인해 주세요.": "Revisa el nuevo precio.",
+  "이 기간권은 판매가 중지되었습니다.": "Este pase ya no está a la venta.",
   "전체 무음": "Silenciar todo",
   "공간음 꺼짐": "Sonido ambiental desactivado",
   "이메일": "Correo electrónico",

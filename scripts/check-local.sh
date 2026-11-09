@@ -22,3 +22,6 @@ until curl -fsS --max-time 1 http://127.0.0.1:4341/api/service/time >/dev/null 2
  sleep 1
 done
 npm run check:journeys
+node server/service/check-trade.mjs
+node server/service/check-lifecycle.mjs
+node server/service/check-staff.mjs

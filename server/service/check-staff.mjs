@@ -23,11 +23,11 @@ try{
  }
  const [update,checkout]=await Promise.all([staff(account,'offers','POST',change),trade('checkout','POST',{holdId:hold.id},buyer)]);
  assert.equal(update[0],200);assert.equal(checkout[1].amount_krw,3100);
- assert.equal((await reserve(account,slots[1]))[0],409);
+ assert.equal((await reserve(account,slots[1]))[1].error,'offer_stopped');
  assert.equal((await trade('hold','GET',{},account))[1].waiting,false);
  assert.equal((await staff(account,'offers','POST',change))[0],409);
  assert.equal((await staff(account,'offers','POST',{...change,revision:2,enabled:true}))[0],200);
- assert.equal((await reserve(account,slots[1]))[0],409);
+ assert.equal((await reserve(account,slots[1]))[1].error,'offer_changed');
  const {rows}=await pool.query('SELECT before_state,after_state FROM staff_audit WHERE actor=$1 ORDER BY id',[account]);
  assert.equal(rows.length,2);assert.equal(rows[0].before_state.price_krw,3100);assert.equal(rows[0].after_state.price_krw,4400);
  console.log('PASS three roles, denied change, scoped audit, stale quote, draw cancellation, hold & checkout preserved across stop/resume');

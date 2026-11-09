@@ -32,8 +32,10 @@ try{
  await maintainOrders();assert.equal((await state(prior)).status,'expired');
  await trade('reconcile','POST',{orderId:failed},account);await maintainOrders();
  assert.equal((await state(failed)).status,'refunded');
+ assert((await pool.query('SELECT released_at FROM reservations r JOIN orders o ON o.reservation_id=r.id WHERE o.id=$1',[failed])).rows[0].released_at);
  assert.equal((await pool.query('SELECT count(*)::int AS count FROM installations WHERE order_id=$1',[failed])).rows[0].count,0);
  console.log('PASS initial failure + 3 scheduled retries, refund failure keeps hold, confirmed refund releases, expiry keeps history.');
 }finally{
+ await pool.query('DELETE FROM operation_alerts WHERE target IN (SELECT id::text FROM orders WHERE account_id=$1)',[account]);
  for(const table of ['events','installations','test_receipts','orders','reservations','accounts'])await pool.query('DELETE FROM '+table+' WHERE '+(table==='accounts'?'id':'account_id')+'=$1',[account]);await pool.end();
 }

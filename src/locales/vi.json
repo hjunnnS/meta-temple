@@ -1,4 +1,8 @@
 {
+  "한 줄로 입력해 주세요.": "Vui lòng nhập trên một dòng.",
+  "최대 {limit}자까지 입력할 수 있습니다.": "Nhập tối đa {limit} ký tự.",
+  "변경된 가격을 확인해 주세요.": "Vui lòng kiểm tra giá mới.",
+  "이 기간권은 판매가 중지되었습니다.": "Gói này đã ngừng bán.",
   "전체 무음": "Tắt toàn bộ âm thanh",
   "공간음 꺼짐": "Đã tắt âm thanh môi trường",
   "이메일": "Email",

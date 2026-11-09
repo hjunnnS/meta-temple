@@ -1,3 +1,4 @@
+import {inscriptionError,inscriptionLimits} from './inscription.ts';
 import {locale,t,translateMarkup} from './locales';
 import type {Offering} from './reception.ts';
 import {lanternMap,type MapSlot} from './lantern-map';
@@ -84,8 +85,13 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
   }
   void show(initial);
  }
- async function select(offer:Offer,preferred=initialSlot,draft?:FormData,automatic=false,reselect=false){
-  const {offer:quote}=await service('quote',{offerId:offer.id});
+ function stopped(){
+  controls.replaceChildren();note.textContent=t('이 기간권은 판매가 중지되었습니다.');button('기간권 보기',restart);
+ }
+ async function select(offer:Offer,preferred=initialSlot,draft?:FormData,automatic=false,reselect=false,previous?:Offer){
+  let quote:Offer & {revision:number};
+  try{quote=(await service('quote',{offerId:offer.id})).offer;}
+  catch(error){if((error as {code?:string}).code==='not_available'){stopped();return;}throw error;}
   const data=await service('temples/sample:sasa/zones/'+zones[kind]+'/slots');
   controls.replaceChildren();note.textContent=t('시험 기간권')+' · '+pass(quote.days,quote.priceKrw);
   const free=data.slots.filter((s:{status:string})=>s.status==='free');
@@ -96,9 +102,13 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
   if(automatic&&free.length)preferred=free[Math.floor(Math.random()*free.length)].slotId;
   const available=free.some((s:{slotId:string})=>s.slotId===preferred);
   if(reselect||(preferred&&!available))note.textContent=t('다른 자리를 선택하세요');
+  if(previous&&previous.priceKrw!==quote.priceKrw){
+   note.textContent=t('변경된 가격을 확인해 주세요.')+' '+amount(previous.priceKrw)+' → '+pass(quote.days,quote.priceKrw)
+    +(available?'':' · '+t('다른 자리를 선택하세요'));
+  }
   const form=document.createElement('form');
-  form.innerHTML='<label>설치 자리<select name="slot"></select></label><label>소원·추모 문구<textarea name="message" maxlength="100"></textarea></label><label><input name="public" type="checkbox"> 문구 공개에 동의</label>';
-  if(kind==='lantern')form.insertAdjacentHTML('beforeend','<label><input name="tag" type="checkbox"> 이름표 신청</label><label>표시 이름<input name="name" maxlength="12"></label>');
+  form.innerHTML='<label>설치 자리<select name="slot"></select></label><label>소원·추모 문구<textarea name="message"></textarea></label><label><input name="public" type="checkbox"> 문구 공개에 동의</label>';
+  if(kind==='lantern')form.insertAdjacentHTML('beforeend','<label><input name="tag" type="checkbox"> 이름표 신청</label><label>표시 이름<input name="name"></label>');
   translateMarkup(form);
   const choice=form.querySelector('select')!;for(const s of data.slots){const option=new Option(s.slotId.split(':').at(-1)+' · '+t(({free:'빈자리',reserved:'예약 중',occupied:'설치됨'}[s.status as string]??'확인 중')),s.slotId);option.disabled=s.status!=='free';choice.add(option);}
   choice.value=available?preferred!:preferred?'':(free[0]?.slotId??'');
@@ -109,19 +119,31 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
    }
   }
   controls.append(form);form.onsubmit=e=>e.preventDefault();
+  function validate(){
+   const tag=form.querySelector<HTMLInputElement>('[name=tag]')?.checked;
+   for(const field of form.querySelectorAll<HTMLInputElement|HTMLTextAreaElement>('[name=message],[name=name]')){
+    const key=field.name==='name'?'name':'text';
+    const error=key==='name'&&!tag?null:inscriptionError(field.value,key);
+    field.setCustomValidity(error?t(error).replace('{limit}',String(inscriptionLimits[key])):'');
+   }
+  }
+  form.addEventListener('input',validate);
   const confirm=button('신청 내용 확인',async()=>{
+   validate();if(!form.reportValidity())return;
    const d=new FormData(form),tag=d.has('tag'),name=tag?String(d.get('name')??'').trim():'',text=String(d.get('message')??'').trim(),publish=d.has('public');
    if(tag&&(!name||!publish)){note.textContent=t('이름표에는 표시 이름과 공개 동의가 필요합니다.');return;}
    if(!choice.value){note.textContent=t('다른 자리를 선택하세요');return;}
    const payload={revision:quote.revision,offerId:offer.id,slotId:choice.value,name,tag,text,public:publish};
    controls.replaceChildren();note.textContent=[choice.value,pass(quote.days,quote.priceKrw),t(publish?'공개':'비공개'),name,text].filter(Boolean).join(' · ');
    button('취소',restart);const reserve=button('이 자리에 예약',async()=>{
-    const retry=()=>select(offer,payload.slotId,d,false,true);
+    const retry=()=>select(offer,payload.slotId,d,false,true,quote);
     try{await service('trade/enter',payload);}catch(error){
      if((error as {code?:string}).code==='login_required'){
       window.dispatchEvent(new CustomEvent('sasa:reservation-login',{detail:()=>{if(reserve.isConnected)reserve.click();}}));
       return;
      }
+     if((error as {code?:string}).code==='offer_stopped'){stopped();return;}
+     if((error as {code?:string}).code==='offer_changed'){await select(offer,payload.slotId,d,false,false,quote);return;}
      if((error as {code?:string}).code==='unavailable'){await retry();return;}
      throw error;
     }

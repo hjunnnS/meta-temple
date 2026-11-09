@@ -1,4 +1,8 @@
 {
+  "한 줄로 입력해 주세요.": "Metni tek satırda girin.",
+  "최대 {limit}자까지 입력할 수 있습니다.": "En fazla {limit} karakter girin.",
+  "변경된 가격을 확인해 주세요.": "Yeni fiyatı kontrol edin.",
+  "이 기간권은 판매가 중지되었습니다.": "Bu süreli kart artık satılmıyor.",
   "전체 무음": "Tüm sesleri kapat",
   "공간음 꺼짐": "Ortam sesi kapalı",
   "이메일": "E-posta",

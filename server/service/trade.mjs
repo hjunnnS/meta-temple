@@ -1,3 +1,4 @@
+import {inscriptionError} from '../../src/inscription.ts';
 import {randomInt} from 'node:crypto';
 import {maintainOrders} from './lifecycle.mjs';
 import {pool,transaction} from './database.mjs';
@@ -5,11 +6,11 @@ class TradeError extends Error{constructor(status,message){super(message);this.s
 const deny=(status,message)=>{throw new TradeError(status,message);};
 const uuid=value=>typeof value==='string'&&/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(value);
 export function inscription(input,kind){
- const clean=(v,n)=>{
-  if(typeof v!=='string'||[...v].length>n||/[\u0000-\u001f\u007f]/.test(v))deny(400,'invalid_text');
-  return v.trim();
+ const clean=(value,field)=>{
+  if(inscriptionError(value,field))deny(400,'invalid_text');
+  return value.trim();
  };
- const text=clean(input.text??'',100),name=clean(input.name??'',12);
+ const text=clean(input.text??'','text'),name=clean(input.name??'','name');
  if(name&&(kind!=='lantern'||input.tag!==true||input.public!==true))deny(400,'name_consent_required');
  return {text,name,tag:!!name,public:input.public===true};
 }
@@ -37,7 +38,8 @@ export async function trade(action,method,input,account){
   if(method!=='POST')deny(405,'method');
   if(action==='enter'){
    const eligible=await db.query('SELECT 1 FROM accounts WHERE id=$1 AND deletion_requested_at IS NULL',[account]);if(!eligible.rowCount)deny(409,'deletion_requested');
-   const {rows:[slot]}=await db.query('SELECT s.id,s.kind,o.revision FROM slots s JOIN offers o ON o.kind=s.kind WHERE s.id=$1 AND o.id=$2 AND o.enabled',[input.slotId,input.offerId]);
+   const {rows:[slot]}=await db.query('SELECT s.id,s.kind,o.revision,o.enabled FROM slots s JOIN offers o ON o.kind=s.kind WHERE s.id=$1 AND o.id=$2',[input.slotId,input.offerId]);
+   if(slot&&!slot.enabled)deny(409,'offer_stopped');
    if(slot&&slot.revision!==(input.revision??1))deny(409,'offer_changed');
    if(!slot)deny(409,'incompatible_offer');
    if(await held(db,account))deny(409,'already_reserved');

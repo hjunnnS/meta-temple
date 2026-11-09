@@ -11,6 +11,11 @@ try{
  for(let n=0;n<20;n++){const {rows:[a]}=await pool.query("INSERT INTO accounts(email) VALUES($1) RETURNING id",[randomUUID()+'@example.test']);accounts.push(a.id);}
  const payload={offerId:'lantern-test-7',slotId,text:'평안',public:false};
  assert.equal((await trade('enter','POST',{...payload,tag:true,name:'가족'},accounts[0]))[0],400);
+ for(const invalid of [{text:'첫 줄\n둘째 줄'},{text:'🌸'.repeat(101)},{name:'🌸'.repeat(13),tag:true,public:true}]){
+  const [status,result]=await trade('enter','POST',{...payload,...invalid},accounts[0]);
+  assert.equal(status,400);assert.equal(result.error,'invalid_text');
+ }
+ Object.assign(payload,{text:'🌸'.repeat(100),name:'🌸'.repeat(12),tag:true,public:true});
  const responses=await Promise.all([...accounts,accounts[0]].map(a=>trade('enter','POST',payload,a)));
  assert(responses.every(r=>r[0]===202));assert.equal((await pool.query('SELECT count(*)::int AS count FROM entries WHERE slot_id=$1',[slotId])).rows[0].count,20);
  await new Promise(r=>setTimeout(r,1100));

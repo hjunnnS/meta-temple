@@ -1,4 +1,8 @@
 {
+  "한 줄로 입력해 주세요.": "Bitte nur eine Zeile eingeben.",
+  "최대 {limit}자까지 입력할 수 있습니다.": "Höchstens {limit} Zeichen eingeben.",
+  "변경된 가격을 확인해 주세요.": "Bitte prüfe den neuen Preis.",
+  "이 기간권은 판매가 중지되었습니다.": "Dieser Pass wird nicht mehr verkauft.",
   "전체 무음": "Alle Töne stummschalten",
   "공간음 꺼짐": "Umgebungsgeräusche aus",
   "이메일": "E-Mail",
