@@ -105,7 +105,7 @@ export async function serviceApi(env=process.env){
      CASE WHEN s.kind='wish-plaque' AND NOT i.text_deleted AND i.account_id=(SELECT account_id FROM sessions WHERE digest=$2 AND expires_at>now()) THEN o.inscription->>'text' ELSE pub.text END AS text,(i.id IS NOT NULL) AS installed,CASE WHEN i.id IS NOT NULL THEN 'occupied' WHEN EXISTS(SELECT 1 FROM reservations r WHERE r.slot_id=s.id AND r.released_at IS NULL AND (r.payment_lock OR r.expires_at>now())) THEN 'reserved' ELSE 'free' END AS status FROM slots s LEFT JOIN installations i ON i.slot_id=s.id AND i.removed_at IS NULL AND i.starts_at<=now() AND i.ends_at>now() LEFT JOIN orders o ON o.id=i.order_id LEFT JOIN public_offerings pub ON pub.id=i.id WHERE s.zone_id=$1 ORDER BY s.id`,[zone,cookieHash]);
     return send(200,{schemaVersion:1,layoutVersion:layoutDraft.version,templeId:'sample:sasa',zoneId:zone,coordinateSystem:{units:'metre',up:'+Y',north:'+Z',rotation:'radian'},slots:rows});
    }
-   const {rows:[account]}=await pool.query('SELECT a.id,a.email FROM accounts a JOIN sessions s ON a.id=s.account_id WHERE s.digest=$1 AND s.expires_at>now()',[cookieHash]);
+   const {rows:[account]}=await pool.query('SELECT a.id,a.email,(a.deletion_requested_at IS NOT NULL) AS "deletionPending" FROM accounts a JOIN sessions s ON a.id=s.account_id WHERE s.digest=$1 AND s.expires_at>now()',[cookieHash]);
    if(req.method==='POST'&&path.startsWith('/api/service/channel/')){
     const action=path.split('/').pop();
     let visitor=account?.id,session=cookieHash;
@@ -140,7 +140,7 @@ export async function serviceApi(env=process.env){
     const [status,result]=await trade(path.slice('/api/service/trade/'.length),req.method,input,account.id);
     return send(status,result);
    }
-   if(req.method==='GET'&&path==='/api/service/me')return send(200,{email:account.email});
+   if(req.method==='GET'&&path==='/api/service/me')return send(200,{email:account.email,deletionPending:account.deletionPending});
    if(req.method==='POST'&&path==='/api/service/me/order-inquiry'){
     const found=await transaction(async db=>{
      const {rows:[order]}=await db.query('SELECT id FROM orders WHERE id::text=$1 AND account_id=$2 FOR UPDATE',[input.id,account.id]);

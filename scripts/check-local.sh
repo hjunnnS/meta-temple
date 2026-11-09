@@ -25,3 +25,4 @@ npm run check:journeys
 node server/service/check-trade.mjs
 node server/service/check-lifecycle.mjs
 node server/service/check-staff.mjs
+node server/service/check-operations.mjs
