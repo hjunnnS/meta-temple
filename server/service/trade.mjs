@@ -32,7 +32,7 @@ export async function trade(action,method,input,account){
   await db.query('SELECT pg_advisory_xact_lock(541931)');await settle(db);
   if(action==='hold'&&method==='GET'){
    const waiting=(await db.query('SELECT slot_id FROM entries WHERE account_id=$1',[account])).rowCount>0;
-   return [200,{hold:await held(db,account),waiting}];
+   return [200,{hold:await held(db,account),waiting,serverTime:Date.now()}];
   }
   if(method!=='POST')deny(405,'method');
   if(action==='enter'){

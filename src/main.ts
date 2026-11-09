@@ -305,6 +305,7 @@ if(import.meta.env.MODE==='service'){
   }
   if(snapshot!==lastSnapshot){app.applyReviewSlots(slots);lastSnapshot=snapshot;renderOfferingDetail();}
  },()=>{
+  receptionPanel.querySelector('.lantern-map')?.dispatchEvent(new Event('sasa:slots-unavailable'));
   if(lastSnapshot){app.applyReviewSlots([]);lastSnapshot='';renderOfferingDetail();}
  });
  window.addEventListener('sasa:installations',syncServiceSlots);

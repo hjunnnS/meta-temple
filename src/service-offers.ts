@@ -25,14 +25,64 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
   const result=await service('trade/hold');controls.replaceChildren();
   if(result.waiting){note.textContent=t('동시 신청을 확인하고 있습니다.');button('결과 확인',()=>held(retry));return;}
   if(!result.hold){if(retry){await retry();return;}note.textContent=t('현재 예약한 자리가 없습니다.');button(t('기간권 보기'),restart);return;}
-  const h=result.hold;note.textContent=h.slotId+' · '+(h.paymentLock?t('결제 확인 중'):t('예약 만료')+' '+new Date(h.expiresAt).toLocaleTimeString(locale));
-  if(!h.paymentLock)button('예약 취소',async()=>{await service('trade/cancel',{});await restart();});
-  button('주문 확인',async()=>{
-   const order=await service('trade/checkout',{holdId:h.id});controls.replaceChildren();
-   note.textContent=t('설치 자리')+' '+h.slotId+' · '+t('시험 결제하기')+' '+amount(order.amount_krw);
-   button('시험 결제 취소',async()=>{await service('trade/test-cancel',{orderId:order.id});controls.replaceChildren();note.textContent=t('시험 결제를 취소하고 자리를 해제했습니다.');button('기간권 보기',restart);});
-   button('시험 결제하기',async()=>{const r=await service('trade/test-pay',{orderId:order.id});controls.replaceChildren();if(r.status==='installed'){note.textContent=t('시험 결제 및 설치 완료');window.dispatchEvent(new Event('sasa:installations'));button('기간권 보기',restart);}else{note.textContent=t('결제 완료 · 같은 자리 설치 확인 중');button('설치 다시 확인',async()=>{const next=await service('trade/reconcile',{orderId:order.id});if(next.status==='installed'){window.dispatchEvent(new Event('sasa:installations'));await restart();}});}});
+  const h=result.hold;
+  const checkout=button('주문 확인',async()=>{
+   let order;
+   try{order=await service('trade/checkout',{holdId:h.id});}
+   catch(error){if((error as {code?:string}).code==='expired_hold'){await held();return;}throw error;}
+   controls.replaceChildren();
+   if(order.status!=='pending'){followOrder(order.id,h.slotId,order.status);return;}
+   payment(order.id,h.slotId,order.amount_krw);
   });
+  if(h.paymentLock){note.textContent=h.slotId+' · '+t('결제 확인 중');return;}
+  const cancel=button('예약 취소',async()=>{await service('trade/cancel',{});await restart();});
+  const deadline=Date.now()+Date.parse(h.expiresAt)-(result.serverTime??Date.now());
+  let checkingExpiry=false;
+  async function tick(){
+   if(!checkout.isConnected)return;
+   const seconds=Math.max(0,Math.ceil((deadline-Date.now())/1000));
+   if(seconds>0){
+    const time=Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0');
+    note.textContent=h.slotId+' · '+t('{time} 남음').replace('{time}',time);
+   }else if(checkingExpiry||(!checkout.disabled&&!cancel.disabled)){
+    checkingExpiry=true;
+    checkout.disabled=true;cancel.disabled=true;
+    note.textContent=t('확인 중입니다.');
+    try{await held();window.dispatchEvent(new Event('sasa:installations'));return;}
+    catch{note.textContent=t('연결 상태를 확인해 주세요.');}
+   }
+   window.setTimeout(tick,1000);
+  }
+  void tick();
+ }
+ function payment(id:string,slot:string,price:number){
+  controls.replaceChildren();
+  note.textContent=slot+' · '+t('결제 확인 중')+' · '+amount(price);
+  button('시험 결제 취소',async()=>{await service('trade/test-cancel',{orderId:id});controls.replaceChildren();note.textContent=t('시험 결제를 취소하고 자리를 해제했습니다.');button('기간권 보기',restart);});
+  button('시험 결제하기',async()=>{
+   controls.replaceChildren();
+   let status='unknown';
+   try{status=(await service('trade/test-pay',{orderId:id})).status;}catch{/* Check the original order if the response was lost. */}
+   followOrder(id,slot,status,price);
+  });
+ }
+ function followOrder(id:string,slot:string,initial:string,price?:number){
+  const statusLine=document.createElement('span');controls.replaceChildren();note.replaceChildren(statusLine);
+  const labels:Record<string,string>={installed:'시험 결제 및 설치 완료',refunded:'환불 완료',refund_pending:'환불 중',refund_failed:'환불 확인 중',cancelled:'결제 취소',expired:'기간 만료',unknown:'결제 확인 중'};
+  async function show(status:string){
+   if(!statusLine.isConnected)return;
+   statusLine.textContent=slot+' · '+t(labels[status]??'결제 완료 · 같은 자리 설치 확인 중');
+   if(['installed','refunded','cancelled','expired'].includes(status)){
+    window.dispatchEvent(new Event('sasa:installations'));button('기간권 보기',restart);return;
+   }
+   if(status==='pending'&&price!==undefined){payment(id,slot,price);return;}
+   window.setTimeout(async()=>{
+    if(!statusLine.isConnected)return;
+    try{await show((await service('trade/reconcile',{orderId:id})).status);}
+    catch{await show('unknown');}
+   },2000);
+  }
+  void show(initial);
  }
  async function select(offer:Offer,preferred=initialSlot,draft?:FormData,automatic=false,reselect=false){
   const {offer:quote}=await service('quote',{offerId:offer.id});
@@ -96,15 +146,29 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
    }
    showAvailability(free.length>0);
    let lastAvailability='';
+   let disconnected=false;
+   function unavailable(){
+    disconnected=true;lastAvailability='';
+    note.textContent=t('연등 배치도')+' · '+t('확인 중입니다.');
+    confirm.disabled=true;pickFree.disabled=true;
+    for(const button of map.root.querySelectorAll<HTMLButtonElement>('[data-row],[data-slot]')){
+     button.disabled=true;button.querySelector('small')!.textContent=t('확인 중입니다.');
+    }
+    map.root.inert=true;
+   }
+   map.root.addEventListener('sasa:slots-unavailable',unavailable);
+   if(!navigator.onLine)unavailable();
    map.root.addEventListener('sasa:slot-status',event=>{
     const statuses=(event as CustomEvent<Map<string,MapSlot['status']>>).detail;
     const availability=JSON.stringify(Array.from(statuses));
     if(availability===lastAvailability)return;
     lastAvailability=availability;
+    if(disconnected){note.textContent=passNote;map.root.inert=false;disconnected=false;}
     const previous=choice.value;
     map.update(statuses);
     if(previous&&statuses.get(previous)!=='free')note.textContent=t('다른 자리를 선택하세요');
     for(const option of choice.options)option.disabled=statuses.get(option.value)!=='free';
+    confirm.disabled=!choice.value||statuses.get(choice.value)!=='free';
     showAvailability([...statuses.values()].includes('free'));
    });
   }
