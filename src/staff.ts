@@ -6,14 +6,18 @@ async function api(area:string,input?:object){
 }
 const areas=[['desk','alerts','장애 알림'],['desk','orders','접수·환불'],['catalog','offers','상품 운영'],['moderation','content','공개 문구 감수']];
 let generation=0,activeArea='';
-async function openArea(area:string,term=''){
- activeArea=area;status.textContent='';const current=++generation;section.replaceChildren();
+async function openArea(area:string,term='',after='',more?:HTMLButtonElement){
+ activeArea=area;status.textContent='';const current=++generation;if(!more)section.replaceChildren();
  try{
-  if(area==='orders'){
+  if(area==='orders'&&!more){
    const search=document.createElement('form'),field=document.createElement('input'),submit=document.createElement('button');field.placeholder='주문 번호 · 상태 · 문의 · 판매 중지';field.value=term;submit.textContent='주문 검색';search.append(field,submit);section.append(search);
    search.onsubmit=e=>{e.preventDefault();void openArea(area,field.value);};
   }
-  const {rows}=await api(area+(term?'?q='+encodeURIComponent(term):''));if(current!==generation)return;
+  const query=new URLSearchParams();
+  if(term)query.set('q',term);
+  if(after)query.set('after',after);
+  const {rows,next}=await api(area+(query.size?'?'+query:''));if(current!==generation)return;
+  more?.remove();
   for(const row of rows){
    const form=document.createElement('form'),title=document.createElement('p');form.append(title);section.append(form);
    title.textContent=[row.id,row.status,row.slot_id,row.kind,row.name,row.text,row.categories?.join(', '),row.inquired?'문의 접수':'',row.enabled===false?'판매 중지':''].filter(Boolean).join(' · ');
@@ -39,8 +43,12 @@ async function openArea(area:string,term=''){
     catch{status.textContent='조치를 완료하지 못했습니다. 목록을 다시 확인하세요.';button.disabled=false;}
    };
   }
+  if(area==='orders'&&next){
+   const button=document.createElement('button');button.textContent='이전 주문 더 보기';section.append(button);
+   button.onclick=()=>{button.disabled=true;void openArea(area,term,next,button);};
+  }
   if(!rows.length)status.textContent='해당 항목이 없습니다.';
- }catch{if(current!==generation)return;section.replaceChildren();status.textContent='조회 권한과 로그인 상태를 확인하세요.';}
+ }catch{if(current!==generation)return;if(more){more.disabled=false;status.textContent='이전 주문을 불러오지 못했습니다. 다시 시도하세요.';return;}section.replaceChildren();status.textContent='조회 권한과 로그인 상태를 확인하세요.';}
 }
 async function init(){
  try{

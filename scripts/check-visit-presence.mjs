@@ -38,5 +38,17 @@ try{
   return (await r.json()).participants.some(peer=>peer.animation==='worship'&&peer.bowProgress>.3&&peer.bowProgress<1);
  });
  await switchChannel(1);await observed;
+ await p.bringToFront();
+ await p.route('**/practice/start',r=>r.fulfill({json:{id:'recovery-run',count:107}}));
+ const recorded=[];
+ await p.route('**/practice/bow',async r=>{
+  recorded.push(r.request().postDataJSON());
+  if(recorded.length===1)await r.abort();else await r.fulfill({json:{count:108}});
+ });
+ const start=p.locator('#bow-start');
+ await start.click();await p.locator('#bow-count').filter({hasText:'107 / 108'}).waitFor();
+ await start.click();await p.locator('#bow-count').filter({hasText:'108배 완료'}).waitFor();
+ assert.deepEqual(recorded,[{id:'recovery-run',count:108},{id:'recovery-run',count:108}]);
+ console.log('Final bow confirmed after lost response without repeating its animation.');
  console.log('First visit, returning face, peer appearance and mid-bow arrival passed.');
 }finally{await browser.close();}

@@ -61,7 +61,7 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
   button.textContent=t(id?'절하기':'108배 시작');stop.hidden=!visible||!id;stop.textContent=t('취소');
  }
  async function request(action:string,data:object){
-  const result=await fetch('/api/service/practice/'+action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+  const result=await fetch('/api/service/practice/'+action,{signal:action==='bow'?AbortSignal.timeout(8000):undefined,method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
   if(!result.ok)throw new Error(String(result.status));return result.json();
  }
  function cancel(){
@@ -83,16 +83,28 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
   try{
    const run=await request('start',{});
    if(version!==generation){void request('cancel',{id:run.id}).catch(()=>{});return;}
-   faceAltar();light=prayerLight(scene,position);id=run.id;count=0;status.textContent='0 / 108';
+   faceAltar();light=prayerLight(scene,position);id=run.id;count=run.count;status.textContent=count+' / 108';
   }catch(error){if(version===generation)failed(error);}
   finally{if(version===generation){busy=false;draw();}}
  };
  async function record(){
   const version=generation;busy=true;draw();
   try{
-   const result=await request('bow',{id,count:count+1});if(version!==generation)return;
-   count=result.count;status.textContent=count+' / 108';
-   if(count===108){id='';status.textContent=t('108배 완료');light?.fade();light=undefined;rainbow(scene,position);}
+   const completed={id,count:count+1};
+   while(version===generation){
+    try{
+     const result=await request('bow',completed);
+     if(version!==generation)return;
+     count=result.count;status.textContent=count+' / 108';
+     if(count===108){id='';status.textContent=t('108배 완료');light?.fade();light=undefined;rainbow(scene,position);}
+     return;
+    }catch(error){
+     if(version!==generation)return;
+     if(error instanceof Error&&/^4[0-9]{2}$/.test(error.message))throw error;
+     status.textContent=completed.count+' / 108 · '+t('확인 중입니다.');
+     await new Promise(resolve=>window.setTimeout(resolve,2000));
+    }
+   }
   }catch(error){if(version===generation)failed(error);}
   finally{if(version===generation){busy=false;draw();}}
  }

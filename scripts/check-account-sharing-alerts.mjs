@@ -30,12 +30,21 @@ try{
  console.log('Shared content cleared offline and permission rechecked on return');
  await page.route('**/staff/alerts',route=>route.fulfill({json:{rows:[{id,kind:'install_failure'},{id:randomUUID(),kind:'reservation_delay'}]}}));
  await page.route('**/staff/orders?*',route=>{
-  assert.equal(new URL(route.request().url()).searchParams.get('q'),id);
+  const params=new URL(route.request().url()).searchParams;
+  if(params.get('q')==='문의'){
+   if(params.has('after')){assert.equal(params.get('after'),'cursor');return route.fulfill({json:{rows:[{id:'older',status:'installed'}]}});}
+   return route.fulfill({json:{rows:Array.from({length:100},(_,n)=>({id:'order-'+n,status:'installed'})),next:'cursor'}});
+  }
+  assert.equal(params.get('q'),id);
   return route.fulfill({json:{rows:[{id,status:'recovering'}]}});
  });
  await page.goto(origin+'/staff.html');
  await page.getByRole('button',{name:'해당 주문 보기'}).click();
  await page.getByText(id+' · recovering',{exact:true}).waitFor();
  assert.equal(await page.getByPlaceholder(/주문 번호/).inputValue(),id);
+ const search=page.getByPlaceholder(/주문 번호/);await search.fill('문의');await search.press('Enter');
+ await page.getByRole('button',{name:'이전 주문 더 보기'}).click();
+ await page.getByText('older · installed').waitFor();
+ assert.equal(await page.locator('section form p').count(),101);assert.equal(await search.inputValue(),'문의');
  console.log('Order alert opened the matching order and recovery action');
 }finally{await browser.close();}

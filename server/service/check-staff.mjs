@@ -30,6 +30,17 @@ try{
  assert.equal((await reserve(account,slots[1]))[1].error,'offer_changed');
  const {rows}=await pool.query('SELECT before_state,after_state FROM staff_audit WHERE actor=$1 ORDER BY id',[account]);
  assert.equal(rows.length,2);assert.equal(rows[0].before_state.price_krw,3100);assert.equal(rows[0].after_state.price_krw,4400);
+ await pool.query("INSERT INTO staff_roles VALUES($1,'desk')",[account]);
+ await pool.query(`WITH holds AS (
+  INSERT INTO reservations(account_id,slot_id,kind,expires_at,released_at)
+  SELECT $1,$2,'lantern',now(),now() FROM generate_series(1,105) RETURNING id,account_id,slot_id
+ ) INSERT INTO orders(reservation_id,account_id,slot_id,offer_id,amount_krw,status)
+ SELECT id,account_id,slot_id,$3,3100,'cancelled' FROM holds`,[buyer,slots[0].id,offer]);
+ const getPage=async after=>(await staff(account,'orders','GET',{q:offer,after}))[1];
+ const first=await getPage(),second=await getPage(first.next);
+ assert.equal(first.rows.length,100);assert.equal(second.rows.length,6);assert.equal(second.next,null);
+ assert.equal(new Set([...first.rows,...second.rows].map(row=>row.id)).size,106);
+ console.log('PASS 106 same-offer orders across two pages, including tied timestamps.');
  console.log('PASS three roles, denied change, scoped audit, stale quote, draw cancellation, hold & checkout preserved across stop/resume');
 }finally{
  await pool.query('DELETE FROM staff_audit WHERE actor=$1',[account]);await pool.query('DELETE FROM staff_roles WHERE account_id=$1',[account]);

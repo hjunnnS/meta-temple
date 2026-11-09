@@ -12,8 +12,14 @@ export function staff(account,area,method,input){
    if(area==='alerts')return [200,{rows:(await db.query('SELECT target AS id,kind,acknowledged_at FROM operation_alerts WHERE resolved_at IS NULL ORDER BY detected_at')).rows}];
    if(area==='orders'){
     const term=String(input.q??'').trim().slice(0,100);
-    const result=await db.query(`SELECT EXISTS(SELECT 1 FROM events WHERE order_id=o.id AND kind='order_inquiry') AS inquired,o.id,o.status,o.offer_id,o.slot_id,o.amount_krw,o.install_attempts,f.enabled,o.next_attempt_at FROM orders o LEFT JOIN offers f ON f.id=o.offer_id WHERE $1='' OR strpos(concat_ws(' ',o.id::text,o.slot_id,o.offer_id,o.status),$1)>0 OR ($1='문의' AND EXISTS(SELECT 1 FROM events WHERE order_id=o.id AND kind='order_inquiry')) OR ($1='판매 중지' AND NOT f.enabled) ORDER BY o.created_at DESC LIMIT 100`,[term]);
-    return [200,{rows:result.rows}];
+    const after=String(input.after??'');
+    const [time,id]=after.split('|');
+    if(after&&(!/^\d{4}-\d\d-\d\d [0-9:.+-]+\|[0-9a-f-]{36}$/.test(after)||!Number.isFinite(Date.parse(time))||!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(id)))return [400,{error:'invalid_cursor'}];
+    const result=await db.query(`SELECT o.created_at::text AS page_time,EXISTS(SELECT 1 FROM events WHERE order_id=o.id AND kind='order_inquiry') AS inquired,o.id,o.status,o.offer_id,o.slot_id,o.amount_krw,o.install_attempts,f.enabled,o.next_attempt_at FROM orders o LEFT JOIN offers f ON f.id=o.offer_id WHERE ($1='' OR strpos(concat_ws(' ',o.id::text,o.slot_id,o.offer_id,o.status),$1)>0 OR ($1='문의' AND EXISTS(SELECT 1 FROM events WHERE order_id=o.id AND kind='order_inquiry')) OR ($1='판매 중지' AND NOT f.enabled))
+     AND ($2::timestamptz IS NULL OR (o.created_at,o.id)<($2::timestamptz,$3::uuid))
+     ORDER BY o.created_at DESC,o.id DESC LIMIT 101`,[term,after?time:null,after?id:null]);
+    const rows=result.rows.slice(0,100),last=rows.at(-1);
+    return [200,{rows,next:result.rowCount>100?last.page_time+'|'+last.id:null}];
    }
    if(area==='content'){
     const result=await db.query(`SELECT i.id,s.kind,i.hidden,i.text_deleted,o.inscription->>'name' AS name,o.inscription->>'text' AS text,

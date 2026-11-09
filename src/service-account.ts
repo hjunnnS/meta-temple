@@ -1,9 +1,9 @@
 import {loginFeedback} from './login-feedback';
 import {locale,t,translateMarkup} from './locales';
 import {offerings,type Offering} from './reception';
-export function setupAccount(){
+export function setupAccount(showMenu=true){
  const button=document.createElement('button');button.textContent=t('계정');button.id='service-account';
- document.querySelector('header')!.insertBefore(button,document.querySelector('#settings'));
+ if(showMenu)document.querySelector('header')!.insertBefore(button,document.querySelector('#settings'));
  const dialog=document.createElement('dialog');
  dialog.setAttribute('aria-labelledby','account-title');
  dialog.innerHTML='<div class="panel-title"><h2 id="account-title">계정</h2><button aria-label="닫기" data-close>×</button></div><form><label>시험 이메일<input name="email" type="email" required placeholder="visitor@example.test"></label><button>로그인 링크 받기</button></form><button data-confirm hidden>로그인 완료</button><p data-status role="status"></p><ul></ul><button data-logout hidden>로그아웃</button>';
@@ -42,7 +42,9 @@ export function setupAccount(){
  returnHint.setAttribute('role','status');returnHint.hidden=true;dialog.append(returnHint);
  let resumePractice=false,confirmedHere=false;
  let resumeReservation:(()=>void)|undefined;
+ let onLogin:(()=>void)|undefined;
  function finishLogin(){
+  if(onLogin&&dialog.open){const resume=onLogin;onLogin=undefined;dialog.close();resume();return 'return';}
   if(resumeReservation&&dialog.open){
    const reserve=resumeReservation;resumeReservation=undefined;dialog.close();reserve();return "reservation";
   }
@@ -159,7 +161,7 @@ export function setupAccount(){
  dialog.querySelector<HTMLButtonElement>('[data-close]')!.onclick=()=>dialog.close();
  window.addEventListener('sasa:practice-login',()=>{resumePractice=true;button.click();});
  window.addEventListener('sasa:reservation-login',event=>{resumeReservation=(event as CustomEvent<()=>void>).detail;button.click();});
- dialog.onclose=()=>{resumeReservation=undefined;resumePractice=false;confirmedHere=false;returnHint.hidden=true;sequence++;clear();form.reset();if(!document.activeElement||document.activeElement===document.body)button.focus();};
+ dialog.onclose=()=>{onLogin=undefined;resumeReservation=undefined;resumePractice=false;confirmedHere=false;returnHint.hidden=true;sequence++;clear();form.reset();if(!document.activeElement||document.activeElement===document.body)button.focus();};
  form.onsubmit=async e=>{e.preventDefault();const n=sequence;
   try{const email=String(new FormData(form).get('email')).trim();if(external)await firebase!.send(email);else await api('login-link',{email});if(n===sequence)status.textContent=t(external?'이메일로 로그인 링크를 보냈습니다. 같은 브라우저에서 열어 주세요.':'이 Mac의 시험 우편함에 로그인 링크를 보냈습니다.');}
   catch(error){if(n===sequence)status.textContent=t(external?loginFeedback(error):'시험 이메일 주소와 연결 상태를 확인해 주세요.');}
@@ -175,4 +177,8 @@ export function setupAccount(){
   if(!dialog.open)dialog.showModal();void refresh();
  });
  if(link){dialog.showModal();void refresh();}
+ return {
+  login(resume:()=>void){onLogin=resume;button.click();},
+  dismiss(){if(onLogin&&dialog.open){onLogin=undefined;dialog.close();}}
+ };
 }
