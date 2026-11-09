@@ -13,16 +13,24 @@ import type { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { templePlaces } from './temple-layout.ts';
-import { insideGround } from './temple-terrain.ts';
+import { insideGround, paving } from './temple-terrain.ts';
 
 export const visitorSize={height:1.7,width:.65} as const;
 
 /** Snapshot the walk surfaces and solids before the scene batches them by material. */
 export function pedestrianWorld(parts:Mesh[]){
  type Rect={x0:number;x1:number;z0:number;z1:number;top:number;bottom:number};
- const surfaces:Rect[]=[],solids:Rect[]=[],ceilings:Rect[]=[];
+ // Walk on one plane per path, including the joints between decorative slabs.
+ const surfaces:Rect[]=paving.map(({from,to,lanes})=>{
+  const halfWidth=(lanes===1?1.54:3.8)/2;
+  const acrossX=from[0]===to[0]?halfWidth:0;
+  const acrossZ=from[1]===to[1]?halfWidth:0;
+  return {x0:Math.min(from[0],to[0])-acrossX,x1:Math.max(from[0],to[0])+acrossX,
+   z0:Math.min(from[1],to[1])-acrossZ,z1:Math.max(from[1],to[1])+acrossZ,top:.09,bottom:0};
+ });
+ const solids:Rect[]=[],ceilings:Rect[]=[];
  for(const part of parts){
-  const surface=/(^|-)(step|plinth|hall-floor|floorboard|court|paving|base|stone)$/.test(part.name);
+  const surface=/(^|-)(step|plinth|hall-floor|floorboard|court|base)$/.test(part.name);
   const solid=/(^|-)(back-wall|side-wall|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth|bell-shell|meditation-tree)$/.test(part.name);
   const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof)$/.test(part.name);
   if(!surface&&!solid&&!roof)continue;

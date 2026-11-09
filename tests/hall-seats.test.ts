@@ -1,8 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { hallSeats, bowSpace } from '../src/hall-seats.ts';
-test('50 bowing spaces fit inside the walls, clear of the altar end and central aisle',()=>{
- assert.equal(hallSeats.length,50);
+import { hallSeats, bowSpace, monkPlace, practiceSeat } from '../src/hall-seats.ts';
+test('49 bowing spaces fit inside the walls, clear of the altar end and central aisle',()=>{
+ assert.equal(hallSeats.length,49);
+ assert.ok(hallSeats.includes(practiceSeat));
+ assert.ok(!hallSeats.some(s=>s.x===monkPlace.x && monkPlace.z-s.z<1));
  for(const [i,s] of hallSeats.entries()){
   assert.ok(Math.abs(s.x)-bowSpace.width/2>=1.5 && Math.abs(s.x)+bowSpace.width/2<13.2);
   assert.ok(s.z-.43>30 && s.z-.43+bowSpace.depth<41.95);

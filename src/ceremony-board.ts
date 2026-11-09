@@ -57,7 +57,6 @@ export function ceremonyBoard(root:HTMLElement,position:()=>number[]|null,view:(
   action.hidden=!current;action.disabled=import.meta.env.MODE==='service'&&!synced;
   action.textContent=t(attending?'듣기 중지':failed?'다시 시도해 주세요.':'함께 듣기');
   if(attending&&current&&context?.state==='running'){
-   gain!.gain.value=volume();
    if(playing!==current.clip)void play(current.clip);
   }
  }
@@ -65,13 +64,13 @@ export function ceremonyBoard(root:HTMLElement,position:()=>number[]|null,view:(
   if(attending){stop();render();return;}
   const active=scheduleAt(now()).current;if(!active)return;
   failed=false;attending=active.start;
-  try{context=new AudioContext();gain=context.createGain();gain.connect(context.destination);await context.resume();}
+  try{context=new AudioContext();gain=context.createGain();gain.gain.value=volume();gain.connect(context.destination);await context.resume();}
   catch{stop();failed=true;}
   render();
  };
- const timer=window.setInterval(render,500);
+ window.setInterval(render,500);
  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else{lastSync=-Infinity;render();}});
  window.addEventListener('pagehide',()=>{stop();});
  render();
- return ()=>{clearInterval(timer);stop();panel.remove();};
+ return {stop,updateVolume(){if(gain)gain.gain.value=volume();}};
 }

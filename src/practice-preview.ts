@@ -12,7 +12,7 @@ import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
 import {visitorRobe} from './visitor-robe';
 import {prayerLight} from './practice-light';
 import {furnishHall} from './hall-interior';
-import {practiceSeat} from './hall-seats';
+import {monkPlace,practiceSeat} from './hall-seats';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {rainbow} from './bow-practice';
 import {visitorMesh} from './walking';
@@ -54,8 +54,8 @@ if(previewView==='bow'){
  camera.setPosition(new Vector3(practiceSeat.x-2.60,2.53,practiceSeat.z+.88));
 }
 if(previewView==='monk'){
- camera.setTarget(new Vector3(-1.20,2.66,43.05));
- camera.setPosition(new Vector3(-3.7,3.0,40.9));
+ camera.setTarget(new Vector3(monkPlace.x+.24,2.66,monkPlace.z));
+ camera.setPosition(new Vector3(monkPlace.x-2.26,3.0,monkPlace.z-2.15));
 }
 if(previewView==='characters'){
  const x=70;
@@ -112,7 +112,7 @@ if(monkReview){
  play.onclick=()=>{if(scrub===null){scrub=monkTime();play.textContent='재생';}else{monkStart=performance.now()-scrub*1000;scrub=null;play.textContent='일시정지';}};
  bar.append(other,slider,play);
  const direction=front?new Vector3(.57,0,.82):new Vector3(.94,0,-.34);
- const centre=new Vector3(-1.44,2.62,43.05);
+ const centre=new Vector3(monkPlace.x,2.62,monkPlace.z);
  camera.lowerRadiusLimit=.65;camera.minZ=front?1.55:1.3;
  camera.setTarget(centre);camera.setPosition(centre.add(direction.scale(2.55)).add(new Vector3(0,.40,0)));
  const fill=new HemisphericLight('monk-review-fill',direction.add(new Vector3(0,.5,0)),scene);fill.intensity=.38;

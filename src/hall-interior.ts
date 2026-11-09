@@ -7,7 +7,7 @@ import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { MeshBuilder as B } from '@babylonjs/core/Meshes/meshBuilder';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
-import { hallSeats, practiceSeat } from './hall-seats.ts';
+import { hallSeats, monkPlace, practiceSeat } from './hall-seats.ts';
 
 // Built separately from the exterior template so other buildings do not inherit the shrine.
 export function furnishHall(scene:Scene, meshes:Mesh[], timber:StandardMaterial, beam:StandardMaterial,monkTime?:()=>number){
@@ -75,11 +75,12 @@ export function furnishHall(scene:Scene, meshes:Mesh[], timber:StandardMaterial,
   lathe('tapered-flame',x,base+.87,z,[[.006,0],[.028,.025],[.023,.074],[.001,.157]],flame);
   oval('wax-drip',x-.02,base+.78,z-.05,.019,.104,.018,ivory);
  }
- box('monk-mat',-1.44,floor+.055,43.05,1.36,.11,1.16,ochre);
- box('scripture-desk',0,floor+.48,43.23,1.5,.13,.54,timber);
- for(const x of [-.59,.59])box('desk-foot',x,floor+.22,43.23,.12,.44,.4,timber);
- box('sutra',-.2,floor+.565,43.2,.66,.05,.33,ivory);
- placeHallMonk(scene,-1.44,floor+.11,43.05,monkTime);
+ box('monk-mat',monkPlace.x,floor+.055,monkPlace.z,1.36,.11,1.16,ochre);
+ const deskX=monkPlace.x+1.44,deskZ=monkPlace.z+.18;
+ box('scripture-desk',deskX,floor+.48,deskZ,1.5,.13,.54,timber);
+ for(const x of [-.59,.59])box('desk-foot',deskX+x,floor+.22,deskZ,.12,.44,.4,timber);
+ box('sutra',deskX-.2,floor+.565,deskZ-.03,.66,.05,.33,ivory);
+ placeHallMonk(scene,monkPlace.x,floor+.11,monkPlace.z,monkTime);
  for(const seat of hallSeats){
   const practice=seat===practiceSeat;
   box('bow-cushion',seat.x,floor+.044,seat.z+(practice?.22:0),1.02,.088,practice?1.65:.87,matRed);
