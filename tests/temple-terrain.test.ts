@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { insideGround, insideBoundary, paving, boundaries, pond, shoreRadius, coinThrowBank, canThrowCoin, type GroundPoint } from '../src/temple-terrain.ts';
+import { insideGround, insideBoundary, distanceToSegment, paving, boundaries, rearGardenWalls, pond, shoreRadius, coinThrowBank, canThrowCoin, sanctuaryWalk, teaPavilion, teaTerrace, teaGardenTables, teaGardenWalk, eastCourts, teaSeats, teaApproach, gateApproach, interiorWoodland, type GroundPoint } from '../src/temple-terrain.ts';
 import { zones } from '../src/contracts.ts';
 
 test('the twelve review zones have a connected outdoor approach inside the ground and walls',()=>{
@@ -31,8 +31,11 @@ test('visitors can circle the pond between the office and pagoda',()=>{
   }
 });
 
-test('the south wall runs straight from Iljumun to the far pagoda corner',()=>{
-  assert.ok(boundaries.some(w=>w.from[0]===4 && w.from[1]===-68 && w.to[0]===72 && w.to[1]===-68));
+test('the entrance stays in place and the east garden expands as a single southern rectangle',()=>{
+  assert.ok(boundaries.some(w=>w.from[0]===4 && w.from[1]===-68 && w.to[0]===37 && w.to[1]===-68));
+  assert.ok(boundaries.some(w=>w.from[0]===37 && w.from[1]===-77 && w.to[0]===77 && w.to[1]===-77));
+  assert.deepEqual([eastCourts.tower.x,eastCourts.tower.z,pond.x,pond.z],[58,-35,50,-52]);
+  assert.ok(!boundaries.some(w=>w.from[1]===-68&&w.to[1]===-68&&w.to[0]>37));
   for(let x=35;x<=70;x+=.25)assert.ok(insideGround(x,-62,.325));
   for(let z=-65;z<=-55;z+=.25)assert.ok(insideGround(67,z,.325));
 });
@@ -54,5 +57,73 @@ test('coin throwing follows one continuous U-shaped bank and excludes the water 
 test('a camera may orbit over the pond while the visitor stays on dry land',()=>{
  assert.ok(insideBoundary(pond.x,pond.z,.1));
  assert.equal(insideGround(pond.x,pond.z,.325),false);
- assert.equal(insideBoundary(72,-52,.1),false);
+ assert.equal(insideBoundary(eastCourts.tower.east,-52,.1),false);
+});
+
+
+test('new walking routes clear the pond, walls, statue pedestal and woodland trunks',()=>{
+ for(const route of [sanctuaryWalk,teaApproach,teaGardenWalk,gateApproach]){
+  for(let i=1;i<route.length;i++){
+   const a=route[i-1],b=route[i],length=Math.hypot(b[0]-a[0],b[1]-a[1]);
+   for(let d=0;d<=length;d+=.1){
+    const t=d/length,x=a[0]+(b[0]-a[0])*t,z=a[1]+(b[1]-a[1])*t;
+    assert.ok(insideGround(x,z,.325),'route blocked at '+[x,z]);
+    assert.ok(Math.hypot(x-59,z-55)>4.425,'statue pedestal');
+   }
+  }
+ }
+ for(const tree of interiorWoodland){
+  for(let i=1;i<sanctuaryWalk.length;i++){
+   const a=sanctuaryWalk[i-1],b=sanctuaryWalk[i];
+   const t=Math.max(0,Math.min(1,((tree.x-a[0])*(b[0]-a[0])+(tree.z-a[1])*(b[1]-a[1]))/((b[0]-a[0])**2+(b[1]-a[1])**2)));
+   assert.ok(Math.hypot(tree.x-a[0]-(b[0]-a[0])*t,tree.z-a[1]-(b[1]-a[1])*t)>2);
+  }
+ }
+});
+
+
+test('the enlarged pavilion and open terrace have dry seats, clear exit aisles and wall margins',()=>{
+ assert.equal(teaPavilion.width*teaPavilion.depth,14*8);
+ assert.equal(teaTerrace.width*teaTerrace.depth,14*3.5);
+ assert.equal(teaSeats.filter(s=>s.outdoors).length,14);
+ assert.equal(teaSeats.filter(s=>!s.outdoors).length,6);
+ for(const s of teaSeats){assert.ok(insideGround(s.x,s.z,.4));assert.ok(insideGround(s.x,s.z-1.2,.4));}
+ for(const area of [teaPavilion,teaTerrace]){
+  for(let x=area.x-area.width/2;x<=area.x+area.width/2;x+=.25)
+   for(let z=area.z-area.depth/2;z<=area.z+area.depth/2;z+=.25)
+    assert.ok(insideGround(x,z,.25),'tea area '+[x,z]);
+ }
+ assert.ok(eastCourts.tower.east-(teaPavilion.x+teaPavilion.width/2)>3);
+ assert.ok(teaPavilion.z-teaPavilion.depth/2-eastCourts.tower.south>=3);
+});
+
+
+test('side garden tables and chairs preserve the west entry and pond route',()=>{
+ assert.equal(teaGardenTables.length,4);assert.equal(teaSeats.filter(s=>s.area==='옆마당').length,8);
+ for(let i=0;i<teaGardenTables.length;i++)for(let j=i+1;j<teaGardenTables.length;j++){
+  const a=teaGardenTables[i],b=teaGardenTables[j];assert.ok(Math.hypot(a.x-b.x,a.z-b.z)>4);
+ }
+ for(const table of teaGardenTables){
+  assert.ok(insideGround(table.x,table.z,1.4));
+  assert.ok(teaPavilion.x-teaPavilion.width/2-(table.x+1.4)>=1.5);
+  for(let i=1;i<teaApproach.length;i++)assert.ok(distanceToSegment(table.x,table.z,teaApproach[i-1],teaApproach[i])>2.9);
+ }
+});
+
+
+test('rear garden walls form three connected sides outside the walking loop with open approaches',()=>{
+ assert.equal(rearGardenWalls.length,3);
+ for(let i=1;i<rearGardenWalls.length;i++)assert.deepEqual(rearGardenWalls[i-1].to,rearGardenWalls[i].from);
+ for(const wall of rearGardenWalls){
+  assert.equal(wall.height,1.8);
+  for(const point of sanctuaryWalk)assert.ok(distanceToSegment(point[0],point[1],wall.from,wall.to)>=(wall===rearGardenWalls[1]?4.5:2.8));
+ }
+ for(const [x,z] of [[-24,28],[23,61],[0,64],[69,36]])assert.ok(insideGround(x,z,.325));
+});
+
+
+test('the rear west wall continues the original boundary with no inset or return corner',()=>{
+ const west=rearGardenWalls[0];assert.deepEqual(west.from,[-37,63]);assert.equal(west.to[0],-37);
+ assert.ok(boundaries.some(w=>w.to[0]===west.from[0]&&w.to[1]===west.from[1]&&w.from[0]===-37));
+ assert.ok(!boundaries.some(w=>w.from[0]===-28||w.to[0]===-28));
 });

@@ -1,0 +1,10 @@
+{
+  "environment": "Mac private web candidate http://127.0.0.1:4342/",
+  "floorMetres": [12, 6],
+  "previousFloorMetres": [6, 4],
+  "seatCount": 6,
+  "browserChecks": {"guestTea": true,"guestCoffee": true,"seatChange": true,"firstPersonView": true,"stand": true,"walkOut": true,"pageErrors": []},
+  "walkExitPosition": [56.420110000157365, 0.01, -63.2],
+  "automatedChecks": {"passed": 40, "failed": 0, "typescriptAndBuild": true},
+  "presence": "Server tests cover late arrivals receiving sitting pose, drink phase and beverage; malformed states rejected."
+}

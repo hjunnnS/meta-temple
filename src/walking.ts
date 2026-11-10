@@ -1,3 +1,4 @@
+import {teaBreak} from './tea-break';
 import {visitorFace} from './visitor-face';
 import type {Face} from './face-types';
 import {practiceSeat} from './hall-seats';
@@ -32,7 +33,7 @@ export function pedestrianWorld(parts:Mesh[]){
  for(const part of parts){
   const surface=/(^|-)(step|plinth|hall-floor|floorboard|court|base)$/.test(part.name);
   const solid=/(^|-)(back-wall|side-wall|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth|bell-shell|water-edge-stone|meditation-tree)$/.test(part.name);
-  const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof)$/.test(part.name);
+  const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof|tea-pavilion-roof|personal-gate-roof)$/.test(part.name);
   if(!surface&&!solid&&!roof)continue;
   part.computeWorldMatrix(true);
   const b=part.getBoundingInfo().boundingBox;
@@ -160,7 +161,7 @@ export function visitorMesh(scene:Scene,name:string){
    hands[i].scaling.set(1,1-.19*planted,1+.15*planted);
   }
  }
- return {root,legs,arms,chest,coat,sleeves,bow,setFace,get face(){return face;}};
+ return {root,legs,shins,arms,forearms,hands,chest,coat,sleeves,bow,setFace,get face(){return face;}};
 }
 
 export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTMLCanvasElement,world:ReturnType<typeof pedestrianWorld>){
@@ -240,12 +241,12 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  };
  switchView.onclick=()=>{
   changePerspective(!first);canvas.focus();
-  if(first&&matchMedia('(pointer:fine)').matches&&canvas.requestPointerLock){
+  if(first&&!tea.seated&&matchMedia('(pointer:fine)').matches&&canvas.requestPointerLock){
    Promise.resolve(canvas.requestPointerLock()).catch(()=>{/* Drag look remains available. */});
   }
  };
  document.addEventListener('pointerlockchange',()=>{if(!document.pointerLockElement&&first)changePerspective(false);});
- canvas.addEventListener('keydown',e=>{if(e.key==='Escape'&&bows.active)bows.cancel();if(e.key==='Escape'&&worship)finishWorship();if(e.key==='Escape'&&first)changePerspective(false);});
+ canvas.addEventListener('keydown',e=>{if(e.key==='Escape'&&bows.active)bows.cancel();if(e.key==='Escape'&&worship)finishWorship();if(e.key==='Escape'&&first)changePerspective(false);if(e.key==='Escape'&&tea.seated)tea.stop();});
  function clear(){keys.clear();moving=false;}
  canvas.addEventListener('keydown',e=>{if(active&&directions.has(e.code)){e.preventDefault();keys.add(e.code);}});
  window.addEventListener('keyup',e=>keys.delete(e.code));
@@ -255,9 +256,10 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   button.onpointerdown=e=>{e.preventDefault();canvas.focus();button.setPointerCapture(e.pointerId);keys.add(code);};
   button.onlostpointercapture=()=>keys.delete(code);
  }
+ const tea=teaBreak(scene,avatar,canvas);
  const orbitKeys=camera.inputs.attached.keyboard;
  function mode(on:boolean){
-  if(!on)bows.show(false);
+  if(!on){bows.show(false);tea.hide();}
   if(!on&&worship)finishWorship();
   if(active===on)return;
   if(orbitKeys){if(on)camera.inputs.remove(orbitKeys);else camera.inputs.add(orbitKeys);}
@@ -287,6 +289,11 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   const length=Math.hypot(x,z);
   if(length&&bows.active)bows.cancel();
   bows.update(dt);
+  if(tea.update(active,dt,!!length)){
+   camera.target.copyFromFloats(p.x,p.y+(first?1.48:1.35),p.z);
+   camera.radius=first?.045:world.cameraLimit(camera.target,camera.alpha,camera.beta,followDistance);
+   return;
+  }
   if(worship){
    if(length){finishWorship();}
    else{
@@ -311,5 +318,5 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   camera.target.copyFromFloats(p.x,p.y+(first?1.56:1.2),p.z);
   camera.radius=first?.045:world.cameraLimit(camera.target,camera.alpha,camera.beta,followDistance);
  }
- return {mode,update,setFace:avatar.setFace,get pose(){return {face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,bowProgress:worship?Math.min(1,elapsed/4.8):bows.progress,animation:worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
+ return {mode,update,sitAtTea(index=0){mode(true);if(bows.active)bows.cancel();finishWorship();tea.sitAt(index);camera.alpha=-Math.PI/2;camera.beta=1.42;},setFace:avatar.setFace,get pose(){return {face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,bowProgress:worship?Math.min(1,elapsed/4.8):bows.progress,drinkLift:tea.lift,beverage:tea.beverage,animation:tea.seated?'sit':worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
 }

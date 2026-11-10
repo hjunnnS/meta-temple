@@ -1,4 +1,4 @@
-import { courtDepth, courtSouthEdge, sideHallCenterZ, templePlaces, wallCenterX, wishGarden } from './temple-layout.ts';
+import { courtDepth, courtSouthEdge, sideHallCenterZ, templePlaces, wallCenterX, wishGarden, meditationTrees } from './temple-layout.ts';
 
 export type GroundPoint = readonly [number, number];
 export interface Boundary { from: GroundPoint; to: GroundPoint; height: number }
@@ -8,7 +8,7 @@ const innerGate = place('cheonwang');
 const outerGate = place('ilju');
 const frontWallZ = innerGate.z - 5.5;
 export const eastCourts = {
-  tower: {west:wallCenterX,east:72,south:outerGate.z,north:-25,x:58,z:-35},
+  tower: {west:wallCenterX,east:77,south:outerGate.z-9,north:-25,x:58,z:-35},
   buddha: {west:wallCenterX,east:76,south:27,north:63,x:59,z:55},
 } as const;
 export const pond={x:50,z:-52,width:27,depth:15} as const;
@@ -21,7 +21,10 @@ for (const side of [-1, 1]) {
   const x = side * wallCenterX;
   const add = (from: GroundPoint, to: GroundPoint, height: number) => boundaries.push({from,to,height});
   if(side===1){
-    add([4,outerGate.z],[eastCourts.tower.east,outerGate.z],2.2);
+    // Keep the entrance frontage; expand the entire east garden as one rectangle.
+    add([4,outerGate.z],[x,outerGate.z],2.2);
+    add([x,outerGate.z],[x,eastCourts.tower.south],2.2);
+    add([x,eastCourts.tower.south],[eastCourts.tower.east,eastCourts.tower.south],2.2);
   }else{
     add([side*6,frontWallZ],[x,frontWallZ],2.2);
   }
@@ -43,6 +46,14 @@ for (const side of [-1, 1]) {
   add([x,courtSouthEdge],[x,courtSouthEdge+courtDepth],1.8);
   add([x,courtSouthEdge+courtDepth],[x,63],1.44);
 }
+// Continue the existing west boundary straight north, leaving generous space outside the rear walk.
+// The two front ends stay open, including the route towards the private-room gate.
+export const rearGardenWalls:Boundary[]=[
+ {from:[-wallCenterX,63],to:[-wallCenterX,78],height:1.8},
+ {from:[-wallCenterX,78],to:[30,78],height:1.8},
+ {from:[30,78],to:[30,64],height:1.8},
+];
+boundaries.push(...rearGardenWalls);
 const office = place('office'), bell = place('bell'), indeung = place('indeung');
 export const paving: StonePath[] = [
   {name:'entrance',from:[0,-71.5],to:[0,courtSouthEdge],lanes:3},
@@ -83,3 +94,46 @@ export const coinThrowBank = Array.from({length:97},(_,i)=>{
 export function canThrowCoin(x:number,z:number){
  return insideGround(x,z,.325)&&coinThrowBank.some((p,i)=>i>0&&distanceToSegment(x,z,coinThrowBank[i-1],p)<=1.75);
 }
+
+
+export const teaPavilion={x:66,z:-70,width:14,depth:8} as const;
+export const teaTerrace={x:teaPavilion.x,z:teaPavilion.z+teaPavilion.depth/2+1.75,width:teaPavilion.width,depth:3.5} as const;
+export const teaRestArea={
+ west:47,east:teaPavilion.x+teaPavilion.width/2+1,
+ south:teaPavilion.z-teaPavilion.depth/2-1,north:teaTerrace.z+teaTerrace.depth/2+1,
+} as const;
+export const personalGate={x:69,z:36} as const;
+function roundedRoute(points:GroundPoint[]){
+ const route:GroundPoint[]=[points[0]];
+ for(let i=1;i<points.length-1;i++){
+  const before=points[i-1],corner=points[i],after=points[i+1];
+  const incoming=Math.hypot(corner[0]-before[0],corner[1]-before[1]);
+  const outgoing=Math.hypot(corner[0]-after[0],corner[1]-after[1]);
+  const trim=Math.min(2.8,incoming*.23,outgoing*.23);
+  const a=corner.map((v,j)=>v+(before[j]-v)*trim/incoming) as unknown as GroundPoint;
+  const b=corner.map((v,j)=>v+(after[j]-v)*trim/outgoing) as unknown as GroundPoint;
+  route.push(a);
+  for(let j=1;j<=8;j++){
+   const t=j/8;
+   route.push([(1-t)**2*a[0]+2*(1-t)*t*corner[0]+t*t*b[0],
+    (1-t)**2*a[1]+2*(1-t)*t*corner[1]+t*t*b[1]]);
+  }
+ }
+ route.push(points.at(-1)!);return route;
+}
+export const sanctuaryWalk=roundedRoute([
+ [18,20],[23,28],[59,30],[59,45],[68,46],[68,61],[24,61],
+ [23,73],[-24,73],[-25,56],[-24,28],[-17,20],
+]);
+export const teaGardenTables=[{x:55,z:-67.8},{x:54,z:-72},{x:50,z:-68},{x:49,z:-72.5}] as const;
+export const teaSeats=[...Array.from({length:12},(_,i)=>({
+ x:teaPavilion.x-5+Math.floor((i%6)/2)*5+(i%2? .5:-.5),
+ z:i<6?teaTerrace.z+.15:teaPavilion.z+1.8,y:.18,yaw:0,outdoors:i<6,ground:.32,area:i<6?'테라스':'실내',
+})),...teaGardenTables.flatMap(table=>[-.5,.5].map(dx=>({x:table.x+dx,z:table.z-.9,y:-.13,yaw:0,outdoors:true,ground:.01,area:'옆마당'})))];
+export const teaTables=teaSeats.slice(0,12).filter((_,i)=>i%2===0).map(seat=>({x:seat.x+.5,z:seat.z+.85}));
+export const teaApproach=roundedRoute([[35,-40],[35,-64.25],[58.7,-64.25]]);
+// A continuous dry route joins the terrace, east shore and pagoda approach.
+export const teaGardenWalk=roundedRoute([[73.8,-64.25],[74.8,-61.5],[69,-57],[68,-46],[66,-43],[66,-35]]);
+export const gateApproach:GroundPoint[]=[[59,36],[personalGate.x+2,personalGate.z]];
+export const interiorWoodland=meditationTrees.filter(tree=>sanctuaryWalk.every((p,i)=>i===0||
+ distanceToSegment(tree.x,tree.z,sanctuaryWalk[i-1],p)>2.0));

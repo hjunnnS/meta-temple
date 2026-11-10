@@ -10,10 +10,11 @@ import { standingStoneFigure } from './standing-stone-figure';
 import { seatedFigure } from './gilt-figure.ts';
 import { createGwaneumAltar } from './gwaneum-altar.ts';
 import { furnishHall } from './hall-interior.ts';
+import { placeExperienceSpaces } from './experience-spaces';
 import { mountainLandscape } from './mountain-landscape';
 import { distanceTrees } from './tree-distance';
 import { furnishPond } from './pond';
-import { eastCourts, pond, shoreRadius } from './temple-terrain.ts';
+import { eastCourts, pond, shoreRadius, interiorWoodland, teaPavilion } from './temple-terrain.ts';
 import { wishGarden, wallCenterX, wallThickness, gardenBorderWidth, sideHallCenterZ, courtSouthEdge, courtDepth, courtHalfWidth, templePlaces, daeungDimensions, meditationTrees } from './temple-layout.ts';
 import { createHanjiMaterial } from './hanji-material.ts';
 import { Engine } from '@babylonjs/core/Engines/engine';
@@ -749,6 +750,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  graniteGrain.wrapU=graniteGrain.wrapV=Texture.WRAP_ADDRESSMODE;
  standingStoneFigure(scene,staticMeshes,buddha.x,buddha.z,1.3);
+ placeExperienceSpaces(scene,staticMeshes,wood,roofMat,stone);
  const garden=wishGarden;
  const gravel=mat('warm-garden-gravel','#c6b899');
  box('wish-garden-ground',garden.width,.12,garden.depth,garden.x,.05,garden.z,gravel,false);
@@ -1000,7 +1002,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
 
  }
  // Keep the walking collision at each solid trunk, sharing the existing tree dimensions.
- for(const {x,z} of meditationTrees){
+ for(const {x,z} of interiorWoodland){
   const collision=MeshBuilder.CreateCylinder('meditation-tree',{diameter:.34,height:4.8,tessellation:8},scene);
   collision.position.set(x,2.4,z);collision.isVisible=false;
   staticMeshes.push(collision);
@@ -1337,6 +1339,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  canvas.addEventListener('keydown',cancelGateWalk);
  function view(name:string){
   cancelGateWalk();
+  if(name==='teaSeated'||name==='teaGardenSeated'){walking.sitAtTea(name==='teaGardenSeated'?12:0);return;}
   walking.mode(name==='walk');
   if(name==='walk')return;
   if(name==='entryLandscape'){
@@ -1388,6 +1391,19 @@ export function createTemple(canvas:HTMLCanvasElement) {
    camera.setTarget(new Vector3(-6,1.8,68));
    camera.setPosition(new Vector3(6,2.3,52));
    return;
+  }
+  if(name==='teaGarden'){camera.fov=.91;camera.setTarget(new Vector3(57,1,-68));camera.setPosition(new Vector3(40,12,-81));return;}
+  if(name==='teaPavilion'){
+   camera.fov=.91;camera.setTarget(new Vector3(teaPavilion.x,1.7,teaPavilion.z+1));
+   camera.setPosition(new Vector3(49,9,-77));return;
+  }
+  if(name==='personalGate'){
+   camera.fov=.87;camera.setTarget(new Vector3(69,1.9,36));
+   camera.setPosition(new Vector3(61,2.5,32));return;
+  }
+  if(name==='sanctuaryWalk'){
+   camera.fov=.95;camera.setTarget(new Vector3(8,0,62));
+   camera.setPosition(new Vector3(-28,37,78));return;
   }
   if(name==='forestBuddha'){
    camera.fov=.80;camera.setTarget(new Vector3(buddha.x,8.1,buddha.z));
@@ -1511,7 +1527,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
     : new Vector3(px,py,pz);
    camera.setTarget(toWorld(tx,ty,tz));camera.setPosition(toWorld(x,y,z));return;
   }
-  const place=templePlaces.find(p=>p.id===name);if(place){camera.setTarget(new Vector3(place.x,3,place.z));camera.alpha=-Math.PI/2-('yaw' in place?place.yaw:0);camera.beta=1.15;camera.radius=place.kind==='forest'?48:place.scale*(canvas.clientWidth/canvas.clientHeight<.9?42:28);return;}if(name==='map'){camera.fov=.8;camera.setTarget(new Vector3(16,0,-2));camera.alpha=-Math.PI/2;camera.beta=.15;camera.radius=Math.max(196,146/(2*Math.tan(.4)*canvas.clientWidth/canvas.clientHeight));return;}if(name==='canopy'){camera.setTarget(new Vector3(0,6,-16));camera.alpha=-Math.PI/2;camera.beta=2.1;camera.radius=9;}else if(name==='front'){camera.setTarget(new Vector3(0,5,32));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=55;}else if(name==='detail'){camera.setTarget(new Vector3(-6,6.6,29));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=selectedPosition(selected);camera.setTarget(Vector3.FromArray([...p]).add(new Vector3(0,-.4,0)));camera.alpha=-2.9;camera.beta=1.95;camera.radius=4;}else{camera.setTarget(new Vector3(0,2,-2));camera.alpha=-Math.PI*.58;camera.beta=.65;camera.radius=175;}}
+  const place=templePlaces.find(p=>p.id===name);if(place){camera.setTarget(new Vector3(place.x,3,place.z));camera.alpha=-Math.PI/2-('yaw' in place?place.yaw:0);camera.beta=1.15;camera.radius=place.kind==='forest'?48:place.scale*(canvas.clientWidth/canvas.clientHeight<.9?42:28);return;}if(name==='map'){camera.fov=.8;camera.setTarget(new Vector3(18,0,-4));camera.alpha=-Math.PI/2;camera.beta=.15;camera.radius=Math.max(218,158/(2*Math.tan(.4)*canvas.clientWidth/canvas.clientHeight));return;}if(name==='canopy'){camera.setTarget(new Vector3(0,6,-16));camera.alpha=-Math.PI/2;camera.beta=2.1;camera.radius=9;}else if(name==='front'){camera.setTarget(new Vector3(0,5,32));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=55;}else if(name==='detail'){camera.setTarget(new Vector3(-6,6.6,29));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=selectedPosition(selected);camera.setTarget(Vector3.FromArray([...p]).add(new Vector3(0,-.4,0)));camera.alpha=-2.9;camera.beta=1.95;camera.radius=4;}else{camera.setTarget(new Vector3(0,2,-2));camera.alpha=-Math.PI*.58;camera.beta=.65;camera.radius=175;}}
  rebuildLanterns(1000);time('day');
  scene.onBeforeRenderObservable.add(()=>{
   if(arrivalTime!==null){

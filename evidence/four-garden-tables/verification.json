@@ -1,0 +1,8 @@
+{
+  "environment": "Mac private web candidate http://127.0.0.1:4342/",
+  "gardenRoundTables": 4,
+  "gardenSeats": 8,
+  "allTeaSeats": 20,
+  "browserChecks": {"tea": true, "coffee": true, "lastGardenSeat": true, "standingHeightOnSoil": true, "pageErrors": []},
+  "checks": {"testsPassed": 43, "testsFailed": 0, "typecheckAndBuild": true}
+}

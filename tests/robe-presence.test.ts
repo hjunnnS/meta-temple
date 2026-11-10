@@ -28,3 +28,14 @@ test('a later visitor gets the current bow progress and stale moves cannot rewin
  assert.equal(api('b','b','join',{channel:1})[1].participants[0].bowProgress,.64);
  assert.equal(api('a','a','move',{...pose,sequence:3,bowProgress:1.1})[0],400);
 });
+
+
+test('tea seating and drink phase reach later visitors and reject malformed drink states',()=>{
+ const api=channels();const self=api('tea-guest','tea-session','join',{channel:1})[1].self;
+ const pose={self,sequence:1,position:[59.5,.18,-64.8],yaw:0,animation:'sit',drinkLift:.8,beverage:'coffee'};
+ assert.equal(api('tea-guest','tea-session','move',pose)[0],200);
+ const watcher=api('watcher','watch-session','join',{channel:1})[1].self;
+ const peer=api('watcher','watch-session','move',{...pose,self:watcher})[1].participants[0];
+ assert.equal(peer.animation,'sit');assert.equal(peer.drinkLift,.8);assert.equal(peer.beverage,'coffee');
+ for(const change of [{drinkLift:1.1},{drinkLift:NaN},{beverage:'unknown'}])assert.equal(api('tea-guest','tea-session','move',{...pose,sequence:2,...change})[0],400);
+});
