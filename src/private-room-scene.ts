@@ -1,3 +1,4 @@
+import {privatePractice} from './private-practice';
 import {privateDisplays} from './private-display';
 import {furnishPrivateRetreat} from './private-room-furnishings';
 import {canWalkPrivateRoom} from './private-room-layout';
@@ -52,8 +53,10 @@ export function privateRoomScene(engine:Engine,canvas:HTMLCanvasElement,face:Fac
  const down=(event:KeyboardEvent)=>{if(document.activeElement===canvas&&directions.has(event.code)){event.preventDefault();keys.add(event.code);}};
  const up=(event:KeyboardEvent)=>keys.delete(event.code),clear=()=>keys.clear();
  canvas.addEventListener('keydown',down);window.addEventListener('keyup',up);canvas.addEventListener('blur',clear);window.addEventListener('blur',clear);
+ let practice:ReturnType<typeof privatePractice>|undefined;let practiceCameraHeight=1.2;
  const panel=document.querySelector('#private-room-controls')!;
  function changeView(next:'walk'|'overview'|'garden'|'display'){
+  if(next!=='walk')practice?.stop();
   view=next;keys.clear();camera.fov=next==='walk'?.8:next==='overview'?1.02:.9;
   if(next==='walk'){camera.alpha=-Math.PI/2;camera.beta=1.24;requestedRadius=3.2;camera.radius=lastSafeRadius=3.2;}
   else if(next==='overview'){camera.setTarget(new Vector3(1,1.35,1.2));camera.setPosition(new Vector3(-2.5,2.5,-4.5));requestedRadius=lastSafeRadius=camera.radius;}
@@ -65,6 +68,7 @@ export function privateRoomScene(engine:Engine,canvas:HTMLCanvasElement,face:Fac
  for(const button of panel.querySelectorAll<HTMLButtonElement>('[data-room-key]')){
   button.onpointerdown=event=>{event.preventDefault();canvas.focus();button.setPointerCapture(event.pointerId);keys.add(button.dataset.roomKey!);};button.onlostpointercapture=()=>keys.delete(button.dataset.roomKey!);
  }
+ practice=privatePractice(avatar,canvas,()=>{changeView('walk');camera.alpha=.12;camera.beta=1.35;requestedRadius=camera.radius=lastSafeRadius=4.3;});
  const display=privateDisplays(scene,roomId,position=>{
   changeView('display');
   if(position.id.startsWith('right')){camera.setTarget(new Vector3(4.2,1.35,-4.65));camera.setPosition(new Vector3(-1.4,2.1,-6.2));requestedRadius=lastSafeRadius=camera.radius;}
@@ -75,15 +79,17 @@ export function privateRoomScene(engine:Engine,canvas:HTMLCanvasElement,face:Fac
   const x=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft')),z=Number(keys.has('KeyW')||keys.has('ArrowUp'))-Number(keys.has('KeyS')||keys.has('ArrowDown')),length=Math.hypot(x,z);
   let distance=0;
   if(length&&view!=='walk')changeView('walk');
-  if(length&&!document.querySelector('dialog[open]')){
+  const practicing=practice!.update(dt,!!length);
+  if(length&&!practicing&&!document.querySelector('dialog[open]')){
    const speed=3.0*Math.min(.05,dt)/length,a=camera.alpha,dx=(x*-Math.sin(a)-z*Math.cos(a))*speed,dz=(x*Math.cos(a)-z*Math.sin(a))*speed;
    const ox=p.x,oz=p.z;
    const blocked=(nx:number,nz:number)=>!canWalkPrivateRoom(nx,nz);
    if(!blocked(p.x+dx,p.z))p.x+=dx;if(!blocked(p.x,p.z+dz))p.z+=dz;
-   distance=Math.hypot(p.x-ox,p.z-oz);if(distance){avatar.root.rotation.y=Math.atan2(p.x-ox,p.z-oz);stride+=distance*4.8;}
+   distance=Math.hypot(p.x-ox,p.z-oz);if(distance){p.y=.12;avatar.root.rotation.y=Math.atan2(p.x-ox,p.z-oz);stride+=distance*4.8;}
    if(p.z< -7.1&&Math.abs(p.x)<1.1){onExit();return;}
   }
-  avatar.legs.forEach((leg,i)=>leg.rotation.x=distance?.35*Math.sin(stride+i*Math.PI):0);
-  if(view==='walk')camera.target.copyFromFloats(p.x,p.y+1.2,p.z);scene.render();
- },dispose(){display.dispose();canvas.removeEventListener('wheel',zoom,true);canvas.removeEventListener('keydown',down);window.removeEventListener('keyup',up);canvas.removeEventListener('blur',clear);window.removeEventListener('blur',clear);camera.detachControl();scene.dispose();}};
+  if(!practicing)avatar.legs.forEach((leg,i)=>leg.rotation.x=distance?.35*Math.sin(stride+i*Math.PI):0);
+  practiceCameraHeight+=(practice!.cameraHeight-practiceCameraHeight)*(1-Math.exp(-9*Math.min(.1,dt)));
+  if(view==='walk')camera.target.copyFromFloats(p.x,p.y+practiceCameraHeight,p.z);scene.render();
+ },dispose(){practice?.dispose();display.dispose();canvas.removeEventListener('wheel',zoom,true);canvas.removeEventListener('keydown',down);window.removeEventListener('keyup',up);canvas.removeEventListener('blur',clear);window.removeEventListener('blur',clear);camera.detachControl();scene.dispose();}};
 }

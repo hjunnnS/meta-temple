@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "singleBow": true,
+  "meditation": true,
+  "stop": true,
+  "movementStandsUp": true,
+  "escapeFinishesBow": true,
+  "displayInterrupt": true,
+  "reentryIdle": true,
+  "existingLayoutUnchanged": true,
+  "publicMoveRequests": 0,
+  "pageErrors": []
+}

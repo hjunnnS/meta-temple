@@ -163,7 +163,7 @@ export function visitorMesh(scene:Scene,name:string){
    hands[i].scaling.set(1,1-.19*planted,1+.15*planted);
   }
  }
- return {root,legs,shins,arms,forearms,hands,chest,coat,sleeves,bow,setFace,get face(){return face;}};
+ return {root,hips,head,legs,shins,arms,forearms,hands,chest,coat,sleeves,bow,setFace,get face(){return face;}};
 }
 
 export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTMLCanvasElement,world:ReturnType<typeof pedestrianWorld>,bellVisual:ReturnType<typeof furnishBell>){
