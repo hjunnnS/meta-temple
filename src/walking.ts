@@ -13,7 +13,7 @@ import type { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { templePlaces } from './temple-layout.ts';
-import { insideGround, paving } from './temple-terrain.ts';
+import { insideGround, insideBoundary, paving, eastCourts } from './temple-terrain.ts';
 
 export const visitorSize={height:1.7,width:.65} as const;
 
@@ -31,7 +31,7 @@ export function pedestrianWorld(parts:Mesh[]){
  const solids:Rect[]=[],ceilings:Rect[]=[];
  for(const part of parts){
   const surface=/(^|-)(step|plinth|hall-floor|floorboard|court|base)$/.test(part.name);
-  const solid=/(^|-)(back-wall|side-wall|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth|bell-shell|meditation-tree)$/.test(part.name);
+  const solid=/(^|-)(back-wall|side-wall|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth|bell-shell|water-edge-stone|meditation-tree)$/.test(part.name);
   const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof)$/.test(part.name);
   if(!surface&&!solid&&!roof)continue;
   part.computeWorldMatrix(true);
@@ -42,20 +42,26 @@ export function pedestrianWorld(parts:Mesh[]){
   else if(rect.top<2.1)surfaces.push(rect);
  }
  const radius=visitorSize.width/2;
+ // The large lotus pedestal is solid throughout, including gaps between its petals.
+ const statue=eastCourts.buddha;
+ const statueRadius=4.1;
+ function withinStatue(x:number,y:number,z:number,padding:number){
+  return y<16.5&&Math.hypot(x-statue.x,z-statue.z)<statueRadius+padding;
+ }
  function floor(x:number,z:number){
   let y=.01;
   for(const r of surfaces)if(x>=r.x0&&x<=r.x1&&z>=r.z0&&z<=r.z1)y=Math.max(y,r.top);
   return y;
  }
  function blocked(x:number,y:number,z:number){
-  return !insideGround(x,z,radius)||solids.some(r=>x>r.x0-radius&&x<r.x1+radius&&z>r.z0-radius&&z<r.z1+radius&&y<r.top&&y+visitorSize.height>r.bottom);
+  return !insideGround(x,z,radius)||withinStatue(x,y,z,radius)||solids.some(r=>x>r.x0-radius&&x<r.x1+radius&&z>r.z0-radius&&z<r.z1+radius&&y<r.top&&y+visitorSize.height>r.bottom);
  }
  function cameraLimit(target:Vector3,alpha:number,beta:number,length:number){
   const dx=Math.cos(alpha)*Math.sin(beta),dy=Math.cos(beta),dz=Math.sin(alpha)*Math.sin(beta);
   for(let d=.12;d<=length+.001;d+=.12){
    const x=target.x+dx*d,y=target.y+dy*d,z=target.z+dz*d;
    const intersects=(r:Rect)=>x>=r.x0-.1&&x<=r.x1+.1&&z>=r.z0-.1&&z<=r.z1+.1&&y>=r.bottom-.1&&y<=r.top+.1;
-   if(y<floor(x,z)+.12||solids.some(intersects)||ceilings.some(intersects)||!insideGround(x,z,.1))return Math.max(.08,d-.14);
+   if(y<floor(x,z)+.12||withinStatue(x,y,z,.1)||solids.some(intersects)||ceilings.some(intersects)||!insideBoundary(x,z,.1))return Math.max(.08,d-.14);
   }
   return length;
  }

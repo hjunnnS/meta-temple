@@ -142,6 +142,17 @@ export function furnishPond(scene:Scene,staticParts:Mesh[],shore:(a:number)=>Vec
  const tossState=wishToss();
  const landing=descendingLight(scene,10,2.6),rising=goldRing(scene,2.0,true),aura=descendingLight(scene,12,1.6);
  landing.mesh.setEnabled(false);rising.mesh.setEnabled(false);aura.mesh.setEnabled(false);
+ const rippleMaterial=material('coin-water-ripple','#d3ede2');
+ rippleMaterial.disableLighting=true;rippleMaterial.emissiveColor=new Color3(.55,.76,.71);rippleMaterial.alpha=0;
+ const ripples=[0,1].map(()=>{
+  const mesh=MeshBuilder.CreateTorus('coin-splash-ring',{diameter:1,thickness:.028,tessellation:48},scene);
+  mesh.material=rippleMaterial;mesh.isPickable=false;mesh.setEnabled(false);return mesh;
+ });
+ const sprayMaterial=material('coin-splash-droplet','#c7e4e1');sprayMaterial.alpha=.75;
+ const drops=Array.from({length:7},()=>{
+  const m=MeshBuilder.CreateSphere('coin-water-drop',{diameter:.04,segments:6},scene);
+  m.material=sprayMaterial;m.isPickable=false;m.setEnabled(false);return m;
+ });
  let elapsed=0,wishAge=0,phase='idle',source=access.clone(),hit=false;
  const end=target.clone();
 
@@ -152,7 +163,7 @@ export function furnishPond(scene:Scene,staticParts:Mesh[],shore:(a:number)=>Vec
   if(!tossState.start(performance.now(),draw))return;
   source=visitor?Vector3.FromArray([...visitor]):sites[site].clone();source.y+=1.18;
   hit=draw<.25;phase='wishing';thrown.setEnabled(false);
-  end.set(target.x+(hit?0:2.8+Math.random()*1.5),hit?.66:.12,target.z+(hit?0:1.9+Math.random()*1.2));
+  end.set(target.x+(hit?0:2.8+Math.random()*1.5),hit?.66:.28,target.z+(hit?0:1.9+Math.random()*1.2));
  },update(dt:number,reduced:boolean,visitor?:readonly number[]){
   elapsed+=dt*(reduced?.32:1);
   for(const [i,{root,tail}] of fish.entries()){
@@ -163,6 +174,19 @@ export function furnishPond(scene:Scene,staticParts:Mesh[],shore:(a:number)=>Vec
   const state=tossState.frame(performance.now());phase=state.phase;wishAge=state.age;
   thrown.setEnabled(phase==='flying'||phase==='miss'||phase==='success');
   landing.mesh.setEnabled(phase==='success');rising.mesh.setEnabled(phase==='success');aura.mesh.setEnabled(phase==='success');
+  const impactAge=state.age-3.85;
+  const splash=phase==='miss'&&impactAge>=0&&impactAge<1.6;
+  for(const [i,ripple] of ripples.entries()){
+   const age=Math.max(0,impactAge-i*.20);
+   ripple.setEnabled(splash&&impactAge>=i*.20);
+   ripple.position.set(end.x,.515+i*.002,end.z);ripple.scaling.setAll(.1+age*.95);
+  }
+  rippleMaterial.alpha=splash?Math.max(0,.65*(1-impactAge/1.6)):0;
+  for(const [i,drop] of drops.entries()){
+   const age=Math.min(.65,Math.max(0,impactAge)),angle=i*Math.PI*2/7;
+   drop.setEnabled(splash&&impactAge<.65);
+   drop.position.set(end.x+Math.cos(angle)*age*.5,.50+age*1.1-age*age*1.7,end.z+Math.sin(angle)*age*.5);
+  }
   if(phase==='wishing'||phase==='idle')return;
   const u=Math.min(1,Math.max(0,(state.age-3)/.85));
   thrown.position.copyFrom(Vector3.Lerp(source,end,u));thrown.position.y+=reduced?0:5.5*u*(1-u);

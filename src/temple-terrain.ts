@@ -63,18 +63,22 @@ export function distanceToSegment(x:number,z:number,from:GroundPoint,to:GroundPo
   const t=Math.max(0,Math.min(1,((x-from[0])*dx+(z-from[1])*dz)/(dx*dx+dz*dz)));
   return Math.hypot(x-from[0]-t*dx,z-from[1]-t*dz);
 }
+export function insideBoundary(x:number,z:number,radius:number){
+ return Math.abs(x)<=80-radius && Math.abs(z)<=80-radius &&
+  boundaries.every(wall=>distanceToSegment(x,z,wall.from,wall.to)>.25+radius);
+}
 export function insideGround(x:number,z:number,radius:number) {
-  return Math.abs(x)<=80-radius && Math.abs(z)<=80-radius &&
-    Math.hypot((x-pond.x)/(pond.width/2+radius),(z-pond.z)/(pond.depth/2+radius))>shoreRadius(Math.atan2((z-pond.z)/pond.depth,(x-pond.x)/pond.width)) &&
-    boundaries.every(wall=>distanceToSegment(x,z,wall.from,wall.to)>.25+radius);
+ return insideBoundary(x,z,radius) &&
+  Math.hypot((x-pond.x)/(pond.width/2+radius),(z-pond.z)/(pond.depth/2+radius))>
+   shoreRadius(Math.atan2((z-pond.z)/pond.depth,(x-pond.x)/pond.width));
 }
 
 // Follow the office-side tree around the southern shoreline to the far-bank tree.
 export const coinThrowBank = Array.from({length:97},(_,i)=>{
  const angle=2.02+(Math.PI*2+.35-2.02)*i/96;
  const radius=shoreRadius(angle);
- return [pond.x+Math.cos(angle)*(pond.width*.5*radius+1),
-  pond.z+Math.sin(angle)*(pond.depth*.5*radius+1)] as GroundPoint;
+ return [pond.x+Math.cos(angle)*(pond.width*.5*radius+1.65),
+  pond.z+Math.sin(angle)*(pond.depth*.5*radius+1.65)] as GroundPoint;
 });
 export function canThrowCoin(x:number,z:number){
  return insideGround(x,z,.325)&&coinThrowBank.some((p,i)=>i>0&&distanceToSegment(x,z,coinThrowBank[i-1],p)<=1.75);

@@ -149,10 +149,10 @@
   {
     "file": "public/entry-mountains.jpg",
     "source": "src/scene.ts",
-    "sha256": "eaf1f213e3878e7c7736370ceab8f355d7e2485e31bd3aa3c5b195ba44946653",
+    "sha256": "c17a6d8977628df325499f83974955b5ebaa84043f354ea3c217b66c632eb0cd",
     "credit": "사사 프로젝트 자체 3D 장면 촬영",
     "rights": "프로젝트 자체 제작",
     "material": "언어 선택 화면의 산 배경 사찰",
-    "bytes": 302829
+    "bytes": 302165
   }
 ]

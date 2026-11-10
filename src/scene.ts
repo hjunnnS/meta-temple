@@ -22,6 +22,7 @@ import { Vector3, Matrix, Quaternion } from '@babylonjs/core/Maths/math.vector';
 import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
 import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
 import { HemisphericLight } from '@babylonjs/core/Lights/hemisphericLight';
+import { SpotLight } from '@babylonjs/core/Lights/spotLight';
 import { PointLight } from '@babylonjs/core/Lights/pointLight';
 import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
@@ -1062,6 +1063,19 @@ export function createTemple(canvas:HTMLCanvasElement) {
  nightWayfinding.intensity=1.14;nightWayfinding.diffuse=Color3.FromHexString('#eddac0');
  for(const slab of slabs)wayfindingMaterials.add(slab);
  nightWayfinding.includedOnlyMeshes=scene.meshes.filter(mesh=>mesh.material instanceof StandardMaterial&&wayfindingMaterials.has(mesh.material));
+ const expansionMoon=new HemisphericLight('expanded-court-moonlight',new Vector3(-.35,1,-.5),scene);
+ expansionMoon.diffuse=Color3.FromHexString('#c0d4e3');expansionMoon.intensity=.42;
+ expansionMoon.includedOnlyMeshes=scene.meshes.filter(mesh=>/waterside-granite|wish-basins|pond-|specimen-bark/.test(mesh.material?.name??''));
+ const monumentLights=[
+  {name:'pagoda',position:new Vector3(tower.x-6,1.1,tower.z-7),aim:new Vector3(tower.x,9,tower.z),material:'east-pagoda'},
+  {name:'buddha',position:new Vector3(buddha.x-5,1.2,buddha.z-9),aim:new Vector3(buddha.x,8,buddha.z),material:'standing-buddha'},
+ ].map(site=>{
+  const light=new SpotLight('stone-monument-'+site.name,site.position,site.aim.subtract(site.position).normalize(),Math.PI*.52,2,scene);
+  light.diffuse=Color3.FromHexString('#ffe0ab');light.specular=Color3.Black();
+  light.intensity=1.15;light.range=35;
+  light.includedOnlyMeshes=scene.meshes.filter(mesh=>mesh.material?.name.includes(site.material));
+  return light;
+ });
  const palette=LANTERN_PALETTE;
  const hanjiTexture=new Texture('/textures/hanji-fibres-generated-v1.png',scene);
  // Three shape-specific UV mappings share the approved optical model and five dyes.
@@ -1273,6 +1287,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  function time(value:TimeOfDay){
   nightWayfinding.setEnabled(value==='night');
+  expansionMoon.setEnabled(value==='night');
+  for(const light of monumentLights)light.setEnabled(value==='night');
   amberLamp.emissiveColor=amberLamp.diffuseColor.scale(value==='night'?1.45:.55);
   pearlLamp.emissiveColor=pearlLamp.diffuseColor.scale(value==='night'?1.15:.48);
   flameMaterial.alpha=value==='night'?1:value==='dusk'?.88:.7;

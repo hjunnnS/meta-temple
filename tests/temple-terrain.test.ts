@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { insideGround, paving, boundaries, pond, shoreRadius, coinThrowBank, canThrowCoin, type GroundPoint } from '../src/temple-terrain.ts';
+import { insideGround, insideBoundary, paving, boundaries, pond, shoreRadius, coinThrowBank, canThrowCoin, type GroundPoint } from '../src/temple-terrain.ts';
 import { zones } from '../src/contracts.ts';
 
 test('the twelve review zones have a connected outdoor approach inside the ground and walls',()=>{
@@ -48,4 +48,11 @@ test('coin throwing follows one continuous U-shaped bank and excludes the water 
  assert.equal(canThrowCoin(0,-52),false);
  const a=Math.PI/2,r=shoreRadius(a);
  assert.equal(canThrowCoin(pond.x,pond.z+r*pond.depth*.5+1),false);
+});
+
+
+test('a camera may orbit over the pond while the visitor stays on dry land',()=>{
+ assert.ok(insideBoundary(pond.x,pond.z,.1));
+ assert.equal(insideGround(pond.x,pond.z,.325),false);
+ assert.equal(insideBoundary(72,-52,.1),false);
 });
