@@ -1,3 +1,5 @@
+import {TransformNode} from '@babylonjs/core/Meshes/transformNode';
+import {bellFrame} from './bell-cycle';
 import { Scene } from '@babylonjs/core/scene';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
@@ -6,7 +8,7 @@ import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 
-export function furnishBell(scene:Scene, meshes:Mesh[], x:number,z:number, wood:StandardMaterial){
+export function furnishBell(scene:Scene, meshes:Mesh[], x:number,z:number, wood:StandardMaterial,yaw=0){
  const finish=(name:string,color:string,lift:number)=>{
   const m=new StandardMaterial(name,scene);
   m.diffuseColor=Color3.FromHexString(color);m.emissiveColor=m.diffuseColor.scale(lift);
@@ -59,9 +61,19 @@ export function furnishBell(scene:Scene, meshes:Mesh[], x:number,z:number, wood:
  }
  tube('crown-loop',Array.from({length:33},(_,i)=>new Vector3(axis+.23*Math.cos(i*Math.PI/16),3.80+.28*Math.sin(i*Math.PI/16),0)),.083);
  tube('bell-hanger',[new Vector3(axis,4.02,0),new Vector3(axis,4.52,0)],.075);
- const log=mount(MeshBuilder.CreateCylinder('hanging-striker',{diameter:.38,height:2.45,tessellation:40},scene),wood,-1.52,1.53);
- log.rotation.z=Math.PI/2;
- for(const dx of [-2.36,-.68]){
-  tube('striker-sling',[new Vector3(dx,4.48,-.53),new Vector3(dx,1.55,-.21),new Vector3(dx,1.31,0),new Vector3(dx,1.55,.21),new Vector3(dx,4.48,.53)],.033,rope);
- }
+ // Keep the moving striker out of the static architecture batches.
+ const root=new TransformNode('bell-striker-assembly',scene);root.position.set(x,0,z);root.rotation.y=yaw;
+ const log=MeshBuilder.CreateCylinder('hanging-striker',{diameter:.38,height:2.45,tessellation:40},scene);
+ log.parent=root;log.material=wood;log.rotation.z=Math.PI/2;log.position.set(-1.52,1.53,0);
+ function slingPath(dx:number,offset:number,lift:number){return [new Vector3(dx,4.48,-.53),new Vector3(dx+offset,1.55+lift,-.21),new Vector3(dx+offset,1.31+lift,0),new Vector3(dx+offset,1.55+lift,.21),new Vector3(dx,4.48,.53)];}
+ const slings=[-2.36,-.68].map(dx=>{
+  const mesh=MeshBuilder.CreateTube('striker-sling',{path:slingPath(dx,0,0),radius:.033,tessellation:8,cap:Mesh.CAP_ALL,updatable:true},scene);
+  mesh.parent=root;mesh.material=rope;return {dx,mesh};
+ });
+ let previous=NaN;
+ return {dynamicMeshes:[log,...slings.map(s=>s.mesh)],frame(progress:number){
+  const {offset,lift}=bellFrame(progress);if(Math.abs(offset-previous)<.00001)return;previous=offset;
+  log.position.set(-1.52+offset,1.53+lift,0);
+  for(const sling of slings)MeshBuilder.CreateTube('striker-sling',{path:slingPath(sling.dx,offset,lift),instance:sling.mesh},scene);
+ }};
 }

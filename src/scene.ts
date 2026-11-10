@@ -407,6 +407,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   const frontOffset=entrySign?5.2:4.65;
   faceCourtyard(plaque(place.name,place.x,height*place.scale,place.z-frontOffset*place.scale),place);
  }
+ let bellVisual!:ReturnType<typeof furnishBell>;
  for(const place of templePlaces.filter(p=>p.kind==='gate'||p.kind==='bell')){
   const groupStart=staticMeshes.length;
   const kingGate=place.id==='cheonwang';
@@ -423,7 +424,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
    for(let i=0;i<=6;i++)box('guardian-gallery-post',.14,1.20,.14,place.x+side*2.30,.85,place.z-d/2+i*d/6,wood);
   }
   if(place.kind==='bell'){
-   furnishBell(scene,staticMeshes,place.x,place.z,wood);
+   bellVisual=furnishBell(scene,staticMeshes,place.x,place.z,wood,'yaw' in place?place.yaw:0);
+   for(const part of bellVisual.dynamicMeshes)shadows.addShadowCaster(part);
    for(const part of staticMeshes.slice(groupStart))faceCourtyard(part,place);
   }
  }
@@ -1010,7 +1012,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  furnishHall(scene,staticMeshes,wood,painted);
  // Merge static geometry by material. Shadow lists are rebuilt to avoid disposed casters.
  const walkWorld=pedestrianWorld(staticMeshes);
- const walking=walkingController(scene,camera,canvas,walkWorld);
+ const walking=walkingController(scene,camera,canvas,walkWorld,bellVisual);
  const entryTexture=new DynamicTexture('door-direction',128,scene,false);
  const pen=entryTexture.getContext() as CanvasRenderingContext2D;
  pen.strokeStyle='#ffe1a3';pen.shadowColor='#ffcb75';pen.shadowBlur=7;pen.lineWidth=3;pen.lineCap='round';
@@ -1339,6 +1341,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  canvas.addEventListener('keydown',cancelGateWalk);
  function view(name:string){
   cancelGateWalk();
+  if(name==='bellRing'){walking.approachBell();camera.alpha=.2;camera.beta=1.35;return;}
   if(name==='teaSeated'||name==='teaGardenSeated'){walking.sitAtTea(name==='teaGardenSeated'?12:0);return;}
   walking.mode(name==='walk');
   if(name==='walk')return;

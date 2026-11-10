@@ -18,3 +18,5 @@ Poly Haven CC0 assets. License: https://polyhaven.com/license (확인 2026-11-06
 M2 #26의 마당 바람, 숲바람과 새소리, 목탁 소리, 범종 여운은 src/temple-audio.ts에서 직접 합성한다. 외부 녹음이나 음원 파일을 사용하지 않는다.
 
 접속 언어 선택기의 국기 14종은 flag-icons 7.6.0의 4:3 SVG이다. [원본 프로젝트](https://github.com/lipis/flag-icons) · [동봉 라이선스](../public/flags/LICENSE.txt).
+
+범종각 종치기의 타격음과 여운은 src/bell-cycle.ts의 bellSamples에서 직접 합성한다. 청동 종의 비정수 배음·맥놀이·감쇠와 당목 타격 잡음을 조합하며, 타격 순간에 한 번 재생한다. 외부 녹음 및 예불 안내 음성은 이 효과음에 사용하지 않는다.

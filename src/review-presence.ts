@@ -1,3 +1,5 @@
+import {bellPose} from './bell-ringing';
+import {BELL_DURATION} from './bell-cycle';
 import {teaGesture,teaCup} from './tea-break';
 import {validFace,type Face} from './face-types';
 import {visitorRobe} from './visitor-robe';
@@ -7,12 +9,12 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { visitorMesh } from './walking.ts';
 import { layoutDraft } from './contracts.ts';
 
-interface Motion {drinkLift?:number;beverage?:string;bowProgress?:number;face?:Face;wearingRobe?:boolean;position:number[];yaw:number;animation:string}
+interface Motion {bellProgress?:number;bellHit?:number;drinkLift?:number;beverage?:string;bowProgress?:number;face?:Face;wearingRobe?:boolean;position:number[];yaw:number;animation:string}
 interface Peer extends Motion {sessionId:string;sequence:number}
 interface Snapshot {self:string;key?:string;layoutVersion:string;schemaVersion:number;channelId:string;count?:number;participants:Peer[]}
 
 export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,channel?:HTMLSelectElement){
- const avatars=new Map<string,{body:ReturnType<typeof visitorMesh>;robe:ReturnType<typeof visitorRobe>;target:Vector3;peer:Peer;bowTime:number;cup:ReturnType<typeof teaCup>}>();
+ const avatars=new Map<string,{body:ReturnType<typeof visitorMesh>;robe:ReturnType<typeof visitorRobe>;target:Vector3;peer:Peer;bowTime:number;bellTime:number;cup:ReturnType<typeof teaCup>}>();
  let session:{id:string;key:string}|null=null,sequence=0,epoch=0,timer=0;
  function clearPeer(id:string){
   const remote=avatars.get(id);if(!remote)return;
@@ -25,10 +27,14 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
    let remote=avatars.get(peer.sessionId);
    if(!remote){
     const body=visitorMesh(scene,peer.sessionId);body.root.position.set(...peer.position as [number,number,number]);
-    remote={body,cup:teaCup(scene,body),robe:visitorRobe(scene,body),peer,bowTime:0,target:body.root.position.clone()};avatars.set(peer.sessionId,remote);
+    remote={body,cup:teaCup(scene,body),robe:visitorRobe(scene,body),peer,bowTime:0,bellTime:(peer.bellProgress??0)*BELL_DURATION,target:body.root.position.clone()};avatars.set(peer.sessionId,remote);
    }
    if(peer.sequence>=remote.peer.sequence){
     if(peer.bowProgress!==undefined&&(peer.sequence!==remote.peer.sequence||remote.bowTime===0))remote.bowTime=peer.bowProgress*4.8;
+    if(peer.sequence!==remote.peer.sequence){
+     remote.bellTime=(peer.bellProgress??0)*BELL_DURATION;
+     window.dispatchEvent(new CustomEvent('sasa:bell-remote',{detail:{id:peer.sessionId,hit:peer.bellHit??0,progress:peer.animation==='bell'?peer.bellProgress:undefined}}));
+    }
     remote.peer=peer;
     remote.body.setFace(validFace(peer.face)?peer.face:"human");
     if(remote.robe.wearing!==!!peer.wearingRobe)remote.robe.setWearing(!!peer.wearingRobe);
@@ -44,6 +50,7 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
    body.root.rotation.y=peer.yaw;
    remote.bowTime=peer.animation==='worship'?Math.min(4.8,remote.bowTime+dt):0;
    body.bow(remote.bowTime/4.8);
+   if(peer.animation==='bell'){remote.bellTime=Math.min(BELL_DURATION,remote.bellTime+dt);bellPose(body,remote.bellTime/BELL_DURATION);}
    if(peer.animation==='sit')teaGesture(body,peer.drinkLift??0);
    remote.cup.update(peer.animation==='sit',peer.drinkLift??0,peer.beverage==='coffee');
    if(peer.animation==='walk')body.legs.forEach((leg,i)=>leg.rotation.x=.35*Math.sin(performance.now()*.01+i*Math.PI));

@@ -1,3 +1,5 @@
+import {bellRinging} from './bell-ringing';
+import type {furnishBell} from './temple-bell';
 import {teaBreak} from './tea-break';
 import {visitorFace} from './visitor-face';
 import type {Face} from './face-types';
@@ -164,7 +166,7 @@ export function visitorMesh(scene:Scene,name:string){
  return {root,legs,shins,arms,forearms,hands,chest,coat,sleeves,bow,setFace,get face(){return face;}};
 }
 
-export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTMLCanvasElement,world:ReturnType<typeof pedestrianWorld>){
+export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTMLCanvasElement,world:ReturnType<typeof pedestrianWorld>,bellVisual:ReturnType<typeof furnishBell>){
  const avatar=visitorMesh(scene,'visitor');
  avatar.root.position.set(0,world.floor(0,-65),-65);
  avatar.root.setEnabled(false);
@@ -246,7 +248,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   }
  };
  document.addEventListener('pointerlockchange',()=>{if(!document.pointerLockElement&&first)changePerspective(false);});
- canvas.addEventListener('keydown',e=>{if(e.key==='Escape'&&bows.active)bows.cancel();if(e.key==='Escape'&&worship)finishWorship();if(e.key==='Escape'&&first)changePerspective(false);if(e.key==='Escape'&&tea.seated)tea.stop();});
+ canvas.addEventListener('keydown',e=>{if(e.key==='Escape'&&bows.active)bows.cancel();if(e.key==='Escape'&&worship)finishWorship();if(e.key==='Escape'&&first)changePerspective(false);if(e.key==='Escape'&&tea.seated)tea.stop();if(e.key==='Escape'&&bell.active)bell.cancel();});
  function clear(){keys.clear();moving=false;}
  canvas.addEventListener('keydown',e=>{if(active&&directions.has(e.code)){e.preventDefault();keys.add(e.code);}});
  window.addEventListener('keyup',e=>keys.delete(e.code));
@@ -257,9 +259,12 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   button.onlostpointercapture=()=>keys.delete(code);
  }
  const tea=teaBreak(scene,avatar,canvas);
+ const bell=bellRinging(scene,avatar,canvas,bellVisual,()=>{
+  if(bows.active)bows.cancel();finishWorship();tea.stop();changePerspective(false);camera.alpha=.2;camera.beta=1.35;
+ });
  const orbitKeys=camera.inputs.attached.keyboard;
  function mode(on:boolean){
-  if(!on){bows.show(false);tea.hide();}
+  if(!on){bows.show(false);tea.hide();bell.cancel();}
   if(!on&&worship)finishWorship();
   if(active===on)return;
   if(orbitKeys){if(on)camera.inputs.remove(orbitKeys);else camera.inputs.add(orbitKeys);}
@@ -271,9 +276,14 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    canvas.focus();
   }
  }
+ function frameBellCamera(){
+  const p=avatar.root.position,yaw=avatar.root.rotation.y;
+  camera.target.copyFromFloats(p.x+1.8*Math.sin(yaw),p.y+1.65,p.z+1.8*Math.cos(yaw));
+  camera.radius=world.cameraLimit(camera.target,camera.alpha,camera.beta,6.6);
+ }
  function update(dt:number){
   moving=false;
-  if(!active)return;
+  if(!active){bell.update(false,dt,false);return;}
   const p=avatar.root.position;
   const nearby=visitorSites.find(site=>Math.hypot(p.x-site.x,p.z-site.z)<=site.radius);
   if(visitButton.dataset.view!==(nearby?.view??'')){
@@ -289,6 +299,9 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   const length=Math.hypot(x,z);
   if(length&&bows.active)bows.cancel();
   bows.update(dt);
+  if(bell.update(active,dt,!!length)){
+   frameBellCamera();return;
+  }
   if(tea.update(active,dt,!!length)){
    camera.target.copyFromFloats(p.x,p.y+(first?1.48:1.35),p.z);
    camera.radius=first?.045:world.cameraLimit(camera.target,camera.alpha,camera.beta,followDistance);
@@ -315,8 +328,9 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    if(moving){avatar.root.rotation.y=Math.atan2(p.x-ox,p.z-oz);step+=distance*4.8;}
    avatar.legs.forEach((leg,i)=>leg.rotation.x=distance>.00001?.35*Math.sin(step+i*Math.PI):0);
   }else if(!bows.bowing&&!worship)avatar.legs.forEach((leg,i)=>leg.rotation.x=moving?.35*Math.sin(step+i*Math.PI):0);
+  if(bell.framed&&!first){frameBellCamera();return;}
   camera.target.copyFromFloats(p.x,p.y+(first?1.56:1.2),p.z);
   camera.radius=first?.045:world.cameraLimit(camera.target,camera.alpha,camera.beta,followDistance);
  }
- return {mode,update,sitAtTea(index=0){mode(true);if(bows.active)bows.cancel();finishWorship();tea.sitAt(index);camera.alpha=-Math.PI/2;camera.beta=1.42;},setFace:avatar.setFace,get pose(){return {face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,bowProgress:worship?Math.min(1,elapsed/4.8):bows.progress,drinkLift:tea.lift,beverage:tea.beverage,animation:tea.seated?'sit':worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
+ return {mode,update,approachBell(){mode(true);bell.approach();},sitAtTea(index=0){mode(true);if(bows.active)bows.cancel();finishWorship();tea.sitAt(index);camera.alpha=-Math.PI/2;camera.beta=1.42;},setFace:avatar.setFace,get pose(){return {face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,bowProgress:worship?Math.min(1,elapsed/4.8):bows.progress,bellProgress:bell.progress,bellHit:bell.hit,drinkLift:tea.lift,beverage:tea.beverage,animation:bell.active?'bell':tea.seated?'sit':worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
 }
