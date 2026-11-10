@@ -1,5 +1,5 @@
 body:has(.language-entry){margin:0;background:#201911}
-.language-entry{box-sizing:border-box;min-height:100svh;display:grid;place-items:center;text-align:center;color:#fff0d2;font-family:'DM Sans',system-ui,sans-serif;background:radial-gradient(ellipse at 50% 39%,#1b201a75,#111712b8),url('/entry-cheonwang.jpg') center/cover}
+.language-entry{box-sizing:border-box;min-height:100svh;display:grid;place-items:center;text-align:center;color:#fff0d2;font-family:'DM Sans',system-ui,sans-serif;background:radial-gradient(ellipse at 50% 39%,#1b201a75,#111712b8),url('/entry-mountains.jpg') center/cover}
 .language-panel{box-sizing:border-box;width:min(100%,760px);padding:clamp(26px,7vh,75px) 16px;display:grid;justify-items:center}
 .language-panel h1{font:500 clamp(42px,7vh,74px)/1.2 serif;letter-spacing:.12em;text-indent:.12em;margin:0;text-shadow:0 2px 18px #201100}
 .language-panel header span{display:block;margin-top:6px;font-size:13px;letter-spacing:.28em}

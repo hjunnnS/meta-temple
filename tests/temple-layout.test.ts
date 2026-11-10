@@ -11,7 +11,7 @@ test('reference layout preserves south/north order, west/east placement and non-
  const westRow=['bell','indeung','gwaneum'].map(get);
  assert.ok(westRow.every(p=>p.x===westRow[0].x));
  assert.ok(westRow[0].z<westRow[1].z && westRow[1].z<westRow[2].z);
- assert.equal(get('office').z,get('bell').z);
+ assert.equal(get('office').z,get('bell').z-10);
  assert.equal(get('office').x,get('jijang').x);
  assert.equal(get('gwaneum').z,get('jijang').z);
  const halls=templePlaces.filter(p=>p.kind==='hall');

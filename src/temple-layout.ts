@@ -19,7 +19,7 @@ export const templePlaces = [
  {id:'cheonwang',name:'천왕문',kind:'gate',x:0,z:-52,scale:.8},
  {id:'bell',name:'범종각',kind:'bell',x:-sideHallOffset,z:-46,scale:.65,yaw:-Math.PI/2},
  {id:'indeung',name:'인등전',kind:'hall',x:-sideHallOffset,z:(-46+sideHallCenterZ)/2,scale:.65,yaw:-Math.PI/2},
- {id:'office',name:'종무소',kind:'hall',x:sideHallOffset,z:-46,scale:.65,yaw:Math.PI/2},
+ {id:'office',name:'종무소',kind:'hall',x:sideHallOffset,z:-56,scale:.65,yaw:Math.PI/2},
  {id:'gwaneum',name:'관음전',kind:'hall',x:-sideHallOffset,z:sideHallCenterZ,scale:sideHallScale,yaw:-Math.PI/2},
  {id:'jijang',name:'지장전',kind:'hall',x:sideHallOffset,z:sideHallCenterZ,scale:sideHallScale,yaw:Math.PI/2},
  {id:'daeung',name:'대웅전',kind:'hall',x:0,z:38,scale:1.5},

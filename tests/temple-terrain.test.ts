@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { insideGround, paving, boundaries, type GroundPoint } from '../src/temple-terrain.ts';
+import { insideGround, paving, boundaries, pond, shoreRadius, type GroundPoint } from '../src/temple-terrain.ts';
 import { zones } from '../src/contracts.ts';
 
 test('the twelve review zones have a connected outdoor approach inside the ground and walls',()=>{
@@ -19,5 +19,20 @@ test('the twelve review zones have a connected outdoor approach inside the groun
   for(const wall of boundaries){
     assert.ok(!insideGround((wall.from[0]+wall.to[0])/2,(wall.from[1]+wall.to[1])/2,.325));
   }
-  assert.ok(paving.every(path=>path.to[1]<=7));
+  assert.ok(paving.filter(path=>path.name!=='forest-court').every(path=>path.to[1]<=7));
+});
+
+test('visitors can circle the pond between the office and pagoda',()=>{
+  for(let degree=0;degree<360;degree+=5){
+    const angle=degree*Math.PI/180;
+    const r=shoreRadius(angle);
+    assert.ok(insideGround(pond.x+(pond.width/2*r+1)*Math.cos(angle),pond.z+(pond.depth/2*r+1)*Math.sin(angle),.325));
+    assert.ok(!insideGround(pond.x+(pond.width/2*r-.1)*Math.cos(angle),pond.z+(pond.depth/2*r-.1)*Math.sin(angle),.325));
+  }
+});
+
+test('the south wall runs straight from Iljumun to the far pagoda corner',()=>{
+  assert.ok(boundaries.some(w=>w.from[0]===4 && w.from[1]===-68 && w.to[0]===72 && w.to[1]===-68));
+  for(let x=35;x<=70;x+=.25)assert.ok(insideGround(x,-62,.325));
+  for(let z=-65;z<=-55;z+=.25)assert.ok(insideGround(67,z,.325));
 });

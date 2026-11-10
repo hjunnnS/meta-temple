@@ -145,5 +145,14 @@
     "source": "scripts/make-ceremony-audio.py",
     "credit": "사사 임시 한국어 안내 · macOS Yuna 음성 합성 및 자체 합성 타악음",
     "rights": "비공개 후보 검수용 임시 음성. 공개 전 제작 음원으로 교체."
+  },
+  {
+    "file": "public/entry-mountains.jpg",
+    "source": "src/scene.ts",
+    "sha256": "eaf1f213e3878e7c7736370ceab8f355d7e2485e31bd3aa3c5b195ba44946653",
+    "credit": "사사 프로젝트 자체 3D 장면 촬영",
+    "rights": "프로젝트 자체 제작",
+    "material": "언어 선택 화면의 산 배경 사찰",
+    "bytes": 302829
   }
 ]
