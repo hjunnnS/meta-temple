@@ -10,7 +10,7 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import {treeSpecimen} from './tree-specimen';
 import {wishToss} from './wish-toss';
 import {descendingLight,goldRing} from './practice-light';
-import { pond } from './temple-terrain';
+import { pond,canThrowCoin } from './temple-terrain';
 
 export function furnishPond(scene:Scene,staticParts:Mesh[],shore:(a:number)=>Vector3,brush:CanvasRenderingContext2D,bed:DynamicTexture){
  let seed=813;
@@ -145,8 +145,9 @@ export function furnishPond(scene:Scene,staticParts:Mesh[],shore:(a:number)=>Vec
  let elapsed=0,wishAge=0,phase='idle',source=access.clone(),hit=false;
  const end=target.clone();
 
- return {target,access,sites,get countdown(){return Math.max(1,3-Math.floor(wishAge));},get busy(){return phase!=='idle';},get wishing(){return phase==='wishing';},
+ return {target,access,sites,canToss:canThrowCoin,get countdown(){return Math.max(1,3-Math.floor(wishAge));},get busy(){return phase!=='idle';},get wishing(){return phase==='wishing';},
  toss(visitor?:readonly number[],site=0){
+  if(visitor&&!canThrowCoin(visitor[0],visitor[2]))return;
   const draw=crypto.getRandomValues(new Uint32Array(1))[0]/4294967296;
   if(!tossState.start(performance.now(),draw))return;
   source=visitor?Vector3.FromArray([...visitor]):sites[site].clone();source.y+=1.18;

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { insideGround, paving, boundaries, pond, shoreRadius, type GroundPoint } from '../src/temple-terrain.ts';
+import { insideGround, paving, boundaries, pond, shoreRadius, coinThrowBank, canThrowCoin, type GroundPoint } from '../src/temple-terrain.ts';
 import { zones } from '../src/contracts.ts';
 
 test('the twelve review zones have a connected outdoor approach inside the ground and walls',()=>{
@@ -35,4 +35,17 @@ test('the south wall runs straight from Iljumun to the far pagoda corner',()=>{
   assert.ok(boundaries.some(w=>w.from[0]===4 && w.from[1]===-68 && w.to[0]===72 && w.to[1]===-68));
   for(let x=35;x<=70;x+=.25)assert.ok(insideGround(x,-62,.325));
   for(let z=-65;z<=-55;z+=.25)assert.ok(insideGround(67,z,.325));
+});
+
+
+test('coin throwing follows one continuous U-shaped bank and excludes the water and northern opening',()=>{
+ for(const [x,z] of coinThrowBank)assert.ok(canThrowCoin(x,z));
+ for(let i=1;i<coinThrowBank.length;i++){
+  const a=coinThrowBank[i-1],b=coinThrowBank[i];
+  assert.ok(canThrowCoin((a[0]+b[0])/2,(a[1]+b[1])/2));
+ }
+ assert.equal(canThrowCoin(pond.x,pond.z),false);
+ assert.equal(canThrowCoin(0,-52),false);
+ const a=Math.PI/2,r=shoreRadius(a);
+ assert.equal(canThrowCoin(pond.x,pond.z+r*pond.depth*.5+1),false);
 });

@@ -106,8 +106,8 @@ renderWhileViewing(app.engine,()=>{const now=performance.now();const dt=now-last
  firstFrameMs??=performance.now();clearTimeout(timer);loading.hidden=true;document.body.dataset.ready='true';
  if(pendingView!==null){const name=pendingView;pendingView=null;app.view(name);}
 }if(audio.enabled){const p=app.settings.visitor;audio.update(p?.[0]??app.camera.target.x,p?.[2]??app.camera.target.z);}
- const visitor=app.settings.visitor,sites=app.pondLife.sites;
- toss.hidden=!['wishCoin','wishCoinTree','wishCoinOpposite'].includes(placeSelect.value)&&!(visitor&&sites.some(p=>Math.hypot(visitor[0]-p.x,visitor[2]-p.z)<2));
+ const visitor=app.settings.visitor;
+ toss.hidden=!['wishCoin','wishCoinTree','wishCoinOpposite'].includes(placeSelect.value)&&!(visitor&&app.pondLife.canToss(visitor[0],visitor[2]));
  toss.disabled=app.pondLife.busy;
  $('#pond-wish').hidden=!app.pondLife.wishing;
  $('#pond-count').textContent=String(app.pondLife.countdown);
