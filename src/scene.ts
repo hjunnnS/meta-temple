@@ -6,6 +6,7 @@ import '@babylonjs/core/Culling/ray';
 import { PointerEventTypes } from '@babylonjs/core/Events/pointerEvents';
 import { placeGuardians } from './gate-guardians.ts';
 import { furnishBell } from './temple-bell.ts';
+import { standingStoneFigure } from './standing-stone-figure';
 import { seatedFigure } from './gilt-figure.ts';
 import { createGwaneumAltar } from './gwaneum-altar.ts';
 import { furnishHall } from './hall-interior.ts';
@@ -746,10 +747,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   part.setVerticesData('uv',uv);
  }
  graniteGrain.wrapU=graniteGrain.wrapV=Texture.WRAP_ADDRESSMODE;
- const bronze=mat('forest-bronze','#a88b55',.14);
- cylinder('forest-statue-pillar',9.5,1.35,new Vector3(buddha.x,.675,buddha.z),towerGranite);
- cylinder('forest-statue-dais',8.6,.54,new Vector3(buddha.x,1.62,buddha.z),bronze);
- seatedFigure(scene,staticMeshes,buddha.x,1.88,buddha.z,4.5,bronze,stoneDark,bronze,false);
+ standingStoneFigure(scene,staticMeshes,buddha.x,buddha.z,1.3);
  const garden=wishGarden;
  const gravel=mat('warm-garden-gravel','#c6b899');
  box('wish-garden-ground',garden.width,.12,garden.depth,garden.x,.05,garden.z,gravel,false);
@@ -1374,6 +1372,10 @@ export function createTemple(canvas:HTMLCanvasElement) {
    camera.setTarget(new Vector3(-6,1.8,68));
    camera.setPosition(new Vector3(6,2.3,52));
    return;
+  }
+  if(name==='forestBuddha'){
+   camera.fov=.80;camera.setTarget(new Vector3(buddha.x,8.1,buddha.z));
+   camera.setPosition(new Vector3(buddha.x-10,4.2,buddha.z-19));return;
   }
   if(name==='treeSpecimen'){
    const angle=2.02,r=shoreRadius(angle),x=pond.x+r*pond.width*.5*Math.cos(angle),z=pond.z+r*pond.depth*.5*Math.sin(angle);
