@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "allFivePurchasedKinds": true,
+  "save": true,
+  "reentryRestores": true,
+  "pageReloadRestores": true,
+  "moveWithoutDuplicate": true,
+  "remove": true,
+  "foreignPurchaseDenied": true,
+  "foreignRoomDenied": true,
+  "invalidPositionDenied": true,
+  "duplicateDenied": true,
+  "staleRevisionDenied": true,
+  "originalInstallationsUnchanged": true,
+  "pageErrors": [],
+  "serverRestartRestores": true,
+  "savedPositionAutoSelected": true,
+  "unitTestsPassed": 58
+}

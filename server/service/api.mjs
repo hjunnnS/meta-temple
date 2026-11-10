@@ -13,6 +13,7 @@ const digest=value=>createHash('sha256').update(value).digest('hex');
 import {bowPractice} from './bows.mjs';
 import {channels} from './channels.mjs';
 import {localPreviewEmail} from './local-preview-login.mjs';
+import {privateDisplay} from './private-display.mjs';
 import {privatePresence} from './private-presence.mjs';
 const sessionCookie=raw=>'sasa_session='+raw+'; Path=/api/service; HttpOnly; SameSite=Strict; Max-Age=86400';
 async function issueSession(db,id,raw,previous){
@@ -141,6 +142,11 @@ export async function serviceApi(env=process.env,allowedHosts){
     const {rows:[room]}=await pool.query('INSERT INTO private_rooms(account_id) VALUES ($1) ON CONFLICT(account_id) DO UPDATE SET account_id=EXCLUDED.account_id RETURNING id',[account.id]);
     privateSpaces.enter(cookieHash,room.id);presence(account.id,cookieHash,'logout',{});
     return send(200,{roomId:room.id,access:'local-preview'});
+   }
+   if(path==='/api/service/private-room/display'){
+    const payload=req.method==='GET'?{roomId:new URL(req.url,'http://localhost').searchParams.get('roomId')}:input;
+    if(account.deletionPending||!privateSpaces.heartbeat(cookieHash,payload.roomId))return send(409,{error:'private_session_ended'});
+    const [code,data]=await transaction(db=>privateDisplay(db,account.id,req.method,payload));return send(code,data);
    }
    if(path==='/api/service/private-room/heartbeat'&&req.method==='POST'){
     if(account.deletionPending||!privateSpaces.heartbeat(cookieHash,input.roomId))return send(409,{error:'private_session_ended'});

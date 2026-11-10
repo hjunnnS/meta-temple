@@ -40,7 +40,7 @@ export function personalSpace(app:ReturnType<typeof createTemple>,canvas:HTMLCan
    const data=await response.json();if(typeof data.roomId!=='string')throw Error('개인 공간을 확인하지 못했습니다.');
    roomId=data.roomId;scope('private');onEnter();app.setWalking(false);app.camera.detachControl();
    previousStage=stage.textContent??'';previousLabel=canvas.getAttribute('aria-label')??'';
-   room=privateRoomScene(app.engine,canvas,app.visitorPose.face,app.visitorPose.wearingRobe,()=>{void exit();});
+   room=privateRoomScene(app.engine,canvas,app.visitorPose.face,app.visitorPose.wearingRobe,()=>{void exit();},roomId);
    panel.hidden=false;document.body.classList.add('in-private-room');stage.textContent='시간과 공간의 방 · 나만의 공간';canvas.setAttribute('aria-label','시간과 공간의 방. 나만 입장하는 개인 공간. 방향키로 걷고 사찰로 돌아가기로 나갑니다.');
    heartbeat=window.setInterval(async()=>{
     if(!room)return;const id=roomId,version=generation;

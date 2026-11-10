@@ -1,3 +1,4 @@
+import {privateDisplays} from './private-display';
 import {furnishPrivateRetreat} from './private-room-furnishings';
 import {canWalkPrivateRoom} from './private-room-layout';
 import {DirectionalLight} from '@babylonjs/core/Lights/directionalLight';
@@ -14,7 +15,7 @@ import {visitorMesh} from './walking';
 import {visitorRobe} from './visitor-robe';
 import type {Face} from './face-types';
 
-export function privateRoomScene(engine:Engine,canvas:HTMLCanvasElement,face:Face,wearingRobe:boolean,onExit:()=>void){
+export function privateRoomScene(engine:Engine,canvas:HTMLCanvasElement,face:Face,wearingRobe:boolean,onExit:()=>void,roomId:string){
  const scene=new Scene(engine);scene.imageProcessingConfiguration.toneMappingEnabled=true;scene.imageProcessingConfiguration.toneMappingType=1;scene.imageProcessingConfiguration.exposure=1.0;scene.imageProcessingConfiguration.contrast=1.05;scene.clearColor=new Color4(.77,.86,.84,1);
  const camera=new ArcRotateCamera('private-room-camera',-Math.PI/2,1.24,3.2,new Vector3(0,1.3,-4.5),scene);
  camera.attachControl(canvas,true);camera.lowerRadiusLimit=.08;camera.minZ=.025;camera.maxZ=60;camera.upperRadiusLimit=7;camera.lowerBetaLimit=.35;camera.upperBetaLimit=1.6;camera.wheelDeltaPercentage=.012;camera.panningSensibility=0;
@@ -64,7 +65,12 @@ export function privateRoomScene(engine:Engine,canvas:HTMLCanvasElement,face:Fac
  for(const button of panel.querySelectorAll<HTMLButtonElement>('[data-room-key]')){
   button.onpointerdown=event=>{event.preventDefault();canvas.focus();button.setPointerCapture(event.pointerId);keys.add(button.dataset.roomKey!);};button.onlostpointercapture=()=>keys.delete(button.dataset.roomKey!);
  }
+ const display=privateDisplays(scene,roomId,position=>{
+  changeView('display');
+  if(position.id.startsWith('right')){camera.setTarget(new Vector3(4.2,1.35,-4.65));camera.setPosition(new Vector3(-1.4,2.1,-6.2));requestedRadius=lastSafeRadius=camera.radius;}
+ },mesh=>shadows.addShadowCaster(mesh),mesh=>shadows.removeShadowCaster(mesh));
  return {scene,render(dt:number){
+  display.update(dt);
   const p=avatar.root.position;
   const x=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft')),z=Number(keys.has('KeyW')||keys.has('ArrowUp'))-Number(keys.has('KeyS')||keys.has('ArrowDown')),length=Math.hypot(x,z);
   let distance=0;
@@ -79,5 +85,5 @@ export function privateRoomScene(engine:Engine,canvas:HTMLCanvasElement,face:Fac
   }
   avatar.legs.forEach((leg,i)=>leg.rotation.x=distance?.35*Math.sin(stride+i*Math.PI):0);
   if(view==='walk')camera.target.copyFromFloats(p.x,p.y+1.2,p.z);scene.render();
- },dispose(){canvas.removeEventListener('wheel',zoom,true);canvas.removeEventListener('keydown',down);window.removeEventListener('keyup',up);canvas.removeEventListener('blur',clear);window.removeEventListener('blur',clear);camera.detachControl();scene.dispose();}};
+ },dispose(){display.dispose();canvas.removeEventListener('wheel',zoom,true);canvas.removeEventListener('keydown',down);window.removeEventListener('keyup',up);canvas.removeEventListener('blur',clear);window.removeEventListener('blur',clear);camera.detachControl();scene.dispose();}};
 }
