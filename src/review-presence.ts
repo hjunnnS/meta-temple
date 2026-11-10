@@ -15,7 +15,8 @@ interface Snapshot {self:string;key?:string;layoutVersion:string;schemaVersion:n
 
 export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,channel?:HTMLSelectElement){
  const avatars=new Map<string,{body:ReturnType<typeof visitorMesh>;robe:ReturnType<typeof visitorRobe>;target:Vector3;peer:Peer;bowTime:number;bellTime:number;cup:ReturnType<typeof teaCup>}>();
- let session:{id:string;key:string}|null=null,sequence=0,epoch=0,timer=0;
+ let session:{id:string;key:string}|null=null,sequence=0,epoch=0,timer=0,paused=false;
+ let pending:AbortController|undefined;
  function clearPeer(id:string){
   const remote=avatars.get(id);if(!remote)return;
   remote.cup.dispose();remote.body.root.dispose(false,true);avatars.delete(id);
@@ -57,14 +58,21 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
   }
  });
  async function sync(generation:number){
+  if(paused)return;
+  pending=new AbortController();
+  const signal=AbortSignal.any([pending.signal,AbortSignal.timeout(3000)]);
   try{
    const current=session;
-   const response=channel?await fetch('/api/service/channel/'+(current?'move':'join'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(current?{...pose(),sequence:++sequence,self:current.id}:{channel:Number(channel.value)}),signal:AbortSignal.timeout(3000)}):await fetch('/api/review/sessions'+(current?'/'+current.id:''),{
+   const response=channel?await fetch('/api/service/channel/'+(current?'move':'join'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(current?{...pose(),sequence:++sequence,self:current.id}:{channel:Number(channel.value)}),signal}):await fetch('/api/review/sessions'+(current?'/'+current.id:''),{
     method:current?'PUT':'POST',headers:current?{'Content-Type':'application/json',Authorization:'Bearer '+current.key}:{},
-    body:current?JSON.stringify({...pose(),sequence:++sequence}):undefined,signal:AbortSignal.timeout(3000)
+    body:current?JSON.stringify({...pose(),sequence:++sequence}):undefined,signal
    });
    if(generation!==epoch)return;
    if(channel&&response.status===409){
+    const problem=await response.json();
+    if(problem.error==='private_space_active'){
+     session=null;sequence=0;for(const id of avatars.keys())clearPeer(id);box.textContent='이전 접속을 정리하고 있습니다.';return;
+    }
     epoch++;session=null;for(const id of avatars.keys())clearPeer(id);
     box.textContent=t('만석입니다. 다른 채널을 선택하세요.');return;
    }
@@ -75,7 +83,7 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
    if(!current){if(!s.key&&!channel)throw Error('세션 키 누락');session={id:s.self,key:s.key??''};}
    reconcile(s);
   }catch{if(generation===epoch){for(const id of avatars.keys())clearPeer(id);box.textContent=t('방문자 연결 재시도 중');}}
-  finally{if(generation===epoch)timer=window.setTimeout(()=>void sync(generation),session?160:650);}
+  finally{if(!paused&&generation===epoch)timer=window.setTimeout(()=>void sync(generation),session?160:650);}
  }
  window.addEventListener('pagehide',()=>{
   epoch++;clearTimeout(timer);
@@ -83,9 +91,20 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
   else if(session)void fetch('/api/review/sessions/'+session.id,{method:'DELETE',headers:{Authorization:'Bearer '+session.key},keepalive:true}).catch(()=>{});
   session=null;sequence=0;
  });
- window.addEventListener('pageshow',e=>{if(e.persisted)void sync(++epoch);});
+ window.addEventListener('pageshow',e=>{if(e.persisted&&!paused)void sync(++epoch);});
+ window.addEventListener('sasa:space',event=>{
+  const next=(event as CustomEvent<string>).detail==='private';if(next===paused)return;
+  paused=next;epoch++;clearTimeout(timer);pending?.abort();
+  const old=session;session=null;sequence=0;for(const id of avatars.keys())clearPeer(id);
+  if(old){
+   if(channel)void fetch('/api/service/channel/leave',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({self:old.id}),keepalive:true}).catch(()=>{});
+   else void fetch('/api/review/sessions/'+old.id,{method:'DELETE',headers:{Authorization:'Bearer '+old.key},keepalive:true}).catch(()=>{});
+  }
+  box.textContent=paused?'개인 공간 · 나만 입장':t('방문자 연결 재시도 중');
+  if(!paused)void sync(epoch);
+ });
  if(channel){
-  const restart=()=>{epoch++;clearTimeout(timer);session=null;sequence=0;for(const id of avatars.keys())clearPeer(id);void sync(epoch);};
+  const restart=()=>{if(paused)return;epoch++;clearTimeout(timer);session=null;sequence=0;for(const id of avatars.keys())clearPeer(id);void sync(epoch);};
   channel.onchange=restart;window.addEventListener('sasa:account',restart);
  }
  void sync(epoch);

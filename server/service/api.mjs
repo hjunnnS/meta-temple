@@ -12,6 +12,8 @@ const token=()=>randomBytes(32).toString('hex');
 const digest=value=>createHash('sha256').update(value).digest('hex');
 import {bowPractice} from './bows.mjs';
 import {channels} from './channels.mjs';
+import {localPreviewEmail} from './local-preview-login.mjs';
+import {privatePresence} from './private-presence.mjs';
 const sessionCookie=raw=>'sasa_session='+raw+'; Path=/api/service; HttpOnly; SameSite=Strict; Max-Age=86400';
 async function issueSession(db,id,raw,previous){
  await db.query('DELETE FROM sessions WHERE digest=$1 OR expires_at<=now()',[previous]);
@@ -22,8 +24,9 @@ export async function serviceApi(env=process.env,allowedHosts){
  const hosts=allowedHosts??['127.0.0.1:4330','localhost:4330','127.0.0.1:4340','localhost:4340',...(env.SASA_LOCAL_INTEGRATION==='1'?['127.0.0.1:4341']:[])];
  const external=env.SASA_LOCAL_INTEGRATION==='1'?null:authConfig(env);
  const verify=external&&firebaseVerifier(external);
+ const temporaryEmail=localPreviewEmail(env,external);
  await migrate();
- const presence=channels(),practice=bowPractice();
+ const presence=channels(),practice=bowPractice(),privateSpaces=privatePresence();
  return async(req,res,next)=>{
   const path=new URL(req.url,'http://localhost').pathname;
   if(!path.startsWith('/api/service/'))return next();
@@ -41,7 +44,19 @@ export async function serviceApi(env=process.env,allowedHosts){
     if(!input||typeof input!=='object')return send(400,{error:'invalid_input'});
    }
    if(path==='/api/service/time'&&req.method==='GET')return send(200,{time:Date.now()});
-   if(path==='/api/service/auth/methods'&&req.method==='GET')return send(200,{external:!!external,methods:external?.methods??[],client:external?.client});
+   if(path==='/api/service/auth/methods'&&req.method==='GET')return send(200,{external:!!external,temporaryEmail,methods:external?.methods??[],client:external?.client});
+   if(path==='/api/service/auth/local-preview'&&req.method==='POST'){
+    if(!temporaryEmail)return send(404,{error:'unavailable'});
+    if(input.email!==temporaryEmail)return send(400,{error:'invalid_test_account'});
+    const raw=token();
+    await transaction(async db=>{
+     const {rows:[account]}=await db.query('INSERT INTO accounts(email) VALUES ($1) ON CONFLICT(email) DO UPDATE SET email=EXCLUDED.email RETURNING id',[temporaryEmail]);
+     await issueSession(db,account.id,raw,cookieHash);
+    });
+    privateSpaces.leave(cookieHash);
+    if(guest)presence('guest:'+digest(guest),digest(guest),'logout',{});
+    res.setHeader('Set-Cookie',sessionCookie(raw));return send(200,{signedIn:true,temporary:true});
+   }
    if(path==='/api/service/auth/finish'&&req.method==='POST'&&external){
     const identity=await verifiedIdentity(external,input.idToken,verify);
     if(!identity)return send(401,{error:'invalid_login'});
@@ -80,6 +95,7 @@ export async function serviceApi(env=process.env,allowedHosts){
     return send(200,{signedIn:true});
    }
    if(path==='/api/service/logout'&&req.method==='POST'){
+    privateSpaces.leave(cookieHash);
     const {rows:[signedOut]}=await pool.query('DELETE FROM sessions WHERE digest=$1 RETURNING account_id',[cookieHash]);
     if(signedOut)presence(signedOut.account_id,cookieHash,'logout',{});
     res.setHeader('Set-Cookie','sasa_session=; Path=/api/service; HttpOnly; SameSite=Strict; Max-Age=0');return send(200,{signedOut:true});
@@ -108,6 +124,7 @@ export async function serviceApi(env=process.env,allowedHosts){
    }
    const {rows:[account]}=await pool.query('SELECT a.id,a.email,(a.deletion_requested_at IS NOT NULL) AS "deletionPending" FROM accounts a JOIN sessions s ON a.id=s.account_id WHERE s.digest=$1 AND s.expires_at>now()',[cookieHash]);
    if(req.method==='POST'&&path.startsWith('/api/service/channel/')){
+    if(privateSpaces.blocked(cookieHash)&&!path.endsWith('/leave'))return send(409,{error:'private_space_active'});
     const action=path.split('/').pop();
     let visitor=account?.id,session=cookieHash;
     if(!visitor){
@@ -119,6 +136,19 @@ export async function serviceApi(env=process.env,allowedHosts){
     const [code,result]=presence(visitor,session,action,input);return send(code,result);
    }
    if(!account)return send(401,{error:'login_required'});
+   if(path==='/api/service/private-room/enter'&&req.method==='POST'){
+    if(account.deletionPending)return send(409,{error:'account_deletion_pending'});
+    const {rows:[room]}=await pool.query('INSERT INTO private_rooms(account_id) VALUES ($1) ON CONFLICT(account_id) DO UPDATE SET account_id=EXCLUDED.account_id RETURNING id',[account.id]);
+    privateSpaces.enter(cookieHash,room.id);presence(account.id,cookieHash,'logout',{});
+    return send(200,{roomId:room.id,access:'local-preview'});
+   }
+   if(path==='/api/service/private-room/heartbeat'&&req.method==='POST'){
+    if(account.deletionPending||!privateSpaces.heartbeat(cookieHash,input.roomId))return send(409,{error:'private_session_ended'});
+    return send(200,{active:true});
+   }
+   if(path==='/api/service/private-room/leave'&&req.method==='POST'){
+    privateSpaces.leave(cookieHash);return send(200,{left:true});
+   }
    if(req.method==='POST'&&path.startsWith('/api/service/practice/')){
     const [code,result]=practice(cookieHash,path.split('/').pop(),input);return send(code,result);
    }

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "temporaryEmail": "test@bwm.kr",
+  "login": true,
+  "privateRoom": true,
+  "logout": true,
+  "loginResumesPrivateEntry": true,
+  "sameAccountRoom": true,
+  "otherEmailDenied": true,
+  "pageErrors": []
+}

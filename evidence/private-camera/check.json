@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "maxZoomOut": true,
+  "walkAfterZoom": true,
+  "orbitAndCeiling": true,
+  "zoomBackIn": true,
+  "pageErrors": []
+}

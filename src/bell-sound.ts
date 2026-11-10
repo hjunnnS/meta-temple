@@ -24,6 +24,7 @@ export function bellSound(){
  }
  document.addEventListener('pointerdown',()=>{void prepare();},{once:true});
  document.addEventListener('input',()=>level());document.addEventListener('change',()=>level());
+ window.addEventListener('sasa:space',event=>{if((event as CustomEvent<string>).detail==='private')stop();});
  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
  window.addEventListener('pagehide',()=>{stop();if(context)void context.close();});
  return {prepare,strike,level,stop};

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "portalEntry": true,
+  "overview": true,
+  "gardenView": true,
+  "gardenWalkNoPublicBroadcast": true,
+  "zoomAndExit": true,
+  "reducedMotion": true,
+  "pageErrors": []
+}

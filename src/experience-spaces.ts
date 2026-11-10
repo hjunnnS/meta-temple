@@ -1,3 +1,4 @@
+import {personalGateEffects} from './personal-gate-effects';
 import type {Scene} from '@babylonjs/core/scene';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
@@ -89,4 +90,5 @@ export function placeExperienceSpaces(scene:Scene,parts:Mesh[],wood:StandardMate
  const gateRoof=MeshBuilder.CreateCylinder('personal-gate-roof',{diameterBottom:5,diameterTop:1.8,height:.58,tessellation:4},scene);
  gateRoof.rotation.y=Math.PI/4;gateRoof.scaling.x=.60;gateRoof.position.set(g.x,3.49,g.z);gateRoof.material=roof;parts.push(gateRoof);
  plaque('시간과 공간의 방',g.x-.245,2.76,g.z,Math.PI/2,2.3);
+ personalGateEffects(scene);
 }

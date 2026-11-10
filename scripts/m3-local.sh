@@ -9,6 +9,7 @@ fi
 db_port=54839
 db_name=temple_test
 if [ "${1:-}" = "--standalone" ]; then
+ export SASA_LOCAL_TEST_LOGIN=1
  root="$root/standalone"
  db_port=54840
  db_name=temple_candidate

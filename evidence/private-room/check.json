@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "guestPortalLoginResume": true,
+  "separateAccountRooms": true,
+  "foreignRoomDenied": true,
+  "noPrivateMotionBroadcast": true,
+  "publicChannelRemoved": true,
+  "reentrySameRoom": true,
+  "buttonExit": true,
+  "doorwayExit": true,
+  "logoutExit": true,
+  "pageErrors": []
+}

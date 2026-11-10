@@ -11,13 +11,22 @@ export function setupAccount(showMenu=true){
  const form=dialog.querySelector('form')!,status=dialog.querySelector<HTMLElement>('[data-status]')!;
  const confirm=dialog.querySelector<HTMLButtonElement>('[data-confirm]')!,logout=dialog.querySelector<HTMLButtonElement>('[data-logout]')!;
  const list=dialog.querySelector('ul')!;
+ const temporary=document.createElement('button');temporary.id='temporary-login';temporary.type='button';temporary.hidden=true;dialog.insertBefore(temporary,confirm);
  const social=document.createElement('div');dialog.insertBefore(social,confirm);
  const mailLabel=form.querySelector('label')!.firstChild!;
  const trialLabel=mailLabel.textContent;
  let external=false;
  let firebase:ReturnType<typeof import("./firebase-login").firebaseLogin>|undefined;
- async function loginMethods(config:{external:boolean;methods:string[];client?:import("firebase/app").FirebaseOptions},n:number){
+ async function loginMethods(config:{external:boolean;methods:string[];temporaryEmail?:string;client?:import("firebase/app").FirebaseOptions},n:number){
   if(config.client){firebase=(await import("./firebase-login")).firebaseLogin(config.client);if(n!==sequence)return;}
+  temporary.hidden=!!config.external||!config.temporaryEmail;
+  temporary.textContent=config.temporaryEmail?config.temporaryEmail+'로 임시 로그인':'';
+  temporary.onclick=async()=>{
+   temporary.disabled=true;
+   try{await api('auth/local-preview',{email:config.temporaryEmail});accountChanged();accountChanges?.postMessage('login');if(!finishLogin()&&dialog.open)await refresh();}
+   catch{status.textContent='임시 로그인에 실패했습니다. 다시 시도해 주세요.';}
+   finally{temporary.disabled=false;}
+  };
   external=config.external;form.hidden=external&&!config.methods.includes('email');
   mailLabel.textContent=external?t('이메일'):trialLabel;social.replaceChildren();
   form.querySelector('input')!.placeholder=external?'name@example.org':'visitor@example.test';
@@ -140,6 +149,7 @@ export function setupAccount(showMenu=true){
     }
     status.textContent=(account.email?account.email+' · ':'')+t('내 아이템')+' '+items.length+(locale==='ko'?'개':'');
    }
+   temporary.hidden=true;
    updateItems(data.items);
    async function poll(){
     if(n!==sequence||!dialog.open)return;

@@ -25,7 +25,7 @@ export async function migrate(){
    for(const s of slots)await db.query('INSERT INTO slots VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)',[s.id,'sample:sasa',s.zoneId,s.accepts,...s.position,s.rotationY,layoutDraft.version]);
    await db.query('INSERT INTO migrations VALUES (1)');
   }
-  for(const version of [2,3,4,5,6,7,8,9]){
+  for(const version of [2,3,4,5,6,7,8,9,10,11]){
    if(applied.has(version))continue;
    await db.query(await readFile(new URL(String(version).padStart(3,'0')+'.sql',import.meta.url),'utf8'));
    await db.query('INSERT INTO migrations VALUES ($1)',[version]);

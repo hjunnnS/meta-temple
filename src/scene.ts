@@ -1341,6 +1341,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  canvas.addEventListener('keydown',cancelGateWalk);
  function view(name:string){
   cancelGateWalk();
+  if(name==='personalGateWalk'){walking.approachPersonalGate();return;}
   if(name==='bellRing'){walking.approachBell();camera.alpha=.2;camera.beta=1.35;return;}
   if(name==='teaSeated'||name==='teaGardenSeated'){walking.sitAtTea(name==='teaGardenSeated'?12:0);return;}
   walking.mode(name==='walk');
@@ -1607,5 +1608,5 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const mesh of displayBatches)mesh.setEnabled(value!=='empty');
   for(const [id,slot] of applicationSlots)if(displayKinds.has(slot.kind))refreshApplication(id);
  }
- return {pondLife,setFace:walking.setFace,beginArrival,selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ return {setWalking:walking.mode,returnFromPrivateRoom:walking.returnFromPrivateRoom,pondLife,setFace:walking.setFace,beginArrival,selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }

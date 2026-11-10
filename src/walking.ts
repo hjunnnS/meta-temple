@@ -16,7 +16,7 @@ import type { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { templePlaces } from './temple-layout.ts';
-import { insideGround, insideBoundary, paving, eastCourts } from './temple-terrain.ts';
+import { insideGround, insideBoundary, paving, eastCourts, personalGate } from './temple-terrain.ts';
 
 export const visitorSize={height:1.7,width:.65} as const;
 
@@ -332,5 +332,5 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   camera.target.copyFromFloats(p.x,p.y+(first?1.56:1.2),p.z);
   camera.radius=first?.045:world.cameraLimit(camera.target,camera.alpha,camera.beta,followDistance);
  }
- return {mode,update,approachBell(){mode(true);bell.approach();},sitAtTea(index=0){mode(true);if(bows.active)bows.cancel();finishWorship();tea.sitAt(index);camera.alpha=-Math.PI/2;camera.beta=1.42;},setFace:avatar.setFace,get pose(){return {face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,bowProgress:worship?Math.min(1,elapsed/4.8):bows.progress,bellProgress:bell.progress,bellHit:bell.hit,drinkLift:tea.lift,beverage:tea.beverage,animation:bell.active?'bell':tea.seated?'sit':worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
+ return {mode,update,returnFromPrivateRoom(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=-Math.PI/2;camera.alpha=0;camera.beta=1.26;},approachPersonalGate(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=Math.PI/2;camera.alpha=Math.PI;camera.beta=1.26;},approachBell(){mode(true);bell.approach();},sitAtTea(index=0){mode(true);if(bows.active)bows.cancel();finishWorship();tea.sitAt(index);camera.alpha=-Math.PI/2;camera.beta=1.42;},setFace:avatar.setFace,get pose(){return {face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,bowProgress:worship?Math.min(1,elapsed/4.8):bows.progress,bellProgress:bell.progress,bellHit:bell.hit,drinkLift:tea.lift,beverage:tea.beverage,animation:bell.active?'bell':tea.seated?'sit':worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
 }
