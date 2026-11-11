@@ -1,0 +1,254 @@
+{
+  "passed": true,
+  "completedOn": "2026-11-11",
+  "timezone": "Asia/Seoul",
+  "scope": "Mac-only local trial; production policies and external integrations remain deferred",
+  "buildDigest": "9e0df14d1eea62bc98c53e79df1d5b6e13e0c37844c88abfe11798017376cb76",
+  "steps": [
+    {
+      "step": 1,
+      "milestone": "M2",
+      "epics": [
+        1
+      ],
+      "issues": [
+        27
+      ],
+      "passed": true
+    },
+    {
+      "step": 2,
+      "milestone": "M3",
+      "epics": [
+        2,
+        4
+      ],
+      "issues": [
+        34,
+        37,
+        42,
+        43,
+        44
+      ],
+      "passed": true
+    },
+    {
+      "step": 3,
+      "milestone": "M4",
+      "epics": [
+        1,
+        4
+      ],
+      "issues": [
+        64
+      ],
+      "passed": true
+    },
+    {
+      "step": 4,
+      "milestone": "M4",
+      "epics": [
+        4
+      ],
+      "issues": [
+        66
+      ],
+      "passed": true
+    },
+    {
+      "step": 5,
+      "milestone": "M4",
+      "epics": [
+        4
+      ],
+      "issues": [
+        67
+      ],
+      "passed": true
+    },
+    {
+      "step": 6,
+      "milestone": "M4",
+      "epics": [
+        4
+      ],
+      "issues": [
+        69
+      ],
+      "passed": true
+    },
+    {
+      "step": 7,
+      "milestone": "M4",
+      "epics": [
+        74
+      ],
+      "issues": [
+        76
+      ],
+      "passed": true
+    },
+    {
+      "step": 8,
+      "milestone": "M4",
+      "epics": [
+        74
+      ],
+      "issues": [
+        77
+      ],
+      "passed": true
+    }
+  ],
+  "loadingMs": [
+    {
+      "visit": "first",
+      "first3DFrame": 7260,
+      "tapToWalking": 9432.600000023842
+    },
+    {
+      "visit": "return",
+      "first3DFrame": 2903.7000000476837,
+      "tapToWalking": 3401.6999999284744
+    }
+  ],
+  "walking": [
+    {
+      "time": "day",
+      "measurement": {
+        "samples": 17892,
+        "meanFps": 60.00227372800224,
+        "onePercentLowFps": 55.474633505198454,
+        "maxFrameMs": 19,
+        "elapsedSeconds": 300.18670000004767,
+        "warmupSeconds": 2,
+        "valid": true,
+        "invalidReason": null
+      },
+      "route": {
+        "minZ": -65,
+        "maxZ": 37.67586999952763,
+        "turns": 9,
+        "distanceMetres": 986.3874900006331
+      }
+    },
+    {
+      "time": "dusk",
+      "measurement": {
+        "samples": 17894,
+        "meanFps": 60.002239940544804,
+        "onePercentLowFps": 53.9075440445716,
+        "maxFrameMs": 18.90000009536743,
+        "elapsedSeconds": 300.22179999995234,
+        "warmupSeconds": 2,
+        "valid": true,
+        "invalidReason": null
+      },
+      "route": {
+        "minZ": -64.90034000102278,
+        "maxZ": 37.56465999937047,
+        "turns": 9,
+        "distanceMetres": 987.1610100013389
+      }
+    },
+    {
+      "time": "night",
+      "measurement": {
+        "samples": 17894,
+        "meanFps": 60.0020387414671,
+        "onePercentLowFps": 54.07854981193757,
+        "maxFrameMs": 19,
+        "elapsedSeconds": 300.2191999999285,
+        "warmupSeconds": 2,
+        "valid": true,
+        "invalidReason": null
+      },
+      "route": {
+        "minZ": -64.72742000031481,
+        "maxZ": 37.73593000007838,
+        "turns": 9,
+        "distanceMetres": 985.3813200007114
+      }
+    }
+  ],
+  "privatePerformance": {
+    "passed": true,
+    "viewport": [
+      1280,
+      720
+    ],
+    "cycles": 10,
+    "warmup": "one complete entry/exit before baseline; explicit GC for heap comparison",
+    "heapBeforeBytes": 242870472,
+    "heapAfterBytes": 245467412,
+    "heapDeltaBytes": 2596940,
+    "heapAllowanceBytes": 33554432,
+    "entries": [
+      {
+        "cycle": 1,
+        "heapBytes": 243377580
+      },
+      {
+        "cycle": 2,
+        "heapBytes": 243861840
+      },
+      {
+        "cycle": 3,
+        "heapBytes": 244130588
+      },
+      {
+        "cycle": 4,
+        "heapBytes": 244435436
+      },
+      {
+        "cycle": 5,
+        "heapBytes": 244607840
+      },
+      {
+        "cycle": 6,
+        "heapBytes": 244701976
+      },
+      {
+        "cycle": 7,
+        "heapBytes": 244897336
+      },
+      {
+        "cycle": 8,
+        "heapBytes": 245137584
+      },
+      {
+        "cycle": 9,
+        "heapBytes": 245215696
+      },
+      {
+        "cycle": 10,
+        "heapBytes": 245338116
+      }
+    ],
+    "privateMeditationSeconds": 60,
+    "frameStatistics": {
+      "samples": 3481,
+      "meanFps": 60.001930541911044,
+      "onePercentLowFps": 54.56813218239152,
+      "maxFrameMs": 19.299999952316284,
+      "elapsedSeconds": 60.004199999928474,
+      "warmupSeconds": 2,
+      "valid": true,
+      "invalidReason": null
+    },
+    "memoryCaveat": "JavaScript heap only; excludes GPU and total process memory",
+    "errors": []
+  },
+  "checks": {
+    "trialAccessAndRecovery": true,
+    "security": true,
+    "backupRestore": true,
+    "fivePurchasedItemDisplays": true,
+    "privatePractice": true,
+    "guestLoginAndEntry": true,
+    "all14Languages": true,
+    "preloadedShelterTranslations": true
+  },
+  "externalServicesUsed": false,
+  "publicDeployment": false
+}

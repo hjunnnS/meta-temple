@@ -60,6 +60,7 @@ let enterReady:()=>void,enterFailed:(reason:Error)=>void;
 function activate(){
 facePicker(document.querySelector("#walk-pad")!,app.setFace);
 translateMarkup(root);translateViews($<HTMLSelectElement>('#place'));
+window.dispatchEvent(new Event('sasa:locale-ready'));
 const settingsLanguage=document.createElement('button');settingsLanguage.textContent=languages.find(x=>x[0]===locale)![1]+' '+t('언어 선택');
 settingsLanguage.onclick=()=>location.reload();$('#settings-panel').append(settingsLanguage);
 document.title='사사 · '+t('사찰 둘러보기');

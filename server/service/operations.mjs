@@ -15,6 +15,8 @@ export async function maintainPrivacy(requester){
     if((await readFile(path,'utf8')).split('\n')[0]===email)await unlink(path);
    }
    for(const table of ['entries','login_links','sessions','staff_roles'])await db.query('DELETE FROM '+table+' WHERE account_id=$1',[id]);
+   await db.query("UPDATE private_room_orders SET status='cancelled' WHERE account_id=$1 AND status='pending'",[id]);
+   await db.query('DELETE FROM private_rooms WHERE account_id=$1',[id]);
    await db.query("UPDATE orders SET inscription='{}' WHERE account_id=$1",[id]);
    await db.query("UPDATE reservations SET inscription='{}',released_at=COALESCE(released_at,now()) WHERE account_id=$1",[id]);
    await db.query('UPDATE installations SET hidden=true,text_deleted=true WHERE account_id=$1',[id]);

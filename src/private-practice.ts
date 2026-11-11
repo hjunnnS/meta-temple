@@ -1,3 +1,5 @@
+import {t,translateMarkup} from './locales';
+import {practiceCopy} from './private-copy';
 import {Quaternion,Vector3} from '@babylonjs/core/Maths/math.vector';
 import type {visitorMesh} from './walking';
 import {privatePracticeState} from './private-practice-state';
@@ -23,9 +25,9 @@ export function privateMeditationPose(body:ReturnType<typeof visitorMesh>,seated
 }
 
 export function privatePractice(body:ReturnType<typeof visitorMesh>,canvas:HTMLCanvasElement,onStart:()=>void){
- const state=privatePracticeState(),panel=document.querySelector('#private-room-controls')!,section=document.createElement('div');section.id='private-practice';section.setAttribute('aria-label','개인 수행');
+ const state=privatePracticeState(),panel=document.querySelector('#private-room-controls')!,section=document.createElement('div');section.id='private-practice';section.setAttribute('aria-label',t('개인 수행'));
  section.innerHTML='<button id="private-bow">불단 앞에서 절하기</button><button id="private-meditate">방석에 앉아 명상</button><button id="private-practice-stop" hidden>수행 마치기</button><output id="private-practice-status" aria-live="polite" style="display:block;margin:8px 0;max-width:320px;line-height:1.4"></output>';
- panel.append(section);
+ translateMarkup(section);panel.append(section);
  const bow=section.querySelector<HTMLButtonElement>('#private-bow')!,meditate=section.querySelector<HTMLButtonElement>('#private-meditate')!,stop=section.querySelector<HTMLButtonElement>('#private-practice-stop')!,status=section.querySelector<HTMLOutputElement>('#private-practice-status')!;
  let wasActive=false,clock=0,lastStatus='';
  function reset(){for(const leg of body.legs){leg.rotationQuaternion=null;leg.rotation.setAll(0);}for(const shin of body.shins){shin.rotationQuaternion=null;shin.rotation.setAll(0);}body.bow(0);body.chest.scaling.y=1;}
@@ -41,8 +43,8 @@ export function privatePractice(body:ReturnType<typeof visitorMesh>,canvas:HTMLC
   else if(state.active)privateMeditationPose(body,state.seated,clock);
   else if(wasActive){reset();wasActive=false;}
   const seconds=Math.floor(state.meditationTime),time=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');
-  const text=state.mode==='bow'?(state.stopping?'현재 절을 마무리하고 일어납니다.':'합장하고 불단 앞에 절을 올립니다.'):state.mode==='lowering'?'방석에 앉고 있습니다.':state.mode==='meditating'?'명상 중 · '+time:state.mode==='rising'?'천천히 일어나고 있습니다.':state.count?'절 '+state.count+'회 완료 · 자유롭게 머무르세요.':'절하거나 방석에 앉아 잠시 마음을 쉬어 보세요.';
-  if(text!==lastStatus){lastStatus=text;status.textContent=text;}section.dataset.mode=state.mode;section.dataset.bowCount=String(state.count);
+  const text=practiceCopy(state.mode,state.count,time,state.stopping);
+  if(text!==lastStatus){lastStatus=text;status.setAttribute('aria-live',state.mode==='meditating'?'off':'polite');status.textContent=text;}section.dataset.mode=state.mode;section.dataset.bowCount=String(state.count);
   bow.disabled=meditate.disabled=state.active;stop.hidden=!state.active;stop.disabled=state.mode==='rising';
   return state.active;
  },dispose(){canvas.removeEventListener('keydown',escape);section.remove();}};

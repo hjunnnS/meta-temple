@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "closeWhileCheckoutPending": true,
+  "reopenRestoresPendingOrder": true,
+  "lateResponseDoesNotLockButtons": true,
+  "lostPaymentResponseRestoresAccess": true,
+  "exactlyOnePaidOrder": true,
+  "logoutReturnsToTemple": true,
+  "pageErrors": []
+}

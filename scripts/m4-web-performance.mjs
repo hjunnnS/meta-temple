@@ -5,14 +5,16 @@ import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {preview} from 'vite';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE??'playwright');
-const build=resolve('.m3-local/candidate'),output=resolve('evidence/m4-web-lotus'+(process.argv.includes('--full')?'-full':''));
+const build=resolve(process.env.SASA_BUILD??'.m3-local/candidate'),output=resolve(process.env.SASA_EVIDENCE??('evidence/m4-web-lotus'+(process.argv.includes('--full')?'-full':'')));
+const candidateOrigin=process.env.SASA_URL??'http://127.0.0.1:4340';
+assert.match(candidateOrigin,/^http:\/\/(127\.0\.0\.1|localhost):[0-9]+$/);
 const buildDigest=createHash('sha256').update(await readFile(build+'/index.html')).digest('hex');
 const full=process.argv.includes('--full');
-const origin=full?'http://127.0.0.1:4317':'http://127.0.0.1:4340';
+const origin=full?'http://127.0.0.1:4317':candidateOrigin;
 const fixtures=new Map();
 if(full)for(const zone of ['Z02','Z03','Z06','Z07','Z08']){
  const path='/api/service/temples/sample:sasa/zones/'+zone+'/slots';
- const response=await fetch('http://127.0.0.1:4340'+path);
+ const response=await fetch(candidateOrigin+path);
  assert(response.ok,'Start the private candidate before the benchmark.');
  const data=await response.json();
  for(const [i,slot] of data.slots.entries()){

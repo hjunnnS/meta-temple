@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "fullTempleTour": false,
+  "locales": [
+    {
+      "locale": "ko",
+      "passed": true,
+      "preloadedShelterTranslated": true
+    },
+    {
+      "locale": "ja",
+      "passed": true,
+      "preloadedShelterTranslated": true
+    },
+    {
+      "locale": "en",
+      "passed": true,
+      "preloadedShelterTranslated": true
+    },
+    {
+      "locale": "zh-Hans",
+      "passed": true,
+      "preloadedShelterTranslated": true
+    },
+    {
+      "locale": "pt-PT",
+      "passed": true,
+      "preloadedShelterTranslated": true
+    },
+    {
+      "locale": "es",
+      "passed": true,
+      "preloadedShelterTranslated": true
+    },
+    {
+      "locale": "fr",
+      "passed": true,
+      "preloadedShelterTranslated": true
+    },
+    {
+      "locale": "it",
+      "passed": true,
+      "preloadedShelterTranslated": true
+    },
+    {
+      "locale": "pt-BR",
+      "passed": true,
+      "preloadedShelterTranslated": true
+    },
+    {
+      "locale": "ms",
+      "passed": true,
+      "preloadedShelterTranslated": true
+    },
+    {
+      "locale": "de",
+      "passed": true,
+      "preloadedShelterTranslated": true
+    },
+    {
+      "locale": "vi",
+      "passed": true,
+      "preloadedShelterTranslated": true
+    },
+    {
+      "locale": "ru",
+      "passed": true,
+      "preloadedShelterTranslated": true
+    },
+    {
+      "locale": "tr",
+      "passed": true,
+      "preloadedShelterTranslated": true
+    }
+  ]
+}

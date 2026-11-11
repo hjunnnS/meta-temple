@@ -1,0 +1,160 @@
+{
+  "passed": true,
+  "fullTempleTour": true,
+  "locales": [
+    {
+      "locale": "ko",
+      "passed": true,
+      "trialCheckoutCancelAndPayment": true,
+      "privateAccessRestored": true,
+      "languageRestored": true,
+      "translatedRoomDisplayAndPractice": true,
+      "keyboardDialogFocus": true,
+      "smallScreenFits": false,
+      "pageErrors": []
+    },
+    {
+      "locale": "ja",
+      "passed": true,
+      "trialCheckoutCancelAndPayment": true,
+      "privateAccessRestored": true,
+      "languageRestored": true,
+      "translatedRoomDisplayAndPractice": true,
+      "keyboardDialogFocus": true,
+      "smallScreenFits": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "en",
+      "passed": true,
+      "trialCheckoutCancelAndPayment": true,
+      "privateAccessRestored": true,
+      "languageRestored": true,
+      "translatedRoomDisplayAndPractice": true,
+      "keyboardDialogFocus": true,
+      "smallScreenFits": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "zh-Hans",
+      "passed": true,
+      "trialCheckoutCancelAndPayment": true,
+      "privateAccessRestored": true,
+      "languageRestored": true,
+      "translatedRoomDisplayAndPractice": true,
+      "keyboardDialogFocus": true,
+      "smallScreenFits": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "pt-PT",
+      "passed": true,
+      "trialCheckoutCancelAndPayment": true,
+      "privateAccessRestored": true,
+      "languageRestored": true,
+      "translatedRoomDisplayAndPractice": true,
+      "keyboardDialogFocus": true,
+      "smallScreenFits": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "es",
+      "passed": true,
+      "trialCheckoutCancelAndPayment": true,
+      "privateAccessRestored": true,
+      "languageRestored": true,
+      "translatedRoomDisplayAndPractice": true,
+      "keyboardDialogFocus": true,
+      "smallScreenFits": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "fr",
+      "passed": true,
+      "trialCheckoutCancelAndPayment": true,
+      "privateAccessRestored": true,
+      "languageRestored": true,
+      "translatedRoomDisplayAndPractice": true,
+      "keyboardDialogFocus": true,
+      "smallScreenFits": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "it",
+      "passed": true,
+      "trialCheckoutCancelAndPayment": true,
+      "privateAccessRestored": true,
+      "languageRestored": true,
+      "translatedRoomDisplayAndPractice": true,
+      "keyboardDialogFocus": true,
+      "smallScreenFits": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "pt-BR",
+      "passed": true,
+      "trialCheckoutCancelAndPayment": true,
+      "privateAccessRestored": true,
+      "languageRestored": true,
+      "translatedRoomDisplayAndPractice": true,
+      "keyboardDialogFocus": true,
+      "smallScreenFits": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "ms",
+      "passed": true,
+      "trialCheckoutCancelAndPayment": true,
+      "privateAccessRestored": true,
+      "languageRestored": true,
+      "translatedRoomDisplayAndPractice": true,
+      "keyboardDialogFocus": true,
+      "smallScreenFits": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "de",
+      "passed": true,
+      "trialCheckoutCancelAndPayment": true,
+      "privateAccessRestored": true,
+      "languageRestored": true,
+      "translatedRoomDisplayAndPractice": true,
+      "keyboardDialogFocus": true,
+      "smallScreenFits": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "vi",
+      "passed": true,
+      "trialCheckoutCancelAndPayment": true,
+      "privateAccessRestored": true,
+      "languageRestored": true,
+      "translatedRoomDisplayAndPractice": true,
+      "keyboardDialogFocus": true,
+      "smallScreenFits": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "ru",
+      "passed": true,
+      "trialCheckoutCancelAndPayment": true,
+      "privateAccessRestored": true,
+      "languageRestored": true,
+      "translatedRoomDisplayAndPractice": true,
+      "keyboardDialogFocus": true,
+      "smallScreenFits": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "tr",
+      "passed": true,
+      "trialCheckoutCancelAndPayment": true,
+      "privateAccessRestored": true,
+      "languageRestored": true,
+      "translatedRoomDisplayAndPractice": true,
+      "keyboardDialogFocus": true,
+      "smallScreenFits": true,
+      "pageErrors": []
+    }
+  ]
+}

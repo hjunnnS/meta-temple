@@ -1,5 +1,6 @@
 import {locale,t} from './index';
 const views:Record<string,string[]>={
+ entryLandscape:['천왕문','전체 풍경'],teaGarden:['쉼터','옆마당'],teaGardenSeated:['쉼터','좌석'],teaSeated:['쉼터','좌석'],teaPavilion:['연못','쉼터'],sanctuaryWalk:['대웅전','산책길'],personalGateWalk:['시간과 공간의 방','입구'],personalGate:['시간과 공간의 방','입구'],forestBuddha:['대웅전','석조 입상'],treeSpecimen:['연못','전체 풍경'],wishCoin:['소원 동전','종무소'],wishCoinTree:['소원 동전','연못'],wishCoinOpposite:['소원 동전','연못'],pondPagoda:['연못','구층탑'],eastPagoda:['구층탑'],bellRing:['범종각','종치기'],
  plazaCourt:['연등광장','중앙 마당'],plazaHall:['연등광장','대웅전'],courtHall:['중앙 마당','대웅전'],eavesHall:['대웅전','처마'],
  gwaneumDoor:['관음전','입구'],gwaneumAltar:['관음전','불단'],gwaneumSeats:['관음전','내부'],
  gateHallSightline:['천왕문','대웅전'],gateArrival:['일주문','입구'],templeApproach:['일주문','대웅전'],gateWalk:['천왕문','내부'],gateEave:['천왕문','처마'],guardianGallery:['천왕문','사천왕'],courtWall:['중앙 마당','외관'],

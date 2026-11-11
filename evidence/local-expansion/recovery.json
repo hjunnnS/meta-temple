@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "freshSnapshot": true,
+  "isolatedRestoration": true,
+  "fiveDisplaysAndRevisionRestored": true,
+  "paidRoomRightRestored": true,
+  "originalInstallationsRestored": true,
+  "tableCount": 19,
+  "durationMs": 98
+}

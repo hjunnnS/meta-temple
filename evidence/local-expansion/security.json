@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "loginRequired": true,
+  "trialOrderDoesNotGrantAccess": true,
+  "duplicateCheckoutIdempotent": true,
+  "duplicatePayIdempotent": true,
+  "cancelBeforePay": true,
+  "foreignOrderDenied": true,
+  "foreignRoomDenied": true,
+  "clientPriceIgnoredAndRejected": true,
+  "staleOfferRejected": true,
+  "originDenied": true,
+  "revocationEnforced": true,
+  "deletingAccountDenied": true,
+  "logoutDenied": true,
+  "deletedRoomDataCleared": true,
+  "deletedPendingOrderCancelled": true
+}

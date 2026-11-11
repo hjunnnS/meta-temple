@@ -1,3 +1,4 @@
+import {t} from './locales';
 import type {Scene} from '@babylonjs/core/scene';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
@@ -22,7 +23,7 @@ export function furnishPrivateRetreat(scene:Scene){
  const oval=(name:string,w:number,h:number,d:number,x:number,y:number,z:number,m:StandardMaterial)=>{const mesh=finish(MeshBuilder.CreateSphere('retreat-'+name,{diameter:1,segments:10},scene),m,x,y,z);mesh.scaling.set(w,h,d);return mesh;};
  function label(text:string,x:number,y:number,z:number,yaw=0,w=1.8,h=.4){
   const tex=new DynamicTexture('retreat-label-'+text,{width:512,height:128},scene,true),c=tex.getContext() as CanvasRenderingContext2D;
-  c.fillStyle='#354b3c';c.fillRect(0,0,512,128);c.strokeStyle='#bca77b';c.lineWidth=8;c.strokeRect(8,8,496,112);c.fillStyle='#eee2bd';c.font='bold 48px serif';c.textAlign='center';c.textBaseline='middle';c.fillText(text,256,65,475);tex.update();
+  c.fillStyle='#354b3c';c.fillRect(0,0,512,128);c.strokeStyle='#bca77b';c.lineWidth=8;c.strokeRect(8,8,496,112);c.fillStyle='#eee2bd';c.font='bold 48px serif';c.textAlign='center';c.textBaseline='middle';c.fillText(text.split(' · ').map(t).join(' · '),256,65,475);tex.update();
   const m=mat('label-'+text,'#ffffff');m.diffuseTexture=tex;const sign=finish(MeshBuilder.CreatePlane('retreat-label',{width:w,height:h,sideOrientation:Mesh.DOUBLESIDE},scene),m,x,y,z);sign.rotation.y=yaw;
  }
  box('floor',12,.12,16,0,.06,0,timber);box('garden-ground',12,.12,14,12,.04,2,earth);

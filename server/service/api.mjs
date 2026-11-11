@@ -14,6 +14,7 @@ import {bowPractice} from './bows.mjs';
 import {channels} from './channels.mjs';
 import {localPreviewEmail} from './local-preview-login.mjs';
 import {privateDisplay} from './private-display.mjs';
+import {privateAccess,ownsPrivateRoom} from './private-access.mjs';
 import {privatePresence} from './private-presence.mjs';
 const sessionCookie=raw=>'sasa_session='+raw+'; Path=/api/service; HttpOnly; SameSite=Strict; Max-Age=86400';
 async function issueSession(db,id,raw,previous){
@@ -137,19 +138,23 @@ export async function serviceApi(env=process.env,allowedHosts){
     const [code,result]=presence(visitor,session,action,input);return send(code,result);
    }
    if(!account)return send(401,{error:'login_required'});
+   if(path==='/api/service/private-room/access'){
+    const [code,data]=await transaction(db=>privateAccess(db,account.id,req.method,input));return send(code,data);
+   }
    if(path==='/api/service/private-room/enter'&&req.method==='POST'){
     if(account.deletionPending)return send(409,{error:'account_deletion_pending'});
+    if(!await ownsPrivateRoom(pool,account.id))return send(403,{error:'private_room_access_required',testOnly:true});
     const {rows:[room]}=await pool.query('INSERT INTO private_rooms(account_id) VALUES ($1) ON CONFLICT(account_id) DO UPDATE SET account_id=EXCLUDED.account_id RETURNING id',[account.id]);
     privateSpaces.enter(cookieHash,room.id);presence(account.id,cookieHash,'logout',{});
     return send(200,{roomId:room.id,access:'local-preview'});
    }
    if(path==='/api/service/private-room/display'){
     const payload=req.method==='GET'?{roomId:new URL(req.url,'http://localhost').searchParams.get('roomId')}:input;
-    if(account.deletionPending||!privateSpaces.heartbeat(cookieHash,payload.roomId))return send(409,{error:'private_session_ended'});
+    if(account.deletionPending||!await ownsPrivateRoom(pool,account.id)||!privateSpaces.heartbeat(cookieHash,payload.roomId))return send(409,{error:'private_session_ended'});
     const [code,data]=await transaction(db=>privateDisplay(db,account.id,req.method,payload));return send(code,data);
    }
    if(path==='/api/service/private-room/heartbeat'&&req.method==='POST'){
-    if(account.deletionPending||!privateSpaces.heartbeat(cookieHash,input.roomId))return send(409,{error:'private_session_ended'});
+    if(account.deletionPending||!await ownsPrivateRoom(pool,account.id)||!privateSpaces.heartbeat(cookieHash,input.roomId))return send(409,{error:'private_session_ended'});
     return send(200,{active:true});
    }
    if(path==='/api/service/private-room/leave'&&req.method==='POST'){

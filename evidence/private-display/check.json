@@ -12,8 +12,5 @@
   "duplicateDenied": true,
   "staleRevisionDenied": true,
   "originalInstallationsUnchanged": true,
-  "pageErrors": [],
-  "serverRestartRestores": true,
-  "savedPositionAutoSelected": true,
-  "unitTestsPassed": 58
+  "pageErrors": []
 }

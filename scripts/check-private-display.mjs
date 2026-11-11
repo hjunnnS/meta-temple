@@ -1,3 +1,4 @@
+import {ensurePrivateTestAccess} from './private-test-access.mjs';
 import assert from 'node:assert/strict';
 import {readFile,readdir,writeFile} from 'node:fs/promises';
 import {randomUUID} from 'node:crypto';
@@ -9,7 +10,7 @@ async function post(context,path,data){return context.request.post(origin+'/api/
 async function account(){
  const context=await browser.newContext({viewport:{width:1500,height:1000},locale:'ko-KR'}),email='display-'+randomUUID()+'@example.test';emails.push(email);cleanup.push(context);
  assert.equal((await post(context,'login-link',{email})).status(),202);const messages=await Promise.all((await readdir(mail)).map(file=>readFile(mail+'/'+file,'utf8'))),message=messages.find(m=>m.startsWith(email+'\n'));
- assert(message);const token=new URL(message.split('\n')[1]).hash.slice(7);assert.equal((await post(context,'login',{token})).status(),200);return context;
+ assert(message);const token=new URL(message.split('\n')[1]).hash.slice(7);assert.equal((await post(context,'login',{token})).status(),200);await ensurePrivateTestAccess(context,origin);return context;
 }
 async function purchase(context,kind){
  const zone={lantern:'Z02','wish-plaque':'Z08',votive:'Z07',memorial:'Z06',candle:'Z03'}[kind];

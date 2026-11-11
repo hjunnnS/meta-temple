@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "viewport": [
+    1280,
+    720
+  ],
+  "cycles": 10,
+  "warmup": "one complete entry/exit before baseline; explicit GC for heap comparison",
+  "heapBeforeBytes": 242870472,
+  "heapAfterBytes": 245467412,
+  "heapDeltaBytes": 2596940,
+  "heapAllowanceBytes": 33554432,
+  "entries": [
+    {
+      "cycle": 1,
+      "heapBytes": 243377580
+    },
+    {
+      "cycle": 2,
+      "heapBytes": 243861840
+    },
+    {
+      "cycle": 3,
+      "heapBytes": 244130588
+    },
+    {
+      "cycle": 4,
+      "heapBytes": 244435436
+    },
+    {
+      "cycle": 5,
+      "heapBytes": 244607840
+    },
+    {
+      "cycle": 6,
+      "heapBytes": 244701976
+    },
+    {
+      "cycle": 7,
+      "heapBytes": 244897336
+    },
+    {
+      "cycle": 8,
+      "heapBytes": 245137584
+    },
+    {
+      "cycle": 9,
+      "heapBytes": 245215696
+    },
+    {
+      "cycle": 10,
+      "heapBytes": 245338116
+    }
+  ],
+  "privateMeditationSeconds": 60,
+  "frameStatistics": {
+    "samples": 3481,
+    "meanFps": 60.001930541911044,
+    "onePercentLowFps": 54.56813218239152,
+    "maxFrameMs": 19.299999952316284,
+    "elapsedSeconds": 60.004199999928474,
+    "warmupSeconds": 2,
+    "valid": true,
+    "invalidReason": null
+  },
+  "memoryCaveat": "JavaScript heap only; excludes GPU and total process memory",
+  "errors": []
+}

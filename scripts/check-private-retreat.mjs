@@ -1,3 +1,4 @@
+import {ensurePrivateTestAccess} from './private-test-access.mjs';
 import assert from 'node:assert/strict';
 import {writeFile} from 'node:fs/promises';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE??'playwright');
@@ -8,6 +9,7 @@ try{
  const context=await browser.newContext({viewport:{width:1500,height:1000},locale:'ko-KR'}),page=await context.newPage();const errors=[],moves=[];
  page.on('pageerror',e=>errors.push(e.message));page.on('console',message=>{if(message.type()==='error'&&/compile|shader|exception|TypeError/i.test(message.text()))errors.push(message.text());});page.on('request',r=>{if(r.url().endsWith('/channel/move'))moves.push(r.postDataJSON());});
  assert((await context.request.post(origin+'/api/service/auth/local-preview',{headers:{Origin:origin},data:{email:'test@bwm.kr'}})).ok());
+ await ensurePrivateTestAccess(context,origin);
  await page.goto(origin);await page.locator('.enter-temple').click();await page.locator('.entry-overlay').waitFor({state:'detached'});await page.waitForTimeout(3300);
  if(await page.locator('#visit-guide').isVisible())await page.locator('#visit-guide button').first().click();
  const view=async v=>{await page.locator('#place').evaluate((el,v)=>{el.value=v;el.dispatchEvent(new Event('change'));},v);await page.waitForTimeout(500);};

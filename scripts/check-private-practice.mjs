@@ -1,3 +1,4 @@
+import {ensurePrivateTestAccess} from './private-test-access.mjs';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE??'playwright');
@@ -8,6 +9,7 @@ const browser=await chromium.launch({channel:'chrome',args:['--enable-gpu']});
 try{
 const context=await browser.newContext({viewport:{width:1500,height:1000},locale:'ko-KR'});
 assert.equal((await context.request.post(origin+'/api/service/auth/local-preview',{headers:{Origin:origin},data:{email:process.env.SASA_TEST_EMAIL??'test@bwm.kr'}})).status(),200);
+await ensurePrivateTestAccess(context,origin);
 const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
 await page.goto(origin);await page.locator('.enter-temple').click();await page.locator('.entry-overlay').waitFor({state:'detached'});await page.waitForTimeout(3300);if(await page.locator('#visit-guide').isVisible())await page.locator('#visit-guide button').first().click();
 async function enter(){await page.locator('#place').evaluate(el=>{el.value='personalGateWalk';el.dispatchEvent(new Event('change'));});await page.locator('#private-gate-action').waitFor();const resp=page.waitForResponse(r=>r.url().endsWith('/private-room/enter')&&r.ok());await page.locator('#private-gate-action').click();const data=await(await resp).json();await page.locator('#private-bow').waitFor();return data.roomId;}

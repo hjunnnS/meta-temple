@@ -1,0 +1,13 @@
+#private-room-controls{box-sizing:border-box;width:min(510px,calc(100vw - 48px));max-height:calc(100dvh - 48px);overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+#private-room-controls button{max-width:100%;min-height:44px;overflow-wrap:anywhere}
+#private-room-controls button:disabled{opacity:.65;cursor:default}
+#private-room-controls button:focus-visible,#private-room-controls summary:focus-visible,#private-display-dialog :focus-visible,#private-access-dialog :focus-visible{outline:3px solid #ffce65;outline-offset:3px}
+#private-room-controls summary{cursor:pointer;padding:10px 0;min-height:24px}
+#private-room-controls output{overflow-wrap:anywhere}
+#private-display-dialog{max-height:calc(100dvh - 36px)!important;inset:18px 18px auto auto!important}
+#private-access-dialog{box-sizing:border-box;width:min(460px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;background:#f4ecdb;color:#24453b;border:1px solid #ac9462;border-radius:16px;padding:22px}
+#private-access-dialog button{font:inherit;min-height:44px;margin:4px;padding:10px;border:1px solid #a28b5d;border-radius:8px;background:#e2d6b9;max-width:100%}
+@media(max-width:600px){
+ #private-room-controls{left:12px!important;bottom:12px!important;width:calc(100vw - 24px);max-width:calc(100vw - 24px)!important;max-height:48dvh;padding:12px!important;font-size:14px!important}
+ #private-display-dialog{inset:12px!important;width:calc(100vw - 24px)!important;max-height:calc(100dvh - 24px)!important;padding:16px!important}
+}
