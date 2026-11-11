@@ -1,0 +1,5 @@
+import assert from'node:assert/strict';import{readFile,stat}from'node:fs/promises';import{resolve}from'node:path';import{createHash}from'node:crypto';
+const root=resolve('dist'),index=await readFile(root+'/index.html','utf8');const entries=[...index.matchAll(/(?:src|href)="([^\"]+)"/g)].map(m=>m[1]).filter(p=>p.startsWith('/assets/'));assert(entries.length>=2);
+for(const entry of entries)assert((await stat(root+entry)).isFile());const manifest=JSON.parse(await readFile(root+'/textures/sources.json','utf8'));
+for(const asset of manifest){const file=resolve(root,asset.file.replace(/^public\//,''));assert(file.startsWith(root+'/'));const data=await readFile(file);if(asset.bytes!==undefined)assert.equal(data.length,asset.bytes,asset.file);if(asset.sha256)assert.equal(createHash('sha256').update(data).digest('hex'),asset.sha256,asset.file);}
+const hosting=JSON.parse(await readFile('.openai/hosting.json','utf8'));assert.equal(hosting.static.directory,'dist');assert(hosting.project_id);console.log('PASS static entry files, '+manifest.length+' declared asset records, hashes and hosting manifest');

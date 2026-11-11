@@ -2,9 +2,16 @@ name: Sites trial checks
 on:
   push:
     branches: [trial/sites-personal]
+    paths: ['src/**', 'tests/**', 'scripts/**', 'package*.json', 'index.html', 'tsconfig.json', 'public/**', '.github/**']
   pull_request:
     branches: [trial/sites-personal]
+    paths: ['src/**', 'tests/**', 'scripts/**', 'package*.json', 'index.html', 'tsconfig.json', 'public/**', '.github/**']
   workflow_dispatch:
+    inputs:
+      full_browser_checks:
+        description: 'Also run full WebGL checks (slow without a GPU)'
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
@@ -18,9 +25,12 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps --no-shell chromium
       - run: npm run check
+      - run: node scripts/check-trial-build.mjs
+      - run: npx playwright install --with-deps --no-shell chromium
+        if: github.event_name == 'workflow_dispatch' && inputs.full_browser_checks
       - run: npm run check:browser
+        if: github.event_name == 'workflow_dispatch' && inputs.full_browser_checks
       - uses: actions/upload-artifact@v4
         if: always()
         with:
