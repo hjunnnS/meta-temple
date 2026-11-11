@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "scope": "Remove projecting backing faces only; preserve the original readable surface, position, UV, border, font, material and lighting",
+  "oneSidedPanels": 10,
+  "letteredFaces": 24,
+  "clearSamples": 135,
+  "trialUnitTests": 10,
+  "canonicalUnitTests": 74,
+  "pcTouchPassed": true,
+  "applicationsAndRestore": true,
+  "normalTwoSidedSignsPreserved": true,
+  "pageErrors": [],
+  "failedAssets": [],
+  "existingMapClickFindingUnchanged": true
+}

@@ -1,0 +1,16 @@
+{
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "mapImageClick": {
+    "clicked": "01 대웅전",
+    "before": "구름탑",
+    "after": "구름탑",
+    "expected": "대웅전",
+    "works": false
+  },
+  "listSelectionWorks": true,
+  "menuBacksPassed": [
+    "schedule-open",
+    "settings",
+    "service-account"
+  ]
+}
