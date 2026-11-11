@@ -31,3 +31,9 @@ Milestone: M2 공간 제작 후속 및 M4 웹 시각 회귀. Epic: E01 사찰 �
 Milestone M2 공간 제작·M4 웹 시각 검수 / Epic E01 공간·E04 검수 / 기존 Implementation #6·#64 후속. 선행: 실내 현판 뒤판 정리 사용자 승인(충족). 범위: 분리된 실내/실외 현판의 표시하지 않는 뒷면·두께 면 삼각형을 제거해 기존 판이 실내 현판 뒤로 투영되지 않도록 한다. 표시 면의 위치·크기·UV·금색 테두리·서체·재질·조명은 유지하고, 일주문·천왕문 등 양면 현판은 유지한다. 지도 번호 클릭 보완은 이번 승인 범위에서 제외한다. 완료: 실내 정면·사선에서 겹친 뒤판 없음, 실외와 양면 현판 정방향, 동선·신청·수행 회귀 통과. 검증: 실제 메시 면 검사·같은 시점 전후·사선·주야간·PC/터치. 예상 S, 배포 대기 별도. 새 Issue 또는 기존 상태 변경 없음.
 
 현판 뒤판 정리 검수 완료: 원본 74개·체험판 10개 자동 검사, 타입·빌드·에셋 해시 검사 통과. 분리 현판 10개는 표시 면 2삼각형만 유지하고, 일반 양면 현판은 전체 면 유지. 글자 면 24개 정방향·가시선 135/135·정면/좌우 사선·낮/밤 확인. PC/터치 체험·다섯 신청·수행·개인 공간·저장 복원 통과. 증빙은 체험판 evidence/sign-backing-fix/summary.json.
+
+## GitHub 보관 범위
+
+원본 서비스는 m4/web-acceptance, Sites 개인 체험판은 trial/sites-personal 브랜치에 보관한다. 서로 다른 인증·결제·데이터 연결을 합치지 않는다. 체험판 버전 7의 배포 소스는 695cc1d14dade87ff6cc00c8bf3443476dc57847이며 배포 영수증은 evidence/sign-backing-fix/publication.json이다. 최근 맵·현판·바닥·사선/주야간·14개 언어·PC/터치 검수 원본을 evidence/map-v14, sign-lettering, post-sign-audit, visibility-ground-fix, release6-audit, sign-backing-fix에 보존한다. 단계별 원래 승인과 미해결 지도 번호 클릭 보완은 유지한다.
+
+원본 검증: npm test, npm run check. 체험판 재현: trial/sites-personal에서 npm ci, npm run check, node scripts/check-trial-build.mjs. Chrome 전체 검수 스크립트는 같은 체험판 브랜치의 scripts/check-sign-backing.mjs, scripts/check-trial.mjs, scripts/check-trial-expanded.mjs, scripts/check-trial-locales.mjs를 사용한다. 결과가 기록된 로컬 웹/공개 주소 환경을 구분하며 실제 과금·실사용자 동기화·정식 출시 판정으로 확대하지 않는다.

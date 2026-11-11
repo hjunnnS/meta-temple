@@ -30,3 +30,7 @@ Sites 소스와 배포 산출물은 Sites 저장소에 저장한다. 원본 GitH
 2026-11-11 한국 시간 기준 Sites 버전 1 배포 성공. 공개 주소: https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/ . 배포 소스는 `3781e5e9900d48656131b35b1885432c32038a6d`다. 별도 로그인 이력이 없는 Chrome에서 HTTP 200·언어 선택·연꽃 입장·3D 메뉴 표시·체험 안내 표시를 확인했고 화면 오류는 0건이었다. `evidence/sites-trial/publication.json`과 `published-anonymous-entry.json`, 사진에 기록한다.
 
 사용자 요청으로 독립 체험판 소스 전체와 검수 결과를 GitHub `hjunnnS/meta-temple`의 `trial/sites-personal` 브랜치에 보관한다. 원본 `m4/web-acceptance`와 Sites 버전 1의 실제 배포 내용은 유지한다. 이번 추가 커밋은 배포 기록과 후속 작업 목록 보관이며 재배포하지 않는다. 이 브랜치는 Sites에서 만든 독립 이력을 보존하고 원본 운영 소스에 체험용 API를 병합하지 않는다.
+
+## 맵·현판·바닥 최신 GitHub 보관
+
+체험판의 현재 배포는 버전 7, 소스 695cc1d14dade87ff6cc00c8bf3443476dc57847이다. 이후 맵 재배치·구름탑/미륵보살 석상 명칭·현판 방향/가림/뒤판 정리·바닥 정밀도와 검수 기록을 GitHub trial/sites-personal에 모두 보관한다. 원본 구현은 같은 저장소의 m4/web-acceptance에 별도로 보관한다. 상세 범위·완료 조건·후속 지도 클릭 보완은 docs/map-v14.md, 배포 영수증은 evidence/sign-backing-fix/publication.json을 참조한다. 이번 작업은 GitHub 보관이며 추가 사이트 배포나 공개 범위 변경을 하지 않는다.
