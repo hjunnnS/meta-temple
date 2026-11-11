@@ -58,7 +58,7 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
  let light:ReturnType<typeof prayerLight>|undefined;
  function draw(){
   button.hidden=!visible;button.disabled=busy||elapsed>=0;
-  button.textContent=t(id?'절하기':'108배 시작');stop.hidden=!visible||!id;stop.textContent=t('취소');
+  button.textContent=t(id?'절하기':'108배 시작');stop.hidden=!visible||!id;stop.textContent=t('수행 마치기');
  }
  async function request(action:string,data:object){
   const result=await fetch('/api/service/practice/'+action,{signal:action==='bow'?AbortSignal.timeout(8000):undefined,method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});

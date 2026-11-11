@@ -1,3 +1,4 @@
+import {serviceControl} from './service-ui-controls.mjs';
 import {origin} from './local-candidate.mjs';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE??'playwright');
 import assert from 'node:assert/strict';
@@ -11,9 +12,9 @@ try{
  await r.fulfill({json:body});
  });
  await p.route('**/api/service/time',r=>r.fulfill({json:{time:Date.parse('2026-11-08T18:06:02+09:00')}}));
- await p.goto(origin);await p.locator('.enter-temple').click();await p.locator('.entry-overlay').waitFor({state:'detached'});await p.getByText(/저녁 예불.*6분 남음/).waitFor();
+ await p.goto(origin);await p.locator('.enter-temple').click();await p.locator('.entry-overlay').waitFor({state:'detached'});if(await p.locator('#visit-guide').isVisible())await p.locator('#visit-guide button').click();await p.getByText(/저녁 예불.*6분 남음/).waitFor();
  const panel=p.locator('#reception-panel');
- async function open(){await p.locator('[data-view="officeReception"]').first().click();await panel.getByRole('button',{name:/^연등 ·/}).click();await panel.getByRole('button',{name:/^7일/}).click();await panel.locator('.lantern-plan button').first().waitFor();}
+ async function open(){await serviceControl(p,'#offering-open');await panel.getByRole('button',{name:/^연등 ·/}).click();await panel.locator('.lantern-plan button').first().waitFor();}
  await open();assert.equal(await panel.locator('.lantern-plan button:disabled').count(),1);
  assert(await panel.locator('.lantern-plan button:enabled').count()>0);
  all=true;await panel.getByText('모든 자리가 찼습니다.').waitFor();assert.equal(await panel.locator('.lantern-plan button:enabled').count(),0);assert(await panel.locator('.lantern-plan button:disabled').count()>1);

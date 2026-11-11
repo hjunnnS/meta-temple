@@ -1,0 +1,14 @@
+PASS {
+  map18: true,
+  meditationVisibleToPeer: true,
+  guestMeditationAndStay: true,
+  guestBow: true,
+  loginAt108: true,
+  fiveProductsGuestDraftAndClose: true,
+  loginResumeAndReservationRestore: true,
+  offlineDraft: true,
+  real108BowAndStopSamePlace: true,
+  settingsReviewSchedule: true,
+  privatePracticeDisplayAndViews: true,
+  privateMobile320: true
+}

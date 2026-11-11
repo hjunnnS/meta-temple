@@ -1,3 +1,4 @@
+import {serviceControl,privateViews} from './service-ui-controls.mjs';
 import {ensurePrivateTestAccess} from './private-test-access.mjs';
 import assert from 'node:assert/strict';
 import {writeFile} from 'node:fs/promises';
@@ -21,7 +22,7 @@ try{
  const clip=await page.evaluate(()=>new Promise(resolve=>{window.__portalRecorder.onstop=()=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result.split(',')[1]);reader.readAsDataURL(new Blob(window.__parts,{type:'video/webm'}));};window.__portalRecorder.stop();}));await writeFile('evidence/private-retreat/portal.webm',Buffer.from(clip,'base64'));
  await view('personalGateWalk');await page.locator('#world').focus();await page.keyboard.down('w');try{await page.locator('#private-room-controls').waitFor();}finally{await page.keyboard.up('w');}
  await page.waitForTimeout(1000);await page.screenshot({path:'evidence/private-retreat/inside.jpg',quality:93});
- await page.locator('[data-room-view=overview]').click();await page.waitForTimeout(700);await page.screenshot({path:'evidence/private-retreat/overview.jpg',quality:93});
+ await privateViews(page);await page.locator('[data-room-view=overview]').click();await page.waitForTimeout(700);await page.screenshot({path:'evidence/private-retreat/overview.jpg',quality:93});
  await page.locator('[data-room-view=garden]').click();await page.waitForTimeout(700);await page.screenshot({path:'evidence/private-retreat/garden.jpg',quality:93});
  await page.locator('[data-room-view=display]').click();await page.waitForTimeout(700);await page.screenshot({path:'evidence/private-retreat/display.jpg',quality:93});
  await page.locator('[data-room-view=walk]').click();await page.waitForTimeout(400);const count=moves.length;
@@ -29,6 +30,6 @@ try{
  assert.equal(moves.length,count,'garden remains private');await page.screenshot({path:'evidence/private-retreat/garden-walk.jpg',quality:93});
  for(let i=0;i<3;i++)await page.mouse.wheel(0,2500);await page.waitForTimeout(700);
  await page.locator('#private-room-exit').click();await page.locator('#private-room-controls').waitFor({state:'hidden'});
- await page.locator('#settings').click();await page.locator('#reduced').check();await page.locator('#close-settings').click();await view('personalGate');await page.waitForTimeout(3800);await page.screenshot({path:'evidence/private-retreat/gate-reduced.jpg',quality:93});
+ await serviceControl(page,'#settings');await page.locator('#reduced').check();await page.locator('#close-settings').click();await view('personalGate');await page.waitForTimeout(3800);await page.screenshot({path:'evidence/private-retreat/gate-reduced.jpg',quality:93});
  assert.deepEqual(errors,[]);await writeFile('evidence/private-retreat/check.json',JSON.stringify({passed:true,portalEntry:true,overview:true,gardenView:true,gardenWalkNoPublicBroadcast:true,zoomAndExit:true,reducedMotion:true,pageErrors:errors},null,2));console.log('PASS portal, private retreat, garden walk, privacy, zoom, exit and reduced effects; no render errors');
 }finally{await browser.close();}

@@ -1,10 +1,11 @@
+import {serviceControl} from './service-ui-controls.mjs';
 import assert from 'node:assert/strict';
 import {languages,dictionary,fitsWidth} from './locale-checks.mjs';
 import {origin} from './local-candidate.mjs';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE??'playwright');
 const browser=await chromium.launch({channel:'chrome',args:['--enable-gpu']});
 try{
- for(const [code] of languages){
+ for(const [code] of languages.filter(([code])=>!process.env.SASA_LOCALES||process.env.SASA_LOCALES.split(',').includes(code))){
   const t=await dictionary(code);
   const page=await browser.newPage({locale:code,reducedMotion:'reduce',viewport:{width:320,height:740}});
   const panel=page.locator('#reception-panel'),button=name=>panel.getByRole('button',{name:t(name),exact:true});
@@ -16,9 +17,9 @@ try{
    return route.fulfill({status:409,json:{error:revision===2?'offer_changed':'offer_stopped'}});
   });
   await page.goto(origin);await page.locator('[data-locale="'+code+'"]').click();await page.locator('.enter-temple').click();await page.locator('.entry-overlay').waitFor({state:'detached'});
-  await page.locator('[data-view="officeReception"]').first().click();
+  await serviceControl(page,'#offering-open');
   await panel.getByRole('button',{name:t('연등')+' · '+t('연등광장'),exact:true}).click();
-  await panel.locator('section button').first().click();
+
   await panel.locator('[data-row]:enabled').first().click();await panel.locator('[data-slot]:enabled').first().click();
   const slot=await panel.locator('[name=slot]').inputValue(),msg=panel.locator('textarea'),name=panel.locator('[name=name]');
   await panel.locator('[name=tag]').check();await panel.locator('[name=public]').check();

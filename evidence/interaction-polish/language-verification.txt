@@ -1,0 +1,14 @@
+PASS ko
+PASS ja
+PASS en
+PASS zh-Hans
+PASS pt-PT
+PASS es
+PASS fr
+PASS it
+PASS pt-BR
+PASS ms
+PASS de
+PASS vi
+PASS ru
+PASS tr

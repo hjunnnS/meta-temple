@@ -1,3 +1,4 @@
+import {privateViews} from './service-ui-controls.mjs';
 import assert from 'node:assert/strict';
 import {writeFile} from 'node:fs/promises';
 import {ensurePrivateTestAccess} from './private-test-access.mjs';
@@ -14,7 +15,7 @@ async function memory(){await cdp.send('HeapProfiler.collectGarbage');return (aw
 // Warm all lazy room code and resources before comparing repeated entries.
 await enter();await exit();const before=await memory();const cycles=[];
 for(let i=0;i<10;i++){await enter();await page.locator('#private-meditate').click();await page.waitForTimeout(1500);await page.locator('#private-practice-stop').click();await page.waitForTimeout(1100);await exit();cycles.push({cycle:i+1,heapBytes:await memory()});}
-await enter();await page.locator('[data-room-view=garden]').click();await page.waitForTimeout(2000);await page.locator('[data-room-view=walk]').click();await page.locator('#private-meditate').click();await page.waitForTimeout(1800);
+await enter();await privateViews(page);await page.locator('[data-room-view=garden]').click();await page.waitForTimeout(2000);await privateViews(page);await page.locator('[data-room-view=walk]').click();await page.locator('#private-meditate').click();await page.waitForTimeout(1800);
 await page.evaluate(()=>{document.querySelector('#diagnostics').click();document.querySelector('#measure').click();document.querySelector('#close-diagnostics').click();document.querySelector('#world').focus();});await page.waitForTimeout(60000);
 const measured=await page.evaluate(()=>{document.querySelector('#diagnostics').click();document.querySelector('#stop').click();const data=JSON.parse(document.querySelector('#report').textContent);document.querySelector('#close-diagnostics').click();document.querySelector('#world').focus();return data;});const stats=measured.measurement;assert(stats.valid&&stats.samples>1000);await page.screenshot({path:'evidence/local-expansion/private-performance.jpg',quality:90});await exit();const after=await memory();assert.deepEqual(errors,[]);assert(after-before<32*1024*1024,'room entry retained over 32 MiB after garbage collection');
 const result={passed:true,viewport:[1280,720],cycles:10,warmup:'one complete entry/exit before baseline; explicit GC for heap comparison',heapBeforeBytes:before,heapAfterBytes:after,heapDeltaBytes:after-before,heapAllowanceBytes:32*1024*1024,entries:cycles,privateMeditationSeconds:60,frameStatistics:stats,memoryCaveat:'JavaScript heap only; excludes GPU and total process memory',errors};await writeFile('evidence/local-expansion/private-performance.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result));

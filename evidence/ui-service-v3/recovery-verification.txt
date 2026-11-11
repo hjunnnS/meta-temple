@@ -1,0 +1,1 @@
+PASS: hold countdown and expiry, payment lock, same-order installation/refund after a lost response, map reconnect with free and newly reserved selections

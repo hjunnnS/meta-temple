@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "desktop5": true,
+  "mobile390And320": true,
+  "allFiveProducts": true,
+  "guestBowAndMeditation": true,
+  "loginAt108AndReservation": true,
+  "stayAfterCloseAndStop": true,
+  "keepDraftAcrossSeatAndLogin": true,
+  "sameOrderAfterClose": true,
+  "mapPlaces": 17,
+  "sevenRecoveryStates": true,
+  "fontLabel14Input16": true,
+  "touch44": true,
+  "dialogFocusAndEscape": true,
+  "networkApiCalls": 0,
+  "pageErrors": [],
+  "serviceSourceChanged": false
+}

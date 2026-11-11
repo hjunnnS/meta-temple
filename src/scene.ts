@@ -165,7 +165,14 @@ export function createTemple(canvas:HTMLCanvasElement) {
  // Curved tile ribs and raised eave edges.
  for(let i=0;i<=57;i++)for(const sign of [-1,1]){const x=-11.4+i*.4;const path=Array.from({length:15},(_,j)=>{const z=sign*(.05+j*5.85/14);return new Vector3(x,roofY(x,z)+.07,z+8);});const rib=MeshBuilder.CreateTube('tile-rib',{path,radius:.065,tessellation:5},scene);rib.material=roofEdge;staticMeshes.push(rib);}
  for(const z of [-5.9,0,5.9]){const path=Array.from({length:48},(_,i)=>{const x=-11.5+i*23/47;return new Vector3(x,roofY(x,z)+.13,z+8);});const edge=MeshBuilder.CreateTube('ridge',{path,radius:z===0?.2:.12,tessellation:8},scene);edge.material=roofEdge;staticMeshes.push(edge);}
- const signTexture=new DynamicTexture('sign',{width:512,height:192},scene,false);const sc=signTexture.getContext() as CanvasRenderingContext2D;sc.fillStyle='#202c29';sc.fillRect(0,0,512,192);sc.strokeStyle='#bb9b60';sc.lineWidth=8;sc.strokeRect(10,10,492,172);sc.fillStyle='#ddc592';sc.font='bold 100px serif';sc.textAlign='center';sc.fillText('大雄殿',256,133);signTexture.update();const signMat=mat('sign-material','#ffffff');signMat.diffuseTexture=signTexture;box('hall-sign',3.4,1.25,.18,0,4.35,3.35,signMat);
+ const signTexture=new DynamicTexture('sign',{width:512,height:192},scene,false);const sc=signTexture.getContext() as CanvasRenderingContext2D;sc.fillStyle='#202c29';sc.fillRect(0,0,512,192);sc.strokeStyle='#bb9b60';sc.lineWidth=8;sc.strokeRect(10,10,492,172);sc.fillStyle='#ddc592';sc.font='bold 100px serif';sc.textAlign='center';sc.fillText('대웅전',256,133);signTexture.update();const signMat=mat('sign-material','#ffffff');signMat.diffuseTexture=signTexture;const hallSign=box('hall-sign',3.4,1.25,.18,0,4.35,3.35,signMat);
+ // The courtyard-facing (-Z) face stays unchanged. Babylon's opposite box face
+ // has an inverted vertex orientation; rotate its UVs so the indoor text is upright.
+ const signUVs=hallSign.getVerticesData('uv')!;
+ for(let i=0;i<8;i++)signUVs[i]=1-signUVs[i];
+ // Lettering belongs on the two broad faces, not the thin top/bottom/side edges.
+ for(let i=16;i<signUVs.length;i++)signUVs[i]=0;
+ hallSign.setVerticesData('uv',signUVs);
  // Roof tile courses and lotus end-caps give the eaves an articulated silhouette.
  for(const side of [-1,1])for(let row=1;row<15;row++){
   const z=side*row*5.9/14;const path=Array.from({length:47},(_,i)=>{const x=-11.5+i*.5;return new Vector3(x,roofY(x,z)+.028,z+8);});
@@ -390,7 +397,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  const wayfindingMaterials=new Set<StandardMaterial>([signMat]);
  function plaque(label:string,x:number,y:number,z:number){
   const t=new DynamicTexture(`label-${label}`,{width:512,height:128},scene,false);const c=t.getContext() as CanvasRenderingContext2D;
-  c.fillStyle='#26372e';c.fillRect(0,0,512,128);c.strokeStyle='#bfa56e';c.lineWidth=5;c.strokeRect(6,6,500,116);c.fillStyle='#f4dfad';c.font='bold 68px serif';c.textAlign='center';c.fillText(label,256,89);t.update();
+  c.fillStyle='#26372e';c.fillRect(0,0,512,128);c.strokeStyle='#bfa56e';c.lineWidth=5;c.strokeRect(6,6,500,116);c.fillStyle='#f4dfad';c.font='bold 68px serif';let size=68;while(c.measureText(label).width>448&&size>16)c.font='bold '+(--size)+'px serif';c.textAlign='center';c.textBaseline='middle';c.fillText(label,256,66);t.update();
   const m=mat(`plaque-${label}`,'#ffffff');m.diffuseTexture=t;wayfindingMaterials.add(m);return box(`name-${label}`,3.2,.8,.12,x,y,z,m);
  }
  const office=templePlaces.find(p=>p.id==='office')!;
@@ -1255,7 +1262,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    const p=Vector3.FromArray([...s.position]);const string=MeshBuilder.CreateLines('tag-thread',{points:[p.add(new Vector3(0,-.43,0)),p.add(new Vector3(0,-.64,0))]},scene);string.color=new Color3(.56,.43,.31);string.parent=lanternRoot;
    const texture=new DynamicTexture(`name-tag-${i}`,{width:160,height:640},scene,true);drawTag(texture,name);tagTextures.set(i,texture);
    const material=mat(`tag-paper-${i}`,'#ffffff',.12);material.diffuseTexture=texture;material.backFaceCulling=false;
-   const tag=MeshBuilder.CreatePlane(`owned-tag-${i}`,{width:.21,height:.76,sideOrientation:Mesh.DOUBLESIDE},scene);tag.position=p.add(new Vector3(0,-1.02,0));tag.material=material;tag.parent=lanternRoot;tag.billboardMode=Mesh.BILLBOARDMODE_Y;
+   const tag=MeshBuilder.CreatePlane(`owned-tag-${i}`,{width:.21,height:.76,sideOrientation:Mesh.DOUBLESIDE},scene);tag.position=p.add(new Vector3(0,-1.02,0));tag.material=material;tag.metadata={applicationId:s.id};tag.parent=lanternRoot;tag.billboardMode=Mesh.BILLBOARDMODE_Y;
   }
   const bulb=MeshBuilder.CreateSphere('canopy-fairy-lights',{diameter:.065,segments:6},scene);bulb.material=bulbMat;bulb.parent=lanternRoot;bulb.thinInstanceAdd(slots.map(s=>Matrix.Translation(s.position[0]+.3,s.position[1]+.65,s.position[2])));glow.addIncludedOnlyMesh(bulb);
   const all=slots.map(s=>Matrix.Translation(s.position[0],s.position[1]-.43,s.position[2]));
@@ -1616,5 +1623,5 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const mesh of displayBatches)mesh.setEnabled(value!=='empty');
   for(const [id,slot] of applicationSlots)if(displayKinds.has(slot.kind))refreshApplication(id);
  }
- return {setWalking:walking.mode,returnFromPrivateRoom:walking.returnFromPrivateRoom,pondLife,setFace:walking.setFace,beginArrival,selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ return {visit:walking.visit,startPractice:walking.startPractice,setWalking:walking.mode,returnFromPrivateRoom:walking.returnFromPrivateRoom,pondLife,setFace:walking.setFace,beginArrival,selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }

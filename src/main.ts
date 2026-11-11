@@ -1,3 +1,6 @@
+import {offeringTag} from './offering-tag';
+import {servicePlaces} from './service-map';
+import {serviceUI} from './service-ui';
 import {facePicker} from './face-picker';
 import {languages,locale,t,translateMarkup} from './locales';
 import {translateViews} from './locales/views';
@@ -21,7 +24,7 @@ import { SCENE_VERSION, OWNED_INDICES } from './contracts.ts';
 const root=document.querySelector<HTMLDivElement>('#app')!;
 root.innerHTML=`
 <canvas id="world" aria-label="사찰 3D 장면. 드래그로 시점 회전, 휠이나 두 손가락으로 확대." tabindex="0"></canvas>
-<header><a class="brand" href="#" aria-label="사사 처음 시점"><span class="seal">山</span><span>사사<small>SASA · A MOMENT OF STILLNESS</small></span></a><span class="stage">사찰 배치 검토 <i></i> 두 문 사이 진입길</span><button id="settings" class="circle" aria-haspopup="dialog" aria-controls="settings-panel" aria-label="환경 설정 열기">☷</button></header>
+<header><a class="brand" href="#" aria-label="사사 처음 시점"><span class="seal">사</span><span>사사<small>SASA · A MOMENT OF STILLNESS</small></span></a><span class="stage">사찰 배치 검토 <i></i> 두 문 사이 진입길</span><button id="settings" class="circle" aria-haspopup="dialog" aria-controls="settings-panel" aria-label="환경 설정 열기">☷</button></header>
 <section class="intro"><span class="eyebrow">잠시, 일상에서 한 걸음</span><h1>빛을 따라,<br>마음이 머무는 곳.</h1><p>처마 아래 스며드는 빛과<br>조용히 흔들리는 마음을 바라봅니다.</p><label class="entry-audio"><input id="entry-audio" type="checkbox"> 공간음과 함께 입장</label><button id="explore" class="primary">사찰 둘러보기 <span>↗</span></button></section>
 <div id="loading" role="status" tabindex="-1"><span>사찰을 준비하고 있어요…</span><button id="load-retry" hidden>다시 불러오기</button></div>
 <dialog id="settings-panel" aria-labelledby="settings-title"><div class="panel-title"><h2 id="settings-title">환경 설정</h2><button id="close-settings" aria-label="환경 설정 닫기">×</button></div><label class="check"><input id="master-mute" type="checkbox"> 전체 무음</label><label class="check"><input id="audio-on" type="checkbox"> 공간음 켜기</label><label>소리 크기<input id="audio-volume" type="range" min="0" max="100" value="35"></label><p class="note" id="audio-status" role="status">공간음 꺼짐</p><label>시간대<select id="time"><option value="day" selected>햇살 가득한 낮</option><option value="dusk">해질녘</option><option value="night">밤</option></select></label><label>화면 품질<select id="quality"><option value="high">섬세하게</option><option value="low">가볍게</option></select></label><label class="check"><input type="checkbox" id="reduced">반짝임 완화</label><label>내 연등 이름표<input id="lantern-name" maxlength="24" placeholder="이름 입력 · 최대 12자"></label><button id="apply-name" class="primary">이름표 미리보기</button><p id="name-status" class="note" role="status">현재 선택한 내 연등에 표시됩니다. 미리보기 이름은 서버에 저장하지 않습니다.</p><p class="note">내 연등은 모든 품질에서 같은 위치에 표시됩니다.</p></dialog>
@@ -161,8 +164,14 @@ $('#place').onchange=()=>{invalidate('검토 공간 변경');enterView($<HTMLSel
 const receptionPanel=$('#reception-panel'),requestDialog=$<HTMLDialogElement>('#application');
 const placePicker=$<HTMLSelectElement>('#place');
 const productKinds=Object.keys(offerings) as Offering[];
+const itemTag=offeringTag(app,canvas);
+const offerSessions=new Map<Offering,HTMLElement>();
+const parkedOffers=document.createElement('div');parkedOffers.id='offer-sessions';parkedOffers.hidden=true;root.append(parkedOffers);
+function parkOffers(){for(const section of offerSessions.values())if(section.parentElement===receptionPanel)parkedOffers.append(section);}
+window.addEventListener('sasa:account',event=>{if((event as CustomEvent).detail==='changed'){offerSessions.clear();parkedOffers.replaceChildren();receptionPanel.replaceChildren();receptionPanel.hidden=true;}});
 let currentPanel='',pendingId='';
 function goToPlace(view:string){
+ if(import.meta.env.MODE==='service'&&view==='officeReception'){app.view('walk');placePicker.value='walk';app.visit(...servicePlaces.find(p=>p.id==='office')!.arrival);receptionView('officeReception');return;}
  placePicker.value=view;
  placePicker.dispatchEvent(new Event('change'));
 }
@@ -173,11 +182,11 @@ function panelButton(label:string,act:()=>void){
 }
 let detailSlot='';
 function receptionView(view:string){
- detailSlot='';
+ detailSlot='';itemTag.hide();
  const placeName=[...placePicker.options].find(option=>option.value===view)?.textContent;
  const navName=document.querySelector<HTMLElement>('[data-view="'+view+'"]')?.textContent;
  $('.stage').textContent=placeName??navName??'사찰 둘러보기';
- currentPanel=view;receptionPanel.replaceChildren();
+ currentPanel=view;parkOffers();receptionPanel.replaceChildren();
  const kind=productKinds.find(k=>offerings[k].view===view);
  receptionPanel.hidden=view!=='officeReception'&&!kind;
  if(receptionPanel.hidden)return;
@@ -187,8 +196,8 @@ function receptionView(view:string){
  if(kind){
   if(import.meta.env.MODE==='service'){
    title.textContent=t(offerings[kind].label)+' · '+t('시험 기간권');
-   const section=document.createElement('section');receptionPanel.append(section);
-   void displayOffers(section,kind);return;
+   let section=offerSessions.get(kind);const fresh=!section;if(!section){section=document.createElement('section');offerSessions.set(kind,section);}receptionPanel.append(section);
+   if(fresh)void displayOffers(section,kind);else window.dispatchEvent(new Event('sasa:installations'));return;
   }
   const preview=$<HTMLSelectElement>('#display-occupancy')?.value;
   if((kind==='votive'||kind==='memorial'||kind==='plaque')&&preview&&preview!=='current'){
@@ -201,29 +210,17 @@ function receptionView(view:string){
   for(const [id] of available)panelButton((slots.findIndex(([key])=>key===id)+1)+'번 자리',()=>openRequest(id));
  }else{
   if(import.meta.env.MODE==='service')panelButton(t('내 봉헌 내역'),()=>$('#service-account').click());
-  for(const k of productKinds)panelButton(t(offerings[k].label)+' · '+t(offerings[k].place),()=>goToPlace(offerings[k].view));
+  for(const k of productKinds)panelButton(t(offerings[k].label)+' · '+t(offerings[k].place),()=>import.meta.env.MODE==='service'?receptionView(offerings[k].view):goToPlace(offerings[k].view));
  }
 }
-function renderOfferingDetail(){
- if(!detailSlot)return;
- const slot=app.reviewSlots.get(detailSlot);
- receptionPanel.hidden=false;receptionPanel.replaceChildren();
- const heading=document.createElement('h2'),message=document.createElement('p');
- if(slot){
-  const kind=slot.accepts==='wish-plaque'?'plaque':slot.accepts;
-  heading.textContent=t(offerings[kind].label)+' · '+t(offerings[kind].place);
-  message.textContent=[t(slot.installationId?'설치됨':slot.reserved?'예약 중':'빈자리'),slot.name,slot.text].filter(Boolean).join(' · ');
- }else message.textContent=t('연결 상태를 확인해 주세요.');
- receptionPanel.append(heading,message);
- if(slot&&!slot.installationId&&!slot.reserved)panelButton(t('기간권 보기'),()=>openRequest(slot.id));
- panelButton(t('닫기'),()=>receptionView(currentPanel));
-}
+function renderOfferingDetail(){itemTag.refresh();}
+
 function openRequest(id:string){
  if(import.meta.env.MODE==='service'){
   const slot=app.reviewSlots.get(id);
   if(slot?.installationId||slot?.reserved){detailSlot=id;renderOfferingDetail();return;}
   const kind=slot?.accepts;
-  if(kind){const item=kind==='wish-plaque'?'plaque':kind;goToPlace(offerings[item].view);const section=document.createElement('section');receptionPanel.replaceChildren(section);void displayOffers(section,item,id);}
+  if(kind){const item=kind==='wish-plaque'?'plaque':kind;goToPlace(offerings[item].view);parkOffers();const section=document.createElement('section');receptionPanel.replaceChildren(section);offerSessions.set(item,section);void displayOffers(section,item,id);}
   return;
  }
  const fixture=$<HTMLSelectElement>('#display-occupancy');
@@ -238,7 +235,7 @@ function openRequest(id:string){
  const input=$<HTMLInputElement>('#request-text');input.value='';input.required=slot.kind==='plaque';
  $('#request-error').textContent='';requestDialog.showModal();
 }
-app.onSlotClick(openRequest);
+app.onSlotClick(id=>{if(document.body.classList.contains('in-private-room'))return;if(import.meta.env.MODE==='service')itemTag.show(id);else openRequest(id);});
 $('#cancel-request').onclick=()=>requestDialog.close();
 requestDialog.onclose=()=>{pendingId='';};
 function refreshSlot(id:string){app.refreshApplication(id);receptionView(currentPanel);}
@@ -328,13 +325,13 @@ if(import.meta.env.MODE==='service'){
  const help=document.createElement('aside');help.id='visit-guide';help.hidden=true;
  const hint=document.createElement('span'),skip=document.createElement('button');
  hint.setAttribute('aria-live','polite');skip.textContent=t('안내 닫기');help.append(hint,skip);root.append(help);
- const steps=[t(matchMedia('(pointer: coarse)').matches?'화면의 화살표로 걷고 손가락으로 화면을 밀어 둘러보세요.':'방향키로 걷고 마우스로 드래그해 둘러보세요.'),t('드래그하여 둘러보기 · 휠 / 두 손가락으로 확대'),t('천왕문')+' · '+t('다음 일정')+' · '+t('함께 듣기')];
+ const steps=[t('바닥을 클릭하거나 터치해 이동하고, 드래그해 둘러보세요.'),t('드래그하여 둘러보기 · 휠 / 두 손가락으로 확대'),t('천왕문')+' · '+t('다음 일정')+' · '+t('함께 듣기')];
  let step=0;
  function guideStep(index:number){step=index;hint.textContent=steps[index];}
  function openGuide(){guideStep(0);help.hidden=false;}
  function closeGuide(){help.hidden=true;try{localStorage.setItem('sasa:guide-seen','1');}catch{}canvas.focus();}
  skip.onclick=closeGuide;
- const again=document.createElement('button');again.textContent=t('조작 안내 다시 보기');settingsPanel.append(again);
+ const again=document.createElement('button');again.id='visit-guide-open';again.textContent=t('조작 안내 다시 보기');settingsPanel.append(again);
  again.onclick=()=>{settingsPanel.close();openGuide();canvas.focus();};
  const moved=()=>{if(!help.hidden&&step===0)guideStep(1);};
  canvas.addEventListener('keydown',e=>{if(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))moved();});
@@ -345,5 +342,16 @@ if(import.meta.env.MODE==='service'){
  window.addEventListener('sasa:lotus-entry',()=>{try{if(localStorage.getItem('sasa:guide-seen')==='1')return;localStorage.setItem('sasa:guide-seen','1');}catch{}openGuide();});
 
 }
+serviceUI(canvas,goToPlace,()=>{receptionPanel.hidden=true;app.view('walk');placePicker.value='walk';const cameraButton=document.querySelector<HTMLButtonElement>('#walk-camera')!;if(cameraButton.getAttribute('aria-pressed')==='true')cameraButton.click();}, {
+ position:()=>app.visitorPose.position,
+ schedule:ceremony.openSchedule,
+ navigate:place=>{
+  if(place.id==='private'||place.id==='bell'||place.id==='tea'){goToPlace(place.view);window.dispatchEvent(new Event('sasa:relocate'));return;}
+  goToPlace('walk');if(!app.visit(...place.arrival))return;
+  document.querySelector<HTMLElement>('.stage')!.textContent=t(place.label);
+  if(['office','lantern','wish','indeung','candle'].includes(place.id))receptionView(place.view);
+ },
+ practice:kind=>{goToPlace('walk');app.startPractice(kind);},
+});
 
 }

@@ -1,0 +1,104 @@
+{
+  "passed": true,
+  "locales": [
+    {
+      "locale": "ko",
+      "passed": true,
+      "keyboardFocus": true,
+      "dockAndMapAndSettingsFit": true,
+      "noKoreanFallback": true
+    },
+    {
+      "locale": "ja",
+      "passed": true,
+      "keyboardFocus": true,
+      "dockAndMapAndSettingsFit": true,
+      "noKoreanFallback": true
+    },
+    {
+      "locale": "en",
+      "passed": true,
+      "keyboardFocus": true,
+      "dockAndMapAndSettingsFit": true,
+      "noKoreanFallback": true
+    },
+    {
+      "locale": "zh-Hans",
+      "passed": true,
+      "keyboardFocus": true,
+      "dockAndMapAndSettingsFit": true,
+      "noKoreanFallback": true
+    },
+    {
+      "locale": "pt-PT",
+      "passed": true,
+      "keyboardFocus": true,
+      "dockAndMapAndSettingsFit": true,
+      "noKoreanFallback": true
+    },
+    {
+      "locale": "es",
+      "passed": true,
+      "keyboardFocus": true,
+      "dockAndMapAndSettingsFit": true,
+      "noKoreanFallback": true
+    },
+    {
+      "locale": "fr",
+      "passed": true,
+      "keyboardFocus": true,
+      "dockAndMapAndSettingsFit": true,
+      "noKoreanFallback": true
+    },
+    {
+      "locale": "it",
+      "passed": true,
+      "keyboardFocus": true,
+      "dockAndMapAndSettingsFit": true,
+      "noKoreanFallback": true
+    },
+    {
+      "locale": "pt-BR",
+      "passed": true,
+      "keyboardFocus": true,
+      "dockAndMapAndSettingsFit": true,
+      "noKoreanFallback": true
+    },
+    {
+      "locale": "ms",
+      "passed": true,
+      "keyboardFocus": true,
+      "dockAndMapAndSettingsFit": true,
+      "noKoreanFallback": true
+    },
+    {
+      "locale": "de",
+      "passed": true,
+      "keyboardFocus": true,
+      "dockAndMapAndSettingsFit": true,
+      "noKoreanFallback": true
+    },
+    {
+      "locale": "vi",
+      "passed": true,
+      "keyboardFocus": true,
+      "dockAndMapAndSettingsFit": true,
+      "noKoreanFallback": true
+    },
+    {
+      "locale": "ru",
+      "passed": true,
+      "keyboardFocus": true,
+      "dockAndMapAndSettingsFit": true,
+      "noKoreanFallback": true
+    },
+    {
+      "locale": "tr",
+      "passed": true,
+      "keyboardFocus": true,
+      "dockAndMapAndSettingsFit": true,
+      "noKoreanFallback": true
+    }
+  ],
+  "realPhoneTest": false
+}

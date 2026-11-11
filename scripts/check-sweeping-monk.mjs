@@ -1,3 +1,4 @@
+import {serviceControl} from './service-ui-controls.mjs';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE??'playwright');
@@ -33,7 +34,7 @@ if(await page.locator('#sweeper-greet').isEnabled()){
 await page.locator('#sweeper-caption').waitFor();await page.waitForTimeout(150);
 const blank=await page.context().newPage();await blank.goto('about:blank');await blank.bringToFront();await page.waitForTimeout(300);await blank.close();await page.bringToFront();await page.waitForFunction(()=>document.querySelector('#sweeper-greet').dataset.phase==='sweeping');assert.equal(await page.locator('#sweeper-caption').isVisible(),false);
 // Shared mute and volume controls also apply to the greeting.
-await page.locator('#sweeper-greet').click();await page.locator('#sweeper-caption').waitFor();await page.locator('#settings').click();await page.locator('#master-mute').check();await page.waitForTimeout(250);assert(await page.evaluate(()=>window.audioGains.filter(g=>g.context===window.greetingAudioContext).every(g=>g.gain.value<.01)));
+await page.locator('#sweeper-greet').click();await page.locator('#sweeper-caption').waitFor();await serviceControl(page,'#settings');await page.locator('#master-mute').check();await page.waitForTimeout(250);assert(await page.evaluate(()=>window.audioGains.filter(g=>g.context===window.greetingAudioContext).every(g=>g.gain.value<.01)));
 await page.locator('#master-mute').uncheck();await page.waitForTimeout(250);assert(await page.evaluate(()=>window.audioGains.some(g=>g.context===window.greetingAudioContext&&g.gain.value>.02)));await page.locator('#close-settings').click();
 await page.evaluate(()=>window.dispatchEvent(new CustomEvent('sasa:space',{detail:'private'})));assert.equal(await page.locator('#sweeper-caption').isVisible(),false);assert.equal(await page.locator('#sweeper-greet').isVisible(),false);await page.evaluate(()=>window.dispatchEvent(new CustomEvent('sasa:space',{detail:'public'})));
 // The whole-scene view should not offer a remote greeting or leave a caption onscreen.

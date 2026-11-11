@@ -1,0 +1,3 @@
+ko offer checks passed
+ja offer checks passed
+PASS input boundaries, single-line validation, revised quote with same slot and draft, explicit reconfirmation and stopped sale

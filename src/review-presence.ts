@@ -1,3 +1,4 @@
+import {privateMeditationPose} from './private-practice';
 import {bellPose} from './bell-ringing';
 import {BELL_DURATION} from './bell-cycle';
 import {teaGesture,teaCup} from './tea-break';
@@ -9,7 +10,7 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { visitorMesh } from './walking.ts';
 import { layoutDraft } from './contracts.ts';
 
-interface Motion {bellProgress?:number;bellHit?:number;drinkLift?:number;beverage?:string;bowProgress?:number;face?:Face;wearingRobe?:boolean;position:number[];yaw:number;animation:string}
+interface Motion {meditating?:boolean;bellProgress?:number;bellHit?:number;drinkLift?:number;beverage?:string;bowProgress?:number;face?:Face;wearingRobe?:boolean;position:number[];yaw:number;animation:string}
 interface Peer extends Motion {sessionId:string;sequence:number}
 interface Snapshot {self:string;key?:string;layoutVersion:string;schemaVersion:number;channelId:string;count?:number;participants:Peer[]}
 
@@ -50,10 +51,10 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
    Vector3.LerpToRef(body.root.position,target,1-Math.exp(-18*dt),body.root.position);
    body.root.rotation.y=peer.yaw;
    remote.bowTime=peer.animation==='worship'?Math.min(4.8,remote.bowTime+dt):0;
-   body.bow(remote.bowTime/4.8);
+   if(!peer.meditating){for(const leg of [...body.legs,...body.shins])leg.rotationQuaternion=null;body.chest.scaling.y=1;}body.bow(remote.bowTime/4.8);
    if(peer.animation==='bell'){remote.bellTime=Math.min(BELL_DURATION,remote.bellTime+dt);bellPose(body,remote.bellTime/BELL_DURATION);}
-   if(peer.animation==='sit')teaGesture(body,peer.drinkLift??0);
-   remote.cup.update(peer.animation==='sit',peer.drinkLift??0,peer.beverage==='coffee');
+   if(peer.animation==='sit'){if(peer.meditating)privateMeditationPose(body,1,performance.now()/1000);else teaGesture(body,peer.drinkLift??0);}else{for(const leg of [...body.legs,...body.shins])leg.rotationQuaternion=null;body.chest.scaling.y=1;}
+   remote.cup.update(peer.animation==='sit'&&!peer.meditating,peer.drinkLift??0,peer.beverage==='coffee');
    if(peer.animation==='walk')body.legs.forEach((leg,i)=>leg.rotation.x=.35*Math.sin(performance.now()*.01+i*Math.PI));
   }
  });
@@ -102,6 +103,14 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
   }
   box.textContent=paused?'개인 공간 · 나만 입장':t('방문자 연결 재시도 중');
   if(!paused)void sync(epoch);
+ });
+ let relocation=Promise.resolve();
+ window.addEventListener('sasa:relocate',()=>{
+  if(paused)return;const generation=++epoch;clearTimeout(timer);pending?.abort();const old=session;session=null;sequence=0;for(const id of avatars.keys())clearPeer(id);
+  relocation=relocation.then(async()=>{
+   if(old)try{if(channel)await fetch('/api/service/channel/leave',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({self:old.id}),signal:AbortSignal.timeout(3000)});else await fetch('/api/review/sessions/'+old.id,{method:'DELETE',headers:{Authorization:'Bearer '+old.key},signal:AbortSignal.timeout(3000)});}catch{/* Join still revalidates the session. */}
+   if(generation===epoch&&!paused)void sync(generation);
+  });
  });
  if(channel){
   const restart=()=>{if(paused)return;epoch++;clearTimeout(timer);session=null;sequence=0;for(const id of avatars.keys())clearPeer(id);void sync(epoch);};

@@ -1,3 +1,4 @@
+import {privateViews} from './service-ui-controls.mjs';
 import {ensurePrivateTestAccess} from './private-test-access.mjs';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -25,7 +26,7 @@ const b64=await page.evaluate(()=>new Promise(resolve=>{window.practiceRecorder.
 await page.locator('#private-meditate').click();await page.waitForTimeout(1800);await page.keyboard.down('KeyS');await page.waitForTimeout(1800);await page.keyboard.up('KeyS');assert.equal(await page.locator('#private-practice').getAttribute('data-mode'),'idle');
 await page.locator('#private-bow').click();await page.waitForTimeout(1000);await page.keyboard.press('Escape');assert.equal(await page.locator('#private-practice').getAttribute('data-mode'),'bow');await page.waitForFunction(()=>document.querySelector('#private-practice').dataset.mode==='idle');assert.equal(await page.locator('#private-practice').getAttribute('data-bow-count'),'2');
 // Display inspection can interrupt meditation safely.
-await page.locator('#private-meditate').click();await page.waitForTimeout(1800);await page.locator('[data-room-view=display]').click();await page.waitForFunction(()=>document.querySelector('#private-practice').dataset.mode==='idle');await page.locator('#private-display-open').click();await page.locator('#private-display-dialog').waitFor();await page.locator('#private-display-close').click();
+await page.locator('#private-meditate').click();await page.waitForTimeout(1800);await privateViews(page);await page.locator('[data-room-view=display]').click();await page.waitForFunction(()=>document.querySelector('#private-practice').dataset.mode==='idle');await page.locator('#private-display-open').click();await page.locator('#private-display-dialog').waitFor();await page.locator('#private-display-close').click();
 assert.equal(publicMoves,0);const privateMoveRequests=publicMoves;
 await page.locator('#private-room-exit').click();await page.locator('#private-room-controls').waitFor({state:'hidden'});await page.waitForTimeout(300);assert.equal(await enter(),roomId);await page.waitForTimeout(300);assert.equal(await page.locator('#private-practice').getAttribute('data-mode'),'idle');assert.equal(await page.locator('#private-practice').getAttribute('data-bow-count'),'0');
 const after=await(await context.request.get(origin+'/api/service/private-room/display?roomId='+roomId)).json();assert.deepEqual(after.placements,layout.placements);assert.equal(after.revision,layout.revision);assert.deepEqual(errors,[]);

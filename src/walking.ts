@@ -1,3 +1,6 @@
+import {walkingPath,type WalkPoint} from './point-navigation';
+import {pointInput} from './point-input';
+import {privateMeditationPose} from './private-practice';
 import {bellRinging} from './bell-ringing';
 import type {furnishBell} from './temple-bell';
 import {teaBreak} from './tea-break';
@@ -36,7 +39,7 @@ export function pedestrianWorld(parts:Mesh[]){
  for(const part of parts){
   const surface=/(^|-)(step|plinth|hall-floor|floorboard|court|base)$/.test(part.name);
   const solid=/(^|-)(back-wall|side-wall|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth|bell-shell|water-edge-stone|meditation-tree)$/.test(part.name);
-  const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof|tea-pavilion-roof|personal-gate-roof)$/.test(part.name);
+  const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof|tea-pavilion-roof|personal-gate-roof|ceiling-inset|ceiling-runner|ceiling-crossbeam|ceiling-painted-beam)$/.test(part.name);
   if(!surface&&!solid&&!roof)continue;
   part.computeWorldMatrix(true);
   const b=part.getBoundingInfo().boundingBox;
@@ -171,7 +174,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  const avatar=visitorMesh(scene,'visitor');
  avatar.root.position.set(0,world.floor(0,-65),-65);
  avatar.root.setEnabled(false);
- const keys=new Set<string>();
+ const keys=new Set<string>();let route:WalkPoint[]=[];let stuck=0;
  const pad=document.querySelector<HTMLElement>('#walk-pad')!;
  const directions=new Set(['KeyW','KeyS','KeyA','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight']);
  let active=false,first=false,step=0,moving=false;
@@ -198,9 +201,12 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  });
  let prayer:typeof prayerSites[number]|undefined;
  const practicing=import.meta.env.MODE==='service';
- let worship=false,elapsed=0;
+ let worship=false,elapsed=0,meditating=false,meditationTime=0;
+ const meditationStop=document.createElement('button'),meditationStatus=document.createElement('output');meditationStop.id='meditation-stop';meditationStop.hidden=true;meditationStop.textContent=t('수행 마치기');meditationStatus.id='meditation-status';meditationStatus.hidden=true;meditationStatus.setAttribute('aria-live','off');pad.append(meditationStatus,meditationStop);
+ function finishMeditation(){meditating=false;meditationStop.hidden=true;meditationStatus.hidden=true;for(const leg of [...avatar.legs,...avatar.shins]){leg.rotationQuaternion=null;leg.rotation.setAll(0);}avatar.chest.scaling.y=1;avatar.bow(0);}
+ meditationStop.onclick=()=>{finishMeditation();canvas.focus();};
  function finishWorship(){
-  worship=false;elapsed=0;avatar.bow(0);avatar.root.rotation.x=0;
+  finishMeditation();worship=false;elapsed=0;avatar.bow(0);avatar.root.rotation.x=0;
   for(const arm of avatar.arms)arm.rotation.set(0,0,0);
   prayerButton.textContent=prayer?t(prayer.name)+' · '+t(practicing?'참배 시작':'불단'):'';
  }
@@ -249,9 +255,9 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   }
  };
  document.addEventListener('pointerlockchange',()=>{if(!document.pointerLockElement&&first)changePerspective(false);});
- canvas.addEventListener('keydown',e=>{if(e.key==='Escape'&&bows.active)bows.cancel();if(e.key==='Escape'&&worship)finishWorship();if(e.key==='Escape'&&first)changePerspective(false);if(e.key==='Escape'&&tea.seated)tea.stop();if(e.key==='Escape'&&bell.active)bell.cancel();});
- function clear(){keys.clear();moving=false;}
- canvas.addEventListener('keydown',e=>{if(active&&directions.has(e.code)){e.preventDefault();keys.add(e.code);}});
+ canvas.addEventListener('keydown',e=>{if(e.key==='Escape'){route=[];canvas.dataset.pointWalk='idle';}if(e.key==='Escape'&&bows.active)bows.cancel();if(e.key==='Escape'&&worship)finishWorship();if(e.key==='Escape'&&meditating)finishMeditation();if(e.key==='Escape'&&first)changePerspective(false);if(e.key==='Escape'&&tea.seated)tea.stop();if(e.key==='Escape'&&bell.active)bell.cancel();});
+ function clear(){keys.clear();moving=false;route=[];canvas.dataset.pointWalk='idle';}
+ canvas.addEventListener('keydown',e=>{if(active&&directions.has(e.code)){e.preventDefault();route=[];keys.add(e.code);}});
  window.addEventListener('keyup',e=>keys.delete(e.code));
  canvas.addEventListener('blur',clear);window.addEventListener('blur',clear);document.addEventListener('visibilitychange',clear);
  for(const button of pad.querySelectorAll<HTMLButtonElement>('[data-key]')){
@@ -263,10 +269,14 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  const bell=bellRinging(scene,avatar,canvas,bellVisual,()=>{
   if(bows.active)bows.cancel();finishWorship();tea.stop();changePerspective(false);camera.alpha=.2;camera.beta=1.35;
  });
+ pointInput(scene,canvas,()=>active,point=>{
+  const p=avatar.root.position;if(Math.abs(point[1]-world.floor(point[0],point[2]))>.35||world.blocked(point[0],world.floor(point[0],point[2]),point[2]))return;
+  route=walkingPath([p.x,p.z],[point[0],point[2]],(a,b)=>Math.abs(world.floor(a[0],a[1])-world.floor(b[0],b[1]))<=.5&&!world.blocked(b[0],world.floor(b[0],b[1]),b[1]));stuck=0;canvas.dataset.pointWalk=route.length?'moving':'idle';
+ });
  const orbitKeys=camera.inputs.attached.keyboard;
  function mode(on:boolean){
   if(!on){bows.show(false);tea.hide();bell.cancel();}
-  if(!on&&worship)finishWorship();
+  if(!on&&worship)finishWorship();if(!on&&meditating)finishMeditation();
   if(active===on)return;
   if(orbitKeys){if(on)camera.inputs.remove(orbitKeys);else camera.inputs.add(orbitKeys);}
   clear();active=on;pad.hidden=!on;changePerspective(false);
@@ -285,6 +295,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  function update(dt:number){
   moving=false;
   if(!active){bell.update(false,dt,false);return;}
+  const practiceMode=bows.active?'108':meditating?'meditation':worship?'bow':'idle';if(pad.dataset.practice!==practiceMode)pad.dataset.practice=practiceMode;
   const p=avatar.root.position;
   const nearby=visitorSites.find(site=>Math.hypot(p.x-site.x,p.z-site.z)<=site.radius);
   if(visitButton.dataset.view!==(nearby?.view??'')){
@@ -295,10 +306,14 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    prayer=nextPrayer;prayerButton.hidden=!prayer;finishWorship();
   }
   bows.show(practicing&&!!prayer);
-  const x=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'));
-  const z=Number(keys.has('KeyW')||keys.has('ArrowUp'))-Number(keys.has('KeyS')||keys.has('ArrowDown'));
-  const length=Math.hypot(x,z);
+  let x=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'));
+  let z=Number(keys.has('KeyW')||keys.has('ArrowUp'))-Number(keys.has('KeyS')||keys.has('ArrowDown'));
+  if(x||z)route=[];while(route.length&&Math.hypot(p.x-route[0][0],p.z-route[0][1])<.18)route.shift();
+  const auto=route[0]?[route[0][0]-p.x,route[0][1]-p.z]:null;
+  const length=auto?Math.hypot(...auto):Math.hypot(x,z);if(!route.length)canvas.dataset.pointWalk='idle';
   if(length&&bows.active)bows.cancel();
+  if(length&&meditating)finishMeditation();
+  if(meditating){meditationTime+=Math.min(.1,dt);privateMeditationPose(avatar,Math.min(1,meditationTime),meditationTime);const time=String(Math.floor(meditationTime/60)).padStart(2,'0')+':'+String(Math.floor(meditationTime%60)).padStart(2,'0');if(meditationStatus.textContent!==time)meditationStatus.textContent=time;}
   bows.update(dt);
   if(bell.update(active,dt,!!length)){
    frameBellCamera();return;
@@ -317,7 +332,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   }
   if(length && document.activeElement===canvas && !document.querySelector('dialog[open]')){
    const a=camera.alpha,scale=3.3*Math.min(.05,dt)/length;
-   const dx=(x*-Math.sin(a)-z*Math.cos(a))*scale,dz=(x*Math.cos(a)-z*Math.sin(a))*scale;
+   const dx=auto?auto[0]*scale:(x*-Math.sin(a)-z*Math.cos(a))*scale,dz=auto?auto[1]*scale:(x*Math.cos(a)-z*Math.sin(a))*scale;
    const ox=p.x,oz=p.z;
    function move(nx:number,nz:number){
     const y=world.floor(nx,nz);
@@ -325,13 +340,27 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    }
    move(p.x+dx,p.z);move(p.x,p.z+dz);
    const distance=Math.hypot(p.x-ox,p.z-oz);
-   moving=distance>.00001;
+   moving=distance>.00001;if(auto){stuck=moving?0:stuck+dt;if(stuck>.5){route=[];canvas.dataset.pointWalk='idle';}}
    if(moving){avatar.root.rotation.y=Math.atan2(p.x-ox,p.z-oz);step+=distance*4.8;}
    avatar.legs.forEach((leg,i)=>leg.rotation.x=distance>.00001?.35*Math.sin(step+i*Math.PI):0);
-  }else if(!bows.bowing&&!worship)avatar.legs.forEach((leg,i)=>leg.rotation.x=moving?.35*Math.sin(step+i*Math.PI):0);
+  }else if(!bows.bowing&&!worship&&!meditating)avatar.legs.forEach((leg,i)=>leg.rotation.x=moving?.35*Math.sin(step+i*Math.PI):0);
   if(bell.framed&&!first){frameBellCamera();return;}
   camera.target.copyFromFloats(p.x,p.y+(first?1.56:1.2),p.z);
   camera.radius=first?.045:world.cameraLimit(camera.target,camera.alpha,camera.beta,followDistance);
  }
- return {mode,update,returnFromPrivateRoom(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=-Math.PI/2;camera.alpha=0;camera.beta=1.26;},approachPersonalGate(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=Math.PI/2;camera.alpha=Math.PI;camera.beta=1.26;},approachBell(){mode(true);bell.approach();},sitAtTea(index=0){mode(true);if(bows.active)bows.cancel();finishWorship();tea.sitAt(index);camera.alpha=-Math.PI/2;camera.beta=1.42;},setFace:avatar.setFace,get pose(){return {face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,bowProgress:worship?Math.min(1,elapsed/4.8):bows.progress,bellProgress:bell.progress,bellHit:bell.hit,drinkLift:tea.lift,beverage:tea.beverage,animation:bell.active?'bell':tea.seated?'sit':worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
+ function visit(x:number,z:number){
+  const candidates=[[x,z],...Array.from({length:32},(_,i)=>{const a=(i%8)*Math.PI/4,r=1+Math.floor(i/8);return [x+r*Math.cos(a),z+r*Math.sin(a)];})];
+  const next=candidates.find(([cx,cz])=>!world.blocked(cx,world.floor(cx,cz),cz));if(!next)return false;
+  if(bows.active)bows.cancel();finishWorship();tea.stop();bell.cancel();mode(true);clear();avatar.root.position.set(next[0],world.floor(next[0],next[1]),next[1]);camera.alpha=-Math.PI/2;camera.beta=1.26;window.dispatchEvent(new Event('sasa:relocate'));return true;
+ }
+ function startPractice(kind:'bow'|'meditation'|'108'){
+  if(!active||!prayer)visit(practiceSeat.x,practiceSeat.z);
+  const p=avatar.root.position;prayer=prayerSites.find(site=>Math.hypot(p.x-site.x,p.z-site.z)<=site.radius&&p.y>.8);
+  if(!prayer)return;prayerButton.hidden=false;bows.show(practicing);
+  if(kind==='108'){finishMeditation();document.querySelector<HTMLButtonElement>('#bow-start')!.click();return;}
+  if(bows.active)bows.cancel();finishWorship();
+  if(kind==='bow'){prayerButton.click();return;}
+  meditating=true;meditationTime=0;meditationStop.hidden=false;meditationStatus.hidden=false;camera.alpha=prayer.alpha;avatar.root.rotation.y=-Math.PI/2-prayer.alpha;canvas.focus();
+ }
+ return {mode,update,visit,startPractice,returnFromPrivateRoom(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=-Math.PI/2;camera.alpha=0;camera.beta=1.26;},approachPersonalGate(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=Math.PI/2;camera.alpha=Math.PI;camera.beta=1.26;},approachBell(){mode(true);bell.approach();},sitAtTea(index=0){mode(true);if(bows.active)bows.cancel();finishWorship();tea.sitAt(index);camera.alpha=-Math.PI/2;camera.beta=1.42;},setFace:avatar.setFace,get pose(){return {meditating,face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,bowProgress:worship?Math.min(1,elapsed/4.8):bows.progress,bellProgress:bell.progress,bellHit:bell.hit,drinkLift:tea.lift,beverage:tea.beverage,animation:bell.active?'bell':tea.seated||meditating?'sit':worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
 }

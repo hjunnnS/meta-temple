@@ -1,3 +1,4 @@
+import {privateViews} from './service-ui-controls.mjs';
 import {ensurePrivateTestAccess} from './private-test-access.mjs';
 import assert from 'node:assert/strict';
 import {readFile,readdir,writeFile} from 'node:fs/promises';
@@ -35,7 +36,7 @@ try{
   await page.locator('#private-display-item').selectOption(item.orderId);await page.locator('#private-display-position').selectOption(positions[item.kind]);const saved=page.waitForResponse(r=>r.url().endsWith('/private-room/display')&&r.request().method()==='POST');await page.locator('#private-display-place').click();const response=await saved;assert.equal(response.status(),200,await response.text());placements.push({slotId:positions[item.kind],orderId:item.orderId});
  }
  const get=()=>a.request.get(origin+'/api/service/private-room/display?roomId='+roomId);let snapshot=await (await get()).json();assert.equal(snapshot.placements.length,5);
- await page.locator('#private-display-close').click();await page.locator('[data-room-view=display]').click();await page.waitForTimeout(900);await page.screenshot({path:'evidence/private-display/lamps.jpg',quality:94});
+ await page.locator('#private-display-close').click();await privateViews(page);await page.locator('[data-room-view=display]').click();await page.waitForTimeout(900);await page.screenshot({path:'evidence/private-display/lamps.jpg',quality:94});
  await page.locator('#private-display-open').click();await page.locator('#private-display-item').selectOption(bought.find(i=>i.kind==='candle').orderId);await page.locator('#private-display-position').selectOption('right-2-2');await page.locator('#private-display-close').click();await page.waitForTimeout(700);await page.screenshot({path:'evidence/private-display/plaque-candle.jpg',quality:94});
  // Other owners, fake positions and duplicate purchases cannot be persisted.
  const bRoom=(await (await post(b,'private-room/enter',{})).json()).roomId;

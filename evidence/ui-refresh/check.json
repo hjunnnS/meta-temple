@@ -1,0 +1,154 @@
+{
+  "passed": true,
+  "locales": [
+    {
+      "locale": "ko",
+      "width": 1440,
+      "passed": true,
+      "debugToolsHidden": true,
+      "menuFits": true,
+      "appearanceFits": true,
+      "keyboardEscape": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "ja",
+      "width": 320,
+      "passed": true,
+      "debugToolsHidden": true,
+      "menuFits": true,
+      "appearanceFits": true,
+      "keyboardEscape": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "en",
+      "width": 320,
+      "passed": true,
+      "debugToolsHidden": true,
+      "menuFits": true,
+      "appearanceFits": true,
+      "keyboardEscape": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "zh-Hans",
+      "width": 320,
+      "passed": true,
+      "debugToolsHidden": true,
+      "menuFits": true,
+      "appearanceFits": true,
+      "keyboardEscape": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "pt-PT",
+      "width": 320,
+      "passed": true,
+      "debugToolsHidden": true,
+      "menuFits": true,
+      "appearanceFits": true,
+      "keyboardEscape": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "es",
+      "width": 320,
+      "passed": true,
+      "debugToolsHidden": true,
+      "menuFits": true,
+      "appearanceFits": true,
+      "keyboardEscape": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "fr",
+      "width": 320,
+      "passed": true,
+      "debugToolsHidden": true,
+      "menuFits": true,
+      "appearanceFits": true,
+      "keyboardEscape": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "it",
+      "width": 320,
+      "passed": true,
+      "debugToolsHidden": true,
+      "menuFits": true,
+      "appearanceFits": true,
+      "keyboardEscape": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "pt-BR",
+      "width": 320,
+      "passed": true,
+      "debugToolsHidden": true,
+      "menuFits": true,
+      "appearanceFits": true,
+      "keyboardEscape": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "ms",
+      "width": 320,
+      "passed": true,
+      "debugToolsHidden": true,
+      "menuFits": true,
+      "appearanceFits": true,
+      "keyboardEscape": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "de",
+      "width": 320,
+      "passed": true,
+      "debugToolsHidden": true,
+      "menuFits": true,
+      "appearanceFits": true,
+      "keyboardEscape": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "vi",
+      "width": 320,
+      "passed": true,
+      "debugToolsHidden": true,
+      "menuFits": true,
+      "appearanceFits": true,
+      "keyboardEscape": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "ru",
+      "width": 320,
+      "passed": true,
+      "debugToolsHidden": true,
+      "menuFits": true,
+      "appearanceFits": true,
+      "keyboardEscape": true,
+      "pageErrors": []
+    },
+    {
+      "locale": "tr",
+      "width": 320,
+      "passed": true,
+      "debugToolsHidden": true,
+      "menuFits": true,
+      "appearanceFits": true,
+      "keyboardEscape": true,
+      "pageErrors": []
+    }
+  ],
+  "guestBrowse": true,
+  "reservationLoginOnly": true,
+  "selectedSlotRetained": true,
+  "reservationCancelled": true,
+  "appearanceAndRobe": true,
+  "reviewToolsPreserved": true,
+  "privatePracticeAndDisplay": true,
+  "npcGreeting": true,
+  "touchDirections": true
+}

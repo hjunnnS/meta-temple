@@ -1,3 +1,4 @@
+import {serviceControl} from './service-ui-controls.mjs';
 import {origin,mailbox} from './local-candidate.mjs';
 // Run against the local candidate and its test mailbox. No checkout is performed.
 import assert from 'node:assert/strict';
@@ -17,10 +18,10 @@ try {
    await page.goto(origin);
    await page.locator('.enter-temple').click();
    await page.locator('.entry-overlay').waitFor({state:'detached'});
-   await page.locator('[data-view="officeReception"]').first().click();
+   await serviceControl(page,'#offering-open');
    const panel=page.locator('#reception-panel');
    await panel.getByRole('button',{name:new RegExp('^'+label+' ·')}).click();
-   await panel.getByRole('button',{name:/^7일/}).click();
+
    const choice=panel.locator('select[name=slot]');
    if(label==='연등'){
     const rows=panel.locator('.lantern-plan button');
@@ -41,9 +42,9 @@ try {
     observer=await browser.newPage({locale:'ko-KR',viewport:{width:960,height:720}});
     await observer.goto(origin);await observer.locator('.enter-temple').click();
     await observer.locator('.entry-overlay').waitFor({state:'detached'});
-    await observer.locator('[data-view="officeReception"]').first().click();
+    await observer.locator('#offering-open').click();
     const reception=observer.locator('#reception-panel');
-    await reception.getByRole('button',{name:/^연등 ·/}).click();await reception.getByRole('button',{name:/^7일/}).click();
+    await reception.getByRole('button',{name:/^연등 ·/}).click();
     await reception.locator('.lantern-plan button').nth(1).click();
     watched=reception.locator('[data-slot="'+selected+'"]');await watched.click();
     await reception.locator('textarea').fill('유지할 초안');
@@ -51,7 +52,7 @@ try {
    const message=label+' 시험 신청';
    await panel.locator('textarea').fill(message);
    await panel.getByRole('button',{name:'신청 내용 확인'}).click();
-   assert((await panel.innerText()).includes(selected));
+   assert((await panel.innerText()).includes(selected.split(':').at(-1)));
    assert.equal(attempts.length,0);
    assert.equal(await page.locator('dialog[open]').count(),0);
 
@@ -83,7 +84,7 @@ try {
    await page.bringToFront();
    const cancel=panel.getByRole('button',{name:'예약 취소'});
    await cancel.waitFor();
-   assert((await panel.innerText()).includes(selected));
+   assert((await panel.innerText()).includes(selected.split(':').at(-1)));
    assert.equal(attempts.length,2);
    assert.deepEqual(attempts[1],attempts[0]);
    assert.equal(attempts[1].text,message);

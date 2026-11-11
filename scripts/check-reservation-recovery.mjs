@@ -1,3 +1,4 @@
+import {serviceControl} from './service-ui-controls.mjs';
 import {origin} from './local-candidate.mjs';
 import assert from 'node:assert/strict';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE??'playwright');
@@ -24,7 +25,7 @@ try{
  await page.goto(origin);await page.locator('.enter-temple').click();
  await page.locator('.entry-overlay').waitFor({state:'detached'});
  async function open(){
-  await page.locator('[data-view="officeReception"]').first().click();
+  await serviceControl(page,'#offering-open');
   await panel.getByRole('button',{name:/^연등 ·/}).click();
  }
  await open();
@@ -40,8 +41,16 @@ try{
   await btn('시험 결제하기').click();
   await panel.getByText(end==='installed'?/시험 결제 및 설치 완료/:/환불 완료/).waitFor();
   assert.equal(checks,2);
+  if(end==='installed'){
+   await btn('사찰로 돌아가기').click();
+   assert.equal(await panel.isVisible(),false);
+   assert.equal(await page.locator('#place').inputValue(),'walk');
+   assert.equal(await page.locator('#walk-camera').getAttribute('aria-pressed'),'false');
+   await open();
+   await panel.getByText(/시험 결제 및 설치 완료/).waitFor();
+  }
  }
- await btn('기간권 보기').click();await panel.getByRole('button',{name:/^7일/}).click();
+ await btn('기간권 보기').click();
  await panel.locator('[data-row]:enabled').first().click();
  const seat=panel.locator('[data-slot]:enabled').first();
  chosen=await seat.getAttribute('data-slot');await seat.click();await panel.locator('textarea').fill('작성 중');
@@ -53,7 +62,7 @@ try{
   taken=occupied;offline=false;
   await panel.locator('.lantern-map:not([inert])').waitFor();
   assert.equal(await panel.locator('.lantern-map h3').innerText(),title);
-  assert.equal(await btn('신청 내용 확인').isEnabled(),!occupied);
+  assert.equal(await panel.locator('button.offer-main-action').isEnabled(),!occupied);
   assert.equal(await panel.locator('textarea').inputValue(),'작성 중');
  }
  console.log('PASS: hold countdown and expiry, payment lock, same-order installation/refund after a lost response, map reconnect with free and newly reserved selections');

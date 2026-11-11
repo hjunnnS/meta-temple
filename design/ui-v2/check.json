@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "desktop": 5,
+  "mobile": 5,
+  "map": true,
+  "seatSelection": true,
+  "draftRetained": true,
+  "pageErrors": [],
+  "serviceCodeChanged": false
+}

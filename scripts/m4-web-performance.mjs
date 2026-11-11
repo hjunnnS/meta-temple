@@ -1,3 +1,4 @@
+import {serviceControl} from './service-ui-controls.mjs';
 // Run after npm run candidate. Playwright is a verification tool and is not bundled in the site.
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
@@ -51,9 +52,10 @@ try{
    page.evaluate(()=>new Promise(resolve=>document.querySelector('#diagnostic-dialog').addEventListener('close',()=>resolve(true),{once:true}))),
    page.click('#close-diagnostics')
   ]);
+  if(await page.locator('#review-panel').isVisible())await page.locator('#review-panel > .panel-title button:not(.service-back)').click();
  }
  async function report(){
-  await page.click('#diagnostics');await page.click('#stop');
+  await serviceControl(page,'#settings');await page.click('#review-open');await page.click('#diagnostics');await page.click('#stop');
   const result=JSON.parse(await page.locator('#report').innerText());
   await closeDiagnostics();return result;
  }
@@ -62,10 +64,10 @@ try{
   await writeFile(output+'/'+name+'.json',JSON.stringify({buildDigest,...result,errors},null,2)+'\n');
  }
  async function lighting(time){
-  await page.click('#settings');await page.selectOption('#time',time);await page.click('#close-settings');
+  await serviceControl(page,'#settings');await page.selectOption('#time',time);await page.click('#close-settings');
  }
  async function start(){
-  await page.click('#diagnostics');await page.click('#measure');await closeDiagnostics();
+  await serviceControl(page,'#settings');await page.click('#review-open');await page.click('#diagnostics');await page.click('#measure');await closeDiagnostics();
  }
  async function finish(name){
   const result=await report();
@@ -99,14 +101,14 @@ try{
  }
  await save('loading',{origin,Mbps:20,latencyMs:80,visits});
  if(full){
-  await lighting('night');await page.click('[data-view=canopy]');
+  await lighting('night');await page.locator('#place').evaluate(el=>{el.value='canopy';el.dispatchEvent(new Event('change'));});
   await start();await page.waitForTimeout(15000);await finish('night-led');
-  await lighting('day');await page.click('[data-view=wide]');await page.waitForTimeout(120000);
+  await lighting('day');await page.locator('#place').evaluate(el=>{el.value='wide';el.dispatchEvent(new Event('change'));});await page.waitForTimeout(120000);
   for(const [i,time] of ['day','dusk','night'].entries()){
-   await lighting(time);await page.selectOption('#place','templeApproach');
+   await lighting(time);await page.locator('#place').evaluate(el=>{el.value='templeApproach';el.dispatchEvent(new Event('change'));});
    await start();await page.waitForTimeout(60000);
    for(const view of ['officeReception','canopy','front','detail']){
-    await page.click('[data-view='+view+']');await page.waitForTimeout(60000);
+    await page.locator('#place').evaluate((el,value)=>{el.value=value;el.dispatchEvent(new Event('change'));},view);await page.waitForTimeout(60000);
    }
    await finish('route-'+(i+1));
   }

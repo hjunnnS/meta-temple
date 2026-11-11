@@ -1,0 +1,257 @@
+{
+  "passed": true,
+  "checkedAt": "2026-11-11T07:27:18.425059+00:00",
+  "url": "http://127.0.0.1:4342/",
+  "automatedTests": 68,
+  "assetsAndTypesAndBuild": true,
+  "integration": {
+    "passed": true,
+    "map18": true,
+    "meditationVisibleToPeer": true,
+    "guestMeditationAndStay": true,
+    "guestBow": true,
+    "loginAt108": true,
+    "fiveProductsGuestDraftAndClose": true,
+    "loginResumeAndReservationRestore": true,
+    "offlineDraft": true,
+    "real108BowAndStopSamePlace": true,
+    "settingsReviewSchedule": true,
+    "privatePracticeDisplayAndViews": true,
+    "privateMobile320": true,
+    "pageErrors": []
+  },
+  "languages": {
+    "passed": true,
+    "locales": [
+      {
+        "locale": "ko",
+        "passed": true,
+        "keyboardFocus": true,
+        "dockAndMapAndSettingsFit": true,
+        "noKoreanFallback": true
+      },
+      {
+        "locale": "ja",
+        "passed": true,
+        "keyboardFocus": true,
+        "dockAndMapAndSettingsFit": true,
+        "noKoreanFallback": true
+      },
+      {
+        "locale": "en",
+        "passed": true,
+        "keyboardFocus": true,
+        "dockAndMapAndSettingsFit": true,
+        "noKoreanFallback": true
+      },
+      {
+        "locale": "zh-Hans",
+        "passed": true,
+        "keyboardFocus": true,
+        "dockAndMapAndSettingsFit": true,
+        "noKoreanFallback": true
+      },
+      {
+        "locale": "pt-PT",
+        "passed": true,
+        "keyboardFocus": true,
+        "dockAndMapAndSettingsFit": true,
+        "noKoreanFallback": true
+      },
+      {
+        "locale": "es",
+        "passed": true,
+        "keyboardFocus": true,
+        "dockAndMapAndSettingsFit": true,
+        "noKoreanFallback": true
+      },
+      {
+        "locale": "fr",
+        "passed": true,
+        "keyboardFocus": true,
+        "dockAndMapAndSettingsFit": true,
+        "noKoreanFallback": true
+      },
+      {
+        "locale": "it",
+        "passed": true,
+        "keyboardFocus": true,
+        "dockAndMapAndSettingsFit": true,
+        "noKoreanFallback": true
+      },
+      {
+        "locale": "pt-BR",
+        "passed": true,
+        "keyboardFocus": true,
+        "dockAndMapAndSettingsFit": true,
+        "noKoreanFallback": true
+      },
+      {
+        "locale": "ms",
+        "passed": true,
+        "keyboardFocus": true,
+        "dockAndMapAndSettingsFit": true,
+        "noKoreanFallback": true
+      },
+      {
+        "locale": "de",
+        "passed": true,
+        "keyboardFocus": true,
+        "dockAndMapAndSettingsFit": true,
+        "noKoreanFallback": true
+      },
+      {
+        "locale": "vi",
+        "passed": true,
+        "keyboardFocus": true,
+        "dockAndMapAndSettingsFit": true,
+        "noKoreanFallback": true
+      },
+      {
+        "locale": "ru",
+        "passed": true,
+        "keyboardFocus": true,
+        "dockAndMapAndSettingsFit": true,
+        "noKoreanFallback": true
+      },
+      {
+        "locale": "tr",
+        "passed": true,
+        "keyboardFocus": true,
+        "dockAndMapAndSettingsFit": true,
+        "noKoreanFallback": true
+      }
+    ],
+    "realPhoneTest": false
+  },
+  "availability": true,
+  "recoveryControlledResponses": true,
+  "quoteChangesKoreanJapanese": true,
+  "realPaymentsVerified": false,
+  "realFirebaseProvidersVerified": false,
+  "realMobileDeviceVerified": false,
+  "deployedPublicly": false,
+  "interaction": {
+    "passed": true,
+    "backNavigation": true,
+    "mouseMovement": {
+      "before": [
+        0,
+        0.24499999731779099,
+        -52
+      ],
+      "target": [
+        0.8402211342736217,
+        0.24499999731779054,
+        -49.77513932274411
+      ],
+      "after": [
+        0.7953632783961001,
+        0.24499999731779099,
+        -49.89392097918521
+      ]
+    },
+    "dragDoesNotWalk": true,
+    "receiptReturnsToThirdPerson": true,
+    "signs": [
+      {
+        "name": "sign",
+        "width": 512,
+        "font": "bold 100px serif",
+        "text": "대웅전",
+        "measured": 299.7073059082031
+      },
+      {
+        "name": "label-등 · 소원 접수처",
+        "width": 512,
+        "font": "bold 64px serif",
+        "text": "등 · 소원 접수처",
+        "measured": 447.6252746582031
+      },
+      {
+        "name": "label-기도 · 연등 접수",
+        "width": 512,
+        "font": "bold 64px serif",
+        "text": "기도 · 연등 접수",
+        "measured": 447.6252746582031
+      },
+      {
+        "name": "label-인등전",
+        "width": 512,
+        "font": "bold 68px serif",
+        "text": "인등전",
+        "measured": 203.80096435546875
+      },
+      {
+        "name": "label-종무소",
+        "width": 512,
+        "font": "bold 68px serif",
+        "text": "종무소",
+        "measured": 203.80096435546875
+      },
+      {
+        "name": "label-관음전",
+        "width": 512,
+        "font": "bold 68px serif",
+        "text": "관음전",
+        "measured": 203.80096435546875
+      },
+      {
+        "name": "label-지장전",
+        "width": 512,
+        "font": "bold 68px serif",
+        "text": "지장전",
+        "measured": 203.80096435546875
+      },
+      {
+        "name": "label-일주문",
+        "width": 512,
+        "font": "bold 68px serif",
+        "text": "일주문",
+        "measured": 203.80096435546875
+      },
+      {
+        "name": "label-천왕문",
+        "width": 512,
+        "font": "bold 68px serif",
+        "text": "천왕문",
+        "measured": 203.80096435546875
+      },
+      {
+        "name": "label-범종각",
+        "width": 512,
+        "font": "bold 68px serif",
+        "text": "범종각",
+        "measured": 203.80096435546875
+      }
+    ],
+    "itemDetails": 5,
+    "emptyOrWithdrawnDetailsDoNothing": true,
+    "touchMovement": {
+      "before": [
+        0,
+        0.24499999731779099,
+        -52
+      ],
+      "target": [
+        0.8402221507855933,
+        0.24499999731779099,
+        -49.77513744391808
+      ],
+      "after": [
+        0.7940809448412351,
+        0.24499999731779099,
+        -49.89731693536715
+      ]
+    },
+    "privateTouchMovement": true,
+    "pageErrors": []
+  },
+  "verificationLogs": [
+    "automated-check.txt",
+    "interaction-verification.txt",
+    "integration-verification.txt",
+    "language-verification.txt",
+    "recovery-verification.txt"
+  ]
+}

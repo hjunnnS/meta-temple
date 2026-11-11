@@ -26,8 +26,8 @@ export function privateMeditationPose(body:ReturnType<typeof visitorMesh>,seated
 
 export function privatePractice(body:ReturnType<typeof visitorMesh>,canvas:HTMLCanvasElement,onStart:()=>void){
  const state=privatePracticeState(),panel=document.querySelector('#private-room-controls')!,section=document.createElement('div');section.id='private-practice';section.setAttribute('aria-label',t('개인 수행'));
- section.innerHTML='<button id="private-bow">불단 앞에서 절하기</button><button id="private-meditate">방석에 앉아 명상</button><button id="private-practice-stop" hidden>수행 마치기</button><output id="private-practice-status" aria-live="polite" style="display:block;margin:8px 0;max-width:320px;line-height:1.4"></output>';
- translateMarkup(section);panel.append(section);
+ section.innerHTML='<button id="private-bow">절하기</button><button id="private-meditate">명상하기</button><button id="private-practice-stop" hidden>수행 마치기</button><output id="private-practice-status" aria-live="polite" style="display:block;margin:8px 0;max-width:320px;line-height:1.4"></output>';
+ translateMarkup(section);(panel.querySelector('#private-room-actions')??panel).append(section);
  const bow=section.querySelector<HTMLButtonElement>('#private-bow')!,meditate=section.querySelector<HTMLButtonElement>('#private-meditate')!,stop=section.querySelector<HTMLButtonElement>('#private-practice-stop')!,status=section.querySelector<HTMLOutputElement>('#private-practice-status')!;
  let wasActive=false,clock=0,lastStatus='';
  function reset(){for(const leg of body.legs){leg.rotationQuaternion=null;leg.rotation.setAll(0);}for(const shin of body.shins){shin.rotationQuaternion=null;shin.rotation.setAll(0);}body.bow(0);body.chest.scaling.y=1;}
