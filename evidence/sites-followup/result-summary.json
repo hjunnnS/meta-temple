@@ -665,5 +665,17 @@
   "testedSitesVersion": 2,
   "actualPayments": false,
   "realMobileDeviceVerified": false,
-  "multiplayer": false
+  "multiplayer": false,
+  "finalPublication": {
+    "siteUrl": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+    "version": 3,
+    "deployedSourceCommit": "116d2f4ad02595b7fd63132000c26059304842f7",
+    "deploymentId": "appgdep_6af4370cdef081918eccc580066d1a8c",
+    "status": "succeeded",
+    "anonymousHttpStatus": 200,
+    "performanceBuildFingerprint": "f6e27e9056571995dffc7b0a755f14c66003be9c717fed883bcb2953cb094ad4",
+    "identicalToMeasuredAssets": true,
+    "artifactHash": "sha256:482cf785a5d06a4c62d740468b1eb9f5376dadf7c259869b37d46a5abceb5e44",
+    "verifiedAt": "2026-11-11T09:37:16.446Z"
+  }
 }
