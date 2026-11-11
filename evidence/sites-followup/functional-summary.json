@@ -1,0 +1,299 @@
+{
+  "functionalPassed": true,
+  "unitTests": 4,
+  "freshDirectoryInstallAndBuild": true,
+  "baseTrial": {
+    "passed": true,
+    "fiveItemsAndGuestResume": true,
+    "realBowAndLight": true,
+    "reloadRetainsItemsAndDisplay": true,
+    "scheduleAndNight": true,
+    "mobileGuestPracticeResume": true,
+    "apiNetworkRequests": [],
+    "pageErrors": [],
+    "failedAssets": [],
+    "actualPayments": false,
+    "multiplayer": false
+  },
+  "expanded": {
+    "passed": true,
+    "url": "http://127.0.0.1:4355",
+    "results": [
+      {
+        "touch": false,
+        "clickOrTouchMovement": true,
+        "bellAudioAndCancel": true,
+        "teaAndCoffee": true,
+        "coinCountdown": true,
+        "monkCaptionAndAudio": true,
+        "extendedWalkAndReturn": true,
+        "errors": [],
+        "apiNetworkRequests": [],
+        "audioSources": [
+          {
+            "duration": 12,
+            "at": 6699.199999928474
+          },
+          {
+            "duration": 2.8793333333333333,
+            "at": 26866.899999976158
+          }
+        ]
+      },
+      {
+        "touch": true,
+        "clickOrTouchMovement": true,
+        "bellAudioAndCancel": true,
+        "teaAndCoffee": true,
+        "coinCountdown": true,
+        "monkCaptionAndAudio": true,
+        "extendedWalkAndReturn": true,
+        "errors": [],
+        "apiNetworkRequests": [],
+        "audioSources": [
+          {
+            "duration": 12,
+            "at": 12935.099999904633
+          },
+          {
+            "duration": 2.8793333333333333,
+            "at": 33069.5
+          }
+        ]
+      }
+    ]
+  },
+  "locales": {
+    "passed": true,
+    "locales": [
+      {
+        "locale": "ko",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "fiveApplications": true,
+        "guestSelectionResumed": true,
+        "trialCopyTranslated": true,
+        "inputPreserved": true,
+        "displayPersisted": true,
+        "languageRestored": true,
+        "backAndKeyboardFocus": true,
+        "controlsFit": true,
+        "pageErrors": []
+      },
+      {
+        "locale": "ja",
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "fiveApplications": true,
+        "guestSelectionResumed": true,
+        "trialCopyTranslated": true,
+        "inputPreserved": true,
+        "displayPersisted": true,
+        "languageRestored": true,
+        "backAndKeyboardFocus": true,
+        "controlsFit": true,
+        "pageErrors": []
+      },
+      {
+        "locale": "en",
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "fiveApplications": true,
+        "guestSelectionResumed": true,
+        "trialCopyTranslated": true,
+        "inputPreserved": true,
+        "displayPersisted": true,
+        "languageRestored": true,
+        "backAndKeyboardFocus": true,
+        "controlsFit": true,
+        "pageErrors": []
+      },
+      {
+        "locale": "zh-Hans",
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "fiveApplications": true,
+        "guestSelectionResumed": true,
+        "trialCopyTranslated": true,
+        "inputPreserved": true,
+        "displayPersisted": true,
+        "languageRestored": true,
+        "backAndKeyboardFocus": true,
+        "controlsFit": true,
+        "pageErrors": []
+      },
+      {
+        "locale": "pt-PT",
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "fiveApplications": true,
+        "guestSelectionResumed": true,
+        "trialCopyTranslated": true,
+        "inputPreserved": true,
+        "displayPersisted": true,
+        "languageRestored": true,
+        "backAndKeyboardFocus": true,
+        "controlsFit": true,
+        "pageErrors": []
+      },
+      {
+        "locale": "es",
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "fiveApplications": true,
+        "guestSelectionResumed": true,
+        "trialCopyTranslated": true,
+        "inputPreserved": true,
+        "displayPersisted": true,
+        "languageRestored": true,
+        "backAndKeyboardFocus": true,
+        "controlsFit": true,
+        "pageErrors": []
+      },
+      {
+        "locale": "fr",
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "fiveApplications": true,
+        "guestSelectionResumed": true,
+        "trialCopyTranslated": true,
+        "inputPreserved": true,
+        "displayPersisted": true,
+        "languageRestored": true,
+        "backAndKeyboardFocus": true,
+        "controlsFit": true,
+        "pageErrors": []
+      },
+      {
+        "locale": "it",
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "fiveApplications": true,
+        "guestSelectionResumed": true,
+        "trialCopyTranslated": true,
+        "inputPreserved": true,
+        "displayPersisted": true,
+        "languageRestored": true,
+        "backAndKeyboardFocus": true,
+        "controlsFit": true,
+        "pageErrors": []
+      },
+      {
+        "locale": "pt-BR",
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "fiveApplications": true,
+        "guestSelectionResumed": true,
+        "trialCopyTranslated": true,
+        "inputPreserved": true,
+        "displayPersisted": true,
+        "languageRestored": true,
+        "backAndKeyboardFocus": true,
+        "controlsFit": true,
+        "pageErrors": []
+      },
+      {
+        "locale": "ms",
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "fiveApplications": true,
+        "guestSelectionResumed": true,
+        "trialCopyTranslated": true,
+        "inputPreserved": true,
+        "displayPersisted": true,
+        "languageRestored": true,
+        "backAndKeyboardFocus": true,
+        "controlsFit": true,
+        "pageErrors": []
+      },
+      {
+        "locale": "de",
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "fiveApplications": true,
+        "guestSelectionResumed": true,
+        "trialCopyTranslated": true,
+        "inputPreserved": true,
+        "displayPersisted": true,
+        "languageRestored": true,
+        "backAndKeyboardFocus": true,
+        "controlsFit": true,
+        "pageErrors": []
+      },
+      {
+        "locale": "vi",
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "fiveApplications": true,
+        "guestSelectionResumed": true,
+        "trialCopyTranslated": true,
+        "inputPreserved": true,
+        "displayPersisted": true,
+        "languageRestored": true,
+        "backAndKeyboardFocus": true,
+        "controlsFit": true,
+        "pageErrors": []
+      },
+      {
+        "locale": "ru",
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "fiveApplications": true,
+        "guestSelectionResumed": true,
+        "trialCopyTranslated": true,
+        "inputPreserved": true,
+        "displayPersisted": true,
+        "languageRestored": true,
+        "backAndKeyboardFocus": true,
+        "controlsFit": true,
+        "pageErrors": []
+      },
+      {
+        "locale": "tr",
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "fiveApplications": true,
+        "guestSelectionResumed": true,
+        "trialCopyTranslated": true,
+        "inputPreserved": true,
+        "displayPersisted": true,
+        "languageRestored": true,
+        "backAndKeyboardFocus": true,
+        "controlsFit": true,
+        "pageErrors": []
+      }
+    ],
+    "blockedStorageTranslated": true,
+    "saveErrorTranslated": true,
+    "realPhoneTest": false
+  },
+  "hostedLongPerformance": "pending on updated deployment"
+}

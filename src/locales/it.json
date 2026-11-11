@@ -298,5 +298,21 @@
   "신청 내용": "Richiesta",
   "확인·예약": "Verifica · Prenota",
   "뒤로": "Indietro",
-  "바닥을 클릭하거나 터치해 이동하고, 드래그해 둘러보세요.": "Clicca o tocca il terreno per muoverti e trascina per guardarti intorno."
+  "바닥을 클릭하거나 터치해 이동하고, 드래그해 둘러보세요.": "Clicca o tocca il terreno per muoverti e trascina per guardarti intorno.",
+  "사사 · 개인 체험판": "SASA · Prova personale",
+  "체험판 안내": "Informazioni sulla prova",
+  "체험판 안내 닫기": "Chiudi le informazioni sulla prova",
+  "실제 결제 없음 · 각자 체험하는 공간": "Nessun pagamento reale · Esperienza individuale",
+  "신청·배치는 이 브라우저에만 저장됩니다.": "Le richieste e la disposizione vengono salvate solo in questo browser.",
+  "브라우저 저장을 사용할 수 없어 창을 닫으면 기록이 사라집니다.": "L’archiviazione non è disponibile. Chiudendo la finestra perderai i dati.",
+  "나의 체험": "La mia prova",
+  "이메일·비밀번호 입력 없이 이 브라우저에서만 체험합니다. 실제 로그인이나 구매가 아닙니다.": "Prova in questo browser senza e-mail o password. Non si tratta di un accesso o di un acquisto reale.",
+  "체험을 시작하면 다섯 아이템의 샘플과 개인 공간을 이용할 수 있습니다.": "Avvia la prova per usare cinque oggetti dimostrativi e il tuo spazio personale.",
+  "체험 시작": "Avvia prova",
+  "체험 잠시 나가기": "Esci per ora",
+  "이 브라우저의 체험 기록 초기화": "Reimposta i dati della prova in questo browser",
+  "내 체험 아이템 {count}개": "I miei oggetti di prova: {count}",
+  "개인정보 없이 체험을 시작하세요.": "Inizia senza inserire dati personali.",
+  "체험 기록을 저장하지 못했습니다. 브라우저 설정을 확인해 주세요.": "Impossibile salvare i dati. Controlla le impostazioni del browser.",
+  "이 브라우저의 체험 신청과 개인 공간 배치를 초기화할까요?": "Reimpostare le richieste e la disposizione dello spazio personale in questo browser?"
 }

@@ -298,5 +298,21 @@
   "신청 내용": "Demande",
   "확인·예약": "Vérifier · Réserver",
   "뒤로": "Retour",
-  "바닥을 클릭하거나 터치해 이동하고, 드래그해 둘러보세요.": "Cliquez ou touchez le sol pour avancer et faites glisser pour regarder autour."
+  "바닥을 클릭하거나 터치해 이동하고, 드래그해 둘러보세요.": "Cliquez ou touchez le sol pour avancer et faites glisser pour regarder autour.",
+  "사사 · 개인 체험판": "SASA · Essai personnel",
+  "체험판 안내": "Informations sur l’essai",
+  "체험판 안내 닫기": "Fermer les informations sur l’essai",
+  "실제 결제 없음 · 각자 체험하는 공간": "Aucun paiement réel · Expérience individuelle",
+  "신청·배치는 이 브라우저에만 저장됩니다.": "Les demandes et les aménagements sont enregistrés uniquement dans ce navigateur.",
+  "브라우저 저장을 사용할 수 없어 창을 닫으면 기록이 사라집니다.": "Le stockage est indisponible. Fermer cette fenêtre effacera votre progression.",
+  "나의 체험": "Mon essai",
+  "이메일·비밀번호 입력 없이 이 브라우저에서만 체험합니다. 실제 로그인이나 구매가 아닙니다.": "Essayez dans ce navigateur sans e-mail ni mot de passe. Il ne s’agit ni d’une connexion ni d’un achat réels.",
+  "체험을 시작하면 다섯 아이템의 샘플과 개인 공간을 이용할 수 있습니다.": "Démarrez l’essai pour utiliser cinq objets de démonstration et votre espace personnel.",
+  "체험 시작": "Démarrer l’essai",
+  "체험 잠시 나가기": "Quitter pour le moment",
+  "이 브라우저의 체험 기록 초기화": "Réinitialiser les données d’essai de ce navigateur",
+  "내 체험 아이템 {count}개": "Mes objets d’essai : {count}",
+  "개인정보 없이 체험을 시작하세요.": "Commencez sans saisir de données personnelles.",
+  "체험 기록을 저장하지 못했습니다. 브라우저 설정을 확인해 주세요.": "Impossible d’enregistrer les données. Vérifiez les paramètres du navigateur.",
+  "이 브라우저의 체험 신청과 개인 공간 배치를 초기화할까요?": "Réinitialiser les demandes et l’aménagement de votre espace personnel dans ce navigateur ?"
 }

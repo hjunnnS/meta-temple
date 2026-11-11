@@ -298,5 +298,21 @@
   "신청 내용": "Pedido",
   "확인·예약": "Rever · Reservar",
   "뒤로": "Voltar",
-  "바닥을 클릭하거나 터치해 이동하고, 드래그해 둘러보세요.": "Clique ou toque no chão para andar e arraste para olhar em redor."
+  "바닥을 클릭하거나 터치해 이동하고, 드래그해 둘러보세요.": "Clique ou toque no chão para andar e arraste para olhar em redor.",
+  "사사 · 개인 체험판": "SASA · Experiência pessoal",
+  "체험판 안내": "Informações da experiência",
+  "체험판 안내 닫기": "Fechar informações da experiência",
+  "실제 결제 없음 · 각자 체험하는 공간": "Sem pagamentos reais · Experiência individual",
+  "신청·배치는 이 브라우저에만 저장됩니다.": "Os pedidos e a disposição ficam guardados apenas neste navegador.",
+  "브라우저 저장을 사용할 수 없어 창을 닫으면 기록이 사라집니다.": "O armazenamento não está disponível. Ao fechar a janela, os registos serão perdidos.",
+  "나의 체험": "A minha experiência",
+  "이메일·비밀번호 입력 없이 이 브라우저에서만 체험합니다. 실제 로그인이나 구매가 아닙니다.": "Experimente neste navegador sem e-mail nem palavra-passe. Não é um início de sessão nem uma compra real.",
+  "체험을 시작하면 다섯 아이템의 샘플과 개인 공간을 이용할 수 있습니다.": "Inicie a experiência para utilizar cinco itens de exemplo e o seu espaço pessoal.",
+  "체험 시작": "Iniciar experiência",
+  "체험 잠시 나가기": "Sair por agora",
+  "이 브라우저의 체험 기록 초기화": "Repor os dados da experiência neste navegador",
+  "내 체험 아이템 {count}개": "Os meus itens de experiência: {count}",
+  "개인정보 없이 체험을 시작하세요.": "Comece sem introduzir dados pessoais.",
+  "체험 기록을 저장하지 못했습니다. 브라우저 설정을 확인해 주세요.": "Não foi possível guardar os dados. Verifique as definições do navegador.",
+  "이 브라우저의 체험 신청과 개인 공간 배치를 초기화할까요?": "Repor os pedidos e a disposição do espaço pessoal neste navegador?"
 }

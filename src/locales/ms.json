@@ -298,5 +298,21 @@
   "신청 내용": "Permohonan",
   "확인·예약": "Semak · Tempah",
   "뒤로": "Kembali",
-  "바닥을 클릭하거나 터치해 이동하고, 드래그해 둘러보세요.": "Klik atau sentuh tanah untuk bergerak, dan seret untuk melihat sekeliling."
+  "바닥을 클릭하거나 터치해 이동하고, 드래그해 둘러보세요.": "Klik atau sentuh tanah untuk bergerak, dan seret untuk melihat sekeliling.",
+  "사사 · 개인 체험판": "SASA · Percubaan peribadi",
+  "체험판 안내": "Maklumat percubaan",
+  "체험판 안내 닫기": "Tutup maklumat percubaan",
+  "실제 결제 없음 · 각자 체험하는 공간": "Tiada bayaran sebenar · Pengalaman sendiri",
+  "신청·배치는 이 브라우저에만 저장됩니다.": "Permohonan dan susunan hanya disimpan dalam pelayar ini.",
+  "브라우저 저장을 사용할 수 없어 창을 닫으면 기록이 사라집니다.": "Storan pelayar tidak tersedia. Rekod akan hilang apabila tetingkap ditutup.",
+  "나의 체험": "Percubaan saya",
+  "이메일·비밀번호 입력 없이 이 브라우저에서만 체험합니다. 실제 로그인이나 구매가 아닙니다.": "Cuba dalam pelayar ini tanpa e-mel atau kata laluan. Ini bukan log masuk atau pembelian sebenar.",
+  "체험을 시작하면 다섯 아이템의 샘플과 개인 공간을 이용할 수 있습니다.": "Mulakan percubaan untuk menggunakan lima item contoh dan ruang peribadi anda.",
+  "체험 시작": "Mulakan percubaan",
+  "체험 잠시 나가기": "Keluar buat sementara",
+  "이 브라우저의 체험 기록 초기화": "Tetapkan semula rekod percubaan pelayar ini",
+  "내 체험 아이템 {count}개": "Item percubaan saya: {count}",
+  "개인정보 없이 체험을 시작하세요.": "Mula tanpa memasukkan maklumat peribadi.",
+  "체험 기록을 저장하지 못했습니다. 브라우저 설정을 확인해 주세요.": "Rekod tidak dapat disimpan. Semak tetapan pelayar anda.",
+  "이 브라우저의 체험 신청과 개인 공간 배치를 초기화할까요?": "Tetapkan semula permohonan dan susunan ruang peribadi dalam pelayar ini?"
 }

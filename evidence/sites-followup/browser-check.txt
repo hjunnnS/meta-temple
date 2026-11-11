@@ -1,0 +1,21 @@
+
+> meta-temple@0.1.0 check:browser
+> node scripts/run-browser-checks.mjs
+
+PASS browser-local trial, five purchases, guest continuation, bowing, private display persistence, schedule/night and mobile
+PASS extended trial desktop
+PASS extended trial touch
+PASS trial locale ko
+PASS trial locale ja
+PASS trial locale en
+PASS trial locale zh-Hans
+PASS trial locale pt-PT
+PASS trial locale es
+PASS trial locale fr
+PASS trial locale it
+PASS trial locale pt-BR
+PASS trial locale ms
+PASS trial locale de
+PASS trial locale vi
+PASS trial locale ru
+PASS trial locale tr
