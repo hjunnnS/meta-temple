@@ -1,0 +1,11 @@
+.face-dialog{box-sizing:border-box;width:min(26rem,92vw);max-height:85dvh;overflow:auto;padding:1rem;color:#343b34;background:#faf6ea;border:1px solid #c4b898;border-radius:12px}
+.face-dialog::backdrop{background:#14231fcc}
+.face-dialog header{position:static;display:flex;align-items:center;justify-content:space-between;padding:0 0 .75rem;color:inherit;background:none;pointer-events:auto}
+.face-dialog h2{font:500 1.35rem serif;margin:0}
+.face-dialog button{color:inherit;background:#fffdf6;border:1px solid #cfc6ae;border-radius:.45rem;padding:.45rem;cursor:pointer}
+.face-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.35rem}
+.face-grid button{display:grid;gap:.15rem;justify-items:center;font-size:.85rem}
+.face-grid span{font-size:1.35rem}
+.face-grid button:first-child{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.face-grid button[aria-pressed=true]{background:#dfebdf;border-color:#54715d}
+.face-dialog button:focus-visible{outline:3px solid #956c28;outline-offset:1px}

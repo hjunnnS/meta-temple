@@ -1,0 +1,7 @@
+#sweeper-greet{position:fixed;right:24px;bottom:126px;z-index:21;max-width:calc(100vw - 32px);min-height:44px;padding:12px 18px;border:1px solid #bda36d;border-radius:12px;background:#f2e8d3;color:#294337;font:15px sans-serif}
+#sweeper-greet:focus-visible{outline:3px solid #ffce65;outline-offset:3px}
+#sweeper-greet:disabled{opacity:.7}
+#sweeper-caption{position:fixed;left:0;top:0;z-index:22;pointer-events:none;max-width:calc(100vw - 32px);padding:12px 18px;border-radius:18px;background:#fff9e9;color:#344735;border:1px solid #b6a07a;box-shadow:0 5px 18px #16271f33;font:18px/1.5 serif;white-space:normal;text-align:center}
+#sweeper-caption:after{content:'';position:absolute;left:calc(50% - 7px);bottom:-8px;width:13px;height:13px;background:#fff9e9;border-right:1px solid #b6a07a;border-bottom:1px solid #b6a07a;transform:rotate(45deg)}
+#sweeper-caption[hidden],#sweeper-greet[hidden],body.in-private-room #sweeper-caption,body.in-private-room #sweeper-greet{display:none!important}
+@media(max-width:600px){#sweeper-greet{right:12px;bottom:205px;padding:10px 14px;font-size:14px}#sweeper-caption{font-size:16px}}

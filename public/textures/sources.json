@@ -1,0 +1,166 @@
+[
+  {
+    "file": "public/textures/wood_planks_dirt_diff_1k.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_planks_dirt/wood_planks_dirt_diff_1k.jpg",
+    "sha256": "230bb4aabaebde24ead3ae593a48f8f45e93705aaf3cfdc438589bb49c2a7af3",
+    "credit": "Rob Tuytel",
+    "rights": "CC0-1.0",
+    "material": "diffuse-srgb",
+    "bytes": 918123
+  },
+  {
+    "file": "public/textures/wood_planks_dirt_nor_gl_1k.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_planks_dirt/wood_planks_dirt_nor_gl_1k.jpg",
+    "sha256": "877bf561c0bc83a583238c5133c221026ff25052f8f567174c6b285af4b74f0e",
+    "credit": "Rob Tuytel",
+    "rights": "CC0-1.0",
+    "material": "normal-gl",
+    "bytes": 515002
+  },
+  {
+    "file": "public/textures/stone_wall_nor_gl_1k.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/stone_wall/stone_wall_nor_gl_1k.jpg",
+    "sha256": "801d7ff8bc472e5ad95872546c19a4c63cc776060b4ced629fece2d08591964e",
+    "credit": "Charlotte Baglioni / Dario Barresi",
+    "rights": "CC0-1.0",
+    "material": "normal-gl",
+    "bytes": 1172420
+  },
+  {
+    "file": "public/textures/stone_wall_diff_1k.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/stone_wall/stone_wall_diff_1k.jpg",
+    "sha256": "390969aead48d9a10ac731a5e0af8761cc4ed89faa02ba775b913930b4398d87",
+    "credit": "Charlotte Baglioni / Dario Barresi",
+    "rights": "CC0-1.0",
+    "material": "diffuse-srgb",
+    "bytes": 836975
+  },
+  {
+    "file": "public/textures/grey_roof_tiles_nor_gl_1k.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grey_roof_tiles/grey_roof_tiles_nor_gl_1k.jpg",
+    "sha256": "99546fdc2978d0950a2c61fe94dbd4230bb7825944bb4e4e7ad586839fdc721d",
+    "credit": "Rob Tuytel",
+    "rights": "CC0-1.0",
+    "material": "normal-gl",
+    "bytes": 522186
+  },
+  {
+    "file": "public/textures/grey_roof_tiles_diff_1k.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grey_roof_tiles/grey_roof_tiles_diff_1k.jpg",
+    "sha256": "f61107b70cf56074c9db09384a332620c94c678ed2baabfae78029a8242e49a3",
+    "credit": "Rob Tuytel",
+    "rights": "CC0-1.0",
+    "material": "diffuse-srgb",
+    "bytes": 596156
+  },
+  {
+    "file": "public/textures/rock_face_nor_gl_1k.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rock_face/rock_face_nor_gl_1k.jpg",
+    "sha256": "e2682e1286c8b6aca7e01ba7b8fe1726cb6606042b9ee70d097aa67470d410ef",
+    "credit": "Greg Zaal",
+    "rights": "CC0-1.0",
+    "material": "normal-gl",
+    "bytes": 1139857
+  },
+  {
+    "file": "public/textures/rock_face_diff_1k.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rock_face/rock_face_diff_1k.jpg",
+    "sha256": "cce4b50517161264bdef196f5e247e328ca3739083cd6044ad3cc54d88cb82e2",
+    "credit": "Greg Zaal",
+    "rights": "CC0-1.0",
+    "material": "diffuse-srgb",
+    "bytes": 732721
+  },
+  {
+    "file": "public/textures/flagstone-gray.jpg",
+    "source": "public/textures/rock_face_diff_1k.jpg",
+    "credit": "Greg Zaal / 사사 밝기·대비 조정",
+    "rights": "CC0-1.0",
+    "material": "diffuse-srgb",
+    "bytes": 67864,
+    "sha256": "0054bf6b12cf39e6a08b8ebc9f9561b74056d115cf5bffa9186eca1c7c99817f"
+  },
+  {
+    "file": "public/textures/hanji-fibres-generated-v1.png",
+    "source": "docs/hanji-study-01.md",
+    "credit": "사사 프로젝트 · 생성 텍스처",
+    "rights": "project-generated",
+    "material": "hanji-fibre",
+    "bytes": 2520050,
+    "sha256": "01618c755f23f23f2d7b4d478f43c9c23b843c7189921389b46d73973b9a7691"
+  },
+  {
+    "file": "public/entry-cheonwang.jpg",
+    "source": "src/language.css",
+    "sha256": "1b2e383d336d291685d1dadc4667c841a3e7d114be8272779c2f9a265c31c054",
+    "credit": "사사 프로젝트",
+    "rights": "프로젝트 자체 제작 장면 캡처",
+    "material": "entry-background-srgb",
+    "bytes": 221099
+  },
+  {
+    "file": "public/ceremonies/bell.mp3",
+    "bytes": 64388,
+    "sha256": "5d00a9bc15ef04c8538426a05d8b68eb220e2d6ed0dc16e60f95e62938a42a7a",
+    "source": "scripts/make-ceremony-audio.py",
+    "credit": "사사 임시 한국어 안내 · macOS Yuna 음성 합성 및 자체 합성 타악음",
+    "rights": "비공개 후보 검수용 임시 음성. 공개 전 제작 음원으로 교체."
+  },
+  {
+    "file": "public/ceremonies/bow.mp3",
+    "bytes": 66164,
+    "sha256": "c6da6de0bad82a682431c09792939d4ba699878dce1be2544d311ea8df711226",
+    "source": "scripts/make-ceremony-audio.py",
+    "credit": "사사 임시 한국어 안내 · macOS Yuna 음성 합성 및 자체 합성 타악음",
+    "rights": "비공개 후보 검수용 임시 음성. 공개 전 제작 음원으로 교체."
+  },
+  {
+    "file": "public/ceremonies/chant.mp3",
+    "bytes": 157892,
+    "sha256": "f46d2fe30ab51aa088a11da574c9d685bcd04f7387ca5485b8ae35c6af73910f",
+    "source": "scripts/make-ceremony-audio.py",
+    "credit": "사사 임시 한국어 남성 낭독 · macOS Reed 음성 합성 및 자체 합성 목탁음",
+    "rights": "비공개 후보 검수용 임시 음성. 공개 전 제작 음원으로 교체."
+  },
+  {
+    "file": "public/ceremonies/moktak.mp3",
+    "bytes": 68708,
+    "sha256": "5baf72ad7f12f1ec7a0db49deb8828a1e8777cbc975061cedd4a53a56c58b6da",
+    "source": "scripts/make-ceremony-audio.py",
+    "credit": "사사 임시 한국어 안내 · macOS Yuna 음성 합성 및 자체 합성 타악음",
+    "rights": "비공개 후보 검수용 임시 음성. 공개 전 제작 음원으로 교체."
+  },
+  {
+    "file": "public/ceremonies/palms.mp3",
+    "bytes": 60260,
+    "sha256": "990e356c848ef38489e028f703959fa34836ce36cd635ffa4235853ceb49f4f8",
+    "source": "scripts/make-ceremony-audio.py",
+    "credit": "사사 임시 한국어 안내 · macOS Yuna 음성 합성 및 자체 합성 타악음",
+    "rights": "비공개 후보 검수용 임시 음성. 공개 전 제작 음원으로 교체."
+  },
+  {
+    "file": "public/ceremonies/wish.mp3",
+    "bytes": 63980,
+    "sha256": "35e1fd4c0da07b25ce9b7e6c51a25616fc4f091b57c68f43e0923a5280666ce3",
+    "source": "scripts/make-ceremony-audio.py",
+    "credit": "사사 임시 한국어 안내 · macOS Yuna 음성 합성 및 자체 합성 타악음",
+    "rights": "비공개 후보 검수용 임시 음성. 공개 전 제작 음원으로 교체."
+  },
+  {
+    "file": "public/entry-mountains.jpg",
+    "source": "src/scene.ts",
+    "sha256": "2d050673843a4a173be21fe0ee246c2ae3e0048a24ed5fefe557662aa5856e5f",
+    "credit": "사사 프로젝트 자체 3D 장면 촬영",
+    "rights": "프로젝트 자체 제작",
+    "material": "언어 선택 화면의 산 배경 사찰",
+    "bytes": 210855
+  },
+  {
+    "file": "public/ceremonies/monk-greeting.mp3",
+    "bytes": 15308,
+    "sha256": "ba23c30f558d5f14dc89105b92f345457fb0d08116103eb8e3e4349168a0cbf8",
+    "source": "scripts/make-sweeper-voice.py",
+    "credit": "사사 뒤뜰 스님 인사 · 기존 승인된 macOS Reed 한국어 중저음 음성",
+    "rights": "비공개 로컬 검수용 임시 합성 음성. 기존 예불 음성과 동일한 제작 기준."
+  }
+]

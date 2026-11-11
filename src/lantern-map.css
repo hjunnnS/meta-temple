@@ -1,0 +1,16 @@
+#reception-panel:has(.lantern-map){width:min(420px,calc(100vw - 40px));box-sizing:border-box;max-height:calc(100dvh - 180px);overflow:auto}
+.lantern-map{background:#faf5e9;color:#273c32;border-radius:6px;padding:14px;margin:8px 0}
+.lantern-map h3{margin:0;font:600 18px serif}
+#reception-panel .lantern-map p{margin:5px 0}
+.lantern-plan{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(80px,100%),1fr));gap:4px}
+#reception-panel .lantern-plan button{display:grid;grid-template-columns:10px 1fr;align-items:center;gap:2px;background:#fffaf0;color:#273c32;border:1px solid #b9b298;border-radius:4px;margin:0;padding:5px;min-height:46px}
+.lantern-plan small{font-size:.75rem}.row-strip{grid-row:span 2;position:relative;height:36px}
+.lantern-plan button:disabled{opacity:.65}
+#reception-panel .lantern-map button:focus-visible{outline:3px solid #356440;outline-offset:-3px}
+.lantern-plan i{position:absolute;width:8px;height:2px;left:0;border-radius:2px}
+.lantern-seats{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+#reception-panel .lantern-seats button{border:1px solid #b9b298;border-top:4px solid var(--dye);padding:3px;margin:0;background:#fffaf0}
+.lantern-seats button small{display:block;font-size:10px}
+#reception-panel .lantern-seats button[aria-pressed=true]{background:#284b3f;color:white}
+.lantern-seats button:disabled{opacity:.6}
+#reception-panel form label[hidden]{display:none}
