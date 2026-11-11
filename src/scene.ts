@@ -11,6 +11,8 @@ import { seatedFigure } from './gilt-figure.ts';
 import { createGwaneumAltar } from './gwaneum-altar.ts';
 import { furnishHall } from './hall-interior.ts';
 import { placeExperienceSpaces } from './experience-spaces';
+import {sweepingMonk} from './sweeping-monk';
+import {sweepingMonkSite} from './temple-terrain';
 import { mountainLandscape } from './mountain-landscape';
 import { distanceTrees } from './tree-distance';
 import { furnishPond } from './pond';
@@ -1013,6 +1015,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  // Merge static geometry by material. Shadow lists are rebuilt to avoid disposed casters.
  const walkWorld=pedestrianWorld(staticMeshes);
  const walking=walkingController(scene,camera,canvas,walkWorld,bellVisual);
+ const sweeper=sweepingMonk(scene,camera,canvas,()=>walking.position);
  const entryTexture=new DynamicTexture('door-direction',128,scene,false);
  const pen=entryTexture.getContext() as CanvasRenderingContext2D;
  pen.strokeStyle='#ffe1a3';pen.shadowColor='#ffcb75';pen.shadowBlur=7;pen.lineWidth=3;pen.lineCap='round';
@@ -1055,6 +1058,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   }
  }
  batchArchitecture(staticMeshes.filter(mesh=>mesh.isVisible),false);batchArchitecture(displayFixtures,true);
+ for(const mesh of sweeper.getChildMeshes())shadows.addShadowCaster(mesh);
  const updateTrees=distanceTrees(scene,shadows);
  pondMirror.renderList=scene.meshes.filter(mesh=>mesh.material===paleStone||mesh.material===insetStone||mesh.name==='open-sky');
  const luminousWindows=scene.meshes.find(mesh=>mesh.material===lampCore);
@@ -1408,6 +1412,10 @@ export function createTemple(canvas:HTMLCanvasElement) {
   if(name==='sanctuaryWalk'){
    camera.fov=.95;camera.setTarget(new Vector3(8,0,62));
    camera.setPosition(new Vector3(-28,37,78));return;
+  }
+  if(name==='sweepingMonk'){
+   camera.fov=.75;camera.setTarget(new Vector3(sweepingMonkSite.x,1.0,sweepingMonkSite.z));
+   camera.setPosition(new Vector3(sweepingMonkSite.x+3.1,2.05,sweepingMonkSite.z+4.5));return;
   }
   if(name==='forestBuddha'){
    camera.fov=.80;camera.setTarget(new Vector3(buddha.x,8.1,buddha.z));

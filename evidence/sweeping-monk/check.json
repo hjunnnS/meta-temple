@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "sweeping": true,
+  "clickAndPalms": true,
+  "caption": true,
+  "localMaleVoice": true,
+  "duplicateClicksIgnored": true,
+  "returnsToSweeping": true,
+  "hiddenTabCancels": true,
+  "distantInteractionHidden": true,
+  "masterMute": true,
+  "volumeRestored": true,
+  "privateScopeCancels": true,
+  "recordedAudioTracks": 1,
+  "pageErrors": []
+}

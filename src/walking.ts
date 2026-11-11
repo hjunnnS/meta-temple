@@ -16,6 +16,7 @@ import type { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { templePlaces } from './temple-layout.ts';
+import {sweepingMonkSite} from './temple-terrain';
 import { insideGround, insideBoundary, paving, eastCourts, personalGate } from './temple-terrain.ts';
 
 export const visitorSize={height:1.7,width:.65} as const;
@@ -57,7 +58,7 @@ export function pedestrianWorld(parts:Mesh[]){
   return y;
  }
  function blocked(x:number,y:number,z:number){
-  return !insideGround(x,z,radius)||withinStatue(x,y,z,radius)||solids.some(r=>x>r.x0-radius&&x<r.x1+radius&&z>r.z0-radius&&z<r.z1+radius&&y<r.top&&y+visitorSize.height>r.bottom);
+  return !insideGround(x,z,radius)||Math.hypot(x-sweepingMonkSite.x,z-sweepingMonkSite.z)<.42+radius||withinStatue(x,y,z,radius)||solids.some(r=>x>r.x0-radius&&x<r.x1+radius&&z>r.z0-radius&&z<r.z1+radius&&y<r.top&&y+visitorSize.height>r.bottom);
  }
  function cameraLimit(target:Vector3,alpha:number,beta:number,length:number){
   const dx=Math.cos(alpha)*Math.sin(beta),dy=Math.cos(beta),dz=Math.sin(alpha)*Math.sin(beta);
@@ -71,7 +72,7 @@ export function pedestrianWorld(parts:Mesh[]){
  return {floor,blocked,cameraLimit};
 }
 
-export function visitorMesh(scene:Scene,name:string){
+export function visitorMesh(scene:Scene,name:string,monk=false){
  const root=new TransformNode(name,scene);
  const fabric=new StandardMaterial(name+'-fabric',scene);fabric.diffuseColor=Color3.FromHexString('#57756b');fabric.specularColor=Color3.Black();
  const skin=new StandardMaterial(name+'-skin',scene);skin.diffuseColor=Color3.FromHexString('#e6bd8b');
@@ -88,10 +89,10 @@ export function visitorMesh(scene:Scene,name:string){
  }
  let face:Face="human";
  const head=new TransformNode("visitor face joint",scene);head.parent=chest;
- let model=visitorFace(scene,head,face);
+ let model=visitorFace(scene,head,face,monk);
  function setFace(next:Face){
   if(next===face)return;
-  const replacement=visitorFace(scene,head,next);model.dispose(false,true);model=replacement;face=next;
+  const replacement=visitorFace(scene,head,next,monk);model.dispose(false,true);model=replacement;face=next;
  }
  head.position.y=.73;head.scaling.setAll(1.18);
  hips.scaling.set(1,.9,1);

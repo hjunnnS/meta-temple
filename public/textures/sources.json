@@ -154,5 +154,13 @@
     "rights": "프로젝트 자체 제작",
     "material": "언어 선택 화면의 산 배경 사찰",
     "bytes": 302165
+  },
+  {
+    "file": "public/ceremonies/monk-greeting.mp3",
+    "bytes": 15308,
+    "sha256": "ba23c30f558d5f14dc89105b92f345457fb0d08116103eb8e3e4349168a0cbf8",
+    "source": "scripts/make-sweeper-voice.py",
+    "credit": "사사 뒤뜰 스님 인사 · 기존 승인된 macOS Reed 한국어 중저음 음성",
+    "rights": "비공개 로컬 검수용 임시 합성 음성. 기존 예불 음성과 동일한 제작 기준."
   }
 ]

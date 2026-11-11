@@ -125,6 +125,7 @@ export const sanctuaryWalk=roundedRoute([
  [18,20],[23,28],[59,30],[59,45],[68,46],[68,61],[24,61],
  [23,73],[-24,73],[-25,56],[-24,28],[-17,20],
 ]);
+export const sweepingMonkSite={x:-21,z:70.8} as const;
 export const teaGardenTables=[{x:55,z:-67.8},{x:54,z:-72},{x:50,z:-68},{x:49,z:-72.5}] as const;
 export const teaSeats=[...Array.from({length:12},(_,i)=>({
  x:teaPavilion.x-5+Math.floor((i%6)/2)*5+(i%2? .5:-.5),
