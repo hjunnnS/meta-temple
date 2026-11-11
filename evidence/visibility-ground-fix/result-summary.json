@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "originalUnitTests": 72,
+  "trialUnitTests": 8,
+  "uprightLetteredFaces": 24,
+  "signSamples": 135,
+  "visibleSignSamples": 135,
+  "cameraOrbitChecks": 120,
+  "exitPassable": true,
+  "tradeAndRestore": true,
+  "pcTouchExpanded": true,
+  "precision": {
+    "near": 1,
+    "radius": 210,
+    "shadows": true,
+    "shadowSize": 4096
+  },
+  "pageErrors": [],
+  "failedAssets": [],
+  "quality": "Existing models, materials, light intensities, 4096 day shadow map unchanged",
+  "rootCause": "Insufficient distant-view depth precision between soil and underlying terrain, and physically intersecting courtyard flagstones",
+  "changes": "Separate inward-facing panels; adaptive camera near plane; 4 cm courtyard-only paving lift and matching flat walking surface"
+}

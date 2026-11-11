@@ -36,3 +36,10 @@ export const meditationTrees = [
  ...Array.from({length:18},(_,i)=>({x:-30+(i%9)*7.5,z:61+Math.floor(i/9)*8})),
  ...[-1,1].flatMap(side=>Array.from({length:8},(_,i)=>({x:side*(27+(i%2)*5),z:32+Math.floor(i/2)*7}))),
 ];
+
+/** Retain close camera clipping, but spend more depth precision on distant full-site views. */
+export function sceneNearPlane(radius:number){return Math.max(.1,Math.min(1,radius/200));}
+/** Flagstones on the stone court must sit above it, never intersect its 9 cm top face. */
+export function courtPathLift(x:number,z:number){
+ return Math.abs(x)<=courtHalfWidth&&z>=courtSouthEdge&&z<=courtSouthEdge+courtDepth?.04:0;
+}

@@ -1,0 +1,896 @@
+{
+  "passed": true,
+  "letteredFaces": 24,
+  "visibility": [
+    {
+      "name": "plaque-인등전",
+      "clear": 15,
+      "total": 15,
+      "clearance": 2.671624908447266,
+      "samples": [
+        {
+          "u": 0.12,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        },
+        {
+          "u": 0.12,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        },
+        {
+          "u": 0.12,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        },
+        {
+          "u": 0.3,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        },
+        {
+          "u": 0.3,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        },
+        {
+          "u": 0.3,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        },
+        {
+          "u": 0.5,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        },
+        {
+          "u": 0.5,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        },
+        {
+          "u": 0.5,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        },
+        {
+          "u": 0.7,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        },
+        {
+          "u": 0.7,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        },
+        {
+          "u": 0.7,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        },
+        {
+          "u": 0.88,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        },
+        {
+          "u": 0.88,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        },
+        {
+          "u": 0.88,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-인등전"
+        }
+      ]
+    },
+    {
+      "name": "plaque-인등전-inside",
+      "clear": 15,
+      "total": 15,
+      "clearance": 1.8499999084472658,
+      "samples": [
+        {
+          "u": 0.12,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        },
+        {
+          "u": 0.12,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        },
+        {
+          "u": 0.12,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-인등전-inside"
+        }
+      ]
+    },
+    {
+      "name": "plaque-종무소",
+      "clear": 15,
+      "total": 15,
+      "clearance": 2.671624908447266,
+      "samples": [
+        {
+          "u": 0.12,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        },
+        {
+          "u": 0.12,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        },
+        {
+          "u": 0.12,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        },
+        {
+          "u": 0.3,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        },
+        {
+          "u": 0.3,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        },
+        {
+          "u": 0.3,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        },
+        {
+          "u": 0.5,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        },
+        {
+          "u": 0.5,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        },
+        {
+          "u": 0.5,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        },
+        {
+          "u": 0.7,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        },
+        {
+          "u": 0.7,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        },
+        {
+          "u": 0.7,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        },
+        {
+          "u": 0.88,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        },
+        {
+          "u": 0.88,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        },
+        {
+          "u": 0.88,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-종무소"
+        }
+      ]
+    },
+    {
+      "name": "plaque-종무소-inside",
+      "clear": 15,
+      "total": 15,
+      "clearance": 1.8499999084472658,
+      "samples": [
+        {
+          "u": 0.12,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        },
+        {
+          "u": 0.12,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        },
+        {
+          "u": 0.12,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-종무소-inside"
+        }
+      ]
+    },
+    {
+      "name": "plaque-관음전",
+      "clear": 15,
+      "total": 15,
+      "clearance": 2.8850000000000002,
+      "samples": [
+        {
+          "u": 0.12,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        },
+        {
+          "u": 0.12,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        },
+        {
+          "u": 0.12,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        },
+        {
+          "u": 0.3,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        },
+        {
+          "u": 0.3,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        },
+        {
+          "u": 0.3,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        },
+        {
+          "u": 0.5,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        },
+        {
+          "u": 0.5,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        },
+        {
+          "u": 0.5,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        },
+        {
+          "u": 0.7,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        },
+        {
+          "u": 0.7,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        },
+        {
+          "u": 0.7,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        },
+        {
+          "u": 0.88,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        },
+        {
+          "u": 0.88,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        },
+        {
+          "u": 0.88,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-관음전"
+        }
+      ]
+    },
+    {
+      "name": "plaque-관음전-inside",
+      "clear": 15,
+      "total": 15,
+      "clearance": 1.8500001144409182,
+      "samples": [
+        {
+          "u": 0.12,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        },
+        {
+          "u": 0.12,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        },
+        {
+          "u": 0.12,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-관음전-inside"
+        }
+      ]
+    },
+    {
+      "name": "plaque-지장전",
+      "clear": 15,
+      "total": 15,
+      "clearance": 2.8850000000000002,
+      "samples": [
+        {
+          "u": 0.12,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        },
+        {
+          "u": 0.12,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        },
+        {
+          "u": 0.12,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        },
+        {
+          "u": 0.3,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        },
+        {
+          "u": 0.3,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        },
+        {
+          "u": 0.3,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        },
+        {
+          "u": 0.5,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        },
+        {
+          "u": 0.5,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        },
+        {
+          "u": 0.5,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        },
+        {
+          "u": 0.7,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        },
+        {
+          "u": 0.7,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        },
+        {
+          "u": 0.7,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        },
+        {
+          "u": 0.88,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        },
+        {
+          "u": 0.88,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        },
+        {
+          "u": 0.88,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-지장전"
+        }
+      ]
+    },
+    {
+      "name": "plaque-지장전-inside",
+      "clear": 15,
+      "total": 15,
+      "clearance": 1.8500001144409182,
+      "samples": [
+        {
+          "u": 0.12,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        },
+        {
+          "u": 0.12,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        },
+        {
+          "u": 0.12,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-지장전-inside"
+        }
+      ]
+    },
+    {
+      "name": "plaque-대웅전-inside",
+      "clear": 15,
+      "total": 15,
+      "clearance": 3.0749998092651363,
+      "samples": [
+        {
+          "u": 0.12,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        },
+        {
+          "u": 0.12,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        },
+        {
+          "u": 0.12,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        },
+        {
+          "u": 0.3,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        },
+        {
+          "u": 0.5,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        },
+        {
+          "u": 0.7,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.25,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.5,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        },
+        {
+          "u": 0.88,
+          "v": 0.75,
+          "clear": true,
+          "blocker": "plaque-대웅전-inside"
+        }
+      ]
+    }
+  ],
+  "precision": {
+    "near": 1,
+    "radius": 210,
+    "shadows": true,
+    "shadowSize": 4096
+  },
+  "errors": [],
+  "failed": []
+}

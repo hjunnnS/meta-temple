@@ -18,7 +18,7 @@ import { mountainLandscape } from './mountain-landscape';
 import { distanceTrees } from './tree-distance';
 import { furnishPond } from './pond';
 import { eastCourts, pond, shoreRadius, interiorWoodland, teaPavilion } from './temple-terrain.ts';
-import { wishGarden, candleCourt, memorialGarden, lanternPlazaNorthZ, wallCenterX, wallThickness, gardenBorderWidth, sideHallCenterZ, courtSouthEdge, courtDepth, courtHalfWidth, templePlaces, daeungDimensions, meditationTrees } from './temple-layout.ts';
+import { wishGarden, sceneNearPlane, courtPathLift, candleCourt, memorialGarden, lanternPlazaNorthZ, wallCenterX, wallThickness, gardenBorderWidth, sideHallCenterZ, courtSouthEdge, courtDepth, courtHalfWidth, templePlaces, daeungDimensions, meditationTrees } from './temple-layout.ts';
 import { createHanjiMaterial } from './hanji-material.ts';
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Scene } from '@babylonjs/core/scene';
@@ -167,7 +167,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  for(let i=0;i<=57;i++)for(const sign of [-1,1]){const x=-11.4+i*.4;const path=Array.from({length:15},(_,j)=>{const z=sign*(.05+j*5.85/14);return new Vector3(x,roofY(x,z)+.07,z+8);});const rib=MeshBuilder.CreateTube('tile-rib',{path,radius:.065,tessellation:5},scene);rib.material=roofEdge;staticMeshes.push(rib);}
  for(const z of [-5.9,0,5.9]){const path=Array.from({length:48},(_,i)=>{const x=-11.5+i*23/47;return new Vector3(x,roofY(x,z)+.13,z+8);});const edge=MeshBuilder.CreateTube('ridge',{path,radius:z===0?.2:.12,tessellation:8},scene);edge.material=roofEdge;staticMeshes.push(edge);}
  const signTexture=new DynamicTexture('sign',{width:512,height:192},scene,false);const sc=signTexture.getContext() as CanvasRenderingContext2D;sc.fillStyle='#202c29';sc.fillRect(0,0,512,192);sc.strokeStyle='#bb9b60';sc.lineWidth=8;sc.strokeRect(10,10,492,172);sc.fillStyle='#ddc592';sc.font='bold 100px serif';sc.textAlign='center';sc.fillText('대웅전',256,133);signTexture.update();const signMat=mat('sign-material','#ffffff');signMat.diffuseTexture=signTexture;const hallSign=box('hall-sign',3.4,1.25,.18,0,4.35,3.35,signMat);
- uprightBoxLettering(hallSign);
+ uprightBoxLettering(hallSign,'front');
  // Roof tile courses and lotus end-caps give the eaves an articulated silhouette.
  for(const side of [-1,1])for(let row=1;row<15;row++){
   const z=side*row*5.9/14;const path=Array.from({length:47},(_,i)=>{const x=-11.5+i*.5;return new Vector3(x,roofY(x,z)+.028,z+8);});
@@ -391,10 +391,12 @@ export function createTemple(canvas:HTMLCanvasElement) {
   }
  }
  const wayfindingMaterials=new Set<StandardMaterial>([signMat]);
- function plaque(label:string,x:number,y:number,z:number){
+ function plaque(label:string,x:number,y:number,z:number,inside=false,outwardOnly=false){
   const t=new DynamicTexture(`label-${label}`,{width:512,height:128},scene,false);const c=t.getContext() as CanvasRenderingContext2D;
   c.fillStyle='#26372e';c.fillRect(0,0,512,128);c.strokeStyle='#bfa56e';c.lineWidth=5;c.strokeRect(6,6,500,116);c.fillStyle='#f4dfad';c.font='bold 68px serif';let size=68;while(c.measureText(label).width>448&&size>16)c.font='bold '+(--size)+'px serif';c.textAlign='center';c.textBaseline='middle';c.fillText(label,256,66);t.update();
-  const m=mat(`plaque-${label}`,'#ffffff');m.diffuseTexture=t;wayfindingMaterials.add(m);return uprightBoxLettering(box(`name-${label}`,3.2,.8,.12,x,y,z,m));
+  const m=mat(`plaque-${label}${inside?'-inside':''}`,'#ffffff');m.diffuseTexture=t;wayfindingMaterials.add(m);
+  const width=inside?(label==='대웅전'?4.2:3.2):3.2,height=inside?(label==='대웅전'?1.05:.8):.8;
+  return uprightBoxLettering(box(`name-${label}${inside?'-inside':''}`,width,height,.12,x,y,z,m),inside?'back':outwardOnly?'front':'both');
  }
  const office=templePlaces.find(p=>p.id==='office')!;
  const deskStart=staticMeshes.length,deskFloor=1.4025*office.scale;
@@ -408,10 +410,13 @@ export function createTemple(canvas:HTMLCanvasElement) {
  for(const part of staticMeshes.slice(deskStart))faceCourtyard(part,office);
  for(const place of templePlaces.filter(p=>p.kind==='hall'&&p.id!=='daeung')){
   const entrySign=place.id==='office'||place.id==='indeung';
-  const height=entrySign?4.38:place.id==='jijang'?4.5:5.2;
+  const height=entrySign?1.4025*place.scale+2.25:4.5*place.scale;
   const frontOffset=entrySign?5.2:4.65;
-  faceCourtyard(plaque(place.name,place.x,height*place.scale,place.z-frontOffset*place.scale),place);
+  faceCourtyard(plaque(place.name,place.x,height,place.z-frontOffset*place.scale,false,true),place);
+  // The indoor panel hangs in front of the inner column line, clear of the eave and doorway.
+  faceCourtyard(plaque(place.name,place.x,1.4025*place.scale+2.25,place.z-2.85*place.scale,true),place);
  }
+ plaque('대웅전',0,4.95,daeung.z-6,true);
  let bellVisual!:ReturnType<typeof furnishBell>;
  for(const place of templePlaces.filter(p=>p.kind==='gate'||p.kind==='bell')){
   const groupStart=staticMeshes.length;
@@ -480,7 +485,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
    const data=new VertexData();data.positions=positions;data.indices=indices;data.normals=normals;data.uvs=uvs;
    const slab=new Mesh(name+'-stone',scene);data.applyToMesh(slab);
    slab.rotation.y=yaw+.016*Math.sin(phase);
-   slab.position.set(x1+along*Math.sin(yaw)+across*Math.cos(yaw),0,z1+along*Math.cos(yaw)-across*Math.sin(yaw));
+   const px=x1+along*Math.sin(yaw)+across*Math.cos(yaw),pz=z1+along*Math.cos(yaw)-across*Math.sin(yaw);
+   slab.position.set(px,courtPathLift(px,pz),pz);
    slab.material=slabs[(row+col*2)%slabs.length];staticMeshes.push(slab);
   }
  }
@@ -1556,6 +1562,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    if(arrivalTime>=2.5)finishArrival();else arrivalPose(arrivalTime/2.5);
   }
   walking.update(engine.getDeltaTime()/1000);
+  camera.minZ=sceneNearPlane(camera.radius);
   updateTrees(camera.position,performance.now());
   pondLife.update(Math.min(.08,engine.getDeltaTime()/1000),reduced,walking.position??undefined);
   if(walkZ!==null){

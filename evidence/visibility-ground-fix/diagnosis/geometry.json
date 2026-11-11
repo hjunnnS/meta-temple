@@ -1,0 +1,72 @@
+{
+  "camera": {
+    "near": 1,
+    "far": 10000
+  },
+  "meshes": [
+    {
+      "name": "earth",
+      "material": "earth",
+      "bounds": [
+        [
+          -80,
+          0,
+          -80
+        ],
+        [
+          80,
+          0,
+          80
+        ]
+      ]
+    },
+    {
+      "name": "surrounding-mountain-valley",
+      "material": "mountain-forest-and-earth",
+      "bounds": [
+        [
+          -860,
+          -0.045,
+          -860
+        ],
+        [
+          860,
+          63.042389585723896,
+          860
+        ]
+      ]
+    },
+    {
+      "name": "temple-inner-earth",
+      "material": "courtyard-compacted-soil",
+      "bounds": [
+        [
+          -37,
+          0.006,
+          -80
+        ],
+        [
+          37,
+          0.006,
+          23
+        ]
+      ]
+    },
+    {
+      "name": "east-court",
+      "material": "courtyard-compacted-soil",
+      "bounds": [
+        [
+          37,
+          0.012000000104308128,
+          -78
+        ],
+        [
+          77,
+          0.012000000104308128,
+          23
+        ]
+      ]
+    }
+  ]
+}
