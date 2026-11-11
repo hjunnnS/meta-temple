@@ -1,0 +1,24 @@
+{
+  "scope": "Read-only published version 5 review; no app changes or redeployment",
+  "uprightSignFaces": 24,
+  "pcTouchExtendedPassed": true,
+  "fiveItemsAndPrivateRestorePassed": true,
+  "findings": [
+    {
+      "severity": "visual",
+      "item": "Inside Gwaneum sign overlaps eave; Indeung/office inner sign obstructed by central column",
+      "evidence": [
+        "plaque-관음전-minus.jpg",
+        "plaque-인등전-minus.jpg",
+        "plaque-종무소-plus.jpg"
+      ]
+    },
+    {
+      "severity": "visual",
+      "item": "Horizontal bands on portions of the courtyard and expanded ground; cause not isolated in this review",
+      "evidence": [
+        "layout.jpg"
+      ]
+    }
+  ]
+}

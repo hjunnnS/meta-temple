@@ -1,6 +1,6 @@
 import {locale,t} from './locales';
-import {templePlaces,wishGarden,courtSouthEdge,courtDepth} from './temple-layout';
-import {boundaries,eastCourts,pond,teaPavilion,personalGate,sweepingMonkSite,coinThrowBank} from './temple-terrain';
+import {templePlaces,wishGarden,courtSouthEdge,courtDepth,candleCourt,memorialGarden} from './temple-layout';
+import {boundaries,paving,sanctuaryWalk,teaApproach,teaGardenWalk,eastCourts,pond,teaPavilion,personalGate,sweepingMonkSite,coinThrowBank} from './temple-terrain';
 import {practiceSeat} from './hall-seats';
 export interface ServicePlace {id:string;label:string;description:string;x:number;z:number;arrival:readonly[number,number];view:string}
 const site=(id:string)=>templePlaces.find(p=>p.id===id)!;
@@ -8,10 +8,10 @@ export const servicePlaces:ServicePlace[]=[
  ...(['daeung','gwaneum','jijang','indeung','office','bell','cheonwang','ilju'] as const).map(id=>{const p=site(id);const views={daeung:'entrance',gwaneum:'gwaneumDoor',jijang:'jijangPlaza',indeung:'votiveShelves',office:'officeReception',bell:'bellRing',cheonwang:'gatePassage',ilju:'gateArrival'};const descriptions={daeung:'참배와 기도',gwaneum:'소원 기도',jijang:'추모 기도',indeung:'인등',office:'등·소원 접수처',bell:'종치기',cheonwang:'다음 일정',ilju:'사찰 둘러보기'};return {id,label:p.name,description:descriptions[id],x:p.x,z:p.z,arrival:(id==='daeung'?[practiceSeat.x,practiceSeat.z]:id==='jijang'?[p.x,p.z-1.125]:id==='office'?[p.x-6,p.z]:[p.x,p.z]) as [number,number],view:views[id]};}),
  {id:'lantern',label:'연등광장',description:'연등 배치도',x:0,z:-24,arrival:[0,-24],view:'lanternReception'},
  {id:'wish',label:'소원패 정원',description:'소원패',x:wishGarden.x,z:wishGarden.z,arrival:[wishGarden.x-6,wishGarden.z],view:'wishGarden'},
- {id:'candle',label:'석탑 촛불함',description:'봉헌초',x:site('gwaneum').x,z:courtSouthEdge+courtDepth/2,arrival:[site('gwaneum').x+7,courtSouthEdge+courtDepth/2],view:'candleCourt'},
+ {id:'candle',label:'석탑 촛불함',description:'봉헌초',x:candleCourt.x,z:candleCourt.z,arrival:[candleCourt.x+7,candleCourt.z],view:'candleCourt'},
  {id:'pond',label:'연못',description:'소원 동전',x:pond.x,z:pond.z,arrival:coinThrowBank[20],view:'wishCoinTree'},
- {id:'tower',label:'구층탑',description:'공간 둘러보기',x:eastCourts.tower.x,z:eastCourts.tower.z,arrival:[eastCourts.tower.x-9,eastCourts.tower.z],view:'eastPagoda'},
- {id:'buddha',label:'석조 입상',description:'참배와 기도',x:eastCourts.buddha.x,z:eastCourts.buddha.z,arrival:[eastCourts.buddha.x,eastCourts.buddha.z-8],view:'forestBuddha'},
+ {id:'tower',label:'구름탑',description:'공간 둘러보기',x:eastCourts.tower.x,z:eastCourts.tower.z,arrival:[eastCourts.tower.x-9,eastCourts.tower.z],view:'eastPagoda'},
+ {id:'buddha',label:'미륵보살 석상',description:'참배와 기도',x:eastCourts.buddha.x,z:eastCourts.buddha.z,arrival:[eastCourts.buddha.x,eastCourts.buddha.z-8],view:'forestBuddha'},
  {id:'tea',label:'쉼터',description:'차·커피 쉼터',x:teaPavilion.x,z:teaPavilion.z,arrival:[teaPavilion.x-7,teaPavilion.z+6],view:'teaSeated'},
  {id:'walk',label:'산책길',description:'명상숲 · 뒤뜰',x:0,z:71,arrival:[0,73],view:'sanctuaryWalk'},
  {id:'monk',label:'뒤뜰 · 낙엽 쓸고 있는 스님',description:'나무관세음보살~',x:sweepingMonkSite.x,z:sweepingMonkSite.z,arrival:[sweepingMonkSite.x+2,sweepingMonkSite.z],view:'sweepingMonk'},
@@ -24,8 +24,10 @@ export function serviceMap(parent:HTMLElement,position:()=>readonly number[]|nul
  const svg=<K extends keyof SVGElementTagNameMap>(tag:K,attrs:Record<string,string>,text?:string)=>{const el=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const[k,v]of Object.entries(attrs))el.setAttribute(k,v);if(text)el.textContent=text;image.append(el);return el;};
  svg('rect',{x:'-44',y:'-86',width:'130',height:'172',rx:'5',fill:'#e8eddd'});
  for(const b of boundaries)svg('line',{x1:String(b.from[0]),y1:String(-b.from[1]),x2:String(b.to[0]),y2:String(-b.to[1]),stroke:'#afbda0','stroke-width':'1'});
- svg('path',{d:'M0 68V-38M-28 10H28M-28 28H28M0 35H58M59 -30V-49',fill:'none',stroke:'#ccd4bc','stroke-width':'3'});
- svg('rect',{x:'-33',y:String(-(courtSouthEdge+courtDepth)),width:'66',height:String(courtDepth),fill:'#dadfc9'});
+ for(const path of paving)svg('line',{x1:String(path.from[0]),y1:String(-path.from[1]),x2:String(path.to[0]),y2:String(-path.to[1]),stroke:'#ccd4bc','stroke-width':String(path.lanes===3?3:1.5)});
+ for(const route of [sanctuaryWalk,teaApproach,teaGardenWalk])svg('polyline',{points:route.map(p=>p[0]+','+-p[1]).join(' '),fill:'none',stroke:'#ccd4bc','stroke-width':'1.5'});
+ svg('rect',{x:String(memorialGarden.x-memorialGarden.width/2),y:String(-memorialGarden.z-memorialGarden.depth/2),width:String(memorialGarden.width),height:String(memorialGarden.depth),fill:'#d9cfb6'});
+ svg('rect',{x:'-35.5',y:String(-(courtSouthEdge+courtDepth)),width:'71',height:String(courtDepth),fill:'#dadfc9'});
  svg('ellipse',{cx:String(pond.x),cy:String(-pond.z),rx:String(pond.width/2),ry:String(pond.depth/2),fill:'#b5cbb6'});
  const list=document.createElement('div');list.className='service-place-list';const detail=document.createElement('div');detail.className='service-place-detail';
  const title=document.createElement('h3'),description=document.createElement('p'),move=document.createElement('button');move.className='service-primary';move.textContent=t('이곳으로 이동');detail.append(title,description,move);

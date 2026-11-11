@@ -6,7 +6,7 @@ import {VertexData} from '@babylonjs/core/Meshes/mesh.vertexData';
 import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
 import {DynamicTexture} from '@babylonjs/core/Materials/Textures/dynamicTexture';
 import {Color3} from '@babylonjs/core/Maths/math.color';
-import {Vector3} from '@babylonjs/core/Maths/math.vector';
+import {Vector3,Vector4} from '@babylonjs/core/Maths/math.vector';
 import {teaPavilion,teaTerrace,teaSeats,teaTables,teaGardenTables,teaGardenWalk,personalGate,sanctuaryWalk,teaApproach,gateApproach,type GroundPoint} from './temple-terrain';
 
 export function placeExperienceSpaces(scene:Scene,parts:Mesh[],wood:StandardMaterial,roof:StandardMaterial,stone:StandardMaterial){
@@ -45,7 +45,7 @@ export function placeExperienceSpaces(scene:Scene,parts:Mesh[],wood:StandardMate
   brush.fillStyle='#203d32';brush.fillRect(0,0,1024,256);brush.strokeStyle='#bca16c';brush.lineWidth=10;brush.strokeRect(12,12,1000,232);
   brush.font='bold 80px serif';brush.fillStyle='#eadfba';brush.textAlign='center';brush.textBaseline='middle';brush.fillText(text,512,133,940);texture.update();
   const m=new StandardMaterial('place-sign-'+text,scene);m.diffuseTexture=texture;m.emissiveColor=new Color3(.06,.05,.03);
-  const sign=MeshBuilder.CreatePlane('place-name',{width,height:width/4,sideOrientation:Mesh.DOUBLESIDE},scene);
+  const sign=MeshBuilder.CreatePlane('place-name',{width,height:width/4,sideOrientation:Mesh.DOUBLESIDE,backUVs:new Vector4(1,0,0,1)},scene);
   sign.position.set(x,y,z);sign.rotation.y=yaw;sign.material=m;parts.push(sign);
  }
  const t=teaPavilion;

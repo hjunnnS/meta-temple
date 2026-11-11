@@ -1,0 +1,32 @@
+{
+  "version": 6,
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "milestone": "M4",
+  "epic": "E04 #4",
+  "implementation": "Existing #64 follow-up audit; no issue/status changes",
+  "functionalPassed": true,
+  "pcTouchPassed": true,
+  "visualPassed": true,
+  "localeCount": 14,
+  "localesPassed": true,
+  "findings": [
+    {
+      "type": "usability",
+      "summary": "Map numeric markers do not select a place; selection through the list works",
+      "reproduction": {
+        "clicked": "01 대웅전",
+        "before": "구름탑",
+        "after": "구름탑",
+        "expected": "대웅전",
+        "works": false
+      }
+    },
+    {
+      "type": "visual",
+      "summary": "A portion of the older exterior board backing is visible behind some interior signs, notably Indeung and office",
+      "evidence": "visuals/plaque-인등전-inside.jpg"
+    }
+  ],
+  "applicationChanged": false,
+  "deployed": false
+}

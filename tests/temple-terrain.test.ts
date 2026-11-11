@@ -19,7 +19,9 @@ test('the twelve review zones have a connected outdoor approach inside the groun
   for(const wall of boundaries){
     assert.ok(!insideGround((wall.from[0]+wall.to[0])/2,(wall.from[1]+wall.to[1])/2,.325));
   }
-  assert.ok(paving.filter(path=>path.name!=='forest-court').every(path=>path.to[1]<=7));
+  for(const path of paving){
+   for(let i=0;i<=20;i++)assert.ok(insideGround(path.from[0]+(path.to[0]-path.from[0])*i/20,path.from[1]+(path.to[1]-path.from[1])*i/20,.325),path.name);
+  }
 });
 
 test('visitors can circle the pond between the office and pagoda',()=>{
@@ -31,13 +33,11 @@ test('visitors can circle the pond between the office and pagoda',()=>{
   }
 });
 
-test('the entrance stays in place and the east garden expands as a single southern rectangle',()=>{
-  assert.ok(boundaries.some(w=>w.from[0]===4 && w.from[1]===-68 && w.to[0]===37 && w.to[1]===-68));
-  assert.ok(boundaries.some(w=>w.from[0]===37 && w.from[1]===-77 && w.to[0]===77 && w.to[1]===-77));
-  assert.deepEqual([eastCourts.tower.x,eastCourts.tower.z,pond.x,pond.z],[58,-35,50,-52]);
-  assert.ok(!boundaries.some(w=>w.from[1]===-68&&w.to[1]===-68&&w.to[0]>37));
-  for(let x=35;x<=70;x+=.25)assert.ok(insideGround(x,-62,.325));
-  for(let z=-65;z<=-55;z+=.25)assert.ok(insideGround(67,z,.325));
+test('approved enclosing wall leaves the eastern gardens continuous and aligns the entrance with the southern frontage',()=>{
+ assert.ok(boundaries.some(w=>w.from[0]===4&&w.from[1]===-78&&w.to[0]===77&&w.to[1]===-78));
+ for(let z=-75;z<=75;z+=.5)assert.ok(insideBoundary(72,z,.325));
+ for(let z=-77;z<=-60;z+=.25)assert.ok(insideGround(0,z,.325));
+ for(let x=35;x<=70;x+=.25)assert.ok(insideGround(x,-34,.325));
 });
 
 
@@ -111,8 +111,8 @@ test('side garden tables and chairs preserve the west entry and pond route',()=>
 });
 
 
-test('rear garden walls form three connected sides outside the walking loop with open approaches',()=>{
- assert.equal(rearGardenWalls.length,3);
+test('rear garden walls clear the walking loop and join the eastern enclosing wall',()=>{
+ assert.equal(rearGardenWalls.length,2);
  for(let i=1;i<rearGardenWalls.length;i++)assert.deepEqual(rearGardenWalls[i-1].to,rearGardenWalls[i].from);
  for(const wall of rearGardenWalls){
   assert.equal(wall.height,1.8);
