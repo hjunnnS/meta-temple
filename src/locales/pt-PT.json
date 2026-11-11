@@ -249,8 +249,6 @@
   "결제 대기 중인 시험 주문이 있습니다.": "Há uma encomenda de teste por pagar.",
   "주문이 준비되었습니다. 실제 금액은 청구되지 않습니다.": "Encomenda pronta. Não será cobrado dinheiro real.",
   "연못": "Lago",
-  "구층탑": "Pagode de nove andares",
-  "석조 입상": "Buda de pedra em pé",
   "쉼터": "Pavilhão de descanso",
   "산책길": "Caminho de passeio",
   "소원 동전": "Moeda de desejo",
@@ -314,5 +312,7 @@
   "내 체험 아이템 {count}개": "Os meus itens de experiência: {count}",
   "개인정보 없이 체험을 시작하세요.": "Comece sem introduzir dados pessoais.",
   "체험 기록을 저장하지 못했습니다. 브라우저 설정을 확인해 주세요.": "Não foi possível guardar os dados. Verifique as definições do navegador.",
-  "이 브라우저의 체험 신청과 개인 공간 배치를 초기화할까요?": "Repor os pedidos e a disposição do espaço pessoal neste navegador?"
+  "이 브라우저의 체험 신청과 개인 공간 배치를 초기화할까요?": "Repor os pedidos e a disposição do espaço pessoal neste navegador?",
+  "구름탑": "Pagode das Nuvens",
+  "미륵보살 석상": "Estátua de pedra do Bodhisattva Maitreya"
 }

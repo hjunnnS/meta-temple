@@ -1,0 +1,17 @@
+[
+  "http://127.0.0.1:4355/src/scene.ts",
+  "http://127.0.0.1:4355/src/private-room-scene.ts",
+  "http://127.0.0.1:4355/node_modules/.vite/deps/@babylonjs_core_scene.js?v=234c2a3d",
+  "http://127.0.0.1:4355/node_modules/.vite/deps/@babylonjs_core_Engines_engine.js?v=39dc2431",
+  "http://127.0.0.1:4355/node_modules/.vite/deps/@babylonjs_core_Lights_Shadows_shadowGeneratorSceneComponent.js?v=d3ef0e47",
+  "http://127.0.0.1:4355/node_modules/.vite/deps/scene.pure--BwOiAT5.js?v=b8120456",
+  "http://127.0.0.1:4355/node_modules/.vite/deps/abstractEngine.pure-DLN0gBMl.js?v=b8120456",
+  "http://127.0.0.1:4355/node_modules/.vite/deps/abstractEngine.renderPass.pure-c9tVXy8j.js?v=b8120456",
+  "http://127.0.0.1:4355/node_modules/.vite/deps/engine.alpha.pure-BQ2RgI-o.js?v=b8120456",
+  "http://127.0.0.1:4355/node_modules/.vite/deps/thinEngine.pure-B-9HrKYt.js?v=b8120456",
+  "http://127.0.0.1:4355/node_modules/.vite/deps/engine.dynamicBuffer.pure-C4p3HmGZ.js?v=b8120456",
+  "http://127.0.0.1:4355/node_modules/.vite/deps/abstractEngine.texture.pure-BXCdL05w.js?v=b8120456",
+  "http://127.0.0.1:4355/node_modules/.vite/deps/shadowGeneratorSceneComponent.pure-B4RMDnuK.js?v=b8120456",
+  "http://127.0.0.1:4355/node_modules/.vite/deps/sceneComponent-Dp9M7nmx.js?v=b8120456",
+  "http://127.0.0.1:4355/node_modules/.vite/deps/@babylonjs_core_Engines_constants.js?v=33c5c740"
+]

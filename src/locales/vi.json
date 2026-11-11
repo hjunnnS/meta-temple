@@ -249,8 +249,6 @@
   "결제 대기 중인 시험 주문이 있습니다.": "Có đơn thử đang chờ thanh toán.",
   "주문이 준비되었습니다. 실제 금액은 청구되지 않습니다.": "Đơn thử đã sẵn sàng. Không thu tiền thật.",
   "연못": "Ao",
-  "구층탑": "Tháp chín tầng",
-  "석조 입상": "Tượng Phật đá đứng",
   "쉼터": "Nhà nghỉ chân",
   "산책길": "Đường dạo bộ",
   "소원 동전": "Đồng xu ước nguyện",
@@ -314,5 +312,7 @@
   "내 체험 아이템 {count}개": "Vật phẩm trải nghiệm của tôi: {count}",
   "개인정보 없이 체험을 시작하세요.": "Bắt đầu mà không nhập thông tin cá nhân.",
   "체험 기록을 저장하지 못했습니다. 브라우저 설정을 확인해 주세요.": "Không thể lưu dữ liệu. Vui lòng kiểm tra cài đặt trình duyệt.",
-  "이 브라우저의 체험 신청과 개인 공간 배치를 초기화할까요?": "Đặt lại yêu cầu và bố trí không gian cá nhân trong trình duyệt này?"
+  "이 브라우저의 체험 신청과 개인 공간 배치를 초기화할까요?": "Đặt lại yêu cầu và bố trí không gian cá nhân trong trình duyệt này?",
+  "구름탑": "Tháp Mây",
+  "미륵보살 석상": "Tượng đá Bồ Tát Di Lặc"
 }

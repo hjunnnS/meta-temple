@@ -249,8 +249,6 @@
   "결제 대기 중인 시험 주문이 있습니다.": "Une commande de test attend son paiement.",
   "주문이 준비되었습니다. 실제 금액은 청구되지 않습니다.": "Commande prête. Aucun débit réel ne sera effectué.",
   "연못": "Étang",
-  "구층탑": "Pagode à neuf étages",
-  "석조 입상": "Bouddha debout en pierre",
   "쉼터": "Pavillon de repos",
   "산책길": "Sentier de promenade",
   "소원 동전": "Pièce de vœu",
@@ -314,5 +312,7 @@
   "내 체험 아이템 {count}개": "Mes objets d’essai : {count}",
   "개인정보 없이 체험을 시작하세요.": "Commencez sans saisir de données personnelles.",
   "체험 기록을 저장하지 못했습니다. 브라우저 설정을 확인해 주세요.": "Impossible d’enregistrer les données. Vérifiez les paramètres du navigateur.",
-  "이 브라우저의 체험 신청과 개인 공간 배치를 초기화할까요?": "Réinitialiser les demandes et l’aménagement de votre espace personnel dans ce navigateur ?"
+  "이 브라우저의 체험 신청과 개인 공간 배치를 초기화할까요?": "Réinitialiser les demandes et l’aménagement de votre espace personnel dans ce navigateur ?",
+  "구름탑": "Pagode des Nuages",
+  "미륵보살 석상": "Statue en pierre du bodhisattva Maitreya"
 }

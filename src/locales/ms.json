@@ -249,8 +249,6 @@
   "결제 대기 중인 시험 주문이 있습니다.": "Pesanan ujian menunggu bayaran.",
   "주문이 준비되었습니다. 실제 금액은 청구되지 않습니다.": "Pesanan sedia. Tiada wang sebenar dicaj.",
   "연못": "Kolam",
-  "구층탑": "Pagoda sembilan tingkat",
-  "석조 입상": "Buddha batu berdiri",
   "쉼터": "Pondok rehat",
   "산책길": "Laluan berjalan",
   "소원 동전": "Syiling hajat",
@@ -314,5 +312,7 @@
   "내 체험 아이템 {count}개": "Item percubaan saya: {count}",
   "개인정보 없이 체험을 시작하세요.": "Mula tanpa memasukkan maklumat peribadi.",
   "체험 기록을 저장하지 못했습니다. 브라우저 설정을 확인해 주세요.": "Rekod tidak dapat disimpan. Semak tetapan pelayar anda.",
-  "이 브라우저의 체험 신청과 개인 공간 배치를 초기화할까요?": "Tetapkan semula permohonan dan susunan ruang peribadi dalam pelayar ini?"
+  "이 브라우저의 체험 신청과 개인 공간 배치를 초기화할까요?": "Tetapkan semula permohonan dan susunan ruang peribadi dalam pelayar ini?",
+  "구름탑": "Pagoda Awan",
+  "미륵보살 석상": "Patung batu Bodhisattva Maitreya"
 }

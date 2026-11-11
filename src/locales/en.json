@@ -249,8 +249,6 @@
   "결제 대기 중인 시험 주문이 있습니다.": "A test order is awaiting payment.",
   "주문이 준비되었습니다. 실제 금액은 청구되지 않습니다.": "Test order ready. No real money will be charged.",
   "연못": "Pond",
-  "구층탑": "Nine-storey pagoda",
-  "석조 입상": "Standing stone Buddha",
   "쉼터": "Rest pavilion",
   "산책길": "Walking path",
   "소원 동전": "Wishing coin",
@@ -314,5 +312,7 @@
   "내 체험 아이템 {count}개": "My trial items: {count}",
   "개인정보 없이 체험을 시작하세요.": "Start without entering personal information.",
   "체험 기록을 저장하지 못했습니다. 브라우저 설정을 확인해 주세요.": "Could not save trial data. Please check your browser settings.",
-  "이 브라우저의 체험 신청과 개인 공간 배치를 초기화할까요?": "Reset trial applications and your personal-space layout in this browser?"
+  "이 브라우저의 체험 신청과 개인 공간 배치를 초기화할까요?": "Reset trial applications and your personal-space layout in this browser?",
+  "구름탑": "Cloud Pagoda",
+  "미륵보살 석상": "Stone Maitreya Bodhisattva"
 }

@@ -8,58 +8,32 @@ const innerGate = place('cheonwang');
 const outerGate = place('ilju');
 const frontWallZ = innerGate.z - 5.5;
 export const eastCourts = {
-  tower: {west:wallCenterX,east:77,south:outerGate.z-9,north:-25,x:58,z:-35},
+  tower: {west:wallCenterX,east:77,south:outerGate.z-9,north:-25,x:58,z:-34},
   buddha: {west:wallCenterX,east:76,south:27,north:63,x:59,z:55},
 } as const;
-export const pond={x:50,z:-52,width:27,depth:15} as const;
+export const pond={x:56,z:-51,width:27,depth:15} as const;
 // Shared polar shore for rendering, shoreline stones and walking clearance.
 export function shoreRadius(a:number){
   return .96+.10*Math.sin(3*a+.55)+.074*Math.cos(2*a-.7)+.045*Math.sin(5*a-1);
 }
-export const boundaries: Boundary[] = [];
-for (const side of [-1, 1]) {
-  const x = side * wallCenterX;
-  const add = (from: GroundPoint, to: GroundPoint, height: number) => boundaries.push({from,to,height});
-  if(side===1){
-    // Keep the entrance frontage; expand the entire east garden as one rectangle.
-    add([4,outerGate.z],[x,outerGate.z],2.2);
-    add([x,outerGate.z],[x,eastCourts.tower.south],2.2);
-    add([x,eastCourts.tower.south],[eastCourts.tower.east,eastCourts.tower.south],2.2);
-  }else{
-    add([side*6,frontWallZ],[x,frontWallZ],2.2);
-  }
-  add([side*4,outerGate.z-2],[side*4,outerGate.z+2],4.45);
-  add([side*4,outerGate.z+2],[side*6,frontWallZ],4.45);
-  if(side===1){
-    for(const court of Object.values(eastCourts)){
-      const {west,east,south,north}=court;
-      if(court===eastCourts.buddha)add([west,south],[east,south],1.44);
-      add([east,south],[east,north],1.44);
-      add([east,north],[west,north],1.44);
-    }
-    add([x,eastCourts.tower.north],[x,courtSouthEdge],1.44);
-    add([x,courtSouthEdge],[x,courtSouthEdge+courtDepth],1.8);
-    add([x,courtSouthEdge+courtDepth],[x,eastCourts.buddha.south],1.44);
-    continue;
-  }
-  add([x,frontWallZ],[x,courtSouthEdge],1.44);
-  add([x,courtSouthEdge],[x,courtSouthEdge+courtDepth],1.8);
-  add([x,courtSouthEdge+courtDepth],[x,63],1.44);
-}
-// Continue the existing west boundary straight north, leaving generous space outside the rear walk.
-// The two front ends stay open, including the route towards the private-room gate.
+// One enclosing wall follows the approved plan; no internal return walls divide the eastern gardens.
 export const rearGardenWalls:Boundary[]=[
  {from:[-wallCenterX,63],to:[-wallCenterX,78],height:1.8},
- {from:[-wallCenterX,78],to:[30,78],height:1.8},
- {from:[30,78],to:[30,64],height:1.8},
+ {from:[-wallCenterX,78],to:[77,78],height:1.8},
 ];
-boundaries.push(...rearGardenWalls);
+export const boundaries:Boundary[]=[
+ {from:[-wallCenterX,outerGate.z],to:[-4,outerGate.z],height:2.2},
+ {from:[4,outerGate.z],to:[77,outerGate.z],height:2.2},
+ {from:[-wallCenterX,outerGate.z],to:[-wallCenterX,63],height:1.8},
+ {from:[77,outerGate.z],to:[77,78],height:1.8},
+ ...rearGardenWalls,
+ {from:[-4,outerGate.z+2],to:[-6,frontWallZ],height:4.45},
+ {from:[4,outerGate.z+2],to:[6,frontWallZ],height:4.45},
+];
 const office = place('office'), bell = place('bell'), indeung = place('indeung');
 export const paving: StonePath[] = [
-  {name:'entrance',from:[0,-71.5],to:[0,courtSouthEdge],lanes:3},
-  {name:'office-entry',from:[1.97,-45],to:[17,-45],lanes:1},
-  {name:'office-turn',from:[17,-45],to:[17,office.z],lanes:1},
-  {name:'office',from:[17,office.z],to:[office.x-7.45*office.scale,office.z],lanes:1},
+  {name:'entrance',from:[0,outerGate.z-1.5],to:[0,courtSouthEdge],lanes:3},
+  {name:'office',from:[1.97,office.z],to:[office.x-7.45*office.scale,office.z],lanes:1},
   {name:'tower-approach',from:[1.97,eastCourts.tower.z],to:[eastCourts.tower.x-5.76,eastCourts.tower.z],lanes:3},
   {name:'forest-court',from:[23,30],to:[59,30],lanes:1},
   {name:'forest-court',from:[59,30],to:[59,49],lanes:1},
@@ -67,7 +41,9 @@ export const paving: StonePath[] = [
   {name:'indeung',from:[-1.97,indeung.z],to:[indeung.x+7.45*indeung.scale,indeung.z],lanes:1},
   {name:'side-hall',from:[-1.97,sideHallCenterZ],to:[-21.4,sideHallCenterZ],lanes:1},
   {name:'side-hall',from:[1.97,sideHallCenterZ],to:[21.4,sideHallCenterZ],lanes:1},
-  {name:'wish-garden',from:[1.97,wishGarden.z],to:[wishGarden.x-wishGarden.width/2,wishGarden.z],lanes:1},
+  {name:'right-garden-connection',from:[18,sideHallCenterZ],to:[18,wishGarden.z],lanes:1},
+  {name:'memorial-garden',from:[18,-9],to:[32,-9],lanes:1},
+  {name:'wish-garden',from:[18,wishGarden.z],to:[wishGarden.x-wishGarden.width/2,wishGarden.z],lanes:1},
 ];
 export function distanceToSegment(x:number,z:number,from:GroundPoint,to:GroundPoint) {
   const dx=to[0]-from[0], dz=to[1]-from[1];
@@ -122,7 +98,7 @@ function roundedRoute(points:GroundPoint[]){
  route.push(points.at(-1)!);return route;
 }
 export const sanctuaryWalk=roundedRoute([
- [18,20],[23,28],[59,30],[59,45],[68,46],[68,61],[24,61],
+ [18,20],[23,28],[59,30],[68,38],[68,46],[68,61],[24,61],
  [23,73],[-24,73],[-25,56],[-24,28],[-17,20],
 ]);
 export const sweepingMonkSite={x:-21,z:70.8} as const;
@@ -132,9 +108,9 @@ export const teaSeats=[...Array.from({length:12},(_,i)=>({
  z:i<6?teaTerrace.z+.15:teaPavilion.z+1.8,y:.18,yaw:0,outdoors:i<6,ground:.32,area:i<6?'테라스':'실내',
 })),...teaGardenTables.flatMap(table=>[-.5,.5].map(dx=>({x:table.x+dx,z:table.z-.9,y:-.13,yaw:0,outdoors:true,ground:.01,area:'옆마당'})))];
 export const teaTables=teaSeats.slice(0,12).filter((_,i)=>i%2===0).map(seat=>({x:seat.x+.5,z:seat.z+.85}));
-export const teaApproach=roundedRoute([[35,-40],[35,-64.25],[58.7,-64.25]]);
+export const teaApproach=roundedRoute([[35,-34],[35,-64.25],[58.7,-64.25]]);
 // A continuous dry route joins the terrace, east shore and pagoda approach.
-export const teaGardenWalk=roundedRoute([[73.8,-64.25],[74.8,-61.5],[69,-57],[68,-46],[66,-43],[66,-35]]);
+export const teaGardenWalk=roundedRoute([[73.8,-64.25],[74.8,-61.5],[74.5,-51],[73,-40],[69,-34]]);
 export const gateApproach:GroundPoint[]=[[59,36],[personalGate.x+2,personalGate.z]];
 export const interiorWoodland=meditationTrees.filter(tree=>sanctuaryWalk.every((p,i)=>i===0||
  distanceToSegment(tree.x,tree.z,sanctuaryWalk[i-1],p)>2.0));

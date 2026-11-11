@@ -1,0 +1,15 @@
+
+> meta-temple@0.1.0 test
+> node --experimental-strip-types --test tests/*.test.ts
+
+✔ trial gates personal actions, keeps original slot geometry, installs all five kinds once and persists locally (27.532833ms)
+✔ private display persists, rejects stale edits and incompatible placements, and reset removes only this browser data (3.040709ms)
+✔ hold expires, practice counts are idempotent through completion and unsupported server actions fail explicitly (3.31675ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 91.270125
