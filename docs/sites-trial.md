@@ -24,3 +24,9 @@
 Sites 소스와 배포 산출물은 Sites 저장소에 저장한다. 원본 GitHub 브랜치에 체험판 API를 합치지 않는다. 테스트 종료 후 사이트 비공개 전환 또는 배포 중지는 별도로 요청한다. 만료 자동화는 만들지 않는다.
 
 검수 결과: 전용 자동 검사 3/3, 타입·빌드, 실제 Chrome의 다섯 신청·게스트 복귀·108배 동작·개인 공간 전시 저장과 새로고침 복원·일정/밤·390px 터치 화면 통과. 화면 오류 0건, 실패 에셋 0건, 실제 서버 API 네트워크 요청 0건. 결과와 화면은 `evidence/sites-trial/`에 보관한다. 실제 과금과 동시 접속 동기화는 시험하지 않았다.
+
+## 공개 배포 및 GitHub 보관
+
+2026-11-11 한국 시간 기준 Sites 버전 1 배포 성공. 공개 주소: https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/ . 배포 소스는 `3781e5e9900d48656131b35b1885432c32038a6d`다. 별도 로그인 이력이 없는 Chrome에서 HTTP 200·언어 선택·연꽃 입장·3D 메뉴 표시·체험 안내 표시를 확인했고 화면 오류는 0건이었다. `evidence/sites-trial/publication.json`과 `published-anonymous-entry.json`, 사진에 기록한다.
+
+사용자 요청으로 독립 체험판 소스 전체와 검수 결과를 GitHub `hjunnnS/meta-temple`의 `trial/sites-personal` 브랜치에 보관한다. 원본 `m4/web-acceptance`와 Sites 버전 1의 실제 배포 내용은 유지한다. 이번 추가 커밋은 배포 기록과 후속 작업 목록 보관이며 재배포하지 않는다. 이 브랜치는 Sites에서 만든 독립 이력을 보존하고 원본 운영 소스에 체험용 API를 병합하지 않는다.
