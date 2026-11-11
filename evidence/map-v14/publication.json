@@ -1,0 +1,12 @@
+{
+  "projectId": "appgprj_6af41a312ffc81919a17690097a9a9a3",
+  "version": 4,
+  "versionId": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_36e432bb093481918750552c8583f9f5",
+  "deploymentId": "appgdep_6af45c4e032c81919282eab629dc0172",
+  "sourceCommit": "57eb866afa8511ec4b26fbdf3f596af34bf2bf3e",
+  "status": "succeeded",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "updatedAt": "2026-11-11T12:15:26.758997+00:00",
+  "audience": "public personal trial unchanged",
+  "productionServiceRelease": false
+}
