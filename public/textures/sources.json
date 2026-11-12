@@ -149,11 +149,11 @@
   {
     "file": "public/entry-mountains.jpg",
     "source": "src/scene.ts",
-    "sha256": "cc912677cbfe4d7202ee9bba9dacc2f1c12d28d9dcfd36fe0da55568da89c09f",
+    "sha256": "bf4acb2c4c576c5e2f220c45caadb80cd1f75a58f21d78227294c46c88ebb35a",
     "credit": "사사 프로젝트 자체 3D 장면 촬영",
     "rights": "프로젝트 자체 제작",
     "material": "언어 선택 화면의 산 배경 사찰",
-    "bytes": 245376
+    "bytes": 244616
   },
   {
     "file": "public/ceremonies/monk-greeting.mp3",
