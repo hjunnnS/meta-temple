@@ -90,7 +90,7 @@ export const teaRestArea={
  west:47,east:teaPavilion.x+teaPavilion.width/2+1,
  south:teaPavilion.z-teaPavilion.depth/2-1,north:teaTerrace.z+teaTerrace.depth/2+1,
 } as const;
-export const personalGate={x:77,z:46} as const;
+export const personalGate={x:80,z:56} as const;
 function roundedRoute(points:GroundPoint[]){
  const route:GroundPoint[]=[points[0]];
  for(let i=1;i<points.length-1;i++){
