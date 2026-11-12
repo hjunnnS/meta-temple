@@ -1,3 +1,4 @@
+import {furnishPondBridge} from './pond-bridge';
 import {rearPrayerHalls,prayerHallDimensions,prayerHallPoint,prayerAisleX,prayerHallFloor} from './prayer-halls.ts';
 import {furnishPrayerHall} from './prayer-hall-interior';
 import {furnishGardens,inBambooGarden} from './temple-gardens';
@@ -612,6 +613,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   waveNormal.vOffset=performance.now()*.000002;
  });
  const pondLife=furnishPond(scene,staticMeshes,shorePoint,waterBrush,pondTexture);
+ furnishPondBridge(scene,staticMeshes,wood);
  const towerGranite=mat('pagoda-towerGranite','#c5c1af');surface(towerGranite,'stone');
  // A square open pavilion carries progressively lighter octagonal galleries.
  const paleStone=mat('east-pagoda-cut-granite','#e4d9bf',.18);
@@ -1476,8 +1478,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
   if(name==='entryRowMap'||name==='gateExitOffice'){
    camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
   if(name==='entryRowMap'){
-    camera.fov=.84;camera.setTarget(new Vector3(0,0,-35));
-    camera.alpha=-Math.PI/2;camera.beta=.151;camera.radius=canvas.clientWidth<canvas.clientHeight?118:58;
+    camera.fov=.84;camera.setTarget(new Vector3(0,0,-55));
+    camera.alpha=-Math.PI/2;camera.beta=.151;camera.radius=canvas.clientWidth<canvas.clientHeight?118:67;
    }else{
     camera.fov=.98;camera.setTarget(new Vector3(tower.x,5,tower.z));
     camera.setPosition(new Vector3(0,1.7,exitZ+1));
@@ -1535,8 +1537,13 @@ export function createTemple(canvas:HTMLCanvasElement) {
    camera.setPosition(turnPoint(new Vector3(hall.x+(votive?.55:2.0),2.45,hall.z-(votive?1.95:1.85)),hall));
    return;
   }
-  if(name==='officeApproach'||name==='indeungApproach'){
-   const site=templePlaces.find(p=>p.id===(name==='officeApproach'?'office':'indeung'))!;
+  if(name==='officeApproach'){
+   camera.fov=.86;camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
+   camera.setTarget(new Vector3(office.x,2.1,office.z+2));
+   camera.setPosition(new Vector3(office.x-4,1.8,office.z+13));return;
+  }
+  if(name==='indeungApproach'){
+   const site=templePlaces.find(p=>p.id==='indeung')!;
    const side=site.x>0?-1:1;
    camera.fov=.71;
    camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;

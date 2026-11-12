@@ -1,3 +1,4 @@
+import {pondBridge} from './pond-bridge-layout';
 import type { Scene } from '@babylonjs/core/scene';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
@@ -55,6 +56,7 @@ export function furnishPond(scene:Scene,staticParts:Mesh[],shore:(a:number)=>Vec
   let k=1;while(k<lengths.length-1&&lengths[k]<distance)k++;
   const t=(distance-lengths[k-1])/(lengths[k]-lengths[k-1]);
   const edge=Vector3.Lerp(shoreSamples[k-1],shoreSamples[k],t);
+  if(Math.abs(edge.x-pondBridge.x)<pondBridge.width/2+.45&&edge.z>pondBridge.south&&edge.z<pondBridge.north)continue;
   const direction=shoreSamples[k].subtract(shoreSamples[k-1]);
   const size=.40+random()*.26;
   const rock=oval('water-edge-stone',edge.x,.43,edge.z,size,.30+random()*.16,.48+random()*.21,rocks[i%4]);

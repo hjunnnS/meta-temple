@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "url": "local",
+  "results": [
+    {
+      "touch": false,
+      "office": {
+        "position": [
+          26.987499999999997,
+          0.09,
+          -63.9
+        ],
+        "alpha": 1.5707963267948966
+      },
+      "bridge": [
+        43.999898738944026,
+        0.78,
+        -51.78811000175358
+      ],
+      "clickWalk": true,
+      "errors": [],
+      "failedAssets": [],
+      "apiNetworkRequests": []
+    },
+    {
+      "touch": true,
+      "office": {
+        "position": [
+          26.987499999999997,
+          0.09,
+          -63.9
+        ],
+        "alpha": 1.5707963267948966
+      },
+      "bridge": [
+        43.99989817430302,
+        0.78,
+        -51.79867000193412
+      ],
+      "clickWalk": true,
+      "errors": [],
+      "failedAssets": [],
+      "apiNetworkRequests": []
+    }
+  ]
+}

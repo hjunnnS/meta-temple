@@ -1,3 +1,4 @@
+import {onPondBridge} from './pond-bridge-layout.ts';
 import {templeFootprint, rearPrayerHalls, prayerAisleX, prayerHallPoint} from './prayer-halls.ts';
 import { courtDepth, courtSouthEdge, sideHallCenterZ, templePlaces, wallCenterX, wishGarden, meditationTrees } from './temple-layout.ts';
 
@@ -12,7 +13,7 @@ export const eastCourts = {
   tower: {west:wallCenterX,east:77,south:outerGate.z-9,north:-25,x:58,z:-34},
   buddha: {west:wallCenterX,east:76,south:27,north:63,x:59,z:55},
 } as const;
-export const pond={x:56,z:-51,width:27,depth:15} as const;
+export const pond={x:54,z:-52,width:34,depth:19} as const;
 // Shared polar shore for rendering, shoreline stones and walking clearance.
 export function shoreRadius(a:number){
   return .96+.10*Math.sin(3*a+.55)+.074*Math.cos(2*a-.7)+.045*Math.sin(5*a-1);
@@ -37,7 +38,10 @@ export const boundaries:Boundary[]=[
 const office = place('office'), bell = place('bell'), indeung = place('indeung');
 export const paving: StonePath[] = [
   {name:'entrance',from:[0,outerGate.z-1.5],to:[0,courtSouthEdge],lanes:3},
-  {name:'office',from:[1.97,office.z],to:[office.x-7.45*office.scale,office.z],lanes:1},
+  {name:'office-approach',from:[1.97,-45],to:[15,-45],lanes:1},
+  {name:'office-side',from:[15,-45],to:[15,office.z+6.1],lanes:1},
+  {name:'office',from:[15,office.z+6.1],to:[office.x,office.z+6.1],lanes:1},
+  {name:'office-entry',from:[office.x,office.z+6.1],to:[office.x,office.z+7.45*office.scale],lanes:1},
   {name:'tower-approach',from:[1.97,eastCourts.tower.z],to:[eastCourts.tower.x-5.76,eastCourts.tower.z],lanes:3},
   {name:'forest-court',from:[23,30],to:[59,30],lanes:1},
   {name:'forest-court',from:[59,30],to:[59,49],lanes:1},
@@ -64,9 +68,9 @@ export function insideBoundary(x:number,z:number,radius:number){
  return inside&&boundaries.every(wall=>distanceToSegment(x,z,wall.from,wall.to)>.25+radius);
 }
 export function insideGround(x:number,z:number,radius:number) {
- return insideBoundary(x,z,radius) &&
+ return insideBoundary(x,z,radius) && (onPondBridge(x,z,radius)||
   Math.hypot((x-pond.x)/(pond.width/2+radius),(z-pond.z)/(pond.depth/2+radius))>
-   shoreRadius(Math.atan2((z-pond.z)/pond.depth,(x-pond.x)/pond.width));
+   shoreRadius(Math.atan2((z-pond.z)/pond.depth,(x-pond.x)/pond.width)));
 }
 
 // Follow the office-side tree around the southern shoreline to the far-bank tree.
@@ -77,7 +81,7 @@ export const coinThrowBank = Array.from({length:97},(_,i)=>{
   pond.z+Math.sin(angle)*(pond.depth*.5*radius+1.65)] as GroundPoint;
 });
 export function canThrowCoin(x:number,z:number){
- return insideGround(x,z,.325)&&coinThrowBank.some((p,i)=>i>0&&distanceToSegment(x,z,coinThrowBank[i-1],p)<=1.75);
+ return !onPondBridge(x,z)&&insideGround(x,z,.325)&&coinThrowBank.some((p,i)=>i>0&&distanceToSegment(x,z,coinThrowBank[i-1],p)<=1.75);
 }
 
 
@@ -128,6 +132,8 @@ export const teaSeats=[...Array.from({length:12},(_,i)=>({
 })),...teaGardenTables.flatMap(table=>[-.5,.5].map(dx=>({x:table.x+dx,z:table.z-.9,y:-.13,yaw:0,outdoors:true,ground:.01,area:'옆마당'})))];
 export const teaTables=teaSeats.slice(0,12).filter((_,i)=>i%2===0).map(seat=>({x:seat.x+.5,z:seat.z+.85}));
 export const teaApproach=roundedRoute([[35,-34],[35,-64.25],[58.7,-64.25]]);
+// The bridge joins the office forecourt to the western side of the pagoda approach.
+export const pondBridgeApproaches:GroundPoint[][]=[[[office.x,-63.9],[35,-63.9],[44,-64.25],[44,-63.5]],[[44,-40],[44,-34]]];
 // A continuous dry route joins the terrace, east shore and pagoda approach.
 export const teaGardenWalk=roundedRoute([[73.8,-64.25],[74.8,-61.5],[74.5,-51],[73,-40],[69,-34]]);
 export const gateApproach:GroundPoint[]=[[59,36],[personalGate.x+2,personalGate.z]];

@@ -11,7 +11,7 @@ test('relocation preserves every lantern coordinate and all five item identities
 });
 test('approved destinations and garden routes stay reachable without crossing walls or water',()=>{
  const p=(id:string)=>templePlaces.find(p=>p.id===id)!;
- assert.equal(p('office').z,p('bell').z);assert(p('gwaneum').z>0&&p('gwaneum').z===p('jijang').z);
+ assert.equal(p('office').z,-70);assert(p('gwaneum').z>0&&p('gwaneum').z===p('jijang').z);
  assert(candleCourt.z<p('gwaneum').z);assert(memorialGarden.z<p('jijang').z&&memorialGarden.z>-23.5);
  assert.equal(courtSouthEdge+courtDepth,23);assert(p('ilju').z<p('cheonwang').z);
  const routes=[...paving.map(p=>[p.from,p.to]),sanctuaryWalk,teaApproach,teaGardenWalk,gateApproach];

@@ -1,3 +1,4 @@
+import {pondBridgeHeight} from './pond-bridge-layout';
 import {rearPrayerHalls,prayerHallPoint,prayerAisleX} from './prayer-halls.ts';
 import {walkingPath,type WalkPoint} from './point-navigation';
 import {pointInput} from './point-input';
@@ -39,7 +40,7 @@ export function pedestrianWorld(parts:Mesh[]){
  const solids:Rect[]=[],ceilings:Rect[]=[],cameraSolids:Rect[]=[];
  for(const part of parts){
   const surface=/(^|-)(step|plinth|hall-floor|floorboard|court|base)$/.test(part.name);
-  const solid=/(^|-)(back-wall|side-wall|side-infill|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth|bell-shell|water-edge-stone|meditation-tree)$/.test(part.name);
+  const solid=/(^|-)(back-wall|side-wall|side-infill|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth|bell-shell|bridge-post|bridge-rail|water-edge-stone|meditation-tree)$/.test(part.name);
   const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof|tea-pavilion-roof|personal-gate-roof|ceiling-inset|ceiling-runner|ceiling-crossbeam|ceiling-painted-beam)$/.test(part.name);
   const cameraOnly=/(^name-|sign|bracket|painted-beam|purlin|lintel|rafter|place-name)/.test(part.name);
   if(!surface&&!solid&&!roof&&!cameraOnly)continue;
@@ -61,7 +62,7 @@ export function pedestrianWorld(parts:Mesh[]){
  function floor(x:number,z:number){
   let y=.01;
   for(const r of surfaces)if(x>=r.x0&&x<=r.x1&&z>=r.z0&&z<=r.z1)y=Math.max(y,r.top+(r.path?courtPathLift(x,z):0));
-  return y;
+  return Math.max(y,pondBridgeHeight(x,z)??0);
  }
  function blocked(x:number,y:number,z:number){
   return !insideGround(x,z,radius)||Math.hypot(x-sweepingMonkSite.x,z-sweepingMonkSite.z)<.42+radius||withinStatue(x,y,z,radius)||solids.some(r=>x>r.x0-radius&&x<r.x1+radius&&z>r.z0-radius&&z<r.z1+radius&&y<r.top&&y+visitorSize.height>r.bottom);
@@ -230,7 +231,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  };
  const visitButton=document.querySelector<HTMLButtonElement>('#visit-point')!;
  const visitorSites=[
-  {place:'office',dx:-1.4,dz:-1,radius:2.0,view:'officeReception',title:'종무소 접수 안내'},
+  {place:'office',dx:0,dz:3,radius:2.7,view:'officeReception',title:'종무소 접수 안내'},
   {place:'bell',dx:0,dz:0,radius:5,view:'bellDetail',title:'범종과 당목 살펴보기'},
   {place:'forest',dx:0,dz:0,radius:5,view:'forest',title:'명상숲에서 머무르기'},
  ].map(site=>{const place=templePlaces.find(p=>p.id===site.place)!;return {...site,x:place.x+site.dx,z:place.z+site.dz};});
@@ -354,7 +355,11 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  function visit(x:number,z:number){
   const candidates=[[x,z],...Array.from({length:32},(_,i)=>{const a=(i%8)*Math.PI/4,r=1+Math.floor(i/8);return [x+r*Math.cos(a),z+r*Math.sin(a)];})];
   const next=candidates.find(([cx,cz])=>!world.blocked(cx,world.floor(cx,cz),cz));if(!next)return false;
-  if(bows.active)bows.cancel();finishWorship();tea.stop();bell.cancel();mode(true);clear();avatar.root.position.set(next[0],world.floor(next[0],next[1]),next[1]);camera.alpha=-Math.PI/2;camera.beta=1.26;window.dispatchEvent(new Event('sasa:relocate'));return true;
+  if(bows.active)bows.cancel();finishWorship();tea.stop();bell.cancel();mode(true);clear();avatar.root.position.set(next[0],world.floor(next[0],next[1]),next[1]);const office=templePlaces.find(p=>p.id==='office')!;
+  const officeArrival=Math.abs(x-office.x)<.5&&Math.abs(z-(office.z+6.1))<.5;
+  camera.alpha=officeArrival?Math.PI/2:-Math.PI/2;camera.beta=1.26;
+  if(officeArrival)avatar.root.rotation.y=Math.PI;
+  window.dispatchEvent(new Event('sasa:relocate'));return true;
  }
  function startPractice(kind:'bow'|'meditation'|'108'){
   if(!active||!prayer)visit(practiceSeat.x,practiceSeat.z);
