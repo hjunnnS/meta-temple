@@ -30,3 +30,5 @@ body.service-ui.in-private-room #service-dock,body.service-ui.in-private-room #o
 #offering-tag [hidden]{display:none!important}.service-ui .panel-title h2{min-width:0;flex:1;overflow-wrap:anywhere}.service-ui .panel-title>button{flex-shrink:0}
 
 .service-map-marker{cursor:pointer;outline:none}.service-map-marker rect{stroke:transparent;stroke-width:2;pointer-events:all}.service-map-marker:hover rect{stroke:#7d906b;stroke-width:.6}.service-map-marker:focus-visible rect{stroke:#9a661d;stroke-width:1;stroke-dasharray:1 .5}
+
+#inspection-exit{position:fixed;z-index:30;left:50%;bottom:112px;transform:translateX(-50%);min-height:48px;padding:12px 24px;border:1px solid #c7b47d;border-radius:28px;background:#244a3b;color:#fff5db;font:inherit;box-shadow:0 4px 15px #172b2929}#inspection-exit[hidden]{display:none}@media(max-width:700px){#inspection-exit{bottom:110px;max-width:calc(100vw - 32px)}}

@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "scope": "Inspection return, indoor camera, walls, groundcover, bamboo; existing issue history preserved",
+  "milestones": [
+    "M2",
+    "M4"
+  ],
+  "issues": [
+    16,
+    18,
+    23,
+    27,
+    64,
+    66,
+    77
+  ],
+  "canonicalUnitTests": 74,
+  "trialUnitTests": 10,
+  "fixedItemSlotsPreserved": 531,
+  "canonicalCameraSamples": 2592,
+  "trialCameraSamples": 2592,
+  "walkingAndIndoorInspectionViews": 9,
+  "pcAndTouchInspectionReturn": true,
+  "locales": 14,
+  "existingTrialJourneys": {
+    "passed": true,
+    "fiveItemsAndGuestResume": true,
+    "realBowAndLight": true,
+    "reloadRetainsItemsAndDisplay": true,
+    "scheduleAndNight": true,
+    "mobileGuestPracticeResume": true,
+    "apiNetworkRequests": [],
+    "pageErrors": [],
+    "failedAssets": [],
+    "actualPayments": false,
+    "multiplayer": false
+  },
+  "focusedPerformance": {
+    "passed": true,
+    "scope": "Focused 30-second day/night actual walking regression, 10-second initial warmup; not the full 5-minute acceptance benchmark",
+    "results": [
+      {
+        "time": "day",
+        "seconds": 30,
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "meanFps": 60.00035693252191,
+        "onePercentLowFps": 50.50505050147316,
+        "maxFrameMs": 21.5,
+        "samples": 1681,
+        "visitor": [
+          -3.475547625611442e-18,
+          0.24499999731779099,
+          -51.943239999842724
+        ],
+        "gardenBatches": 7,
+        "gardenVertices": 34039,
+        "gardenShadowCasters": [],
+        "renderer": {
+          "vendor": "Google Inc. (Apple)",
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        }
+      },
+      {
+        "time": "night",
+        "seconds": 30,
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "meanFps": 60.00042857459199,
+        "onePercentLowFps": 51.656031616305995,
+        "maxFrameMs": 19.799999952316284,
+        "samples": 1680,
+        "visitor": [
+          -1.6165334376524304e-19,
+          0.24499999731779099,
+          -51.997360000550735
+        ],
+        "gardenBatches": 7,
+        "gardenVertices": 34039,
+        "gardenShadowCasters": [],
+        "renderer": {
+          "vendor": "Google Inc. (Apple)",
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        }
+      }
+    ],
+    "pageErrors": []
+  },
+  "comparison": "comparison.png",
+  "published": false
+}

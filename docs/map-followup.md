@@ -41,3 +41,7 @@
 재현: 원본은 `npm run candidate:local`로 4342 후보를 실행한 뒤 PLAYWRIGHT_MODULE을 기존 Playwright 경로로 지정해 지도 선택·방문자·성능 스크립트를 실행한다. 방문자 검사에는 해당 standalone DB의 SASA_STATE_DIR·SASA_DB_HOST·54840 포트·temple_candidate DB를 지정한다. 지도 14개 언어는 `node scripts/check-map-selection.mjs --locales`다. 체험판은 기존 빌드를 4355에서 미리보기하고 SASA_URL·SASA_TRIAL=1과 별도 SASA_EVIDENCE를 지정해 같은 지도 검사를 실행한다. `scripts/report-map-followup.mjs`는 원본에서 두 체크아웃의 결과와 빌드 지문을 대조해 summary.json을 만든다.
 
 과거 검수의 지도 번호 미선택 finding은 이번에 해결됐다. 기존 참배·감수 및 사람 참가자 평가의 승인/대기 상태는 변경하지 않는다. 사이트 배포 결과는 동일 증거 폴더의 publication.json에 별도로 기록한다.
+
+## 체험판 반영 완료
+
+버전 8, 소스 `08c4dfbceb61349f7a8499976372aed506156f42`의 공개 배포 성공을 확인했다. 기존 공개 범위를 유지했다. 실제 공개 주소에서도 PC·터치의 18개 번호 선택·키보드·목록 일치·이동·재방문과 초점 복귀 검수를 통과했다. 배포 ID·버전·주소는 publication.json, 공개 검사 원본은 published/check.json이다. 원본의 2인 서버 검수는 Sites의 다인 동기화 제공을 뜻하지 않는다.

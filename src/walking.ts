@@ -35,18 +35,20 @@ export function pedestrianWorld(parts:Mesh[]){
   return {x0:Math.min(from[0],to[0])-acrossX,x1:Math.max(from[0],to[0])+acrossX,
    z0:Math.min(from[1],to[1])-acrossZ,z1:Math.max(from[1],to[1])+acrossZ,top:.09,bottom:0,path:true};
  });
- const solids:Rect[]=[],ceilings:Rect[]=[];
+ const solids:Rect[]=[],ceilings:Rect[]=[],cameraSolids:Rect[]=[];
  for(const part of parts){
   const surface=/(^|-)(step|plinth|hall-floor|floorboard|court|base)$/.test(part.name);
   const solid=/(^|-)(back-wall|side-wall|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth|bell-shell|water-edge-stone|meditation-tree)$/.test(part.name);
   const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof|tea-pavilion-roof|personal-gate-roof|ceiling-inset|ceiling-runner|ceiling-crossbeam|ceiling-painted-beam)$/.test(part.name);
-  if(!surface&&!solid&&!roof)continue;
+  const cameraOnly=/(^name-|sign|bracket|painted-beam|purlin|lintel|rafter|place-name)/.test(part.name);
+  if(!surface&&!solid&&!roof&&!cameraOnly)continue;
   part.computeWorldMatrix(true);
   const b=part.getBoundingInfo().boundingBox;
   const rect={x0:b.minimumWorld.x,x1:b.maximumWorld.x,z0:b.minimumWorld.z,z1:b.maximumWorld.z,top:b.maximumWorld.y,bottom:b.minimumWorld.y};
+  if(cameraOnly)cameraSolids.push(rect);
   if(roof)ceilings.push(rect);
   else if(solid)solids.push(rect);
-  else if(rect.top<2.1)surfaces.push(rect);
+  else if(surface&&rect.top<2.1)surfaces.push(rect);
  }
  const radius=visitorSize.width/2;
  // The large lotus pedestal is solid throughout, including gaps between its petals.
@@ -68,7 +70,7 @@ export function pedestrianWorld(parts:Mesh[]){
   for(let d=.12;d<=length+.001;d+=.12){
    const x=target.x+dx*d,y=target.y+dy*d,z=target.z+dz*d;
    const intersects=(r:Rect)=>x>=r.x0-.1&&x<=r.x1+.1&&z>=r.z0-.1&&z<=r.z1+.1&&y>=r.bottom-.1&&y<=r.top+.1;
-   if(y<floor(x,z)+.12||withinStatue(x,y,z,.1)||solids.some(intersects)||ceilings.some(intersects)||!insideBoundary(x,z,.1))return Math.max(.08,d-.14);
+   if(y<floor(x,z)+.12||withinStatue(x,y,z,.1)||solids.some(intersects)||ceilings.some(intersects)||cameraSolids.some(intersects)||!insideBoundary(x,z,.1))return Math.max(.08,d-.14);
   }
   return length;
  }
@@ -228,7 +230,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  const visitButton=document.querySelector<HTMLButtonElement>('#visit-point')!;
  const visitorSites=[
   {place:'office',dx:-1.4,dz:-1,radius:2.0,view:'officeReception',title:'종무소 접수 안내'},
-  {place:'bell',dx:2.4,dz:0,radius:2.6,view:'bellDetail',title:'범종과 당목 살펴보기'},
+  {place:'bell',dx:0,dz:0,radius:5,view:'bellDetail',title:'범종과 당목 살펴보기'},
   {place:'forest',dx:0,dz:0,radius:5,view:'forest',title:'명상숲에서 머무르기'},
  ].map(site=>{const place=templePlaces.find(p=>p.id===site.place)!;return {...site,x:place.x+site.dx,z:place.z+site.dz};});
  const switchView=document.querySelector<HTMLButtonElement>('#walk-camera')!;
@@ -362,5 +364,10 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   if(kind==='bow'){prayerButton.click();return;}
   meditating=true;meditationTime=0;meditationStop.hidden=false;meditationStatus.hidden=false;camera.alpha=prayer.alpha;avatar.root.rotation.y=-Math.PI/2-prayer.alpha;canvas.focus();
  }
- return {mode,update,visit,startPractice,returnFromPrivateRoom(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=-Math.PI/2;camera.alpha=0;camera.beta=1.26;},approachPersonalGate(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=Math.PI/2;camera.alpha=Math.PI;camera.beta=1.26;},approachBell(){mode(true);bell.approach();},sitAtTea(index=0){bell.cancel();mode(true);if(bows.active)bows.cancel();finishWorship();tea.sitAt(index);camera.alpha=-Math.PI/2;camera.beta=1.42;},setFace:avatar.setFace,get pose(){return {meditating,face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,bowProgress:worship?Math.min(1,elapsed/4.8):bows.progress,bellProgress:bell.progress,bellHit:bell.hit,drinkLift:tea.lift,beverage:tea.beverage,animation:bell.active?'bell':tea.seated||meditating?'sit':worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
+ function captureView(){return {position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,alpha:camera.alpha,beta:camera.beta,followDistance,first,firstPersonFov,bellFramed:bell.framed};}
+ function restoreView(saved:ReturnType<typeof captureView>){
+  mode(true);clear();finishWorship();bell.cancel();tea.stop();if(saved.bellFramed)bell.approach();avatar.root.position.set(...saved.position as [number,number,number]);avatar.root.rotation.y=saved.yaw;
+  followDistance=saved.followDistance;firstPersonFov=saved.firstPersonFov;changePerspective(saved.first);camera.alpha=saved.alpha;camera.beta=saved.beta;update(0);canvas.focus();
+ }
+ return {captureView,restoreView,mode,update,visit,startPractice,returnFromPrivateRoom(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=-Math.PI/2;camera.alpha=0;camera.beta=1.26;},approachPersonalGate(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=Math.PI/2;camera.alpha=Math.PI;camera.beta=1.26;},approachBell(){mode(true);bell.approach();},sitAtTea(index=0){bell.cancel();mode(true);if(bows.active)bows.cancel();finishWorship();tea.sitAt(index);camera.alpha=-Math.PI/2;camera.beta=1.42;},setFace:avatar.setFace,get pose(){return {meditating,face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,bowProgress:worship?Math.min(1,elapsed/4.8):bows.progress,bellProgress:bell.progress,bellHit:bell.hit,drinkLift:tea.lift,beverage:tea.beverage,animation:bell.active?'bell':tea.seated||meditating?'sit':worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
 }

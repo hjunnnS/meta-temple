@@ -159,7 +159,7 @@ function report(){const p=performance as Performance & {memory?:{usedJSHeapSize:
 $('#stop').onclick=()=>{measure.stop();latest=report();$('#report').textContent=JSON.stringify(latest,null,2);};
 $('#export').onclick=()=>{if(measure.active)measure.stop();latest=report();$('#report').textContent=JSON.stringify(latest,null,2);const blob=new Blob([JSON.stringify(latest,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`sasa-${SCENE_VERSION}-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
 
-$('#place').onchange=()=>{invalidate('검토 공간 변경');enterView($<HTMLSelectElement>('#place').value);document.body.classList.add('exploring');for(const b of document.querySelectorAll('[data-view]'))b.setAttribute('aria-pressed','false');};
+$('#place').onchange=()=>{trackInspection($<HTMLSelectElement>('#place').value);invalidate('검토 공간 변경');enterView($<HTMLSelectElement>('#place').value);document.body.classList.add('exploring');for(const b of document.querySelectorAll('[data-view]'))b.setAttribute('aria-pressed','false');};
 
 const receptionPanel=$('#reception-panel'),requestDialog=$<HTMLDialogElement>('#application');
 const placePicker=$<HTMLSelectElement>('#place');
@@ -170,8 +170,17 @@ const parkedOffers=document.createElement('div');parkedOffers.id='offer-sessions
 function parkOffers(){for(const section of offerSessions.values())if(section.parentElement===receptionPanel)parkedOffers.append(section);}
 window.addEventListener('sasa:account',event=>{if((event as CustomEvent).detail==='changed'){offerSessions.clear();parkedOffers.replaceChildren();receptionPanel.replaceChildren();receptionPanel.hidden=true;}});
 let currentPanel='',pendingId='';
+let inspectionReturn:ReturnType<typeof app.captureWalkView>|null=null;
+const inspectionExit=document.createElement('button');inspectionExit.id='inspection-exit';inspectionExit.type='button';inspectionExit.textContent=t('살펴보기 끝내기');inspectionExit.hidden=true;root.append(inspectionExit);
+function trackInspection(view:string){
+ const walkingViews=['walk','personalGateWalk','bellRing','teaSeated','teaGardenSeated'];
+ if(walkingViews.includes(view)||productKinds.some(k=>offerings[k].view===view)||view==='officeReception'){inspectionReturn=null;inspectionExit.hidden=true;return;}
+ inspectionReturn??=app.captureWalkView();inspectionExit.hidden=false;
+}
+inspectionExit.onclick=()=>{const saved=inspectionReturn;goToPlace('walk');receptionPanel.hidden=true;if(saved)app.restoreWalkView(saved);canvas.focus();};
+
 function goToPlace(view:string){
- if(import.meta.env.MODE==='service'&&view==='officeReception'){app.view('walk');placePicker.value='walk';app.visit(...servicePlaces.find(p=>p.id==='office')!.arrival);receptionView('officeReception');return;}
+ if(import.meta.env.MODE==='service'&&view==='officeReception'){inspectionReturn=null;inspectionExit.hidden=true;app.view('walk');placePicker.value='walk';app.visit(...servicePlaces.find(p=>p.id==='office')!.arrival);receptionView('officeReception');return;}
  placePicker.value=view;
  placePicker.dispatchEvent(new Event('change'));
 }

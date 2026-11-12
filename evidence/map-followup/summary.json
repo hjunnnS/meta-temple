@@ -284,5 +284,18 @@
     "Human participant recognition evaluation",
     "Physical mobile device performance"
   ],
-  "published": false
+  "published": true,
+  "publication": {
+    "version": 8,
+    "projectId": "appgprj_6af41a312ffc81919a17690097a9a9a3",
+    "sourceCommit": "08c4dfbceb61349f7a8499976372aed506156f42",
+    "versionId": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_3e51206823e08191a6d61227e22e4700",
+    "deploymentId": "appgdep_6af50bd788c48191a6159f8696c77306",
+    "status": "succeeded",
+    "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+    "updatedAt": "2026-11-12T00:44:21.727356+00:00",
+    "audienceUnchanged": true,
+    "localSteps1to5Passed": true
+  },
+  "publishedDesktopAndTouchPassed": true
 }

@@ -1,0 +1,185 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "touch": false,
+      "inspectionBefore": {
+        "at": [
+          -26.987499999999997,
+          0.245,
+          -49.05
+        ],
+        "yaw": 0,
+        "alpha": 0.62,
+        "beta": 1.2,
+        "radius": 6.6
+      },
+      "inspectionAfter": {
+        "at": [
+          -26.987499999999997,
+          0.245,
+          -49.05
+        ],
+        "yaw": 0,
+        "alpha": 0.62,
+        "beta": 1.2,
+        "radius": 6.6
+      },
+      "inspectionRestoresPositionDirectionZoom": true,
+      "otherInspectionsReturn": true,
+      "keyboardReturn": true,
+      "halls": [
+        {
+          "id": "daeung",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 2.5000000000000013
+        },
+        {
+          "id": "gwaneum",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 1.3000000000000003
+        },
+        {
+          "id": "jijang",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 1.3000000000000003
+        },
+        {
+          "id": "indeung",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 0.9400000000000001
+        },
+        {
+          "id": "office",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 2.020000000000001
+        },
+        {
+          "id": "sanctuary",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 0.9400000000000001
+        },
+        {
+          "id": "gwaneumAltar",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 0.58
+        },
+        {
+          "id": "jijangInterior",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 0.9400000000000001
+        },
+        {
+          "id": "votiveShelves",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 2.020000000000001
+        }
+      ],
+      "mainHallExit": [
+        2.1,
+        0.2639999985694885,
+        23.49933999984267
+      ],
+      "errors": []
+    },
+    {
+      "touch": true,
+      "inspectionBefore": {
+        "at": [
+          -26.987499999999997,
+          0.245,
+          -49.05
+        ],
+        "yaw": 0,
+        "alpha": 0.62,
+        "beta": 1.2,
+        "radius": 6.6
+      },
+      "inspectionAfter": {
+        "at": [
+          -26.987499999999997,
+          0.245,
+          -49.05
+        ],
+        "yaw": 0,
+        "alpha": 0.62,
+        "beta": 1.2,
+        "radius": 6.6
+      },
+      "inspectionRestoresPositionDirectionZoom": true,
+      "otherInspectionsReturn": true,
+      "keyboardReturn": true,
+      "halls": [
+        {
+          "id": "daeung",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 2.5000000000000013
+        },
+        {
+          "id": "gwaneum",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 1.3000000000000003
+        },
+        {
+          "id": "jijang",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 1.3000000000000003
+        },
+        {
+          "id": "indeung",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 0.9400000000000001
+        },
+        {
+          "id": "office",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 2.020000000000001
+        },
+        {
+          "id": "sanctuary",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 0.9400000000000001
+        },
+        {
+          "id": "gwaneumAltar",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 0.58
+        },
+        {
+          "id": "jijangInterior",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 0.9400000000000001
+        },
+        {
+          "id": "votiveShelves",
+          "samples": 144,
+          "intersections": [],
+          "minRadius": 2.020000000000001
+        }
+      ],
+      "mainHallExit": [
+        2.1,
+        0.2639999985694885,
+        23.503960000157385
+      ],
+      "errors": []
+    }
+  ]
+}
