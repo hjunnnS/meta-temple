@@ -271,7 +271,7 @@ dist/assets/thinEngine.pure-CS5DSQ2r.js                         128.26 kB │ gz
 dist/assets/main-BwjgL1AO.js                                    477.90 kB │ gzip: 143.76 kB
 dist/assets/directionalLight-Drea-LhZ.js                        907.35 kB │ gzip: 217.00 kB
 
-[plugin builtin:vite-reporter] 
+[plugin builtin:vite-reporter]
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting

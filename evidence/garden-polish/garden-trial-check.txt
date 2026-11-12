@@ -150,7 +150,7 @@ dist/assets/default.fragment-DMaoMFS0.js                          112.30 kB │ 
 dist/assets/thinEngine.pure-B9F4sGbm.js                           128.45 kB │ gzip:  31.17 kB
 dist/assets/main-DjNrd-P8.js                                    1,544.59 kB │ gzip: 410.33 kB
 
-[plugin builtin:vite-reporter] 
+[plugin builtin:vite-reporter]
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
