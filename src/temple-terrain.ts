@@ -1,3 +1,4 @@
+import {templeFootprint, rearPrayerHalls, prayerAisleX, prayerHallPoint} from './prayer-halls.ts';
 import { courtDepth, courtSouthEdge, sideHallCenterZ, templePlaces, wallCenterX, wishGarden, meditationTrees } from './temple-layout.ts';
 
 export type GroundPoint = readonly [number, number];
@@ -18,14 +19,17 @@ export function shoreRadius(a:number){
 }
 // One enclosing wall follows the approved plan; no internal return walls divide the eastern gardens.
 export const rearGardenWalls:Boundary[]=[
- {from:[-wallCenterX,63],to:[-wallCenterX,78],height:1.8},
- {from:[-wallCenterX,78],to:[77,78],height:1.8},
+ {from:[-37,30],to:[-58,30],height:1.8},
+ {from:[-58,30],to:[-58,116],height:1.8},
+ {from:[-58,116],to:[96,116],height:1.8},
+ {from:[96,116],to:[96,30],height:1.8},
+ {from:[96,30],to:[77,30],height:1.8},
 ];
 export const boundaries:Boundary[]=[
  {from:[-wallCenterX,outerGate.z],to:[-4,outerGate.z],height:2.2},
  {from:[4,outerGate.z],to:[77,outerGate.z],height:2.2},
- {from:[-wallCenterX,outerGate.z],to:[-wallCenterX,63],height:1.8},
- {from:[77,outerGate.z],to:[77,78],height:1.8},
+ {from:[-wallCenterX,outerGate.z],to:[-wallCenterX,30],height:1.8},
+ {from:[77,outerGate.z],to:[77,30],height:1.8},
  ...rearGardenWalls,
  {from:[-4,outerGate.z+2],to:[-6,frontWallZ],height:4.45},
  {from:[4,outerGate.z+2],to:[6,frontWallZ],height:4.45},
@@ -51,8 +55,13 @@ export function distanceToSegment(x:number,z:number,from:GroundPoint,to:GroundPo
   return Math.hypot(x-from[0]-t*dx,z-from[1]-t*dz);
 }
 export function insideBoundary(x:number,z:number,radius:number){
- return Math.abs(x)<=80-radius && Math.abs(z)<=80-radius &&
-  boundaries.every(wall=>distanceToSegment(x,z,wall.from,wall.to)>.25+radius);
+ // Test the concave footprint as well as distance to its physical walls.
+ let inside=false;
+ for(let i=0,j=templeFootprint.length-1;i<templeFootprint.length;j=i++){
+  const a=templeFootprint[i],b=templeFootprint[j];
+  if((a[1]>z)!==(b[1]>z)&&x<(b[0]-a[0])*(z-a[1])/(b[1]-a[1])+a[0])inside=!inside;
+ }
+ return inside&&boundaries.every(wall=>distanceToSegment(x,z,wall.from,wall.to)>.25+radius);
 }
 export function insideGround(x:number,z:number,radius:number) {
  return insideBoundary(x,z,radius) &&
@@ -97,6 +106,16 @@ function roundedRoute(points:GroundPoint[]){
  }
  route.push(points.at(-1)!);return route;
 }
+export const rearPrayerWalk=roundedRoute([
+ [-24,30],[-32,45],[-32,68],[-22,86],[6,91],[40,89],
+ [74,86],[74,62],[71,47],[59,47],[59,49],
+]);
+export const prayerHallApproaches=rearPrayerHalls.map(hall=>{
+ const entrance=prayerHallPoint(hall,prayerAisleX,-7.65);
+ const outside=prayerHallPoint(hall,prayerAisleX,-10);
+ const start:GroundPoint=hall.id==='yaksa'?[-32,outside[1]]:hall.id==='geukrak'?[74,outside[1]]:[outside[0],hall.id==='munsu'?86:89];
+ return {id:hall.id,route:roundedRoute([start,outside,entrance])};
+});
 export const sanctuaryWalk=roundedRoute([
  [18,20],[23,28],[59,30],[68,38],[68,46],[68,61],[24,61],
  [23,73],[-24,73],[-25,56],[-24,28],[-17,20],
@@ -112,5 +131,4 @@ export const teaApproach=roundedRoute([[35,-34],[35,-64.25],[58.7,-64.25]]);
 // A continuous dry route joins the terrace, east shore and pagoda approach.
 export const teaGardenWalk=roundedRoute([[73.8,-64.25],[74.8,-61.5],[74.5,-51],[73,-40],[69,-34]]);
 export const gateApproach:GroundPoint[]=[[59,36],[personalGate.x+2,personalGate.z]];
-export const interiorWoodland=meditationTrees.filter(tree=>sanctuaryWalk.every((p,i)=>i===0||
- distanceToSegment(tree.x,tree.z,sanctuaryWalk[i-1],p)>2.0));
+export const interiorWoodland=meditationTrees.filter(tree=>[sanctuaryWalk,rearPrayerWalk,...prayerHallApproaches.map(a=>a.route)].every(route=>route.every((p,i)=>i===0||distanceToSegment(tree.x,tree.z,route[i-1],p)>2.0)));

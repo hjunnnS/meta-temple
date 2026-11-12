@@ -13,7 +13,7 @@ for(const [code,touch] of all?languages.map(([code])=>[code,code!=='ko']):[['ko'
  page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400&&!r.url().includes('/api/'))failed.push({url:r.url(),status:r.status()});});
  async function enter(first){await page.goto(origin);await page.locator('[data-locale="'+code+'"]').click();await page.locator('.enter-temple').click();await page.locator('.entry-overlay').waitFor({state:'detached',timeout:60000});if(await page.locator('#trial-notice button').isVisible())await page.locator('#trial-notice button').click();if(await page.locator('#visit-guide').isVisible())await page.locator('#visit-guide button').click();}
  await enter(true);await page.locator('#spaces-open').click();
- const markers=page.locator('[data-map-place]');assert.equal(await markers.count(),18);
+ const markers=page.locator('[data-map-place]');assert.equal(await markers.count(),22);
  const ids=await markers.evaluateAll(elements=>elements.map(el=>el.dataset.mapPlace));
  async function check(id){const marker=page.locator('[data-map-place="'+id+'"]'),list=page.locator('.service-place-list [data-place="'+id+'"]');
  assert.equal(await marker.getAttribute('aria-pressed'),'true');assert.equal(await list.getAttribute('aria-pressed'),'true');

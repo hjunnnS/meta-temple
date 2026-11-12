@@ -1,0 +1,1 @@
+PASS browser-local trial, five purchases, guest continuation, bowing, private display persistence, schedule/night and mobile

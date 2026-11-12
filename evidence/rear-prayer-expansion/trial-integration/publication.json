@@ -1,0 +1,13 @@
+{
+  "siteUrl": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/",
+  "projectId": "appgprj_6af41a312ffc81919a17690097a9a9a3",
+  "version": 1,
+  "deploymentId": "appgdep_6af41cfb9d888191bfeefc146a93c7a2",
+  "deploymentStatus": "succeeded",
+  "access": "public",
+  "deployedSourceCommit": "3781e5e9900d48656131b35b1885432c32038a6d",
+  "baseServiceCommit": "c724c51fdee0edb18a60a30190913ff85c9695d2",
+  "scope": "Browser-local personal trial; no real payments, authentication or multiplayer",
+  "anonymousEntryVerified": true,
+  "verifiedDateKst": "2026-11-11"
+}

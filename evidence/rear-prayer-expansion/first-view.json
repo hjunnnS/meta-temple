@@ -1,0 +1,1380 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "id": "yaksa",
+      "arrival": [
+        -42.9,
+        1.150049952417612,
+        55.91304347826087
+      ],
+      "exit": [
+        -33.00032999968533,
+        0.01,
+        55.91304347826087
+      ],
+      "return": [
+        -42.72179999829769,
+        1.150049952417612,
+        55.91286154442848
+      ],
+      "cameraSamples": [
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 0.16,
+          "position": [
+            -42.72179999829769,
+            4.58118361284653,
+            55.552802397480285
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 0.35,
+          "position": [
+            -42.72179999829769,
+            4.585757008994374,
+            55.09676476268451
+          ],
+          "radius": 2.3800000000000012
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 0.7,
+          "position": [
+            -42.72179999829769,
+            4.53749860805125,
+            54.070398958928685
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 1.1,
+          "position": [
+            -42.72179999829769,
+            4.6264669908906075,
+            51.440249184163285
+          ],
+          "radius": 5.018598993568541
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 1.5,
+          "position": [
+            -42.72179999829769,
+            2.7050516015150006,
+            50.90683420856771
+          ],
+          "radius": 5.018598993568541
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 2,
+          "position": [
+            -42.72179999829769,
+            1.309682861049755,
+            53.639617977364274
+          ],
+          "radius": 2.5000000000000013
+        },
+        {
+          "alpha": 0,
+          "beta": 0.16,
+          "position": [
+            -42.361740851349495,
+            4.58118361284653,
+            55.91286154442848
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": 0,
+          "beta": 0.35,
+          "position": [
+            -41.90570321655372,
+            4.585757008994374,
+            55.91286154442848
+          ],
+          "radius": 2.3800000000000012
+        },
+        {
+          "alpha": 0,
+          "beta": 0.7,
+          "position": [
+            -40.879337412797895,
+            4.53749860805125,
+            55.91286154442848
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": 0,
+          "beta": 1.1,
+          "position": [
+            -41.349340663803076,
+            3.048587979413001,
+            55.91286154442848
+          ],
+          "radius": 1.5400000000000005
+        },
+        {
+          "alpha": 0,
+          "beta": 1.5,
+          "position": [
+            -37.71577266243692,
+            2.7050516015150006,
+            55.91286154442848
+          ],
+          "radius": 5.018598993568541
+        },
+        {
+          "alpha": 0,
+          "beta": 2,
+          "position": [
+            -40.448556431233484,
+            1.309682861049755,
+            55.91286154442848
+          ],
+          "radius": 2.5000000000000013
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 0.16,
+          "position": [
+            -42.72179999829769,
+            4.58118361284653,
+            56.272920691376676
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 0.35,
+          "position": [
+            -42.72179999829769,
+            4.585757008994374,
+            56.72895832617245
+          ],
+          "radius": 2.3800000000000012
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 0.7,
+          "position": [
+            -42.72179999829769,
+            4.53749860805125,
+            57.755324129928276
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 1.1,
+          "position": [
+            -42.72179999829769,
+            4.6264669908906075,
+            60.385473904693676
+          ],
+          "radius": 5.018598993568541
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 1.5,
+          "position": [
+            -42.72179999829769,
+            2.6542199195887344,
+            60.20208998682592
+          ],
+          "radius": 4.300000000000003
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 2,
+          "position": [
+            -42.72179999829769,
+            1.309682861049755,
+            58.18610511149269
+          ],
+          "radius": 2.5000000000000013
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 0.16,
+          "position": [
+            -43.081859145245886,
+            4.58118361284653,
+            55.91286154442848
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 0.35,
+          "position": [
+            -43.24986262177909,
+            3.7966839302025757,
+            55.91286154442848
+          ],
+          "radius": 1.5400000000000005
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 0.7,
+          "position": [
+            -44.564262583797486,
+            4.53749860805125,
+            55.91286154442848
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 1.1,
+          "position": [
+            -46.12621211373238,
+            4.082787136263319,
+            55.91286154442848
+          ],
+          "radius": 3.8200000000000025
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 1.5,
+          "position": [
+            -47.72782733415846,
+            2.7050516015150006,
+            55.91286154442848
+          ],
+          "radius": 5.018598993568541
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 2,
+          "position": [
+            -44.9950435653619,
+            1.309682861049755,
+            55.91286154442848
+          ],
+          "radius": 2.5000000000000013
+        }
+      ]
+    },
+    {
+      "id": "munsu",
+      "arrival": [
+        -21.08695652173913,
+        1.150049952417612,
+        97.9
+      ],
+      "exit": [
+        -21.08695652173913,
+        0.01,
+        88.00032999968509
+      ],
+      "return": [
+        -21.086978680019058,
+        1.150049952417612,
+        97.76304999997475
+      ],
+      "cameraSamples": [
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 0.16,
+          "position": [
+            -21.086978680019058,
+            4.58118361284653,
+            97.40299085302655
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 0.35,
+          "position": [
+            -21.086978680019058,
+            4.585757008994374,
+            96.94695321823077
+          ],
+          "radius": 2.3800000000000012
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 0.7,
+          "position": [
+            -21.086978680019058,
+            4.53749860805125,
+            95.92058741447495
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 1.1,
+          "position": [
+            -21.086978680019058,
+            3.10301951398407,
+            96.28364578227277
+          ],
+          "radius": 1.6600000000000006
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 1.5,
+          "position": [
+            -21.086978680019058,
+            2.9068033645661515,
+            89.91203632824741
+          ],
+          "radius": 7.870729955702241
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 2,
+          "position": [
+            -21.086978680019058,
+            1.309682861049755,
+            95.48980643291056
+          ],
+          "radius": 2.5000000000000013
+        },
+        {
+          "alpha": 0,
+          "beta": 0.16,
+          "position": [
+            -20.726919533070863,
+            4.58118361284653,
+            97.76304999997475
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": 0,
+          "beta": 0.35,
+          "position": [
+            -20.270881898275082,
+            4.585757008994374,
+            97.76304999997475
+          ],
+          "radius": 2.3800000000000012
+        },
+        {
+          "alpha": 0,
+          "beta": 0.7,
+          "position": [
+            -19.244516094519263,
+            4.53749860805125,
+            97.76304999997475
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": 0,
+          "beta": 1.1,
+          "position": [
+            -16.72006261571802,
+            4.572670947402942,
+            97.76304999997475
+          ],
+          "radius": 4.900000000000004
+        },
+        {
+          "alpha": 0,
+          "beta": 1.5,
+          "position": [
+            -16.79775023762162,
+            2.6542199195887344,
+            97.76304999997475
+          ],
+          "radius": 4.300000000000003
+        },
+        {
+          "alpha": 0,
+          "beta": 2,
+          "position": [
+            -18.813735112954852,
+            1.309682861049755,
+            97.76304999997475
+          ],
+          "radius": 2.5000000000000013
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 0.16,
+          "position": [
+            -21.086978680019058,
+            4.58118361284653,
+            98.12310914692296
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 0.35,
+          "position": [
+            -21.086978680019058,
+            3.7966839302025757,
+            98.29111262345614
+          ],
+          "radius": 1.5400000000000005
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 0.7,
+          "position": [
+            -21.086978680019058,
+            4.53749860805125,
+            99.60551258547456
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 1.1,
+          "position": [
+            -21.086978680019058,
+            4.082787136263319,
+            101.16746211540944
+          ],
+          "radius": 3.8200000000000025
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 1.5,
+          "position": [
+            -21.086978680019058,
+            2.7221276331897295,
+            103.00987362951209
+          ],
+          "radius": 5.260000000000004
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 2,
+          "position": [
+            -21.086978680019058,
+            1.309682861049755,
+            100.03629356703895
+          ],
+          "radius": 2.5000000000000013
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 0.16,
+          "position": [
+            -21.447037826967254,
+            4.58118361284653,
+            97.76304999997475
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 0.35,
+          "position": [
+            -21.903075461763034,
+            4.585757008994374,
+            97.76304999997475
+          ],
+          "radius": 2.3800000000000012
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 0.7,
+          "position": [
+            -22.929441265518854,
+            4.53749860805125,
+            97.76304999997475
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 1.1,
+          "position": [
+            -25.453894744320095,
+            4.572670947402942,
+            97.76304999997475
+          ],
+          "radius": 4.900000000000004
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 1.5,
+          "position": [
+            -27.171698098303796,
+            2.7815468825906,
+            97.76304999997475
+          ],
+          "radius": 6.100000000000005
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 2,
+          "position": [
+            -23.360222247083264,
+            1.309682861049755,
+            97.76304999997475
+          ],
+          "radius": 2.5000000000000013
+        }
+      ]
+    },
+    {
+      "id": "bohyeon",
+      "arrival": [
+        40.91304347826087,
+        1.150049952417612,
+        100.9
+      ],
+      "exit": [
+        40.91304347826087,
+        0.01,
+        91.00032999968535
+      ],
+      "return": [
+        40.91317880694831,
+        1.150049952417612,
+        100.74489999906054
+      ],
+      "cameraSamples": [
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 0.16,
+          "position": [
+            40.91317880694831,
+            4.58118361284653,
+            100.38484085211233
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 0.35,
+          "position": [
+            40.91317880694831,
+            4.585757008994374,
+            99.92880321731656
+          ],
+          "radius": 2.3800000000000012
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 0.7,
+          "position": [
+            40.91317880694831,
+            4.53749860805125,
+            98.90243741356073
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 1.1,
+          "position": [
+            40.91317880694831,
+            3.048587979413001,
+            99.37244066456593
+          ],
+          "radius": 1.5400000000000005
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 1.5,
+          "position": [
+            40.91317880694831,
+            3.128159170762344,
+            89.77245514641594
+          ],
+          "radius": 11
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 2,
+          "position": [
+            40.91317880694831,
+            1.309682861049755,
+            98.47165643199634
+          ],
+          "radius": 2.5000000000000013
+        },
+        {
+          "alpha": 0,
+          "beta": 0.16,
+          "position": [
+            41.273237953896505,
+            4.58118361284653,
+            100.74489999906054
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": 0,
+          "beta": 0.35,
+          "position": [
+            41.72927558869228,
+            4.585757008994374,
+            100.74489999906054
+          ],
+          "radius": 2.3800000000000012
+        },
+        {
+          "alpha": 0,
+          "beta": 0.7,
+          "position": [
+            42.755641392448105,
+            4.53749860805125,
+            100.74489999906054
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": 0,
+          "beta": 1.1,
+          "position": [
+            45.28009487124935,
+            4.572670947402942,
+            100.74489999906054
+          ],
+          "radius": 4.900000000000004
+        },
+        {
+          "alpha": 0,
+          "beta": 1.5,
+          "position": [
+            45.20240724934575,
+            2.6542199195887344,
+            100.74489999906054
+          ],
+          "radius": 4.300000000000003
+        },
+        {
+          "alpha": 0,
+          "beta": 2,
+          "position": [
+            43.186422374012515,
+            1.309682861049755,
+            100.74489999906054
+          ],
+          "radius": 2.5000000000000013
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 0.16,
+          "position": [
+            40.91317880694831,
+            4.58118361284653,
+            101.10495914600874
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 0.35,
+          "position": [
+            40.91317880694831,
+            3.7966839302025757,
+            101.27296262254193
+          ],
+          "radius": 1.5400000000000005
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 0.7,
+          "position": [
+            40.91317880694831,
+            4.53749860805125,
+            102.58736258456034
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 1.1,
+          "position": [
+            40.91317880694831,
+            4.082787136263319,
+            104.14931211449522
+          ],
+          "radius": 3.8200000000000025
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 1.5,
+          "position": [
+            40.91317880694831,
+            2.730616097389854,
+            106.11142302699035
+          ],
+          "radius": 5.380000000000004
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 2,
+          "position": [
+            40.91317880694831,
+            1.309682861049755,
+            103.01814356612473
+          ],
+          "radius": 2.5000000000000013
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 0.16,
+          "position": [
+            40.553119660000114,
+            4.58118361284653,
+            100.74489999906054
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 0.35,
+          "position": [
+            40.09708202520434,
+            4.585757008994374,
+            100.74489999906054
+          ],
+          "radius": 2.3800000000000012
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 0.7,
+          "position": [
+            39.070716221448514,
+            4.53749860805125,
+            100.74489999906054
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 1.1,
+          "position": [
+            36.54626274264727,
+            4.572670947402942,
+            100.74489999906054
+          ],
+          "radius": 4.900000000000004
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 1.5,
+          "position": [
+            34.828459388663575,
+            2.7815468825906,
+            100.74489999906054
+          ],
+          "radius": 6.100000000000005
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 2,
+          "position": [
+            38.6399352398841,
+            1.309682861049755,
+            100.74489999906054
+          ],
+          "radius": 2.5000000000000013
+        }
+      ]
+    },
+    {
+      "id": "geukrak",
+      "arrival": [
+        80.9,
+        1.150049952417612,
+        68.08695652173913
+      ],
+      "exit": [
+        71.00066000015737,
+        0.01,
+        68.08695652173913
+      ],
+      "return": [
+        80.74555999343222,
+        1.150049952417612,
+        68.08731855583846
+      ],
+      "cameraSamples": [
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 0.16,
+          "position": [
+            80.74555999343222,
+            4.58118361284653,
+            67.72725940889026
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 0.35,
+          "position": [
+            80.74555999343222,
+            4.585757008994374,
+            67.27122177409449
+          ],
+          "radius": 2.3800000000000012
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 0.7,
+          "position": [
+            80.74555999343222,
+            4.53749860805125,
+            66.24485597033866
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 1.1,
+          "position": [
+            80.74555999343222,
+            4.572670947402942,
+            63.72040249153743
+          ],
+          "radius": 4.900000000000004
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 1.5,
+          "position": [
+            80.74555999343222,
+            2.6542199195887344,
+            63.79809011344103
+          ],
+          "radius": 4.300000000000003
+        },
+        {
+          "alpha": -1.5707963267948966,
+          "beta": 2,
+          "position": [
+            80.74555999343222,
+            1.309682861049755,
+            65.81407498877427
+          ],
+          "radius": 2.5000000000000013
+        },
+        {
+          "alpha": 0,
+          "beta": 0.16,
+          "position": [
+            81.10561914038043,
+            4.58118361284653,
+            68.08731855583846
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": 0,
+          "beta": 0.35,
+          "position": [
+            81.27362261691361,
+            3.7966839302025757,
+            68.08731855583846
+          ],
+          "radius": 1.5400000000000005
+        },
+        {
+          "alpha": 0,
+          "beta": 0.7,
+          "position": [
+            82.58802257893203,
+            4.53749860805125,
+            68.08731855583846
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": 0,
+          "beta": 1.1,
+          "position": [
+            84.1499721088669,
+            4.082787136263319,
+            68.08731855583846
+          ],
+          "radius": 3.8200000000000025
+        },
+        {
+          "alpha": 0,
+          "beta": 1.5,
+          "position": [
+            86.11208302136204,
+            2.730616097389854,
+            68.08731855583846
+          ],
+          "radius": 5.380000000000004
+        },
+        {
+          "alpha": 0,
+          "beta": 2,
+          "position": [
+            83.01880356049642,
+            1.309682861049755,
+            68.08731855583846
+          ],
+          "radius": 2.5000000000000013
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 0.16,
+          "position": [
+            80.74555999343222,
+            4.58118361284653,
+            68.44737770278667
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 0.35,
+          "position": [
+            80.74555999343222,
+            4.585757008994374,
+            68.90341533758244
+          ],
+          "radius": 2.3800000000000012
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 0.7,
+          "position": [
+            80.74555999343222,
+            4.53749860805125,
+            69.92978114133827
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 1.1,
+          "position": [
+            80.74555999343222,
+            4.572670947402942,
+            72.4542346201395
+          ],
+          "radius": 4.900000000000004
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 1.5,
+          "position": [
+            80.74555999343222,
+            2.7815468825906,
+            74.1720379741232
+          ],
+          "radius": 6.100000000000005
+        },
+        {
+          "alpha": 1.5707963267948966,
+          "beta": 2,
+          "position": [
+            80.74555999343222,
+            1.309682861049755,
+            70.36056212290266
+          ],
+          "radius": 2.5000000000000013
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 0.16,
+          "position": [
+            80.38550084648402,
+            4.58118361284653,
+            68.08731855583846
+          ],
+          "radius": 2.260000000000001
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 0.35,
+          "position": [
+            79.92946321168824,
+            4.585757008994374,
+            68.08731855583846
+          ],
+          "radius": 2.3800000000000012
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 0.7,
+          "position": [
+            78.90309740793242,
+            4.53749860805125,
+            68.08731855583846
+          ],
+          "radius": 2.8600000000000017
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 1.1,
+          "position": [
+            79.37310065893762,
+            3.048587979413001,
+            68.08731855583846
+          ],
+          "radius": 1.5400000000000005
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 1.5,
+          "position": [
+            69.77311514078762,
+            3.128159170762344,
+            68.08731855583846
+          ],
+          "radius": 11
+        },
+        {
+          "alpha": 3.141592653589793,
+          "beta": 2,
+          "position": [
+            78.47231642636802,
+            1.309682861049755,
+            68.08731855583846
+          ],
+          "radius": 2.5000000000000013
+        }
+      ]
+    }
+  ],
+  "state": {
+    "camera": [
+      78.7,
+      2.7000500000000005,
+      68.08695652173913
+    ],
+    "meshes": 817,
+    "vertices": 2596116,
+    "materials": [
+      "sky-gradient",
+      "stone",
+      "dark-stone",
+      "aged-redwood",
+      "roof",
+      "ridge",
+      "jade",
+      "red",
+      "gold",
+      "paper",
+      "leaves",
+      "trunk",
+      "earth",
+      "rough-masonry",
+      "warm-wall-plaster",
+      "dancheong",
+      "sign-material",
+      "gwaneum-cushion",
+      "gwaneum-gilding",
+      "gwaneum-white-robe",
+      "gwaneum-lacquer",
+      "gwaneum-hair",
+      "gwaneum-jade",
+      "yaksa-gilded-bronze",
+      "yaksa-satin-gilt-face",
+      "yaksa-coiffure",
+      "yaksa-altar-lacquer",
+      "yaksa-shrine-jade",
+      "yaksa-beeswax",
+      "yaksa-candle-flame",
+      "munsu-gilded-bronze",
+      "munsu-satin-gilt-face",
+      "munsu-coiffure",
+      "munsu-altar-lacquer",
+      "munsu-shrine-jade",
+      "munsu-beeswax",
+      "munsu-candle-flame",
+      "bohyeon-gilded-bronze",
+      "bohyeon-satin-gilt-face",
+      "bohyeon-coiffure",
+      "bohyeon-altar-lacquer",
+      "bohyeon-shrine-jade",
+      "bohyeon-beeswax",
+      "bohyeon-candle-flame",
+      "geukrak-gilded-bronze",
+      "geukrak-satin-gilt-face",
+      "geukrak-coiffure",
+      "geukrak-altar-lacquer",
+      "geukrak-shrine-jade",
+      "geukrak-beeswax",
+      "geukrak-candle-flame",
+      "jijang-gold",
+      "jijang-face",
+      "jijang-scalp",
+      "jijang-jewel",
+      "votive-ivory",
+      "votive-fire",
+      "indeung-amber",
+      "memorial-pearl",
+      "memorial-lotus",
+      "hall-lamp-bronze",
+      "memorial-stand-granite",
+      "main-hall-soffit",
+      "main-hall-rafter",
+      "main-hall-rafter-band",
+      "plaque-추모등",
+      "plaque-등 · 소원 접수처",
+      "plaque-기도 · 연등 접수",
+      "plaque-인등전",
+      "plaque-인등전-inside",
+      "plaque-종무소",
+      "plaque-종무소-inside",
+      "plaque-관음전",
+      "plaque-관음전-inside",
+      "plaque-지장전",
+      "plaque-지장전-inside",
+      "plaque-약사전",
+      "plaque-약사전-inside",
+      "plaque-문수전",
+      "plaque-문수전-inside",
+      "plaque-보현전",
+      "plaque-보현전-inside",
+      "plaque-극락전",
+      "plaque-극락전-inside",
+      "plaque-대웅전-inside",
+      "plaque-일주문",
+      "plaque-천왕문",
+      "plaque-범종각",
+      "cast-bronze",
+      "burnished-relief",
+      "hemp",
+      "garden-moss",
+      "garden-meadow",
+      "garden-leaf",
+      "garden-bark",
+      "garden-bamboo",
+      "garden-bamboo-joint",
+      "path-soil",
+      "path-flagstone-0",
+      "path-flagstone-1",
+      "path-flagstone-2",
+      "courtyard-compacted-soil",
+      "mountain-forest-and-earth",
+      "pond-water",
+      "pond-clear-water",
+      "waterside-granite-0",
+      "waterside-granite-1",
+      "waterside-granite-2",
+      "waterside-granite-3",
+      "specimen-bark",
+      "seasonal-autumn-0",
+      "seasonal-autumn-1",
+      "seasonal-autumn-2",
+      "seasonal-autumn-3",
+      "specimen-bark",
+      "seasonal-autumn-0",
+      "seasonal-autumn-1",
+      "seasonal-autumn-2",
+      "seasonal-autumn-3",
+      "specimen-forest-floor",
+      "lotus-leaves",
+      "lotus-shell-pink",
+      "lotus-ivory",
+      "lotus-heart",
+      "koi-ivory",
+      "koi-vermilion",
+      "koi-ink",
+      "wish-brass",
+      "wish-basins",
+      "warm-light-rays",
+      "falling-gold",
+      "gold-halo",
+      "warm-light-rays",
+      "falling-gold",
+      "coin-water-ripple",
+      "coin-splash-droplet",
+      "pagoda-towerGranite",
+      "east-pagoda-cut-granite",
+      "pagoda-weathered-recess",
+      "standing-buddha-granite",
+      "stone-figure-recess",
+      "forest-walk-earth",
+      "tea-furniture-oak",
+      "tea-chair-linen",
+      "place-sign-차 · 커피 쉼터",
+      "place-sign-시간과 공간의 방",
+      "personal-gate-aura",
+      "warm-garden-gravel",
+      "wish-tablet-0",
+      "wish-tablet-1",
+      "wish-tablet-2",
+      "wish-tablet-3",
+      "braided-wish-cord",
+      "offering-flame-gold",
+      "lantern-granite",
+      "lantern-lamplight",
+      "guardian-gilt",
+      "guardian-lacquer",
+      "guardian-jade",
+      "guardian-indigo",
+      "guardian-ink",
+      "guardian-ivory",
+      "guardian-plinth",
+      "guardian-pearwood",
+      "guardian-skin-0",
+      "guardian-skin-1",
+      "guardian-skin-2",
+      "guardian-skin-3",
+      "gilded-bronze",
+      "antique-bronze",
+      "hair",
+      "cinnabar",
+      "altar-jade",
+      "candle-wax",
+      "candle-flame",
+      "cushion",
+      "monk-cushion",
+      "satin-gilt-face",
+      "monk-ramie",
+      "monk-collar",
+      "monk-kasa",
+      "monk-skin",
+      "monk-features",
+      "monk-moktak",
+      "human pigment",
+      "human pigment",
+      "human pigment",
+      "visitor-fabric",
+      "visitor-skin",
+      "human pigment",
+      "human pigment",
+      "human pigment",
+      "human pigment",
+      "visitor-coat-trim",
+      "visitor-trousers",
+      "gray hemp",
+      "collar binding",
+      "cloth sash",
+      "tea-cup-porcelain",
+      "tea-cup-liquid",
+      "sweeping-monk-fabric",
+      "sweeping-monk-skin",
+      "human pigment",
+      "human pigment",
+      "human pigment",
+      "sweeping-monk-coat-trim",
+      "sweeping-monk-trousers",
+      "gray hemp",
+      "collar binding",
+      "cloth sash",
+      "sweeper-bamboo",
+      "sweeper-straw",
+      "sweeper-twine",
+      "sweeper-leaf-brown",
+      "sweeper-leaf-gold",
+      "sweeper-lips",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "threshold-light",
+      "specimen-bark",
+      "seasonal-autumn-0",
+      "seasonal-autumn-1",
+      "seasonal-autumn-2",
+      "seasonal-autumn-3",
+      "specimen-bark",
+      "seasonal-autumn-0",
+      "seasonal-autumn-1",
+      "seasonal-autumn-2",
+      "seasonal-autumn-3",
+      "specimen-bark",
+      "seasonal-autumn-0",
+      "seasonal-autumn-1",
+      "seasonal-autumn-2",
+      "seasonal-autumn-3",
+      "hanji-0",
+      "hanji-1",
+      "hanji-2",
+      "hanji-3",
+      "hanji-4",
+      "hanji-5",
+      "hanji-6",
+      "hanji-7",
+      "hanji-8",
+      "hanji-9",
+      "hanji-10",
+      "hanji-11",
+      "hanji-12",
+      "hanji-13",
+      "hanji-14",
+      "owned-hanji-0",
+      "owned-hanji-1",
+      "owned-hanji-2",
+      "owned-hanji-3",
+      "owned-hanji-4",
+      "owned-hanji-5",
+      "owned-hanji-6",
+      "owned-hanji-7",
+      "owned-hanji-8",
+      "owned-hanji-9",
+      "owned-hanji-10",
+      "owned-hanji-11",
+      "owned-hanji-12",
+      "owned-hanji-13",
+      "owned-hanji-14",
+      "selection-marker",
+      "owned-aura-0",
+      "owned-aura-1",
+      "owned-aura-2",
+      "owned-aura-3",
+      "owned-aura-4",
+      "owned-led-0",
+      "owned-led-1",
+      "owned-led-2",
+      "owned-led-3",
+      "owned-led-4",
+      "warm-pin-lights",
+      "fine-bamboo-frame",
+      "owned-offering-rim",
+      "owned-offering-star",
+      "default material",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader",
+      "colorShader"
+    ],
+    "fps": 59.868289745431966
+  },
+  "errors": [],
+  "apiRequests": []
+}

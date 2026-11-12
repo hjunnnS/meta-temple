@@ -6,7 +6,7 @@ import {DynamicTexture} from '@babylonjs/core/Materials/Textures/dynamicTexture'
 import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
 import {Color3} from '@babylonjs/core/Maths/math.color';
 import {Vector3} from '@babylonjs/core/Maths/math.vector';
-import {interiorWoodland,paving,sanctuaryWalk,teaApproach,teaGardenWalk,distanceToSegment} from './temple-terrain';
+import {interiorWoodland,paving,sanctuaryWalk,rearPrayerWalk,prayerHallApproaches,teaApproach,teaGardenWalk,distanceToSegment} from './temple-terrain';
 import {courtSouthEdge,courtDepth,courtHalfWidth} from './temple-layout';
 const bambooZone=(x:number,z:number)=>z>=60||(Math.abs(x)>=24&&z>=32);
 export const bambooSites=interiorWoodland.filter((p,i)=>bambooZone(p.x,p.z)&&i%2===0);
@@ -17,7 +17,7 @@ export function furnishGardens(scene:Scene,parts:Mesh[]){
  const cover=new DynamicTexture('soft-moss-edge',256,scene,true),brush=cover.getContext() as CanvasRenderingContext2D;
  const fade=brush.createRadialGradient(128,128,15,128,128,128);fade.addColorStop(0,'rgba(255,255,255,.75)');fade.addColorStop(.6,'rgba(255,255,255,.5)');fade.addColorStop(1,'rgba(255,255,255,0)');brush.fillStyle=fade;brush.fillRect(0,0,256,256);cover.hasAlpha=true;cover.update();moss.diffuseTexture=cover;moss.useAlphaFromDiffuseTexture=true;moss.transparencyMode=2;moss.alpha=.72;
  const add=(mesh:Mesh,m:StandardMaterial)=>{mesh.material=m;mesh.isPickable=false;parts.push(mesh);return mesh;};
- const clear=(x:number,z:number)=>[...paving.map(p=>[p.from,p.to]),...([sanctuaryWalk,teaApproach,teaGardenWalk].flatMap(path=>path.slice(1).map((p,i)=>[path[i],p])))].every(([a,b])=>distanceToSegment(x,z,a,b)>2.1);
+ const clear=(x:number,z:number)=>[...paving.map(p=>[p.from,p.to]),...([sanctuaryWalk,rearPrayerWalk,...prayerHallApproaches.map(a=>a.route),teaApproach,teaGardenWalk].flatMap(path=>path.slice(1).map((p,i)=>[path[i],p])))].every(([a,b])=>distanceToSegment(x,z,a,b)>2.1);
  function patch(x:number,z:number,rx:number,rz:number,seed:number){
   const pos=[x,.035,z],uv=[.5,.5],indices:number[]=[];
   for(let i=0;i<=14;i++){const a=i/14*Math.PI*2,r=1+.12*Math.sin(a*3+seed)+.06*Math.cos(a*5);pos.push(x+Math.cos(a)*rx*r,.035,z+Math.sin(a)*rz*r);uv.push(.5+.5*Math.cos(a),.5+.5*Math.sin(a));if(i)indices.push(0,i+1,i);}

@@ -40,7 +40,7 @@ export function mountainLandscape(scene:Scene,ground:StandardMaterial){
  const count=160,extent=860;
  for(let row=0;row<=count;row++)for(let col=0;col<=count;col++){
   const x=(col/count-.5)*extent*2,z=(row/count-.5)*extent*2;
-  const edge=Math.max((Math.abs(x)-95)/65,(z-95)/65);
+  const edge=Math.max((Math.abs(x)-125)/65,(z-145)/65);
   let height=0;
   for(const [px,pz,h,sx,sz] of peaks)height+=h*Math.exp(-(((x-px)/sx)**2+((z-pz)/sz)**2));
   const ripple=1+.095*Math.sin(x*.061+z*.043)+.055*Math.sin(x*.13-z*.077);

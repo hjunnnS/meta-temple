@@ -20,3 +20,7 @@ Apple M5 Pro·Chrome 157·1280×720에서 10초 예열 후 낮/밤 각각 30초 
 인트로도 같은 천왕문 위 산 배경 시점으로 최신 조경을 촬영해 갱신했고 출처 기록의 크기·해시를 동기화했다. 전후 화면은 before/after, 비교 화면은 comparison.png, 실제 배포 결과는 publication.json을 따른다.
 
 브라우저 재현 스크립트는 체험판 브랜치의 scripts/check-garden-polish.mjs, check-garden-locales.mjs, check-garden-performance.mjs다. 원본 검수는 같은 스크립트에 SASA_CANONICAL=1·TRIAL_URL=http://127.0.0.1:4342·GARDEN_EVIDENCE를 지정해 원본 로컬 API에 연결한다. 실제 운영 정책과 감수 대기 상태는 바꾸지 않는다.
+
+## 체험판 버전 9 반영
+
+소스 6e9a917a694867ac1959118f7df74a8577a5a438의 배포 성공을 확인했다. 기존 공개 범위를 유지했다. 공개 주소에서도 PC·터치로 새 담장·대나무 재질과 살펴보기 종료·원위치 복귀를 검수했다. 배포 영수증은 publication.json, 공개 확인은 published/check.json이다.

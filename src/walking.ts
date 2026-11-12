@@ -1,3 +1,4 @@
+import {rearPrayerHalls,prayerHallPoint,prayerAisleX} from './prayer-halls.ts';
 import {walkingPath,type WalkPoint} from './point-navigation';
 import {pointInput} from './point-input';
 import {privateMeditationPose} from './private-practice';
@@ -38,7 +39,7 @@ export function pedestrianWorld(parts:Mesh[]){
  const solids:Rect[]=[],ceilings:Rect[]=[],cameraSolids:Rect[]=[];
  for(const part of parts){
   const surface=/(^|-)(step|plinth|hall-floor|floorboard|court|base)$/.test(part.name);
-  const solid=/(^|-)(back-wall|side-wall|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth|bell-shell|water-edge-stone|meditation-tree)$/.test(part.name);
+  const solid=/(^|-)(back-wall|side-wall|side-infill|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth|bell-shell|water-edge-stone|meditation-tree)$/.test(part.name);
   const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof|tea-pavilion-roof|personal-gate-roof|ceiling-inset|ceiling-runner|ceiling-crossbeam|ceiling-painted-beam)$/.test(part.name);
   const cameraOnly=/(^name-|sign|bracket|painted-beam|purlin|lintel|rafter|place-name)/.test(part.name);
   if(!surface&&!solid&&!roof&&!cameraOnly)continue;
@@ -196,11 +197,11 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  },{capture:true,passive:false});
  const prayerButton=document.querySelector<HTMLButtonElement>('#prayer-point')!;
  const worshipHalls=templePlaces.filter(p=>p.id==='daeung'||p.id==='gwaneum'||p.id==='jijang');
- const prayerSites=worshipHalls.map(hall=>{
+ const prayerSites=[...worshipHalls.map(hall=>{
   const side=hall.id==='gwaneum'?-1:1;
   if(hall.id==='daeung')return {name:hall.name,x:hall.x,z:hall.z,radius:2.8,alpha:-Math.PI/2};
   return {name:hall.name,x:hall.x,z:hall.z-(side>0?1.125:0),radius:1.75,alpha:side>0?Math.PI:0};
- });
+ }),...rearPrayerHalls.map(hall=>{const [x,z]=prayerHallPoint(hall,prayerAisleX,-1.1);return {name:hall.name,x,z,radius:1.6,alpha:-Math.PI/2-hall.yaw};})];
  let prayer:typeof prayerSites[number]|undefined;
  const practicing=import.meta.env.MODE==='service';
  let worship=false,elapsed=0,meditating=false,meditationTime=0;

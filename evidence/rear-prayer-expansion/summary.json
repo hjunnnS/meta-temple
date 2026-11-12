@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "scope": "Independent Sites trial update of approved rear expansion",
+  "unitTests": 14,
+  "newHallNames": [
+    "약사전",
+    "문수전",
+    "보현전",
+    "극락전"
+  ],
+  "stairsPrayerPointReentryAndZoom": true,
+  "cameraSamples": 96,
+  "all531SlotsPreserved": true,
+  "trialExistingJourneys": {
+    "passed": true,
+    "fiveItemsAndGuestResume": true,
+    "realBowAndLight": true,
+    "reloadRetainsItemsAndDisplay": true,
+    "scheduleAndNight": true,
+    "mobileGuestPracticeResume": true,
+    "apiNetworkRequests": [],
+    "pageErrors": [],
+    "failedAssets": [],
+    "actualPayments": false,
+    "multiplayer": false
+  },
+  "nightScreensReviewed": true,
+  "deployed": false
+}

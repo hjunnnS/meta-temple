@@ -1,3 +1,5 @@
+import {rearPrayerHalls,prayerHallDimensions,prayerHallPoint,prayerAisleX,prayerHallFloor} from './prayer-halls.ts';
+import {furnishPrayerHall} from './prayer-hall-interior';
 import {furnishGardens,inBambooGarden} from './temple-gardens';
 import {uprightBoxLettering} from './sign-lettering';
 import type { ReviewSlot } from './review-slots.ts';
@@ -66,7 +68,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   skyTexture.update();
  }
  const camera=new ArcRotateCamera('camera',-Math.PI*.67,Math.PI*.37,36,new Vector3(0,3,2),scene);
- camera.lowerRadiusLimit=2.5;camera.upperRadiusLimit=260;camera.upperBetaLimit=2.15;camera.lowerBetaLimit=.15;
+ camera.lowerRadiusLimit=2.5;camera.upperRadiusLimit=420;camera.upperBetaLimit=2.15;camera.lowerBetaLimit=.15;
  camera.minZ=.1;camera.wheelPrecision=18;camera.panningSensibility=70;camera.attachControl(canvas,true);
  const hemi=new HemisphericLight('sky',new Vector3(0,1,0),scene);hemi.intensity=.8;hemi.groundColor=new Color3(.22,.27,.24);
  const sun=new DirectionalLight('sun',new Vector3(-.45,-.85,.45),scene);sun.position=new Vector3(20,35,-20);sun.intensity=1.6;
@@ -222,20 +224,21 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const original of hallTemplate){
    if(original.name==='hall-sign')continue;
    const copy=original.clone(`${place.id}-${original.name}`,null)!;
-   copy.scaling.scaleInPlace(place.scale);
-   copy.position.set(original.position.x*place.scale+place.x,original.position.y*place.scale,(original.position.z-8)*place.scale+place.z);
+   const dimensions=rearPrayerHalls.some(h=>h.id===place.id)?prayerHallDimensions:{x:place.scale,y:place.scale,z:place.scale};
+   copy.scaling.multiplyInPlace(new Vector3(dimensions.x,dimensions.y,dimensions.z));
+   copy.position.set(original.position.x*dimensions.x+place.x,original.position.y*dimensions.y,(original.position.z-8)*dimensions.z+place.z);
    const bay=original.metadata?.doorBay;
-   if((place.id==='gwaneum'||place.id==='jijang') && (bay===1 || bay===4)){
+   if((place.id==='gwaneum'||place.id==='jijang'||rearPrayerHalls.some(h=>h.id===place.id)) && (bay===1 || bay===4)){
     // Swing each inner leaf back against its outer jamb, including its lattice.
     const side=bay===1?-1:1;
     const hingeX=side*5.91;
     const hingeZ=4.02;
     copy.rotation.y=side*Math.PI/2;
-    copy.position.x=place.x+(hingeX+side*(original.position.z-hingeZ))*place.scale;
-    copy.position.z=place.z+(hingeZ-8-side*(original.position.x-hingeX))*place.scale;
+    copy.position.x=place.x+(hingeX+side*(original.position.z-hingeZ))*dimensions.x;
+    copy.position.z=place.z+(hingeZ-8-side*(original.position.x-hingeX))*dimensions.z;
    }
    // Roof vertices are authored around z=8; clone translation compensates their baked origin.
-   if(original.name==='curved-roof'||original.name==='tile-rib'||original.name==='ridge'||original.name==='tile-course')copy.position.z=place.z-8*place.scale;
+   if(original.name==='curved-roof'||original.name==='tile-rib'||original.name==='ridge'||original.name==='tile-course')copy.position.z=place.z-8*dimensions.z;
    faceCourtyard(copy,place);
    staticMeshes.push(copy);
   }
@@ -264,6 +267,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   pad.material=cushionCloth;staticMeshes.push(pad);
  }
  for(const fitting of staticMeshes.slice(fittingsStart))faceCourtyard(fitting,prayerHall);
+ for(const hall of rearPrayerHalls)furnishPrayerHall(scene,staticMeshes,hall,wood,cushionCloth);
  const memorialHall=templePlaces.find(p=>p.id==='jijang')!;
  const memorialStart=staticMeshes.length;
  // Centre the aisle on an open bay between the structural front columns.
@@ -416,9 +420,10 @@ export function createTemple(canvas:HTMLCanvasElement) {
   const entrySign=place.id==='office'||place.id==='indeung';
   const height=entrySign?1.4025*place.scale+2.25:4.5*place.scale;
   const frontOffset=entrySign?5.2:4.65;
-  faceCourtyard(plaque(place.name,place.x,height,place.z-frontOffset*place.scale,false,true),place);
+  const depth=rearPrayerHalls.some(h=>h.id===place.id)?prayerHallDimensions.z:place.scale;
+  faceCourtyard(plaque(place.name,place.x,height,place.z-frontOffset*depth,false,true),place);
   // The indoor panel hangs in front of the inner column line, clear of the eave and doorway.
-  faceCourtyard(plaque(place.name,place.x,1.4025*place.scale+2.25,place.z-2.85*place.scale,true),place);
+  faceCourtyard(plaque(place.name,place.x,1.4025*place.scale+2.25,place.z-2.85*depth,true),place);
  }
  plaque('대웅전',0,4.95,daeung.z-6,true);
  let bellVisual!:ReturnType<typeof furnishBell>;
@@ -1030,9 +1035,9 @@ export function createTemple(canvas:HTMLCanvasElement) {
  pen.strokeStyle='#ffe1a3';pen.shadowColor='#ffcb75';pen.shadowBlur=7;pen.lineWidth=3;pen.lineCap='round';
  pen.beginPath();pen.moveTo(16,81);pen.lineTo(64,46);pen.lineTo(112,81);pen.stroke();
  entryTexture.hasAlpha=true;entryTexture.update();
- const doorGuides=templePlaces.filter(p=>['daeung','gwaneum','jijang','indeung'].includes(p.id)).map(place=>{
+ const doorGuides=templePlaces.filter(p=>['daeung','gwaneum','jijang','indeung',...rearPrayerHalls.map(h=>h.id)].includes(p.id)).map(place=>{
   const yaw='yaw' in place?place.yaw:0;
-  const dz=place.id==='daeung'?daeungDimensions.z:place.scale;
+  const dz=place.id==='daeung'?daeungDimensions.z:rearPrayerHalls.some(h=>h.id===place.id)?prayerHallDimensions.z:place.scale;
   const distance=7.45*dz+1.4;
   const x=place.x-Math.sin(yaw)*distance,z=place.z-Math.cos(yaw)*distance;
   const marks=Array.from({length:3},(_,i)=>{
@@ -1354,7 +1359,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
  canvas.addEventListener('keydown',cancelGateWalk);
  let inspectInside=false;
  function view(name:string){
-  inspectInside=['sanctuary','seating','shrine','face','gwaneumAltar','gwaneumSeats','jijangInterior','votiveShelves'].includes(name);
+  scene.fogDensity=name==='map'?0:.0025;
+  inspectInside=name.endsWith('Interior')||['sanctuary','seating','shrine','face','gwaneumAltar','gwaneumSeats','jijangInterior','votiveShelves'].includes(name);
   camera.lowerBetaLimit=name==='map'?.001:.15;
   cancelGateWalk();
   if(name==='personalGateWalk'){walking.approachPersonalGate();return;}
@@ -1367,10 +1373,19 @@ export function createTemple(canvas:HTMLCanvasElement) {
    camera.setTarget(new Vector3(0,13,27));
    camera.setPosition(new Vector3(0,37,-93));return;
   }
+  const rearHall=rearPrayerHalls.find(h=>name===h.id+'Interior');
+  if(rearHall){
+   const at=prayerHallPoint(rearHall,prayerAisleX,-3.3),to=prayerHallPoint(rearHall,prayerAisleX,2.65);
+   camera.fov=.85;camera.setTarget(new Vector3(to[0],prayerHallFloor+1.6,to[1]));camera.setPosition(new Vector3(at[0],prayerHallFloor+1.55,at[1]));return;
+  }
+  if(name==='rearPrayerWest'||name==='rearPrayerNorth'||name==='rearPrayerEast'||name==='rearPrayerMunsu'){
+   const frames={rearPrayerWest:[-32,1.75,65,-44,2.9,55],rearPrayerNorth:[40.913,1.75,89,40.913,2.9,102],rearPrayerMunsu:[-21.087,1.75,86,-21.087,2.9,99],rearPrayerEast:[74,1.75,82,82,3,69]};
+   const [x,y,z,tx,ty,tz]=frames[name];camera.fov=.93;camera.setTarget(new Vector3(tx,ty,tz));camera.setPosition(new Vector3(x,y,z));return;
+  }
   if(name==='wide'){
    camera.fov=.93;camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
-   camera.setTarget(new Vector3(8,6,12));
-   camera.setPosition(new Vector3(-96,125,-205));return;
+   camera.setTarget(new Vector3(19,6,20));
+   camera.setPosition(new Vector3(-125,165,-205));return;
   }
   if(name==='gateHallSightline'){
    camera.fov=.80;camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
@@ -1555,7 +1570,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
     : new Vector3(px,py,pz);
    camera.setTarget(toWorld(tx,ty,tz));camera.setPosition(toWorld(x,y,z));return;
   }
-  const place=templePlaces.find(p=>p.id===name);if(place){camera.setTarget(new Vector3(place.x,3,place.z));camera.alpha=-Math.PI/2-('yaw' in place?place.yaw:0);camera.beta=1.15;camera.radius=place.kind==='forest'?48:place.scale*(canvas.clientWidth/canvas.clientHeight<.9?42:28);return;}if(name==='map'){camera.fov=.8;camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;camera.setTarget(new Vector3(20,0,0));camera.alpha=-Math.PI/2;camera.beta=.015;camera.radius=Math.max(210,128/(2*Math.tan(.4)*canvas.clientWidth/canvas.clientHeight));return;}if(name==='canopy'){camera.setTarget(new Vector3(0,6,-16));camera.alpha=-Math.PI/2;camera.beta=2.1;camera.radius=9;}else if(name==='front'){camera.setTarget(new Vector3(0,5,32));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=55;}else if(name==='detail'){camera.setTarget(new Vector3(-6,6.6,29));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=selectedPosition(selected);camera.setTarget(Vector3.FromArray([...p]).add(new Vector3(0,-.4,0)));camera.alpha=-2.9;camera.beta=1.95;camera.radius=4;}else{camera.setTarget(new Vector3(0,2,-2));camera.alpha=-Math.PI*.58;camera.beta=.65;camera.radius=175;}}
+  const place=templePlaces.find(p=>p.id===name);if(place){camera.setTarget(new Vector3(place.x,3,place.z));camera.alpha=-Math.PI/2-('yaw' in place?place.yaw:0);camera.beta=1.15;camera.radius=place.kind==='forest'?48:place.scale*(canvas.clientWidth/canvas.clientHeight<.9?42:28);return;}if(name==='map'){camera.fov=.8;camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;camera.setTarget(new Vector3(19,0,19));camera.alpha=-Math.PI/2;camera.beta=.015;camera.radius=Math.max(260,170/(2*Math.tan(.4)*canvas.clientWidth/canvas.clientHeight));return;}if(name==='canopy'){camera.setTarget(new Vector3(0,6,-16));camera.alpha=-Math.PI/2;camera.beta=2.1;camera.radius=9;}else if(name==='front'){camera.setTarget(new Vector3(0,5,32));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=55;}else if(name==='detail'){camera.setTarget(new Vector3(-6,6.6,29));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=selectedPosition(selected);camera.setTarget(Vector3.FromArray([...p]).add(new Vector3(0,-.4,0)));camera.alpha=-2.9;camera.beta=1.95;camera.radius=4;}else{camera.setTarget(new Vector3(0,2,-2));camera.alpha=-Math.PI*.58;camera.beta=.65;camera.radius=175;}}
  rebuildLanterns(1000);time('day');
  scene.onBeforeRenderObservable.add(()=>{
   if(arrivalTime!==null){

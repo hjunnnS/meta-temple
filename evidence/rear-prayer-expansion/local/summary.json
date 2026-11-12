@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "scope": "Approved rear expansion and four prayer halls; local only",
+  "unitTests": 78,
+  "hallStairExitAndPointReentry": [
+    "yaksa",
+    "munsu",
+    "bohyeon",
+    "geukrak"
+  ],
+  "newHallCameraSamples": 96,
+  "originalHallCameraSamples": 120,
+  "mapMarkers": 22,
+  "mapPCAndTouch": true,
+  "slots": {
+    "passed": true,
+    "count": 531,
+    "idsPositionsRotationsTypesUnchanged": true
+  },
+  "pageErrors": [],
+  "nightScreensReviewed": true,
+  "externalPublication": false,
+  "gitCommitOrPush": false
+}
