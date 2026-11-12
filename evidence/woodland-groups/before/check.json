@@ -1,0 +1,115 @@
+{
+  "passed": true,
+  "phase": "before",
+  "origin": "http://127.0.0.1:4364",
+  "errors": [],
+  "totalVertices": 2599653,
+  "meshes": 635,
+  "gardenBatches": [
+    {
+      "name": "architecture-garden-moss",
+      "vertices": 736
+    },
+    {
+      "name": "architecture-garden-meadow",
+      "vertices": 5655
+    },
+    {
+      "name": "architecture-garden-bark",
+      "vertices": 208
+    },
+    {
+      "name": "architecture-garden-leaf",
+      "vertices": 1920
+    },
+    {
+      "name": "architecture-garden-bamboo",
+      "vertices": 5100
+    },
+    {
+      "name": "architecture-garden-bamboo-joint",
+      "vertices": 15912
+    },
+    {
+      "name": "architecture-garden-leaf",
+      "vertices": 6120
+    }
+  ],
+  "treeInstances": [
+    {
+      "name": "interior-seasonal-tree-lod-1",
+      "instances": 0,
+      "vertices": 448
+    },
+    {
+      "name": "interior-seasonal-tree-lod-1",
+      "instances": 0,
+      "vertices": 306
+    },
+    {
+      "name": "interior-seasonal-tree-lod-1",
+      "instances": 0,
+      "vertices": 306
+    },
+    {
+      "name": "interior-seasonal-tree-lod-1",
+      "instances": 0,
+      "vertices": 306
+    },
+    {
+      "name": "interior-seasonal-tree-lod-1",
+      "instances": 0,
+      "vertices": 153
+    },
+    {
+      "name": "interior-seasonal-tree-lod-3",
+      "instances": 4,
+      "vertices": 448
+    },
+    {
+      "name": "interior-seasonal-tree-lod-3",
+      "instances": 4,
+      "vertices": 182
+    },
+    {
+      "name": "interior-seasonal-tree-lod-3",
+      "instances": 4,
+      "vertices": 182
+    },
+    {
+      "name": "interior-seasonal-tree-lod-3",
+      "instances": 4,
+      "vertices": 182
+    },
+    {
+      "name": "interior-seasonal-tree-lod-3",
+      "instances": 4,
+      "vertices": 91
+    },
+    {
+      "name": "interior-seasonal-tree-lod-8",
+      "instances": 12,
+      "vertices": 448
+    },
+    {
+      "name": "interior-seasonal-tree-lod-8",
+      "instances": 12,
+      "vertices": 182
+    },
+    {
+      "name": "interior-seasonal-tree-lod-8",
+      "instances": 12,
+      "vertices": 182
+    },
+    {
+      "name": "interior-seasonal-tree-lod-8",
+      "instances": 12,
+      "vertices": 182
+    },
+    {
+      "name": "interior-seasonal-tree-lod-8",
+      "instances": 12,
+      "vertices": 91
+    }
+  ]
+}

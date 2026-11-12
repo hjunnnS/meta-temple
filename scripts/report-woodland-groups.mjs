@@ -1,0 +1,10 @@
+import{writeFile}from'node:fs/promises';import{resolve}from'node:path';
+const {chromium}=await import('/Users/hjunnn/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs');
+const root=resolve('evidence/woodland-groups');
+const style='<meta charset="utf-8"><style>*{box-sizing:border-box}body{margin:0;background:#f6f4ec;color:#263f34;font-family:"Apple SD Gothic Neo",sans-serif}.sheet{width:1500px;padding:34px}h1{font-size:30px;margin:0 0 12px}p{font-size:18px;color:#667266;margin:0 0 24px}.row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:25px}figure{margin:0}figure img{display:block;width:100%}figcaption{font-size:19px;font-weight:600;padding:11px 0 0}.label{font-size:19px;padding:0 0 12px;font-weight:600}.note{margin:14px 0 0;font-size:17px}</style>';
+const row=(name,label)=>'<div class="label">'+label+'</div><div class="row">'+['before','after'].map((phase,i)=>'<figure><img src="'+phase+'/'+name+'.png"><figcaption>'+(i?'변경 후 · 같은 종류끼리 군락':'변경 전 · 종류가 섞인 분산 배치')+'</figcaption></figure>').join('')+'</div>';
+const comparison='<section class="sheet" id="comparison"><h1>대나무와 단풍나무 · 종류별 군락으로 정리</h1><p>같은 각도의 실제 3D 화면 · 대상 식재 33개 유지 · 기존 나무 모델과 계절 표현 유지</p>'+row('daeung-bamboo','대웅전 서쪽 · 대나무를 묶고 길은 비움')+row('north-maples','북쪽 전각 사이 · 단풍 군락과 낮은 풀·작은 돌')+'<p class="note">대나무 17무리 + 계절나무 16그루를 8군락으로 재배치. 중앙 뒤뜰과 전각 입구는 열린 공간으로 남겼습니다.</p></section>';
+const map='<section class="sheet" id="map"><h1>전체 배치 · 중앙은 비우고 가장자리 보완</h1><p>건물·산책길·판매 자리의 위치는 유지 · 새 고해상도 나무를 추가하지 않음</p>'+row('map','전체 맵 전후')+row('east-court','동쪽 마당 · 단풍 군락으로 시선을 나누기')+'</section>';
+await writeFile(root+'/comparison.html',style+comparison+map);
+const b=await chromium.launch({channel:'chrome',headless:true});try{const p=await b.newPage({viewport:{width:1500,height:1400},deviceScaleFactor:1});await p.goto('file://'+root+'/comparison.html');for(const[id,file]of[['comparison','comparison.png'],['map','map-comparison.png']])await p.locator('#'+id).screenshot({path:root+'/'+file});}finally{await b.close();}
+console.log('Saved woodland comparison images');

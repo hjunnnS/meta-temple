@@ -12,7 +12,7 @@ export const eastCourts = {
   tower: {west:wallCenterX,east:77,south:outerGate.z-9,north:-25,x:58,z:-34},
   buddha: {west:wallCenterX,east:76,south:27,north:63,x:59,z:55},
 } as const;
-export const pond={x:56,z:-51,width:27,depth:15} as const;
+export const pond={x:54,z:-52,width:34,depth:19} as const;
 // Shared polar shore for rendering, shoreline stones and walking clearance.
 export function shoreRadius(a:number){
   return .96+.10*Math.sin(3*a+.55)+.074*Math.cos(2*a-.7)+.045*Math.sin(5*a-1);
@@ -37,7 +37,10 @@ export const boundaries:Boundary[]=[
 const office = place('office'), bell = place('bell'), indeung = place('indeung');
 export const paving: StonePath[] = [
   {name:'entrance',from:[0,outerGate.z-1.5],to:[0,courtSouthEdge],lanes:3},
-  {name:'office',from:[1.97,office.z],to:[office.x-7.45*office.scale,office.z],lanes:1},
+  {name:'office-approach',from:[1.97,-45],to:[15,-45],lanes:1},
+  {name:'office-side',from:[15,-45],to:[15,office.z+6.1],lanes:1},
+  {name:'office',from:[15,office.z+6.1],to:[office.x,office.z+6.1],lanes:1},
+  {name:'office-entry',from:[office.x,office.z+6.1],to:[office.x,office.z+7.45*office.scale],lanes:1},
   {name:'tower-approach',from:[1.97,eastCourts.tower.z],to:[eastCourts.tower.x-5.76,eastCourts.tower.z],lanes:3},
   {name:'forest-court',from:[23,30],to:[59,30],lanes:1},
   {name:'forest-court',from:[59,30],to:[59,49],lanes:1},

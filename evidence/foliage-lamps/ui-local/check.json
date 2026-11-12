@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "url": "local",
+  "results": [
+    {
+      "touch": false,
+      "day": {
+        "core": [
+          0,
+          0,
+          0
+        ],
+        "lights": 0,
+        "pools": 16,
+        "bamboo": true,
+        "leaves": 15
+      },
+      "night": {
+        "core": [
+          0.48,
+          0.39341176470588235,
+          0.27105882352941174
+        ],
+        "lights": [
+          {
+            "active": true,
+            "shadow": false
+          },
+          {
+            "active": true,
+            "shadow": false
+          }
+        ]
+      },
+      "fourHallPrayer": true,
+      "errors": [],
+      "failedAssets": [],
+      "apiNetworkRequests": []
+    },
+    {
+      "touch": true,
+      "day": {
+        "core": [
+          0,
+          0,
+          0
+        ],
+        "lights": 0,
+        "pools": 16,
+        "bamboo": true,
+        "leaves": 15
+      },
+      "night": {
+        "core": [
+          0.48,
+          0.39341176470588235,
+          0.27105882352941174
+        ],
+        "lights": [
+          {
+            "active": true,
+            "shadow": false
+          },
+          {
+            "active": true,
+            "shadow": false
+          }
+        ]
+      },
+      "fourHallPrayer": true,
+      "errors": [],
+      "failedAssets": [],
+      "apiNetworkRequests": []
+    }
+  ]
+}

@@ -7,7 +7,7 @@ test('the twelve review zones have a connected outdoor approach inside the groun
   for(const zone of zones){
     const [x,,z]=zone.center;
     // The forest and reserved north-east zone are reached around the main hall.
-    const points: GroundPoint[]=z>=35 && zone.id!=='Z04'
+    const points: GroundPoint[]=zone.id==='Z10'?[[0,-65],[0,-45],[15,-45],[15,-63.9],[x,-63.9],[x,z]]:z>=35 && zone.id!=='Z04'
       ? [[0,-65],[0,18],[22,18],[22,z],[x,z]]
       : [[0,-65],[0,z],[x,z]];
     for(let i=1;i<points.length;i++){
@@ -29,7 +29,8 @@ test('visitors can circle the pond between the office and pagoda',()=>{
     const angle=degree*Math.PI/180;
     const r=shoreRadius(angle);
     assert.ok(insideGround(pond.x+(pond.width/2*r+1)*Math.cos(angle),pond.z+(pond.depth/2*r+1)*Math.sin(angle),.325));
-    assert.ok(!insideGround(pond.x+(pond.width/2*r-.1)*Math.cos(angle),pond.z+(pond.depth/2*r-.1)*Math.sin(angle),.325));
+    const wx=pond.x+(pond.width/2*r-.1)*Math.cos(angle),wz=pond.z+(pond.depth/2*r-.1)*Math.sin(angle);
+    assert.equal(insideGround(wx,wz,.325),false);
   }
 });
 
@@ -42,10 +43,10 @@ test('approved enclosing wall leaves the eastern gardens continuous and aligns t
 
 
 test('coin throwing follows one continuous U-shaped bank and excludes the water and northern opening',()=>{
- for(const [x,z] of coinThrowBank)assert.ok(canThrowCoin(x,z));
+ for(const [x,z] of coinThrowBank)assert.equal(canThrowCoin(x,z),true);
  for(let i=1;i<coinThrowBank.length;i++){
   const a=coinThrowBank[i-1],b=coinThrowBank[i];
-  assert.ok(canThrowCoin((a[0]+b[0])/2,(a[1]+b[1])/2));
+  const x=(a[0]+b[0])/2,z=(a[1]+b[1])/2;assert.equal(canThrowCoin(x,z),true);
  }
  assert.equal(canThrowCoin(pond.x,pond.z),false);
  assert.equal(canThrowCoin(0,-52),false);

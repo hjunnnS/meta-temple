@@ -1,0 +1,102 @@
+{
+  "passed": true,
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "results": [
+    {
+      "touch": false,
+      "locale": "ko",
+      "markerCount": 22,
+      "expandedWall": true,
+      "fourNewShrines": true,
+      "guestVisits": [
+        {
+          "id": "yaksa",
+          "position": [
+            -42.9,
+            1.150049952417612,
+            55.91304347826087
+          ],
+          "guestPrayer": true
+        },
+        {
+          "id": "munsu",
+          "position": [
+            -21.08695652173913,
+            1.150049952417612,
+            97.9
+          ],
+          "guestPrayer": true
+        },
+        {
+          "id": "bohyeon",
+          "position": [
+            40.91304347826087,
+            1.150049952417612,
+            100.9
+          ],
+          "guestPrayer": true
+        },
+        {
+          "id": "geukrak",
+          "position": [
+            80.9,
+            1.150049952417612,
+            68.08695652173913
+          ],
+          "guestPrayer": true
+        }
+      ],
+      "apiNetworkRequests": [],
+      "pageErrors": [],
+      "failedAssets": []
+    },
+    {
+      "touch": true,
+      "locale": "en",
+      "markerCount": 22,
+      "expandedWall": true,
+      "fourNewShrines": true,
+      "guestVisits": [
+        {
+          "id": "yaksa",
+          "position": [
+            -42.9,
+            1.150049952417612,
+            55.91304347826087
+          ],
+          "guestPrayer": true
+        },
+        {
+          "id": "munsu",
+          "position": [
+            -21.08695652173913,
+            1.150049952417612,
+            97.9
+          ],
+          "guestPrayer": true
+        },
+        {
+          "id": "bohyeon",
+          "position": [
+            40.91304347826087,
+            1.150049952417612,
+            100.9
+          ],
+          "guestPrayer": true
+        },
+        {
+          "id": "geukrak",
+          "position": [
+            80.9,
+            1.150049952417612,
+            68.08695652173913
+          ],
+          "guestPrayer": true
+        }
+      ],
+      "apiNetworkRequests": [],
+      "pageErrors": [],
+      "failedAssets": []
+    }
+  ]
+}

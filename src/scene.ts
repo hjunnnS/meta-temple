@@ -1,3 +1,4 @@
+import {forestLamps} from './forest-lamps';
 import {rearPrayerHalls,prayerHallDimensions,prayerHallPoint,prayerAisleX,prayerHallFloor} from './prayer-halls.ts';
 import {furnishPrayerHall} from './prayer-hall-interior';
 import {furnishGardens,inBambooGarden} from './temple-gardens';
@@ -450,7 +451,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  // Central court and southern entrance axis remain distinct from the fixed lantern slots.
  box('central-court',2*courtHalfWidth,.12,courtDepth,0,.03,courtSouthEdge+courtDepth/2,stone,false);
- furnishGardens(scene,staticMeshes);
+ furnishGardens(scene,staticMeshes,masonry);
  const pathSoil=mat('path-soil','#524d48');
  surface(pathSoil,'stone');pathSoil.specularColor=Color3.Black();
  const slabs=['#a4a8a4','#acaeaa','#a8aba7'].map((shade,index)=>{
@@ -1027,6 +1028,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  furnishHall(scene,staticMeshes,wood,painted);
  // Merge static geometry by material. Shadow lists are rebuilt to avoid disposed casters.
+ const forestLighting=forestLamps(scene,staticMeshes);
  const walkWorld=pedestrianWorld(staticMeshes);
  const walking=walkingController(scene,camera,canvas,walkWorld,bellVisual);
  const sweeper=sweepingMonk(scene,camera,canvas,()=>walking.position);
@@ -1074,6 +1076,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
  batchArchitecture(staticMeshes.filter(mesh=>mesh.isVisible),false);batchArchitecture(displayFixtures,true);
  for(const mesh of sweeper.getChildMeshes())shadows.addShadowCaster(mesh);
  const updateTrees=distanceTrees(scene,shadows);
+ forestLighting.bind();
+ const forestLampWindows=scene.meshes.find(m=>m.material===forestLighting.paper);if(forestLampWindows instanceof Mesh)glow.addIncludedOnlyMesh(forestLampWindows);
  pondMirror.renderList=scene.meshes.filter(mesh=>mesh.material===paleStone||mesh.material===insetStone||mesh.name==='open-sky');
  const luminousWindows=scene.meshes.find(mesh=>mesh.material===lampCore);
  if(luminousWindows instanceof Mesh)glow.addIncludedOnlyMesh(luminousWindows);
@@ -1308,6 +1312,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   });
  }
  function time(value:TimeOfDay){
+  forestLighting.time(value);
   nightWayfinding.setEnabled(value==='night');
   expansionMoon.setEnabled(value==='night');
   for(const light of monumentLights)light.setEnabled(value==='night');
@@ -1476,8 +1481,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
   if(name==='entryRowMap'||name==='gateExitOffice'){
    camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
   if(name==='entryRowMap'){
-    camera.fov=.84;camera.setTarget(new Vector3(0,0,-35));
-    camera.alpha=-Math.PI/2;camera.beta=.151;camera.radius=canvas.clientWidth<canvas.clientHeight?118:58;
+    camera.fov=.84;camera.setTarget(new Vector3(0,0,-55));
+    camera.alpha=-Math.PI/2;camera.beta=.151;camera.radius=canvas.clientWidth<canvas.clientHeight?118:67;
    }else{
     camera.fov=.98;camera.setTarget(new Vector3(tower.x,5,tower.z));
     camera.setPosition(new Vector3(0,1.7,exitZ+1));
@@ -1535,8 +1540,13 @@ export function createTemple(canvas:HTMLCanvasElement) {
    camera.setPosition(turnPoint(new Vector3(hall.x+(votive?.55:2.0),2.45,hall.z-(votive?1.95:1.85)),hall));
    return;
   }
-  if(name==='officeApproach'||name==='indeungApproach'){
-   const site=templePlaces.find(p=>p.id===(name==='officeApproach'?'office':'indeung'))!;
+  if(name==='officeApproach'){
+   camera.fov=.86;camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
+   camera.setTarget(new Vector3(office.x,2.1,office.z+2));
+   camera.setPosition(new Vector3(office.x-4,1.8,office.z+13));return;
+  }
+  if(name==='indeungApproach'){
+   const site=templePlaces.find(p=>p.id==='indeung')!;
    const side=site.x>0?-1:1;
    camera.fov=.71;
    camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
@@ -1581,6 +1591,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   if(inspectInside&&!walking.position)camera.radius=walkWorld.cameraLimit(camera.target,camera.alpha,camera.beta,camera.radius);
   camera.minZ=sceneNearPlane(camera.radius);
   updateTrees(camera.position,performance.now());
+  forestLighting.update(camera.position,performance.now());
   pondLife.update(Math.min(.08,engine.getDeltaTime()/1000),reduced,walking.position??undefined);
   if(walkZ!==null){
    walkZ=Math.min(walkEnd,walkZ+Math.min(engine.getDeltaTime(),60)*.0021);

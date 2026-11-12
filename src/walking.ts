@@ -230,7 +230,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  };
  const visitButton=document.querySelector<HTMLButtonElement>('#visit-point')!;
  const visitorSites=[
-  {place:'office',dx:-1.4,dz:-1,radius:2.0,view:'officeReception',title:'종무소 접수 안내'},
+  {place:'office',dx:0,dz:3,radius:2.7,view:'officeReception',title:'종무소 접수 안내'},
   {place:'bell',dx:0,dz:0,radius:5,view:'bellDetail',title:'범종과 당목 살펴보기'},
   {place:'forest',dx:0,dz:0,radius:5,view:'forest',title:'명상숲에서 머무르기'},
  ].map(site=>{const place=templePlaces.find(p=>p.id===site.place)!;return {...site,x:place.x+site.dx,z:place.z+site.dz};});
@@ -354,7 +354,11 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  function visit(x:number,z:number){
   const candidates=[[x,z],...Array.from({length:32},(_,i)=>{const a=(i%8)*Math.PI/4,r=1+Math.floor(i/8);return [x+r*Math.cos(a),z+r*Math.sin(a)];})];
   const next=candidates.find(([cx,cz])=>!world.blocked(cx,world.floor(cx,cz),cz));if(!next)return false;
-  if(bows.active)bows.cancel();finishWorship();tea.stop();bell.cancel();mode(true);clear();avatar.root.position.set(next[0],world.floor(next[0],next[1]),next[1]);camera.alpha=-Math.PI/2;camera.beta=1.26;window.dispatchEvent(new Event('sasa:relocate'));return true;
+  if(bows.active)bows.cancel();finishWorship();tea.stop();bell.cancel();mode(true);clear();avatar.root.position.set(next[0],world.floor(next[0],next[1]),next[1]);const office=templePlaces.find(p=>p.id==='office')!;
+  const officeArrival=Math.abs(x-office.x)<.5&&Math.abs(z-(office.z+6.1))<.5;
+  camera.alpha=officeArrival?Math.PI/2:-Math.PI/2;camera.beta=1.26;
+  if(officeArrival)avatar.root.rotation.y=Math.PI;
+  window.dispatchEvent(new Event('sasa:relocate'));return true;
  }
  function startPractice(kind:'bow'|'meditation'|'108'){
   if(!active||!prayer)visit(practiceSeat.x,practiceSeat.z);

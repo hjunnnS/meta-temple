@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "fiveItemsAndGuestResume": true,
+  "realBowAndLight": true,
+  "reloadRetainsItemsAndDisplay": true,
+  "scheduleAndNight": true,
+  "mobileGuestPracticeResume": true,
+  "apiNetworkRequests": [],
+  "pageErrors": [],
+  "failedAssets": [],
+  "actualPayments": false,
+  "multiplayer": false
+}
