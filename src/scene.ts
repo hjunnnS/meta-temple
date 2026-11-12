@@ -23,7 +23,7 @@ import {sweepingMonkSite} from './temple-terrain';
 import { mountainLandscape } from './mountain-landscape';
 import { distanceTrees } from './tree-distance';
 import { furnishPond } from './pond';
-import { eastCourts, pond, shoreRadius, interiorWoodland, teaPavilion } from './temple-terrain.ts';
+import { eastCourts, pond, shoreRadius, interiorWoodland, teaPavilion, personalGate } from './temple-terrain.ts';
 import { wishGarden, sceneNearPlane, courtPathLift, candleCourt, memorialGarden, lanternPlazaNorthZ, wallCenterX, wallThickness, gardenBorderWidth, sideHallCenterZ, courtSouthEdge, courtDepth, courtHalfWidth, templePlaces, daeungDimensions, meditationTrees } from './temple-layout.ts';
 import { createHanjiMaterial } from './hanji-material.ts';
 import { Engine } from '@babylonjs/core/Engines/engine';
@@ -1445,8 +1445,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
    camera.setPosition(new Vector3(49,9,-77));return;
   }
   if(name==='personalGate'){
-   camera.fov=.87;camera.setTarget(new Vector3(69,1.9,36));
-   camera.setPosition(new Vector3(61,2.5,32));return;
+   camera.fov=.87;camera.setTarget(new Vector3(personalGate.x,1.9,personalGate.z));
+   camera.setPosition(new Vector3(personalGate.x-8,2.5,personalGate.z-4));return;
   }
   if(name==='sanctuaryWalk'){
    camera.fov=.95;camera.setTarget(new Vector3(8,0,62));

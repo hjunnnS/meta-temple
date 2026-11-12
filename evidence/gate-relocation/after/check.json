@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "phase": "after",
+  "gate": {
+    "x": 77,
+    "z": 46
+  },
+  "arrival": [
+    74.5,
+    0.01,
+    46
+  ],
+  "returned": [
+    74.5,
+    0.01,
+    46
+  ],
+  "guestLoginContinuation": true,
+  "reentry": true,
+  "inspectionTarget": [
+    77,
+    1.9,
+    46
+  ],
+  "errors": []
+}
