@@ -90,7 +90,7 @@ export const teaRestArea={
  west:47,east:teaPavilion.x+teaPavilion.width/2+1,
  south:teaPavilion.z-teaPavilion.depth/2-1,north:teaTerrace.z+teaTerrace.depth/2+1,
 } as const;
-export const personalGate={x:80,z:56} as const;
+export const personalGate={x:94,z:47} as const;
 function roundedRoute(points:GroundPoint[]){
  const route:GroundPoint[]=[points[0]];
  for(let i=1;i<points.length-1;i++){
@@ -133,5 +133,5 @@ export const teaTables=teaSeats.slice(0,12).filter((_,i)=>i%2===0).map(seat=>({x
 export const teaApproach=roundedRoute([[35,-34],[35,-64.25],[58.7,-64.25]]);
 // A continuous dry route joins the terrace, east shore and pagoda approach.
 export const teaGardenWalk=roundedRoute([[73.8,-64.25],[74.8,-61.5],[74.5,-51],[73,-40],[69,-34]]);
-export const gateApproach:GroundPoint[]=[[68,personalGate.z],[personalGate.x+2,personalGate.z]];
+export const gateApproach:GroundPoint[]=roundedRoute([[71,47],[77,38],[93,38],[93,personalGate.z],[personalGate.x,personalGate.z]]);
 export const interiorWoodland=meditationTrees.filter(tree=>[sanctuaryWalk,rearPrayerWalk,...prayerHallApproaches.map(a=>a.route)].every(route=>route.every((p,i)=>i===0||distanceToSegment(tree.x,tree.z,route[i-1],p)>2.0)));

@@ -1446,7 +1446,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   }
   if(name==='personalGate'){
    camera.fov=.87;camera.setTarget(new Vector3(personalGate.x,1.9,personalGate.z));
-   camera.setPosition(new Vector3(personalGate.x-8,2.5,personalGate.z-4));return;
+   camera.setPosition(new Vector3(personalGate.x-5,2.5,personalGate.z-8));return;
   }
   if(name==='sanctuaryWalk'){
    camera.fov=.95;camera.setTarget(new Vector3(8,0,62));
