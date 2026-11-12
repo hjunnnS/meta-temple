@@ -450,7 +450,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  // Central court and southern entrance axis remain distinct from the fixed lantern slots.
  box('central-court',2*courtHalfWidth,.12,courtDepth,0,.03,courtSouthEdge+courtDepth/2,stone,false);
- furnishGardens(scene,staticMeshes);
+ furnishGardens(scene,staticMeshes,masonry);
  const pathSoil=mat('path-soil','#524d48');
  surface(pathSoil,'stone');pathSoil.specularColor=Color3.Black();
  const slabs=['#a4a8a4','#acaeaa','#a8aba7'].map((shade,index)=>{

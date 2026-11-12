@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "sourceScope": "canonical local implementation",
+  "targetTreesBefore": 33,
+  "targetTreesAfter": 33,
+  "bambooClumps": 17,
+  "seasonalTrees": 16,
+  "speciesSeparatedGroves": 8,
+  "beforeVertices": 2599653,
+  "afterVertices": 2604854,
+  "vertexIncreasePercent": 0.2,
+  "gardenMaterialBatchesBefore": 7,
+  "gardenMaterialBatchesAfter": 8,
+  "walkMetres": 214.55917735866154,
+  "allFourPrayerHallsUsable": true,
+  "newHighDetailTreeModels": false,
+  "newDetailedGardenShadows": false,
+  "unitTests": 80,
+  "publicDeployment": false
+}

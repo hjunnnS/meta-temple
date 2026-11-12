@@ -4,7 +4,6 @@ import {Matrix,Quaternion,Vector3} from '@babylonjs/core/Maths/math.vector';
 import type {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
 import type {ShadowGenerator} from '@babylonjs/core/Lights/Shadows/shadowGenerator';
 import {treeSpecimen} from './tree-specimen';
-import {inBambooGarden} from './temple-gardens';
 import {interiorWoodland} from './temple-terrain';
 
 export function distanceTrees(scene:Scene,shadows:ShadowGenerator){
@@ -25,9 +24,9 @@ export function distanceTrees(scene:Scene,shadows:ShadowGenerator){
    return mesh;
   });
  });
- const trees=interiorWoodland.filter(p=>!inBambooGarden(p.x,p.z)).map(({x,z},i)=>{
-  const size=1.48+.20*Math.sin(i*2.1);
-  return {position:new Vector3(x,2.6,z),matrix:Matrix.Compose(new Vector3(size,size,size),Quaternion.RotationAxis(Vector3.Up(),i*2.4),new Vector3(x,0,z))};
+ const trees=interiorWoodland.filter(p=>p.kind==='seasonal').map(({x,z,seed})=>{
+  const size=1.48+.20*Math.sin(seed*2.1);
+  return {position:new Vector3(x,2.6,z),matrix:Matrix.Compose(new Vector3(size,size,size),Quaternion.RotationAxis(Vector3.Up(),seed*2.4),new Vector3(x,0,z))};
  });
  let last=-Infinity,key='';
  return (camera:Vector3,now:number)=>{

@@ -1,3 +1,4 @@
+import {groveTrees} from './woodland-groups.ts';
 import { rearPrayerHalls } from './prayer-halls.ts';
 /** Image-approved relative placement, provisional metre dimensions for visual review.
  * Lantern sample coordinates remain untouched. +Z north, -X west.
@@ -34,11 +35,7 @@ export const templePlaces = [
 
 /** Layout review proportions; individual architectural detail is reviewed next. */
 export const daeungDimensions = { x:1.5, y:1.2, z:2 } as const;
-export const meditationTrees = [
- {x:-43,z:77},{x:-38,z:82},{x:-2,z:104},{x:5,z:107},{x:13,z:104},{x:58,z:99},{x:64,z:96},{x:88,z:47},
- ...Array.from({length:18},(_,i)=>({x:-30+(i%9)*7.5,z:61+Math.floor(i/9)*8})),
- ...[-1,1].flatMap(side=>Array.from({length:8},(_,i)=>({x:side*(27+(i%2)*5),z:32+Math.floor(i/2)*7}))),
-];
+export const meditationTrees = groveTrees;
 
 /** Retain close camera clipping, but spend more depth precision on distant full-site views. */
 export function sceneNearPlane(radius:number){return Math.max(.1,Math.min(1,radius/200));}
