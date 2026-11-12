@@ -1,0 +1,12 @@
+{
+  "unchangedSincePublicV17": {
+    "src/contracts.ts": "c06c6cb397083a5e2ff3c42d811ac6aa6c01019649a8c3f6e77050148e05118d",
+    "src/hanji-material.ts": "f70c37310938226fa146b9d73284dedce2509ea1a75b2c23d3d941030dfb7e74",
+    "src/tree-specimen.ts": "46b625da8e1300517fb31836975c1b6cd61ebc9a6abe699ac3c8cd5fa290a842",
+    "src/temple-layout.ts": "e8c5473ec1d2ee156e18fd4b89e26169fd64019bc6ec3ce80a6c21bddab751d7",
+    "src/temple-terrain.ts": "abbbee08dd9a63ee1fd3d3bebda86a73ee2ec328fed0cfea65d89ddf1c442a91",
+    "src/scene.ts": "efadb7c38ccdf1d24ba5f241a5cdf6181dbd5028786c8f3d73c1192d20defb56"
+  },
+  "paidSlotCount": 531,
+  "lanternCount": 440
+}

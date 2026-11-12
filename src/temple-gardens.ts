@@ -1,3 +1,4 @@
+import {quietGardenBeds,quietShrubClusters} from './quiet-garden-layout';
 import {woodlandGroups,groveBounds} from './woodland-groups';
 import {treeSeason} from './seasonal-tree';
 import type {Scene} from '@babylonjs/core/scene';
@@ -62,6 +63,15 @@ export function furnishGardens(scene:Scene,parts:Mesh[],stone?:StandardMaterial)
   patch(g.x,g.z,g.rx,g.rz,index,g.kind==='bamboo'?moss:litter);
   // Sparse low plants sit at the grove edge; the trunk count and canopy models are unchanged.
   for(let n=0;n<9;n++){const a=n*2.4+index,px=g.x+Math.cos(a)*g.rx*.86,pz=g.z+Math.sin(a)*g.rz*.86;if(clear(px,pz))tuft(px,pz,.45+(n%3)*.14,a);}
+ }
+ // Wider, connected edge beds turn leftover ground into intentional gardens.
+ for(const [index,g]of quietGardenBeds.entries()){
+  patch(g.x,g.z,g.rx,g.rz,index+17,g.kind==='bamboo'?moss:litter);
+  for(let n=0;n<16;n++){const a=n*2.4+index,r=.55+.35*(n%4)/3,px=g.x+Math.cos(a)*g.rx*r,pz=g.z+Math.sin(a)*g.rz*r;if(clear(px,pz))tuft(px,pz,.34+(n%3)*.12,a);}
+ }
+ for(const [index,[x,z]]of quietShrubClusters.entries()){
+  if(!clear(x,z))continue;
+  for(let n=0;n<3;n++){const a=index+n*2.4,m=MeshBuilder.CreateIcoSphere('garden-edge-underplant',{radius:1,subdivisions:1},scene);m.position.set(x+Math.cos(a)*.38,.37+n*.075,z+Math.sin(a)*.38);m.scaling.set(.80,.40,.68);m.rotation.y=a;add(m,leaf);}
  }
  // Short, separated planting beds soften the distant walls, leaving the middle of the yard open.
  for(const [x,z,rx,rz]of[[-54,91,1.4,5],[-5,112,4,1.25],[25,112,5.5,1.3],[70,111,7,1.4],[92,93,1.25,6],[92,35,1.4,3]]){
