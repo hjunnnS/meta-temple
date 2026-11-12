@@ -42,7 +42,7 @@ try {
     observer=await browser.newPage({locale:'ko-KR',viewport:{width:960,height:720}});
     await observer.goto(origin);await observer.locator('.enter-temple').click();
     await observer.locator('.entry-overlay').waitFor({state:'detached'});
-    await observer.locator('#offering-open').click();
+    await serviceControl(observer,'#offering-open');
     const reception=observer.locator('#reception-panel');
     await reception.getByRole('button',{name:/^연등 ·/}).click();
     await reception.locator('.lantern-plan button').nth(1).click();

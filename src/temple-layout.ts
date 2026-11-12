@@ -1,3 +1,4 @@
+import { rearPrayerHalls } from './prayer-halls.ts';
 /** Image-approved relative placement, provisional metre dimensions for visual review.
  * Lantern sample coordinates remain untouched. +Z north, -X west.
  */
@@ -28,11 +29,13 @@ export const templePlaces = [
  {id:'jijang',name:'지장전',kind:'hall',x:sideHallOffset,z:sideHallCenterZ,scale:sideHallScale,yaw:Math.PI/2},
  {id:'daeung',name:'대웅전',kind:'hall',x:0,z:38,scale:1.5},
  {id:'forest',name:'명상숲 · 뒤뜰',kind:'forest',x:0,z:64,scale:1},
+ ...rearPrayerHalls,
 ] as const;
 
 /** Layout review proportions; individual architectural detail is reviewed next. */
 export const daeungDimensions = { x:1.5, y:1.2, z:2 } as const;
 export const meditationTrees = [
+ {x:-43,z:77},{x:-38,z:82},{x:-2,z:104},{x:5,z:107},{x:13,z:104},{x:58,z:99},{x:64,z:96},{x:88,z:47},
  ...Array.from({length:18},(_,i)=>({x:-30+(i%9)*7.5,z:61+Math.floor(i/9)*8})),
  ...[-1,1].flatMap(side=>Array.from({length:8},(_,i)=>({x:side*(27+(i%2)*5),z:32+Math.floor(i/2)*7}))),
 ];

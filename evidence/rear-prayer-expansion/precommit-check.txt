@@ -1,0 +1,279 @@
+
+> meta-temple@0.1.0 check
+> npm run assets && npm test && npm run build
+
+
+> meta-temple@0.1.0 assets
+> node scripts/check-assets.mjs
+
+배포 에셋 출처·버전·용량 검사 통과: 19
+
+> meta-temple@0.1.0 test
+> node --experimental-strip-types --test tests/*.test.ts
+
+✔ one ring has exactly one contact, rejects duplicate starts and cancellation prevents a delayed sound (0.474709ms)
+✔ striker travels back before its single forward contact and settles without exceeding its suspension (0.613291ms)
+✔ original bronze tone is finite, has a smooth onset and a fading tail (89.025083ms)
+✔ guest ringing pose and contact count reach a second visitor and malformed progress is rejected (0.780917ms)
+✔ a practice counts completed bows in order and can retry the last count (1.351667ms)
+✔ density changes preserve existing slot identities and positions (13.93525ms)
+✔ reject malformed density rather than moving or dropping slots (0.152ms)
+✔ all 12 planned spaces have unique identifiers and valid extents (0.09975ms)
+✔ frame aggregation uses elapsed time and worst 1% frame durations (0.118375ms)
+✔ a suspended or changed run is invalid and cannot collect more frames (0.736875ms)
+✔ changing settings after stop invalidates old measurement and preserves duration (0.068833ms)
+✔ sample rows run toward the hall and density does not rearrange them (0.239541ms)
+✔ reference palette has five spatial bands independent of density (2.758916ms)
+✔ name preview removes control characters and caps Unicode code points (0.158958ms)
+✔ canopy widens from under the gate eaves and stops between the side halls (96.410458ms)
+✔ daily services open and end at the KST boundaries and wrap overnight (0.574042ms)
+✔ late visitors hear the corresponding offset within the same phase (0.1045ms)
+✔ Firebase setup is optional and partial configuration fails (0.339333ms)
+✔ verified Firebase UID identifies the same account across enabled sign-in methods (0.601208ms)
+✔ approved layout keeps unique identities and installation compatibility in every zone (33.102125ms)
+✔ rejects duplicate slots, altered positions or directions, incompatible items and stale layouts (12.775292ms)
+✔ owned sample highlights cover every product and only installed slots (23.029792ms)
+✔ 49 bowing spaces fit inside the walls, clear of the altar end and central aisle (0.667083ms)
+✔ temporary account is available only with explicit local flag and without external authentication (0.489875ms)
+✔ all visitor catalogues contain the same nonempty translations (7.604084ms)
+✔ login recovery distinguishes cancellation, blocked popup, expired link and network failure (0.417334ms)
+✔ review zones and the rendered halls use one world-coordinate frame (0.82225ms)
+✔ visible sample installations belong to their declared zone at all four densities (72.297416ms)
+✔ relocation preserves every lantern coordinate and all five item identities and quantities (5.695083ms)
+✔ approved destinations and garden routes stay reachable without crossing walls or water (2.706458ms)
+✔ gate smoke slowly cycles purple, blue and orange, with no jump on the loop (1.972583ms)
+✔ point walking follows a clear line, routes around a wall, and cannot cross a closed boundary (2.4135ms)
+✔ diagonal routes cannot cut a corner and invalid destinations do not move the visitor (0.287042ms)
+✔ a background preview starts on return, stops offscreen and resumes exactly once (0.540167ms)
+✔ a visible unfocused preview draws its first ready frame, then pauses (0.169458ms)
+✔ all five item kinds have fixed display positions without changing public slots (0.443791ms)
+✔ display layout rejects duplicate purchases, duplicate positions, arbitrary coordinates and excessive entries (0.2425ms)
+✔ only a purchase in the owner catalog with a compatible item type can be displayed (0.100541ms)
+✔ one bow completes once and stopping lets the current bow finish standing (0.471417ms)
+✔ interrupted sitting rises from the current pose without jumping or restarting (0.125083ms)
+✔ meditation stays seated until stopped and can start again after standing (0.066291ms)
+✔ private presence blocks only its own session and requires its own room heartbeat (0.41575ms)
+✔ an abandoned private tab releases its public channel block after twenty seconds (0.0935ms)
+✔ zooming out behind the spawn point stays in front of the entrance wall (0.615084ms)
+✔ camera arm clears every wall, ceiling and floor at all walkable boundary corners (3.953083ms)
+✔ obstruction clears as the character walks away and intentional zoom-in is preserved (0.299625ms)
+✔ room connects to the veranda and garden while display shelves, altar and pond stay solid (0.31175ms)
+✔ approved four rear halls have distinct deities, correct door direction and clear wall margins (1.139459ms)
+✔ the new loop and each hall approach are continuous dry routes with wall and pedestal clearance (3.323042ms)
+✔ northward point navigation and visitor synchronization accept the new grounds but reject non-finite and out-of-range positions (0.606833ms)
+✔ all five existing offering types retain their complete approved slot geometry (3.336542ms)
+✔ late arrivals see the current robe and stale moves cannot restore it (0.919167ms)
+✔ a later visitor gets the current bow progress and stale moves cannot rewind it (0.159459ms)
+✔ tea seating and drink phase reach later visitors and reject malformed drink states (0.119958ms)
+✔ candidate and backup share the selected local database settings (10.440416ms)
+✔ intentional destination changes rejoin without weakening movement limits (1.027042ms)
+✔ meditation synchronizes as seated without a cup and clears on the next pose (0.472542ms)
+BJS - [16:32:33]: Babylon.js v9.34.0 - Null engine
+BJS - [16:32:33]: Babylon.js v9.34.0 - Null engine
+✔ separate indoor/outdoor labels keep the original lettered face and remove every projecting backing triangle (5.792375ms)
+✔ ordinary two-sided gate signs keep their complete geometry (0.560667ms)
+✔ repeated clicks cannot restart the greeting or overlap speech (0.509125ms)
+✔ the broom is put aside before joining palms, then greeting returns to sweeping (2.33075ms)
+✔ the monk stays off the rear walking path and inside the temple boundary (0.181125ms)
+✔ reference layout preserves south/north order, west/east placement and non-overlapping hall footprints (0.495417ms)
+✔ rear and side woodland stays outside expanded main hall (0.17375ms)
+✔ the twelve review zones have a connected outdoor approach inside the ground and walls (6.936208ms)
+✔ visitors can circle the pond between the office and pagoda (0.214917ms)
+✔ approved enclosing wall leaves the eastern gardens continuous and aligns the entrance with the southern frontage (0.2115ms)
+✔ coin throwing follows one continuous U-shaped bank and excludes the water and northern opening (0.703083ms)
+✔ a camera may orbit over the pond while the visitor stays on dry land (0.096875ms)
+✔ new walking routes clear the pond, walls, statue pedestal and woodland trunks (3.817333ms)
+✔ the enlarged pavilion and open terrace have dry seats, clear exit aisles and wall margins (2.125375ms)
+✔ side garden tables and chairs preserve the west entry and pond route (0.137667ms)
+✔ rear garden walls clear the walking loop and join the eastern enclosing wall (0.658959ms)
+✔ the approved rear extension joins the original frontage without interior dividing walls (0.273375ms)
+✔ trees follow the requested month bands at Korean midnight (8.428ms)
+✔ distant views distinguish nearby soil and valley depths without changing close camera clipping (0.496791ms)
+✔ court flagstones clear the court top while all ordinary paths retain their existing height (0.154292ms)
+✔ wish waits three seconds, samples one outcome, and locks until the result ends (0.363292ms)
+ℹ tests 78
+ℹ suites 0
+ℹ pass 78
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 287.026667
+
+> meta-temple@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.6 building client environment for production...
+transforming...
+✓ 765 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/staff.html                                                   0.49 kB │ gzip:   0.35 kB
+dist/hanji-colors.html                                            0.62 kB │ gzip:   0.37 kB
+dist/index.html                                                   0.68 kB │ gzip:   0.40 kB
+dist/shared.html                                                  1.10 kB │ gzip:   0.59 kB
+dist/auth.html                                                    1.24 kB │ gzip:   0.68 kB
+dist/hanji.html                                                   2.53 kB │ gzip:   0.77 kB
+dist/daylight.html                                                2.54 kB │ gzip:   0.77 kB
+dist/hanji-sunlight.html                                          2.54 kB │ gzip:   0.78 kB
+dist/face-study.html                                              3.11 kB │ gzip:   1.28 kB
+dist/practice-preview.html                                        3.67 kB │ gzip:   1.49 kB
+dist/assets/walking-aKUv1GTP.css                                  1.02 kB │ gzip:   0.51 kB
+dist/assets/daylight-DGgSyzqN.css                                 1.28 kB │ gzip:   0.63 kB
+dist/assets/colors-CScYooe8.css                                   1.46 kB │ gzip:   0.68 kB
+dist/assets/hanji-study-CQYR86cO.css                              2.47 kB │ gzip:   1.00 kB
+dist/assets/main-BzLHqa5i.css                                     3.04 kB │ gzip:   1.23 kB
+dist/assets/main-Ny8-OAge.css                                    36.92 kB │ gzip:   8.19 kB
+dist/assets/dds.pure-5AeqToka.js                                  0.05 kB │ gzip:   0.07 kB
+dist/assets/texture-B-1vfqoc.js                                   0.05 kB │ gzip:   0.07 kB
+dist/assets/shaderMaterial-Cb4NtN9a.js                            0.05 kB │ gzip:   0.07 kB
+dist/assets/thinEngine.pure-BnDFDjgD.js                           0.05 kB │ gzip:   0.07 kB
+dist/assets/firebase-login-CJuYggMj.js                            0.06 kB │ gzip:   0.07 kB
+dist/assets/dumpTools.pure-DNKJC-iQ.js                            0.16 kB │ gzip:   0.13 kB
+dist/assets/kernelBlurVaryingDeclaration-DP2Wr9Oc.js              0.21 kB │ gzip:   0.17 kB
+dist/assets/kernelBlurVaryingDeclaration-g2Ge9lzd.js              0.22 kB │ gzip:   0.18 kB
+dist/assets/logDepthDeclaration-3gXGtHbI.js                       0.27 kB │ gzip:   0.22 kB
+dist/assets/logDepthDeclaration-DYYUVTrx.js                       0.28 kB │ gzip:   0.22 kB
+dist/assets/logDepthVertex-D5IUM6qd.js                            0.30 kB │ gzip:   0.24 kB
+dist/assets/pass.fragment-Cvd2TCWC.js                             0.31 kB │ gzip:   0.25 kB
+dist/assets/shadowMapFragmentSoftTransparentShadow-R_iOKnyx.js    0.37 kB │ gzip:   0.26 kB
+dist/assets/logDepthVertex-DSD5XdGw.js                            0.37 kB │ gzip:   0.26 kB
+dist/assets/fogVertex-NHlgMcT2.js                                 0.38 kB │ gzip:   0.24 kB
+dist/assets/shadowMapFragmentSoftTransparentShadow-B6k0i9Au.js    0.40 kB │ gzip:   0.28 kB
+dist/assets/vertexColorMixing-DPW6Is9y.js                         0.43 kB │ gzip:   0.27 kB
+dist/assets/glowMapMerge.vertex-XcoH38fZ.js                       0.43 kB │ gzip:   0.29 kB
+dist/assets/preview-rendering-BfdCShv_.js                         0.45 kB │ gzip:   0.26 kB
+dist/assets/postprocess.vertex-DJCmMhI8.js                        0.46 kB │ gzip:   0.30 kB
+dist/assets/shaderStore-D-XQlhUT.js                               0.46 kB │ gzip:   0.17 kB
+dist/assets/performanceConfigurator-UtxC_Odd.js                   0.50 kB │ gzip:   0.25 kB
+dist/assets/fogVertex-DNAMrhb0.js                                 0.50 kB │ gzip:   0.29 kB
+dist/assets/rgbdDecode.fragment-ycGs1SRq.js                       0.52 kB │ gzip:   0.34 kB
+dist/assets/packingFunctions-DpGwbupU.js                          0.52 kB │ gzip:   0.29 kB
+dist/assets/depthBoxBlur.fragment-CLEAG5DG.js                     0.53 kB │ gzip:   0.35 kB
+dist/assets/glowMapMerge.vertex-CBAYzq55.js                       0.54 kB │ gzip:   0.33 kB
+dist/assets/vertexColorMixing-UCrnwszu.js                         0.56 kB │ gzip:   0.30 kB
+dist/assets/packingFunctions-CINwVZs6.js                          0.56 kB │ gzip:   0.31 kB
+dist/assets/postprocess.vertex-CmVXXq2T.js                        0.58 kB │ gzip:   0.35 kB
+dist/assets/meshUboDeclaration-DYEo1Glw.js                        0.65 kB │ gzip:   0.35 kB
+dist/assets/rgbdDecode.fragment-B_fN_Tca.js                       0.66 kB │ gzip:   0.38 kB
+dist/assets/modulepreload-polyfill-P2Xu9kJm.js                    0.67 kB │ gzip:   0.38 kB
+dist/assets/depthBoxBlur.fragment-D2KJPEQv.js                     0.71 kB │ gzip:   0.41 kB
+dist/assets/meshUboDeclaration-1zKNS3KT.js                        0.71 kB │ gzip:   0.37 kB
+dist/assets/login-feedback-Cz-nraAF.js                            0.74 kB │ gzip:   0.44 kB
+dist/assets/math.scalar.functions-lnL7TJ7T.js                     0.76 kB │ gzip:   0.41 kB
+dist/assets/glowMapMerge.fragment-E4YwFGds.js                     0.80 kB │ gzip:   0.42 kB
+dist/assets/instancesVertex-C-FoRQR1.js                           0.88 kB │ gzip:   0.32 kB
+dist/assets/kernelBlur.vertex-C2dESVl-.js                         0.88 kB │ gzip:   0.46 kB
+dist/assets/color.fragment-CxH-oW8C.js                            0.92 kB │ gzip:   0.43 kB
+dist/assets/mesh.vertexData.functions-CD4JOR2q.js                 0.93 kB │ gzip:   0.48 kB
+dist/assets/instancesDeclaration-CJBvtBV5.js                      0.93 kB │ gzip:   0.34 kB
+dist/assets/color.fragment-CbJP31yK.js                            1.03 kB │ gzip:   0.47 kB
+dist/assets/instancesDeclaration-DsiFqYXH.js                      1.04 kB │ gzip:   0.36 kB
+dist/assets/kernelBlur.vertex-Cr8ljakh.js                         1.05 kB │ gzip:   0.50 kB
+dist/assets/glowMapMerge.fragment-kUzN8f-0.js                     1.06 kB │ gzip:   0.49 kB
+dist/assets/fogFragment-CISE_m3s.js                               1.08 kB │ gzip:   0.49 kB
+dist/assets/glowBlurPostProcess.fragment-DDN2NxnB.js              1.11 kB │ gzip:   0.57 kB
+dist/assets/clipPlaneVertex-C59BO8JS.js                           1.17 kB │ gzip:   0.34 kB
+dist/assets/clipPlaneFragment-DVK0wgyZ.js                         1.17 kB │ gzip:   0.35 kB
+dist/assets/smartArray-BRfcgNbX.js                                1.18 kB │ gzip:   0.44 kB
+dist/assets/fogFragment-EikOP4pH.js                               1.21 kB │ gzip:   0.54 kB
+dist/assets/ddsTextureLoader-C753ul4A.js                          1.26 kB │ gzip:   0.61 kB
+dist/assets/clipPlaneFragment-Ct2VqHzk.js                         1.27 kB │ gzip:   0.37 kB
+dist/assets/clipPlaneVertex-DKhVm1NW.js                           1.35 kB │ gzip:   0.37 kB
+dist/assets/typeStore-BGi7uhG_.js                                 1.37 kB │ gzip:   0.63 kB
+dist/assets/mainUVVaryingDeclaration-CTlfbA_R.js                  1.39 kB │ gzip:   0.61 kB
+dist/assets/glowBlurPostProcess.fragment-CWHntGEt.js              1.41 kB │ gzip:   0.65 kB
+dist/assets/auth-ZvirorwW.js                                      1.50 kB │ gzip:   0.88 kB
+dist/assets/color.vertex-Bn1VOzn-.js                              1.53 kB │ gzip:   0.66 kB
+dist/assets/preload-helper-7y9sWmk5.js                            1.61 kB │ gzip:   0.82 kB
+dist/assets/color.vertex-jpU_xhjL.js                              1.62 kB │ gzip:   0.67 kB
+dist/assets/mainUVVaryingDeclaration-BKqsQbJQ.js                  1.76 kB │ gzip:   0.59 kB
+dist/assets/logger-CuBYPcDK.js                                    1.88 kB │ gzip:   0.82 kB
+dist/assets/glowMapGeneration.fragment-CeHLhtIJ.js                1.88 kB │ gzip:   0.73 kB
+dist/assets/temple-layout-m5GZTPqF.js                             2.13 kB │ gzip:   1.07 kB
+dist/assets/kernelBlur.fragment-BvT73mHN.js                       2.29 kB │ gzip:   0.77 kB
+dist/assets/hdrTextureLoader-BQVwkxK1.js                          2.31 kB │ gzip:   1.13 kB
+dist/assets/colors-Ct2GQ4UT.js                                    2.35 kB │ gzip:   1.21 kB
+dist/assets/shared-Corkbaqb.js                                    2.35 kB │ gzip:   1.28 kB
+dist/assets/iesTextureLoader-3O5bSkSd.js                          2.47 kB │ gzip:   1.07 kB
+dist/assets/glowMapGeneration.vertex-BibtXSpF.js                  2.49 kB │ gzip:   0.82 kB
+dist/assets/glowMapGeneration.fragment-CMkhU_m5.js                2.51 kB │ gzip:   0.82 kB
+dist/assets/kernelBlur.fragment-DGoy5K5D.js                       2.83 kB │ gzip:   0.85 kB
+dist/assets/glowMapGeneration.vertex-alcTvPf-.js                  2.89 kB │ gzip:   0.89 kB
+dist/assets/shadowMap.fragment-Di-kbM2R.js                        3.29 kB │ gzip:   1.16 kB
+dist/assets/tgaTextureLoader-CqhhocF6.js                          3.40 kB │ gzip:   1.35 kB
+dist/assets/contracts-hvfHUQzP.js                                 3.43 kB │ gzip:   1.87 kB
+dist/assets/engineStore-Bn2tApal.js                               3.51 kB │ gzip:   1.21 kB
+dist/assets/decorators-CbDmSM3x.js                                3.60 kB │ gzip:   1.53 kB
+dist/assets/cubemapToSphericalPolynomial-C0ffItA0.js              3.67 kB │ gzip:   1.61 kB
+dist/assets/dynamicTexture.pure-CDrQWn96.js                       3.76 kB │ gzip:   1.53 kB
+dist/assets/dumpTools.pure-BatL3EQp.js                            3.83 kB │ gzip:   1.84 kB
+dist/assets/shadowMap.fragment-DDAh33WX.js                        3.85 kB │ gzip:   1.25 kB
+dist/assets/staff-ClvSa4NP.js                                     4.26 kB │ gzip:   2.00 kB
+dist/assets/morphTargetsVertex-6N5r7oF1.js                        4.37 kB │ gzip:   0.98 kB
+dist/assets/faceStudy-Bn4T0ULI.js                                 4.62 kB │ gzip:   2.49 kB
+dist/assets/shadowMap.vertex-Si1fkFpu.js                          4.76 kB │ gzip:   1.53 kB
+dist/assets/practicePreview-BeakKme7.js                           4.85 kB │ gzip:   2.38 kB
+dist/assets/shadowMap.vertex--dtFj9fX.js                          4.96 kB │ gzip:   1.64 kB
+dist/assets/sphericalPolynomial.pure-C8ZK_9ve.js                  5.73 kB │ gzip:   1.35 kB
+dist/assets/particles.fragment-DWnvwF1S.js                        5.93 kB │ gzip:   1.71 kB
+dist/assets/particles.fragment-GYKSBNZj.js                        6.18 kB │ gzip:   1.78 kB
+dist/assets/locales-MK_JZPEP.js                                   6.22 kB │ gzip:   2.59 kB
+dist/assets/main-l2iqrHX0.js                                      6.33 kB │ gzip:   3.22 kB
+dist/assets/morphTargetsVertex-OlIh-Lzh.js                        6.40 kB │ gzip:   1.15 kB
+dist/assets/helperFunctions-qGTG1bM_.js                           6.57 kB │ gzip:   2.21 kB
+dist/assets/meshBlendTagFragmentOutput-CzziWpin.js                6.63 kB │ gzip:   2.36 kB
+dist/assets/daylight-ClbjUaiK.js                                  6.88 kB │ gzip:   3.44 kB
+dist/assets/bakedVertexAnimation-e--Ra-by.js                      6.89 kB │ gzip:   1.43 kB
+dist/assets/dds.pure-B49-0oBH.js                                  6.92 kB │ gzip:   2.52 kB
+dist/assets/helperFunctions-D89zo_74.js                           6.92 kB │ gzip:   2.32 kB
+dist/assets/particles.vertex-D_BLnDsG.js                          7.19 kB │ gzip:   1.83 kB
+dist/assets/internalTexture-B3djGrls.js                           7.87 kB │ gzip:   2.04 kB
+dist/assets/envTextureLoader-CRQssPft.js                          8.05 kB │ gzip:   3.21 kB
+dist/assets/effectRenderer.pure-BXWjLU-Z.js                       8.10 kB │ gzip:   2.37 kB
+dist/assets/basisTextureLoader-B1vimTs5.js                        8.14 kB │ gzip:   3.17 kB
+dist/assets/bakedVertexAnimation-COa3IHTL.js                      8.50 kB │ gzip:   1.57 kB
+dist/assets/drawWrapper-CeJsm04W.js                               8.51 kB │ gzip:   2.82 kB
+dist/assets/particles.vertex-eZDU6Srx.js                          8.57 kB │ gzip:   1.96 kB
+dist/assets/logDepthFragment-Cr-Stg0k.js                          9.50 kB │ gzip:   2.92 kB
+dist/assets/hanji-BEB398Q_.js                                    10.15 kB │ gzip:   4.68 kB
+dist/assets/service-account-Btc0b7sq.js                          11.14 kB │ gzip:   4.51 kB
+dist/assets/sunlight-gXpyP1Q5.js                                 12.91 kB │ gzip:   5.58 kB
+dist/assets/exrTextureLoader-Cq5IoHlH.js                         13.14 kB │ gzip:   4.82 kB
+dist/assets/timingTools-Il91ENao.js                              14.03 kB │ gzip:   4.97 kB
+dist/assets/thinInstanceMesh-DkWm8W5q.js                         14.05 kB │ gzip:   3.06 kB
+dist/assets/zh-Hans-NO98ougt.js                                  14.89 kB │ gzip:   6.69 kB
+dist/assets/default.vertex-3oYLdASR.js                           15.54 kB │ gzip:   3.70 kB
+dist/assets/en-ywKSfO9-.js                                       15.62 kB │ gzip:   6.82 kB
+dist/assets/ms-DYsd_rqK.js                                       15.92 kB │ gzip:   6.67 kB
+dist/assets/de-CIRT3p3Y.js                                       16.35 kB │ gzip:   7.16 kB
+dist/assets/tr-BoyhyaYT.js                                       16.35 kB │ gzip:   7.09 kB
+dist/assets/pt-BR-BnHoQvUW.js                                    16.40 kB │ gzip:   7.02 kB
+dist/assets/pt-PT-C7qUTe9N.js                                    16.49 kB │ gzip:   7.06 kB
+dist/assets/es-DjpFX-Hg.js                                       16.54 kB │ gzip:   7.08 kB
+dist/assets/it-BWYsYw_a.js                                       16.57 kB │ gzip:   7.03 kB
+dist/assets/ktxTextureLoader-Cu6V3Z6T.js                         16.63 kB │ gzip:   4.90 kB
+dist/assets/fr-un5NPbY9.js                                       17.11 kB │ gzip:   7.20 kB
+dist/assets/ja-hDrtR_mo.js                                       17.24 kB │ gzip:   7.06 kB
+dist/assets/vi-B7avHgXE.js                                       17.56 kB │ gzip:   7.06 kB
+dist/assets/postProcess.pure-BSGeUE05.js                         18.37 kB │ gzip:   5.05 kB
+dist/assets/baseTexture.pure-DcswpiLt.js                         20.50 kB │ gzip:   5.65 kB
+dist/assets/texture.pure-RICHdt7Q.js                             21.18 kB │ gzip:   5.98 kB
+dist/assets/ru-l2FRl97p.js                                       21.59 kB │ gzip:   7.72 kB
+dist/assets/tools.pure-r_ytTRv8.js                               29.78 kB │ gzip:   9.88 kB
+dist/assets/default.vertex-DPxGAl3L.js                           32.53 kB │ gzip:   5.58 kB
+dist/assets/math.color.pure-BO-5IHdf.js                          76.93 kB │ gzip:  18.41 kB
+dist/assets/walking-rk8h50Q_.js                                  81.15 kB │ gzip:  32.71 kB
+dist/assets/firebase-login-C3yePu5-.js                           96.90 kB │ gzip:  28.94 kB
+dist/assets/default.fragment-BanzkWOr.js                        101.26 kB │ gzip:  20.07 kB
+dist/assets/default.fragment-DMaoMFS0.js                        112.30 kB │ gzip:  20.75 kB
+dist/assets/thinEngine.pure-CS5DSQ2r.js                         128.26 kB │ gzip:  31.07 kB
+dist/assets/main-BwjgL1AO.js                                    477.90 kB │ gzip: 143.76 kB
+dist/assets/directionalLight-Drea-LhZ.js                        907.35 kB │ gzip: 217.00 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 226ms

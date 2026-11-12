@@ -1,0 +1,301 @@
+{
+  "passed": true,
+  "scope": "Approved follow-up steps 1-5; existing issue history unchanged",
+  "milestones": [
+    "M2",
+    "M3",
+    "M4"
+  ],
+  "issues": [
+    27,
+    53,
+    54,
+    64,
+    66,
+    77
+  ],
+  "mapMarkers": 18,
+  "canonicalUnitTests": 74,
+  "trialUnitTests": 10,
+  "guestSynchronization": {
+    "passed": true,
+    "origin": "http://127.0.0.1:4342",
+    "layoutVersion": "layout-web-015",
+    "guestVisitors": 2,
+    "bothGuest": true,
+    "destinations": [
+      {
+        "destination": "gwaneum",
+        "position": [
+          -26.987499999999997,
+          1.0518750190734862,
+          14
+        ],
+        "peerPosition": [
+          -26.987499999999997,
+          1.0518750190734862,
+          14
+        ]
+      },
+      {
+        "destination": "jijang",
+        "position": [
+          26.987499999999997,
+          1.0518750190734862,
+          12.875
+        ],
+        "peerPosition": [
+          26.987499999999997,
+          1.0518750190734862,
+          12.875
+        ]
+      },
+      {
+        "destination": "wish",
+        "position": [
+          20.987499999999997,
+          0.09,
+          -23.5
+        ],
+        "peerPosition": [
+          20.987499999999997,
+          0.09,
+          -23.5
+        ]
+      },
+      {
+        "destination": "candle",
+        "position": [
+          -19.9875,
+          0.08999999932944774,
+          -5
+        ],
+        "peerPosition": [
+          -19.9875,
+          0.08999999932944774,
+          -5
+        ]
+      },
+      {
+        "destination": "office",
+        "position": [
+          20.987499999999997,
+          0.09,
+          -46
+        ],
+        "peerPosition": [
+          20.987499999999997,
+          0.09,
+          -46
+        ]
+      },
+      {
+        "destination": "tower",
+        "position": [
+          49,
+          0.09,
+          -34
+        ],
+        "peerPosition": [
+          49,
+          0.09,
+          -34
+        ]
+      },
+      {
+        "destination": "buddha",
+        "position": [
+          59,
+          0.09999999910593033,
+          47
+        ],
+        "peerPosition": [
+          59,
+          0.09999999910593033,
+          47
+        ]
+      },
+      {
+        "destination": "pond",
+        "position": [
+          40.57005253493786,
+          0.01,
+          -49.49491283491928
+        ],
+        "peerPosition": [
+          40.57005253493786,
+          0.01,
+          -49.49491283491928
+        ]
+      },
+      {
+        "destination": "walk",
+        "position": [
+          0,
+          0.01,
+          73
+        ],
+        "peerPosition": [
+          0,
+          0.01,
+          73
+        ]
+      },
+      {
+        "destination": "daeung",
+        "position": [
+          2.1,
+          1.6829999834299088,
+          38.35
+        ],
+        "peerPosition": [
+          2.1,
+          1.6829999834299088,
+          38.35
+        ]
+      }
+    ],
+    "renderedPeer": true,
+    "bowSynchronized": true,
+    "channelIsolation": true,
+    "offlineRecovery": true,
+    "noDuplicateAvatar": true,
+    "databaseSlots": 531,
+    "memorialPosition": [
+      26.1625,
+      0.83,
+      -6
+    ],
+    "publicWithdrawalMs": 2019,
+    "expiryMs": 1923,
+    "pageErrors": [],
+    "unexpected": [],
+    "realExternalServices": false
+  },
+  "allFiveGuestReservationLoginReturn": true,
+  "pcAndTouchTrialIntegration": true,
+  "canonicalLocales": 14,
+  "trialLocales": 14,
+  "performance": {
+    "origin": "http://127.0.0.1:4342",
+    "Mbps": 20,
+    "latencyMs": 80,
+    "buildDigest": "b3a38beccf63f8efd999cb3c5a79a161f8bc1b541a7ba92544b48331ab056ced",
+    "first3DFrameLimitsMs": {
+      "first": 15000,
+      "return": 5000
+    },
+    "visits": [
+      {
+        "visit": "first",
+        "firstFrameMs": 7166.299999952316,
+        "lotusTapToWalkingMs": 9352.5,
+        "navigationToWalkingMs": 9676.299999952316
+      },
+      {
+        "visit": "return",
+        "firstFrameMs": 2780.899999976158,
+        "lotusTapToWalkingMs": 3402.9000000953674,
+        "navigationToWalkingMs": 5297.300000071526
+      }
+    ],
+    "walks": [
+      {
+        "time": "day",
+        "samples": 17899,
+        "meanFps": 60.002547736537224,
+        "onePercentLowFps": 56.354878309925105,
+        "maxFrameMs": 18.300000071525574,
+        "elapsedSeconds": 300.30339999997614,
+        "warmupSeconds": 2,
+        "valid": true,
+        "invalidReason": null,
+        "route": {
+          "minZ": -65,
+          "maxZ": 37.62736000015724,
+          "turns": 9,
+          "distanceMetres": 985.8858900002397
+        },
+        "jsHeapBytes": 267246915,
+        "renderer": {
+          "vendor": "Google Inc. (Apple)",
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        }
+      },
+      {
+        "time": "dusk",
+        "samples": 17897,
+        "meanFps": 60.002541315647626,
+        "onePercentLowFps": 56.25923245542466,
+        "maxFrameMs": 20,
+        "elapsedSeconds": 300.27139999997615,
+        "warmupSeconds": 2,
+        "valid": true,
+        "invalidReason": null,
+        "route": {
+          "minZ": -64.37200999858355,
+          "maxZ": 37.81348000125896,
+          "turns": 9,
+          "distanceMetres": 984.7331999996089
+        },
+        "jsHeapBytes": 286560328,
+        "renderer": {
+          "vendor": "Google Inc. (Apple)",
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        }
+      },
+      {
+        "time": "night",
+        "samples": 17905,
+        "meanFps": 60.0023860206098,
+        "onePercentLowFps": 56.23242728686965,
+        "maxFrameMs": 18.700000047683716,
+        "elapsedSeconds": 300.40360000002386,
+        "warmupSeconds": 2,
+        "valid": true,
+        "invalidReason": null,
+        "route": {
+          "minZ": -64.69738999826826,
+          "maxZ": 37.54552000149571,
+          "turns": 9,
+          "distanceMetres": 985.5057300004753
+        },
+        "jsHeapBytes": 295905853,
+        "renderer": {
+          "vendor": "Google Inc. (Apple)",
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        }
+      }
+    ]
+  },
+  "trial": {
+    "multiplayer": false,
+    "actualPayments": false,
+    "browserLocalStorage": true
+  },
+  "deferred": [
+    "Firebase external configuration",
+    "Live payments",
+    "AWS",
+    "Religious review",
+    "Human participant recognition evaluation",
+    "Physical mobile device performance"
+  ],
+  "published": true,
+  "publication": {
+    "version": 8,
+    "projectId": "appgprj_6af41a312ffc81919a17690097a9a9a3",
+    "sourceCommit": "08c4dfbceb61349f7a8499976372aed506156f42",
+    "versionId": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_3e51206823e08191a6d61227e22e4700",
+    "deploymentId": "appgdep_6af50bd788c48191a6159f8696c77306",
+    "status": "succeeded",
+    "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+    "updatedAt": "2026-11-12T00:44:21.727356+00:00",
+    "audienceUnchanged": true,
+    "localSteps1to5Passed": true
+  },
+  "publishedDesktopAndTouchPassed": true
+}

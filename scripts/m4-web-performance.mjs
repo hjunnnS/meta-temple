@@ -123,13 +123,14 @@ try{
   for(const light of ['day','dusk','night']){
    await lighting(light);await start();await page.locator('#world').focus();
    let key=position[2]<0?'w':'s',minZ=position[2],maxZ=minZ,turns=0,distance=0,lastZ=minZ;
-   const end=Date.now()+300000;console.log('Starting',light,position);
+   const routeStart=Date.now(),end=routeStart+300000;let lastProgress=routeStart;console.log('Starting',light,position);
    await page.keyboard.down(key);
    try{
     while(Date.now()<end){
      await page.waitForTimeout(150);
      const z=position[2];minZ=Math.min(minZ,z);maxZ=Math.max(maxZ,z);
      distance+=Math.abs(z-lastZ);lastZ=z;
+     if(Date.now()-lastProgress>=60000){lastProgress=Date.now();console.log('Walking progress',light,Math.round((lastProgress-routeStart)/1000)+'s',Math.round(distance)+'m',turns+' turns');}
      if((key==='w'&&z>=37)||(key==='s'&&z<=-64)){
       await page.keyboard.up(key);key=key==='w'?'s':'w';await page.keyboard.down(key);turns++;
      }

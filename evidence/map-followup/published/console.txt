@@ -1,0 +1,2 @@
+PASS map ko desktop
+PASS map ko touch

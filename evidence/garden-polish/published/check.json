@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "results": [
+    {
+      "touch": false,
+      "wallAndBambooPublished": true,
+      "inspectionButton": true,
+      "positionRestored": true,
+      "errors": []
+    },
+    {
+      "touch": true,
+      "wallAndBambooPublished": true,
+      "inspectionButton": true,
+      "positionRestored": true,
+      "errors": []
+    }
+  ]
+}

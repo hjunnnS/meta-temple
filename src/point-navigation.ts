@@ -1,7 +1,8 @@
+import {withinNavigationBounds} from './prayer-halls.ts';
 export type WalkPoint=readonly[number,number];
 /** A route uses the same clearance and step-height rules as keyboard walking. */
 export function walkingPath(start:WalkPoint,goal:WalkPoint,canStep:(from:WalkPoint,to:WalkPoint)=>boolean,step=.65,maxNodes=6000):WalkPoint[]{
- if(!goal.every(Number.isFinite)||Math.abs(goal[0])>80||Math.abs(goal[1])>80)return [];
+ if(!withinNavigationBounds(goal[0],goal[1]))return [];
  const line=(a:WalkPoint,b:WalkPoint)=>{const count=Math.max(1,Math.ceil(Math.hypot(b[0]-a[0],b[1]-a[1])/.22));let previous=a;for(let i=1;i<=count;i++){const p:WalkPoint=[a[0]+(b[0]-a[0])*i/count,a[1]+(b[1]-a[1])*i/count];if(!canStep(previous,p))return false;previous=p;}return true;};
  if(line(start,goal))return [goal];
  interface Node{x:number;z:number;g:number;f:number;parent?:Node}
@@ -16,7 +17,7 @@ export function walkingPath(start:WalkPoint,goal:WalkPoint,canStep:(from:WalkPoi
   if(distance(at)<step*1.5&&line(at,goal)){const reverse:WalkPoint[]=[goal];for(let n:Node|undefined=current;n?.parent;n=n.parent)reverse.push(point(n));return reverse.reverse();}
   for(const[dx,dz]of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]){
    const x=current.x+dx,z=current.z+dz,g=current.g+Math.hypot(dx,dz)*step,key=x+','+z;if(g>=(seen.get(key)??Infinity))continue;
-   const next:WalkPoint=[start[0]+x*step,start[1]+z*step];if(next.some(v=>Math.abs(v)>80)||!line(at,next))continue;
+   const next:WalkPoint=[start[0]+x*step,start[1]+z*step];if(!withinNavigationBounds(next[0],next[1])||!line(at,next))continue;
    if(dx&&dz&&(!line(at,[next[0],at[1]])||!line(at,[at[0],next[1]])))continue;
    seen.set(key,g);push({x,z,g,f:g+distance(next),parent:current});
   }

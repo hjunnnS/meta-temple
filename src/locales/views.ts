@@ -1,5 +1,7 @@
 import {locale,t} from './index';
 const views:Record<string,string[]>={
+ rearPrayerWest:['산책길','약사전'],rearPrayerMunsu:['산책길','문수전'],rearPrayerNorth:['산책길','보현전'],rearPrayerEast:['산책길','극락전'],
+ yaksaInterior:['약사전','약사여래불'],munsuInterior:['문수전','문수보살'],bohyeonInterior:['보현전','보현보살'],geukrakInterior:['극락전','아미타불'],
  entryLandscape:['천왕문','전체 풍경'],teaGarden:['쉼터','옆마당'],teaGardenSeated:['쉼터','좌석'],teaSeated:['쉼터','좌석'],teaPavilion:['연못','쉼터'],sanctuaryWalk:['대웅전','산책길'],personalGateWalk:['시간과 공간의 방','입구'],personalGate:['시간과 공간의 방','입구'],forestBuddha:['대웅전','미륵보살 석상'],treeSpecimen:['연못','전체 풍경'],wishCoin:['소원 동전','종무소'],wishCoinTree:['소원 동전','연못'],wishCoinOpposite:['소원 동전','연못'],pondPagoda:['연못','구름탑'],eastPagoda:['구름탑'],bellRing:['범종각','종치기'],
  plazaCourt:['연등광장','중앙 마당'],plazaHall:['연등광장','대웅전'],courtHall:['중앙 마당','대웅전'],eavesHall:['대웅전','처마'],
  gwaneumDoor:['관음전','입구'],gwaneumAltar:['관음전','불단'],gwaneumSeats:['관음전','내부'],

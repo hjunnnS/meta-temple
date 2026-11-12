@@ -1,0 +1,5 @@
+
+> meta-temple@0.1.0 assets
+> node scripts/check-assets.mjs
+
+배포 에셋 출처·버전·용량 검사 통과: 19

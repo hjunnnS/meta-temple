@@ -19,7 +19,7 @@ test('reference layout preserves south/north order, west/east placement and non-
   const a=halls[i],b=halls[j];
   assert.ok(Math.abs(a.x-b.x)>11.5*((a.id==='daeung'?daeungDimensions.x:a.scale)+(b.id==='daeung'?daeungDimensions.x:b.scale))||Math.abs(a.z-b.z)>5.9*((a.id==='daeung'?daeungDimensions.z:a.scale)+(b.id==='daeung'?daeungDimensions.z:b.scale)));
  }
- assert.equal(new Set(templePlaces.map(p=>p.id)).size,9);
+ assert.equal(new Set(templePlaces.map(p=>p.id)).size,13);
 });
 
 test('rear and side woodland stays outside expanded main hall',()=>{

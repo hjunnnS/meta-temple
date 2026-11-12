@@ -112,7 +112,7 @@ test('side garden tables and chairs preserve the west entry and pond route',()=>
 
 
 test('rear garden walls clear the walking loop and join the eastern enclosing wall',()=>{
- assert.equal(rearGardenWalls.length,2);
+ assert.equal(rearGardenWalls.length,5);
  for(let i=1;i<rearGardenWalls.length;i++)assert.deepEqual(rearGardenWalls[i-1].to,rearGardenWalls[i].from);
  for(const wall of rearGardenWalls){
   assert.equal(wall.height,1.8);
@@ -122,8 +122,8 @@ test('rear garden walls clear the walking loop and join the eastern enclosing wa
 });
 
 
-test('the rear west wall continues the original boundary with no inset or return corner',()=>{
- const west=rearGardenWalls[0];assert.deepEqual(west.from,[-37,63]);assert.equal(west.to[0],-37);
+test('the approved rear extension joins the original frontage without interior dividing walls',()=>{
+ const west=rearGardenWalls[0];assert.deepEqual(west.from,[-37,30]);assert.deepEqual(west.to,[-58,30]);
  assert.ok(boundaries.some(w=>w.to[0]===west.from[0]&&w.to[1]===west.from[1]&&w.from[0]===-37));
  assert.ok(!boundaries.some(w=>w.from[0]===-28||w.to[0]===-28));
 });

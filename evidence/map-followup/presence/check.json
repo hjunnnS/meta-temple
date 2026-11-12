@@ -1,0 +1,155 @@
+{
+  "passed": true,
+  "origin": "http://127.0.0.1:4342",
+  "layoutVersion": "layout-web-015",
+  "guestVisitors": 2,
+  "bothGuest": true,
+  "destinations": [
+    {
+      "destination": "gwaneum",
+      "position": [
+        -26.987499999999997,
+        1.0518750190734862,
+        14
+      ],
+      "peerPosition": [
+        -26.987499999999997,
+        1.0518750190734862,
+        14
+      ]
+    },
+    {
+      "destination": "jijang",
+      "position": [
+        26.987499999999997,
+        1.0518750190734862,
+        12.875
+      ],
+      "peerPosition": [
+        26.987499999999997,
+        1.0518750190734862,
+        12.875
+      ]
+    },
+    {
+      "destination": "wish",
+      "position": [
+        20.987499999999997,
+        0.09,
+        -23.5
+      ],
+      "peerPosition": [
+        20.987499999999997,
+        0.09,
+        -23.5
+      ]
+    },
+    {
+      "destination": "candle",
+      "position": [
+        -19.9875,
+        0.08999999932944774,
+        -5
+      ],
+      "peerPosition": [
+        -19.9875,
+        0.08999999932944774,
+        -5
+      ]
+    },
+    {
+      "destination": "office",
+      "position": [
+        20.987499999999997,
+        0.09,
+        -46
+      ],
+      "peerPosition": [
+        20.987499999999997,
+        0.09,
+        -46
+      ]
+    },
+    {
+      "destination": "tower",
+      "position": [
+        49,
+        0.09,
+        -34
+      ],
+      "peerPosition": [
+        49,
+        0.09,
+        -34
+      ]
+    },
+    {
+      "destination": "buddha",
+      "position": [
+        59,
+        0.09999999910593033,
+        47
+      ],
+      "peerPosition": [
+        59,
+        0.09999999910593033,
+        47
+      ]
+    },
+    {
+      "destination": "pond",
+      "position": [
+        40.57005253493786,
+        0.01,
+        -49.49491283491928
+      ],
+      "peerPosition": [
+        40.57005253493786,
+        0.01,
+        -49.49491283491928
+      ]
+    },
+    {
+      "destination": "walk",
+      "position": [
+        0,
+        0.01,
+        73
+      ],
+      "peerPosition": [
+        0,
+        0.01,
+        73
+      ]
+    },
+    {
+      "destination": "daeung",
+      "position": [
+        2.1,
+        1.6829999834299088,
+        38.35
+      ],
+      "peerPosition": [
+        2.1,
+        1.6829999834299088,
+        38.35
+      ]
+    }
+  ],
+  "renderedPeer": true,
+  "bowSynchronized": true,
+  "channelIsolation": true,
+  "offlineRecovery": true,
+  "noDuplicateAvatar": true,
+  "databaseSlots": 531,
+  "memorialPosition": [
+    26.1625,
+    0.83,
+    -6
+  ],
+  "publicWithdrawalMs": 2019,
+  "expiryMs": 1923,
+  "pageErrors": [],
+  "unexpected": [],
+  "realExternalServices": false
+}

@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:4355",
+  "results": [
+    {
+      "touch": false,
+      "clickOrTouchMovement": true,
+      "bellAudioAndCancel": true,
+      "teaAndCoffee": true,
+      "coinCountdown": true,
+      "monkCaptionAndAudio": true,
+      "extendedWalkAndReturn": true,
+      "errors": [],
+      "apiNetworkRequests": [],
+      "audioSources": [
+        {
+          "duration": 12,
+          "at": 6808.700000047684
+        },
+        {
+          "duration": 2.8793333333333333,
+          "at": 26945.800000071526
+        }
+      ]
+    },
+    {
+      "touch": true,
+      "clickOrTouchMovement": true,
+      "bellAudioAndCancel": true,
+      "teaAndCoffee": true,
+      "coinCountdown": true,
+      "monkCaptionAndAudio": true,
+      "extendedWalkAndReturn": true,
+      "errors": [],
+      "apiNetworkRequests": [],
+      "audioSources": [
+        {
+          "duration": 12,
+          "at": 6695.5
+        },
+        {
+          "duration": 2.8793333333333333,
+          "at": 26847.799999952316
+        }
+      ]
+    }
+  ]
+}

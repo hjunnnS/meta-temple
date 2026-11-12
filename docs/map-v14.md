@@ -37,3 +37,7 @@ Milestone M2 공간 제작·M4 웹 시각 검수 / Epic E01 공간·E04 검수 /
 원본 서비스는 m4/web-acceptance, Sites 개인 체험판은 trial/sites-personal 브랜치에 보관한다. 서로 다른 인증·결제·데이터 연결을 합치지 않는다. 체험판 버전 7의 배포 소스는 695cc1d14dade87ff6cc00c8bf3443476dc57847이며 배포 영수증은 evidence/sign-backing-fix/publication.json이다. 최근 맵·현판·바닥·사선/주야간·14개 언어·PC/터치 검수 원본을 evidence/map-v14, sign-lettering, post-sign-audit, visibility-ground-fix, release6-audit, sign-backing-fix에 보존한다. 단계별 원래 승인과 미해결 지도 번호 클릭 보완은 유지한다.
 
 원본 검증: npm test, npm run check. 체험판 재현: trial/sites-personal에서 npm ci, npm run check, node scripts/check-trial-build.mjs. Chrome 전체 검수 스크립트는 같은 체험판 브랜치의 scripts/check-sign-backing.mjs, scripts/check-trial.mjs, scripts/check-trial-expanded.mjs, scripts/check-trial-locales.mjs를 사용한다. 결과가 기록된 로컬 웹/공개 주소 환경을 구분하며 실제 과금·실사용자 동기화·정식 출시 판정으로 확대하지 않는다.
+
+## 2026-11-12 지도 선택 후속
+
+이전 버전 검수에 남겼던 ‘지도 번호 클릭 시 장소가 선택되지 않음’은 기존 #27 후속으로 수정한다. 현재 선택 상태를 지도 번호·목록·장소 상세·접근성 이름에 함께 반영하고 클릭·터치·키보드 조작을 검수한다. 과거 evidence의 findings는 당시 기록이므로 덮어쓰지 않으며, 최신 판정과 원본 서버 동기화·성능·14개 언어 검수는 `docs/map-followup.md` 및 `evidence/map-followup/summary.json`을 따른다.

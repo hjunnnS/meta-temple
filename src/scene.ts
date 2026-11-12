@@ -1,3 +1,6 @@
+import {rearPrayerHalls,prayerHallDimensions,prayerHallPoint,prayerAisleX,prayerHallFloor} from './prayer-halls.ts';
+import {furnishPrayerHall} from './prayer-hall-interior';
+import {furnishGardens,inBambooGarden} from './temple-gardens';
 import {uprightBoxLettering} from './sign-lettering';
 import type { ReviewSlot } from './review-slots.ts';
 import { pedestrianWorld, walkingController } from './walking.ts';
@@ -65,7 +68,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   skyTexture.update();
  }
  const camera=new ArcRotateCamera('camera',-Math.PI*.67,Math.PI*.37,36,new Vector3(0,3,2),scene);
- camera.lowerRadiusLimit=2.5;camera.upperRadiusLimit=260;camera.upperBetaLimit=2.15;camera.lowerBetaLimit=.15;
+ camera.lowerRadiusLimit=2.5;camera.upperRadiusLimit=420;camera.upperBetaLimit=2.15;camera.lowerBetaLimit=.15;
  camera.minZ=.1;camera.wheelPrecision=18;camera.panningSensibility=70;camera.attachControl(canvas,true);
  const hemi=new HemisphericLight('sky',new Vector3(0,1,0),scene);hemi.intensity=.8;hemi.groundColor=new Color3(.22,.27,.24);
  const sun=new DirectionalLight('sun',new Vector3(-.45,-.85,.45),scene);sun.position=new Vector3(20,35,-20);sun.intensity=1.6;
@@ -91,7 +94,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  scanned(stone,'rock_face',.6,.6);stone.diffuseColor=Color3.FromHexString('#839ead');
  scanned(wood,'wood_planks_dirt',1,1);wood.diffuseColor=Color3.FromHexString('#b07856');
- const masonry=mat('rough-masonry','#aaa69c');scanned(masonry,'stone_wall',5,1);
+ const masonry=mat('rough-masonry','#aaa69c');scanned(masonry,'stone_wall',1.6,1);masonry.specularColor=Color3.Black();
+ const wallPlaster=mat('warm-wall-plaster','#d2c8b2');surface(wallPlaster,'stone');wallPlaster.specularColor=Color3.Black();if(wallPlaster.bumpTexture)wallPlaster.bumpTexture.level=.10;
  scanned(roofMat,'grey_roof_tiles',7,4);roofMat.diffuseColor=Color3.FromHexString('#8d9299');
  roofEdge.diffuseColor=Color3.FromHexString('#51565c');
  roofMat.specularColor=new Color3(.09,.09,.09);roofMat.specularPower=18;
@@ -220,20 +224,21 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const original of hallTemplate){
    if(original.name==='hall-sign')continue;
    const copy=original.clone(`${place.id}-${original.name}`,null)!;
-   copy.scaling.scaleInPlace(place.scale);
-   copy.position.set(original.position.x*place.scale+place.x,original.position.y*place.scale,(original.position.z-8)*place.scale+place.z);
+   const dimensions=rearPrayerHalls.some(h=>h.id===place.id)?prayerHallDimensions:{x:place.scale,y:place.scale,z:place.scale};
+   copy.scaling.multiplyInPlace(new Vector3(dimensions.x,dimensions.y,dimensions.z));
+   copy.position.set(original.position.x*dimensions.x+place.x,original.position.y*dimensions.y,(original.position.z-8)*dimensions.z+place.z);
    const bay=original.metadata?.doorBay;
-   if((place.id==='gwaneum'||place.id==='jijang') && (bay===1 || bay===4)){
+   if((place.id==='gwaneum'||place.id==='jijang'||rearPrayerHalls.some(h=>h.id===place.id)) && (bay===1 || bay===4)){
     // Swing each inner leaf back against its outer jamb, including its lattice.
     const side=bay===1?-1:1;
     const hingeX=side*5.91;
     const hingeZ=4.02;
     copy.rotation.y=side*Math.PI/2;
-    copy.position.x=place.x+(hingeX+side*(original.position.z-hingeZ))*place.scale;
-    copy.position.z=place.z+(hingeZ-8-side*(original.position.x-hingeX))*place.scale;
+    copy.position.x=place.x+(hingeX+side*(original.position.z-hingeZ))*dimensions.x;
+    copy.position.z=place.z+(hingeZ-8-side*(original.position.x-hingeX))*dimensions.z;
    }
    // Roof vertices are authored around z=8; clone translation compensates their baked origin.
-   if(original.name==='curved-roof'||original.name==='tile-rib'||original.name==='ridge'||original.name==='tile-course')copy.position.z=place.z-8*place.scale;
+   if(original.name==='curved-roof'||original.name==='tile-rib'||original.name==='ridge'||original.name==='tile-course')copy.position.z=place.z-8*dimensions.z;
    faceCourtyard(copy,place);
    staticMeshes.push(copy);
   }
@@ -262,6 +267,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   pad.material=cushionCloth;staticMeshes.push(pad);
  }
  for(const fitting of staticMeshes.slice(fittingsStart))faceCourtyard(fitting,prayerHall);
+ for(const hall of rearPrayerHalls)furnishPrayerHall(scene,staticMeshes,hall,wood,cushionCloth);
  const memorialHall=templePlaces.find(p=>p.id==='jijang')!;
  const memorialStart=staticMeshes.length;
  // Centre the aisle on an open bay between the structural front columns.
@@ -304,6 +310,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  const pearlLamp=mat('memorial-pearl','#ffe4bf',.48);
  const lotusPetal=mat('memorial-lotus','#deada4',.22);
  const lampBronze=mat('hall-lamp-bronze','#b79054',.25);
+ const memorialStandStone=mat('memorial-stand-granite','#a4a194');surface(memorialStandStone,'stone');memorialStandStone.specularColor=Color3.Black();
  const indeungHall=templePlaces.find(p=>p.id==='indeung')!;
  for(const kind of ['votive','memorial'] as const){
   const votive=kind==='votive';
@@ -312,8 +319,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
   const floor=votive?1.4025*hall.scale:0,width=votive?4.16:6.4;
   const base=votive?.69:.83;
   const start=staticMeshes.length;
-  box('lamp-stand-plinth',width,base-.10,.76,x,floor+(base-.10)/2,z,wood);
-  box('lamp-stand-cornice',width+.10,.10,.84,x,floor+base-.05,z,wood);
+  box('lamp-stand-plinth',width,base-.10,.76,x,floor+(base-.10)/2,z,votive?wood:memorialStandStone);
+  box('lamp-stand-cornice',width+.10,.10,.84,x,floor+base-.05,z,votive?wood:memorialStandStone);
   if(votive){
    for(const level of [1,2])
     box('indeung-shelf',width,.07,.70,x,floor+base+.75*level-.035,z,wood);
@@ -398,6 +405,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   const width=inside?(label==='대웅전'?4.2:3.2):3.2,height=inside?(label==='대웅전'?1.05:.8):.8;
   return uprightBoxLettering(box(`name-${label}${inside?'-inside':''}`,width,height,.12,x,y,z,m),inside?'back':outwardOnly?'front':'both');
  }
+ const memorialLabel=plaque('추모등',memorialGarden.x,.66,memorialGarden.z-.49,false,true);memorialLabel.scaling.set(.4,.4,1);
  const office=templePlaces.find(p=>p.id==='office')!;
  const deskStart=staticMeshes.length,deskFloor=1.4025*office.scale;
  box('reception-front',3.7,.83,.72,office.x,deskFloor+.425,office.z+.3,wood);
@@ -412,9 +420,10 @@ export function createTemple(canvas:HTMLCanvasElement) {
   const entrySign=place.id==='office'||place.id==='indeung';
   const height=entrySign?1.4025*place.scale+2.25:4.5*place.scale;
   const frontOffset=entrySign?5.2:4.65;
-  faceCourtyard(plaque(place.name,place.x,height,place.z-frontOffset*place.scale,false,true),place);
+  const depth=rearPrayerHalls.some(h=>h.id===place.id)?prayerHallDimensions.z:place.scale;
+  faceCourtyard(plaque(place.name,place.x,height,place.z-frontOffset*depth,false,true),place);
   // The indoor panel hangs in front of the inner column line, clear of the eave and doorway.
-  faceCourtyard(plaque(place.name,place.x,1.4025*place.scale+2.25,place.z-2.85*place.scale,true),place);
+  faceCourtyard(plaque(place.name,place.x,1.4025*place.scale+2.25,place.z-2.85*depth,true),place);
  }
  plaque('대웅전',0,4.95,daeung.z-6,true);
  let bellVisual!:ReturnType<typeof furnishBell>;
@@ -441,17 +450,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  // Central court and southern entrance axis remain distinct from the fixed lantern slots.
  box('central-court',2*courtHalfWidth,.12,courtDepth,0,.03,courtSouthEdge+courtDepth/2,stone,false);
- const soil=mat('border-soil','#715942');
- const grass=mat('border-grass','#506849');
- for(const side of [-1,1]){
-  box('garden-soil',gardenBorderWidth,.08,courtDepth,side*(courtHalfWidth+gardenBorderWidth/2),.025,courtSouthEdge+courtDepth/2,soil,false);
-  for(let i=0;i<35;i++){
-   const tuft=MeshBuilder.CreateSphere('low-groundcover',{diameter:1,segments:6},scene);
-   tuft.scaling.set(.32+.08*Math.sin(i),.13+.04*Math.cos(i),.46);
-   tuft.position.set(side*(courtHalfWidth+.62+.32*Math.sin(i*2.3)),.085,courtSouthEdge+.3+i*(courtDepth-.6)/34);
-   tuft.material=grass;staticMeshes.push(tuft);
-  }
- }
+ furnishGardens(scene,staticMeshes);
  const pathSoil=mat('path-soil','#524d48');
  surface(pathSoil,'stone');pathSoil.specularColor=Color3.Black();
  const slabs=['#a4a8a4','#acaeaa','#a8aba7'].map((shade,index)=>{
@@ -997,8 +996,13 @@ export function createTemple(canvas:HTMLCanvasElement) {
  function tiledWall(x1:number,z1:number,x2:number,z2:number,top:number){
   const length=Math.hypot(x2-x1,z2-z1), yaw=Math.atan2(x2-x1,z2-z1);
   const x=(x1+x2)/2,z=(z1+z2)/2;
-  const body=box('garden-wall',wallThickness,top-.22,length,x,(top-.22)/2,z,masonry);
-  body.rotation.y=yaw;
+  const segments=Math.ceil(length/5.5),span=length/segments;
+  for(let i=0;i<segments;i++){
+   const f=(i+.5)/segments,px=x1+(x2-x1)*f,pz=z1+(z2-z1)*f;
+   const base=box('garden-wall-stone-base',wallThickness,.57,span,px,.285,pz,masonry);base.rotation.y=yaw;
+   const body=box('garden-wall',wallThickness,top-.79,span,px,.57+(top-.79)/2,pz,wallPlaster);body.rotation.y=yaw;
+  }
+  for(let i=0;i<=segments;i++){const f=i/segments;const post=box('garden-wall-pier',wallThickness+.10,top-.22,.24,x1+(x2-x1)*f,(top-.22)/2,z1+(z2-z1)*f,wallPlaster);post.rotation.y=yaw;}
   for(const side of [-1,1]){
    const offset=side*.19;
    const tiles=box('wall-tile-slope',.43,.09,length,x+offset*Math.cos(yaw),top-.16,z-offset*Math.sin(yaw),roofMat);
@@ -1012,11 +1016,11 @@ export function createTemple(canvas:HTMLCanvasElement) {
  placeGuardians(scene,staticMeshes,innerGate.z);
  let seed=42;function rand(){seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;}
  for(const side of [-1,1])for(let i=0;i<18;i++){
-  const rock=MeshBuilder.CreateSphere('garden-granite',{diameter:1,segments:5},scene);rock.position.set(side<0?-35.6+rand()*.3:75.5+rand()*.3,.3,-20+i*2);rock.scaling.set(1+rand(),.5+rand()*.6,1+rand());rock.material=stoneDark;staticMeshes.push(rock);
+  const rock=MeshBuilder.CreateIcoSphere('garden-granite',{radius:1,subdivisions:1},scene);rock.position.set(side<0?-35.6+rand()*.3:75.5+rand()*.3,.11,-20+i*2+.7*Math.sin(i*2.4));rock.scaling.set(.35+rand()*.25,.12+rand()*.11,.25+rand()*.3);rock.rotation.y=i*1.7;rock.material=masonry;staticMeshes.push(rock);
 
  }
  // Keep the walking collision at each solid trunk, sharing the existing tree dimensions.
- for(const {x,z} of interiorWoodland){
+ for(const {x,z} of interiorWoodland.filter(p=>!inBambooGarden(p.x,p.z))){
   const collision=MeshBuilder.CreateCylinder('meditation-tree',{diameter:.34,height:4.8,tessellation:8},scene);
   collision.position.set(x,2.4,z);collision.isVisible=false;
   staticMeshes.push(collision);
@@ -1031,9 +1035,9 @@ export function createTemple(canvas:HTMLCanvasElement) {
  pen.strokeStyle='#ffe1a3';pen.shadowColor='#ffcb75';pen.shadowBlur=7;pen.lineWidth=3;pen.lineCap='round';
  pen.beginPath();pen.moveTo(16,81);pen.lineTo(64,46);pen.lineTo(112,81);pen.stroke();
  entryTexture.hasAlpha=true;entryTexture.update();
- const doorGuides=templePlaces.filter(p=>['daeung','gwaneum','jijang','indeung'].includes(p.id)).map(place=>{
+ const doorGuides=templePlaces.filter(p=>['daeung','gwaneum','jijang','indeung',...rearPrayerHalls.map(h=>h.id)].includes(p.id)).map(place=>{
   const yaw='yaw' in place?place.yaw:0;
-  const dz=place.id==='daeung'?daeungDimensions.z:place.scale;
+  const dz=place.id==='daeung'?daeungDimensions.z:rearPrayerHalls.some(h=>h.id===place.id)?prayerHallDimensions.z:place.scale;
   const distance=7.45*dz+1.4;
   const x=place.x-Math.sin(yaw)*distance,z=place.z-Math.cos(yaw)*distance;
   const marks=Array.from({length:3},(_,i)=>{
@@ -1063,7 +1067,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    if(!merged)continue;
    merged.metadata={blocksOfferingPick:material.alpha>=1&&!material.opacityTexture};
    merged.name='architecture-'+material.name;merged.receiveShadows=true;
-   shadows.addShadowCaster(merged);merged.freezeWorldMatrix();
+   if(!material.name.startsWith('garden-'))shadows.addShadowCaster(merged);merged.freezeWorldMatrix();
    if(display)displayBatches.push(merged);
   }
  }
@@ -1353,7 +1357,10 @@ export function createTemple(canvas:HTMLCanvasElement) {
  canvas.addEventListener('pointerdown',cancelGateWalk);
  canvas.addEventListener('wheel',cancelGateWalk);
  canvas.addEventListener('keydown',cancelGateWalk);
+ let inspectInside=false;
  function view(name:string){
+  scene.fogDensity=name==='map'?0:.0025;
+  inspectInside=name.endsWith('Interior')||['sanctuary','seating','shrine','face','gwaneumAltar','gwaneumSeats','jijangInterior','votiveShelves'].includes(name);
   camera.lowerBetaLimit=name==='map'?.001:.15;
   cancelGateWalk();
   if(name==='personalGateWalk'){walking.approachPersonalGate();return;}
@@ -1366,10 +1373,19 @@ export function createTemple(canvas:HTMLCanvasElement) {
    camera.setTarget(new Vector3(0,13,27));
    camera.setPosition(new Vector3(0,37,-93));return;
   }
+  const rearHall=rearPrayerHalls.find(h=>name===h.id+'Interior');
+  if(rearHall){
+   const at=prayerHallPoint(rearHall,prayerAisleX,-3.3),to=prayerHallPoint(rearHall,prayerAisleX,2.65);
+   camera.fov=.85;camera.setTarget(new Vector3(to[0],prayerHallFloor+1.6,to[1]));camera.setPosition(new Vector3(at[0],prayerHallFloor+1.55,at[1]));return;
+  }
+  if(name==='rearPrayerWest'||name==='rearPrayerNorth'||name==='rearPrayerEast'||name==='rearPrayerMunsu'){
+   const frames={rearPrayerWest:[-32,1.75,65,-44,2.9,55],rearPrayerNorth:[40.913,1.75,89,40.913,2.9,102],rearPrayerMunsu:[-21.087,1.75,86,-21.087,2.9,99],rearPrayerEast:[74,1.75,82,82,3,69]};
+   const [x,y,z,tx,ty,tz]=frames[name];camera.fov=.93;camera.setTarget(new Vector3(tx,ty,tz));camera.setPosition(new Vector3(x,y,z));return;
+  }
   if(name==='wide'){
    camera.fov=.93;camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
-   camera.setTarget(new Vector3(8,6,12));
-   camera.setPosition(new Vector3(-96,125,-205));return;
+   camera.setTarget(new Vector3(19,6,20));
+   camera.setPosition(new Vector3(-125,165,-205));return;
   }
   if(name==='gateHallSightline'){
    camera.fov=.80;camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
@@ -1554,7 +1570,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
     : new Vector3(px,py,pz);
    camera.setTarget(toWorld(tx,ty,tz));camera.setPosition(toWorld(x,y,z));return;
   }
-  const place=templePlaces.find(p=>p.id===name);if(place){camera.setTarget(new Vector3(place.x,3,place.z));camera.alpha=-Math.PI/2-('yaw' in place?place.yaw:0);camera.beta=1.15;camera.radius=place.kind==='forest'?48:place.scale*(canvas.clientWidth/canvas.clientHeight<.9?42:28);return;}if(name==='map'){camera.fov=.8;camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;camera.setTarget(new Vector3(20,0,0));camera.alpha=-Math.PI/2;camera.beta=.015;camera.radius=Math.max(210,128/(2*Math.tan(.4)*canvas.clientWidth/canvas.clientHeight));return;}if(name==='canopy'){camera.setTarget(new Vector3(0,6,-16));camera.alpha=-Math.PI/2;camera.beta=2.1;camera.radius=9;}else if(name==='front'){camera.setTarget(new Vector3(0,5,32));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=55;}else if(name==='detail'){camera.setTarget(new Vector3(-6,6.6,29));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=selectedPosition(selected);camera.setTarget(Vector3.FromArray([...p]).add(new Vector3(0,-.4,0)));camera.alpha=-2.9;camera.beta=1.95;camera.radius=4;}else{camera.setTarget(new Vector3(0,2,-2));camera.alpha=-Math.PI*.58;camera.beta=.65;camera.radius=175;}}
+  const place=templePlaces.find(p=>p.id===name);if(place){camera.setTarget(new Vector3(place.x,3,place.z));camera.alpha=-Math.PI/2-('yaw' in place?place.yaw:0);camera.beta=1.15;camera.radius=place.kind==='forest'?48:place.scale*(canvas.clientWidth/canvas.clientHeight<.9?42:28);return;}if(name==='map'){camera.fov=.8;camera.fovMode=ArcRotateCamera.FOVMODE_VERTICAL_FIXED;camera.setTarget(new Vector3(19,0,19));camera.alpha=-Math.PI/2;camera.beta=.015;camera.radius=Math.max(260,170/(2*Math.tan(.4)*canvas.clientWidth/canvas.clientHeight));return;}if(name==='canopy'){camera.setTarget(new Vector3(0,6,-16));camera.alpha=-Math.PI/2;camera.beta=2.1;camera.radius=9;}else if(name==='front'){camera.setTarget(new Vector3(0,5,32));camera.alpha=-Math.PI/2;camera.beta=1.36;camera.radius=55;}else if(name==='detail'){camera.setTarget(new Vector3(-6,6.6,29));camera.alpha=-2;camera.beta=1.3;camera.radius=12;}else if(name==='lantern'){const p=selectedPosition(selected);camera.setTarget(Vector3.FromArray([...p]).add(new Vector3(0,-.4,0)));camera.alpha=-2.9;camera.beta=1.95;camera.radius=4;}else{camera.setTarget(new Vector3(0,2,-2));camera.alpha=-Math.PI*.58;camera.beta=.65;camera.radius=175;}}
  rebuildLanterns(1000);time('day');
  scene.onBeforeRenderObservable.add(()=>{
   if(arrivalTime!==null){
@@ -1562,6 +1578,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    if(arrivalTime>=2.5)finishArrival();else arrivalPose(arrivalTime/2.5);
   }
   walking.update(engine.getDeltaTime()/1000);
+  if(inspectInside&&!walking.position)camera.radius=walkWorld.cameraLimit(camera.target,camera.alpha,camera.beta,camera.radius);
   camera.minZ=sceneNearPlane(camera.radius);
   updateTrees(camera.position,performance.now());
   pondLife.update(Math.min(.08,engine.getDeltaTime()/1000),reduced,walking.position??undefined);
@@ -1632,5 +1649,5 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const mesh of displayBatches)mesh.setEnabled(value!=='empty');
   for(const [id,slot] of applicationSlots)if(displayKinds.has(slot.kind))refreshApplication(id);
  }
- return {visit:walking.visit,startPractice:walking.startPractice,setWalking:walking.mode,returnFromPrivateRoom:walking.returnFromPrivateRoom,pondLife,setFace:walking.setFace,beginArrival,selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ return {captureWalkView:walking.captureView,restoreWalkView:walking.restoreView,visit:walking.visit,startPractice:walking.startPractice,setWalking:walking.mode,returnFromPrivateRoom:walking.returnFromPrivateRoom,pondLife,setFace:walking.setFace,beginArrival,selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }

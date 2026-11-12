@@ -1,0 +1,103 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "locale": "ko",
+      "translated": true,
+      "buttonFits": true,
+      "touchReturn": true,
+      "errors": []
+    },
+    {
+      "locale": "ja",
+      "translated": true,
+      "buttonFits": true,
+      "touchReturn": true,
+      "errors": []
+    },
+    {
+      "locale": "en",
+      "translated": true,
+      "buttonFits": true,
+      "touchReturn": true,
+      "errors": []
+    },
+    {
+      "locale": "zh-Hans",
+      "translated": true,
+      "buttonFits": true,
+      "touchReturn": true,
+      "errors": []
+    },
+    {
+      "locale": "pt-PT",
+      "translated": true,
+      "buttonFits": true,
+      "touchReturn": true,
+      "errors": []
+    },
+    {
+      "locale": "es",
+      "translated": true,
+      "buttonFits": true,
+      "touchReturn": true,
+      "errors": []
+    },
+    {
+      "locale": "fr",
+      "translated": true,
+      "buttonFits": true,
+      "touchReturn": true,
+      "errors": []
+    },
+    {
+      "locale": "it",
+      "translated": true,
+      "buttonFits": true,
+      "touchReturn": true,
+      "errors": []
+    },
+    {
+      "locale": "pt-BR",
+      "translated": true,
+      "buttonFits": true,
+      "touchReturn": true,
+      "errors": []
+    },
+    {
+      "locale": "ms",
+      "translated": true,
+      "buttonFits": true,
+      "touchReturn": true,
+      "errors": []
+    },
+    {
+      "locale": "de",
+      "translated": true,
+      "buttonFits": true,
+      "touchReturn": true,
+      "errors": []
+    },
+    {
+      "locale": "vi",
+      "translated": true,
+      "buttonFits": true,
+      "touchReturn": true,
+      "errors": []
+    },
+    {
+      "locale": "ru",
+      "translated": true,
+      "buttonFits": true,
+      "touchReturn": true,
+      "errors": []
+    },
+    {
+      "locale": "tr",
+      "translated": true,
+      "buttonFits": true,
+      "touchReturn": true,
+      "errors": []
+    }
+  ]
+}

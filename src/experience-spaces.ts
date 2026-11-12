@@ -7,7 +7,7 @@ import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
 import {DynamicTexture} from '@babylonjs/core/Materials/Textures/dynamicTexture';
 import {Color3} from '@babylonjs/core/Maths/math.color';
 import {Vector3,Vector4} from '@babylonjs/core/Maths/math.vector';
-import {teaPavilion,teaTerrace,teaSeats,teaTables,teaGardenTables,teaGardenWalk,personalGate,sanctuaryWalk,teaApproach,gateApproach,type GroundPoint} from './temple-terrain';
+import {teaPavilion,teaTerrace,teaSeats,teaTables,teaGardenTables,teaGardenWalk,personalGate,sanctuaryWalk,rearPrayerWalk,prayerHallApproaches,teaApproach,gateApproach,type GroundPoint} from './temple-terrain';
 
 export function placeExperienceSpaces(scene:Scene,parts:Mesh[],wood:StandardMaterial,roof:StandardMaterial,stone:StandardMaterial){
  function box(name:string,w:number,h:number,d:number,x:number,y:number,z:number,material:StandardMaterial){
@@ -37,6 +37,8 @@ export function placeExperienceSpaces(scene:Scene,parts:Mesh[],wood:StandardMate
   trail.backFaceCulling=false;
  }
  path('sanctuary-walking-trail',sanctuaryWalk,1.8);
+ path('rear-prayer-walking-trail',rearPrayerWalk,2.5);
+ for(const approach of prayerHallApproaches)path(approach.id+'-prayer-trail',approach.route,1.8);
  path('tea-pavilion-trail',teaApproach,1.5);
  path('tea-garden-walking-trail',teaGardenWalk,1.5);
  path('personal-gate-trail',gateApproach,1.6);
