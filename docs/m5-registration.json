@@ -1,0 +1,67 @@
+{
+  "milestone": {
+    "number": 5,
+    "url": "https://github.com/hjunnnS/meta-temple/milestone/5",
+    "title": "M5 — 가이드 스님·고민별 수행 안내"
+  },
+  "epic": 1,
+  "issues": [
+    {
+      "code": "G01",
+      "number": 78,
+      "id": 6361264412,
+      "title": "[Implementation][M5][Guide][G01] 고민별 수행 코스와 안내 내용 정의",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/78"
+    },
+    {
+      "code": "G02",
+      "number": 79,
+      "id": 6361264754,
+      "title": "[Implementation][M5][Guide][G02] 자유 탐방·가이드 선택과 안내 단계 제어",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/79"
+    },
+    {
+      "code": "G03",
+      "number": 80,
+      "id": 6361265073,
+      "title": "[Implementation][M5][Guide][G03] 가이드 스님·말풍선·음성 안내",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/80"
+    },
+    {
+      "code": "G04",
+      "number": 81,
+      "id": 6361265415,
+      "title": "[Implementation][M5][Guide][G04] 목적지 안내·도착 인식과 현장 수행 자리 연결",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/81"
+    },
+    {
+      "code": "G05",
+      "number": 82,
+      "id": 6361265707,
+      "title": "[Implementation][M5][Guide][G05] 건강 코스 전체 연결 — 기도·절·108배·선택 연등",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/82"
+    },
+    {
+      "code": "G06",
+      "number": 83,
+      "id": 6361266024,
+      "title": "[Implementation][M5][Guide][G06] 가족·시험·관계·상실 코스 확장",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/83"
+    },
+    {
+      "code": "G07",
+      "number": 84,
+      "id": 6361266320,
+      "title": "[Implementation][M5][Guide][G07] 새 가이드의 다국어·접근성 적용",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/84"
+    },
+    {
+      "code": "G08",
+      "number": 85,
+      "id": 6361266606,
+      "title": "[Implementation][M5][Guide][G08] 가이드 통합 검수와 체험판 반영",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/85"
+    }
+  ],
+  "verified": true
+}
