@@ -19,7 +19,7 @@ export const servicePlaces:ServicePlace[]=[
  {id:'private',label:'시간과 공간의 방',description:'나만 입장하는 조용한 공간',x:personalGate.x,z:personalGate.z,arrival:[personalGate.x-2.5,personalGate.z],view:'personalGateWalk'},
  ...rearPrayerHalls.map(p=>({id:p.id,label:p.name,description:p.deity,x:p.x,z:p.z,arrival:prayerHallPoint(p,prayerAisleX,-1.1),view:p.id+'Interior'})),
 ];
-export function serviceMap(parent:HTMLElement,position:()=>readonly number[]|null,navigate:(place:ServicePlace)=>void){
+export function serviceMap(parent:HTMLElement,position:()=>readonly number[]|null,navigate:(place:ServicePlace)=>void,guidePlace?:string){
  const hint=document.createElement('p');hint.className='map-intro';hint.textContent=t('장소를 선택하세요');
  const layout=document.createElement('div');layout.className='service-map-layout';
  const image=document.createElementNS('http://www.w3.org/2000/svg','svg');image.setAttribute('viewBox','-64 -124 168 210');image.setAttribute('role','group');image.setAttribute('aria-label',t('사찰 지도'));
@@ -42,11 +42,11 @@ export function serviceMap(parent:HTMLElement,position:()=>readonly number[]|nul
   const marker=svg('g',{role:'button',tabindex:'0','aria-label':number+' · '+t(place.label),'data-map-place':place.id,class:'service-map-marker'});
   const node=svg('rect',{x:String(place.x-4.3),y:String(-place.z-2.8),width:'8.6',height:'5.6',rx:'1',fill:'#bdc7aa'});nodes.set(place.id,node);
   const text=svg('text',{x:String(place.x),y:String(-place.z+1),'text-anchor':'middle',fill:'#314b34','font-size':'4'},number);labels.set(place.id,text);text.style.pointerEvents='none';
-  marker.append(node,text);markers.set(place.id,marker);
+  marker.append(node,text);if(place.id===guidePlace)marker.classList.add('guide-map-target');markers.set(place.id,marker);
   marker.addEventListener('click',()=>choose(place));
   marker.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();choose(place);}});
  }
  for(const place of [...servicePlaces].sort((a,b)=>t(a.label).localeCompare(t(b.label),locale))){const b=document.createElement('button');b.type='button';b.dataset.destination=place.view;b.dataset.place=place.id;b.textContent=String(servicePlaces.indexOf(place)+1).padStart(2,'0')+' · '+t(place.label);b.onclick=()=>choose(place);buttons.set(place.id,b);list.append(b);}
  const at=position();if(at){const dot=svg('circle',{cx:String(at[0]),cy:String(-at[2]),r:'1.8',fill:'#d1a847',stroke:'#fff9e9','stroke-width':'.65'});const label=svg('text',{x:String(at[0]+3),y:String(-at[2]+1),'font-size':'4',fill:'#4c603f'},t('현재 위치'));label.setAttribute('aria-hidden','true');dot.setAttribute('aria-label',t('현재 위치'));dot.style.pointerEvents=label.style.pointerEvents='none';}
- move.onclick=()=>navigate(selected);choose(selected);
+ move.onclick=()=>navigate(selected);choose(servicePlaces.find(p=>p.id===guidePlace)??selected);
 }

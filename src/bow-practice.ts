@@ -1,3 +1,4 @@
+import {practiceEvent} from './practice-events';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
 import {DynamicTexture} from '@babylonjs/core/Materials/Textures/dynamicTexture';
 import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
@@ -67,7 +68,7 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
  function cancel(){
   light?.cancel();light=undefined;
   const old=id;generation++;id='';count=0;elapsed=-1;busy=false;status.textContent='';pose(0);draw();
-  if(old)void request('cancel',{id:old}).catch(()=>{});
+  if(old){practiceEvent({kind:'108',status:'cancelled',id:old});void request('cancel',{id:old}).catch(()=>{});}
  }
  function failed(error:unknown){
   if(error instanceof Error&&['401','409'].includes(error.message)){
@@ -83,7 +84,7 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
   try{
    const run=await request('start',{});
    if(version!==generation){void request('cancel',{id:run.id}).catch(()=>{});return;}
-   faceAltar();light=prayerLight(scene,position);id=run.id;count=run.count;status.textContent=count+' / 108';
+   faceAltar();light=prayerLight(scene,position);id=run.id;count=run.count;status.textContent=count+' / 108';practiceEvent({kind:'108',status:'started',id});
   }catch(error){if(version===generation)failed(error);}
   finally{if(version===generation){busy=false;draw();}}
  };
@@ -96,7 +97,7 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
      const result=await request('bow',completed);
      if(version!==generation)return;
      count=result.count;status.textContent=count+' / 108';
-     if(count===108){id='';status.textContent=t('108배 완료');light?.fade();light=undefined;rainbow(scene,position);}
+     if(count===108){id='';status.textContent=t('108배 완료');light?.fade();light=undefined;rainbow(scene,position);practiceEvent({kind:'108',status:'completed',id:completed.id,count});}
      return;
     }catch(error){
      if(version!==generation)return;

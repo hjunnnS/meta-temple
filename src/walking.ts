@@ -1,3 +1,4 @@
+import {practiceEvent} from './practice-events';
 import {rearPrayerHalls,prayerHallPoint,prayerAisleX} from './prayer-halls.ts';
 import {walkingPath,type WalkPoint} from './point-navigation';
 import {pointInput} from './point-input';
@@ -204,11 +205,12 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  }),...rearPrayerHalls.map(hall=>{const [x,z]=prayerHallPoint(hall,prayerAisleX,-1.1);return {name:hall.name,x,z,radius:1.6,alpha:-Math.PI/2-hall.yaw};})];
  let prayer:typeof prayerSites[number]|undefined;
  const practicing=import.meta.env.MODE==='service';
- let worship=false,elapsed=0,meditating=false,meditationTime=0;
+ let worship=false,elapsed=0,meditating=false,meditationTime=0,practiceSerial=0,worshipRun='',meditationRun='';
  const meditationStop=document.createElement('button'),meditationStatus=document.createElement('output');meditationStop.id='meditation-stop';meditationStop.hidden=true;meditationStop.textContent=t('수행 마치기');meditationStatus.id='meditation-status';meditationStatus.hidden=true;meditationStatus.setAttribute('aria-live','off');pad.append(meditationStatus,meditationStop);
- function finishMeditation(){meditating=false;meditationStop.hidden=true;meditationStatus.hidden=true;for(const leg of [...avatar.legs,...avatar.shins]){leg.rotationQuaternion=null;leg.rotation.setAll(0);}avatar.chest.scaling.y=1;avatar.bow(0);}
+ function finishMeditation(){const old=meditationRun;meditationRun='';const completed=meditationTime>=10;meditating=false;meditationStop.hidden=true;meditationStatus.hidden=true;for(const leg of [...avatar.legs,...avatar.shins]){leg.rotationQuaternion=null;leg.rotation.setAll(0);}avatar.chest.scaling.y=1;avatar.bow(0);if(old)practiceEvent({kind:'meditation',status:completed?'completed':'cancelled',id:old});}
  meditationStop.onclick=()=>{finishMeditation();canvas.focus();};
  function finishWorship(){
+  const old=worshipRun;worshipRun='';if(old)practiceEvent({kind:'bow',status:'cancelled',id:old});
   finishMeditation();worship=false;elapsed=0;avatar.bow(0);avatar.root.rotation.x=0;
   for(const arm of avatar.arms)arm.rotation.set(0,0,0);
   prayerButton.textContent=prayer?t(prayer.name)+' · '+t(practicing?'참배 시작':'불단'):'';
@@ -225,7 +227,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   if(worship){finishWorship();canvas.focus();return;}
   if(practicing&&prayer.name==='대웅전')avatar.root.position.set(practiceSeat.x,world.floor(practiceSeat.x,practiceSeat.z)+.088,practiceSeat.z);
   camera.alpha=prayer.alpha;camera.beta=1.62;avatar.root.rotation.y=-Math.PI/2-prayer.alpha;
-  if(practicing){worship=true;elapsed=0;prayerButton.textContent=t('참배 마치기');}
+  if(practicing){worship=true;elapsed=0;worshipRun='guide-bow-'+(++practiceSerial);prayerButton.textContent=t('참배 마치기');practiceEvent({kind:'bow',status:'started',id:worshipRun,place:prayer.name});}
   canvas.focus();
  };
  const visitButton=document.querySelector<HTMLButtonElement>('#visit-point')!;
@@ -331,6 +333,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    else{
     elapsed+=Math.min(.1,dt);
     avatar.bow(Math.min(1,elapsed/4.8));
+    if(elapsed>=4.8&&worshipRun){const id=worshipRun;worshipRun='';practiceEvent({kind:'bow',status:'completed',id,place:prayer?.name});}
    }
   }
   if(length && document.activeElement===canvas && !document.querySelector('dialog[open]')){
@@ -367,12 +370,12 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   if(kind==='108'){finishMeditation();document.querySelector<HTMLButtonElement>('#bow-start')!.click();return;}
   if(bows.active)bows.cancel();finishWorship();
   if(kind==='bow'){prayerButton.click();return;}
-  meditating=true;meditationTime=0;meditationStop.hidden=false;meditationStatus.hidden=false;camera.alpha=prayer.alpha;avatar.root.rotation.y=-Math.PI/2-prayer.alpha;canvas.focus();
+  meditating=true;meditationTime=0;meditationRun='guide-meditation-'+(++practiceSerial);practiceEvent({kind:'meditation',status:'started',id:meditationRun,place:prayer.name});meditationStop.hidden=false;meditationStatus.hidden=false;camera.alpha=prayer.alpha;avatar.root.rotation.y=-Math.PI/2-prayer.alpha;canvas.focus();
  }
  function captureView(){return {position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,alpha:camera.alpha,beta:camera.beta,followDistance,first,firstPersonFov,bellFramed:bell.framed};}
  function restoreView(saved:ReturnType<typeof captureView>){
   mode(true);clear();finishWorship();bell.cancel();tea.stop();if(saved.bellFramed)bell.approach();avatar.root.position.set(...saved.position as [number,number,number]);avatar.root.rotation.y=saved.yaw;
   followDistance=saved.followDistance;firstPersonFov=saved.firstPersonFov;changePerspective(saved.first);camera.alpha=saved.alpha;camera.beta=saved.beta;update(0);canvas.focus();
  }
- return {captureView,restoreView,mode,update,visit,startPractice,returnFromPrivateRoom(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=-Math.PI/2;camera.alpha=0;camera.beta=1.26;},approachPersonalGate(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=Math.PI/2;camera.alpha=Math.PI;camera.beta=1.26;},approachBell(){mode(true);bell.approach();},sitAtTea(index=0){bell.cancel();mode(true);if(bows.active)bows.cancel();finishWorship();tea.sitAt(index);camera.alpha=-Math.PI/2;camera.beta=1.42;},setFace:avatar.setFace,get pose(){return {meditating,face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,bowProgress:worship?Math.min(1,elapsed/4.8):bows.progress,bellProgress:bell.progress,bellHit:bell.hit,drinkLift:tea.lift,beverage:tea.beverage,animation:bell.active?'bell':tea.seated||meditating?'sit':worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
+ return {stopPractice(){bows.cancel();finishWorship();},captureView,restoreView,mode,update,visit,startPractice,returnFromPrivateRoom(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=-Math.PI/2;camera.alpha=0;camera.beta=1.26;},approachPersonalGate(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=Math.PI/2;camera.alpha=Math.PI;camera.beta=1.26;},approachBell(){mode(true);bell.approach();},sitAtTea(index=0){bell.cancel();mode(true);if(bows.active)bows.cancel();finishWorship();tea.sitAt(index);camera.alpha=-Math.PI/2;camera.beta=1.42;},setFace:avatar.setFace,get pose(){return {meditating,face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,bowProgress:worship?Math.min(1,elapsed/4.8):bows.progress,bellProgress:bell.progress,bellHit:bell.hit,drinkLift:tea.lift,beverage:tea.beverage,animation:bell.active?'bell':tea.seated||meditating?'sit':worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
 }

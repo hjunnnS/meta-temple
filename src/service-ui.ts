@@ -15,8 +15,8 @@ export function serviceUI(canvas:HTMLCanvasElement,go:(view:string)=>void,closeO
  const menuOpen=action(document.querySelector('header')!,'menu-open','전체 메뉴',()=>open(menu));menuOpen.className='circle';menuOpen.innerHTML=icon('menu');menuOpen.setAttribute('aria-haspopup','dialog');menuOpen.setAttribute('aria-controls',menu.id);
  const dock=document.createElement('nav');dock.id='service-dock';dock.setAttribute('aria-label',t('사찰 둘러보기'));
  function dockButton(id:string,label:string,name:keyof typeof icons,handler:()=>void){const b=action(dock,id,label,handler);b.replaceChildren();b.innerHTML=icon(name);const text=document.createElement('span');text.textContent=t(label);b.append(text);b.setAttribute('aria-haspopup','dialog');return b;}
- function showMap(){spaces.querySelector('.service-map-body')?.remove();const body=document.createElement('div');body.className='service-map-body';spaces.append(body);serviceMap(body,options.position,place=>{spaces.close();closeOffering();options.navigate(place);canvas.focus();});open(spaces);}
- dockButton('spaces-open','사찰 지도','places',showMap);
+ function showMap(guidePlace=document.body.dataset.guidePlace){spaces.querySelector('.service-map-body')?.remove();const body=document.createElement('div');body.className='service-map-body';spaces.append(body);serviceMap(body,options.position,place=>{spaces.close();closeOffering();options.navigate(place);canvas.focus();},guidePlace);open(spaces);}
+ dockButton('spaces-open','사찰 지도','places',()=>showMap());
  dockButton('practice-open','수행','offer',()=>open(practice));
  dockButton('appearance-open','내 모습','avatar',()=>{closeOffering();go('walk');const camera=document.querySelector<HTMLButtonElement>('#walk-camera')!;if(camera.getAttribute('aria-pressed')==='true')camera.click();open(appearance);});root.append(dock);
  const intro=document.createElement('p');intro.className='practice-note';intro.textContent=t('참배와 명상은 로그인 없이 이용할 수 있습니다.');practice.append(intro);
@@ -24,7 +24,7 @@ export function serviceUI(canvas:HTMLCanvasElement,go:(view:string)=>void,closeO
  action(practice,'practice-meditate','명상하기',()=>{practice.close();closeOffering();options.practice('meditation');});
  action(practice,'practice-108','108배 시작',()=>{practice.close();closeOffering();options.practice('108');});
  const loginNote=document.createElement('p');loginNote.className='note';loginNote.textContent=t('108배는 로그인 후 시작합니다.');practice.append(loginNote);
- action(menu,'menu-map','사찰 지도',showMap);action(menu,'schedule-open','오늘의 일정',()=>{menu.close();options.schedule?.();});
+ action(menu,'menu-map','사찰 지도',()=>showMap());action(menu,'schedule-open','오늘의 일정',()=>{menu.close();options.schedule?.();});
  const offeringOpen=action(menu,'offering-open','등·소원 접수처',()=>{menu.close();go('officeReception');canvas.focus();});offeringOpen.className='menu-action';
  const account=document.querySelector<HTMLElement>('#service-account');if(account){menu.append(account);account.classList.add('menu-action');account.addEventListener('click',()=>{accountReturn=menu.open?'menu':'external';menu.close();});}
  const settingsOpen=document.querySelector<HTMLElement>('#settings')!;settingsOpen.textContent=t('환경 설정');menu.append(settingsOpen);settingsOpen.classList.add('menu-action');settingsOpen.addEventListener('click',()=>menu.close());
@@ -68,4 +68,5 @@ export function serviceUI(canvas:HTMLCanvasElement,go:(view:string)=>void,closeO
  backButton(top,()=>{closeOffering();rootMenu();});
  window.addEventListener('sasa:offering-return',()=>{closeOffering();canvas.focus();});
  document.querySelector<HTMLElement>('.brand')!.onclick=e=>{e.preventDefault();for(const panel of [spaces,appearance,practice,menu,review])if(panel.open)panel.close();closeOffering();canvas.focus();};
+ return {openMap:showMap};
 }

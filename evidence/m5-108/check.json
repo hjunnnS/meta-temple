@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "actualRecordedBows": 108,
+  "oneTo107CannotAdvance": true,
+  "finalServerResultAdvances": true,
+  "animationClock": "100ms per rendered frame for this test; no practice API or count stubs; normal timing separately checked",
+  "errors": []
+}

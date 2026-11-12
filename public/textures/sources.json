@@ -162,5 +162,53 @@
     "source": "scripts/make-sweeper-voice.py",
     "credit": "사사 뒤뜰 스님 인사 · 기존 승인된 macOS Reed 한국어 중저음 음성",
     "rights": "비공개 로컬 검수용 임시 합성 음성. 기존 예불 음성과 동일한 제작 기준."
+  },
+  {
+    "file": "public/guide/prepare-health.mp3",
+    "source": "scripts/make-guide-voice.py",
+    "credit": "SASA local prototype narration, macOS Reed",
+    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
+    "bytes": 91436,
+    "sha256": "9d9943e471a971d9f2aca931314edc3f48a13b771cbf24593daafb2ab95f122c"
+  },
+  {
+    "file": "public/guide/travel-health.mp3",
+    "source": "scripts/make-guide-voice.py",
+    "credit": "SASA local prototype narration, macOS Reed",
+    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
+    "bytes": 76940,
+    "sha256": "67942eadfd1cd0f22287be2d3548a547fba71bd95c3d96c3d7dbc620c98c9739"
+  },
+  {
+    "file": "public/guide/prayer-health.mp3",
+    "source": "scripts/make-guide-voice.py",
+    "credit": "SASA local prototype narration, macOS Reed",
+    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
+    "bytes": 146324,
+    "sha256": "ab24dd14bdccf73b25ab10df9f9ead9bf2248b21c55c644acb790c0516788aee"
+  },
+  {
+    "file": "public/guide/practice.mp3",
+    "source": "scripts/make-guide-voice.py",
+    "credit": "SASA local prototype narration, macOS Reed",
+    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
+    "bytes": 111092,
+    "sha256": "c0809536dccaf81314750aab6f1660a968d65bb1be2680307583373f04935ffc"
+  },
+  {
+    "file": "public/guide/offering.mp3",
+    "source": "scripts/make-guide-voice.py",
+    "credit": "SASA local prototype narration, macOS Reed",
+    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
+    "bytes": 101876,
+    "sha256": "e8957881fcb1a36766888f5cf0c39fa7c9ee8f0fe99c1116d0f9d97007f0d940"
+  },
+  {
+    "file": "public/guide/finish.mp3",
+    "source": "scripts/make-guide-voice.py",
+    "credit": "SASA local prototype narration, macOS Reed",
+    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
+    "bytes": 104804,
+    "sha256": "066cf5deaee57adf4a61f7fc4174abc0458d2c7b83fb1491d3c7dae0da1ee267"
   }
 ]
