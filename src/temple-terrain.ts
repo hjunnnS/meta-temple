@@ -1,4 +1,3 @@
-import {onPondBridge} from './pond-bridge-layout.ts';
 import {templeFootprint, rearPrayerHalls, prayerAisleX, prayerHallPoint} from './prayer-halls.ts';
 import { courtDepth, courtSouthEdge, sideHallCenterZ, templePlaces, wallCenterX, wishGarden, meditationTrees } from './temple-layout.ts';
 
@@ -68,9 +67,9 @@ export function insideBoundary(x:number,z:number,radius:number){
  return inside&&boundaries.every(wall=>distanceToSegment(x,z,wall.from,wall.to)>.25+radius);
 }
 export function insideGround(x:number,z:number,radius:number) {
- return insideBoundary(x,z,radius) && (onPondBridge(x,z,radius)||
+ return insideBoundary(x,z,radius) &&
   Math.hypot((x-pond.x)/(pond.width/2+radius),(z-pond.z)/(pond.depth/2+radius))>
-   shoreRadius(Math.atan2((z-pond.z)/pond.depth,(x-pond.x)/pond.width)));
+   shoreRadius(Math.atan2((z-pond.z)/pond.depth,(x-pond.x)/pond.width));
 }
 
 // Follow the office-side tree around the southern shoreline to the far-bank tree.
@@ -81,7 +80,7 @@ export const coinThrowBank = Array.from({length:97},(_,i)=>{
   pond.z+Math.sin(angle)*(pond.depth*.5*radius+1.65)] as GroundPoint;
 });
 export function canThrowCoin(x:number,z:number){
- return !onPondBridge(x,z)&&insideGround(x,z,.325)&&coinThrowBank.some((p,i)=>i>0&&distanceToSegment(x,z,coinThrowBank[i-1],p)<=1.75);
+ return insideGround(x,z,.325)&&coinThrowBank.some((p,i)=>i>0&&distanceToSegment(x,z,coinThrowBank[i-1],p)<=1.75);
 }
 
 
@@ -132,8 +131,6 @@ export const teaSeats=[...Array.from({length:12},(_,i)=>({
 })),...teaGardenTables.flatMap(table=>[-.5,.5].map(dx=>({x:table.x+dx,z:table.z-.9,y:-.13,yaw:0,outdoors:true,ground:.01,area:'옆마당'})))];
 export const teaTables=teaSeats.slice(0,12).filter((_,i)=>i%2===0).map(seat=>({x:seat.x+.5,z:seat.z+.85}));
 export const teaApproach=roundedRoute([[35,-34],[35,-64.25],[58.7,-64.25]]);
-// The bridge joins the office forecourt to the western side of the pagoda approach.
-export const pondBridgeApproaches:GroundPoint[][]=[[[office.x,-63.9],[35,-63.9],[44,-64.25],[44,-63.5]],[[44,-40],[44,-34]]];
 // A continuous dry route joins the terrace, east shore and pagoda approach.
 export const teaGardenWalk=roundedRoute([[73.8,-64.25],[74.8,-61.5],[74.5,-51],[73,-40],[69,-34]]);
 export const gateApproach:GroundPoint[]=[[59,36],[personalGate.x+2,personalGate.z]];

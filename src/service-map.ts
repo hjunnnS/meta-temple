@@ -1,8 +1,7 @@
-import {pondBridge} from './pond-bridge-layout';
 import {rearPrayerHalls,prayerHallPoint,prayerAisleX} from './prayer-halls';
 import {locale,t} from './locales';
 import {templePlaces,wishGarden,courtSouthEdge,courtDepth,candleCourt,memorialGarden} from './temple-layout';
-import {boundaries,paving,sanctuaryWalk,rearPrayerWalk,prayerHallApproaches,teaApproach,teaGardenWalk,pondBridgeApproaches,eastCourts,pond,teaPavilion,personalGate,sweepingMonkSite,coinThrowBank} from './temple-terrain';
+import {boundaries,paving,sanctuaryWalk,rearPrayerWalk,prayerHallApproaches,teaApproach,teaGardenWalk,eastCourts,pond,teaPavilion,personalGate,sweepingMonkSite,coinThrowBank} from './temple-terrain';
 import {practiceSeat} from './hall-seats';
 export interface ServicePlace {id:string;label:string;description:string;x:number;z:number;arrival:readonly[number,number];view:string}
 const site=(id:string)=>templePlaces.find(p=>p.id===id)!;
@@ -28,11 +27,10 @@ export function serviceMap(parent:HTMLElement,position:()=>readonly number[]|nul
  svg('rect',{x:'-64',y:'-124',width:'168',height:'210',rx:'5',fill:'#e8eddd'});
  for(const b of boundaries)svg('line',{x1:String(b.from[0]),y1:String(-b.from[1]),x2:String(b.to[0]),y2:String(-b.to[1]),stroke:'#afbda0','stroke-width':'1'});
  for(const path of paving)svg('line',{x1:String(path.from[0]),y1:String(-path.from[1]),x2:String(path.to[0]),y2:String(-path.to[1]),stroke:'#ccd4bc','stroke-width':String(path.lanes===3?3:1.5)});
- for(const route of [sanctuaryWalk,rearPrayerWalk,...prayerHallApproaches.map(a=>a.route),teaApproach,teaGardenWalk,...pondBridgeApproaches])svg('polyline',{points:route.map(p=>p[0]+','+-p[1]).join(' '),fill:'none',stroke:'#ccd4bc','stroke-width':'1.5'});
+ for(const route of [sanctuaryWalk,rearPrayerWalk,...prayerHallApproaches.map(a=>a.route),teaApproach,teaGardenWalk])svg('polyline',{points:route.map(p=>p[0]+','+-p[1]).join(' '),fill:'none',stroke:'#ccd4bc','stroke-width':'1.5'});
  svg('rect',{x:String(memorialGarden.x-memorialGarden.width/2),y:String(-memorialGarden.z-memorialGarden.depth/2),width:String(memorialGarden.width),height:String(memorialGarden.depth),fill:'#d9cfb6'});
  svg('rect',{x:'-35.5',y:String(-(courtSouthEdge+courtDepth)),width:'71',height:String(courtDepth),fill:'#dadfc9'});
  svg('ellipse',{cx:String(pond.x),cy:String(-pond.z),rx:String(pond.width/2),ry:String(pond.depth/2),fill:'#b5cbb6'});
- svg('line',{x1:String(pondBridge.x),y1:String(-pondBridge.south),x2:String(pondBridge.x),y2:String(-pondBridge.north),stroke:'#9b7750','stroke-width':String(pondBridge.width)});
  const list=document.createElement('div');list.className='service-place-list';const detail=document.createElement('div');detail.className='service-place-detail';
  const title=document.createElement('h3'),description=document.createElement('p'),move=document.createElement('button');move.className='service-primary';move.textContent=t('이곳으로 이동');detail.append(title,description,move);
  const sidebar=document.createElement('div');sidebar.append(list,detail);layout.append(image,sidebar);parent.append(hint,layout);

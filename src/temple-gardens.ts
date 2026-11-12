@@ -8,7 +8,7 @@ import {DynamicTexture} from '@babylonjs/core/Materials/Textures/dynamicTexture'
 import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
 import {Color3} from '@babylonjs/core/Maths/math.color';
 import {Vector3} from '@babylonjs/core/Maths/math.vector';
-import {interiorWoodland,paving,sanctuaryWalk,rearPrayerWalk,prayerHallApproaches,teaApproach,teaGardenWalk,pondBridgeApproaches,distanceToSegment} from './temple-terrain';
+import {interiorWoodland,paving,sanctuaryWalk,rearPrayerWalk,prayerHallApproaches,teaApproach,teaGardenWalk,distanceToSegment} from './temple-terrain';
 import {courtSouthEdge,courtDepth,courtHalfWidth} from './temple-layout';
 export const bambooSites=interiorWoodland.filter(p=>p.kind==='bamboo');
 export const inBambooGarden=(x:number,z:number)=>bambooSites.some(p=>p.x===x&&p.z===z);
@@ -19,7 +19,7 @@ export function furnishGardens(scene:Scene,parts:Mesh[],stone?:StandardMaterial)
  const cover=new DynamicTexture('soft-moss-edge',256,scene,true),brush=cover.getContext() as CanvasRenderingContext2D;
  const fade=brush.createRadialGradient(128,128,15,128,128,128);fade.addColorStop(0,'rgba(255,255,255,.75)');fade.addColorStop(.6,'rgba(255,255,255,.5)');fade.addColorStop(1,'rgba(255,255,255,0)');brush.fillStyle=fade;brush.fillRect(0,0,256,256);cover.hasAlpha=true;cover.update();moss.diffuseTexture=cover;moss.useAlphaFromDiffuseTexture=true;moss.transparencyMode=2;moss.alpha=.72;
  const add=(mesh:Mesh,m:StandardMaterial)=>{mesh.material=m;mesh.isPickable=false;parts.push(mesh);return mesh;};
- const clear=(x:number,z:number)=>[...paving.map(p=>[p.from,p.to]),...([sanctuaryWalk,rearPrayerWalk,...prayerHallApproaches.map(a=>a.route),teaApproach,teaGardenWalk,...pondBridgeApproaches].flatMap(path=>path.slice(1).map((p,i)=>[path[i],p])))].every(([a,b])=>distanceToSegment(x,z,a,b)>2.1);
+ const clear=(x:number,z:number)=>[...paving.map(p=>[p.from,p.to]),...([sanctuaryWalk,rearPrayerWalk,...prayerHallApproaches.map(a=>a.route),teaApproach,teaGardenWalk].flatMap(path=>path.slice(1).map((p,i)=>[path[i],p])))].every(([a,b])=>distanceToSegment(x,z,a,b)>2.1);
  function patch(x:number,z:number,rx:number,rz:number,seed:number,finish=moss){
   const pos=[x,.035,z],uv=[.5,.5],indices:number[]=[];
   for(let i=0;i<=14;i++){const a=i/14*Math.PI*2,r=1+.12*Math.sin(a*3+seed)+.06*Math.cos(a*5);pos.push(x+Math.cos(a)*rx*r,.035,z+Math.sin(a)*rz*r);uv.push(.5+.5*Math.cos(a),.5+.5*Math.sin(a));if(i){const previous=(i)*3,current=(i+1)*3;if(clear(pos[previous],pos[previous+2])&&clear(pos[current],pos[current+2]))indices.push(0,i+1,i);}}

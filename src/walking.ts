@@ -1,4 +1,3 @@
-import {pondBridgeHeight} from './pond-bridge-layout';
 import {rearPrayerHalls,prayerHallPoint,prayerAisleX} from './prayer-halls.ts';
 import {walkingPath,type WalkPoint} from './point-navigation';
 import {pointInput} from './point-input';
@@ -40,7 +39,7 @@ export function pedestrianWorld(parts:Mesh[]){
  const solids:Rect[]=[],ceilings:Rect[]=[],cameraSolids:Rect[]=[];
  for(const part of parts){
   const surface=/(^|-)(step|plinth|hall-floor|floorboard|court|base)$/.test(part.name);
-  const solid=/(^|-)(back-wall|side-wall|side-infill|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth|bell-shell|bridge-post|bridge-rail|water-edge-stone|meditation-tree)$/.test(part.name);
+  const solid=/(^|-)(back-wall|side-wall|side-infill|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth|bell-shell|water-edge-stone|meditation-tree)$/.test(part.name);
   const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof|tea-pavilion-roof|personal-gate-roof|ceiling-inset|ceiling-runner|ceiling-crossbeam|ceiling-painted-beam)$/.test(part.name);
   const cameraOnly=/(^name-|sign|bracket|painted-beam|purlin|lintel|rafter|place-name)/.test(part.name);
   if(!surface&&!solid&&!roof&&!cameraOnly)continue;
@@ -62,7 +61,7 @@ export function pedestrianWorld(parts:Mesh[]){
  function floor(x:number,z:number){
   let y=.01;
   for(const r of surfaces)if(x>=r.x0&&x<=r.x1&&z>=r.z0&&z<=r.z1)y=Math.max(y,r.top+(r.path?courtPathLift(x,z):0));
-  return Math.max(y,pondBridgeHeight(x,z)??0);
+  return y;
  }
  function blocked(x:number,y:number,z:number){
   return !insideGround(x,z,radius)||Math.hypot(x-sweepingMonkSite.x,z-sweepingMonkSite.z)<.42+radius||withinStatue(x,y,z,radius)||solids.some(r=>x>r.x0-radius&&x<r.x1+radius&&z>r.z0-radius&&z<r.z1+radius&&y<r.top&&y+visitorSize.height>r.bottom);

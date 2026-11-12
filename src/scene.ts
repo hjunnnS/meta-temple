@@ -1,5 +1,4 @@
 import {forestLamps} from './forest-lamps';
-import {furnishPondBridge} from './pond-bridge';
 import {rearPrayerHalls,prayerHallDimensions,prayerHallPoint,prayerAisleX,prayerHallFloor} from './prayer-halls.ts';
 import {furnishPrayerHall} from './prayer-hall-interior';
 import {furnishGardens,inBambooGarden} from './temple-gardens';
@@ -614,7 +613,6 @@ export function createTemple(canvas:HTMLCanvasElement) {
   waveNormal.vOffset=performance.now()*.000002;
  });
  const pondLife=furnishPond(scene,staticMeshes,shorePoint,waterBrush,pondTexture);
- furnishPondBridge(scene,staticMeshes,wood);
  const towerGranite=mat('pagoda-towerGranite','#c5c1af');surface(towerGranite,'stone');
  // A square open pavilion carries progressively lighter octagonal galleries.
  const paleStone=mat('east-pagoda-cut-granite','#e4d9bf',.18);

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "url": "local",
+  "bridgeMaterial": false,
+  "bridgeMesh": false,
+  "lampRoofMaxY": 0.5999999949336052,
+  "lampCount": 16,
+  "coinCountdownAndFlight": true,
+  "errors": [],
+  "failedAssets": [],
+  "apiNetworkRequests": []
+}
