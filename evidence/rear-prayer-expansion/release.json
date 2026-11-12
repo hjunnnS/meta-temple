@@ -1,0 +1,17 @@
+{
+  "status": "succeeded",
+  "version_number": 10,
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "canonical_source_commit": "8c872a1",
+  "sites_source_commit": "268232cf43788499af804204d141999691a677a0",
+  "source_backup_branch": "trial/sites-personal",
+  "unitTests": {
+    "canonical": 78,
+    "trial": 14
+  },
+  "all531SlotsPreserved": true,
+  "publicPCAndTouchPassed": true,
+  "publicMarkerCount": 22,
+  "audience": "public",
+  "scope": "Existing independent browser-local trial; actual payments and external auth unchanged"
+}

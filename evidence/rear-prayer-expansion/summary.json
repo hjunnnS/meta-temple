@@ -25,5 +25,9 @@
     "multiplayer": false
   },
   "nightScreensReviewed": true,
-  "deployed": false
+  "deployed": true,
+  "version": 10,
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "deployedSourceCommit": "268232cf43788499af804204d141999691a677a0",
+  "publishedPCAndTouchVerified": true
 }
