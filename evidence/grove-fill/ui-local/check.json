@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "url": "local",
+  "results": [
+    {
+      "touch": false,
+      "physicalPlants": 45,
+      "seasonalInstances": 24,
+      "caption": "나무관세음보살~",
+      "pointWalking": true,
+      "errors": [],
+      "failedAssets": [],
+      "apiNetworkRequests": []
+    },
+    {
+      "touch": true,
+      "physicalPlants": 45,
+      "seasonalInstances": 24,
+      "caption": "나무관세음보살~",
+      "pointWalking": true,
+      "errors": [],
+      "failedAssets": [],
+      "apiNetworkRequests": []
+    }
+  ]
+}
