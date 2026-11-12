@@ -1,3 +1,4 @@
+import {offeringDisplayPosition} from './lantern-display-profile';
 import{Vector3,Matrix}from'@babylonjs/core/Maths/math.vector';
 import type{createTemple}from'./scene';
 import{offerings}from'./reception';
@@ -19,7 +20,7 @@ export function offeringTag(app:ReturnType<typeof createTemple>,canvas:HTMLCanva
  function show(id:string){const slot=app.reviewSlots.get(id);if(!slot?.installationId||!(slot.name?.trim()||slot.text?.trim()))return;selected=id;signature='';refresh();}
  app.scene.onAfterRenderObservable.add(()=>{
   if(!selected)return;refresh();const slot=app.reviewSlots.get(selected);if(!slot)return;
-  const point=Vector3.FromArray([...slot.position]);if(Vector3.DistanceSquared(app.camera.position,point)>24*24){hide();return;}
+  const point=Vector3.FromArray([...offeringDisplayPosition(slot)]);if(Vector3.DistanceSquared(app.camera.position,point)>24*24){hide();return;}
   const projected=Vector3.Project(point,Matrix.Identity(),app.scene.getTransformMatrix(),app.camera.viewport.toGlobal(app.engine.getRenderWidth(),app.engine.getRenderHeight()));
   if(projected.z<0||projected.z>1){tag.hidden=true;return;}
   tag.hidden=false;const rect=canvas.getBoundingClientRect(),x=rect.left+projected.x*rect.width/app.engine.getRenderWidth(),y=rect.top+projected.y*rect.height/app.engine.getRenderHeight();

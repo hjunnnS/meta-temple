@@ -1,3 +1,5 @@
+import {lanternDisplayPosition,offeringDisplayPosition} from './lantern-display-profile';
+import {lanternNightLight} from './lantern-night-light';
 import {forestLamps} from './forest-lamps';
 import {rearPrayerHalls,prayerHallDimensions,prayerHallPoint,prayerAisleX,prayerHallFloor} from './prayer-halls.ts';
 import {furnishPrayerHall} from './prayer-hall-interior';
@@ -21,7 +23,7 @@ import {sweepingMonkSite} from './temple-terrain';
 import { mountainLandscape } from './mountain-landscape';
 import { distanceTrees } from './tree-distance';
 import { furnishPond } from './pond';
-import { eastCourts, pond, shoreRadius, interiorWoodland, teaPavilion } from './temple-terrain.ts';
+import { eastCourts, pond, shoreRadius, interiorWoodland, teaPavilion, personalGate } from './temple-terrain.ts';
 import { wishGarden, sceneNearPlane, courtPathLift, candleCourt, memorialGarden, lanternPlazaNorthZ, wallCenterX, wallThickness, gardenBorderWidth, sideHallCenterZ, courtSouthEdge, courtDepth, courtHalfWidth, templePlaces, daeungDimensions, meditationTrees } from './temple-layout.ts';
 import { createHanjiMaterial } from './hanji-material.ts';
 import { Engine } from '@babylonjs/core/Engines/engine';
@@ -491,11 +493,11 @@ export function createTemple(canvas:HTMLCanvasElement) {
   }
  }
  for(const path of paving)flaggedPath(path.name,path.from[0],path.from[1],path.to[0],path.to[1],path.lanes);
- const earth=mat('courtyard-compacted-soil','#afaaa2');
+ const earth=mat('courtyard-compacted-soil','#8c806c');
  earth.specularColor=Color3.Black();
  const grit=new DynamicTexture('fine-earth-and-gravel',512,scene,true);
  const soilBrush=grit.getContext() as CanvasRenderingContext2D;
- soilBrush.fillStyle='#bdb4a7';soilBrush.fillRect(0,0,512,512);
+ soilBrush.fillStyle='#b4a28a';soilBrush.fillRect(0,0,512,512);
  let gritSeed=27437;
  const grain=()=>{gritSeed=Math.imul(1664525,gritSeed)+1013904223|0;return (gritSeed>>>0)/4294967296;};
  for(let i=0;i<22000;i++){
@@ -1103,6 +1105,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   return light;
  });
  const palette=LANTERN_PALETTE;
+ const softLanternLight=lanternNightLight(scene);
  const hanjiTexture=new Texture('/textures/hanji-fibres-generated-v1.png',scene);
  // Three shape-specific UV mappings share the approved optical model and five dyes.
  const lanternMaterials=Array.from({length:15},(_,i)=>createHanjiMaterial(scene,`hanji-${i}`,palette[Math.floor(i/3)],i%3===2?1:8,undefined,hanjiTexture));
@@ -1174,7 +1177,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   selectedOffering=id;
   const s=id?reviewSlots.get(id):null;
   selectionBand.setEnabled(!!s?.owned&&!!s.installationId);
-  if(s?.owned){selectionBand.position.set(...s.position);selectionBand.position.y+=s.accepts==='lantern'?-.5:.02;}
+  if(s?.owned){selectionBand.position.set(...offeringDisplayPosition(s));selectionBand.position.y+=s.accepts==='lantern'?-.5:.02;}
  }
  const claimedSlots=new Set<string>(serviceMode?fixedSlots().map(s=>s.id):import.meta.env.MODE==='review'?['sample:Z02:lantern:0023','sample:Z02:lantern:0002']:[]);
  function applyReviewSlots(slots:ReviewSlot[]){
@@ -1185,7 +1188,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  const freeLanternIndices=[2,34,66];
  for(const slot of lanternSlots(67).filter(slot=>freeLanternIndices.includes(Number(slot.id.split(':').at(-1))))){
-  applicationSlot(slot.id,'lantern',Vector3.FromArray([...slot.position]));
+  applicationSlot(slot.id,'lantern',Vector3.FromArray([...lanternDisplayPosition(slot.position)]));
  }
  function rebuildLanterns(count:number){
   for(const caster of lanternCasters)shadows.removeShadowCaster(caster);lanternCasters=[];
@@ -1201,10 +1204,10 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const slot of reviewSlots.values()){
    if(slot.accepts==='lantern'&&(Number(slot.id.slice(-4))<count||slot.owned))layout.set(slot.id,slot);
   }
-  const slots=[...layout.values()];
+  const slots=[...layout.values()].map(slot=>({...slot,position:lanternDisplayPosition(slot.position)}));
   const buckets=Array.from({length:15},()=>({matrices:[] as Matrix[],ids:[] as string[]}));
   canopyCapacity=slots.length;visibleLanternCount=slots.length;
-  if(!slots.length){marker=null;return;}
+  if(!slots.length){softLanternLight.set([]);marker=null;return;}
   function body(name:string,type:number){
    if(type===0){const a=MeshBuilder.CreateSphere(name,{diameter:.74,segments:24},scene);a.scaling.y=1.12;a.bakeCurrentTransformIntoVertices();return a;}
    if(type===1)return MeshBuilder.CreateLathe(name,{shape:[new Vector3(.18,-.43,0),new Vector3(.39,-.22,0),new Vector3(.39,.22,0),new Vector3(.18,.43,0)],tessellation:8,cap:Mesh.NO_CAP,closed:true},scene);
@@ -1233,11 +1236,13 @@ export function createTemple(canvas:HTMLCanvasElement) {
   const hangers:Vector3[][]=[];
   for(const side of [-1,1]){
    const x=side*4.95;
-   const path=[new Vector3(x,6.7,lanternPlazaNorthZ)];
+   const endRow=slots.filter(s=>Math.abs(s.position[2]-lanternPlazaNorthZ)<.01).sort((a,b)=>Math.abs(a.position[0]-x)-Math.abs(b.position[0]-x));
+   const startY=endRow[0]?.position[1]??lanternDisplayPosition([x,5.5,lanternPlazaNorthZ])[1];
+   const path=[new Vector3(x,startY+.9,lanternPlazaNorthZ)];
    for(let n=1;n<=countPerSide;n++){
     const progress=n/countPerSide;
     const z=lanternPlazaNorthZ+(pathEnd-lanternPlazaNorthZ)*progress;
-    const y=5.8-1.45*progress-.18*Math.sin(Math.PI*progress);
+    const y=startY+(4.35-startY)*progress-.18*Math.sin(Math.PI*progress);
     ornaments[(4+Math.floor((n-1)/4))%5].push(Matrix.Translation(x,y,z));
     path.push(new Vector3(x,y+.9,z));
     hangers.push([new Vector3(x,y+.43,z),path[path.length-1]]);
@@ -1255,6 +1260,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    lantern.material=lanternMaterials[color*3+1];lantern.parent=lanternRoot;
    lantern.isPickable=false;lantern.thinInstanceAdd(matrices);lanternCasters.push(lantern);
   });
+  softLanternLight.set(slots,hangers.map(([p],i)=>({position:[p.x,p.y-.43,p.z] as const,color:(4+Math.floor((i%countPerSide)/4))%5})));
   for(const owned of ownerBodies){
    const colorIndex=lanternColourIndex([owned.position.x,owned.position.y,owned.position.z]);
    const aura=MeshBuilder.CreatePlane('owned-soft-glow',{width:2.0,height:2.15},scene);aura.position=owned.position.clone();aura.material=auraMaterials[colorIndex];aura.parent=lanternRoot;aura.billboardMode=Mesh.BILLBOARDMODE_ALL;aura.isPickable=false;ownerHalos.push(aura);
@@ -1301,7 +1307,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   marker=MeshBuilder.CreateTorus('destination-marker',{diameter:1.05,thickness:.035,tessellation:32},scene);marker.material=haloMat;marker.parent=lanternRoot;marker.isVisible=false;setSelected(selected);
   if(currentTime==='day')for(const caster of lanternCasters)shadows.addShadowCaster(caster);
  }
- function selectedPosition(index:number){const sample=lanternSlots(1000)[index];return reviewSlots.get(sample.id)?.position??sample.position;}
+ function selectedPosition(index:number){const sample=lanternSlots(1000)[index];return lanternDisplayPosition(reviewSlots.get(sample.id)?.position??sample.position);}
  function setSelected(index:number){selected=index;if(marker){const p=selectedPosition(index);marker.position.set(p[0],p[1]-.65,p[2]);}}
  let reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  let currentTime:TimeOfDay='day';let quality:Quality='high';
@@ -1312,6 +1318,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   });
  }
  function time(value:TimeOfDay){
+  softLanternLight.time(value);
   forestLighting.time(value);
   nightWayfinding.setEnabled(value==='night');
   expansionMoon.setEnabled(value==='night');
@@ -1438,8 +1445,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
    camera.setPosition(new Vector3(49,9,-77));return;
   }
   if(name==='personalGate'){
-   camera.fov=.87;camera.setTarget(new Vector3(69,1.9,36));
-   camera.setPosition(new Vector3(61,2.5,32));return;
+   camera.fov=.87;camera.setTarget(new Vector3(personalGate.x,1.9,personalGate.z));
+   camera.setPosition(new Vector3(personalGate.x-5,2.5,personalGate.z-8));return;
   }
   if(name==='sanctuaryWalk'){
    camera.fov=.95;camera.setTarget(new Vector3(8,0,62));
@@ -1495,7 +1502,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
     camera.setTarget(turnPoint(new Vector3(office.x,deskFloor+1.31,office.z+.52),office));
     camera.setPosition(turnPoint(new Vector3(office.x+.48,deskFloor+1.56,office.z-2.5),office));
    }else{
-    camera.setTarget(new Vector3(-1.9,5.25,-20.8));
+    camera.setTarget(Vector3.FromArray([...lanternDisplayPosition([-1.9,5.25,-20.8])]));
     camera.setPosition(new Vector3(-1.9,2.3,-28.3));
    }
    return;

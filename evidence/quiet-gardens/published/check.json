@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "results": [
+    {
+      "touch": false,
+      "physicalPlants": 74,
+      "seasonalInstances": 41,
+      "caption": "나무관세음보살~",
+      "pointWalking": true,
+      "errors": [],
+      "failedAssets": [],
+      "apiNetworkRequests": []
+    },
+    {
+      "touch": true,
+      "physicalPlants": 74,
+      "seasonalInstances": 41,
+      "caption": "나무관세음보살~",
+      "pointWalking": true,
+      "errors": [],
+      "failedAssets": [],
+      "apiNetworkRequests": []
+    }
+  ]
+}

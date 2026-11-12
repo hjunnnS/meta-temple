@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "scope": "Focused 30-second day/night actual walking regression, 10-second initial warmup; not the full 5-minute acceptance benchmark",
+  "results": [
+    {
+      "time": "day",
+      "seconds": 30,
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "meanFps": 60.00421207427311,
+      "onePercentLowFps": 49.86799636132545,
+      "maxFrameMs": 22.200000047683716,
+      "samples": 1681,
+      "visitor": [
+        -3.2128608486581487e-18,
+        0.24499999731779099,
+        -51.94753000047211
+      ],
+      "gardenBatches": 12,
+      "gardenVertices": 114327,
+      "gardenShadowCasters": [],
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      }
+    },
+    {
+      "time": "night",
+      "seconds": 30,
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "meanFps": 60.00021428678613,
+      "onePercentLowFps": 50.29585805912111,
+      "maxFrameMs": 21.199999809265137,
+      "samples": 1680,
+      "visitor": [
+        -1.4144671493615213e-19,
+        0.24499999731779099,
+        -51.997689999842756
+      ],
+      "gardenBatches": 12,
+      "gardenVertices": 114327,
+      "gardenShadowCasters": [],
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      }
+    }
+  ],
+  "pageErrors": []
+}

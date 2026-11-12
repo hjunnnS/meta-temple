@@ -1,3 +1,4 @@
+import {naturalTrails} from './natural-trails';
 import {personalGateEffects} from './personal-gate-effects';
 import type {Scene} from '@babylonjs/core/scene';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
@@ -14,34 +15,7 @@ export function placeExperienceSpaces(scene:Scene,parts:Mesh[],wood:StandardMate
   const mesh=MeshBuilder.CreateBox(name,{width:w,height:h,depth:d},scene);
   mesh.position.set(x,y,z);mesh.material=material;mesh.receiveShadows=true;parts.push(mesh);return mesh;
  }
- const trail=new StandardMaterial('forest-walk-earth',scene);trail.diffuseColor=Color3.FromHexString('#a99b7d');trail.specularColor=Color3.Black();
- const tex=new DynamicTexture('forest-walk-fine-earth',256,scene,true),c=tex.getContext() as CanvasRenderingContext2D;
- c.fillStyle='#c1b49b';c.fillRect(0,0,256,256);
- let state=72;const random=()=>{state=(Math.imul(state,1664525)+1013904223)>>>0;return state/4294967296;};
- for(let i=0;i<10000;i++){c.fillStyle=i%2?'#f5e7c577':'#625d4b55';c.fillRect(random()*256,random()*256,.5+random()*1.7,.5+random()*1.8);}
- tex.update();trail.diffuseTexture=tex;
- function path(name:string,route:GroundPoint[],width:number){
-  const positions:number[]=[],uvs:number[]=[],indices:number[]=[],normals:number[]=[];let along=0;
-  for(let i=0;i<route.length;i++){
-   const point=route[i],prev=route[Math.max(0,i-1)],next=route[Math.min(route.length-1,i+1)];
-   if(i)along+=Math.hypot(point[0]-prev[0],point[1]-prev[1]);
-   const dx=next[0]-prev[0],dz=next[1]-prev[1],length=Math.hypot(dx,dz);
-   for(const side of [-1,1]){
-    positions.push(point[0]+side*dz/length*width/2,.018,point[1]-side*dx/length*width/2);
-    uvs.push(side*.5+.5,along/2);normals.push(0,1,0);
-   }
-   if(i){const k=i*2;indices.push(k-2,k,k-1,k-1,k,k+1);}
-  }
-  const data=new VertexData();data.positions=positions;data.indices=indices;data.uvs=uvs;data.normals=normals;
-  const mesh=new Mesh(name,scene);data.applyToMesh(mesh);mesh.material=trail;mesh.receiveShadows=true;
-  trail.backFaceCulling=false;
- }
- path('sanctuary-walking-trail',sanctuaryWalk,1.8);
- path('rear-prayer-walking-trail',rearPrayerWalk,2.5);
- for(const approach of prayerHallApproaches)path(approach.id+'-prayer-trail',approach.route,1.8);
- path('tea-pavilion-trail',teaApproach,1.5);
- path('tea-garden-walking-trail',teaGardenWalk,1.5);
- path('personal-gate-trail',gateApproach,1.6);
+ naturalTrails(scene);
  function plaque(text:string,x:number,y:number,z:number,yaw:number,width:number){
   const texture=new DynamicTexture('place-sign-'+text,{width:1024,height:256},scene,true),brush=texture.getContext() as CanvasRenderingContext2D;
   brush.fillStyle='#203d32';brush.fillRect(0,0,1024,256);brush.strokeStyle='#bca16c';brush.lineWidth=10;brush.strokeRect(12,12,1000,232);

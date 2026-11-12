@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "results": [
+    {
+      "touch": false,
+      "day": {
+        "haloEnabled": false,
+        "floorEnabled": false,
+        "mask": {
+          "trail": 201,
+          "stone": 0,
+          "court": 0,
+          "water": 0
+        },
+        "flat": true,
+        "newLights": 0,
+        "ownedLed": 1.35
+      },
+      "night": {
+        "haloCount": 5,
+        "instances": 472,
+        "floor": true,
+        "alpha": 0.3,
+        "ownedLed": 1.35
+      },
+      "pointWalking": true,
+      "errors": [],
+      "failedAssets": [],
+      "apiNetworkRequests": []
+    },
+    {
+      "touch": true,
+      "day": {
+        "haloEnabled": false,
+        "floorEnabled": false,
+        "mask": {
+          "trail": 201,
+          "stone": 0,
+          "court": 0,
+          "water": 0
+        },
+        "flat": true,
+        "newLights": 0,
+        "ownedLed": 1.35
+      },
+      "night": {
+        "haloCount": 5,
+        "instances": 472,
+        "floor": true,
+        "alpha": 0.3,
+        "ownedLed": 1.35
+      },
+      "pointWalking": true,
+      "errors": [],
+      "failedAssets": [],
+      "apiNetworkRequests": []
+    }
+  ]
+}

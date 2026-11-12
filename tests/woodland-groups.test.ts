@@ -4,10 +4,12 @@ import {woodlandGroups,groveTrees,inOpenRearCourt} from '../src/woodland-groups.
 import {interiorWoodland,paving,sanctuaryWalk,rearPrayerWalk,prayerHallApproaches,teaApproach,teaGardenWalk,gateApproach,distanceToSegment,insideGround} from '../src/temple-terrain.ts';
 import {templePlaces,daeungDimensions} from '../src/temple-layout.ts';
 
-test('groves separate species without increasing the approved tree and bamboo budget',()=>{
- assert.equal(woodlandGroups.length,8);assert.equal(groveTrees.length,33);assert.equal(interiorWoodland.length,33);
- assert.equal(interiorWoodland.filter(p=>p.kind==='bamboo').length,17);assert.equal(interiorWoodland.filter(p=>p.kind==='seasonal').length,16);
- assert.equal(new Set(groveTrees.map(p=>p.x+','+p.z)).size,33);
+test('expanded groves keep species separate and concentrate five additional maples around the sweeper',()=>{
+ assert.equal(woodlandGroups.length,15);assert.equal(groveTrees.length,74);assert.equal(interiorWoodland.length,74);
+ assert.equal(interiorWoodland.filter(p=>p.kind==='bamboo').length,33);assert.equal(interiorWoodland.filter(p=>p.kind==='seasonal').length,41);
+ const aroundMonk=groveTrees.filter(t=>t.group==='sweeper-maples');assert.equal(aroundMonk.length,5);assert(aroundMonk.every(t=>t.z<=70&&Math.hypot(t.x+21,t.z-70.8)>3));
+ assert.equal(new Set(groveTrees.map(p=>p.x+','+p.z)).size,74);
+ for(const bamboo of groveTrees.filter(t=>t.kind==='bamboo'))for(const maple of groveTrees.filter(t=>t.kind==='seasonal'))assert(Math.hypot(bamboo.x-maple.x,bamboo.z-maple.z)>=5,'separate species buffer');
  for(const group of woodlandGroups){
   const members=groveTrees.filter(t=>t.group===group.id);assert(members.length>=3);
   assert(members.every(t=>t.kind===group.kind));
