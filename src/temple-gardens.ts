@@ -14,7 +14,8 @@ export const bambooSites=interiorWoodland.filter(p=>p.kind==='bamboo');
 export const inBambooGarden=(x:number,z:number)=>bambooSites.some(p=>p.x===x&&p.z===z);
 export function furnishGardens(scene:Scene,parts:Mesh[],stone?:StandardMaterial){
  const material=(name:string,color:string)=>{const m=new StandardMaterial(name,scene);m.diffuseColor=Color3.FromHexString(color);m.specularColor=Color3.Black();m.backFaceCulling=false;m.twoSidedLighting=true;return m;};
- const moss=material('garden-moss','#303923'),grass=material('garden-meadow','#294326'),leaf=material('garden-leaf','#244329'),bark=material('garden-bark','#79725a'),cane=material('garden-bamboo','#3b5839'),joint=material('garden-bamboo-joint','#a3aa78');
+ const moss=material('garden-moss','#303923'),grass=material('garden-meadow','#294326'),leaf=material('garden-leaf','#244329'),bark=material('garden-bark','#79725a'),cane=material('garden-bamboo','#587b36'),joint=material('garden-bamboo-joint','#9ea86a');
+ const bambooLeaf=material('garden-bamboo-leaf','#4d7836');bambooLeaf.emissiveColor=Color3.FromHexString('#304c22').scale(.05);
  const cover=new DynamicTexture('soft-moss-edge',256,scene,true),brush=cover.getContext() as CanvasRenderingContext2D;
  const fade=brush.createRadialGradient(128,128,15,128,128,128);fade.addColorStop(0,'rgba(255,255,255,.75)');fade.addColorStop(.6,'rgba(255,255,255,.5)');fade.addColorStop(1,'rgba(255,255,255,0)');brush.fillStyle=fade;brush.fillRect(0,0,256,256);cover.hasAlpha=true;cover.update();moss.diffuseTexture=cover;moss.useAlphaFromDiffuseTexture=true;moss.transparencyMode=2;moss.alpha=.72;
  const add=(mesh:Mesh,m:StandardMaterial)=>{mesh.material=m;mesh.isPickable=false;parts.push(mesh);return mesh;};
@@ -82,14 +83,14 @@ export function furnishGardens(scene:Scene,parts:Mesh[],stone?:StandardMaterial)
   const collider=MeshBuilder.CreateCylinder('meditation-tree',{height:5,diameter:1.7,tessellation:5},scene);collider.position.set(p.x,2.5,p.z);collider.isVisible=false;parts.push(collider);
   for(let n=0;n<6;n++){
    const a=n*2.4+index,x=p.x+Math.cos(a)*(.25+n*.12),z=p.z+Math.sin(a)*(.25+n*.12),h=4.2+1.3*Math.sin(n*1.8+index)**2;
-   const stalk=MeshBuilder.CreateCylinder('bamboo-cane',{height:h,diameterBottom:.095,diameterTop:.055,tessellation:5},scene);stalk.position.set(x,h/2,z);add(stalk,cane);
-   for(let k=1;k<7;k++){const y=h*k/7;const ring=MeshBuilder.CreateCylinder('bamboo-node',{height:.035,diameter:.105,tessellation:5},scene);ring.position.set(x,y,z);add(ring,joint);}
-   for(let k=0;k<3;k++){
-    const b=a+k*2.1,y=h*(.62+k*.12),dir=new Vector3(Math.cos(b),.13,Math.sin(b));
-    const twig=MeshBuilder.CreateTube('bamboo-twig',{path:[new Vector3(x,y,z),new Vector3(x+dir.x*.85,y+.16,z+dir.z*.85)],radius:.014,tessellation:3},scene);add(twig,cane);
+   const stalk=MeshBuilder.CreateCylinder('bamboo-cane',{height:h,diameterBottom:.14,diameterTop:.085,tessellation:7},scene);stalk.position.set(x,h/2,z);add(stalk,cane);
+   for(let k=1;k<7;k++){const y=h*k/7;const ring=MeshBuilder.CreateCylinder('bamboo-node',{height:.045,diameter:.15,tessellation:7},scene);ring.position.set(x,y,z);add(ring,joint);}
+   for(let k=0;k<5;k++){
+    const b=a+k*2.39996,y=h*(.40+k*.125),dir=new Vector3(Math.cos(b),.13,Math.sin(b));
+    const twig=MeshBuilder.CreateTube('bamboo-twig',{path:[new Vector3(x,y,z),new Vector3(x+dir.x*1.25,y+.16,z+dir.z*1.25)],radius:.014,tessellation:3},scene);add(twig,cane);
     const pos:number[]=[],ids:number[]=[];
-    for(let l=0;l<5;l++){const side=l%2?1:-1,at=.2+l*.13,px=x+dir.x*at,pz=z+dir.z*at,dx=dir.x*.22-dir.z*.4*side,dz=dir.z*.22+dir.x*.4*side,j=pos.length/3;pos.push(px,y+.12,pz,px+dx*.45-dir.z*.075,y+.17,pz+dz*.45+dir.x*.075,px+dx,y+.03,pz+dz,px+dx*.45+dir.z*.075,y+.09,pz+dz*.45-dir.x*.075);ids.push(j,j+1,j+2,j,j+2,j+3);}
-    const data=new VertexData();data.positions=pos;data.indices=ids;data.normals=[];VertexData.ComputeNormals(pos,ids,data.normals);const mesh=new Mesh('bamboo-leaf-spray',scene);data.applyToMesh(mesh);add(mesh,leaf);
+    for(let l=0;l<9;l++){const side=l%2?1:-1,at=.16+l*.12,px=x+dir.x*at,pz=z+dir.z*at,dx=dir.x*.28-dir.z*(.40+.08*Math.sin(l))*side,dz=dir.z*.28+dir.x*(.40+.08*Math.sin(l))*side,j=pos.length/3;pos.push(px,y+.12,pz,px+dx*.45-dir.z*.035,y+.17,pz+dz*.45+dir.x*.035,px+dx,y+.03,pz+dz,px+dx*.45+dir.z*.035,y+.09,pz+dz*.45-dir.x*.035);ids.push(j,j+1,j+2,j,j+2,j+3);}
+    const data=new VertexData();data.positions=pos;data.indices=ids;data.normals=[];VertexData.ComputeNormals(pos,ids,data.normals);const mesh=new Mesh('bamboo-leaf-spray',scene);data.applyToMesh(mesh);add(mesh,bambooLeaf);
    }
   }
  }

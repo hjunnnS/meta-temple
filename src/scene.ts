@@ -1,3 +1,4 @@
+import {forestLamps} from './forest-lamps';
 import {furnishPondBridge} from './pond-bridge';
 import {rearPrayerHalls,prayerHallDimensions,prayerHallPoint,prayerAisleX,prayerHallFloor} from './prayer-halls.ts';
 import {furnishPrayerHall} from './prayer-hall-interior';
@@ -1029,6 +1030,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  furnishHall(scene,staticMeshes,wood,painted);
  // Merge static geometry by material. Shadow lists are rebuilt to avoid disposed casters.
+ const forestLighting=forestLamps(scene,staticMeshes);
  const walkWorld=pedestrianWorld(staticMeshes);
  const walking=walkingController(scene,camera,canvas,walkWorld,bellVisual);
  const sweeper=sweepingMonk(scene,camera,canvas,()=>walking.position);
@@ -1076,6 +1078,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
  batchArchitecture(staticMeshes.filter(mesh=>mesh.isVisible),false);batchArchitecture(displayFixtures,true);
  for(const mesh of sweeper.getChildMeshes())shadows.addShadowCaster(mesh);
  const updateTrees=distanceTrees(scene,shadows);
+ forestLighting.bind();
+ const forestLampWindows=scene.meshes.find(m=>m.material===forestLighting.paper);if(forestLampWindows instanceof Mesh)glow.addIncludedOnlyMesh(forestLampWindows);
  pondMirror.renderList=scene.meshes.filter(mesh=>mesh.material===paleStone||mesh.material===insetStone||mesh.name==='open-sky');
  const luminousWindows=scene.meshes.find(mesh=>mesh.material===lampCore);
  if(luminousWindows instanceof Mesh)glow.addIncludedOnlyMesh(luminousWindows);
@@ -1310,6 +1314,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   });
  }
  function time(value:TimeOfDay){
+  forestLighting.time(value);
   nightWayfinding.setEnabled(value==='night');
   expansionMoon.setEnabled(value==='night');
   for(const light of monumentLights)light.setEnabled(value==='night');
@@ -1588,6 +1593,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   if(inspectInside&&!walking.position)camera.radius=walkWorld.cameraLimit(camera.target,camera.alpha,camera.beta,camera.radius);
   camera.minZ=sceneNearPlane(camera.radius);
   updateTrees(camera.position,performance.now());
+  forestLighting.update(camera.position,performance.now());
   pondLife.update(Math.min(.08,engine.getDeltaTime()/1000),reduced,walking.position??undefined);
   if(walkZ!==null){
    walkZ=Math.min(walkEnd,walkZ+Math.min(engine.getDeltaTime(),60)*.0021);

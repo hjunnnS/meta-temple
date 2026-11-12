@@ -1,0 +1,150 @@
+{
+  "passed": true,
+  "phase": "after",
+  "origin": "http://127.0.0.1:4355",
+  "errors": [],
+  "totalVertices": 2672649,
+  "meshes": 847,
+  "gardenBatches": [
+    {
+      "name": "architecture-garden-moss",
+      "vertices": 608
+    },
+    {
+      "name": "architecture-garden-meadow",
+      "vertices": 7680
+    },
+    {
+      "name": "architecture-garden-bark",
+      "vertices": 208
+    },
+    {
+      "name": "architecture-garden-leaf",
+      "vertices": 2820
+    },
+    {
+      "name": "architecture-garden-grove-litter",
+      "vertices": 64
+    },
+    {
+      "name": "architecture-garden-bamboo",
+      "vertices": 7548
+    },
+    {
+      "name": "architecture-garden-bamboo-joint",
+      "vertices": 20808
+    },
+    {
+      "name": "architecture-garden-bamboo-leaf",
+      "vertices": 18360
+    },
+    {
+      "name": "architecture-garden-path-lamp-stone",
+      "vertices": 384
+    },
+    {
+      "name": "architecture-garden-path-lamp-frame",
+      "vertices": 2304
+    },
+    {
+      "name": "architecture-garden-path-lamp-paper",
+      "vertices": 384
+    },
+    {
+      "name": "architecture-garden-path-lamp-roof",
+      "vertices": 352
+    }
+  ],
+  "treeInstances": [
+    {
+      "name": "interior-seasonal-tree-lod-1",
+      "instances": 5,
+      "vertices": 448
+    },
+    {
+      "name": "interior-seasonal-tree-lod-1",
+      "instances": 5,
+      "vertices": 3240
+    },
+    {
+      "name": "interior-seasonal-tree-lod-1",
+      "instances": 5,
+      "vertices": 3600
+    },
+    {
+      "name": "interior-seasonal-tree-lod-1",
+      "instances": 5,
+      "vertices": 2160
+    },
+    {
+      "name": "interior-seasonal-tree-lod-1",
+      "instances": 5,
+      "vertices": 1800
+    },
+    {
+      "name": "interior-seasonal-tree-lod-1",
+      "instances": 5,
+      "vertices": 1800
+    },
+    {
+      "name": "interior-seasonal-tree-lod-3",
+      "instances": 0,
+      "vertices": 448
+    },
+    {
+      "name": "interior-seasonal-tree-lod-3",
+      "instances": 0,
+      "vertices": 1080
+    },
+    {
+      "name": "interior-seasonal-tree-lod-3",
+      "instances": 0,
+      "vertices": 1200
+    },
+    {
+      "name": "interior-seasonal-tree-lod-3",
+      "instances": 0,
+      "vertices": 720
+    },
+    {
+      "name": "interior-seasonal-tree-lod-3",
+      "instances": 0,
+      "vertices": 600
+    },
+    {
+      "name": "interior-seasonal-tree-lod-3",
+      "instances": 0,
+      "vertices": 600
+    },
+    {
+      "name": "interior-seasonal-tree-lod-8",
+      "instances": 11,
+      "vertices": 448
+    },
+    {
+      "name": "interior-seasonal-tree-lod-8",
+      "instances": 11,
+      "vertices": 405
+    },
+    {
+      "name": "interior-seasonal-tree-lod-8",
+      "instances": 11,
+      "vertices": 450
+    },
+    {
+      "name": "interior-seasonal-tree-lod-8",
+      "instances": 11,
+      "vertices": 270
+    },
+    {
+      "name": "interior-seasonal-tree-lod-8",
+      "instances": 11,
+      "vertices": 225
+    },
+    {
+      "name": "interior-seasonal-tree-lod-8",
+      "instances": 11,
+      "vertices": 225
+    }
+  ]
+}

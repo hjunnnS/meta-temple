@@ -1,0 +1,14 @@
+import assert from'node:assert/strict';import{mkdir,writeFile}from'node:fs/promises';
+import{launchBrowser}from'./browser.mjs';import{enterTrial,exposeScene,go,monitor}from'./trial-helpers.mjs';
+const out=process.env.FOLIAGE_EVIDENCE??'evidence/foliage-lamps/ui-local';await mkdir(out,{recursive:true});const b=await launchBrowser({channel:'chrome'}),results=[];
+try{for(const touch of[false,true]){
+ const c=await b.newContext({viewport:{width:touch?390:1440,height:touch?844:1000},hasTouch:touch,isMobile:touch,reducedMotion:'reduce'}),p=await c.newPage(),checks=monitor(p);await enterTrial(p);await exposeScene(p);
+ await p.locator('#place').evaluate(el=>{el.value='rearPrayerNorth';el.dispatchEvent(new Event('change'));});await p.waitForFunction(()=>trialScene.isReady());await p.waitForTimeout(250);
+ const day=await p.evaluate(()=>({core:trialScene.getMaterialByName('garden-path-lamp-paper').emissiveColor.asArray(),lights:trialScene.lights.filter(l=>l.name.startsWith('path-lamp-nearby-')).filter(l=>l.isEnabled()).length,pools:trialScene.meshes.filter(m=>m.name==='path-lamp-light-pool').length,bamboo:!!trialScene.getMaterialByName('garden-bamboo-leaf'),leaves:trialScene.meshes.filter(m=>m.name.startsWith('interior-seasonal-tree-lod-')&&(m.material?.name??'').startsWith('seasonal-autumn-')).length}));
+ assert.deepEqual(day.core,[0,0,0]);assert.equal(day.lights,0);assert.equal(day.pools,16);assert(day.bamboo&&day.leaves>0);
+ await p.locator('#time').evaluate(el=>{el.value='night';el.dispatchEvent(new Event('change'));});await p.waitForFunction(()=>trialScene.isReady());await p.waitForTimeout(700);
+ const night=await p.evaluate(()=>({core:trialScene.getMaterialByName('garden-path-lamp-paper').emissiveColor.asArray(),lights:trialScene.lights.filter(l=>l.name.startsWith('path-lamp-nearby-')).map(l=>({active:l.isEnabled(),shadow:!!l.getShadowGenerator()}))}));assert(night.core[0]>.2&&night.core[0]<.7);assert.equal(night.lights.length,2);assert(night.lights.every(l=>!l.shadow));assert(night.lights.filter(l=>l.active).length<=2);
+ await p.screenshot({path:out+'/'+(touch?'touch':'desktop')+'-night.jpg',quality:91});
+ for(const id of ['yaksa','munsu','bohyeon','geukrak']){await go(p,id);await p.locator('#practice-context').click();await p.locator('#practice-bow').click();await p.waitForTimeout(100);assert.equal(await p.locator('#walk-pad').getAttribute('data-practice'),'bow');await p.locator('#prayer-point').click();}
+ checks.assertClean();results.push({touch,day,night,fourHallPrayer:true,errors:checks.errors,failedAssets:checks.failedAssets,apiNetworkRequests:checks.requests});await c.close();
+}await writeFile(out+'/check.json',JSON.stringify({passed:true,url:process.env.TRIAL_URL??'local',results},null,2)+'\n');console.log('PASS desktop/touch foliage, 16 sparse day/night lamps, two shadowless pooled lights, four hall prayer');}finally{await b.close();}
