@@ -1,0 +1,5 @@
+연등 sample:Z02:lantern:0013 예약 확인 및 해제
+소원패 sample:Z08:plaque:2-1-8 예약 확인 및 해제
+인등 sample:Z07:votive:12 예약 확인 및 해제
+추모등 sample:Z06:memorial:04 예약 확인 및 해제
+봉헌초 sample:Z03:candle:3-6 예약 확인 및 해제

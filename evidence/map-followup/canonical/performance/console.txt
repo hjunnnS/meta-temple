@@ -1,0 +1,62 @@
+Walking from [ 0, 0.09, -65 ]
+Path offset [ 1.2619199999213215, 0.09, -65 ] world []
+Starting day [ 1.3183499999999997, 0.09, -65 ]
+Walking progress day 60s 198m 1 turns
+Walking progress day 120s 395m 3 turns
+Walking progress day 180s 593m 5 turns
+Walking progress day 240s 789m 7 turns
+day {
+  minZ: -65,
+  maxZ: 37.62736000015724,
+  turns: 9,
+  distance: 985.8858900002397
+} {
+  samples: 17899,
+  meanFps: 60.002547736537224,
+  onePercentLowFps: 56.354878309925105,
+  maxFrameMs: 18.300000071525574,
+  elapsedSeconds: 300.30339999997614,
+  warmupSeconds: 2,
+  valid: true,
+  invalidReason: null
+}
+Starting dusk [ 1.3183499999999997, 0.09, -33.690259998976906 ]
+Walking progress dusk 60s 197m 2 turns
+Walking progress dusk 120s 394m 4 turns
+Walking progress dusk 180s 591m 6 turns
+Walking progress dusk 240s 789m 8 turns
+dusk {
+  minZ: -64.37200999858355,
+  maxZ: 37.81348000125896,
+  turns: 9,
+  distance: 984.7331999996089
+} {
+  samples: 17897,
+  meanFps: 60.002541315647626,
+  onePercentLowFps: 56.25923245542466,
+  maxFrameMs: 20,
+  elapsedSeconds: 300.27139999997615,
+  warmupSeconds: 2,
+  valid: true,
+  invalidReason: null
+}
+Starting night [ 1.3183499999999997, 0.09, -63.05629999842612 ]
+Walking progress night 60s 197m 1 turns
+Walking progress night 120s 394m 3 turns
+Walking progress night 180s 592m 5 turns
+Walking progress night 240s 789m 7 turns
+night {
+  minZ: -64.69738999826826,
+  maxZ: 37.54552000149571,
+  turns: 9,
+  distance: 985.5057300004753
+} {
+  samples: 17905,
+  meanFps: 60.0023860206098,
+  onePercentLowFps: 56.23242728686965,
+  maxFrameMs: 18.700000047683716,
+  elapsedSeconds: 300.40360000002386,
+  warmupSeconds: 2,
+  valid: true,
+  invalidReason: null
+}

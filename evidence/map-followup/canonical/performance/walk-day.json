@@ -1,0 +1,102 @@
+{
+  "buildDigest": "b3a38beccf63f8efd999cb3c5a79a161f8bc1b541a7ba92544b48331ab056ced",
+  "schemaVersion": 1,
+  "sceneVersion": "temple-rearranged-v14",
+  "createdAt": "2026-11-12T00:29:57.632Z",
+  "device": "미확인",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+  "physicalDeviceVerified": false,
+  "acceptance": "unreviewed",
+  "settings": {
+    "visitor": [
+      1.3183499999999997,
+      0.09,
+      -65
+    ],
+    "time": "day",
+    "quality": "high",
+    "density": 1000,
+    "canopyCapacity": 440,
+    "visibleLanternCount": 440,
+    "nameTagCount": 1,
+    "selected": 23,
+    "reduced": false,
+    "owned": [
+      23,
+      37,
+      58
+    ],
+    "renderWidth": 1280,
+    "renderHeight": 720
+  },
+  "currentSettings": {
+    "visitor": [
+      1.3183499999999997,
+      0.09,
+      -33.690259998976906
+    ],
+    "time": "day",
+    "quality": "high",
+    "density": 1000,
+    "canopyCapacity": 440,
+    "visibleLanternCount": 440,
+    "nameTagCount": 1,
+    "selected": 23,
+    "reduced": false,
+    "owned": [
+      23,
+      37,
+      58
+    ],
+    "renderWidth": 1280,
+    "renderHeight": 720
+  },
+  "startCamera": {
+    "alpha": -1.5707963267948966,
+    "beta": 1.26,
+    "radius": 3.2,
+    "target": [
+      1.3183499999999997,
+      1.29,
+      -65
+    ]
+  },
+  "camera": {
+    "alpha": -1.5707963267948966,
+    "beta": 1.26,
+    "radius": 3.2,
+    "target": [
+      1.3183499999999997,
+      1.29,
+      -33.690259998976906
+    ]
+  },
+  "renderer": {
+    "vendor": "Google Inc. (Apple)",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+  },
+  "timing": {
+    "navigationToFirstRenderedFrameMs": 2780.899999976158,
+    "sceneConstructionToFirstFrameMs": 2730.7999999523163
+  },
+  "jsHeapBytes": 267246915,
+  "memoryCaveat": "JS heap only if exposed; not GPU or total process memory",
+  "measurement": {
+    "samples": 17899,
+    "meanFps": 60.002547736537224,
+    "onePercentLowFps": 56.354878309925105,
+    "maxFrameMs": 18.300000071525574,
+    "elapsedSeconds": 300.30339999997614,
+    "warmupSeconds": 2,
+    "valid": true,
+    "invalidReason": null
+  },
+  "route": {
+    "minZ": -65,
+    "maxZ": 37.62736000015724,
+    "turns": 9,
+    "distanceMetres": 985.8858900002397
+  },
+  "errors": []
+}

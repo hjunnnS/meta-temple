@@ -1,0 +1,85 @@
+{
+  "buildDigest": "b3a38beccf63f8efd999cb3c5a79a161f8bc1b541a7ba92544b48331ab056ced",
+  "origin": "http://127.0.0.1:4342",
+  "Mbps": 20,
+  "latencyMs": 80,
+  "visits": [
+    {
+      "visit": "first",
+      "timing": {
+        "navigationToFirstRenderedFrameMs": 7166.299999952316,
+        "sceneConstructionToFirstFrameMs": 5871.899999976158,
+        "lotusTapMs": 323.7999999523163,
+        "walkingReadyMs": 9676.299999952316,
+        "tapToWalkingMs": 9352.5
+      },
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "currentSettings": {
+        "visitor": [
+          0,
+          0.09,
+          -65
+        ],
+        "time": "day",
+        "quality": "high",
+        "density": 1000,
+        "canopyCapacity": 440,
+        "visibleLanternCount": 440,
+        "nameTagCount": 1,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      }
+    },
+    {
+      "visit": "return",
+      "timing": {
+        "navigationToFirstRenderedFrameMs": 2780.899999976158,
+        "sceneConstructionToFirstFrameMs": 2730.7999999523163,
+        "lotusTapMs": 1894.3999999761581,
+        "walkingReadyMs": 5297.300000071526,
+        "tapToWalkingMs": 3402.9000000953674
+      },
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "currentSettings": {
+        "visitor": [
+          0,
+          0.09,
+          -65
+        ],
+        "time": "day",
+        "quality": "high",
+        "density": 1000,
+        "canopyCapacity": 440,
+        "visibleLanternCount": 440,
+        "nameTagCount": 1,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      }
+    }
+  ],
+  "errors": []
+}
