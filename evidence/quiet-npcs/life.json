@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "realKeyboardApproach": {
+    "close": {
+      "visitor": [
+        -10.944779999685275,
+        0.01,
+        73
+      ],
+      "monk": [
+        -10.706680000019082,
+        0.01,
+        74.1
+      ],
+      "distance": 1.1254739489837289
+    },
+    "stopped": [
+      -10.706680000019082,
+      0.01,
+      74.1
+    ],
+    "leaving": [
+      -9.962720000076308,
+      0.01,
+      74.1
+    ],
+    "resumed": [
+      -9.682760000038162,
+      0.01,
+      74.1
+    ]
+  },
+  "walkerYieldsAndResumes": true,
+  "pointWalkStillWorks": true,
+  "publicNpcsHiddenInsidePrivateRoom": true,
+  "publicNpcsRestoreAfterReturn": true,
+  "noExtraScene": true,
+  "errors": []
+}

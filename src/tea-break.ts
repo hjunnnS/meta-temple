@@ -24,15 +24,15 @@ export function teaGesture(body:ReturnType<typeof visitorMesh>,lift:number){
  arm.rotationQuaternion=a;elbow.rotationQuaternion=a.conjugate().multiply(b);
 }
 
-export function teaCup(scene:Scene,body:ReturnType<typeof visitorMesh>){
- const root=new TransformNode('visitor-drink',scene);
+export function teaCup(scene:Scene,body:ReturnType<typeof visitorMesh>,name='visitor-drink'){
+ const root=new TransformNode(name,scene);
  const porcelain=new StandardMaterial('tea-cup-porcelain',scene);porcelain.diffuseColor=Color3.FromHexString('#e9e2cb');porcelain.specularColor=new Color3(.24,.22,.17);
  const liquid=new StandardMaterial('tea-cup-liquid',scene);liquid.specularColor=new Color3(.3,.27,.16);
  const wall=MeshBuilder.CreateLathe('tea-cup',{shape:[new Vector3(.032,0,0),new Vector3(.055,.005,0),new Vector3(.065,.105,0),new Vector3(.058,.105,0),new Vector3(.05,.012,0),new Vector3(0,.012,0)],tessellation:24},scene);wall.parent=root;wall.material=porcelain;
  const top=MeshBuilder.CreateCylinder('tea-surface',{diameter:.109,height:.002,tessellation:24},scene);top.parent=root;top.position.y=.086;top.material=liquid;
  const handle=MeshBuilder.CreateTorus('tea-cup-handle',{diameter:.065,thickness:.012,tessellation:16},scene);handle.parent=root;handle.position.set(.075,.055,0);handle.rotation.x=Math.PI/2;handle.material=porcelain;
  root.setEnabled(false);
- return {update(on:boolean,lift:number,coffee:boolean){
+ return {root,update(on:boolean,lift:number,coffee:boolean){
   root.setEnabled(on);if(!on)return;
   body.hands[1].computeWorldMatrix(true);
   root.position.copyFrom(body.hands[1].getAbsolutePosition());root.position.y+=.035;

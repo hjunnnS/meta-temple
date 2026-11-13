@@ -27,7 +27,7 @@ import { insideGround, insideBoundary, paving, eastCourts, personalGate } from '
 export const visitorSize={height:1.7,width:.65} as const;
 
 /** Snapshot the walk surfaces and solids before the scene batches them by material. */
-export function pedestrianWorld(parts:Mesh[]){
+export function pedestrianWorld(parts:Mesh[],npcObstacles:()=>readonly{x:number;z:number;radius:number}[]=()=>[]){
  type Rect={x0:number;x1:number;z0:number;z1:number;top:number;bottom:number;path?:boolean};
  // Walk on one plane per path, including the joints between decorative slabs.
  const surfaces:Rect[]=paving.map(({from,to,lanes})=>{
@@ -65,7 +65,7 @@ export function pedestrianWorld(parts:Mesh[]){
   return y;
  }
  function blocked(x:number,y:number,z:number){
-  return !insideGround(x,z,radius)||Math.hypot(x-sweepingMonkSite.x,z-sweepingMonkSite.z)<.42+radius||withinStatue(x,y,z,radius)||solids.some(r=>x>r.x0-radius&&x<r.x1+radius&&z>r.z0-radius&&z<r.z1+radius&&y<r.top&&y+visitorSize.height>r.bottom);
+  return !insideGround(x,z,radius)||npcObstacles().some(n=>Math.hypot(x-n.x,z-n.z)<n.radius+radius)||Math.hypot(x-sweepingMonkSite.x,z-sweepingMonkSite.z)<.42+radius||withinStatue(x,y,z,radius)||solids.some(r=>x>r.x0-radius&&x<r.x1+radius&&z>r.z0-radius&&z<r.z1+radius&&y<r.top&&y+visitorSize.height>r.bottom);
  }
  function cameraLimit(target:Vector3,alpha:number,beta:number,length:number){
   const dx=Math.cos(alpha)*Math.sin(beta),dy=Math.cos(beta),dz=Math.sin(alpha)*Math.sin(beta);
