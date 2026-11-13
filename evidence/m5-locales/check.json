@@ -1,0 +1,131 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "locale": "ko",
+      "touch": false,
+      "keyboardFlow": true,
+      "prayerCompleted": true,
+      "noKoreanFallback": null,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "locale": "ja",
+      "touch": false,
+      "keyboardFlow": true,
+      "prayerCompleted": true,
+      "noKoreanFallback": true,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "locale": "en",
+      "touch": true,
+      "keyboardFlow": true,
+      "prayerCompleted": true,
+      "noKoreanFallback": true,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "locale": "zh-Hans",
+      "touch": false,
+      "keyboardFlow": true,
+      "prayerCompleted": true,
+      "noKoreanFallback": true,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "locale": "pt-PT",
+      "touch": false,
+      "keyboardFlow": true,
+      "prayerCompleted": true,
+      "noKoreanFallback": true,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "locale": "es",
+      "touch": false,
+      "keyboardFlow": true,
+      "prayerCompleted": true,
+      "noKoreanFallback": true,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "locale": "fr",
+      "touch": false,
+      "keyboardFlow": true,
+      "prayerCompleted": true,
+      "noKoreanFallback": true,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "locale": "it",
+      "touch": false,
+      "keyboardFlow": true,
+      "prayerCompleted": true,
+      "noKoreanFallback": true,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "locale": "pt-BR",
+      "touch": true,
+      "keyboardFlow": true,
+      "prayerCompleted": true,
+      "noKoreanFallback": true,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "locale": "ms",
+      "touch": false,
+      "keyboardFlow": true,
+      "prayerCompleted": true,
+      "noKoreanFallback": true,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "locale": "de",
+      "touch": true,
+      "keyboardFlow": true,
+      "prayerCompleted": true,
+      "noKoreanFallback": true,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "locale": "vi",
+      "touch": true,
+      "keyboardFlow": true,
+      "prayerCompleted": true,
+      "noKoreanFallback": true,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "locale": "ru",
+      "touch": true,
+      "keyboardFlow": true,
+      "prayerCompleted": true,
+      "noKoreanFallback": true,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "locale": "tr",
+      "touch": true,
+      "keyboardFlow": true,
+      "prayerCompleted": true,
+      "noKoreanFallback": true,
+      "noOverflow": true,
+      "errors": []
+    }
+  ]
+}
