@@ -356,6 +356,7 @@ if(import.meta.env.MODE==='service'){
 const visitorUI=serviceUI(canvas,goToPlace,()=>{receptionPanel.hidden=true;app.view('walk');placePicker.value='walk';const cameraButton=document.querySelector<HTMLButtonElement>('#walk-camera')!;if(cameraButton.getAttribute('aria-pressed')==='true')cameraButton.click();}, {
  position:()=>app.visitorPose.position,
  schedule:ceremony.openSchedule,
+ practiceLocation:()=>app.practiceDestination,
  navigate:place=>{
   if(place.id==='private'||place.id==='bell'||place.id==='tea'){goToPlace(place.view);window.dispatchEvent(new Event('sasa:relocate'));return;}
   goToPlace('walk');if(!app.visit(...place.arrival))return;

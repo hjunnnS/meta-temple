@@ -3,7 +3,7 @@ import {serviceMap,type ServicePlace} from './service-map';
 import './service-ui.css';
 const icons={places:'<path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2Z"/><path d="M9 3v16m6-14v16"/>',offer:'<path d="M12 20C5 20 2 15 2 10c5 0 9 4 10 10Zm0 0c7 0 10-5 10-10-5 0-9 4-10 10Z"/><path d="M12 17C8 12 9 7 12 3c3 4 4 9 0 14Z"/>',avatar:'<circle cx="12" cy="7" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/>',menu:'<path d="M4 6h16M4 12h16M4 18h16"/>'};
 const icon=(name:keyof typeof icons)=>`<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${icons[name]}</svg>`;
-interface ServiceUIOptions{position:()=>readonly number[]|null;navigate:(place:ServicePlace)=>void;practice:(kind:'bow'|'meditation'|'108')=>void;schedule?:()=>void}
+interface ServiceUIOptions{position:()=>readonly number[]|null;navigate:(place:ServicePlace)=>void;practice:(kind:'bow'|'meditation'|'108')=>void;schedule?:()=>void;practiceLocation?:()=>string}
 export function serviceUI(canvas:HTMLCanvasElement,go:(view:string)=>void,closeOffering:()=>void,options:ServiceUIOptions){
  document.body.classList.add('service-ui');
  const root=document.querySelector('#app')!,settings=document.querySelector<HTMLDialogElement>('#settings-panel')!;
@@ -17,13 +17,15 @@ export function serviceUI(canvas:HTMLCanvasElement,go:(view:string)=>void,closeO
  function dockButton(id:string,label:string,name:keyof typeof icons,handler:()=>void){const b=action(dock,id,label,handler);b.replaceChildren();b.innerHTML=icon(name);const text=document.createElement('span');text.textContent=t(label);b.append(text);b.setAttribute('aria-haspopup','dialog');return b;}
  function showMap(guidePlace=document.body.dataset.guidePlace){spaces.querySelector('.service-map-body')?.remove();const body=document.createElement('div');body.className='service-map-body';spaces.append(body);serviceMap(body,options.position,place=>{spaces.close();closeOffering();options.navigate(place);canvas.focus();},guidePlace);open(spaces);}
  dockButton('spaces-open','사찰 지도','places',()=>showMap());
- dockButton('practice-open','수행','offer',()=>{if(!document.body.classList.contains('guide-active'))open(practice);});
+ dockButton('practice-open','수행','offer',()=>{if(!document.body.classList.contains('guide-active'))openPractice();});
  dockButton('appearance-open','내 모습','avatar',()=>{closeOffering();go('walk');const camera=document.querySelector<HTMLButtonElement>('#walk-camera')!;if(camera.getAttribute('aria-pressed')==='true')camera.click();open(appearance);});root.append(dock);
  const intro=document.createElement('p');intro.className='practice-note';intro.textContent=t('참배와 명상은 로그인 없이 이용할 수 있습니다.');practice.append(intro);
  action(practice,'practice-bow','참배 시작',()=>{practice.close();closeOffering();options.practice('bow');});
  action(practice,'practice-meditate','명상하기',()=>{practice.close();closeOffering();options.practice('meditation');});
  action(practice,'practice-108','108배 시작',()=>{practice.close();closeOffering();options.practice('108');});
  const loginNote=document.createElement('p');loginNote.className='note';loginNote.textContent=t('108배는 로그인 후 시작합니다.');practice.append(loginNote);
+ const destinationNote=document.createElement('p');destinationNote.id='practice-destination';destinationNote.className='practice-note';practice.insertBefore(destinationNote,intro);
+ function openPractice(){const place=t(options.practiceLocation?.()??'대웅전');destinationNote.textContent=t('선택하면 {place} 수행 자리에서 시작합니다.').replace('{place}',place);for(const[id,key]of [['practice-bow','{place}에서 참배하기'],['practice-meditate','{place}에서 명상하기'],['practice-108','{place}에서 108배 시작']])document.getElementById(id)!.textContent=t(key).replace('{place}',place);open(practice);}
  action(menu,'menu-map','사찰 지도',()=>showMap());action(menu,'schedule-open','오늘의 일정',()=>{menu.close();options.schedule?.();});
  const offeringOpen=action(menu,'offering-open','등·소원 접수처',()=>{menu.close();go('officeReception');canvas.focus();});offeringOpen.className='menu-action';
  const account=document.querySelector<HTMLElement>('#service-account');if(account){menu.append(account);account.classList.add('menu-action');account.addEventListener('click',()=>{accountReturn=menu.open?'menu':'external';menu.close();});}
@@ -40,7 +42,7 @@ export function serviceUI(canvas:HTMLCanvasElement,go:(view:string)=>void,closeO
  const actions=document.createElement('div');actions.id='context-actions';root.append(actions);
  for(const id of ['walk-pad','pond-toss','sweeper-greet','private-gate-action','tea-break']){const el=document.getElementById(id);if(el)actions.append(el);}
  const pad=document.querySelector('#walk-pad')!,directions=pad.querySelector('div');if(directions)directions.id='walk-directions';
- action(pad as HTMLElement,'practice-context','수행',()=>open(practice));
+ action(pad as HTMLElement,'practice-context','수행',openPractice);
  const stopButton=document.querySelector<HTMLButtonElement>('#bow-stop')!,stopText=document.createElement('p');stopText.textContent=t('수행을 마쳐도 같은 자리에 머뭅니다.');stop.append(stopText);action(stop,'practice-continue','계속 수행',()=>stop.close());action(stop,'practice-finish','수행 마치기',()=>{stop.close();stopButton.onclick?.call(stopButton,new PointerEvent('click'));canvas.focus();});
  stopButton.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();open(stop);},{capture:true});
  const reception=document.querySelector<HTMLElement>('#reception-panel')!,offering=document.createElement('section');offering.id='offering-drawer';offering.hidden=reception.hidden;offering.setAttribute('aria-label',t('등·소원 접수처'));
