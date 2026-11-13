@@ -1,3 +1,4 @@
+import {templeDog} from './temple-dog';
 import {nightEnvironment} from './night-environment';
 import {lanternDisplayPosition,offeringDisplayPosition} from './lantern-display-profile';
 import {lanternNightLight} from './lantern-night-light';
@@ -1035,6 +1036,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  furnishHall(scene,staticMeshes,wood,painted);
  // Merge static geometry by material. Shadow lists are rebuilt to avoid disposed casters.
  const forestLighting=forestLamps(scene,staticMeshes);
+ const restingDog=templeDog(scene);for(const mesh of restingDog.getChildMeshes())shadows.addShadowCaster(mesh);
  const walkWorld=pedestrianWorld(staticMeshes);
  const walking=walkingController(scene,camera,canvas,walkWorld,bellVisual);
  const sweeper=sweepingMonk(scene,camera,canvas,()=>walking.position);
