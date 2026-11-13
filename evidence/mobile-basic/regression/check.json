@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:4355",
+  "results": [
+    {
+      "touch": false,
+      "clickOrTouchMovement": true,
+      "bellAudioAndCancel": true,
+      "teaAndCoffee": true,
+      "coinCountdown": true,
+      "monkCaptionAndAudio": true,
+      "extendedWalkAndReturn": true,
+      "errors": [],
+      "apiNetworkRequests": [],
+      "audioSources": [
+        {
+          "duration": 12,
+          "at": 9045
+        },
+        {
+          "duration": 2.8793333333333333,
+          "at": 29314.60000014305
+        },
+        {
+          "duration": 8,
+          "at": 37879.60000014305
+        }
+      ]
+    },
+    {
+      "touch": true,
+      "clickOrTouchMovement": true,
+      "bellAudioAndCancel": true,
+      "teaAndCoffee": true,
+      "coinCountdown": true,
+      "monkCaptionAndAudio": true,
+      "extendedWalkAndReturn": true,
+      "errors": [],
+      "apiNetworkRequests": [],
+      "audioSources": [
+        {
+          "duration": 12,
+          "at": 8896.799999952316
+        },
+        {
+          "duration": 2.8793333333333333,
+          "at": 29150.099999904633
+        },
+        {
+          "duration": 8,
+          "at": 37708.89999985695
+        }
+      ]
+    }
+  ]
+}
