@@ -3,7 +3,7 @@ import {t} from './locales';
 import './lantern-map.css';
 
 export interface MapSlot {slotId:string;position:Vec3;status:'free'|'reserved'|'occupied'}
-const statusText={free:'빈자리',reserved:'예약 중',occupied:'설치됨'};
+const statusText={free:'선택 가능',reserved:'예약 중',occupied:'설치됨'};
 export function lanternMap(slots:MapSlot[],initial:string|undefined,select:(id:string)=>void){
  const root=document.createElement('section');root.className='lantern-map';
  const rows=new Map<number,MapSlot[]>();
@@ -34,7 +34,7 @@ export function lanternMap(slots:MapSlot[],initial:string|undefined,select:(id:s
    b.append(strip,number,availability);
    for(const s of row){
     const dot=document.createElement('i');dot.style.top=(3+94*(north-s.position[2])/Math.max(1,north-south))+'%';
-    dot.style.background=LANTERN_PALETTE[lanternColourIndex(s.position)];strip.append(dot);
+    dot.dataset.status=s.status;dot.style.background=s.status==='free'?'#fff9e8':'#667269';dot.style.border=s.status==='free'?'1px solid #326447':'none';strip.append(dot);
    }
    plan.append(b);if(i===returnTo)b.focus();
   });
@@ -45,17 +45,17 @@ export function lanternMap(slots:MapSlot[],initial:string|undefined,select:(id:s
   root.append(button('‹ '+t('연등 배치도'),()=>overview(index)));
   heading(t('줄')+' '+(index+1)+' · '+t('설치 자리'));
   label(t('대웅전')+' → '+t('천왕문'));
-  const grid=document.createElement('div');grid.className='lantern-seats';root.append(grid);
+  const preview=document.createElement('p');preview.className='lantern-seat-preview';preview.setAttribute('role','status');preview.textContent=t('밝은 테두리의 자리를 선택하세요.');root.append(preview);const grid=document.createElement('div');grid.className='lantern-seats';root.append(grid);
   for(const slot of [...columns[index][1]].sort((a,b)=>b.position[2]-a.position[2])){
    const b=button('',()=>{
     grid.querySelector('[aria-pressed="true"]')?.setAttribute('aria-pressed','false');
-    b.setAttribute('aria-pressed','true');select(slot.slotId);
+    b.setAttribute('aria-pressed','true');select(slot.slotId);preview.textContent=t('선택한 자리')+' · '+t('줄')+' '+(index+1)+' · '+slot.slotId.slice(-4)+' · '+t('대웅전')+' → '+t('천왕문');
    });
    const id=document.createElement('strong');id.textContent=slot.slotId.slice(-4);
    const status=document.createElement('small');status.textContent=t(statusText[slot.status]);
    b.style.setProperty('--dye',LANTERN_PALETTE[lanternColourIndex(slot.position)]);
    b.dataset.slot=slot.slotId;b.disabled=slot.status!=='free';b.setAttribute('aria-pressed',String(slot.slotId===selected));
-   b.append(id,status);grid.append(b);
+   b.dataset.status=slot.status;b.append(id,status);grid.append(b);
   }
   if(!selected)grid.querySelector<HTMLButtonElement>('button:enabled')?.focus();
  }
@@ -67,7 +67,7 @@ export function lanternMap(slots:MapSlot[],initial:string|undefined,select:(id:s
   }
   for(const seat of root.querySelectorAll<HTMLButtonElement>('[data-slot]')){
    const status=byId.get(seat.dataset.slot!)!.status;
-   seat.disabled=status!=='free';seat.querySelector('small')!.textContent=t(statusText[status]);
+   seat.dataset.status=status;seat.disabled=status!=='free';seat.querySelector('small')!.textContent=t(statusText[status]);
    if(seat.disabled&&seat.getAttribute('aria-pressed')==='true'){seat.setAttribute('aria-pressed','false');select('');}
   }
  }

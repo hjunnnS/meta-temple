@@ -30,7 +30,7 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
  async function held(retry?:()=>Promise<void>){
   const result=await service('trade/hold');stage('reserved');controls.replaceChildren();
   if(result.waiting){stage('waiting');note.textContent=t('동시 신청을 확인하고 있습니다.');button('결과 확인',()=>held(retry));return;}
-  if(!result.hold){stage('expired');if(retry){await retry();return;}note.textContent=t('현재 예약한 자리가 없습니다.');button(t('기간권 보기'),restart);return;}
+  if(!result.hold){stage('expired');if(retry){await retry();return;}note.textContent=t('현재 예약한 자리가 없습니다.');button(t('상품과 기간 보기'),restart);return;}
   const h=result.hold;
   const checkout=button('주문 확인',async()=>{
    let order;
@@ -64,7 +64,7 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
  function payment(id:string,slot:string,price:number){
   controls.replaceChildren();stage('payment');
   note.textContent=spot(slot)+' · '+t('결제 확인 중')+' · '+amount(price);
-  button('시험 결제 취소',async()=>{await service('trade/test-cancel',{orderId:id});controls.replaceChildren();note.textContent=t('시험 결제를 취소하고 자리를 해제했습니다.');button('기간권 보기',restart);});
+  button('시험 결제 취소',async()=>{await service('trade/test-cancel',{orderId:id});controls.replaceChildren();note.textContent=t('시험 결제를 취소하고 자리를 해제했습니다.');button('상품과 기간 보기',restart);});
   button('시험 결제하기',async()=>{
    controls.replaceChildren();
    let status='unknown';
@@ -80,7 +80,7 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
    statusLine.textContent=spot(slot)+' · '+t(labels[status]??'결제 완료 · 같은 자리 설치 확인 중');
    if(['installed','refunded','cancelled','expired'].includes(status)){
     if(status==='installed'&&checkoutOrders.delete(id))window.dispatchEvent(new CustomEvent('sasa:offering-installed',{detail:{orderId:id,slotId:slot,kind}}));
-    window.dispatchEvent(new Event('sasa:installations'));if(status==='installed')button('사찰로 돌아가기',async()=>{window.dispatchEvent(new Event('sasa:offering-return'));});button('기간권 보기',restart);return;
+    window.dispatchEvent(new Event('sasa:installations'));if(status==='installed')button('사찰로 돌아가기',async()=>{window.dispatchEvent(new Event('sasa:offering-return'));});button('상품과 기간 보기',restart);return;
    }
    if(status==='pending'&&price!==undefined){payment(id,slot,price);return;}
    window.setTimeout(async()=>{
@@ -92,14 +92,14 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
   void show(initial);
  }
  function stopped(){
-  stage('stopped');controls.replaceChildren();note.textContent=t('이 기간권은 판매가 중지되었습니다.');button('기간권 보기',restart);
+  stage('stopped');controls.replaceChildren();note.textContent=t('이 기간권은 판매가 중지되었습니다.');button('상품과 기간 보기',restart);
  }
  async function select(offer:Offer,preferred=initialSlot,draft?:FormData,automatic=false,reselect=false,previous?:Offer){
   let quote:Offer & {revision:number};
   try{quote=(await service('quote',{offerId:offer.id})).offer;}
   catch(error){if((error as {code?:string}).code==='not_available'){stopped();return;}throw error;}
   const data=await service('temples/sample:sasa/zones/'+zones[kind]+'/slots');
-  stage('rows');controls.replaceChildren();note.textContent=t('시험 기간권')+' · '+pass(quote.days,quote.priceKrw);
+  stage('rows');controls.replaceChildren();note.textContent=t('시험 상품')+' · '+pass(quote.days,quote.priceKrw);
   controls.append(terms(quote,preferred,draft));
   const free=data.slots.filter((s:{status:string})=>s.status==='free');
   if(!free.length&&kind!=='lantern'){
