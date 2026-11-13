@@ -26,7 +26,7 @@ export function guidedVisit(o:Options){
  document.body.append(welcome,choice,card,announcement);
  const menu=document.querySelector('#menu-panel');if(menu)button(menu as HTMLElement,'guide-open','스님 안내',open);
  function resultLabel(value:string){return t(value==='completed'?'완료':value==='skipped'?'건너뜀':'선택 전');}
- function practice(kind:PracticeKind,prayer=false){if(!session.course||!atGuideDestination(session.course,o.app.settings.visitor))return;stopOwnedPractice();pending=prayer?'prayer':kind;voice.stop();o.app.startPractice(kind);render();}
+ function practice(kind:PracticeKind,prayer=false){if(!session.course||!atGuideDestination(session.course,o.app.settings.visitor))return;stopOwnedPractice();pending=prayer?'prayer':kind;o.stopOtherAudio();if(prayer)void voice.speak('prayer-'+session.course);else voice.stop();o.app.startPractice(kind);render();}
  function render(speak=false){
   document.body.classList.toggle('guide-active',session.active);
   if(!session.course){card.hidden=true;return;}

@@ -1,0 +1,65 @@
+{
+  "milestone": {
+    "number": 6,
+    "url": "https://github.com/hjunnnS/meta-temple/milestone/6",
+    "title": "M6 — 수행 경험·안내 흐름·야간 환경 개선"
+  },
+  "issues": [
+    {
+      "code": "X01",
+      "number": 87,
+      "epic": 1,
+      "title": "참배·명상·108배 연출과 임시 음향",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/87"
+    },
+    {
+      "code": "X02",
+      "number": 88,
+      "epic": 1,
+      "title": "고민별 전각 소개와 가이드 흐름 개선",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/88"
+    },
+    {
+      "code": "X03",
+      "number": 89,
+      "epic": 1,
+      "title": "전각 입구 기둥·실내 카메라 개선",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/89"
+    },
+    {
+      "code": "X04",
+      "number": 90,
+      "epic": 1,
+      "title": "개인 공간 배치 종료·시점 복귀 개선",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/90"
+    },
+    {
+      "code": "X05",
+      "number": 91,
+      "epic": 2,
+      "title": "연등 빈자리와 상품 기간 표시 개선",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/91"
+    },
+    {
+      "code": "X06",
+      "number": 92,
+      "epic": 1,
+      "title": "건물·석상·담장·연등 바닥 야간 조명 개선",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/92"
+    },
+    {
+      "code": "X07",
+      "number": 93,
+      "epic": 1,
+      "title": "개인 공간 귀환 문 연출",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/93"
+    },
+    {
+      "code": "X08",
+      "number": 94,
+      "epic": 1,
+      "title": "비질 스님 옆 강아지 배치",
+      "url": "https://github.com/hjunnnS/meta-temple/issues/94"
+    }
+  ]
+}

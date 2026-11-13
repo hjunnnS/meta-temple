@@ -1,3 +1,4 @@
+import {practiceExperience} from './practice-experience';
 import {guidedVisit} from './guided-visit';
 import {offeringTag} from './offering-tag';
 import {servicePlaces} from './service-map';
@@ -363,6 +364,7 @@ const visitorUI=serviceUI(canvas,goToPlace,()=>{receptionPanel.hidden=true;app.v
  },
  practice:kind=>{goToPlace('walk');app.startPractice(kind);},
 });
+if(import.meta.env.MODE==='service')practiceExperience(app.scene,()=>app.visitorPose,outputVolume);
 if(import.meta.env.MODE==='service')guidedVisit({app,canvas,walk:()=>goToPlace('walk'),map:visitorUI.openMap,offering:()=>goToPlace('lanternReception'),volume:outputVolume,stopOtherAudio:()=>ceremony.stop()});
 
 }
