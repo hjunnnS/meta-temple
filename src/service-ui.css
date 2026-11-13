@@ -32,3 +32,6 @@ body.service-ui.in-private-room #service-dock,body.service-ui.in-private-room #o
 .service-map-marker{cursor:pointer;outline:none}.service-map-marker rect{stroke:transparent;stroke-width:2;pointer-events:all}.service-map-marker:hover rect{stroke:#7d906b;stroke-width:.6}.service-map-marker:focus-visible rect{stroke:#9a661d;stroke-width:1;stroke-dasharray:1 .5}
 
 #inspection-exit{position:fixed;z-index:30;left:50%;bottom:112px;transform:translateX(-50%);min-height:48px;padding:12px 24px;border:1px solid #c7b47d;border-radius:28px;background:#244a3b;color:#fff5db;font:inherit;box-shadow:0 4px 15px #172b2929}#inspection-exit[hidden]{display:none}@media(max-width:700px){#inspection-exit{bottom:110px;max-width:calc(100vw - 32px)}}
+
+.service-place-list button{min-width:0;overflow-wrap:anywhere}.service-place-detail{overflow-wrap:anywhere}.service-place-detail .service-prayer-topic{display:block;color:#617452;font-size:13px;line-height:1.5}.service-prayer-topic[hidden]{display:none}
+@media(max-width:420px){.service-place-list{grid-template-columns:1fr}.service-place-list button{text-align:left;padding:8px 10px}}
