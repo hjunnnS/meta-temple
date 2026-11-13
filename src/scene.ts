@@ -1,3 +1,4 @@
+import {nightEnvironment} from './night-environment';
 import {lanternDisplayPosition,offeringDisplayPosition} from './lantern-display-profile';
 import {lanternNightLight} from './lantern-night-light';
 import {forestLamps} from './forest-lamps';
@@ -1103,11 +1104,12 @@ export function createTemple(canvas:HTMLCanvasElement) {
  ].map(site=>{
   const light=new SpotLight('stone-monument-'+site.name,site.position,site.aim.subtract(site.position).normalize(),Math.PI*.52,2,scene);
   light.diffuse=Color3.FromHexString('#ffe0ab');light.specular=Color3.Black();
-  light.intensity=1.15;light.range=35;
+  light.intensity=1.85;light.range=35;
   light.includedOnlyMeshes=scene.meshes.filter(mesh=>mesh.material?.name.includes(site.material));
   return light;
  });
  const palette=LANTERN_PALETTE;
+ const architecturalNight=nightEnvironment(scene);
  const softLanternLight=lanternNightLight(scene);
  const hanjiTexture=new Texture('/textures/hanji-fibres-generated-v1.png',scene);
  // Three shape-specific UV mappings share the approved optical model and five dyes.
@@ -1321,6 +1323,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   });
  }
  function time(value:TimeOfDay){
+  architecturalNight.time(value);
   softLanternLight.time(value);
   forestLighting.time(value);
   nightWayfinding.setEnabled(value==='night');
