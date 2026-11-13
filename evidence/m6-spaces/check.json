@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "halls": [
+    {
+      "id": "yaksa",
+      "radius": 5.018598993568541,
+      "moved": 8.580329999685276
+    },
+    {
+      "id": "munsu",
+      "radius": 7.870729955702241,
+      "moved": 8.57966999952798
+    },
+    {
+      "id": "bohyeon",
+      "radius": 11,
+      "moved": 8.574060000157345
+    },
+    {
+      "id": "geukrak",
+      "radius": 11,
+      "moved": 8.584619999527945
+    },
+    {
+      "id": "gwaneum",
+      "radius": 11,
+      "moved": 8.580660000157362
+    },
+    {
+      "id": "jijang",
+      "radius": 11,
+      "moved": 8.577030000472057
+    },
+    {
+      "id": "daeung",
+      "radius": 11,
+      "moved": 13.859669999527945
+    }
+  ],
+  "dogApproachGap": 3.220248437620925,
+  "mixedSeatStates": true,
+  "errors": []
+}

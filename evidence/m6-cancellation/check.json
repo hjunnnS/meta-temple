@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "touch": true,
+  "prayerCancelStopsNarration": true,
+  "shortMeditationNotCompleted": true,
+  "visibilityHandlerSilencesWithoutLosingCount": true,
+  "visibilityTest": "visibilitychange handler simulation; no fake practice count or API",
+  "privateBowCompletion": true,
+  "threePortalReturnsReleaseScene": true,
+  "errors": []
+}

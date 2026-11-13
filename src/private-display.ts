@@ -6,11 +6,11 @@ import type {AbstractMesh} from '@babylonjs/core/Meshes/abstractMesh';
 import {privateDisplayPositions,displayLabels,validDisplayPlacements,type DisplayItem,type DisplayPlacement,type DisplayPosition} from './private-display-layout';
 import {privateDisplayModel} from './private-display-model';
 interface Snapshot {roomId:string;revision:number;items:DisplayItem[];placements:DisplayPlacement[]}
-export function privateDisplays(scene:Scene,roomId:string,onSelect:(place:DisplayPosition)=>void,onAdd:(mesh:AbstractMesh)=>void,onRemove:(mesh:AbstractMesh)=>void){
+export function privateDisplays(scene:Scene,roomId:string,onSelect:(place:DisplayPosition)=>void,onAdd:(mesh:AbstractMesh)=>void,onRemove:(mesh:AbstractMesh)=>void,view:{begin:()=>void;finish:()=>void}={begin:()=>{},finish:()=>{}}){
  const panel=document.querySelector('#private-room-controls')!,open=document.createElement('button');open.id='private-display-open';open.textContent=t('내 아이템 배치');(panel.querySelector('#private-room-actions')??panel).append(open);
  const dialog=document.createElement('dialog');dialog.id='private-display-dialog';dialog.setAttribute('aria-labelledby','private-display-title');
  dialog.innerHTML=`<style>#private-display-dialog{inset:70px 18px auto auto;margin:0;width:min(420px,94vw);max-height:80vh;overflow:auto;background:#f4ecdb;color:#2f453a;border:1px solid #ac9462;border-radius:16px;padding:22px;box-sizing:border-box}#private-display-dialog::backdrop{background:#11291d25}#private-display-dialog label{display:block;margin:16px 0}#private-display-dialog select{display:block;width:100%;margin-top:8px;padding:10px;font:inherit}#private-display-dialog button{font:inherit;padding:10px;margin:4px;border-radius:8px;border:1px solid #a28b5d;background:#e2d6b9}#private-display-description{white-space:pre-wrap;overflow-wrap:anywhere;max-height:8em;overflow:auto;font-size:14px}#private-display-status{display:block;margin-top:12px;line-height:1.5}</style>
- <h2 id="private-display-title">내 아이템 전시</h2><button id="private-display-close">닫기</button><label>구매한 아이템<select id="private-display-item"></select></label><p id="private-display-description"></p><label>전시할 자리<select id="private-display-position"></select></label><button id="private-display-place">이 자리에 배치</button><button id="private-display-remove">선택한 자리 비우기</button><output id="private-display-status" role="status"></output><p>개인 공간의 전시본만 바뀌며, 사찰에 설치된 원래 아이템은 유지됩니다.</p>`;
+ <h2 id="private-display-title">내 아이템 전시</h2><button id="private-display-close">배치 마치기</button><label>구매한 아이템<select id="private-display-item"></select></label><p id="private-display-description"></p><label>전시할 자리<select id="private-display-position"></select></label><button id="private-display-place">이 자리에 배치</button><button id="private-display-remove">선택한 자리 비우기</button><output id="private-display-status" role="status"></output><p>개인 공간의 전시본만 바뀌며, 사찰에 설치된 원래 아이템은 유지됩니다.</p>`;
  translateMarkup(dialog);document.body.append(dialog);
  const itemSelect=dialog.querySelector<HTMLSelectElement>('#private-display-item')!,positionSelect=dialog.querySelector<HTMLSelectElement>('#private-display-position')!,description=dialog.querySelector<HTMLElement>('#private-display-description')!,status=dialog.querySelector<HTMLOutputElement>('#private-display-status')!,placeButton=dialog.querySelector<HTMLButtonElement>('#private-display-place')!,removeButton=dialog.querySelector<HTMLButtonElement>('#private-display-remove')!;
  const fibre=new Texture('/textures/hanji-fibres-generated-v1.png',scene);
@@ -72,8 +72,8 @@ export function privateDisplays(scene:Scene,roomId:string,onSelect:(place:Displa
    await load(message);
   }finally{busy=false;if(!disposed)selection();}
  }
- open.onclick=()=>{dialog.showModal();selection();void load();};dialog.querySelector<HTMLButtonElement>('#private-display-close')!.onclick=()=>dialog.close();
- dialog.addEventListener('close',()=>{if(!disposed)open.focus();});
+ open.onclick=()=>{view.begin();dialog.showModal();selection();void load();};dialog.querySelector<HTMLButtonElement>('#private-display-close')!.onclick=()=>dialog.close();
+ dialog.addEventListener('close',()=>{if(!disposed){view.finish();scene.getEngine().getRenderingCanvas()?.focus();}});
  itemSelect.onchange=()=>positions();positionSelect.onchange=selection;placeButton.onclick=()=>{void save();};removeButton.onclick=()=>{void save(true);};
  void load();const interval=window.setInterval(()=>void load(),5000);
  return {update(dt:number){time+=Math.min(.1,dt);for(const model of models.values())model.update(time);},dispose(){disposed=true;abort.abort();clearInterval(interval);if(dialog.open)dialog.close();dialog.remove();open.remove();for(const key of [...models.keys()])removeModel(key);fibre.dispose();}};

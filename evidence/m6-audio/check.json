@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "clips": [
+    {
+      "file": "public/guide/recite-exam.mp3",
+      "seconds": 11.356875
+    },
+    {
+      "file": "public/guide/travel-exam.mp3",
+      "seconds": 13.15025
+    },
+    {
+      "file": "public/guide/prepare-family.mp3",
+      "seconds": 25.129958
+    },
+    {
+      "file": "public/guide/prepare-relationship.mp3",
+      "seconds": 26.524875
+    },
+    {
+      "file": "public/guide/prepare-health.mp3",
+      "seconds": 24.79825
+    },
+    {
+      "file": "public/guide/prayer-exam.mp3",
+      "seconds": 25.244875
+    },
+    {
+      "file": "public/guide/prayer-relationship.mp3",
+      "seconds": 23.774583
+    },
+    {
+      "file": "public/guide/finish.mp3",
+      "seconds": 25.846875
+    },
+    {
+      "file": "public/guide/recite-relationship.mp3",
+      "seconds": 9.886542
+    },
+    {
+      "file": "public/guide/prepare-loss.mp3",
+      "seconds": 25.734833
+    },
+    {
+      "file": "public/guide/offering.mp3",
+      "seconds": 16.238583
+    },
+    {
+      "file": "public/guide/travel-relationship.mp3",
+      "seconds": 13.212833
+    },
+    {
+      "file": "public/guide/travel-loss.mp3",
+      "seconds": 13.270875
+    },
+    {
+      "file": "public/guide/recite-health.mp3",
+      "seconds": 9.19825
+    },
+    {
+      "file": "public/guide/recite-loss.mp3",
+      "seconds": 13.758625
+    },
+    {
+      "file": "public/guide/prayer-family.mp3",
+      "seconds": 22.5425
+    },
+    {
+      "file": "public/guide/travel-family.mp3",
+      "seconds": 13.177958
+    },
+    {
+      "file": "public/guide/practice.mp3",
+      "seconds": 18.155292
+    },
+    {
+      "file": "public/guide/prepare-exam.mp3",
+      "seconds": 26.046208
+    },
+    {
+      "file": "public/guide/travel-health.mp3",
+      "seconds": 13.198583
+    },
+    {
+      "file": "public/guide/prayer-health.mp3",
+      "seconds": 23.086208
+    },
+    {
+      "file": "public/guide/prayer-loss.mp3",
+      "seconds": 27.662583
+    },
+    {
+      "file": "public/guide/recite-family.mp3",
+      "seconds": 8.638458
+    }
+  ]
+}

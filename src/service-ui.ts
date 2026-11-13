@@ -17,7 +17,7 @@ export function serviceUI(canvas:HTMLCanvasElement,go:(view:string)=>void,closeO
  function dockButton(id:string,label:string,name:keyof typeof icons,handler:()=>void){const b=action(dock,id,label,handler);b.replaceChildren();b.innerHTML=icon(name);const text=document.createElement('span');text.textContent=t(label);b.append(text);b.setAttribute('aria-haspopup','dialog');return b;}
  function showMap(guidePlace=document.body.dataset.guidePlace){spaces.querySelector('.service-map-body')?.remove();const body=document.createElement('div');body.className='service-map-body';spaces.append(body);serviceMap(body,options.position,place=>{spaces.close();closeOffering();options.navigate(place);canvas.focus();},guidePlace);open(spaces);}
  dockButton('spaces-open','사찰 지도','places',()=>showMap());
- dockButton('practice-open','수행','offer',()=>open(practice));
+ dockButton('practice-open','수행','offer',()=>{if(!document.body.classList.contains('guide-active'))open(practice);});
  dockButton('appearance-open','내 모습','avatar',()=>{closeOffering();go('walk');const camera=document.querySelector<HTMLButtonElement>('#walk-camera')!;if(camera.getAttribute('aria-pressed')==='true')camera.click();open(appearance);});root.append(dock);
  const intro=document.createElement('p');intro.className='practice-note';intro.textContent=t('참배와 명상은 로그인 없이 이용할 수 있습니다.');practice.append(intro);
  action(practice,'practice-bow','참배 시작',()=>{practice.close();closeOffering();options.practice('bow');});

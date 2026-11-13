@@ -333,7 +333,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    else{
     elapsed+=Math.min(.1,dt);
     avatar.bow(Math.min(1,elapsed/4.8));
-    if(elapsed>=4.8&&worshipRun){const id=worshipRun;worshipRun='';practiceEvent({kind:'bow',status:'completed',id,place:prayer?.name});}
+    if(elapsed>=4.8&&worshipRun){const id=worshipRun;worshipRun='';practiceEvent({kind:'bow',status:'completed',id,place:prayer?.name});finishWorship();}
    }
   }
   if(length && document.activeElement===canvas && !document.querySelector('dialog[open]')){

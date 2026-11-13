@@ -27,16 +27,16 @@ export function lanternNightLight(scene:Scene){
   const mesh=MeshBuilder.CreatePlane('lantern-night-spill-'+i,{width:1.6,height:1.65},scene);mesh.material=material;mesh.isPickable=false;mesh.setEnabled(false);return {mesh,material};
  });
  const texture=new DynamicTexture('shared-lantern-ground-light',512,scene,false);texture.hasAlpha=true;
- const groundMaterial=new StandardMaterial('lantern-night-ground-warmth',scene);groundMaterial.diffuseColor=Color3.Black();groundMaterial.emissiveColor=Color3.FromHexString('#ffc67c');groundMaterial.disableLighting=true;groundMaterial.disableDepthWrite=true;groundMaterial.opacityTexture=texture;groundMaterial.alpha=0;
+ const groundMaterial=new StandardMaterial('lantern-night-ground-warmth',scene);groundMaterial.diffuseColor=Color3.White();groundMaterial.emissiveColor=Color3.White();groundMaterial.disableLighting=true;groundMaterial.disableDepthWrite=true;groundMaterial.diffuseTexture=texture;groundMaterial.useAlphaFromDiffuseTexture=true;groundMaterial.alpha=0;
  let ground:Mesh|null=null,amount=0;
- function time(value:string){amount=value==='night'?1:value==='dusk'?.28:0;for(const h of halos){h.material.setFloat('strength',amount);h.mesh.setEnabled(amount>0&&h.mesh.thinInstanceCount>0);}groundMaterial.alpha=.30*amount;if(ground)ground.setEnabled(amount>0);}
+ function time(value:string){amount=value==='night'?1:value==='dusk'?.28:0;for(const h of halos){h.material.setFloat('strength',amount);h.mesh.setEnabled(amount>0&&h.mesh.thinInstanceCount>0);}groundMaterial.alpha=.45*amount;if(ground)ground.setEnabled(amount>0);}
  return {time,set(slots:readonly Slot[],decorative:readonly {position:readonly[number,number,number];color:number}[]=[]){
   const points=[...slots.map(s=>({p:s.position,color:lanternColourIndex(s.position)})),...decorative.map(({position:p,color})=>({p,color}))];
   for(const[i,h]of halos.entries()){h.mesh.thinInstanceSetBuffer('matrix',null);const matrices=points.filter(p=>p.color===i).map(({p})=>Matrix.Translation(...p));if(matrices.length)h.mesh.thinInstanceAdd(matrices);h.mesh.setEnabled(amount>0&&matrices.length>0);}
   ground?.dispose();ground=null;if(!points.length)return;
   const xs=points.map(p=>p.p[0]),zs=points.map(p=>p.p[2]),west=Math.min(...xs)-3,east=Math.max(...xs)+3,south=Math.min(...zs)-3,north=Math.max(...zs)+3;
   const c=texture.getContext() as CanvasRenderingContext2D;c.clearRect(0,0,512,512);
-  for(const {p}of points){const x=(p[0]-west)/(east-west)*512,y=(p[2]-south)/(north-south)*512,rx=2.6/(east-west)*512,ry=2.6/(north-south)*512;c.save();c.translate(x,y);c.scale(rx,ry);const g=c.createRadialGradient(0,0,0,0,0,1);g.addColorStop(0,'rgba(255,255,255,.075)');g.addColorStop(.4,'rgba(255,255,255,.045)');g.addColorStop(1,'rgba(255,255,255,0)');c.fillStyle=g;c.fillRect(-1,-1,2,2);c.restore();}
+  for(const {p,color}of points){const tint=Color3.FromHexString(LANTERN_PALETTE[color]);const rgb=[tint.r,tint.g,tint.b].map(v=>Math.round(95+160*v)).join(',');const x=(p[0]-west)/(east-west)*512,y=(p[2]-south)/(north-south)*512,rx=2.6/(east-west)*512,ry=2.6/(north-south)*512;c.save();c.translate(x,y);c.scale(rx,ry);const g=c.createRadialGradient(0,0,0,0,0,1);g.addColorStop(0,'rgba('+rgb+',.13)');g.addColorStop(.4,'rgba('+rgb+',.065)');g.addColorStop(1,'rgba(255,255,255,0)');c.fillStyle=g;c.fillRect(-1,-1,2,2);c.restore();}
   texture.update(false);ground=MeshBuilder.CreateGround('lantern-night-ground-spill',{width:east-west,height:north-south},scene);ground.position.set((west+east)/2,.145,(south+north)/2);ground.material=groundMaterial;ground.isPickable=false;
   const positions=ground.getVerticesData('position')!,uvs=ground.getVerticesData('uv')!;for(let i=0;i<positions.length;i+=3){uvs[i/3*2]=(positions[i]+(east-west)/2)/(east-west);uvs[i/3*2+1]=(positions[i+2]+(north-south)/2)/(north-south);}ground.setVerticesData('uv',uvs);ground.setEnabled(amount>0);
  }};

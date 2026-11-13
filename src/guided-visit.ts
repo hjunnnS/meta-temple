@@ -16,7 +16,8 @@ export function guidedVisit(o:Options){
  function button(parent:HTMLElement,id:string,text:string,act:()=>void,disabled=false){const b=document.createElement('button');b.id=id;b.type='button';b.textContent=t(text);b.disabled=disabled;b.onclick=act;parent.append(b);return b;}
  function clearPending(){pending=null;run='';offeringPending=false;}
  function stopOwnedPractice(){if(pending||run)o.app.stopPractice();clearPending();}
- function exit(){stopOwnedPractice();session.exit();voice.stop();card.hidden=true;welcome.hidden=true;choice.close();document.body.classList.remove('guide-active');delete document.body.dataset.guidePlace;bubbleActor.set(null,false,'');announcement.textContent='';lastAnnouncement='';o.canvas.focus();}
+ function lockPractice(on:boolean){const b=document.querySelector<HTMLButtonElement>('#practice-open');if(b)b.disabled=on;}
+ function exit(){lockPractice(false);stopOwnedPractice();session.exit();voice.stop();card.hidden=true;welcome.hidden=true;choice.close();document.body.classList.remove('guide-active');delete document.body.dataset.guidePlace;bubbleActor.set(null,false,'');announcement.textContent='';lastAnnouncement='';o.canvas.focus();}
  function open(){welcome.hidden=true;document.querySelector<HTMLDialogElement>('#menu-panel')?.close();voice.stop();o.stopOtherAudio();if(!choice.open)choice.showModal();}
  function start(id:GuideCourseId){stopOwnedPractice();session.start(id);choice.close();welcome.hidden=true;o.walk();document.querySelector<HTMLElement>('#visit-guide')!.hidden=true;arrived=atGuideDestination(id,o.app.settings.visitor);render(true);const h=card.querySelector('h2')!;h.tabIndex=-1;h.focus({preventScroll:true});}
  const choices=document.createElement('div');choices.className='guide-choices';choice.append(choices);
@@ -26,9 +27,9 @@ export function guidedVisit(o:Options){
  document.body.append(welcome,choice,card,announcement);
  const menu=document.querySelector('#menu-panel');if(menu)button(menu as HTMLElement,'guide-open','스님 안내',open);
  function resultLabel(value:string){return t(value==='completed'?'완료':value==='skipped'?'건너뜀':'선택 전');}
- function practice(kind:PracticeKind,prayer=false){if(!session.course||!atGuideDestination(session.course,o.app.settings.visitor))return;stopOwnedPractice();pending=prayer?'prayer':kind;voice.stop();o.app.startPractice(kind);render();}
+ function practice(kind:PracticeKind,prayer=false){if(!session.course||!atGuideDestination(session.course,o.app.settings.visitor))return;stopOwnedPractice();pending=prayer?'prayer':kind;o.stopOtherAudio();if(prayer)void voice.speak('recite-'+session.course);else voice.stop();o.app.startPractice(kind);render();}
  function render(speak=false){
-  document.body.classList.toggle('guide-active',session.active);
+  document.body.classList.toggle('guide-active',session.active);lockPractice(session.active);
   if(!session.course){card.hidden=true;return;}
   const focusInside=card.contains(document.activeElement),content=guideContent(session.stage,session.course,t),destination=guideDestination(session.course);
   document.body.dataset.guidePlace=destination.place;card.hidden=suspended;card.dataset.stage=session.stage;card.dataset.course=session.course;card.replaceChildren();
@@ -45,10 +46,10 @@ export function guidedVisit(o:Options){
    button(actions,'guide-meditate','명상하기',()=>practice('meditation'),!arrived||!!pending);
    button(actions,'guide-108','108배 시작',()=>practice('108'),!arrived||!!pending);
   }
-  if(pending){const status=document.createElement('p');status.id='guide-practice-status';status.textContent=t(pending==='108'?'108배를 마치거나 건너뛰기를 선택할 수 있어요.':pending==='meditation'?'천천히 숨을 고르세요. 10초 이상 머문 뒤 수행 마치기를 눌러 주세요.':'천천히 합장하고 절을 올려 보세요.');card.append(status);button(actions,'guide-stop-practice','수행 마치기',()=>{o.app.stopPractice();clearPending();render();});}
+  if(pending){const status=document.createElement('p');status.id='guide-practice-status';status.textContent=t(pending==='108'?'108배를 마치거나 건너뛰기를 선택할 수 있어요.':pending==='meditation'?'천천히 숨을 고르세요. 10초 이상 머문 뒤 수행 마치기를 눌러 주세요.':'천천히 합장하고 절을 올려 보세요.');card.append(status);button(actions,'guide-stop-practice','수행 마치기',()=>{voice.stop();o.app.stopPractice();clearPending();render();});}
   if(session.stage==='offering'&&session.offering==='pending')button(actions,'guide-offering','연등 신청 알아보기',()=>{offeringPending=true;voice.stop();o.offering();});
   if(session.stage==='finish'){
-   const summary=document.createElement('p');summary.id='guide-summary';summary.textContent=[t('참배')+' · '+resultLabel(session.prayer),t('수행')+' · '+resultLabel(session.practice),t('연등')+' · '+resultLabel(session.offering)].join(' / ');card.append(summary);button(actions,'guide-finish','자유롭게 머무르기',exit);
+   const summary=document.createElement('p');summary.id='guide-summary';summary.textContent=[t('참배')+' · '+resultLabel(session.prayer),t('수행')+' · '+resultLabel(session.practice)].join(' / ');card.append(summary);button(actions,'guide-finish','자유롭게 머무르기',exit);
   }else{
    const disabled=session.stage==='travel'&&!arrived||session.stage==='prayer'&&session.prayer==='pending'||session.stage==='practice'&&session.practice==='pending'||session.stage==='offering'&&session.offering==='pending';
    button(actions,'guide-next','다음 안내',()=>{stopOwnedPractice();if(session.advance(arrived)){if(session.stage==='prayer'){o.app.camera.alpha=-Math.PI/2-destination.yaw;o.app.camera.beta=1.35;}render(true);if(session.stage==='travel')o.canvas.focus();}},disabled);
@@ -67,12 +68,12 @@ export function guidedVisit(o:Options){
  }
  function updateDistance(){if(!session.course)return;const el=card.querySelector('#guide-distance'),p=o.app.settings.visitor,d=guideDestination(session.course);if(el)el.textContent=arrived?t('수행 자리에 도착했어요.'):p?t('약 {distance}m 남았어요.').replace('{distance}',String(Math.round(Math.hypot(p[0]-d.x,p[2]-d.z)))):t('아바타로 걸어서 이동해 주세요.');}
  const progress=(event:Event)=>{
-  const e=(event as CustomEvent<PracticeEvent>).detail;if(!session.course||!pending||!e)return;
+  const e=(event as CustomEvent<PracticeEvent>).detail;if(e?.space==='private'||suspended)return;if(!session.course||!pending||!e)return;
   const expected=pending==='prayer'?'bow':pending;
   if(e.kind!==expected)return;
   if(e.status==='started'){if(atGuideDestination(session.course,o.app.settings.visitor))run=e.id;return;}
   if(!run||e.id!==run)return;
-  const stage=pending==='prayer'?'prayer':'practice';clearPending();if(e.status==='completed'){session.result(stage,'completed');o.app.stopPractice();}render();
+  const stage=pending==='prayer'?'prayer':'practice';if(e.status==='cancelled')voice.stop();clearPending();if(e.status==='completed'){session.result(stage,'completed');o.app.stopPractice();}render();
  };
  window.addEventListener('sasa:practice-event',progress);
  window.addEventListener('sasa:offering-installed',event=>{const d=(event as CustomEvent<{kind:string}>).detail;if(session.stage==='offering'&&offeringPending&&d?.kind==='lantern'){offeringPending=false;session.result('offering','completed');render();}});

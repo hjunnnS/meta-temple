@@ -1,3 +1,4 @@
+import {trialTerms} from './product-terms.ts';
 import {fixedSlots,layoutDraft,type ProductKind} from './contracts.ts';
 import {compatibleDisplay,validDisplayPlacements,type DisplayPlacement} from './private-display-layout.ts';
 import {inscriptionError} from './inscription.ts';
@@ -5,12 +6,14 @@ import {inscriptionError} from './inscription.ts';
 const KEY='sasa:sites:trial:v1';
 type Offer={id:string;kind:ProductKind;days:number;priceKrw:number;revision:number};
 type Item={galleryOnly?:boolean;orderId:string;installationId:string;slotId:string;kind:ProductKind;name:string;text:string;tag:boolean;public:boolean;status:string;amountKrw:number;startsAt:string;endsAt:string;inquired:boolean};
-type Hold={id:string;slotId:string;offerId:string;expiresAt:string;name:string;text:string;tag:boolean;public:boolean;paymentLock:boolean};
+type Hold={id:string;slotId:string;offerId:string;expiresAt:string;name:string;text:string;tag:boolean;public:boolean;paymentLock:boolean;quotedDays?:number;quotedPrice?:number};
 type State={version:1;active:boolean;items:Item[];hold:Hold|null;orders:Record<string,{id:string;status:string;hold:Hold;amount_krw:number}>;placements:DisplayPlacement[];revision:number};
 type StorageLike=Pick<Storage,'getItem'|'setItem'>;
 export function createTrialApi(storage:StorageLike,clock=Date.now){
  const slots=fixedSlots();
- const offers:Offer[]=(['lantern','wish-plaque','votive','memorial','candle'] as ProductKind[]).flatMap(kind=>[7,30].map(days=>({id:`trial-${kind}-${days}`,kind,days,priceKrw:days===7?3000:10000,revision:1})));
+ const offers:Offer[]=(['lantern','wish-plaque','votive','memorial','candle'] as ProductKind[]).flatMap(kind=>trialTerms.map(({days,priceKrw})=>({id:`trial-${kind}-${days}`,kind,days,priceKrw,revision:1})));
+ const legacy=offers.filter(o=>o.days===7).map(o=>({...o,id:o.id.replace(/-7$/,'-30'),days:30,priceKrw:10000}));
+ const storedOffer=(h:Hold)=>[...offers,...legacy].find(o=>o.id===h.offerId);
  const fresh=():State=>({version:1,active:false,items:[],hold:null,orders:{},placements:[],revision:0});let state=fresh();
  try{const saved=JSON.parse(storage.getItem(KEY)??'null');if(saved?.version===1&&Array.isArray(saved.items)&&Array.isArray(saved.placements)&&typeof saved.orders==='object')state=saved;}catch{}
  const iso=(value:number)=>new Date(value).toISOString();const save=()=>storage.setItem(KEY,JSON.stringify(state));
@@ -44,22 +47,22 @@ export function createTrialApi(storage:StorageLike,clock=Date.now){
    if(body.revision!==offer.revision)return fail('offer_changed',409);
    const name=String(body.name??'').trim(),text=String(body.text??'').trim();
    if(inscriptionError(name,'name')||inscriptionError(text,'text')||(body.tag&&(!name||!body.public)))return fail('invalid_inscription');
-   state.hold={id:crypto.randomUUID(),slotId:slot.id,offerId:offer.id,expiresAt:iso(clock()+300000),name,text,tag:!!body.tag,public:!!body.public,paymentLock:false};save();return json({waiting:false});
+   state.hold={id:crypto.randomUUID(),slotId:slot.id,offerId:offer.id,expiresAt:iso(clock()+300000),name,text,tag:!!body.tag,public:!!body.public,paymentLock:false,quotedDays:offer.days,quotedPrice:offer.priceKrw};save();return json({waiting:false});
   }
   if(route==='trade/hold')return json({hold:state.hold,serverTime:clock()});
   if(route==='trade/cancel'){if(state.hold?.paymentLock)return fail('payment_locked',409);state.hold=null;save();return json({ok:true});}
   if(route==='trade/checkout'){
    const h=state.hold;if(!h||h.id!==body.holdId)return fail('expired_hold',409);
    const old=Object.values(state.orders).find(o=>o.hold.id===h.id);if(old)return json(old);
-   const offer=offers.find(o=>o.id===h.offerId)!;const order={id:crypto.randomUUID(),status:'pending',hold:{...h},amount_krw:offer.priceKrw};state.orders[order.id]=order;h.paymentLock=true;save();return json(order);
+   const offer=storedOffer(h)!;const order={id:crypto.randomUUID(),status:'pending',hold:{...h},amount_krw:h.quotedPrice??offer.priceKrw};state.orders[order.id]=order;h.paymentLock=true;save();return json(order);
   }
   if(['trade/test-pay','trade/test-cancel','trade/reconcile'].includes(route)){
    const order=state.orders[String(body.orderId)];if(!order)return fail('not_found',404);
    if(route==='trade/test-cancel'&&order.status==='pending'){order.status='cancelled';state.hold=null;}
    if(route==='trade/test-pay'&&order.status==='pending'){
-    const h=order.hold,offer=offers.find(o=>o.id===h.offerId)!;
+    const h=order.hold,offer=storedOffer(h)!;
     if(installed().some(i=>!i.galleryOnly&&i.slotId===h.slotId))return fail('unavailable',409);
-    state.items.push({orderId:order.id,installationId:crypto.randomUUID(),slotId:h.slotId,kind:offer.kind,name:h.name,text:h.text,tag:h.tag,public:h.public,status:'installed',amountKrw:order.amount_krw,startsAt:iso(clock()),endsAt:iso(clock()+offer.days*86400000),inquired:false});order.status='installed';state.hold=null;
+    state.items.push({orderId:order.id,installationId:crypto.randomUUID(),slotId:h.slotId,kind:offer.kind,name:h.name,text:h.text,tag:h.tag,public:h.public,status:'installed',amountKrw:order.amount_krw,startsAt:iso(clock()),endsAt:iso(clock()+(h.quotedDays??offer.days)*86400000),inquired:false});order.status='installed';state.hold=null;
    }save();return json({id:order.id,status:order.status});
   }
   if(route==='hide'){const item=state.items.find(i=>i.installationId===body.id);if(!item)return fail('not_found',404);item.public=false;save();return json({ok:true});}

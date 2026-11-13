@@ -1,0 +1,1 @@
+PASS PostgreSQL 15 new options and disabled legacy 30-day reservation checkout retains original amount/duration

@@ -14,3 +14,5 @@
 #reception-panel .lantern-seats button[aria-pressed=true]{background:#284b3f;color:white}
 .lantern-seats button:disabled{opacity:.6}
 #reception-panel form label[hidden]{display:none}
+
+#reception-panel .lantern-seats button[data-status=free]{border:2px solid #508365;border-top:5px solid var(--dye);background:#fffdf3;min-height:52px}#reception-panel .lantern-seats button[data-status=reserved]{background:repeating-linear-gradient(135deg,#e5e5de,#e5e5de 5px,#d6d9d1 5px,#d6d9d1 8px)}#reception-panel .lantern-seats button[data-status=occupied]{background:#d6dbd5;color:#4b5e51}#reception-panel .lantern-seats button[aria-pressed=true]{background:#28503b;color:#fff;border:3px solid #d2ab53}#reception-panel .lantern-seats button[aria-pressed=true] strong:before{content:'✓ ';font-weight:bold}.lantern-seat-preview{padding:9px;border:1px solid #b2bd9e;background:#eef0df;border-radius:6px;font-size:13px}

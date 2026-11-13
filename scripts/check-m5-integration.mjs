@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {launchBrowser} from './browser.mjs';
 import {enterTrial,exposeScene,go,monitor} from './trial-helpers.mjs';
-const out='evidence/m5-integration';await mkdir(out,{recursive:true});
+const out=process.env.M6_INTEGRATION_EVIDENCE??'evidence/m5-integration';await mkdir(out,{recursive:true});
 const b=await launchBrowser({channel:'chrome'});let p;
 try{
  p=await b.newPage({viewport:{width:1440,height:960},reducedMotion:'reduce',recordVideo:{dir:out+'/video',size:{width:1280,height:854}}});const checks=monitor(p);

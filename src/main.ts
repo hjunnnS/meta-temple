@@ -1,3 +1,4 @@
+import {practiceExperience} from './practice-experience';
 import {guidedVisit} from './guided-visit';
 import {offeringTag} from './offering-tag';
 import {servicePlaces} from './service-map';
@@ -205,7 +206,7 @@ function receptionView(view:string){
  receptionPanel.append(title);
  if(kind){
   if(import.meta.env.MODE==='service'){
-   title.textContent=t(offerings[kind].label)+' · '+t('시험 기간권');
+   title.textContent=t(offerings[kind].label)+' · '+t('시험 상품');
    let section=offerSessions.get(kind);const fresh=!section;if(!section){section=document.createElement('section');offerSessions.set(kind,section);}receptionPanel.append(section);
    if(fresh)void displayOffers(section,kind);else window.dispatchEvent(new Event('sasa:installations'));return;
   }
@@ -363,6 +364,7 @@ const visitorUI=serviceUI(canvas,goToPlace,()=>{receptionPanel.hidden=true;app.v
  },
  practice:kind=>{goToPlace('walk');app.startPractice(kind);},
 });
+if(import.meta.env.MODE==='service')practiceExperience(app.scene,()=>app.visitorPose,outputVolume);
 if(import.meta.env.MODE==='service')guidedVisit({app,canvas,walk:()=>goToPlace('walk'),map:visitorUI.openMap,offering:()=>goToPlace('lanternReception'),volume:outputVolume,stopOtherAudio:()=>ceremony.stop()});
 
 }
