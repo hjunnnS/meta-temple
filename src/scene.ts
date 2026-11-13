@@ -142,8 +142,10 @@ export function createTemple(canvas:HTMLCanvasElement) {
  box('hall-floor',19,.24,9,0,1.25,8,wood);
  box('back-wall',19,3.6,.25,0,3.15,12.3,wood);
  for(const x of [-9,-6,-3,0,3,6,9])for(const z of [3.8,12.2]){
-  cylinder('column-base',.78,.35,new Vector3(x,1.45,z),stone);
-  cylinder('column',.48,3.9,new Vector3(x,3.45,z),wood);
+  if(!(x===0&&z===3.8)){
+   cylinder('column-base',.78,.35,new Vector3(x,1.45,z),stone);
+   cylinder('column',.48,3.9,new Vector3(x,3.45,z),wood);
+  }
   for(let l=0;l<3;l++){box('bracket',1.1+l*.32,.2,.6,x,5.2+l*.25,z,jade);box('bracket-red',.32,.18,1.2+l*.3,x,5.3+l*.25,z,red);}
  }
  const doorsStart=staticMeshes.length;
@@ -190,7 +192,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    const bracket=box('carved-bracket',.72,.14,.32,x+side*(.38+level*.2),5.1+level*.24,z-.38,jade);bracket.rotation.z=side*.2;
    box('bracket-gold-trim',.7,.035,.34,x+side*(.38+level*.2),5.18+level*.24,z-.38,red,false);
   }
-  for(const y of [1.7,4.8])box('column-paint-band',.5,.035,.5,x,y,z,wood,false);
+  if(!(x===0&&z===3.7))for(const y of [1.7,4.8])box('column-paint-band',.5,.035,.5,x,y,z,wood,false);
  }
  for(const z of [4.7,7.5,10.5])box('ceiling-painted-beam',19,.3,.38,0,5.05,z,painted);
  for(const side of [-1,1]){
@@ -206,6 +208,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  for(let row=0;row<3;row++)for(let col=0;col<21;col++)box('plinth-block',.96,.29,.16,-10+col+(row%2)*.18,.22+row*.33,2.05,stone);
  for(let i=0;i<36;i++)box('floorboard',.5,.025,8.6,-8.9+i*.51,1.39,8,wood,false);
  for(const x of [-9,-6,-3,0,3,6,9]){
+  if(x===0)continue;
   const foot=MeshBuilder.CreateCylinder('carved-column-foot',{height:.27,diameterTop:.58,diameterBottom:.85,tessellation:20},scene);foot.position.set(x,1.62,3.8);foot.material=stone;staticMeshes.push(foot);
  }
  // Reuse the representative architecture for spatial review; individual art review follows.
