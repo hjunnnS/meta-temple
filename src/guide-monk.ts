@@ -2,12 +2,15 @@ import{Vector3,Matrix}from'@babylonjs/core/Maths/math.vector';
 import{PointerEventTypes}from'@babylonjs/core/Events/pointerEvents';
 import type{Scene}from'@babylonjs/core/scene';import type{ArcRotateCamera}from'@babylonjs/core/Cameras/arcRotateCamera';
 import{StandardMaterial}from'@babylonjs/core/Materials/standardMaterial';
+import type{DirectionalLight}from'@babylonjs/core/Lights/directionalLight';import{ShadowGenerator}from'@babylonjs/core/Lights/Shadows/shadowGenerator';
 import{visitorMesh}from'./walking';import{visitorRobe}from'./visitor-robe';
 import{guideDestination,type GuideCourseId}from'./guide-courses';
 export function guideMonk(scene:Scene,camera:ArcRotateCamera,canvas:HTMLCanvasElement,position:()=>readonly number[]|null,open:()=>void){
  const body=visitorMesh(scene,'guide-monk',true);visitorRobe(scene,body).setWearing(true);body.root.position.set(2.2,.01,-62.5);
  for(const m of new Set(body.root.getChildMeshes().map(m=>m.material)))if(m instanceof StandardMaterial)m.diffuseColor=m.diffuseColor.toLinearSpace();
  for(const mesh of body.root.getChildMeshes()){mesh.isPickable=true;mesh.metadata={guideMonk:true,blocksOfferingPick:true};}
+ const shadows=(scene.getLightByName('sun')as DirectionalLight|null)?.getShadowGenerator();
+ if(shadows instanceof ShadowGenerator)for(const mesh of body.root.getChildMeshes())shadows.addShadowCaster(mesh);
  const bubble=document.createElement('div');bubble.id='guide-monk-caption';bubble.hidden=true;bubble.setAttribute('aria-hidden','true');document.body.append(bubble);
  let title='',active=false,paused=false;
  const pointer=scene.onPointerObservable.add(e=>{if(e.type===PointerEventTypes.POINTERTAP&&e.pickInfo?.pickedMesh?.metadata?.guideMonk){const p=position();if(p&&Math.hypot(p[0]-body.root.position.x,p[2]-body.root.position.z)<8)open();}});
