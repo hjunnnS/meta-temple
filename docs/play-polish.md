@@ -26,3 +26,7 @@
 이 Mac의 Chrome에서 배포용 체험판 빌드를 검수했다. 터치는 모바일 화면·터치 입력 모드이며 실휴대폰 검수가 아니다. 서버·DB·실계정·실결제·다인 부하를 새로 검수한 것으로 간주하지 않는다. 종교·원어민 감수는 추가하지 않는다.
 
 증빙: evidence/play-polish/check.json, audio-private.json, item-picks.json 및 PC·터치·개인 공간 화면. 공개 체험판은 기존 개인 체험 방식과 공개 범위를 유지한다.
+
+## 체험판 반영
+
+기존 공개 주소에 버전 27 배포 성공. 소스 fbbea9fd977ec0f519ac5e17425990fc186bd4f3. 배포 영수증: evidence/play-polish/publication.json. 검수한 배포용 묶음을 게시했으며 공개 범위·개인 체험 방식은 유지했다.
