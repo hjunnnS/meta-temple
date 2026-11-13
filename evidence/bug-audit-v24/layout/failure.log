@@ -1,0 +1,16 @@
+PASS layout ko
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Unreadable map row en 430 {"horizontalOverflow":false,"listHeight":114,"largestButton":117,"columns":"120px 120px 120px"}
+    at file:///Users/hjunnn/Documents/ChatGPT/Metaverse/sasa-sites-trial/scripts/check-bug-audit-layout.mjs:9:33 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.22.2

@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'spaces-open'
+- 'world'
+
+    at file:///Users/hjunnn/Documents/ChatGPT/Metaverse/sasa-sites-trial/scripts/check-map-selection.mjs:30:193 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'spaces-open',
+  expected: 'world',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.2

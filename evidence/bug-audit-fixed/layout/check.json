@@ -1,0 +1,185 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "locale": "ko",
+      "width": 320,
+      "height": 740,
+      "horizontalOverflow": false,
+      "listHeight": 114,
+      "largestButton": 42,
+      "columns": "260px"
+    },
+    {
+      "locale": "ko",
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false,
+      "listHeight": 114,
+      "largestButton": 42,
+      "columns": "330px"
+    },
+    {
+      "locale": "ko",
+      "width": 430,
+      "height": 932,
+      "horizontalOverflow": false,
+      "listHeight": 114,
+      "largestButton": 54,
+      "columns": "182.5px 182.5px"
+    },
+    {
+      "locale": "ko",
+      "width": 768,
+      "height": 1024,
+      "horizontalOverflow": false,
+      "listHeight": 276,
+      "largestButton": 54,
+      "columns": "134px 134px"
+    },
+    {
+      "locale": "ko",
+      "width": 844,
+      "height": 390,
+      "horizontalOverflow": false,
+      "listHeight": 276,
+      "largestButton": 54,
+      "columns": "134px 134px"
+    },
+    {
+      "locale": "en",
+      "width": 320,
+      "height": 740,
+      "horizontalOverflow": false,
+      "listHeight": 114,
+      "largestButton": 58,
+      "columns": "260px"
+    },
+    {
+      "locale": "en",
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false,
+      "listHeight": 114,
+      "largestButton": 58,
+      "columns": "330px"
+    },
+    {
+      "locale": "en",
+      "width": 430,
+      "height": 932,
+      "horizontalOverflow": false,
+      "listHeight": 114,
+      "largestButton": 75,
+      "columns": "182.5px 182.5px"
+    },
+    {
+      "locale": "en",
+      "width": 768,
+      "height": 1024,
+      "horizontalOverflow": false,
+      "listHeight": 276,
+      "largestButton": 117,
+      "columns": "134px 134px"
+    },
+    {
+      "locale": "en",
+      "width": 844,
+      "height": 390,
+      "horizontalOverflow": false,
+      "listHeight": 276,
+      "largestButton": 117,
+      "columns": "134px 134px"
+    },
+    {
+      "locale": "de",
+      "width": 320,
+      "height": 740,
+      "horizontalOverflow": false,
+      "listHeight": 114,
+      "largestButton": 58,
+      "columns": "260px"
+    },
+    {
+      "locale": "de",
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false,
+      "listHeight": 114,
+      "largestButton": 58,
+      "columns": "330px"
+    },
+    {
+      "locale": "de",
+      "width": 430,
+      "height": 932,
+      "horizontalOverflow": false,
+      "listHeight": 114,
+      "largestButton": 96,
+      "columns": "182.5px 182.5px"
+    },
+    {
+      "locale": "de",
+      "width": 768,
+      "height": 1024,
+      "horizontalOverflow": false,
+      "listHeight": 276,
+      "largestButton": 117,
+      "columns": "134px 134px"
+    },
+    {
+      "locale": "de",
+      "width": 844,
+      "height": 390,
+      "horizontalOverflow": false,
+      "listHeight": 276,
+      "largestButton": 117,
+      "columns": "134px 134px"
+    },
+    {
+      "locale": "ru",
+      "width": 320,
+      "height": 740,
+      "horizontalOverflow": false,
+      "listHeight": 114,
+      "largestButton": 58,
+      "columns": "260px"
+    },
+    {
+      "locale": "ru",
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false,
+      "listHeight": 114,
+      "largestButton": 58,
+      "columns": "330px"
+    },
+    {
+      "locale": "ru",
+      "width": 430,
+      "height": 932,
+      "horizontalOverflow": false,
+      "listHeight": 114,
+      "largestButton": 75,
+      "columns": "182.5px 182.5px"
+    },
+    {
+      "locale": "ru",
+      "width": 768,
+      "height": 1024,
+      "horizontalOverflow": false,
+      "listHeight": 276,
+      "largestButton": 96,
+      "columns": "134px 134px"
+    },
+    {
+      "locale": "ru",
+      "width": 844,
+      "height": 390,
+      "horizontalOverflow": false,
+      "listHeight": 276,
+      "largestButton": 96,
+      "columns": "134px 134px"
+    }
+  ]
+}

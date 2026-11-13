@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "origin": "http://127.0.0.1:4355",
+  "trial": true,
+  "entryDigest": "3a06f0f1ab8bf7e18480a2ccabcd234d7ab4cc68f25be443237dcef35c571676",
+  "results": [
+    {
+      "locale": "ko",
+      "touch": false,
+      "markerCount": 22,
+      "allMarkersSelect": true,
+      "listAndMarkerAgree": true,
+      "keyboardEnterAndSpace": true,
+      "noNavigationUntilConfirmed": true,
+      "navigationAndFocus": true,
+      "languageRestored": true,
+      "returnVisitSelection": true,
+      "horizontalOverflow": false,
+      "errors": [],
+      "failed": []
+    },
+    {
+      "locale": "ko",
+      "touch": true,
+      "markerCount": 22,
+      "allMarkersSelect": true,
+      "listAndMarkerAgree": true,
+      "keyboardEnterAndSpace": true,
+      "noNavigationUntilConfirmed": true,
+      "navigationAndFocus": true,
+      "languageRestored": true,
+      "returnVisitSelection": true,
+      "horizontalOverflow": false,
+      "errors": [],
+      "failed": []
+    }
+  ]
+}

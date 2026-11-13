@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "touch": false,
+      "course": "health",
+      "actualPrayer": true,
+      "freeCompletion": true,
+      "destination": "yaksa"
+    },
+    {
+      "touch": false,
+      "course": "family",
+      "actualPrayer": true,
+      "freeCompletion": true,
+      "destination": "gwaneum"
+    },
+    {
+      "touch": false,
+      "course": "exam",
+      "actualPrayer": true,
+      "freeCompletion": true,
+      "destination": "munsu"
+    },
+    {
+      "touch": false,
+      "course": "relationship",
+      "actualPrayer": true,
+      "freeCompletion": true,
+      "destination": "bohyeon"
+    },
+    {
+      "touch": false,
+      "course": "loss",
+      "actualPrayer": true,
+      "freeCompletion": true,
+      "destination": "jijang"
+    },
+    {
+      "touch": true,
+      "course": "health",
+      "actualPrayer": true,
+      "freeCompletion": true,
+      "destination": "yaksa"
+    },
+    {
+      "touch": true,
+      "course": "family",
+      "actualPrayer": true,
+      "freeCompletion": true,
+      "destination": "gwaneum"
+    },
+    {
+      "touch": true,
+      "course": "exam",
+      "actualPrayer": true,
+      "freeCompletion": true,
+      "destination": "munsu"
+    },
+    {
+      "touch": true,
+      "course": "relationship",
+      "actualPrayer": true,
+      "freeCompletion": true,
+      "destination": "bohyeon"
+    },
+    {
+      "touch": true,
+      "course": "loss",
+      "actualPrayer": true,
+      "freeCompletion": true,
+      "destination": "jijang"
+    }
+  ]
+}

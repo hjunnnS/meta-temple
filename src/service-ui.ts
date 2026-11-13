@@ -54,7 +54,7 @@ export function serviceUI(canvas:HTMLCanvasElement,go:(view:string)=>void,closeO
  window.addEventListener('sasa:space',event=>{if((event as CustomEvent).detail==='public'&&privateViews.open)privateViews.close();});
  window.addEventListener('sasa:reservation-login',()=>{accountReturn='offer';});window.addEventListener('sasa:practice-login',()=>{accountReturn='practice';});
  const accountPanel=document.querySelector('#account-title')?.closest('dialog');accountPanel?.classList.add('account-panel');
- for(const panel of [spaces,appearance,practice,menu,review,stop])panel.addEventListener('close',()=>{if(document.querySelector('dialog[open]'))return;if(lastControl?.isConnected&&lastControl.getClientRects().length)lastControl.focus();else canvas.focus();});
+ for(const panel of [spaces,appearance,practice,menu,review,stop])panel.addEventListener('close',()=>{if(document.querySelector('dialog[open]')||document.activeElement===canvas)return;if(lastControl?.isConnected&&lastControl.getClientRects().length)lastControl.focus();else canvas.focus();});
  accountPanel?.addEventListener('close',()=>{if(!document.querySelector('dialog[open]')){const reserve=[...reception.querySelectorAll<HTMLButtonElement>('button')].find(b=>b.textContent===t('이 자리에 예약'));if(reserve?.isConnected&&reserve.getClientRects().length)reserve.focus();else canvas.focus();}});
  document.querySelector('.face-dialog')?.addEventListener('close',()=>canvas.focus());
  function rootMenu(){if(document.body.classList.contains('in-private-room')){canvas.focus();return;}menu.showModal();}
