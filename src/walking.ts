@@ -1,3 +1,4 @@
+import {touchStick,touchPinch} from './touch-controls';
 import {practiceEvent} from './practice-events';
 import {rearPrayerHalls,prayerHallPoint,prayerAisleX} from './prayer-halls.ts';
 import {walkingPath,type WalkPoint} from './point-navigation';
@@ -183,6 +184,10 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  const directions=new Set(['KeyW','KeyS','KeyA','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight']);
  let active=false,first=false,step=0,moving=false;
  let followDistance=3.2,firstPersonFov=.92;
+ const stick=touchStick(canvas,'public-touch-stick');
+ const pointers=camera.inputs.attached.pointers as unknown as {onMultiTouch:()=>void;onTouch:(...args:unknown[])=>void};pointers.onMultiTouch=()=>{};const orbitTouch=pointers.onTouch.bind(pointers);pointers.onTouch=(...args)=>{if(canvas.dataset.touchPinch!=='true')orbitTouch(...args);};
+ touchPinch(canvas,factor=>{camera.inertialAlphaOffset=0;camera.inertialBetaOffset=0;if(!active){camera.radius=Math.max(2.5,Math.min(420,camera.radius*factor));return;}if(first){firstPersonFov=Math.max(.42,Math.min(1.15,firstPersonFov*factor));camera.fov=firstPersonFov;}else followDistance=Math.max(.85,Math.min(11,followDistance*factor));},()=>!document.body.classList.contains('in-private-room'));
+
  canvas.addEventListener('wheel',event=>{
   if(!active)return;
   event.preventDefault();
@@ -261,7 +266,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  };
  document.addEventListener('pointerlockchange',()=>{if(!document.pointerLockElement&&first)changePerspective(false);});
  canvas.addEventListener('keydown',e=>{if(e.key==='Escape'){route=[];canvas.dataset.pointWalk='idle';}if(e.key==='Escape'&&bows.active)bows.cancel();if(e.key==='Escape'&&worship)finishWorship();if(e.key==='Escape'&&meditating)finishMeditation();if(e.key==='Escape'&&first)changePerspective(false);if(e.key==='Escape'&&tea.seated)tea.stop();if(e.key==='Escape'&&bell.active)bell.cancel();});
- function clear(){keys.clear();moving=false;route=[];canvas.dataset.pointWalk='idle';}
+ function clear(){stick.reset();keys.clear();moving=false;route=[];canvas.dataset.pointWalk='idle';}
  canvas.addEventListener('keydown',e=>{if(active&&directions.has(e.code)){e.preventDefault();route=[];keys.add(e.code);}});
  window.addEventListener('keyup',e=>keys.delete(e.code));
  canvas.addEventListener('blur',clear);window.addEventListener('blur',clear);document.addEventListener('visibilitychange',clear);
@@ -298,6 +303,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   camera.radius=world.cameraLimit(camera.target,camera.alpha,camera.beta,6.6);
  }
  function update(dt:number){
+  stick.show(active&&!document.body.classList.contains('in-private-room')&&!document.querySelector('#private-room-controls:not([hidden])'));
   moving=false;
   if(!active){bell.update(false,dt,false);return;}
   const practiceMode=bows.active?'108':meditating?'meditation':worship?'bow':'idle';if(pad.dataset.practice!==practiceMode)pad.dataset.practice=practiceMode;
@@ -311,8 +317,8 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    prayer=nextPrayer;prayerButton.hidden=!prayer;finishWorship();
   }
   bows.show(practicing&&!!prayer);
-  let x=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'));
-  let z=Number(keys.has('KeyW')||keys.has('ArrowUp'))-Number(keys.has('KeyS')||keys.has('ArrowDown'));
+  let x=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'))+stick.vector.x;
+  let z=Number(keys.has('KeyW')||keys.has('ArrowUp'))-Number(keys.has('KeyS')||keys.has('ArrowDown'))+stick.vector.z;
   if(x||z)route=[];while(route.length&&Math.hypot(p.x-route[0][0],p.z-route[0][1])<.18)route.shift();
   const auto=route[0]?[route[0][0]-p.x,route[0][1]-p.z]:null;
   const length=auto?Math.hypot(...auto):Math.hypot(x,z);if(!route.length)canvas.dataset.pointWalk='idle';
@@ -337,7 +343,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    }
   }
   if(length && document.activeElement===canvas && !document.querySelector('dialog[open]')){
-   const a=camera.alpha,scale=3.3*Math.min(.05,dt)/length;
+   const a=camera.alpha,scale=3.3*Math.min(.05,dt)*(auto?1:Math.min(1,length))/length;
    const dx=auto?auto[0]*scale:(x*-Math.sin(a)-z*Math.cos(a))*scale,dz=auto?auto[1]*scale:(x*Math.cos(a)-z*Math.sin(a))*scale;
    const ox=p.x,oz=p.z;
    function move(nx:number,nz:number){

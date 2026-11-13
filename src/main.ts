@@ -1,3 +1,5 @@
+import {mobileDevice} from './mobile-profile';
+import {mobileViewport} from './touch-controls';
 import {practiceExperience} from './practice-experience';
 import {guidedVisit} from './guided-visit';
 import {offeringTag} from './offering-tag';
@@ -142,15 +144,19 @@ function displayPreference(key:string){
 function saveDisplayPreference(key:string,value:string){
  try{localStorage.setItem('sasa:display:'+key,value);}catch{/* In-memory controls still work. */}
 }
-const savedQuality=displayPreference('quality');
-if(savedQuality==='low'){qualityField.value='low';app.setQuality('low');}
+mobileViewport();
+const qualityKey=mobileDevice()?'mobile-quality':'quality';
+if(mobileDevice()){const option=new Option(t('균형 있게'),'balanced');qualityField.add(option,1);}
+const savedQuality=displayPreference(qualityKey);
+const initialQuality:Quality=mobileDevice()?(savedQuality==='high'||savedQuality==='low'?savedQuality:'balanced'):(savedQuality==='low'?'low':'high');
+qualityField.value=initialQuality;app.setQuality(initialQuality);
 let motionOverride=displayPreference('reduced');
 function syncMotion(){
  motionField.checked=motionOverride===null?motionPreference.matches:motionOverride==='true';
  app.setReduced(motionField.checked);
 }
 syncMotion();motionPreference.addEventListener('change',syncMotion);
-qualityField.onchange=()=>{invalidate('품질 변경');app.setQuality(qualityField.value as Quality);saveDisplayPreference('quality',qualityField.value);};
+qualityField.onchange=()=>{invalidate('품질 변경');app.setQuality(qualityField.value as Quality);saveDisplayPreference(qualityKey,qualityField.value);};
 motionField.onchange=()=>{invalidate('효과 변경');motionOverride=String(motionField.checked);saveDisplayPreference('reduced',motionOverride);syncMotion();};
 for(const button of document.querySelectorAll<HTMLButtonElement>('[data-view]'))button.onclick=()=>{enterView(button.dataset.view!);document.body.classList.add('exploring');for(const b of document.querySelectorAll('[data-view]'))b.setAttribute('aria-pressed',String(b===button));};
 const dialog=$<HTMLDialogElement>('#diagnostic-dialog');$('#diagnostics').onclick=()=>dialog.showModal();$('#close-diagnostics').onclick=()=>dialog.close();dialog.onclose=()=>$('#diagnostics').focus();
