@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "healthFreePrayer": true,
+  "actualBowCompletion": true,
+  "guest108LoginResume": true,
+  "oneBowDoesNotFinish108": true,
+  "skipPreserved": true,
+  "destinationMap": true,
+  "errors": [],
+  "failedAssets": []
+}

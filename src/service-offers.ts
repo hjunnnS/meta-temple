@@ -16,7 +16,7 @@ async function service(path:string,body?:object){
 export async function displayOffers(section:HTMLElement,kind:Offering,initialSlot?:string){
  const note=document.createElement('p'),controls=document.createElement('div');note.setAttribute('role','status');controls.className='offer-controls';section.append(note,controls);section.dataset.kind=kind;
  const stage=(value:string)=>{section.dataset.stage=value;window.dispatchEvent(new Event('sasa:offer-stage'));};
- let catalogue:Offer[]=[];
+ let catalogue:Offer[]=[];const checkoutOrders=new Set<string>();
  function terms(selected:Offer,preferred?:string,draft?:FormData){const choices=document.createElement('div');choices.className='offer-terms';const label=document.createElement('h3');label.textContent=t('기간');choices.append(label);for(const item of catalogue){const btn=document.createElement('button');btn.type='button';btn.textContent=pass(item.days,item.priceKrw);btn.setAttribute('aria-pressed',String(item.id===selected.id));btn.onclick=async()=>{btn.disabled=true;try{await select(item,section.querySelector<HTMLSelectElement>('select[name=slot]')?.value||preferred,section.querySelector('form')?new FormData(section.querySelector('form')!):draft);}catch(e){note.textContent=(e as Error).message;}finally{btn.disabled=false;}};choices.append(btn);}return choices;}
 
  function button(label:string,action:()=>Promise<void>){
@@ -36,7 +36,7 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
    let order;
    try{order=await service('trade/checkout',{holdId:h.id});}
    catch(error){if((error as {code?:string}).code==='expired_hold'){await held();return;}throw error;}
-   controls.replaceChildren();
+   checkoutOrders.add(order.id);controls.replaceChildren();
    if(order.status!=='pending'){followOrder(order.id,h.slotId,order.status);return;}
    payment(order.id,h.slotId,order.amount_krw);
   });
@@ -79,6 +79,7 @@ export async function displayOffers(section:HTMLElement,kind:Offering,initialSlo
    if(!statusLine.isConnected)return;stage(status);
    statusLine.textContent=spot(slot)+' · '+t(labels[status]??'결제 완료 · 같은 자리 설치 확인 중');
    if(['installed','refunded','cancelled','expired'].includes(status)){
+    if(status==='installed'&&checkoutOrders.delete(id))window.dispatchEvent(new CustomEvent('sasa:offering-installed',{detail:{orderId:id,slotId:slot,kind}}));
     window.dispatchEvent(new Event('sasa:installations'));if(status==='installed')button('사찰로 돌아가기',async()=>{window.dispatchEvent(new Event('sasa:offering-return'));});button('기간권 보기',restart);return;
    }
    if(status==='pending'&&price!==undefined){payment(id,slot,price);return;}

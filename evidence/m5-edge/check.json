@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "touch": false,
+      "freeWalking": true,
+      "voiceActuallyPlayed": true,
+      "singleVoiceAfterRapidRepeat": true,
+      "exitStopsVoice": true,
+      "previous": true,
+      "guestLoginCancellation": true,
+      "errors": []
+    },
+    {
+      "touch": true,
+      "freeWalking": true,
+      "voiceActuallyPlayed": true,
+      "singleVoiceAfterRapidRepeat": true,
+      "exitStopsVoice": true,
+      "previous": true,
+      "guestLoginCancellation": true,
+      "errors": []
+    }
+  ]
+}

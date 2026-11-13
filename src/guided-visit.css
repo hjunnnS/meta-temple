@@ -1,0 +1,12 @@
+#guide-welcome,#guide-card{position:fixed;z-index:19;left:24px;bottom:105px;width:350px;max-width:calc(100vw - 48px);padding:20px;background:#f7f4e9f5;color:#2d493b;border:1px solid #c9c4a8;border-radius:16px;font:15px/1.65 system-ui,sans-serif}
+#guide-welcome[hidden],#guide-card[hidden],#guide-monk-caption[hidden]{display:none}
+#guide-welcome h2,#guide-card h2{font-size:19px;line-height:1.4;margin:3px 0 12px;font-weight:600}
+#guide-welcome p,#guide-card p{margin:8px 0 14px}#guide-card small{color:#687660}
+.guide-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}#guide-card button,#guide-welcome button,#guide-picker button{min-height:44px;padding:10px 14px;border:1px solid #b9bea4;background:#f4f0df;color:#2e503d;border-radius:9px;font:inherit;cursor:pointer}
+#guide-card button:disabled,#guide-picker button:disabled{opacity:.5;cursor:default}#guide-next,#guide-with-monk,#guide-pray{background:#2d503d!important;color:#fff8e9!important;border-color:#2d503d!important}
+#guide-card .guide-tools{display:flex;gap:10px;margin-top:12px;border-top:1px solid #d4d7c4;padding-top:9px;flex-wrap:wrap}#guide-card .guide-tools button{border:0;background:transparent;padding:4px;font-size:13px}
+#guide-picker{max-width:480px;width:calc(100vw - 32px)}#guide-picker .guide-choices{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:20px 0}.guide-choices button{text-align:left}#guide-distance{font-variant-numeric:tabular-nums;color:#69735d}
+#guide-monk-caption{position:fixed;z-index:18;max-width:210px;padding:10px 14px;border:1px solid #d0c7a8;border-radius:14px;background:#faf5e6f2;color:#2b4738;font:14px/1.5 system-ui;transform:translate(-50%,-100%);pointer-events:none;text-align:center}
+.guide-map-target rect{stroke:#9f7135;stroke-width:1.2}body.guide-active #visit-guide{display:none!important}body.in-private-room #guide-welcome,body.in-private-room #guide-card,body.in-private-room #guide-monk-caption{display:none!important}
+.guide-announcement{position:fixed;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-width:650px){#guide-welcome,#guide-card{left:12px;bottom:auto;top:99px;width:calc(100vw - 24px);max-width:none;max-height:38dvh;overflow:auto;padding:14px;font-size:14px}#guide-card h2,#guide-welcome h2{font-size:17px;margin-bottom:8px}.guide-actions{gap:6px;margin-top:8px}#guide-card p,#guide-welcome p{margin:6px 0 10px}#guide-card .guide-tools{margin-top:8px}#guide-card button,#guide-welcome button{padding:8px 11px}}

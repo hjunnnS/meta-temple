@@ -1,3 +1,4 @@
+import {guidedVisit} from './guided-visit';
 import {offeringTag} from './offering-tag';
 import {servicePlaces} from './service-map';
 import {serviceUI} from './service-ui';
@@ -351,7 +352,7 @@ if(import.meta.env.MODE==='service'){
  window.addEventListener('sasa:lotus-entry',()=>{try{if(localStorage.getItem('sasa:guide-seen')==='1')return;localStorage.setItem('sasa:guide-seen','1');}catch{}openGuide();});
 
 }
-serviceUI(canvas,goToPlace,()=>{receptionPanel.hidden=true;app.view('walk');placePicker.value='walk';const cameraButton=document.querySelector<HTMLButtonElement>('#walk-camera')!;if(cameraButton.getAttribute('aria-pressed')==='true')cameraButton.click();}, {
+const visitorUI=serviceUI(canvas,goToPlace,()=>{receptionPanel.hidden=true;app.view('walk');placePicker.value='walk';const cameraButton=document.querySelector<HTMLButtonElement>('#walk-camera')!;if(cameraButton.getAttribute('aria-pressed')==='true')cameraButton.click();}, {
  position:()=>app.visitorPose.position,
  schedule:ceremony.openSchedule,
  navigate:place=>{
@@ -362,5 +363,6 @@ serviceUI(canvas,goToPlace,()=>{receptionPanel.hidden=true;app.view('walk');plac
  },
  practice:kind=>{goToPlace('walk');app.startPractice(kind);},
 });
+if(import.meta.env.MODE==='service')guidedVisit({app,canvas,walk:()=>goToPlace('walk'),map:visitorUI.openMap,offering:()=>goToPlace('lanternReception'),volume:outputVolume,stopOtherAudio:()=>ceremony.stop()});
 
 }
