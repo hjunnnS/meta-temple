@@ -10,8 +10,8 @@ export const guideCourses=[
 ] as const;
 export type GuideCourseId=typeof guideCourses[number]['id'];
 export type GuideCourse=typeof guideCourses[number];
-/** Only the health slice is enabled until G06's route/content review. */
-export const enabledGuideCourses:readonly GuideCourseId[]=['health'];
+/** Five prototype routes approved by the user on 2026-11-13; religious review remains separate. */
+export const enabledGuideCourses:readonly GuideCourseId[]=guideCourses.map(c=>c.id);
 export function guideCourse(id:GuideCourseId){return guideCourses.find(c=>c.id===id)!;}
 export function guideDestination(id:GuideCourseId){
  const course=guideCourse(id),hall=templePlaces.find(p=>p.id===course.place)!;
