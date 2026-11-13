@@ -1,3 +1,4 @@
+import {practiceEvent} from './practice-events';
 import {t,translateMarkup} from './locales';
 import {practiceCopy} from './private-copy';
 import {Quaternion,Vector3} from '@babylonjs/core/Maths/math.vector';
@@ -29,23 +30,25 @@ export function privatePractice(body:ReturnType<typeof visitorMesh>,canvas:HTMLC
  section.innerHTML='<button id="private-bow">절하기</button><button id="private-meditate">명상하기</button><button id="private-practice-stop" hidden>수행 마치기</button><output id="private-practice-status" aria-live="polite" style="display:block;margin:8px 0;max-width:320px;line-height:1.4"></output>';
  translateMarkup(section);(panel.querySelector('#private-room-actions')??panel).append(section);
  const bow=section.querySelector<HTMLButtonElement>('#private-bow')!,meditate=section.querySelector<HTMLButtonElement>('#private-meditate')!,stop=section.querySelector<HTMLButtonElement>('#private-practice-stop')!,status=section.querySelector<HTMLOutputElement>('#private-practice-status')!;
- let wasActive=false,clock=0,lastStatus='';
+ let wasActive=false,clock=0,lastStatus='',run='',kind:'bow'|'meditation'='bow',cancelled=false,serial=0;
+ function setKind(value:'bow'|'meditation'){kind=value;}
+ function cancel(){cancelled=true;state.stop();}
  function reset(){for(const leg of body.legs){leg.rotationQuaternion=null;leg.rotation.setAll(0);}for(const shin of body.shins){shin.rotationQuaternion=null;shin.rotation.setAll(0);}body.bow(0);body.chest.scaling.y=1;}
  function start(kind:'bow'|'meditate'){
-  if(!state.start(kind))return;onStart();reset();body.root.position.set(0,kind==='bow'?.178:.275,kind==='bow'?2.75:4.55);body.root.rotation.y=0;wasActive=true;clock=0;canvas.focus();
+  if(!state.start(kind))return;cancelled=false;run='private-'+(++serial);const eventKind=kind==='bow'?'bow':'meditation';setKind(eventKind);practiceEvent({id:run,kind:eventKind,status:'started',space:'private'});onStart();reset();body.root.position.set(0,kind==='bow'?.178:.275,kind==='bow'?2.75:4.55);body.root.rotation.y=0;wasActive=true;clock=0;canvas.focus();
  }
- bow.onclick=()=>start('bow');meditate.onclick=()=>start('meditate');stop.onclick=()=>{state.stop();canvas.focus();};
- const escape=(event:KeyboardEvent)=>{if(event.key==='Escape'&&state.active)state.stop();};canvas.addEventListener('keydown',escape);
- return {stop:state.stop,get active(){return state.active;},get cameraHeight(){return state.mode==='bow'?1.05:1.2-.4*state.seated;},
+ bow.onclick=()=>start('bow');meditate.onclick=()=>start('meditate');stop.onclick=()=>{cancel();canvas.focus();};
+ const escape=(event:KeyboardEvent)=>{if(event.key==='Escape'&&state.active)cancel();};canvas.addEventListener('keydown',escape);
+ return {stop:cancel,get active(){return state.active;},get cameraHeight(){return state.mode==='bow'?1.05:1.2-.4*state.seated;},
  update(dt:number,moving:boolean){
-  if(moving&&state.active)state.stop();state.tick(Math.min(.1,dt));clock+=Math.min(.1,dt);
+  if(moving&&state.active)cancel();state.tick(Math.min(.1,dt));clock+=Math.min(.1,dt);
   if(state.mode==='bow'){reset();body.bow(state.bowProgress);}
   else if(state.active)privateMeditationPose(body,state.seated,clock);
-  else if(wasActive){reset();wasActive=false;}
+  else if(wasActive){reset();wasActive=false;if(run){practiceEvent({id:run,kind,status:!cancelled&&(kind==='bow'||state.meditationTime>=10)?'completed':'cancelled',space:'private'});run='';}}
   const seconds=Math.floor(state.meditationTime),time=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');
   const text=practiceCopy(state.mode,state.count,time,state.stopping);
-  if(text!==lastStatus){lastStatus=text;status.setAttribute('aria-live',state.mode==='meditating'?'off':'polite');status.textContent=text;}section.dataset.mode=state.mode;section.dataset.bowCount=String(state.count);
+  if(text!==lastStatus){lastStatus=text;status.setAttribute('aria-live',state.mode==='meditating'?'off':'polite');status.textContent=text;}section.dataset.bowProgress=String(state.bowProgress);section.dataset.mode=state.mode;section.dataset.bowCount=String(state.count);
   bow.disabled=meditate.disabled=state.active;stop.hidden=!state.active;stop.disabled=state.mode==='rising';
   return state.active;
- },dispose(){canvas.removeEventListener('keydown',escape);section.remove();}};
+ },dispose(){if(run)practiceEvent({id:run,kind,status:'cancelled',space:'private'});canvas.removeEventListener('keydown',escape);section.remove();}};
 }

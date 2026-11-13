@@ -1,3 +1,4 @@
+import {practiceExperience} from './practice-experience';
 import {personalGateEffects} from './personal-gate-effects';
 import {t} from './locales';
 import {walkingPath,type WalkPoint} from './point-navigation';
@@ -74,6 +75,7 @@ export function privateRoomScene(engine:Engine,canvas:HTMLCanvasElement,face:Fac
   button.onpointerdown=event=>{event.preventDefault();canvas.focus();button.setPointerCapture(event.pointerId);keys.add(button.dataset.roomKey!);};button.onlostpointercapture=()=>keys.delete(button.dataset.roomKey!);
  }
  practice=privatePractice(avatar,canvas,()=>{changeView('walk');camera.alpha=.12;camera.beta=1.35;requestedRadius=camera.radius=lastSafeRadius=4.3;});
+ practiceExperience(scene,()=>({position:avatar.root.position.asArray(),bowProgress:practice?.active?Number(document.querySelector('#private-practice')?.getAttribute('data-bow-progress')??0):0}),()=>document.querySelector<HTMLInputElement>('#master-mute')?.checked?0:Number(document.querySelector<HTMLInputElement>('#audio-volume')?.value??35)/100,'private');
  const disposePoint=pointInput(scene,canvas,()=>view==='walk',point=>{
   if(point[1]>.5||!canWalkPrivateRoom(point[0],point[2]))return;
   route=walkingPath([avatar.root.position.x,avatar.root.position.z],[point[0],point[2]],(a,b)=>canWalkPrivateRoom(b[0],b[1]));stuck=0;canvas.dataset.pointWalk=route.length?'moving':'idle';

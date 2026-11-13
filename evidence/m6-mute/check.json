@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "muteStopsAudio": true,
+  "unmuteResumesCurrentMeditation": true,
+  "stopReleasesAudio": true,
+  "errors": []
+}

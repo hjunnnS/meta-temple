@@ -206,7 +206,7 @@ function receptionView(view:string){
  receptionPanel.append(title);
  if(kind){
   if(import.meta.env.MODE==='service'){
-   title.textContent=t(offerings[kind].label)+' · '+t('시험 기간권');
+   title.textContent=t(offerings[kind].label)+' · '+t('시험 상품');
    let section=offerSessions.get(kind);const fresh=!section;if(!section){section=document.createElement('section');offerSessions.set(kind,section);}receptionPanel.append(section);
    if(fresh)void displayOffers(section,kind);else window.dispatchEvent(new Event('sasa:installations'));return;
   }

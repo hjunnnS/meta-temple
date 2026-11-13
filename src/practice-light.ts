@@ -93,7 +93,7 @@ export function descendingLight(scene:Scene,height:number,width:number){
  },dispose(){column.dispose();core.dispose();mesh.dispose();mat.dispose(false,true);}};
 }
 
-export function prayerLight(scene:Scene,position:Vector3){
+export function prayerLight(scene:Scene,position:Vector3,intensity=1){
  const ring=goldRing(scene,2.65,true);
  ring.mesh.position.copyFrom(position);ring.mesh.position.y+=.105;
  const shaft=descendingLight(scene,6.7,2.5);
@@ -111,8 +111,8 @@ export function prayerLight(scene:Scene,position:Vector3){
   const strength=Math.min(1,age*1.35)*(1-fade*fade*(3-2*fade));
   const landing=reduced?1:Math.min(1,age/.72);
   ring.mesh.scaling.setAll(reduced?1:.24+.76*Math.min(1,Math.max(0,age-.4)/.95));
-  ring.material.alpha=.76*strength*landing*Math.max(0,1-finishTime/.75);
-  shaft.draw(landing,.67*strength,reduced);
+  ring.material.alpha=.76*intensity*strength*landing*Math.max(0,1-finishTime/.75);
+  shaft.draw(landing,.67*intensity*strength,reduced);
   shaft.mesh.position.y+=position.y;
   if(ending&&strength===0)clean();
  });
