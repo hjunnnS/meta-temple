@@ -18,8 +18,9 @@ export function guidedVisit(o:Options){
  function stopOwnedPractice(){if(pending||run)o.app.stopPractice();clearPending();}
  function lockPractice(on:boolean){const b=document.querySelector<HTMLButtonElement>('#practice-open');if(b)b.disabled=on;}
  function exit(){lockPractice(false);stopOwnedPractice();session.exit();voice.stop();card.hidden=true;welcome.hidden=true;choice.close();document.body.classList.remove('guide-active');delete document.body.dataset.guidePlace;bubbleActor.set(null,false,'');announcement.textContent='';lastAnnouncement='';o.canvas.focus();}
- function open(){welcome.hidden=true;document.querySelector<HTMLDialogElement>('#menu-panel')?.close();voice.stop();o.stopOtherAudio();if(!choice.open)choice.showModal();}
- function start(id:GuideCourseId){stopOwnedPractice();session.start(id);choice.close();welcome.hidden=true;o.walk();document.querySelector<HTMLElement>('#visit-guide')!.hidden=true;arrived=atGuideDestination(id,o.app.settings.visitor);render(true);const h=card.querySelector('h2')!;h.tabIndex=-1;h.focus({preventScroll:true});}
+ function open(){stopOwnedPractice();o.app.stopPractice();welcome.hidden=true;document.querySelector<HTMLDialogElement>('#menu-panel')?.close();voice.stop();o.stopOtherAudio();if(!choice.open)choice.showModal();}
+ function start(id:GuideCourseId){stopOwnedPractice();session.start(id);if(brief.checked)session.advance(false);choice.close();welcome.hidden=true;o.walk();document.querySelector<HTMLElement>('#visit-guide')!.hidden=true;arrived=atGuideDestination(id,o.app.settings.visitor);render(!brief.checked);const h=card.querySelector('h2')!;h.tabIndex=-1;h.focus({preventScroll:true});}
+ const brief=document.createElement('input');brief.type='checkbox';brief.id='guide-brief';try{brief.checked=localStorage.getItem('sasa:guide-brief')==='1';}catch{}const briefLabel=document.createElement('label');briefLabel.className='guide-brief';briefLabel.append(brief,document.createTextNode(t('설명 건너뛰기')));choice.append(briefLabel);brief.onchange=()=>{try{localStorage.setItem('sasa:guide-brief',brief.checked?'1':'0');}catch{}};
  const choices=document.createElement('div');choices.className='guide-choices';choice.append(choices);
  for(const c of guideCourses)button(choices,'guide-course-'+c.id,c.label,()=>start(c.id),!enabledGuideCourses.includes(c.id));
  button(choice,'guide-picker-free','자유롭게 둘러보기',exit);
@@ -59,7 +60,7 @@ export function guidedVisit(o:Options){
   if(session.stage!=='prepare')button(tools,'guide-previous','이전 안내',()=>{stopOwnedPractice();session.previous();render(true);});
   if(locale==='ko')button(tools,'guide-repeat','다시 듣기',()=>{o.stopOtherAudio();void voice.speak(content.audio);});
   else{const note=document.createElement('small');note.textContent=t('현재 언어는 자막으로 안내합니다.');card.append(note);button(tools,'guide-repeat','안내 다시 보기',()=>{card.scrollTop=0;h.tabIndex=-1;h.focus({preventScroll:true});});}
-  button(tools,'guide-change','다른 고민 선택',()=>{stopOwnedPractice();open();});button(tools,'guide-exit','안내 종료',exit);
+  button(tools,'guide-change','다른 고민 선택',()=>{stopOwnedPractice();open();});button(tools,'guide-exit','자유롭게 둘러보기',exit);
   const showActor=session.stage==='prepare'||session.stage==='finish'||arrived&&session.stage!=='travel';
   bubbleActor.set(session.stage==='prepare'?null:session.course,showActor,t(content.title));
   if(lastAnnouncement!==content.title){lastAnnouncement=content.title;announcement.textContent=content.title;}

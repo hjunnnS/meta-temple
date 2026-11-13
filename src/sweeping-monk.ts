@@ -1,3 +1,4 @@
+import{worldTapAllowed}from'./tap-guard';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
 import {TransformNode} from '@babylonjs/core/Meshes/transformNode';
 import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
@@ -41,7 +42,7 @@ export function sweepingMonk(scene:Scene,camera:ArcRotateCamera,canvas:HTMLCanva
   const p=viewer();turnTo=Math.atan2(p.x-site.x,p.z-site.z);button.disabled=true;void sound.prepare();canvas.focus();
  }
  button.onclick=greet;
- const pointer=scene.onPointerObservable.add(event=>{if(event.type===PointerEventTypes.POINTERTAP&&event.pickInfo?.pickedMesh?.metadata?.sweeperNpc)greet();});
+ const pointer=scene.onPointerObservable.add(event=>{if(event.type===PointerEventTypes.POINTERTAP&&worldTapAllowed(canvas,event.event as PointerEvent)&&event.pickInfo?.pickedMesh?.metadata?.sweeperNpc)greet();});
  function cancel(){cycle.cancel();sound.stop();caption.hidden=true;button.disabled=false;}
  const hidden=()=>{if(document.hidden)cancel();};document.addEventListener('visibilitychange',hidden);window.addEventListener('blur',cancel);
  const space=(event:Event)=>{privateSpace=(event as CustomEvent<string>).detail==='private';if(privateSpace){cancel();button.hidden=true;}};window.addEventListener('sasa:space',space);

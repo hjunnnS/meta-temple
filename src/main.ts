@@ -364,7 +364,8 @@ const visitorUI=serviceUI(canvas,goToPlace,()=>{receptionPanel.hidden=true;app.v
  },
  practice:kind=>{goToPlace('walk');app.startPractice(kind);},
 });
-if(import.meta.env.MODE==='service')practiceExperience(app.scene,()=>app.visitorPose,outputVolume);
+const walkCancel=document.createElement('button');walkCancel.id='walk-cancel';walkCancel.hidden=true;walkCancel.textContent=t('이동 중 · 멈추기');document.body.append(walkCancel);walkCancel.onclick=()=>{canvas.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'}));canvas.focus();};app.scene.onBeforeRenderObservable.add(()=>{walkCancel.hidden=canvas.dataset.pointWalk!=='moving'||document.body.classList.contains('in-private-room')||!!document.querySelector('dialog[open]');});
+if(import.meta.env.MODE==='service')practiceExperience(app.scene,()=>app.visitorPose,outputVolume,'public',()=>{app.stopPractice();canvas.focus();});
 if(import.meta.env.MODE==='service')guidedVisit({app,canvas,walk:()=>goToPlace('walk'),map:visitorUI.openMap,offering:()=>goToPlace('lanternReception'),volume:outputVolume,stopOtherAudio:()=>ceremony.stop()});
 
 }

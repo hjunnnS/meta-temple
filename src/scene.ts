@@ -12,6 +12,7 @@ import { pedestrianWorld, walkingController } from './walking.ts';
 import { paving, boundaries } from './temple-terrain.ts';
 import { readApplication, type Offering } from './reception.ts';
 import '@babylonjs/core/Culling/ray';
+import {guardWorldTap,worldTapAllowed} from './tap-guard';
 import { PointerEventTypes } from '@babylonjs/core/Events/pointerEvents';
 import { placeGuardians } from './gate-guardians.ts';
 import { furnishBell } from './temple-bell.ts';
@@ -126,10 +127,11 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const mesh of parts)mesh.metadata={...mesh.metadata,applicationId:id};
   applicationSlots.set(id,{kind,point,parts});
  }
+ guardWorldTap(canvas);
  scene.onPointerObservable.add(event=>{
-  if(event.type!==PointerEventTypes.POINTERTAP)return;
+  if(event.type!==PointerEventTypes.POINTERTAP||!worldTapAllowed(canvas,event.event as PointerEvent))return;
   const pick=scene.pick(scene.pointerX,scene.pointerY,mesh=>mesh.isEnabled()&&
-   mesh.isVisible&&!!(mesh.metadata?.blocksOfferingPick||mesh.metadata?.applicationId||mesh.metadata?.applicationIds));
+   mesh.isVisible&&mesh.isPickable);
   if(!pick?.pickedPoint||Vector3.DistanceSquared(camera.position,pick.pickedPoint)>24*24)return;
   const metadata=pick.pickedMesh?.metadata;
   const id=metadata?.applicationId??metadata?.applicationIds?.[pick.thinInstanceIndex];
@@ -1283,7 +1285,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   const ribs=MeshBuilder.CreateTorus('lantern-gold-band',{diameter:.725,thickness:.002,tessellation:24},scene);ribs.material=bamboo;ribs.parent=lanternRoot;ribs.setEnabled(slots.some(s=>Number(s.id.slice(-4))%3===0));ribs.thinInstanceAdd(slots.filter(s=>Number(s.id.split(':').at(-1))%3===0).map(s=>Matrix.Translation(s.position[0],s.position[1],s.position[2])));
   // Only requested name tags exist. The initial scene has one example (slot 23).
   for(const s of slots){const i=Number(s.id.split(':').at(-1));const name=names.get(i);if(!name)continue;
-   const p=Vector3.FromArray([...s.position]);const string=MeshBuilder.CreateLines('tag-thread',{points:[p.add(new Vector3(0,-.43,0)),p.add(new Vector3(0,-.64,0))]},scene);string.color=new Color3(.56,.43,.31);string.parent=lanternRoot;
+   const p=Vector3.FromArray([...s.position]);const string=MeshBuilder.CreateLines('tag-thread',{points:[p.add(new Vector3(0,-.43,0)),p.add(new Vector3(0,-.64,0))]},scene);string.isPickable=false;string.color=new Color3(.56,.43,.31);string.parent=lanternRoot;
    const texture=new DynamicTexture(`name-tag-${i}`,{width:160,height:640},scene,true);drawTag(texture,name);tagTextures.set(i,texture);
    const material=mat(`tag-paper-${i}`,'#ffffff',.12);material.diffuseTexture=texture;material.backFaceCulling=false;
    const tag=MeshBuilder.CreatePlane(`owned-tag-${i}`,{width:.21,height:.76,sideOrientation:Mesh.DOUBLESIDE},scene);tag.position=p.add(new Vector3(0,-1.02,0));tag.material=material;tag.metadata={applicationId:s.id};tag.parent=lanternRoot;tag.billboardMode=Mesh.BILLBOARDMODE_Y;
@@ -1301,14 +1303,14 @@ export function createTemple(canvas:HTMLCanvasElement) {
    }
    if(path.length<2)continue;
    const line=MeshBuilder.CreateLines('longitudinal-canopy-string',{points:path},scene);
-   line.color=new Color3(.16,.14,.11);line.parent=lanternRoot;
+   line.isPickable=false;line.color=new Color3(.16,.14,.11);line.parent=lanternRoot;
   }
   const cords=slots.map(slot=>{
    const [x,y,z]=slot.position;
    return [new Vector3(x,y+.43,z),new Vector3(x,y+.9,z)];
   });
   const suspension=MeshBuilder.CreateLineSystem('suspension',{lines:cords},scene);
-  suspension.color=new Color3(.25,.2,.12);suspension.parent=lanternRoot;
+  suspension.isPickable=false;suspension.color=new Color3(.25,.2,.12);suspension.parent=lanternRoot;
 
 
   marker=MeshBuilder.CreateTorus('destination-marker',{diameter:1.05,thickness:.035,tessellation:32},scene);marker.material=haloMat;marker.parent=lanternRoot;marker.isVisible=false;setSelected(selected);

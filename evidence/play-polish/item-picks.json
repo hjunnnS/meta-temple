@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "fixtures": "ephemeral public-read response; no stored purchases or prices changed",
+  "results": [
+    {
+      "kind": "lantern",
+      "visiblePick": true
+    },
+    {
+      "kind": "candle",
+      "visiblePick": true
+    },
+    {
+      "kind": "memorial",
+      "visiblePick": true
+    },
+    {
+      "kind": "votive",
+      "visiblePick": true
+    },
+    {
+      "kind": "wish-plaque",
+      "visiblePick": true
+    }
+  ],
+  "occludedRaysBlocked": 4,
+  "errors": []
+}

@@ -16,3 +16,9 @@
 body.guide-active :is(#practice-context,#prayer-point){display:none!important}#practice-open:disabled{opacity:.45;cursor:default}
 
 body.guide-active :is(#meditation-stop,#meditation-status){display:none!important}
+
+.guide-brief{display:flex;align-items:center;gap:8px;margin:12px 0;font-size:14px}.guide-brief input{width:18px;height:18px}.practice-feedback button{border:1px solid #8b996e;border-radius:9px;background:#fffaf0;padding:8px 12px;color:#31503d;font:inherit;cursor:pointer}body.guide-active #public-practice-return{display:none}
+
+#walk-cancel{position:fixed;left:50%;transform:translateX(-50%);bottom:104px;z-index:19;border:1px solid #a7b08e;border-radius:20px;background:#f7f1dce8;padding:9px 16px;color:#31503d}#walk-cancel[hidden]{display:none}@media(max-width:650px){#walk-cancel{bottom:152px}}
+
+body:has(#practice-feedback[data-state=active]:not([hidden])) :is(#meditation-stop,#meditation-status),body:has(#private-practice-feedback[data-state=active]:not([hidden])) #private-practice-stop{display:none!important}

@@ -1,3 +1,4 @@
+import{worldTapAllowed}from'./tap-guard';
 import{Vector3,Matrix}from'@babylonjs/core/Maths/math.vector';
 import{PointerEventTypes}from'@babylonjs/core/Events/pointerEvents';
 import type{Scene}from'@babylonjs/core/scene';import type{ArcRotateCamera}from'@babylonjs/core/Cameras/arcRotateCamera';
@@ -13,7 +14,7 @@ export function guideMonk(scene:Scene,camera:ArcRotateCamera,canvas:HTMLCanvasEl
  if(shadows instanceof ShadowGenerator)for(const mesh of body.root.getChildMeshes())shadows.addShadowCaster(mesh);
  const bubble=document.createElement('div');bubble.id='guide-monk-caption';bubble.hidden=true;bubble.setAttribute('aria-hidden','true');document.body.append(bubble);
  let title='',active=false,paused=false;
- const pointer=scene.onPointerObservable.add(e=>{if(e.type===PointerEventTypes.POINTERTAP&&e.pickInfo?.pickedMesh?.metadata?.guideMonk){const p=position();if(p&&Math.hypot(p[0]-body.root.position.x,p[2]-body.root.position.z)<8)open();}});
+ const pointer=scene.onPointerObservable.add(e=>{if(e.type===PointerEventTypes.POINTERTAP&&worldTapAllowed(canvas,e.event as PointerEvent)&&e.pickInfo?.pickedMesh?.metadata?.guideMonk){const p=position();if(p&&Math.hypot(p[0]-body.root.position.x,p[2]-body.root.position.z)<8)open();}});
  const observer=scene.onAfterRenderObservable.add(()=>{
   const p=position();if(p)body.root.rotation.y=Math.atan2(p[0]-body.root.position.x,p[2]-body.root.position.z);
   body.bow(active?.085:0);

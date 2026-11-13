@@ -1,3 +1,4 @@
+import{audioFocusLevel,watchAudioFocus}from'./audio-focus';
 import { templePlaces } from './temple-layout.ts';
 
 type Soundscape='courtyard'|'forest'|'hall'|'bell';
@@ -42,6 +43,8 @@ export function templeAudio(onStatus:(enabled:boolean,message:string)=>void){
  let context:AudioContext|null=null,master:GainNode|null=null;
  let source:AudioBufferSourceNode|null=null,level:GainNode|null=null;
  let selected:Soundscape='courtyard',volume=.35,ready=false;
+ const updateLevel=()=>{if(context&&master)master.gain.setTargetAtTime(volume*audioFocusLevel('ambience'),context.currentTime,.12);};
+ const unwatch=watchAudioFocus(updateLevel);window.addEventListener('pagehide',unwatch,{once:true});
  const loops=new Map<Soundscape,AudioBuffer>();
  function play(){
   if(!context||!master||!ready)return;
@@ -68,7 +71,7 @@ export function templeAudio(onStatus:(enabled:boolean,message:string)=>void){
   let attempt:AudioContext|null=null;
   let timer:number|undefined;
   try{
-   attempt=new AudioContext();context=attempt;master=context.createGain();master.gain.value=volume;master.connect(context.destination);
+   attempt=new AudioContext();context=attempt;master=context.createGain();master.gain.value=volume*audioFocusLevel('ambience');master.connect(context.destination);
    onStatus(true,'소리 연결 중');
    await Promise.race([attempt.resume(),new Promise<void>((_,reject)=>{
     timer=window.setTimeout(()=>reject(Error('Audio resume timed out')),4000);
@@ -84,6 +87,6 @@ export function templeAudio(onStatus:(enabled:boolean,message:string)=>void){
  window.addEventListener('pagehide',mute);
  return {enable,mute,get enabled(){return context!==null;},
   update(x:number,z:number){const next=soundscapeAt(x,z);if(next!==selected){selected=next;play();}},
-  setVolume(value:number){volume=Math.max(0,Math.min(1,value));if(context&&master)master.gain.setTargetAtTime(volume,context.currentTime,.035);}
+  setVolume(value:number){volume=Math.max(0,Math.min(1,value));updateLevel();}
  };
 }

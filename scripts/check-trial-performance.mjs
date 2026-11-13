@@ -23,7 +23,7 @@ try{
  async function heap(){await cdp.send('HeapProfiler.collectGarbage');return(await cdp.send('Runtime.getHeapUsage')).usedSize;}
  // Warm the private scene before comparing GC-normalized heap growth.
  await go(page,'private');await page.locator('#private-gate-action').click();await page.locator('#private-bow').waitFor();await page.locator('#private-room-exit').click();const beforeHeap=await heap();
- for(let i=0;i<10;i++){await go(page,'private');await page.locator('#private-gate-action').click();await page.locator('#private-meditate').click();await page.waitForTimeout(600);await page.locator('#private-practice-stop').click();await page.locator('#private-room-exit').click();await page.locator('#private-room-controls').waitFor({state:'hidden'});}
+ for(let i=0;i<10;i++){await go(page,'private');await page.locator('#private-gate-action').click();await page.locator('#private-meditate').click();await page.waitForTimeout(600);await page.locator('#private-practice-return:visible, #private-practice-stop:visible').first().click();await page.locator('#private-room-exit').click();await page.locator('#private-room-controls').waitFor({state:'hidden'});}
  report.privateRooms={entries:10,jsHeapBeforeBytes:beforeHeap,jsHeapAfterBytes:await heap(),heapMeaning:'JavaScript heap after GC; excludes GPU/process memory'};
  checks.assertClean();assert.equal(await fingerprint(),report.buildFingerprint,'Hosted asset version changed during measurement');report.pageErrors=checks.errors;report.apiNetworkRequests=checks.requests;report.passed=true;
  if(!smoke){assert(report.loading[0].navigationToFirstRenderedFrameMs<=15000,'First visit exceeds approved 15 seconds');assert(report.loading[1].navigationToFirstRenderedFrameMs<=5000,'Return exceeds approved 5 seconds');}
