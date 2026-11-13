@@ -1,3 +1,4 @@
+import{audioFocusLevel,setAudioFocus,watchAudioFocus}from'./audio-focus';
 import {scheduleAt,services} from './daily-schedule';
 import {locale,t} from './locales';
 
@@ -22,6 +23,8 @@ export function ceremonyBoard(root:HTMLElement,position:()=>number[]|null,view:(
   }catch{/* Retry on the next clock refresh. */}finally{syncing=false;}
  }
  let context:AudioContext|null=null,gain:GainNode|null=null,source:AudioBufferSourceNode|null=null;
+ const audioOwner={};const level=()=>{if(gain&&context)gain.gain.setTargetAtTime(volume()*audioFocusLevel('ceremony'),context.currentTime,.12);};
+ const unwatch=watchAudioFocus(level);window.addEventListener('pagehide',unwatch,{once:true});
  let attending=0,playing='',failed=false,notified=0;
  const schedule=document.createElement('dialog');schedule.id='schedule-panel';schedule.className='service-panel';schedule.setAttribute('aria-labelledby','schedule-title');root.append(schedule);schedule.addEventListener('close',()=>document.querySelector<HTMLElement>('#menu-open')?.focus());
  function openSchedule(){
@@ -34,7 +37,7 @@ export function ceremonyBoard(root:HTMLElement,position:()=>number[]|null,view:(
  const notification=document.createElement('button');notification.id='schedule-notification';notification.hidden=true;notification.onclick=openSchedule;root.append(notification);
  const buffers=new Map<string,Promise<AudioBuffer>>();
  function stop(){
-  attending=0;playing='';buffers.clear();source?.stop();source=null;gain=null;
+  setAudioFocus(audioOwner,'ceremony',false);attending=0;playing='';buffers.clear();source?.stop();source=null;gain=null;
   if(context)void context.close().catch(()=>{});context=null;
  }
  async function play(clip:string){
@@ -49,7 +52,7 @@ export function ceremonyBoard(root:HTMLElement,position:()=>number[]|null,view:(
    const active=scheduleAt(now()).current;
    if(ctx!==context||!gain||playing!==clip||active?.clip!==clip||active.start!==attending)return;
    const node=ctx.createBufferSource();node.buffer=buffer;node.loop=true;node.connect(gain);
-   node.onended=()=>node.disconnect();node.start(0,active.seconds%buffer.duration);source=node;
+   node.onended=()=>node.disconnect();node.start(0,active.seconds%buffer.duration);source=node;setAudioFocus(audioOwner,'ceremony',true);
   }catch{if(ctx===context){stop();failed=true;render();}}
  }
  function render(){
@@ -75,7 +78,7 @@ export function ceremonyBoard(root:HTMLElement,position:()=>number[]|null,view:(
   if(attending){stop();render();return;}
   const active=scheduleAt(now()).current;if(!active)return;
   failed=false;attending=active.start;
-  try{context=new AudioContext();gain=context.createGain();gain.gain.value=volume();gain.connect(context.destination);await context.resume();}
+  try{context=new AudioContext();gain=context.createGain();gain.gain.value=volume()*audioFocusLevel('ceremony');gain.connect(context.destination);await context.resume();}
   catch{stop();failed=true;}
   render();
  };
@@ -83,5 +86,5 @@ export function ceremonyBoard(root:HTMLElement,position:()=>number[]|null,view:(
  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else{lastSync=-Infinity;render();}});
  window.addEventListener('pagehide',()=>{stop();});
  render();
- return {stop,openSchedule,updateVolume(){if(gain)gain.gain.value=volume();}};
+ return {stop,openSchedule,updateVolume:level};
 }

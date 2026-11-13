@@ -393,5 +393,7 @@
   "시험 상품": "Deneme öğesi",
   "선택 가능": "Seçilebilir",
   "선택한 자리": "Seçilen yer",
-  "밝은 테두리의 자리를 선택하세요.": "Açık renk çerçeveli bir yer seçin."
+  "밝은 테두리의 자리를 선택하세요.": "Açık renk çerçeveli bir yer seçin.",
+  "설명 건너뛰기": "Tanıtımı atla",
+  "이동 중 · 멈추기": "Yürüyor · Dur"
 }

@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "touch": false,
+      "passed": true,
+      "realPointWalking": true,
+      "stopWalk": true,
+      "dragNoApplication": true,
+      "briefDoesNotBypassArrival": true,
+      "prayerAudio": true,
+      "guideOwnStopOnly": true,
+      "changeCourseStopsPractice": true,
+      "freeMeditationStop": true,
+      "preferenceReload": true,
+      "normalGuideRetained": true,
+      "errors": []
+    },
+    {
+      "touch": true,
+      "passed": true,
+      "realPointWalking": true,
+      "stopWalk": true,
+      "dragNoApplication": true,
+      "briefDoesNotBypassArrival": true,
+      "prayerAudio": true,
+      "guideOwnStopOnly": true,
+      "changeCourseStopsPractice": true,
+      "freeMeditationStop": true,
+      "preferenceReload": true,
+      "normalGuideRetained": true,
+      "errors": []
+    }
+  ]
+}

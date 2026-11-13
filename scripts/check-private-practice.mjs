@@ -20,7 +20,7 @@ await page.evaluate(()=>{window.practiceChunks=[];const stream=document.querySel
 await page.locator('#private-bow').click();await page.waitForTimeout(2600);await page.screenshot({path:out+'/bow.jpg',quality:92});
 await page.waitForFunction(()=>document.querySelector('#private-practice').dataset.mode==='idle');assert.equal(await page.locator('#private-practice').getAttribute('data-bow-count'),'1');
 await page.locator('#private-meditate').click();await page.waitForFunction(()=>document.querySelector('#private-practice').dataset.mode==='meditating');await page.waitForTimeout(1500);await page.screenshot({path:out+'/meditation.jpg',quality:92});
-await page.locator('#private-practice-stop').click();await page.waitForFunction(()=>document.querySelector('#private-practice').dataset.mode==='idle');await page.waitForTimeout(300);
+await page.locator('#private-practice-return:visible, #private-practice-stop:visible').first().click();await page.waitForFunction(()=>document.querySelector('#private-practice').dataset.mode==='idle');await page.waitForTimeout(300);
 const b64=await page.evaluate(()=>new Promise(resolve=>{window.practiceRecorder.onstop=()=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result.split(',')[1]);reader.readAsDataURL(new Blob(window.practiceChunks,{type:'video/webm'}));};window.practiceRecorder.stop();}));await writeFile(out+'/practice.webm',Buffer.from(b64,'base64'));
 // Movement and Escape recover through standing instead of locking the avatar.
 await page.locator('#private-meditate').click();await page.waitForTimeout(1800);await page.keyboard.down('KeyS');await page.waitForTimeout(1800);await page.keyboard.up('KeyS');assert.equal(await page.locator('#private-practice').getAttribute('data-mode'),'idle');
