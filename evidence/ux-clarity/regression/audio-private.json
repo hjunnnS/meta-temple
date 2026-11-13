@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "realWebAudioGain": {
+    "practice": [
+      0.009620076976716518,
+      0.08894841372966766,
+      0,
+      1,
+      0.07699999958276749
+    ],
+    "narration": [
+      0.009620076976716518,
+      0.0424540713429451,
+      0,
+      1
+    ],
+    "restored": [
+      0.009620076976716518,
+      0.34912583231925964,
+      0,
+      1
+    ]
+  },
+  "normalPracticeStopsWhenOpeningGuide": true,
+  "narrationStoppedOnExit": true,
+  "privatePracticeStops": true,
+  "privateSceneReleased": true,
+  "errors": []
+}
