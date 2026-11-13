@@ -1,3 +1,4 @@
+import{quietMonks}from'./quiet-monks';import{guideMonkSite}from'./quiet-npc-layout';
 import {templeDog} from './temple-dog';
 import {nightEnvironment} from './night-environment';
 import {lanternDisplayPosition,offeringDisplayPosition} from './lantern-display-profile';
@@ -1039,8 +1040,11 @@ export function createTemple(canvas:HTMLCanvasElement) {
  // Merge static geometry by material. Shadow lists are rebuilt to avoid disposed casters.
  const forestLighting=forestLamps(scene,staticMeshes);
  const restingDog=templeDog(scene);for(const mesh of restingDog.getChildMeshes())shadows.addShadowCaster(mesh);
- const walkWorld=pedestrianWorld(staticMeshes);
+ let npcVisitor:()=>readonly number[]|null=()=>null;
+ const quiet=quietMonks(scene,()=>npcVisitor(),wood);
+ const walkWorld=pedestrianWorld(staticMeshes,()=>[...quiet.obstacles(),...(serviceMode?[{...guideMonkSite,radius:.38}]:[])]);
  const walking=walkingController(scene,camera,canvas,walkWorld,bellVisual);
+ npcVisitor=()=>walking.position;
  const sweeper=sweepingMonk(scene,camera,canvas,()=>walking.position);
  const entryTexture=new DynamicTexture('door-direction',128,scene,false);
  const pen=entryTexture.getContext() as CanvasRenderingContext2D;
@@ -1085,6 +1089,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  batchArchitecture(staticMeshes.filter(mesh=>mesh.isVisible),false);batchArchitecture(displayFixtures,true);
  for(const mesh of sweeper.getChildMeshes())shadows.addShadowCaster(mesh);
+ for(const mesh of [...quiet.tea.root.getChildMeshes(),...quiet.walker.root.getChildMeshes(),...quiet.furniture])shadows.addShadowCaster(mesh);
  const updateTrees=distanceTrees(scene,shadows);
  forestLighting.bind();
  const forestLampWindows=scene.meshes.find(m=>m.material===forestLighting.paper);if(forestLampWindows instanceof Mesh)glow.addIncludedOnlyMesh(forestLampWindows);

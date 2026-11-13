@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "touch": false,
+      "passed": true,
+      "destinationBeforeMovement": true,
+      "currentHallDestination": true,
+      "completedBow": true,
+      "cancelledMeditationDistinct": true,
+      "all22PlacesRetained": true,
+      "threeMapGroups": true,
+      "mapMetrics": {
+        "height": 340,
+        "scrollHeight": 460,
+        "viewport": 900
+      },
+      "compactHeight": 216.046875,
+      "compactExpandsAndArrivalRestores": true,
+      "lockReasonVisible": true,
+      "guidePrayerCancellationNotCompleted": true,
+      "completedMeditation": true,
+      "freeExplorationRestored": true,
+      "noSalesFlow": true,
+      "errors": []
+    },
+    {
+      "touch": true,
+      "passed": true,
+      "destinationBeforeMovement": true,
+      "currentHallDestination": true,
+      "completedBow": true,
+      "cancelledMeditationDistinct": true,
+      "all22PlacesRetained": true,
+      "threeMapGroups": true,
+      "mapMetrics": {
+        "height": 194,
+        "scrollHeight": 340,
+        "viewport": 844
+      },
+      "compactHeight": 205.984375,
+      "compactExpandsAndArrivalRestores": true,
+      "lockReasonVisible": true,
+      "guidePrayerCancellationNotCompleted": true,
+      "completedMeditation": true,
+      "freeExplorationRestored": true,
+      "noSalesFlow": true,
+      "errors": []
+    }
+  ]
+}

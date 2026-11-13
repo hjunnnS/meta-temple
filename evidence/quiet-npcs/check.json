@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "touch": false,
+      "passed": true,
+      "guideAlwaysVisible": true,
+      "realNpcTapOpensFiveCourses": true,
+      "anchorUnchangedThroughGuideAndFinish": true,
+      "visitorTeaSeatKept": true,
+      "teaSipMovesCup": true,
+      "walkerMovesAlongPathEdge": true,
+      "errors": []
+    },
+    {
+      "touch": true,
+      "passed": true,
+      "guideAlwaysVisible": true,
+      "realNpcTapOpensFiveCourses": true,
+      "anchorUnchangedThroughGuideAndFinish": true,
+      "visitorTeaSeatKept": true,
+      "teaSipMovesCup": true,
+      "walkerMovesAlongPathEdge": true,
+      "errors": []
+    }
+  ]
+}
