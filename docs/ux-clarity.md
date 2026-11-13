@@ -23,3 +23,7 @@
 - 실제 인증·실결제·운영 DB·다인 부하를 새로 검수한 것으로 간주하지 않는다. 가격/결제 관련 구현 및 정책 변경 없음. 기존 큰 번들 빌드 안내는 남아 있다.
 
 증빙: evidence/ux-clarity/check.json, small-screen.json, regression/* 및 PC/터치 화면.
+
+## 체험판 반영
+
+기존 공개 체험판 주소에 버전 28 배포 성공. 소스 78583c3780063a8fa8fcce1ef4d5307aec29b9f1. 검수한 배포용 묶음을 게시했고 공개 범위는 유지했다. 배포 영수증은 evidence/ux-clarity/publication.json에 보관한다.
