@@ -1,0 +1,170 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "language": "ko",
+      "touch": false,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "language": "ja",
+      "touch": true,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "language": "en",
+      "touch": true,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "language": "zh-Hans",
+      "touch": true,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "language": "pt-PT",
+      "touch": true,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "language": "es",
+      "touch": true,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "language": "fr",
+      "touch": true,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "language": "it",
+      "touch": true,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "language": "pt-BR",
+      "touch": true,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "language": "ms",
+      "touch": true,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "language": "de",
+      "touch": true,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "language": "vi",
+      "touch": true,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "language": "ru",
+      "touch": true,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "language": "tr",
+      "touch": true,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "language": "ko",
+      "touch": true,
+      "sixTopics": true,
+      "sixDeities": true,
+      "sixDescriptions": true,
+      "sixArrivals": true,
+      "guest": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    }
+  ]
+}

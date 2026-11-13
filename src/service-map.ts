@@ -3,6 +3,7 @@ import {locale,t} from './locales';
 import {templePlaces,wishGarden,courtSouthEdge,courtDepth,candleCourt,memorialGarden} from './temple-layout';
 import {boundaries,paving,sanctuaryWalk,rearPrayerWalk,prayerHallApproaches,teaApproach,teaGardenWalk,eastCourts,pond,teaPavilion,personalGate,sweepingMonkSite,coinThrowBank} from './temple-terrain';
 import {practiceSeat} from './hall-seats';
+import {prayerPlaceInfo} from './prayer-place-info';
 export interface ServicePlace {id:string;label:string;description:string;x:number;z:number;arrival:readonly[number,number];view:string}
 const site=(id:string)=>templePlaces.find(p=>p.id===id)!;
 export const servicePlaces:ServicePlace[]=[
@@ -32,21 +33,22 @@ export function serviceMap(parent:HTMLElement,position:()=>readonly number[]|nul
  svg('rect',{x:'-35.5',y:String(-(courtSouthEdge+courtDepth)),width:'71',height:String(courtDepth),fill:'#dadfc9'});
  svg('ellipse',{cx:String(pond.x),cy:String(-pond.z),rx:String(pond.width/2),ry:String(pond.depth/2),fill:'#b5cbb6'});
  const list=document.createElement('div');list.className='service-place-list';const detail=document.createElement('div');detail.className='service-place-detail';
- const title=document.createElement('h3'),description=document.createElement('p'),move=document.createElement('button');move.className='service-primary';move.textContent=t('이곳으로 이동');detail.append(title,description,move);
+ const title=document.createElement('h3'),topic=document.createElement('small'),description=document.createElement('p'),move=document.createElement('button');topic.className='service-prayer-topic';move.className='service-primary';move.textContent=t('이곳으로 이동');detail.append(title,topic,description,move);
  const sidebar=document.createElement('div');sidebar.append(list,detail);layout.append(image,sidebar);parent.append(hint,layout);
  title.setAttribute('aria-live','polite');title.setAttribute('aria-atomic','true');
  const labels=new Map<string,SVGElement>(),nodes=new Map<string,SVGElement>(),markers=new Map<string,SVGElement>(),buttons=new Map<string,HTMLButtonElement>();let selected=servicePlaces[0];
- function choose(place:ServicePlace){selected=place;for(const[id,node]of nodes)node.setAttribute('fill',id===place.id?'#355b42':'#bdc7aa');for(const[id,label]of labels)label.setAttribute('fill',id===place.id?'#fff8e2':'#314b34');for(const controls of [markers,buttons])for(const[id,control]of controls)control.setAttribute('aria-pressed',String(id===place.id));title.textContent=t(place.label);description.textContent=t(place.description);}
+ const placeLabel=(place:ServicePlace)=>t(place.label)+(prayerPlaceInfo[place.id]?' · '+t(prayerPlaceInfo[place.id].topic):'');
+ function choose(place:ServicePlace){selected=place;for(const[id,node]of nodes)node.setAttribute('fill',id===place.id?'#355b42':'#bdc7aa');for(const[id,label]of labels)label.setAttribute('fill',id===place.id?'#fff8e2':'#314b34');for(const controls of [markers,buttons])for(const[id,control]of controls)control.setAttribute('aria-pressed',String(id===place.id));const info=prayerPlaceInfo[place.id];title.textContent=t(place.label)+(info?' · '+t(info.deity):'');topic.hidden=!info;topic.textContent=info?t('대표적인 기도 주제')+' · '+t(info.topic):'';description.textContent=t(info?.description??place.description);}
  for(const place of servicePlaces){
   const number=String(servicePlaces.indexOf(place)+1).padStart(2,'0');
-  const marker=svg('g',{role:'button',tabindex:'0','aria-label':number+' · '+t(place.label),'data-map-place':place.id,class:'service-map-marker'});
+  const marker=svg('g',{role:'button',tabindex:'0','aria-label':number+' · '+placeLabel(place),'data-map-place':place.id,class:'service-map-marker'});
   const node=svg('rect',{x:String(place.x-4.3),y:String(-place.z-2.8),width:'8.6',height:'5.6',rx:'1',fill:'#bdc7aa'});nodes.set(place.id,node);
   const text=svg('text',{x:String(place.x),y:String(-place.z+1),'text-anchor':'middle',fill:'#314b34','font-size':'4'},number);labels.set(place.id,text);text.style.pointerEvents='none';
   marker.append(node,text);if(place.id===guidePlace)marker.classList.add('guide-map-target');markers.set(place.id,marker);
   marker.addEventListener('click',()=>choose(place));
   marker.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();choose(place);}});
  }
- for(const place of [...servicePlaces].sort((a,b)=>t(a.label).localeCompare(t(b.label),locale))){const b=document.createElement('button');b.type='button';b.dataset.destination=place.view;b.dataset.place=place.id;b.textContent=String(servicePlaces.indexOf(place)+1).padStart(2,'0')+' · '+t(place.label);b.onclick=()=>choose(place);buttons.set(place.id,b);list.append(b);}
+ for(const place of [...servicePlaces].sort((a,b)=>t(a.label).localeCompare(t(b.label),locale))){const b=document.createElement('button');b.type='button';b.dataset.destination=place.view;b.dataset.place=place.id;b.textContent=String(servicePlaces.indexOf(place)+1).padStart(2,'0')+' · '+placeLabel(place);b.onclick=()=>choose(place);buttons.set(place.id,b);list.append(b);}
  const at=position();if(at){const dot=svg('circle',{cx:String(at[0]),cy:String(-at[2]),r:'1.8',fill:'#d1a847',stroke:'#fff9e9','stroke-width':'.65'});const label=svg('text',{x:String(at[0]+3),y:String(-at[2]+1),'font-size':'4',fill:'#4c603f'},t('현재 위치'));label.setAttribute('aria-hidden','true');dot.setAttribute('aria-label',t('현재 위치'));dot.style.pointerEvents=label.style.pointerEvents='none';}
  move.onclick=()=>navigate(selected);choose(servicePlaces.find(p=>p.id===guidePlace)??selected);
 }

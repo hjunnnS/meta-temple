@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {prayerPlaceInfo} from '../src/prayer-place-info.ts';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {languages} from '../src/locales/languages.ts';
@@ -18,7 +19,7 @@ for(const [code,touch] of all?languages.map(([code])=>[code,code!=='ko']):[['ko'
  async function check(id){const marker=page.locator('[data-map-place="'+id+'"]'),list=page.locator('.service-place-list [data-place="'+id+'"]');
  assert.equal(await marker.getAttribute('aria-pressed'),'true');assert.equal(await list.getAttribute('aria-pressed'),'true');
  assert.equal(await page.locator('[data-map-place][aria-pressed=true]').count(),1);assert.equal(await page.locator('.service-place-list [aria-pressed=true]').count(),1);
- const label=await marker.getAttribute('aria-label');assert.equal(await list.textContent(),label);assert.equal(await page.locator('.service-place-detail h3').textContent(),label.replace(/^\d+ · /,''));
+ const label=await marker.getAttribute('aria-label');assert.equal(await list.textContent(),label);const titleText=await page.locator('.service-place-detail h3').textContent(),name=label.replace(/^\d+ · /,'');if(prayerPlaceInfo[id])assert(titleText.startsWith(name.slice(0,name.lastIndexOf(' · '))+' · '));else assert.equal(titleText,name);
  if(code!=='ko')assert(!/[가-힣]/.test(label),code+' untranslated marker');}
  for(const id of ids){const marker=page.locator('[data-map-place="'+id+'"]');await marker.scrollIntoViewIfNeeded();if(touch)await marker.tap();else await marker.click();await check(id);assert(await page.locator('#spaces-panel').isVisible());}
  for(const key of ['Enter',' ']){const marker=page.locator('[data-map-place=daeung]');await marker.focus();await page.keyboard.press(key);await check('daeung');}
