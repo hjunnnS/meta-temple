@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {launchBrowser} from './browser.mjs';import {enterTrial,exposeScene,monitor} from './trial-helpers.mjs';
 import {languages} from '../src/locales/languages.ts';import {prayerPlaceInfo} from '../src/prayer-place-info.ts';import {rearPrayerHalls,prayerHallPoint,prayerAisleX} from '../src/prayer-halls.ts';import {templePlaces} from '../src/temple-layout.ts';
-const out='evidence/prayer-map';await mkdir(out,{recursive:true});const browser=await launchBrowser({channel:'chrome'}),results=[];let page;
+const out=process.env.PRAYER_MAP_EVIDENCE??'evidence/prayer-map';await mkdir(out,{recursive:true});const browser=await launchBrowser({channel:'chrome'}),results=[];let page;
 try{
 for(const [language,touch] of [...languages.map(([id])=>[id,id!=='ko']),['ko',true]]){
  const context=await browser.newContext({viewport:{width:touch?320:1440,height:touch?740:960},hasTouch:touch,isMobile:touch,reducedMotion:'reduce'});
