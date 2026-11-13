@@ -12,3 +12,5 @@
 @media(max-width:650px){#guide-welcome,#guide-card{left:12px;bottom:auto;top:99px;width:calc(100vw - 24px);max-width:none;max-height:38dvh;overflow:auto;padding:14px;font-size:14px}#guide-card h2,#guide-welcome h2{font-size:17px;margin-bottom:8px}.guide-actions{gap:6px;margin-top:8px}#guide-card p,#guide-welcome p{margin:6px 0 10px}#guide-card .guide-tools{margin-top:8px}#guide-card button,#guide-welcome button{padding:8px 11px}}
 
 #practice-feedback{position:fixed;right:24px;bottom:120px;z-index:18;width:280px;padding:14px 18px;border-radius:16px;background:#f7f1dce8;color:#31503d;pointer-events:none;font:14px/1.6 system-ui}#practice-feedback[hidden]{display:none}#practice-feedback p{margin:6px 0}.practice-breath{display:block;width:36px;height:36px;border:2px solid #b99a57;border-radius:50%;box-shadow:0 0 15px #e1c88e66;margin:6px auto}@media(max-width:650px){#practice-feedback{left:12px;right:12px;bottom:178px;width:auto;padding:8px 12px}.practice-breath{width:24px;height:24px;margin:3px auto}}
+
+body.guide-active :is(#practice-context,#prayer-point){display:none!important}#practice-open:disabled{opacity:.45;cursor:default}

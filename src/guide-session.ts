@@ -13,7 +13,7 @@ export class GuideSession{
  advance(arrived:boolean){
   if(!this.active||this.stage==='finish')return false;
   if(this.stage==='travel'&&!arrived||this.stage==='prayer'&&this.prayer==='pending'||this.stage==='practice'&&this.practice==='pending'||this.stage==='offering'&&this.offering==='pending')return false;
-  this.stage=guideStages[guideStages.indexOf(this.stage)+1];this.revision++;return true;
+  if(this.stage==='practice'){this.offering='skipped';this.stage='finish';}else this.stage=guideStages[guideStages.indexOf(this.stage)+1];this.revision++;return true;
  }
  previous(){if(!this.active||this.stage==='prepare')return false;this.stage=guideStages[guideStages.indexOf(this.stage)-1];this.revision++;return true;}
  result(stage:'prayer'|'practice'|'offering',result:GuideResult){if(this.active&&this.stage===stage){this[stage]=result;return true;}return false;}

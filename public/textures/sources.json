@@ -167,144 +167,144 @@
     "file": "public/guide/prepare-health.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 91436,
-    "sha256": "9d9943e471a971d9f2aca931314edc3f48a13b771cbf24593daafb2ab95f122c"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/travel-health.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 76940,
-    "sha256": "67942eadfd1cd0f22287be2d3548a547fba71bd95c3d96c3d7dbc620c98c9739"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/prayer-health.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 146324,
-    "sha256": "ab24dd14bdccf73b25ab10df9f9ead9bf2248b21c55c644acb790c0516788aee"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/practice.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 111092,
-    "sha256": "c0809536dccaf81314750aab6f1660a968d65bb1be2680307583373f04935ffc"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/offering.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 101876,
-    "sha256": "e8957881fcb1a36766888f5cf0c39fa7c9ee8f0fe99c1116d0f9d97007f0d940"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/finish.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 104804,
-    "sha256": "066cf5deaee57adf4a61f7fc4174abc0458d2c7b83fb1491d3c7dae0da1ee267"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/prepare-family.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 89180,
-    "sha256": "b9e1683283901686ab68753012d3eaf888045858c3aa9a94c86f6e2db5976a51"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/travel-family.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 78284,
-    "sha256": "8c4b05ca292dee19484cb0617065f6a21380a0bc6d3303d388ea74c7a41595c0"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/prayer-family.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 132836,
-    "sha256": "e68062435133a182b9a81a681e8d340b4724df0fa07860cdcec07910b14077b4"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/prepare-exam.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 95732,
-    "sha256": "42b3c1cb6a8b99fc91626be0f410bbd75c3921366674eb88de524c8042b61c49"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/travel-exam.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 78212,
-    "sha256": "c9e4385603176d70f1ac1fd084d5000f24937c81255f2fa7cdc29e08ff407c19"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/prayer-exam.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 161012,
-    "sha256": "e32a183f49f3f53b3b684b6db0d5aef8ff3b9b8e8ed949c80b3eefceae6b9a60"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/prepare-relationship.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 108092,
-    "sha256": "52169cdd95f6fb9cb2cc3988e00caa5829cce2868dad22e2ec7a636309b6d408"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/travel-relationship.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 77300,
-    "sha256": "0cea0affb18d141f92bbf62231251e74a08cf595e190765815f21a89363fe34f"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/prayer-relationship.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 144404,
-    "sha256": "9fae5b887600053cda897857735a5b1b12bcb31655b4c0e9811f20d7f3330a98"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/prepare-loss.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 97532,
-    "sha256": "d246c28361165c53bd4f5b13789465bceba0aa06644f5e4dccb76904f5f221ca"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/travel-loss.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 79196,
-    "sha256": "56450ec3c0dd691868083629af94cd1afe592ec9c1f26d818c821ea8d82064dc"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   },
   {
     "file": "public/guide/prayer-loss.mp3",
     "source": "scripts/make-guide-voice.py",
     "credit": "SASA local prototype narration, macOS Reed",
-    "rights": "Locally synthesized prototype speech; final religious and production audio review is separate",
-    "bytes": 171164,
-    "sha256": "b597e55efd38da13d85337ba73e8097c09b0b074a8994e50cc7b2a6f0c7337f5"
+    "rights": "Locally synthesized prototype speech; temporary audio; replacement recordings can be supplied by the service owner",
+    "bytes": 236,
+    "sha256": "c50793e8106723006b14005a9de89c1ec69ddfd02192545f35075d2de302018d"
   }
 ]
