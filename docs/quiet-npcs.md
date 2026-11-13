@@ -27,3 +27,7 @@
 - 기존 UI 1~5의 PC/터치 회귀 통과. 이전 증빙은 보존하고 이번 결과만 regression 폴더에 분리.
 
 증빙: evidence/quiet-npcs/check.json, life.json, regression/ux-check.json 및 PC/터치 화면. 터치는 브라우저 모드이며 실휴대폰/Safari/운영 다인 부하를 새로 검수한 것으로 간주하지 않는다. 기존 큰 번들 안내는 남아 있다.
+
+## 체험판 반영
+
+기존 공개 주소에 버전 29 배포 성공. 검수한 소스 8c70101f2040dd4021db2ac123d525dece82f52c의 배포용 묶음을 게시했다. 공개 범위는 유지하며 배포 영수증은 evidence/quiet-npcs/publication.json에 보관한다.
