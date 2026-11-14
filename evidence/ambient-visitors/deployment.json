@@ -1,0 +1,14 @@
+{
+  "version": 31,
+  "sourceCommit": "00b851e808619d72365d731a475082b1f52a7dfe",
+  "versionId": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_7952d3aeef4481918231247aa7961762",
+  "deploymentId": "appgdep_6af7d8a1b68c81919f096c9d25388006",
+  "status": "succeeded",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "checks": {
+    "canonical": 103,
+    "trial": 40,
+    "desktopAndTouch": true,
+    "realPopulationResponses": "simulated 10/20; live multiplayer not connected"
+  }
+}
