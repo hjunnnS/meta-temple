@@ -1,0 +1,2686 @@
+{
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "results": [
+    {
+      "id": "lantern-a",
+      "before": {
+        "appearance": "refined-human",
+        "monk": false,
+        "productionApplied": true,
+        "ambientVisitor": true,
+        "id": "lantern-a",
+        "place": "연등길",
+        "role": "look",
+        "activity": "연등 감상",
+        "phase": 29.19209999966621,
+        "walking": false,
+        "p": [
+          -7,
+          0.01,
+          -32
+        ],
+        "focus": true,
+        "hidden": false,
+        "mesh": [
+          {
+            "name": "ambient-visitor-lantern-a-face",
+            "p": [
+              -7,
+              1.3600000143051147,
+              -32
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-ear",
+            "p": [
+              -7.252081394195557,
+              1.3446904420852661,
+              -31.884353637695312
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-eye",
+            "p": [
+              -7.015200138092041,
+              1.4500442743301392,
+              -31.758047103881836
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-eye-light",
+            "p": [
+              -7.0182881355285645,
+              1.4629161357879639,
+              -31.75274085998535
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-eyebrow",
+            "p": [
+              -7.025714874267578,
+              1.52060866355896,
+              -31.78207778930664
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-ear",
+            "p": [
+              -6.743996620178223,
+              1.3446904420852661,
+              -32.106685638427734
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-eye",
+            "p": [
+              -6.8119659423828125,
+              1.4500442743301392,
+              -31.84697914123535
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-eye-light",
+            "p": [
+              -6.815053939819336,
+              1.4629161357879639,
+              -31.841672897338867
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-eyebrow",
+            "p": [
+              -6.82248067855835,
+              1.52060866355896,
+              -31.871009826660156
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-nose",
+            "p": [
+              -6.905551910400391,
+              1.3988721370697021,
+              -31.784160614013672
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-quiet-smile",
+            "p": [
+              -7,
+              1.3600000143051147,
+              -32
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-hair-cap",
+            "p": [
+              -7,
+              1.3600000143051147,
+              -32
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-swept-fringe",
+            "p": [
+              -7,
+              1.3600000143051147,
+              -32
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-crown-sweep",
+            "p": [
+              -7,
+              1.3600000143051147,
+              -32
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-parted-side",
+            "p": [
+              -7,
+              1.3600000143051147,
+              -32
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-lower-sleeve",
+            "p": [
+              -7.186975479125977,
+              0.6759999394416809,
+              -31.920948028564453
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-cuff",
+            "p": [
+              -7.186975479125977,
+              0.5787999629974365,
+              -31.920948028564453
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-palm",
+            "p": [
+              -7.185028553009033,
+              0.5544999837875366,
+              -31.91634178161621
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-thumb",
+            "p": [
+              -7.138765335083008,
+              0.5706999897956848,
+              -31.925045013427734
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-finger-fold",
+            "p": [
+              -7.185028553009033,
+              0.5544999837875366,
+              -31.91634178161621
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-finger-fold",
+            "p": [
+              -7.185028553009033,
+              0.5544999837875366,
+              -31.91634178161621
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-upper-sleeve",
+            "p": [
+              -7.186975479125977,
+              0.9009999632835388,
+              -31.920948028564453
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-lower-sleeve",
+            "p": [
+              -6.813024520874023,
+              0.6759999394416809,
+              -32.07905197143555
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-cuff",
+            "p": [
+              -6.813024520874023,
+              0.5787999629974365,
+              -32.07905197143555
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-palm",
+            "p": [
+              -6.81107759475708,
+              0.5544999837875366,
+              -32.07444763183594
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-thumb",
+            "p": [
+              -6.849552154541016,
+              0.5706999897956848,
+              -32.047325134277344
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-finger-fold",
+            "p": [
+              -6.81107759475708,
+              0.5544999837875366,
+              -32.07444763183594
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-finger-fold",
+            "p": [
+              -6.81107759475708,
+              0.5544999837875366,
+              -32.07444763183594
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-upper-sleeve",
+            "p": [
+              -6.813024520874023,
+              0.9009999632835388,
+              -32.07905197143555
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-soft-shirt",
+            "p": [
+              -7,
+              0.8514999747276306,
+              -32
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shirt-hem",
+            "p": [
+              -7,
+              0.6336999535560608,
+              -32
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shirt-placket",
+            "p": [
+              -6.941197872161865,
+              0.887499988079071,
+              -31.860919952392578
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-cloth-button",
+            "p": [
+              -6.93730354309082,
+              0.9954999685287476,
+              -31.851709365844727
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-cloth-button",
+            "p": [
+              -6.93730354309082,
+              0.9054999947547913,
+              -31.851709365844727
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-cloth-button",
+            "p": [
+              -6.93730354309082,
+              0.8154999613761902,
+              -31.851709365844727
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-collar",
+            "p": [
+              -7,
+              0.8514999747276306,
+              -32
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-collar",
+            "p": [
+              -7,
+              0.8514999747276306,
+              -32
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-neck",
+            "p": [
+              -7,
+              1.094499945640564,
+              -32
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-lower-trouser",
+            "p": [
+              -7.101316928863525,
+              0.26672497391700745,
+              -31.957164764404297
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-upper",
+            "p": [
+              -7.0843963623046875,
+              0.07404396682977676,
+              -31.917144775390625
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-sole",
+            "p": [
+              -7.0843963623046875,
+              0.02996196784079075,
+              -31.917144775390625
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-toe",
+            "p": [
+              -7.0465569496154785,
+              0.05697996914386749,
+              -31.82764434814453
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-lace",
+            "p": [
+              -7.079166889190674,
+              0.09679596871137619,
+              -31.904773712158203
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-lace",
+            "p": [
+              -7.079166889190674,
+              0.07688797265291214,
+              -31.904773712158203
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-upper-trouser",
+            "p": [
+              -7.101316928863525,
+              0.5155749917030334,
+              -31.957164764404297
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-lower-trouser",
+            "p": [
+              -6.898683071136475,
+              0.26672497391700745,
+              -32.0428352355957
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-upper",
+            "p": [
+              -6.881762504577637,
+              0.07404396682977676,
+              -32.00281524658203
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-sole",
+            "p": [
+              -6.881762504577637,
+              0.02996196784079075,
+              -32.00281524658203
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-toe",
+            "p": [
+              -6.843923091888428,
+              0.05697996914386749,
+              -31.91331672668457
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-lace",
+            "p": [
+              -6.876533031463623,
+              0.09679596871137619,
+              -31.990446090698242
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-lace",
+            "p": [
+              -6.876533031463623,
+              0.07688797265291214,
+              -31.990446090698242
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-upper-trouser",
+            "p": [
+              -6.898683071136475,
+              0.5155749917030334,
+              -32.0428352355957
+            ]
+          },
+          {
+            "name": "ambient-label-lantern-a",
+            "p": [
+              -7,
+              1.9900000095367432,
+              -32
+            ]
+          }
+        ]
+      },
+      "after": {
+        "appearance": "refined-human",
+        "monk": false,
+        "productionApplied": true,
+        "ambientVisitor": true,
+        "id": "lantern-a",
+        "place": "연등길",
+        "role": "look",
+        "activity": "연등 감상",
+        "phase": 38.22469999980915,
+        "walking": false,
+        "p": [
+          -7,
+          0.01,
+          -32
+        ],
+        "focus": true,
+        "hidden": false,
+        "mesh": [
+          {
+            "name": "ambient-visitor-lantern-a-face",
+            "p": [
+              -6.982874393463135,
+              1.3589112758636475,
+              -31.95949363708496
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-ear",
+            "p": [
+              -7.241968154907227,
+              1.3440583944320679,
+              -31.86046600341797
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-eye",
+            "p": [
+              -7.010951519012451,
+              1.4384373426437378,
+              -31.71416664123535
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-eye-light",
+            "p": [
+              -7.01405668258667,
+              1.4511228799819946,
+              -31.708341598510742
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-eyebrow",
+            "p": [
+              -7.018270015716553,
+              1.5101910829544067,
+              -31.734792709350586
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-ear",
+            "p": [
+              -6.7211527824401855,
+              1.342707872390747,
+              -32.05107116699219
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-eye",
+            "p": [
+              -6.8026251792907715,
+              1.4378970861434937,
+              -31.790409088134766
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-eye-light",
+            "p": [
+              -6.80573034286499,
+              1.4505826234817505,
+              -31.784584045410156
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-eyebrow",
+            "p": [
+              -6.809944152832031,
+              1.5096509456634521,
+              -31.811033248901367
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-nose",
+            "p": [
+              -6.9011335372924805,
+              1.386082410812378,
+              -31.736379623413086
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-quiet-smile",
+            "p": [
+              -6.982874393463135,
+              1.3589112758636475,
+              -31.95949363708496
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-hair-cap",
+            "p": [
+              -6.982874393463135,
+              1.3589112758636475,
+              -31.95949363708496
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-swept-fringe",
+            "p": [
+              -6.982874393463135,
+              1.3589112758636475,
+              -31.95949363708496
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-crown-sweep",
+            "p": [
+              -6.982874393463135,
+              1.3589112758636475,
+              -31.95949363708496
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-parted-side",
+            "p": [
+              -6.982874393463135,
+              1.3589112758636475,
+              -31.95949363708496
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-lower-sleeve",
+            "p": [
+              -7.186119079589844,
+              0.6759455800056458,
+              -31.918922424316406
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-cuff",
+            "p": [
+              -7.188431262969971,
+              0.5788925290107727,
+              -31.92439079284668
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-palm",
+            "p": [
+              -7.1870646476745605,
+              0.5543819069862366,
+              -31.921159744262695
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-thumb",
+            "p": [
+              -7.140422344207764,
+              0.5700626373291016,
+              -31.928964614868164
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-finger-fold",
+            "p": [
+              -7.1870646476745605,
+              0.5543819069862366,
+              -31.921159744262695
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-finger-fold",
+            "p": [
+              -7.1870646476745605,
+              0.5543819069862366,
+              -31.921159744262695
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-upper-sleeve",
+            "p": [
+              -7.180767059326172,
+              0.9006053805351257,
+              -31.906265258789062
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-lower-sleeve",
+            "p": [
+              -6.706161022186279,
+              0.7852554321289062,
+              -31.826295852661133
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-cuff",
+            "p": [
+              -6.666316032409668,
+              0.7541452646255493,
+              -31.732053756713867
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-palm",
+            "p": [
+              -6.655732154846191,
+              0.7506309747695923,
+              -31.707019805908203
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-thumb",
+            "p": [
+              -6.703495502471924,
+              0.7643425464630127,
+              -31.701866149902344
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-finger-fold",
+            "p": [
+              -6.655732154846191,
+              0.7506309747695923,
+              -31.707019805908203
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-finger-fold",
+            "p": [
+              -6.655732154846191,
+              0.7506309747695923,
+              -31.707019805908203
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-upper-sleeve",
+            "p": [
+              -6.778055191040039,
+              0.9190019965171814,
+              -31.996341705322266
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-soft-shirt",
+            "p": [
+              -6.994969367980957,
+              0.8511801958084106,
+              -31.988101959228516
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shirt-hem",
+            "p": [
+              -7.000149726867676,
+              0.6337095499038696,
+              -32.0003547668457
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shirt-placket",
+            "p": [
+              -6.935400009155273,
+              0.8796550035476685,
+              -31.847206115722656
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-cloth-button",
+            "p": [
+              -6.928942680358887,
+              0.9869969487190247,
+              -31.831933975219727
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-cloth-button",
+            "p": [
+              -6.9310832023620605,
+              0.8971330523490906,
+              -31.836997985839844
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-cloth-button",
+            "p": [
+              -6.933224201202393,
+              0.8072691559791565,
+              -31.842060089111328
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-collar",
+            "p": [
+              -6.994969367980957,
+              0.8511801958084106,
+              -31.988101959228516
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-collar",
+            "p": [
+              -6.994969367980957,
+              0.8511801958084106,
+              -31.988101959228516
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-neck",
+            "p": [
+              -6.989189147949219,
+              1.0938127040863037,
+              -31.974430084228516
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-lower-trouser",
+            "p": [
+              -7.101316928863525,
+              0.26672497391700745,
+              -31.957164764404297
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-upper",
+            "p": [
+              -7.0843963623046875,
+              0.07404396682977676,
+              -31.917144775390625
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-sole",
+            "p": [
+              -7.0843963623046875,
+              0.02996196784079075,
+              -31.917144775390625
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-toe",
+            "p": [
+              -7.0465569496154785,
+              0.05697996914386749,
+              -31.82764434814453
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-lace",
+            "p": [
+              -7.079166889190674,
+              0.09679596871137619,
+              -31.904773712158203
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-lace",
+            "p": [
+              -7.079166889190674,
+              0.07688797265291214,
+              -31.904773712158203
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-upper-trouser",
+            "p": [
+              -7.101316928863525,
+              0.5155749917030334,
+              -31.957164764404297
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-lower-trouser",
+            "p": [
+              -6.898683071136475,
+              0.26672497391700745,
+              -32.0428352355957
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-upper",
+            "p": [
+              -6.881762504577637,
+              0.07404396682977676,
+              -32.00281524658203
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-sole",
+            "p": [
+              -6.881762504577637,
+              0.02996196784079075,
+              -32.00281524658203
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-toe",
+            "p": [
+              -6.843923091888428,
+              0.05697996914386749,
+              -31.91331672668457
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-lace",
+            "p": [
+              -6.876533031463623,
+              0.09679596871137619,
+              -31.990446090698242
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-shoe-lace",
+            "p": [
+              -6.876533031463623,
+              0.07688797265291214,
+              -31.990446090698242
+            ]
+          },
+          {
+            "name": "ambient-visitor-lantern-a-upper-trouser",
+            "p": [
+              -6.898683071136475,
+              0.5155749917030334,
+              -32.0428352355957
+            ]
+          },
+          {
+            "name": "ambient-label-lantern-a",
+            "p": [
+              -7,
+              1.9900000095367432,
+              -32
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "walk-a",
+      "before": {
+        "appearance": "refined-human",
+        "monk": false,
+        "productionApplied": true,
+        "ambientVisitor": true,
+        "id": "walk-a",
+        "place": "뒤 산책길",
+        "role": "walk",
+        "activity": "산책",
+        "phase": 57.708399999856944,
+        "walking": true,
+        "p": [
+          11.143761673104404,
+          0.01,
+          90.76421787451717
+        ],
+        "focus": true,
+        "hidden": false,
+        "mesh": [
+          {
+            "name": "ambient-visitor-walk-a-face",
+            "p": [
+              11.14376163482666,
+              1.3543269634246826,
+              90.76422119140625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-ear",
+            "p": [
+              11.148981094360352,
+              1.3383969068527222,
+              91.04147338867188
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-eye",
+            "p": [
+              11.380627632141113,
+              1.3872489929199219,
+              90.8707046508789
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-eye-light",
+            "p": [
+              11.388154029846191,
+              1.3987185955047607,
+              90.87551879882812
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-eyebrow",
+            "p": [
+              11.37708854675293,
+              1.461588978767395,
+              90.87076568603516
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-ear",
+            "p": [
+              11.138542175292969,
+              1.3383969068527222,
+              90.48696899414062
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-eye",
+            "p": [
+              11.376452445983887,
+              1.3872489929199219,
+              90.6489028930664
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-eye-light",
+            "p": [
+              11.383978843688965,
+              1.3987185955047607,
+              90.65371704101562
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-eyebrow",
+            "p": [
+              11.372913360595703,
+              1.461588978767395,
+              90.64897155761719
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-nose",
+            "p": [
+              11.382079124450684,
+              1.3330869674682617,
+              90.75973510742188
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-quiet-smile",
+            "p": [
+              11.14376163482666,
+              1.3543269634246826,
+              90.76422119140625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-hair-cap",
+            "p": [
+              11.14376163482666,
+              1.3543269634246826,
+              90.76422119140625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-swept-fringe",
+            "p": [
+              11.14376163482666,
+              1.3543269634246826,
+              90.76422119140625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-crown-sweep",
+            "p": [
+              11.14376163482666,
+              1.3543269634246826,
+              90.76422119140625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-parted-side",
+            "p": [
+              11.14376163482666,
+              1.3543269634246826,
+              90.76422119140625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-lower-sleeve",
+            "p": [
+              11.191040992736816,
+              0.6715894341468811,
+              90.96424865722656
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-cuff",
+            "p": [
+              11.200409889221191,
+              0.5747579336166382,
+              90.96354675292969
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-palm",
+            "p": [
+              11.207718849182129,
+              0.550941526889801,
+              90.96299743652344
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-thumb",
+            "p": [
+              11.212651252746582,
+              0.5678630471229553,
+              90.91649627685547
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-finger-fold",
+            "p": [
+              11.207718849182129,
+              0.550941526889801,
+              90.96299743652344
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-finger-fold",
+            "p": [
+              11.207718849182129,
+              0.550941526889801,
+              90.96299743652344
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-upper-sleeve",
+            "p": [
+              11.169353485107422,
+              0.8957364559173584,
+              90.96587371826172
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-lower-sleeve",
+            "p": [
+              11.096482276916504,
+              0.6715894341468811,
+              90.56419372558594
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-cuff",
+            "p": [
+              11.087113380432129,
+              0.5747579336166382,
+              90.56489562988281
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-palm",
+            "p": [
+              11.089738845825195,
+              0.5501585602760315,
+              90.564697265625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-thumb",
+            "p": [
+              11.10467529296875,
+              0.5655142068862915,
+              90.60970306396484
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-finger-fold",
+            "p": [
+              11.089738845825195,
+              0.5501585602760315,
+              90.564697265625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-finger-fold",
+            "p": [
+              11.089738845825195,
+              0.5501585602760315,
+              90.564697265625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-upper-sleeve",
+            "p": [
+              11.118169784545898,
+              0.8957364559173584,
+              90.56256866455078
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-soft-shirt",
+            "p": [
+              11.14376163482666,
+              0.8458269834518433,
+              90.76422119140625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shirt-hem",
+            "p": [
+              11.14376163482666,
+              0.6280269622802734,
+              90.76422119140625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shirt-placket",
+            "p": [
+              11.294339179992676,
+              0.8818269968032837,
+              90.7529296875
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-cloth-button",
+            "p": [
+              11.30431079864502,
+              0.9898269772529602,
+              90.75218200683594
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-cloth-button",
+            "p": [
+              11.30431079864502,
+              0.8998270034790039,
+              90.75218200683594
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-cloth-button",
+            "p": [
+              11.30431079864502,
+              0.8098269701004028,
+              90.75218200683594
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-collar",
+            "p": [
+              11.14376163482666,
+              0.8458269834518433,
+              90.76422119140625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-collar",
+            "p": [
+              11.14376163482666,
+              0.8458269834518433,
+              90.76422119140625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-neck",
+            "p": [
+              11.14376163482666,
+              1.0888270139694214,
+              90.76422119140625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-lower-trouser",
+            "p": [
+              11.092159271240234,
+              0.26497840881347656,
+              90.87840270996094
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-upper",
+            "p": [
+              11.104147911071777,
+              0.0686672180891037,
+              90.87751007080078
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-sole",
+            "p": [
+              11.097082138061523,
+              0.025048905983567238,
+              90.87803649902344
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-toe",
+            "p": [
+              11.197291374206543,
+              0.03913166746497154,
+              90.87052154541016
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-lace",
+            "p": [
+              11.12104606628418,
+              0.08943137526512146,
+              90.87623596191406
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-lace",
+            "p": [
+              11.117855072021484,
+              0.06973278522491455,
+              90.87648010253906
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-upper-trouser",
+            "p": [
+              11.13204574584961,
+              0.5112107992172241,
+              90.87541198730469
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-lower-trouser",
+            "p": [
+              11.18142318725586,
+              0.2637875974178314,
+              90.65108489990234
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-upper",
+            "p": [
+              11.234004974365234,
+              0.07299184054136276,
+              90.64714050292969
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-sole",
+            "p": [
+              11.23613166809082,
+              0.028951646760106087,
+              90.64698028564453
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-toe",
+            "p": [
+              11.331633567810059,
+              0.059751495718955994,
+              90.63981628417969
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-lace",
+            "p": [
+              11.24628734588623,
+              0.09624850004911423,
+              90.6462173461914
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-lace",
+            "p": [
+              11.247247695922852,
+              0.07635938376188278,
+              90.64614868164062
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-upper-trouser",
+            "p": [
+              11.155477523803711,
+              0.5112107992172241,
+              90.65303039550781
+            ]
+          },
+          {
+            "name": "ambient-label-walk-a",
+            "p": [
+              11.14376163482666,
+              1.9900000095367432,
+              90.76422119140625
+            ]
+          }
+        ]
+      },
+      "after": {
+        "appearance": "refined-human",
+        "monk": false,
+        "productionApplied": true,
+        "ambientVisitor": true,
+        "id": "walk-a",
+        "place": "뒤 산책길",
+        "role": "walk",
+        "activity": "산책",
+        "phase": 66.74129999971379,
+        "walking": true,
+        "p": [
+          14.92695436448685,
+          0.01,
+          90.4804784226635
+        ],
+        "focus": true,
+        "hidden": false,
+        "mesh": [
+          {
+            "name": "ambient-visitor-walk-a-face",
+            "p": [
+              14.92695426940918,
+              1.354053258895874,
+              90.48047637939453
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-ear",
+            "p": [
+              14.972147941589355,
+              1.3381232023239136,
+              90.75406646728516
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-eye",
+            "p": [
+              15.176712036132812,
+              1.3869752883911133,
+              90.55164337158203
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-eye-light",
+            "p": [
+              15.184854507446289,
+              1.3984448909759521,
+              90.5553207397461
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-eyebrow",
+            "p": [
+              15.173219680786133,
+              1.4613152742385864,
+              90.5522232055664
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-ear",
+            "p": [
+              14.881760597229004,
+              1.3381232023239136,
+              90.2068862915039
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-eye",
+            "p": [
+              15.140557289123535,
+              1.3869752883911133,
+              90.33277130126953
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-eye-light",
+            "p": [
+              15.148699760437012,
+              1.3984448909759521,
+              90.3364486694336
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-eyebrow",
+            "p": [
+              15.137064933776855,
+              1.4613152742385864,
+              90.33334350585938
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-nose",
+            "p": [
+              15.162127494812012,
+              1.3328132629394531,
+              90.4416275024414
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-quiet-smile",
+            "p": [
+              14.92695426940918,
+              1.354053258895874,
+              90.48047637939453
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-hair-cap",
+            "p": [
+              14.92695426940918,
+              1.354053258895874,
+              90.48047637939453
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-swept-fringe",
+            "p": [
+              14.92695426940918,
+              1.354053258895874,
+              90.48047637939453
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-crown-sweep",
+            "p": [
+              14.92695426940918,
+              1.354053258895874,
+              90.48047637939453
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-parted-side",
+            "p": [
+              14.92695426940918,
+              1.354053258895874,
+              90.48047637939453
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-lower-sleeve",
+            "p": [
+              14.900569915771484,
+              0.6721730828285217,
+              90.68602752685547
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-cuff",
+            "p": [
+              14.888437271118164,
+              0.5755918622016907,
+              90.68693542480469
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-palm",
+            "p": [
+              14.890357971191406,
+              0.5509396195411682,
+              90.6867904663086
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-thumb",
+            "p": [
+              14.898848533630371,
+              0.5660225749015808,
+              90.64002227783203
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-finger-fold",
+            "p": [
+              14.890357971191406,
+              0.5509396195411682,
+              90.6867904663086
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-finger-fold",
+            "p": [
+              14.890357971191406,
+              0.5509396195411682,
+              90.6867904663086
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-upper-sleeve",
+            "p": [
+              14.928655624389648,
+              0.8957407474517822,
+              90.68392181396484
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-lower-sleeve",
+            "p": [
+              14.953338623046875,
+              0.6721730828285217,
+              90.2749252319336
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-cuff",
+            "p": [
+              14.965471267700195,
+              0.5755918622016907,
+              90.27401733398438
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-palm",
+            "p": [
+              14.973458290100098,
+              0.5519535541534424,
+              90.2734146118164
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-thumb",
+            "p": [
+              14.984785079956055,
+              0.5690643191337585,
+              90.31869506835938
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-finger-fold",
+            "p": [
+              14.973458290100098,
+              0.5519535541534424,
+              90.2734146118164
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-finger-fold",
+            "p": [
+              14.973458290100098,
+              0.5519535541534424,
+              90.2734146118164
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-upper-sleeve",
+            "p": [
+              14.925252914428711,
+              0.8957407474517822,
+              90.27703094482422
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-soft-shirt",
+            "p": [
+              14.92695426940918,
+              0.8455532193183899,
+              90.48047637939453
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shirt-hem",
+            "p": [
+              14.92695426940918,
+              0.6277531981468201,
+              90.48047637939453
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shirt-placket",
+            "p": [
+              15.077531814575195,
+              0.8815532326698303,
+              90.46918487548828
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-cloth-button",
+            "p": [
+              15.087503433227539,
+              0.9895532131195068,
+              90.46843719482422
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-cloth-button",
+            "p": [
+              15.087503433227539,
+              0.8995532393455505,
+              90.46843719482422
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-cloth-button",
+            "p": [
+              15.087503433227539,
+              0.8095532059669495,
+              90.46843719482422
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-collar",
+            "p": [
+              14.92695426940918,
+              0.8455532193183899,
+              90.48047637939453
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-collar",
+            "p": [
+              14.92695426940918,
+              0.8455532193183899,
+              90.48047637939453
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-neck",
+            "p": [
+              14.92695426940918,
+              1.0885531902313232,
+              90.48047637939453
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-lower-trouser",
+            "p": [
+              14.994534492492676,
+              0.26536864042282104,
+              90.58572387695312
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-upper",
+            "p": [
+              15.049838066101074,
+              0.07520076632499695,
+              90.58157348632812
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-sole",
+            "p": [
+              15.052594184875488,
+              0.031188983470201492,
+              90.58136749267578
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-toe",
+            "p": [
+              15.147648811340332,
+              0.06309788674116135,
+              90.5742416381836
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-lace",
+            "p": [
+              15.061786651611328,
+              0.09859845787286758,
+              90.58068084716797
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-lace",
+            "p": [
+              15.063031196594238,
+              0.07872216403484344,
+              90.5805892944336
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-upper-trouser",
+            "p": [
+              14.960968971252441,
+              0.511824369430542,
+              90.5882339477539
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-lower-trouser",
+            "p": [
+              14.841364860534668,
+              0.26736655831336975,
+              90.3765869140625
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-upper",
+            "p": [
+              14.843994140625,
+              0.0707717314362526,
+              90.37638092041016
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-sole",
+            "p": [
+              14.834857940673828,
+              0.02746777981519699,
+              90.37706756591797
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-toe",
+            "p": [
+              14.93564510345459,
+              0.03765064477920532,
+              90.3695068359375
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-lace",
+            "p": [
+              14.861865997314453,
+              0.0908612534403801,
+              90.37504577636719
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-shoe-lace",
+            "p": [
+              14.857739448547363,
+              0.07130463421344757,
+              90.37535095214844
+            ]
+          },
+          {
+            "name": "ambient-visitor-walk-a-upper-trouser",
+            "p": [
+              14.892939567565918,
+              0.511824369430542,
+              90.37271881103516
+            ]
+          },
+          {
+            "name": "ambient-label-walk-a",
+            "p": [
+              14.92695426940918,
+              1.9900000095367432,
+              90.48047637939453
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hall-a",
+      "before": {
+        "appearance": "refined-human",
+        "monk": false,
+        "productionApplied": true,
+        "ambientVisitor": true,
+        "id": "hall-a",
+        "place": "대웅전",
+        "role": "prayer",
+        "activity": "합장 참배",
+        "phase": 21.34139999985685,
+        "walking": false,
+        "p": [
+          -6,
+          1.7429999834299088,
+          32.2
+        ],
+        "focus": true,
+        "hidden": false,
+        "mesh": [
+          {
+            "name": "ambient-visitor-hall-a-face",
+            "p": [
+              -6,
+              3.0930001735687256,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-ear",
+            "p": [
+              -6.276550769805908,
+              3.0771055221557617,
+              32.22040557861328
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-eye",
+            "p": [
+              -6.092160701751709,
+              3.1117703914642334,
+              32.44464874267578
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-eye-light",
+            "p": [
+              -6.096458435058594,
+              3.1227688789367676,
+              32.453277587890625
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-eyebrow",
+            "p": [
+              -6.092007637023926,
+              3.186157464981079,
+              32.44661331176758
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-ear",
+            "p": [
+              -5.7236328125,
+              3.0771055221557617,
+              32.17724609375
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-eye",
+            "p": [
+              -5.870993614196777,
+              3.1117703914642334,
+              32.42738723754883
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-eye-light",
+            "p": [
+              -5.875291347503662,
+              3.1227688789367676,
+              32.43601608276367
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-eyebrow",
+            "p": [
+              -5.870840072631836,
+              3.186157464981079,
+              32.429351806640625
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-nose",
+            "p": [
+              -5.981614112854004,
+              3.05751633644104,
+              32.435543060302734
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-quiet-smile",
+            "p": [
+              -6,
+              3.0930001735687256,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-hair-cap",
+            "p": [
+              -6,
+              3.0930001735687256,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-swept-fringe",
+            "p": [
+              -6,
+              3.0930001735687256,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-crown-sweep",
+            "p": [
+              -6,
+              3.0930001735687256,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-parted-side",
+            "p": [
+              -6,
+              3.0930001735687256,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-lower-sleeve",
+            "p": [
+              -6.196010112762451,
+              2.565486431121826,
+              32.31422424316406
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-cuff",
+            "p": [
+              -6.109157562255859,
+              2.5969908237457275,
+              32.36803436279297
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-palm",
+            "p": [
+              -6.090408802032471,
+              2.6071088314056396,
+              32.384647369384766
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-thumb",
+            "p": [
+              -6.108827590942383,
+              2.6396355628967285,
+              32.354736328125
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-finger-fold",
+            "p": [
+              -6.090408802032471,
+              2.6071088314056396,
+              32.384647369384766
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-finger-fold",
+            "p": [
+              -6.090408802032471,
+              2.6071088314056396,
+              32.384647369384766
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-upper-sleeve",
+            "p": [
+              -6.243231296539307,
+              2.643148183822632,
+              32.22678756713867
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-lower-sleeve",
+            "p": [
+              -5.803989887237549,
+              2.565486431121826,
+              32.31422424316406
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-cuff",
+            "p": [
+              -5.890842437744141,
+              2.5969908237457275,
+              32.36803436279297
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-palm",
+            "p": [
+              -5.909591197967529,
+              2.6071088314056396,
+              32.384647369384766
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-thumb",
+            "p": [
+              -5.891172409057617,
+              2.6396355628967285,
+              32.354736328125
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-finger-fold",
+            "p": [
+              -5.909591197967529,
+              2.6071088314056396,
+              32.384647369384766
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-finger-fold",
+            "p": [
+              -5.909591197967529,
+              2.6071088314056396,
+              32.384647369384766
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-upper-sleeve",
+            "p": [
+              -5.756768703460693,
+              2.643148183822632,
+              32.22678756713867
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-soft-shirt",
+            "p": [
+              -6,
+              2.5845000743865967,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shirt-hem",
+            "p": [
+              -6,
+              2.3667001724243164,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shirt-placket",
+            "p": [
+              -6,
+              2.620500087738037,
+              32.35100173950195
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-cloth-button",
+            "p": [
+              -6,
+              2.7285001277923584,
+              32.361000061035156
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-cloth-button",
+            "p": [
+              -6,
+              2.6384999752044678,
+              32.361000061035156
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-cloth-button",
+            "p": [
+              -6,
+              2.5485000610351562,
+              32.361000061035156
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-collar",
+            "p": [
+              -6,
+              2.5845000743865967,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-collar",
+            "p": [
+              -6,
+              2.5845000743865967,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-neck",
+            "p": [
+              -6,
+              2.827500104904175,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-lower-trouser",
+            "p": [
+              -6.110000133514404,
+              1.9997249841690063,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-upper",
+            "p": [
+              -6.110000133514404,
+              1.8070440292358398,
+              32.24345016479492
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-sole",
+            "p": [
+              -6.110000133514404,
+              1.7629621028900146,
+              32.24345016479492
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-toe",
+            "p": [
+              -6.110000133514404,
+              1.7899800539016724,
+              32.34062194824219
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-lace",
+            "p": [
+              -6.110000133514404,
+              1.8297960758209229,
+              32.25688171386719
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-lace",
+            "p": [
+              -6.110000133514404,
+              1.8098880052566528,
+              32.25688171386719
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-upper-trouser",
+            "p": [
+              -6.110000133514404,
+              2.248575210571289,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-lower-trouser",
+            "p": [
+              -5.889999866485596,
+              1.9997249841690063,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-upper",
+            "p": [
+              -5.889999866485596,
+              1.8070440292358398,
+              32.24345016479492
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-sole",
+            "p": [
+              -5.889999866485596,
+              1.7629621028900146,
+              32.24345016479492
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-toe",
+            "p": [
+              -5.889999866485596,
+              1.7899800539016724,
+              32.34062194824219
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-lace",
+            "p": [
+              -5.889999866485596,
+              1.8297960758209229,
+              32.25688171386719
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-lace",
+            "p": [
+              -5.889999866485596,
+              1.8098880052566528,
+              32.25688171386719
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-upper-trouser",
+            "p": [
+              -5.889999866485596,
+              2.248575210571289,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-label-hall-a",
+            "p": [
+              -6,
+              3.7230000495910645,
+              32.20000076293945
+            ]
+          }
+        ]
+      },
+      "after": {
+        "appearance": "refined-human",
+        "monk": false,
+        "productionApplied": true,
+        "ambientVisitor": true,
+        "id": "hall-a",
+        "place": "대웅전",
+        "role": "prayer",
+        "activity": "합장 참배",
+        "phase": 30.407699999809147,
+        "walking": false,
+        "p": [
+          -6,
+          1.7429999834299088,
+          32.2
+        ],
+        "focus": true,
+        "hidden": false,
+        "mesh": [
+          {
+            "name": "ambient-visitor-hall-a-face",
+            "p": [
+              -6,
+              3.0930001735687256,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-ear",
+            "p": [
+              -6.27696418762207,
+              3.0771055221557617,
+              32.186309814453125
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-eye",
+            "p": [
+              -6.121490001678467,
+              3.1117703914642334,
+              32.431488037109375
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-eye-light",
+            "p": [
+              -6.126813888549805,
+              3.1227688789367676,
+              32.43952178955078
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-eyebrow",
+            "p": [
+              -6.121579170227051,
+              3.186157464981079,
+              32.43345642089844
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-ear",
+            "p": [
+              -5.72292947769165,
+              3.0771055221557617,
+              32.21133804321289
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-eye",
+            "p": [
+              -5.899876117706299,
+              3.1117703914642334,
+              32.44150161743164
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-eye-light",
+            "p": [
+              -5.905200004577637,
+              3.1227688789367676,
+              32.44953536987305
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-eyebrow",
+            "p": [
+              -5.899964809417725,
+              3.186157464981079,
+              32.4434700012207
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-nose",
+            "p": [
+              -6.010661602020264,
+              3.05751633644104,
+              32.43601989746094
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-quiet-smile",
+            "p": [
+              -6,
+              3.0930001735687256,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-hair-cap",
+            "p": [
+              -6,
+              3.0930001735687256,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-swept-fringe",
+            "p": [
+              -6,
+              3.0930001735687256,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-crown-sweep",
+            "p": [
+              -6,
+              3.0930001735687256,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-parted-side",
+            "p": [
+              -6,
+              3.0930001735687256,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-lower-sleeve",
+            "p": [
+              -6.196010112762451,
+              2.565486431121826,
+              32.31422424316406
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-cuff",
+            "p": [
+              -6.109157562255859,
+              2.5969908237457275,
+              32.36803436279297
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-palm",
+            "p": [
+              -6.090408802032471,
+              2.6071088314056396,
+              32.384647369384766
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-thumb",
+            "p": [
+              -6.108827590942383,
+              2.6396355628967285,
+              32.354736328125
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-finger-fold",
+            "p": [
+              -6.090408802032471,
+              2.6071088314056396,
+              32.384647369384766
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-finger-fold",
+            "p": [
+              -6.090408802032471,
+              2.6071088314056396,
+              32.384647369384766
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-upper-sleeve",
+            "p": [
+              -6.243231296539307,
+              2.643148183822632,
+              32.22678756713867
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-lower-sleeve",
+            "p": [
+              -5.803989887237549,
+              2.565486431121826,
+              32.31422424316406
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-cuff",
+            "p": [
+              -5.890842437744141,
+              2.5969908237457275,
+              32.36803436279297
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-palm",
+            "p": [
+              -5.909591197967529,
+              2.6071088314056396,
+              32.384647369384766
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-thumb",
+            "p": [
+              -5.891172409057617,
+              2.6396355628967285,
+              32.354736328125
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-finger-fold",
+            "p": [
+              -5.909591197967529,
+              2.6071088314056396,
+              32.384647369384766
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-finger-fold",
+            "p": [
+              -5.909591197967529,
+              2.6071088314056396,
+              32.384647369384766
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-upper-sleeve",
+            "p": [
+              -5.756768703460693,
+              2.643148183822632,
+              32.22678756713867
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-soft-shirt",
+            "p": [
+              -6,
+              2.5845000743865967,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shirt-hem",
+            "p": [
+              -6,
+              2.3667001724243164,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shirt-placket",
+            "p": [
+              -6,
+              2.620500087738037,
+              32.35100173950195
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-cloth-button",
+            "p": [
+              -6,
+              2.7285001277923584,
+              32.361000061035156
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-cloth-button",
+            "p": [
+              -6,
+              2.6384999752044678,
+              32.361000061035156
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-cloth-button",
+            "p": [
+              -6,
+              2.5485000610351562,
+              32.361000061035156
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-collar",
+            "p": [
+              -6,
+              2.5845000743865967,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-collar",
+            "p": [
+              -6,
+              2.5845000743865967,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-neck",
+            "p": [
+              -6,
+              2.827500104904175,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-lower-trouser",
+            "p": [
+              -6.110000133514404,
+              1.9997249841690063,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-upper",
+            "p": [
+              -6.110000133514404,
+              1.8070440292358398,
+              32.24345016479492
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-sole",
+            "p": [
+              -6.110000133514404,
+              1.7629621028900146,
+              32.24345016479492
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-toe",
+            "p": [
+              -6.110000133514404,
+              1.7899800539016724,
+              32.34062194824219
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-lace",
+            "p": [
+              -6.110000133514404,
+              1.8297960758209229,
+              32.25688171386719
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-lace",
+            "p": [
+              -6.110000133514404,
+              1.8098880052566528,
+              32.25688171386719
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-upper-trouser",
+            "p": [
+              -6.110000133514404,
+              2.248575210571289,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-lower-trouser",
+            "p": [
+              -5.889999866485596,
+              1.9997249841690063,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-upper",
+            "p": [
+              -5.889999866485596,
+              1.8070440292358398,
+              32.24345016479492
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-sole",
+            "p": [
+              -5.889999866485596,
+              1.7629621028900146,
+              32.24345016479492
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-toe",
+            "p": [
+              -5.889999866485596,
+              1.7899800539016724,
+              32.34062194824219
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-lace",
+            "p": [
+              -5.889999866485596,
+              1.8297960758209229,
+              32.25688171386719
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-shoe-lace",
+            "p": [
+              -5.889999866485596,
+              1.8098880052566528,
+              32.25688171386719
+            ]
+          },
+          {
+            "name": "ambient-visitor-hall-a-upper-trouser",
+            "p": [
+              -5.889999866485596,
+              2.248575210571289,
+              32.20000076293945
+            ]
+          },
+          {
+            "name": "ambient-label-hall-a",
+            "p": [
+              -6,
+              3.7230000495910645,
+              32.20000076293945
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "video": "/Users/hjunnn/Documents/ChatGPT/Metaverse/sasa-sites-trial/evidence/visitor-journeys/before/recording/page@035f805f9fad9b26008a447ba5cb1c6f.webm"
+}

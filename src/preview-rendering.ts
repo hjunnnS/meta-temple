@@ -1,6 +1,7 @@
 interface RenderEngine {
   runRenderLoop(render: () => void): void;
   stopRenderLoop(render: () => void): void;
+  getRenderingCanvas?(): HTMLCanvasElement | null;
 }
 
 export function renderWhileViewing(
@@ -12,6 +13,7 @@ export function renderWhileViewing(
 ) {
   let running = false;
   let pagePresent = true;
+  let canvasVisible = true;
 
   let preparing = firstFrameReady !== undefined;
   const frame = firstFrameReady ? () => {
@@ -23,7 +25,7 @@ export function renderWhileViewing(
   } : render;
 
   function sync() {
-    const shouldRender = pagePresent && !document.hidden && (preparing || document.hasFocus());
+    const shouldRender = pagePresent && !document.hidden && canvasVisible;
     if (shouldRender === running) return;
     running = shouldRender;
     if (running) {
@@ -35,6 +37,13 @@ export function renderWhileViewing(
     }
   }
 
+  const canvas=engine.getRenderingCanvas?.();
+  if(canvas&&typeof IntersectionObserver!=='undefined'){
+    const observer=new IntersectionObserver(entries=>{canvasVisible=entries.some(e=>e.isIntersecting);sync();});
+    observer.observe(canvas);
+    window.addEventListener('pageshow',()=>observer.observe(canvas));
+    window.addEventListener('pagehide',()=>observer.disconnect(),{once:true});
+  }
   document.addEventListener('visibilitychange', sync);
   window.addEventListener('blur', sync);
   window.addEventListener('focus', sync);

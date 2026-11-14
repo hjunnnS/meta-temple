@@ -1,0 +1,9 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{renderWhileViewing}from'../src/preview-rendering.ts';
+test('visible preview keeps animating without focus and pauses only when hidden or absent',()=>{
+ const page=Object.assign(new EventTarget(),{hidden:false,hasFocus:()=>false}),win=new EventTarget();Object.assign(globalThis,{document:page,window:win});const frames=new Set<()=>void>();let starts=0,stops=0;
+ renderWhileViewing({runRenderLoop:f=>{frames.add(f);starts++;},stopRenderLoop:f=>{frames.delete(f);stops++;}},()=>{});
+ assert.equal(frames.size,1);win.dispatchEvent(new Event('blur'));assert.equal(frames.size,1);page.hidden=true;page.dispatchEvent(new Event('visibilitychange'));assert.equal(frames.size,0);page.hidden=false;page.dispatchEvent(new Event('visibilitychange'));assert.equal(frames.size,1);win.dispatchEvent(new Event('focus'));assert.equal(starts,2);win.dispatchEvent(new Event('pagehide'));assert.equal(frames.size,0);win.dispatchEvent(new Event('pageshow'));assert.equal(frames.size,1);assert.equal(starts,3);assert.equal(stops,2);
+});
+test('an offscreen canvas pauses and resumes without requiring keyboard focus',()=>{
+ const page=Object.assign(new EventTarget(),{hidden:false,hasFocus:()=>false}),win=new EventTarget();let changed:(v:{isIntersecting:boolean}[])=>void=()=>{};const old=globalThis.IntersectionObserver;Object.assign(globalThis,{document:page,window:win,IntersectionObserver:class{constructor(cb:typeof changed){changed=cb;}observe(){}disconnect(){}}});const frames=new Set<()=>void>();renderWhileViewing({runRenderLoop:f=>frames.add(f),stopRenderLoop:f=>frames.delete(f),getRenderingCanvas:()=>({}as HTMLCanvasElement)},()=>{});changed([{isIntersecting:false}]);assert.equal(frames.size,0);changed([{isIntersecting:true}]);assert.equal(frames.size,1);if(old)globalThis.IntersectionObserver=old;else Reflect.deleteProperty(globalThis,'IntersectionObserver');
+});

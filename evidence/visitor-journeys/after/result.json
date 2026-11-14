@@ -1,0 +1,1160 @@
+{
+  "observed": {
+    "hall-a": {
+      "actions": [
+        "참배",
+        "산책",
+        "주변 감상"
+      ],
+      "maxDistance": 37.00000000000004,
+      "completed": 15,
+      "skipped": 0
+    },
+    "hall-b": {
+      "actions": [
+        "명상"
+      ],
+      "maxDistance": 0,
+      "completed": 0,
+      "skipped": 0
+    },
+    "hall-c": {
+      "actions": [
+        null
+      ],
+      "maxDistance": null,
+      "completed": null,
+      "skipped": null
+    },
+    "gwaneum": {
+      "actions": [
+        "명상",
+        "참배",
+        "휴식",
+        "산책"
+      ],
+      "maxDistance": 33.3327302905662,
+      "completed": 15,
+      "skipped": 0
+    },
+    "jijang": {
+      "actions": [
+        "산책",
+        "휴식",
+        "참배"
+      ],
+      "maxDistance": 40.319999999998416,
+      "completed": 14,
+      "skipped": 0
+    },
+    "yaksa": {
+      "actions": [
+        "산책",
+        "참배",
+        "휴식",
+        "명상"
+      ],
+      "maxDistance": 34.34031696496063,
+      "completed": 15,
+      "skipped": 0
+    },
+    "munsu": {
+      "actions": [
+        "산책",
+        "참배",
+        "휴식",
+        "명상"
+      ],
+      "maxDistance": 34.62831696496115,
+      "completed": 15,
+      "skipped": 0
+    },
+    "bohyeon": {
+      "actions": [
+        "참배",
+        "산책",
+        "명상",
+        "휴식"
+      ],
+      "maxDistance": 35.34831696496125,
+      "completed": 15,
+      "skipped": 0
+    },
+    "geukrak": {
+      "actions": [
+        "참배",
+        "휴식",
+        "산책",
+        "명상"
+      ],
+      "maxDistance": 35.78031696496074,
+      "completed": 15,
+      "skipped": 0
+    },
+    "votive": {
+      "actions": [
+        "참배",
+        "산책",
+        "주변 감상"
+      ],
+      "maxDistance": 79.12137426067375,
+      "completed": 10,
+      "skipped": 0
+    },
+    "lantern-a": {
+      "actions": [
+        "산책",
+        "연등 감상",
+        "휴식"
+      ],
+      "maxDistance": 75.30930341620316,
+      "completed": 11,
+      "skipped": 0
+    },
+    "lantern-b": {
+      "actions": [
+        "산책",
+        "휴식",
+        "연등 감상"
+      ],
+      "maxDistance": 80.37823718523845,
+      "completed": 10,
+      "skipped": 0
+    },
+    "pagoda-a": {
+      "actions": [
+        "휴식",
+        "산책",
+        "소원 빌기"
+      ],
+      "maxDistance": 62.79703910380141,
+      "completed": 14,
+      "skipped": 0
+    },
+    "pagoda-b": {
+      "actions": [
+        "참배",
+        "산책",
+        "주변 감상"
+      ],
+      "maxDistance": 55.9923999808952,
+      "completed": 15,
+      "skipped": 0
+    },
+    "pond-a": {
+      "actions": [
+        "산책",
+        "휴식",
+        "주변 감상"
+      ],
+      "maxDistance": 78.79320353089655,
+      "completed": 10,
+      "skipped": 0
+    },
+    "pond-b": {
+      "actions": [
+        "주변 감상",
+        "산책",
+        "휴식"
+      ],
+      "maxDistance": 76.7178100098654,
+      "completed": 10,
+      "skipped": 0
+    },
+    "tea": {
+      "actions": [
+        "휴식",
+        "산책",
+        "주변 감상",
+        "스트레칭"
+      ],
+      "maxDistance": 67.04287666333151,
+      "completed": 13,
+      "skipped": 0
+    },
+    "walk-a": {
+      "actions": [
+        "산책",
+        "스트레칭",
+        "참배",
+        "주변 감상"
+      ],
+      "maxDistance": 75.07447048624914,
+      "completed": 11,
+      "skipped": 0
+    },
+    "walk-b": {
+      "actions": [
+        "산책",
+        "휴식",
+        "주변 감상"
+      ],
+      "maxDistance": 76.96976835227103,
+      "completed": 12,
+      "skipped": 0
+    },
+    "statue": {
+      "actions": [
+        "참배",
+        "산책",
+        "휴식",
+        "주변 감상"
+      ],
+      "maxDistance": 76.64113942645669,
+      "completed": 11,
+      "skipped": 0
+    }
+  },
+  "unfocusedMoves": true,
+  "before": [
+    {
+      "id": "hall-a",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "대웅전",
+      "role": "prayer",
+      "activity": "참배",
+      "phase": 1.7915000000000005,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        -6,
+        1.6829999834299088,
+        32.2
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "hall-b",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "대웅전",
+      "role": "meditation",
+      "activity": "명상",
+      "phase": 4.4915,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        6,
+        1.6829999834299088,
+        34.25
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "hall-c",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "대웅전",
+      "role": "prayer",
+      "p": [
+        -4.05,
+        1.7429999834299088,
+        36.3
+      ],
+      "enabled": false,
+      "liveMeshes": 0
+    },
+    {
+      "id": "gwaneum",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "관음전",
+      "role": "meditation",
+      "activity": "명상",
+      "phase": 9.8915,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        -25.4075,
+        1.1418750190734863,
+        12.45
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "jijang",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "지장전",
+      "role": "prayer",
+      "activity": "참배",
+      "phase": 12.5915,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        25.127499999999998,
+        1.1418750190734863,
+        14.335
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "yaksa",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "약사전",
+      "role": "meditation",
+      "activity": "명상",
+      "phase": 15.2915,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        -41.5,
+        1.240049952417612,
+        54.563043478260866
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "munsu",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "문수전",
+      "role": "meditation",
+      "activity": "명상",
+      "phase": 17.991500000000013,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        -22.43695652173913,
+        1.240049952417612,
+        96.5
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "bohyeon",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "보현전",
+      "role": "meditation",
+      "activity": "명상",
+      "phase": 20.691500000000012,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        39.563043478260866,
+        1.240049952417612,
+        99.5
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "geukrak",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "극락전",
+      "role": "meditation",
+      "activity": "명상",
+      "phase": 23.39150000000001,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        79.5,
+        1.240049952417612,
+        69.43695652173913
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "votive",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "인등전 앞",
+      "role": "look",
+      "activity": "주변 감상",
+      "phase": 26.09150000000001,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        -20.1875,
+        0.01,
+        -32.2
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "lantern-a",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "연등길",
+      "role": "look",
+      "activity": "연등 감상",
+      "phase": 28.79150000000001,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        -7,
+        0.01,
+        -32
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "lantern-b",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "연등길",
+      "role": "look",
+      "activity": "연등 감상",
+      "phase": 31.491500000000013,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        7,
+        0.01,
+        -15
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "pagoda-a",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "소원패 정원",
+      "role": "look",
+      "activity": "소원 빌기",
+      "phase": 34.191499999999984,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        23.5,
+        0.11000000074505806,
+        -25.6
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "pagoda-b",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "구름탑",
+      "role": "walk",
+      "activity": "주변 감상",
+      "phase": 36.891499999999986,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        67,
+        0.01,
+        -32
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "pond-a",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "연못 남쪽",
+      "role": "look",
+      "activity": "주변 감상",
+      "phase": 39.59149999999999,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        43,
+        0.01,
+        -66
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "pond-b",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "연못 동쪽",
+      "role": "walk",
+      "activity": "주변 감상",
+      "phase": 42.29149999999998,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        74.5,
+        0.01,
+        -55
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "tea",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "쉼터 옆마당",
+      "role": "look",
+      "activity": "스트레칭",
+      "phase": 44.99149999999998,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        58,
+        0.01,
+        -73.5
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "walk-a",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "뒤 산책길",
+      "role": "walk",
+      "activity": "주변 감상",
+      "phase": 47.691499999999984,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        8,
+        0.01,
+        91
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "walk-b",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "뒤 산책길",
+      "role": "walk",
+      "activity": "주변 감상",
+      "phase": 50.391499999999986,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        -16,
+        0.01,
+        87
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "statue",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "미륵보살 석상 앞",
+      "role": "look",
+      "activity": "주변 감상",
+      "phase": 53.09149999999999,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        55,
+        0.09999999910593033,
+        45
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    }
+  ],
+  "unfocused": [
+    {
+      "id": "hall-a",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "대웅전",
+      "role": "prayer",
+      "activity": "참배",
+      "phase": 4.32380000019074,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        -6,
+        1.6829999834299088,
+        32.2
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "hall-b",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "대웅전",
+      "role": "meditation",
+      "activity": "명상",
+      "phase": 7.02380000019074,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        6,
+        1.6829999834299088,
+        34.25
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "hall-c",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "대웅전",
+      "role": "prayer",
+      "p": [
+        -4.05,
+        1.7429999834299088,
+        36.3
+      ],
+      "enabled": false,
+      "liveMeshes": 0
+    },
+    {
+      "id": "gwaneum",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "관음전",
+      "role": "meditation",
+      "activity": "명상",
+      "phase": 12.423800000190742,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        -25.4075,
+        1.1418750190734863,
+        12.45
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "jijang",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "지장전",
+      "role": "prayer",
+      "activity": "참배",
+      "phase": 15.123800000190741,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        25.127499999999998,
+        1.1418750190734863,
+        14.335
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "yaksa",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "약사전",
+      "role": "meditation",
+      "activity": "명상",
+      "phase": 17.823800000190744,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        -41.5,
+        1.240049952417612,
+        54.563043478260866
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "munsu",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "문수전",
+      "role": "meditation",
+      "activity": "명상",
+      "phase": 20.523800000190754,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        -22.43695652173913,
+        1.240049952417612,
+        96.5
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "bohyeon",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "보현전",
+      "role": "meditation",
+      "activity": "명상",
+      "phase": 23.223800000190757,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        39.563043478260866,
+        1.240049952417612,
+        99.5
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "geukrak",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "극락전",
+      "role": "meditation",
+      "activity": "명상",
+      "phase": 25.923800000190752,
+      "walking": false,
+      "destination": 0,
+      "journeyStop": 0,
+      "metresWalked": 0,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        79.5,
+        1.240049952417612,
+        69.43695652173913
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "votive",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "인등전 앞",
+      "role": "look",
+      "activity": "산책",
+      "phase": 28.62380000019074,
+      "walking": true,
+      "destination": 1,
+      "journeyStop": 0,
+      "metresWalked": 1.259856000137331,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        -19.315094089805946,
+        0.01,
+        -33.10892522736496
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "lantern-a",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "연등길",
+      "role": "look",
+      "activity": "산책",
+      "phase": 31.323800000190744,
+      "walking": true,
+      "destination": 1,
+      "journeyStop": 0,
+      "metresWalked": 1.6912800000000037,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        -7,
+        0.01,
+        -30.308719999999976
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "lantern-b",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "연등길",
+      "role": "look",
+      "activity": "산책",
+      "phase": 34.02380000019074,
+      "walking": true,
+      "destination": 1,
+      "journeyStop": 0,
+      "metresWalked": 1.6912800000000037,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        7,
+        0.01,
+        -13.308720000000005
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "pagoda-a",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "소원패 정원",
+      "role": "look",
+      "activity": "산책",
+      "phase": 36.723800000190685,
+      "walking": true,
+      "destination": 1,
+      "journeyStop": 0,
+      "metresWalked": 1.6912800000000037,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        22.395696275986346,
+        0.11000000074505806,
+        -26.880992319855828
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "pagoda-b",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "구름탑",
+      "role": "walk",
+      "activity": "산책",
+      "phase": 39.423800000190724,
+      "walking": true,
+      "destination": 1,
+      "journeyStop": 0,
+      "metresWalked": 1.7272800000000035,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        67,
+        0.01,
+        -30.27272
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "pond-a",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "연못 남쪽",
+      "role": "look",
+      "activity": "산책",
+      "phase": 42.12380000019073,
+      "walking": true,
+      "destination": 1,
+      "journeyStop": 0,
+      "metresWalked": 1.7272800000000035,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        44.63864168705668,
+        0.01,
+        -66.54621389568557
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "pond-b",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "연못 동쪽",
+      "role": "walk",
+      "activity": "산책",
+      "phase": 44.823800000190715,
+      "walking": true,
+      "destination": 1,
+      "journeyStop": 0,
+      "metresWalked": 1.7272800000000035,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        74.5,
+        0.01,
+        -53.27272000000002
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "tea",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "쉼터 옆마당",
+      "role": "look",
+      "activity": "산책",
+      "phase": 47.52380000019072,
+      "walking": true,
+      "destination": 1,
+      "journeyStop": 0,
+      "metresWalked": 1.7272800000000035,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        59.61730266183147,
+        0.319999994635582,
+        -72.89351150181324
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "walk-a",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "뒤 산책길",
+      "role": "walk",
+      "activity": "산책",
+      "phase": 50.22380000019072,
+      "walking": true,
+      "destination": 1,
+      "journeyStop": 0,
+      "metresWalked": 1.7272800000000035,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        9.722442423984132,
+        0.01,
+        90.87081681820118
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "walk-b",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "뒤 산책길",
+      "role": "walk",
+      "activity": "산책",
+      "phase": 52.923800000190724,
+      "walking": true,
+      "destination": 1,
+      "journeyStop": 0,
+      "metresWalked": 1.7272800000000035,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        -14.29622150324321,
+        0.01,
+        87.28396308279282
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    },
+    {
+      "id": "statue",
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true,
+      "ambientVisitor": true,
+      "place": "미륵보살 석상 앞",
+      "role": "look",
+      "activity": "산책",
+      "phase": 55.62380000019073,
+      "walking": true,
+      "destination": 1,
+      "journeyStop": 0,
+      "metresWalked": 1.7272800000000035,
+      "completedStops": 0,
+      "skippedStops": 0,
+      "p": [
+        53.963632,
+        0.09999999910593033,
+        43.618175999999984
+      ],
+      "enabled": true,
+      "liveMeshes": 52
+    }
+  ],
+  "errors": [],
+  "passed": true,
+  "acceleratedClock": true
+}
