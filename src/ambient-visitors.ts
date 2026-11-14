@@ -26,7 +26,7 @@ export function ambientVisitors(scene:Scene,visitor:()=>readonly number[]|null,w
    if(alternative)[x,z]=alternative;
   }
   const site={...place,x,z};
-  body.root.position.set(x,world.floor(x,z)+(['prayer','meditation'].includes(place.role)?.06:0),z);body.root.rotation.y=place.yaw;
+  body.root.position.set(x,world.floor(x,z)+(place.seatLift??(['prayer','meditation'].includes(place.role)?.06:0)),z);body.root.rotation.y=place.yaw;
   if(place.role==='meditation')privateMeditationPose(body,1,i);else body.bow(place.role==='prayer'?.07:0);
   body.root.computeWorldMatrix(true);
   const parts=body.root.getChildMeshes() as Mesh[];for(const m of parts)m.computeWorldMatrix(true);

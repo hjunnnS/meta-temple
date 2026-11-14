@@ -1,0 +1,335 @@
+{
+  "passed": true,
+  "renderedPadCentres": true,
+  "allThreeMovedLookersOutdoors": true,
+  "poolCount": 20,
+  "data": [
+    {
+      "ambientVisitor": true,
+      "id": "hall-a",
+      "place": "대웅전",
+      "role": "prayer",
+      "p": [
+        -6,
+        1.7429999834299088,
+        32.2
+      ],
+      "pad": null,
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "hall-b",
+      "place": "대웅전",
+      "role": "meditation",
+      "p": [
+        6,
+        1.7429999834299088,
+        34.25
+      ],
+      "pad": null,
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "hall-c",
+      "place": "대웅전",
+      "role": "prayer",
+      "p": [
+        -4.05,
+        1.7429999834299088,
+        36.3
+      ],
+      "pad": null,
+      "enabled": false
+    },
+    {
+      "ambientVisitor": true,
+      "id": "gwaneum",
+      "place": "관음전",
+      "role": "meditation",
+      "p": [
+        -25.4075,
+        1.1418750190734863,
+        12.45
+      ],
+      "pad": {
+        "point": [
+          -25.4075,
+          1.191375032494136,
+          12.45
+        ],
+        "normal": [
+          -0.000009470971824776359,
+          0.9999999999516896,
+          0.000002630825501283182
+        ]
+      },
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "jijang",
+      "place": "지장전",
+      "role": "prayer",
+      "p": [
+        25.127499999999998,
+        1.1418750190734863,
+        14.335
+      ],
+      "pad": {
+        "point": [
+          25.127499999999998,
+          1.1868750589949424,
+          14.335
+        ],
+        "normal": [
+          -0.000007629393912329328,
+          0.9999999999707476,
+          -5.449566935758729e-7
+        ]
+      },
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "yaksa",
+      "place": "약사전",
+      "role": "meditation",
+      "p": [
+        -41.5,
+        1.240049952417612,
+        54.563043478260866
+      ],
+      "pad": {
+        "point": [
+          -41.5,
+          1.280049995700833,
+          54.563043478260866
+        ],
+        "normal": [
+          1.3702872665230121e-17,
+          0.9999999996202874,
+          0.000027557673620855162
+        ]
+      },
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "munsu",
+      "place": "문수전",
+      "role": "meditation",
+      "p": [
+        -22.43695652173913,
+        1.240049952417612,
+        96.5
+      ],
+      "pad": {
+        "point": [
+          -22.43695652173913,
+          1.2800499807246877,
+          96.5
+        ],
+        "normal": [
+          -0.0000017861459287186023,
+          0.9999999999984049,
+          0
+        ]
+      },
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "bohyeon",
+      "place": "보현전",
+      "role": "meditation",
+      "p": [
+        39.563043478260866,
+        1.240049952417612,
+        99.5
+      ],
+      "pad": {
+        "point": [
+          39.563043478260866,
+          1.280049995700833,
+          99.5
+        ],
+        "normal": [
+          0.00002755767362089608,
+          0.9999999996202874,
+          6.196593615850508e-18
+        ]
+      },
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "geukrak",
+      "place": "극락전",
+      "role": "meditation",
+      "p": [
+        79.5,
+        1.240049952417612,
+        69.43695652173913
+      ],
+      "pad": {
+        "point": [
+          79.5,
+          1.280049995700833,
+          69.43695652173913
+        ],
+        "normal": [
+          5.891297464166331e-18,
+          0.9999999996202874,
+          -0.00002755767362089346
+        ]
+      },
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "votive",
+      "place": "인등전 앞",
+      "role": "look",
+      "p": [
+        -20.1875,
+        0.01,
+        -32.2
+      ],
+      "pad": null,
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "lantern-a",
+      "place": "연등길",
+      "role": "look",
+      "p": [
+        -7,
+        0.01,
+        -32
+      ],
+      "pad": null,
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "lantern-b",
+      "place": "연등길",
+      "role": "look",
+      "p": [
+        7,
+        0.01,
+        -15
+      ],
+      "pad": null,
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "pagoda-a",
+      "place": "소원패 정원",
+      "role": "look",
+      "p": [
+        23.5,
+        0.11000000074505806,
+        -25.6
+      ],
+      "pad": null,
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "pagoda-b",
+      "place": "구름탑",
+      "role": "walk",
+      "p": [
+        67,
+        0.01,
+        -28.450000000000006
+      ],
+      "pad": null,
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "pond-a",
+      "place": "연못 남쪽",
+      "role": "look",
+      "p": [
+        43,
+        0.01,
+        -66
+      ],
+      "pad": null,
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "pond-b",
+      "place": "연못 동쪽",
+      "role": "walk",
+      "p": [
+        74.5,
+        0.01,
+        -51.18200000000001
+      ],
+      "pad": null,
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "tea",
+      "place": "쉼터 옆마당",
+      "role": "look",
+      "p": [
+        58,
+        0.01,
+        -73.5
+      ],
+      "pad": null,
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "walk-a",
+      "place": "뒤 산책길",
+      "role": "walk",
+      "p": [
+        8.040948098865705,
+        0.01,
+        90.99692889258507
+      ],
+      "pad": null,
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "walk-b",
+      "place": "뒤 산책길",
+      "role": "walk",
+      "p": [
+        -11.014296631610486,
+        0.01,
+        87.83095056139825
+      ],
+      "pad": null,
+      "enabled": true
+    },
+    {
+      "ambientVisitor": true,
+      "id": "statue",
+      "place": "미륵보살 석상 앞",
+      "role": "look",
+      "p": [
+        55,
+        0.09999999910593033,
+        45
+      ],
+      "pad": null,
+      "enabled": true
+    }
+  ],
+  "errors": []
+}

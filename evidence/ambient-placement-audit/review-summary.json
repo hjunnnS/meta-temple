@@ -1,0 +1,48 @@
+{
+  "scope": "inspection only; service layout unchanged",
+  "existingIssues": {
+    "M2": [
+      "#15",
+      "#23"
+    ],
+    "M3": [
+      "#53",
+      "#54"
+    ],
+    "M4": [
+      "#64",
+      "#66"
+    ]
+  },
+  "findings": [
+    {
+      "priority": "medium",
+      "item": "six side/rear-hall performers miss cushion centres by 0.94 to 1.71 metres",
+      "ids": [
+        "gwaneum",
+        "jijang",
+        "yaksa",
+        "munsu",
+        "bohyeon",
+        "geukrak"
+      ]
+    },
+    {
+      "priority": "medium",
+      "item": "votive visitor is in an indoor wall corner, not outside the entrance"
+    },
+    {
+      "priority": "low",
+      "item": "pond south visitor stands about 0.25 metres from the middle of the tea approach"
+    },
+    {
+      "priority": "suggestion",
+      "item": "move one of two pagoda visitors toward wish-plaque garden to distribute activity"
+    }
+  ],
+  "walkingObservation": {
+    "seconds": 55,
+    "allFourReachRouteEnds": true
+  },
+  "pageErrors": []
+}

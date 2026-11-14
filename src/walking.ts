@@ -40,7 +40,7 @@ export function pedestrianWorld(parts:Mesh[],npcObstacles:()=>readonly{x:number;
  });
  const solids:Rect[]=[],ceilings:Rect[]=[],cameraSolids:Rect[]=[];
  for(const part of parts){
-  const surface=/(^|-)(step|plinth|hall-floor|floorboard|court|base)$/.test(part.name);
+  const surface=part.name==='wish-garden-ground'||/(^|-)(step|plinth|hall-floor|floorboard|court|base)$/.test(part.name);
   const solid=/(^|-)(back-wall|side-wall|side-infill|door-frame|column|pillar|gallery-rail|gallery-back|reception-counter|reception-front|altar-cabinet|memorial-altar|scripture-desk|rack-post|rack-footing|lamp-stand-plinth|bell-shell|water-edge-stone|meditation-tree)$/.test(part.name);
   const roof=/(curved-roof|cheonwang-roof|ilju-roof|bell-roof|tea-pavilion-roof|personal-gate-roof|ceiling-inset|ceiling-runner|ceiling-crossbeam|ceiling-painted-beam)$/.test(part.name);
   const cameraOnly=/(^name-|sign|bracket|painted-beam|purlin|lintel|rafter|place-name)/.test(part.name);

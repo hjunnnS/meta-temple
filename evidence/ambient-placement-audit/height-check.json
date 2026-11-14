@@ -1,0 +1,125 @@
+{
+  "meshFilter": "all body parts, excluding only label and distant proxy",
+  "results": [
+    {
+      "id": "hall-a",
+      "role": "prayer",
+      "minY": 1.753008050918579,
+      "rootY": 1.7429999834299088
+    },
+    {
+      "id": "hall-b",
+      "role": "meditation",
+      "minY": 1.6698421910671295,
+      "rootY": 1.7429999834299088
+    },
+    {
+      "id": "hall-c",
+      "role": "prayer",
+      "minY": 1.753008050918579,
+      "rootY": 1.7429999834299088
+    },
+    {
+      "id": "gwaneum",
+      "role": "meditation",
+      "minY": 1.0387172177700104,
+      "rootY": 1.1118750190734863
+    },
+    {
+      "id": "jijang",
+      "role": "prayer",
+      "minY": 1.12188307762146,
+      "rootY": 1.1118750190734863
+    },
+    {
+      "id": "yaksa",
+      "role": "meditation",
+      "minY": 1.1368921473888458,
+      "rootY": 1.210049952417612
+    },
+    {
+      "id": "munsu",
+      "role": "meditation",
+      "minY": 1.1368921473888458,
+      "rootY": 1.210049952417612
+    },
+    {
+      "id": "bohyeon",
+      "role": "meditation",
+      "minY": 1.1368921473888458,
+      "rootY": 1.210049952417612
+    },
+    {
+      "id": "geukrak",
+      "role": "meditation",
+      "minY": 1.1368921473888458,
+      "rootY": 1.210049952417612
+    },
+    {
+      "id": "votive",
+      "role": "look",
+      "minY": 0.9216330480575562,
+      "rootY": 0.9116250202059746
+    },
+    {
+      "id": "lantern-a",
+      "role": "look",
+      "minY": 0.02000796616077423,
+      "rootY": 0.01
+    },
+    {
+      "id": "lantern-b",
+      "role": "look",
+      "minY": 0.02000796616077423,
+      "rootY": 0.01
+    },
+    {
+      "id": "pagoda-a",
+      "role": "look",
+      "minY": 0.02000796616077423,
+      "rootY": 0.01
+    },
+    {
+      "id": "pagoda-b",
+      "role": "walk",
+      "minY": 0.02000796616077423,
+      "rootY": 0.01
+    },
+    {
+      "id": "pond-a",
+      "role": "look",
+      "minY": 0.02000796616077423,
+      "rootY": 0.01
+    },
+    {
+      "id": "pond-b",
+      "role": "walk",
+      "minY": 0.02000796616077423,
+      "rootY": 0.01
+    },
+    {
+      "id": "tea",
+      "role": "look",
+      "minY": 0.02000796616077423,
+      "rootY": 0.01
+    },
+    {
+      "id": "walk-a",
+      "role": "walk",
+      "minY": 0.02000796616077423,
+      "rootY": 0.01
+    },
+    {
+      "id": "walk-b",
+      "role": "walk",
+      "minY": 0.02000796616077423,
+      "rootY": 0.01
+    },
+    {
+      "id": "statue",
+      "role": "look",
+      "minY": 0.1100079995393753,
+      "rootY": 0.09999999910593033
+    }
+  ]
+}
