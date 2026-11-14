@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "canonicalUnitTests": 105,
+  "trialUnitTests": 42,
+  "typecheckAndBuildBoth": true,
+  "staticAssetsVerified": true,
+  "walkersMovedMetres": {
+    "pagoda-b": 3.002748000040029,
+    "pond-b": 2.28992999999997,
+    "walk-a": 2.953859999999959,
+    "walk-b": 2.4507404090452285
+  },
+  "all13Faces": true,
+  "robeRoundTrip": true,
+  "guestBowAndMeditation": true,
+  "populationReplacementDesktopAndTouch": true,
+  "privateSpaceReturn": true,
+  "bowFloorContacts": true,
+  "realMobileDevice": false,
+  "externalMultiplayerServer": false
+}

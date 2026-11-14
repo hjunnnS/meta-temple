@@ -29,3 +29,18 @@ export function ambientWalk(place:AmbientPlace,age:number){
  const back=phase>=travel+4,t=back?phase-travel-4:phase,u=Math.min(1,Math.max(0,(t-4)/travel)),progress=back?1-u:u;
  return{x:place.x+dx*progress,z:place.z+dz*progress,yaw:Math.atan2(back?-dx:dx,back?-dz:dz),walking:t>4};
 }
+
+export type AmbientAction='산책'|'주변 감상'|'연등 감상'|'합장 참배'|'절하기'|'명상'|'소원 빌기'|'연못 감상'|'가벼운 스트레칭'|'석상 참배'|'인등 감상';
+/** Fixed per-actor offsets make actions independent, without inventing network users or purchases. */
+export function ambientActivity(place:AmbientPlace,time:number){
+ const cycle=((time%32)+32)%32, wave=(a:number,b:number)=>{const v=Math.max(0,Math.min(1,(cycle-a)/(b-a)));return v*v*(3-2*v);};
+ const gesture=wave(4,6)*(1-wave(13,15));
+ if(place.role==='prayer')return{action:(cycle>=7&&cycle<15?'절하기':'합장 참배')as AmbientAction,pose:'bow',progress:cycle>=7&&cycle<15?(cycle-7)/8:.07,gesture:0,pitch:0};
+ if(place.role==='meditation')return{action:'명상' as AmbientAction,pose:'meditation',progress:1,gesture:0,pitch:0};
+ if(place.role==='walk'){const f=ambientWalk(place,time);return{action:(f.walking?'산책':'주변 감상')as AmbientAction,pose:f.walking?'walk':'look',progress:0,gesture:0,pitch:f.walking?0:-.06};}
+ if(place.id.startsWith('lantern'))return{action:'연등 감상' as AmbientAction,pose:'look',progress:0,gesture,pitch:-.28};
+ if(place.id==='pagoda-a')return{action:'소원 빌기' as AmbientAction,pose:'bow',progress:.105*gesture,gesture:0,pitch:.04};
+ if(place.id==='statue')return{action:'석상 참배' as AmbientAction,pose:'bow',progress:.105*gesture,gesture:0,pitch:-.14};
+ if(place.id==='tea')return{action:'가벼운 스트레칭' as AmbientAction,pose:'stretch',progress:0,gesture,pitch:0};
+ return{action:(place.id==='votive'?'인등 감상':'연못 감상')as AmbientAction,pose:'look',progress:0,gesture:place.id==='votive'?.3*gesture:.6*gesture,pitch:place.id==='votive'?-.04:.17};
+}

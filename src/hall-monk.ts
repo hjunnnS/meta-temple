@@ -1,4 +1,4 @@
-import {visitorFace} from './visitor-face';
+import {refinedHumanFace} from './refined-visitor';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
 import {TransformNode} from '@babylonjs/core/Meshes/transformNode';
@@ -12,7 +12,7 @@ export function placeHallMonk(scene:Scene,x:number,y:number,z:number,previewTime
  root.position.set(x,y,z);root.rotation.y=Math.atan2(x,z-45.12);
  function material(name:string,hex:string){
   const m=new StandardMaterial('monk-'+name,scene);
-  m.diffuseColor=Color3.FromHexString(hex);m.emissiveColor=m.diffuseColor.scale(.16);m.specularColor=Color3.Black();
+  m.diffuseColor=Color3.FromHexString(hex).toLinearSpace();m.emissiveColor=m.diffuseColor.scale(.16);m.specularColor=Color3.Black();
   return m;
  }
  const cloth=material('ramie','#98958b'),collar=material('collar','#d7d3c5'),kasa=material('kasa','#a45b3b');
@@ -35,7 +35,8 @@ export function placeHallMonk(scene:Scene,x:number,y:number,z:number,previewTime
   sideOrientation:Mesh.DOUBLESIDE},scene);
  drape.parent=torso;drape.material=kasa;drape.isPickable=false;
  oval('monk-neck',torso,skin,0,.655,0,.17,.18,.17);
- const head=visitorFace(scene,torso,'human',true);head.position.y=.80;head.rotation.y=Math.PI;
+ const head=refinedHumanFace(scene,torso,'hall-monk',true);head.position.y=.83;head.scaling.setAll(1.08);head.rotation.y=Math.PI;
+ for(const material of new Set(head.getChildMeshes().map(m=>m.material)))if(material instanceof StandardMaterial)material.diffuseColor=material.diffuseColor.toLinearSpace();
  const legs=[-1,1].map(side=>{
   const thigh=oval('monk-thigh',root,cloth,0,0,0,.22,.42,.21);
   const shin=oval('monk-shin',root,cloth,0,0,0,.18,.42,.17);
@@ -51,17 +52,18 @@ export function placeHallMonk(scene:Scene,x:number,y:number,z:number,previewTime
  oval('monk-left-sleeve',torso,cloth,.202,.38,-.124,.188,.26,.30);
  const support=oval('monk-supporting-forearm',torso,cloth,.183,.30,-.226,.155,.16,.19);
  support.rotation.x=-.27;
- oval('monk-supporting-hand',torso,skin,.171,.296,-.302,.085,.095,.11);
+ oval('monk-supporting-hand',torso,skin,.171,.296,-.302,.085,.105,.065);
  const pivot=new TransformNode('monk-striking-wrist',scene);pivot.parent=torso;
  const stickLength=.245,strikeYaw=.65;
  pivot.rotation.y=strikeYaw;
  pivot.position.set(drumX-stickLength*Math.cos(strikeYaw),drumY+drumRadiusY+tipRadius,drumZ+stickLength*Math.sin(strikeYaw));
- oval('monk-grip',pivot,skin,0,0,0,.10,.10,.106);
+ oval('monk-grip',pivot,skin,0,0,0,.085,.105,.065);
  oval('monk-mallet',pivot,wood,stickLength*.46,0,0,stickLength*1.16,.019,.021);
  oval('monk-mallet-tip',pivot,wood,stickLength,0,0,tipRadius*2,tipRadius*2,tipRadius*2);
  const upperSleeve=oval('monk-upper-sleeve',torso,cloth,0,0,0,.16,.24,.16);
  const lowerSleeve=oval('monk-forearm-sleeve',torso,cloth,0,0,0,.135,.22,.134);
- const lips=oval('chanting-lips',head,ink,0,-.107,.17,.049,.007,.013);
+ head.getChildMeshes().find(m=>m.name==='hall-monk-quiet-smile')?.setEnabled(false);
+ const lips=oval('chanting-lips',head,ink,0,-.114,.204,.049,.007,.013);
  const cycle=19,firstBeat=8.2,interval=1.16;
  let time=0;
  function ease(t:number,a:number,b:number){

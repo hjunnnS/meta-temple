@@ -1,0 +1,6070 @@
+{
+  "passed": true,
+  "start": {
+    "actors": [
+      {
+        "id": "hall-a",
+        "appearance": "refined-human",
+        "activity": "합장 참배",
+        "phase": 3.88369999980927,
+        "p": [
+          -6,
+          1.7429999834299088,
+          32.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-achest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.06666666666666667,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              -0.17129717711111764,
+              0.9785947073684406
+            ]
+          ],
+          [
+            "ambient-visitor-hall-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              0.17129717711111764,
+              0.9785947073684406
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "hall-b",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 6.5836999998092685,
+        "p": [
+          6,
+          1.7429999834299088,
+          34.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-bchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-hall-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "hall-c",
+        "appearance": "refined-human",
+        "p": [
+          -4.05,
+          1.7429999834299088,
+          36.3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-cchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.06666666666666667,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-cshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              -0.17129717711111764,
+              0.9785947073684406
+            ]
+          ],
+          [
+            "ambient-visitor-hall-cshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              0.17129717711111764,
+              0.9785947073684406
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "gwaneum",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 11.983699999809271,
+        "p": [
+          -25.4075,
+          1.1418750190734863,
+          12.45
+        ],
+        "rotation": [
+          0,
+          -1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-gwaneumchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-gwaneumshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-gwaneumshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "jijang",
+        "appearance": "refined-human",
+        "activity": "절하기",
+        "phase": 14.68369999980927,
+        "p": [
+          25.127499999999998,
+          1.1418750190734863,
+          14.335
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-jijangchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.06666666666666667,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-jijangshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              -0.17129717711111764,
+              0.9785947073684406
+            ]
+          ],
+          [
+            "ambient-visitor-jijangshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              0.17129717711111764,
+              0.9785947073684406
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "yaksa",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 17.383699999809267,
+        "p": [
+          -41.5,
+          1.240049952417612,
+          54.563043478260866
+        ],
+        "rotation": [
+          0,
+          -1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-yaksachest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-yaksashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-yaksashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "munsu",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 20.08369999980927,
+        "p": [
+          -22.43695652173913,
+          1.240049952417612,
+          96.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-munsuchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-munsushoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-munsushoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "bohyeon",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 22.783699999809265,
+        "p": [
+          39.563043478260866,
+          1.240049952417612,
+          99.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-bohyeonchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-bohyeonshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-bohyeonshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "geukrak",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 25.483699999809268,
+        "p": [
+          79.5,
+          1.240049952417612,
+          69.43695652173913
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-geukrakchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-geukrakshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-geukrakshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "votive",
+        "appearance": "refined-human",
+        "activity": "인등 감상",
+        "phase": 28.183699999809264,
+        "p": [
+          -20.1875,
+          0.01,
+          -32.2
+        ],
+        "rotation": [
+          0,
+          -1.017502001472604,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-votivechest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.04,
+              0.05923981760479132,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-votiveshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-votiveshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "lantern-a",
+        "appearance": "refined-human",
+        "activity": "연등 감상",
+        "phase": 30.883699999809267,
+        "p": [
+          -7,
+          0.01,
+          -32
+        ],
+        "rotation": [
+          0,
+          0.4,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-lantern-achest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.28,
+              -0.06632407980383154,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "lantern-b",
+        "appearance": "refined-human",
+        "activity": "연등 감상",
+        "phase": 33.58369999980927,
+        "p": [
+          7,
+          0.01,
+          -15
+        ],
+        "rotation": [
+          0,
+          -0.4,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-lantern-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.28,
+              -0.14538165004704318,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pagoda-a",
+        "appearance": "refined-human",
+        "activity": "소원 빌기",
+        "phase": 36.28369999980926,
+        "p": [
+          23.5,
+          0.11000000074505806,
+          -25.6
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pagoda-achest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.04077717104156799,
+              -0.1224978650399027,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0.012253385964252845,
+              0,
+              -0.08022884971153105,
+              0.9967011519038069
+            ]
+          ],
+          [
+            "ambient-visitor-pagoda-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0.012253385964252845,
+              0,
+              0.08022884971153105,
+              0.9967011519038069
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "pagoda-b",
+        "appearance": "refined-human",
+        "activity": "산책",
+        "phase": 38.98369999980926,
+        "p": [
+          67,
+          0.01,
+          -28.66684600008011
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pagoda-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pond-a",
+        "appearance": "refined-human",
+        "activity": "연못 감상",
+        "phase": 41.683699999809264,
+        "p": [
+          43,
+          0.01,
+          -66
+        ],
+        "rotation": [
+          0,
+          0.6659692373791098,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pond-achest",
+            [
+              0.033,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.17,
+              0.10467987073628901,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pond-b",
+        "appearance": "refined-human",
+        "activity": "산책",
+        "phase": 44.38369999980925,
+        "p": [
+          74.5,
+          0.01,
+          -51.39884600008011
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pond-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "tea",
+        "appearance": "refined-human",
+        "activity": "가벼운 스트레칭",
+        "phase": 47.083699999809255,
+        "p": [
+          58,
+          0.01,
+          -73.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-teachest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0.08972113676394547,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-teashoulder",
+            [
+              0,
+              0,
+              0.15
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-teashoulder",
+            [
+              0,
+              0,
+              -0.15
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "walk-a",
+        "appearance": "refined-human",
+        "activity": "주변 감상",
+        "phase": 49.78369999980926,
+        "p": [
+          8,
+          0.01,
+          91
+        ],
+        "rotation": [
+          0,
+          1.6456561380613768,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-walk-achest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "walk-b",
+        "appearance": "refined-human",
+        "activity": "산책",
+        "phase": 52.48369999980926,
+        "p": [
+          -11.228192208496807,
+          0.01,
+          87.79530129858387
+        ],
+        "rotation": [
+          0,
+          1.4056476499891444,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-walk-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "statue",
+        "appearance": "refined-human",
+        "activity": "석상 참배",
+        "phase": 55.183699999809264,
+        "p": [
+          55,
+          0.09999999910593033,
+          45
+        ],
+        "rotation": [
+          0,
+          0.38,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-statuechest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-statueshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-statueshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      }
+    ],
+    "monks": [
+      {
+        "name": "tea-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "walking-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "sweeping-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "guide-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      }
+    ],
+    "population": {
+      "realCount": 1,
+      "target": 19,
+      "active": 19,
+      "capacity": 20,
+      "revision": 26
+    }
+  },
+  "moving": {
+    "actors": [
+      {
+        "id": "hall-a",
+        "appearance": "refined-human",
+        "activity": "절하기",
+        "phase": 9.100399999856943,
+        "p": [
+          -6,
+          1.7429999834299088,
+          32.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-achest",
+            [
+              0.12271359597047977,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.09,
+              0.03411843631899932,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.34936083044182253,
+              0,
+              -0.03677557129160917,
+              0.9362662909179075
+            ]
+          ],
+          [
+            "ambient-visitor-hall-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.34936083044182253,
+              0,
+              0.03677557129160917,
+              0.9362662909179075
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "hall-b",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 11.800399999856934,
+        "p": [
+          6,
+          1.7429999834299088,
+          34.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-bchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              -0.08892050562663115,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-hall-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "hall-c",
+        "appearance": "refined-human",
+        "p": [
+          -4.05,
+          1.7429999834299088,
+          36.3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-cchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.06666666666666667,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-cshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              -0.17129717711111764,
+              0.9785947073684406
+            ]
+          ],
+          [
+            "ambient-visitor-hall-cshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              0.17129717711111764,
+              0.9785947073684406
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "gwaneum",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 17.20039999985694,
+        "p": [
+          -25.4075,
+          1.1418750190734863,
+          12.45
+        ],
+        "rotation": [
+          0,
+          -1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-gwaneumchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              -0.10539134006287136,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-gwaneumshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-gwaneumshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "jijang",
+        "appearance": "refined-human",
+        "activity": "합장 참배",
+        "phase": 19.900399999856937,
+        "p": [
+          25.127499999999998,
+          1.1418750190734863,
+          14.335
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-jijangchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.06666666666666667,
+              0.012726087350311638,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-jijangshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              -0.17129717711111764,
+              0.9785947073684406
+            ]
+          ],
+          [
+            "ambient-visitor-jijangshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              0.17129717711111764,
+              0.9785947073684406
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "yaksa",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 22.600399999856933,
+        "p": [
+          -41.5,
+          1.240049952417612,
+          54.563043478260866
+        ],
+        "rotation": [
+          0,
+          -1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-yaksachest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-yaksashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-yaksashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "munsu",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 25.300399999856936,
+        "p": [
+          -22.43695652173913,
+          1.240049952417612,
+          96.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-munsuchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-munsushoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-munsushoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "bohyeon",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 28.00039999985693,
+        "p": [
+          39.563043478260866,
+          1.240049952417612,
+          99.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-bohyeonchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-bohyeonshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-bohyeonshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "geukrak",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 30.700399999856934,
+        "p": [
+          79.5,
+          1.240049952417612,
+          69.43695652173913
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-geukrakchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-geukrakshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-geukrakshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "votive",
+        "appearance": "refined-human",
+        "activity": "인등 감상",
+        "phase": 33.41709999990462,
+        "p": [
+          -20.1875,
+          0.01,
+          -32.2
+        ],
+        "rotation": [
+          0,
+          -1.017502001472604,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-votivechest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.04,
+              -0.14320696650160333,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-votiveshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-votiveshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "lantern-a",
+        "appearance": "refined-human",
+        "activity": "연등 감상",
+        "phase": 36.117099999904596,
+        "p": [
+          -7,
+          0.01,
+          -32
+        ],
+        "rotation": [
+          0,
+          0.4,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-lantern-achest",
+            [
+              0.0005435582174810405,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.28,
+              -0.12693683210497472,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-ashoulder",
+            [
+              -0.006423869842957751,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "lantern-b",
+        "appearance": "refined-human",
+        "activity": "연등 감상",
+        "phase": 38.817099999904585,
+        "p": [
+          7,
+          0.01,
+          -15
+        ],
+        "rotation": [
+          0,
+          -0.4,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-lantern-bchest",
+            [
+              0.055,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.28,
+              -0.021658816096187906,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-bshoulder",
+            [
+              -0.65,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pagoda-a",
+        "appearance": "refined-human",
+        "activity": "소원 빌기",
+        "phase": 41.51709999990457,
+        "p": [
+          23.5,
+          0.11000000074505806,
+          -25.6
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pagoda-achest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.13,
+              0.09880632335802027,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.34936083044182253,
+              0,
+              -0.03677557129160917,
+              0.9362662909179075
+            ]
+          ],
+          [
+            "ambient-visitor-pagoda-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.34936083044182253,
+              0,
+              0.03677557129160917,
+              0.9362662909179075
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "pagoda-b",
+        "appearance": "refined-human",
+        "activity": "주변 감상",
+        "phase": 44.20039999985695,
+        "p": [
+          67,
+          0.01,
+          -28
+        ],
+        "rotation": [
+          0,
+          -3.1415926310789812,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pagoda-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pond-a",
+        "appearance": "refined-human",
+        "activity": "연못 감상",
+        "phase": 46.90039999985695,
+        "p": [
+          43,
+          0.01,
+          -66
+        ],
+        "rotation": [
+          0,
+          0.6659692373791098,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pond-achest",
+            [
+              0.0002373725651981352,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.17,
+              0.09661375267651408,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pond-b",
+        "appearance": "refined-human",
+        "activity": "주변 감상",
+        "phase": 49.60039999985694,
+        "p": [
+          74.5,
+          0.01,
+          -50
+        ],
+        "rotation": [
+          0,
+          -3.1414985175992887,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pond-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "tea",
+        "appearance": "refined-human",
+        "activity": "가벼운 스트레칭",
+        "phase": 52.30039999985694,
+        "p": [
+          58,
+          0.01,
+          -73.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-teachest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0.08972113676394547,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-teashoulder",
+            [
+              0,
+              0,
+              0.15
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-teashoulder",
+            [
+              0,
+              0,
+              -0.15
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "walk-a",
+        "appearance": "refined-human",
+        "activity": "산책",
+        "phase": 55.000399999856945,
+        "p": [
+          10.009587066009669,
+          0.01,
+          90.84928097004928
+        ],
+        "rotation": [
+          0,
+          1.6456561745056628,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-walk-achest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "walk-b",
+        "appearance": "refined-human",
+        "activity": "주변 감상",
+        "phase": 57.70039999985695,
+        "p": [
+          -10,
+          0.01,
+          88
+        ],
+        "rotation": [
+          0,
+          4.547205689585526,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-walk-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "statue",
+        "appearance": "refined-human",
+        "activity": "석상 참배",
+        "phase": 60.40039999985695,
+        "p": [
+          55,
+          0.09999999910593033,
+          45
+        ],
+        "rotation": [
+          0,
+          0.38,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-statuechest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-statueshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-statueshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      }
+    ],
+    "monks": [
+      {
+        "name": "tea-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "walking-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "sweeping-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "guide-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      }
+    ],
+    "population": {
+      "realCount": 1,
+      "target": 19,
+      "active": 19,
+      "capacity": 20,
+      "revision": 57
+    }
+  },
+  "walkingA": {
+    "actors": [
+      {
+        "id": "hall-a",
+        "appearance": "refined-human",
+        "activity": "절하기",
+        "phase": 9.517099999904625,
+        "p": [
+          -6,
+          1.7429999834299088,
+          32.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-achest",
+            [
+              0.12271359597047977,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.09,
+              0.03411843631899932,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.34936083044182253,
+              0,
+              -0.03677557129160917,
+              0.9362662909179075
+            ]
+          ],
+          [
+            "ambient-visitor-hall-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.34936083044182253,
+              0,
+              0.03677557129160917,
+              0.9362662909179075
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "hall-b",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 12.217099999904615,
+        "p": [
+          6,
+          1.7429999834299088,
+          34.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-bchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              -0.10419168518829106,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-hall-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "hall-c",
+        "appearance": "refined-human",
+        "p": [
+          -4.05,
+          1.7429999834299088,
+          36.3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-cchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.06666666666666667,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-cshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              -0.17129717711111764,
+              0.9785947073684406
+            ]
+          ],
+          [
+            "ambient-visitor-hall-cshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              0.17129717711111764,
+              0.9785947073684406
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "gwaneum",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 17.617099999904624,
+        "p": [
+          -25.4075,
+          1.1418750190734863,
+          12.45
+        ],
+        "rotation": [
+          0,
+          -1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-gwaneumchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              -0.10539134006287136,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-gwaneumshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-gwaneumshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "jijang",
+        "appearance": "refined-human",
+        "activity": "합장 참배",
+        "phase": 20.31709999990462,
+        "p": [
+          25.127499999999998,
+          1.1418750190734863,
+          14.335
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-jijangchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.06666666666666667,
+              0.012726087350311638,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-jijangshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              -0.17129717711111764,
+              0.9785947073684406
+            ]
+          ],
+          [
+            "ambient-visitor-jijangshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              0.17129717711111764,
+              0.9785947073684406
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "yaksa",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 23.017099999904616,
+        "p": [
+          -41.5,
+          1.240049952417612,
+          54.563043478260866
+        ],
+        "rotation": [
+          0,
+          -1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-yaksachest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-yaksashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-yaksashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "munsu",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 25.71709999990462,
+        "p": [
+          -22.43695652173913,
+          1.240049952417612,
+          96.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-munsuchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0.1395491853677959,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-munsushoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-munsushoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "bohyeon",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 28.550399999856936,
+        "p": [
+          39.563043478260866,
+          1.240049952417612,
+          99.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-bohyeonchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0.04269874471922739,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-bohyeonshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-bohyeonshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "geukrak",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 31.117099999904617,
+        "p": [
+          79.5,
+          1.240049952417612,
+          69.43695652173913
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-geukrakchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-geukrakshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-geukrakshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "votive",
+        "appearance": "refined-human",
+        "activity": "인등 감상",
+        "phase": 33.900399999856944,
+        "p": [
+          -20.1875,
+          0.01,
+          -32.2
+        ],
+        "rotation": [
+          0,
+          -1.017502001472604,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-votivechest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.04,
+              -0.14320696650160333,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-votiveshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-votiveshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "lantern-a",
+        "appearance": "refined-human",
+        "activity": "연등 감상",
+        "phase": 36.60039999985692,
+        "p": [
+          -7,
+          0.01,
+          -32
+        ],
+        "rotation": [
+          0,
+          0.4,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-lantern-achest",
+            [
+              0.0005435582174810405,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.28,
+              -0.12693683210497472,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-ashoulder",
+            [
+              -0.006423869842957751,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "lantern-b",
+        "appearance": "refined-human",
+        "activity": "연등 감상",
+        "phase": 39.30039999985691,
+        "p": [
+          7,
+          0.01,
+          -15
+        ],
+        "rotation": [
+          0,
+          -0.4,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-lantern-bchest",
+            [
+              0.055,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.28,
+              -0.021658816096187906,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-bshoulder",
+            [
+              -0.65,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pagoda-a",
+        "appearance": "refined-human",
+        "activity": "소원 빌기",
+        "phase": 42.000399999856896,
+        "p": [
+          23.5,
+          0.11000000074505806,
+          -25.6
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pagoda-achest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.13,
+              0.09880632335802027,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.34936083044182253,
+              0,
+              -0.03677557129160917,
+              0.9362662909179075
+            ]
+          ],
+          [
+            "ambient-visitor-pagoda-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.34936083044182253,
+              0,
+              0.03677557129160917,
+              0.9362662909179075
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "pagoda-b",
+        "appearance": "refined-human",
+        "activity": "산책",
+        "phase": 44.61709999990463,
+        "p": [
+          67,
+          0.01,
+          -28.019181999959944
+        ],
+        "rotation": [
+          0,
+          -3.1415926507873384,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pagoda-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pond-a",
+        "appearance": "refined-human",
+        "activity": "연못 감상",
+        "phase": 47.317099999904634,
+        "p": [
+          43,
+          0.01,
+          -66
+        ],
+        "rotation": [
+          0,
+          0.6659692373791098,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pond-achest",
+            [
+              0.0002373725651981352,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.17,
+              0.09661375267651408,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pond-b",
+        "appearance": "refined-human",
+        "activity": "주변 감상",
+        "phase": 50.01709999990462,
+        "p": [
+          74.5,
+          0.01,
+          -50
+        ],
+        "rotation": [
+          0,
+          -3.1415809342500802,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pond-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "tea",
+        "appearance": "refined-human",
+        "activity": "가벼운 스트레칭",
+        "phase": 52.717099999904626,
+        "p": [
+          58,
+          0.01,
+          -73.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-teachest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0.08972113676394547,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-teashoulder",
+            [
+              0,
+              0,
+              0.15
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-teashoulder",
+            [
+              0,
+              0,
+              -0.15
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "walk-a",
+        "appearance": "refined-human",
+        "activity": "산책",
+        "phase": 55.55039999985695,
+        "p": [
+          10.239940106593904,
+          0.01,
+          90.83200449200545
+        ],
+        "rotation": [
+          0,
+          1.6456561745056628,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-walk-achest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              -0.13182617631419236,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-ashoulder",
+            [
+              -0.08529114115356337,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-ashoulder",
+            [
+              0.08529114115356337,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "walk-b",
+        "appearance": "refined-human",
+        "activity": "주변 감상",
+        "phase": 58.25039999985695,
+        "p": [
+          -10,
+          0.01,
+          88
+        ],
+        "rotation": [
+          0,
+          4.54723809021042,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-walk-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.06,
+              -0.031185053308338876,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "statue",
+        "appearance": "refined-human",
+        "activity": "석상 참배",
+        "phase": 60.817099999904634,
+        "p": [
+          55,
+          0.09999999910593033,
+          45
+        ],
+        "rotation": [
+          0,
+          0.38,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-statuechest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-statueshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-statueshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      }
+    ],
+    "monks": [
+      {
+        "name": "tea-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "walking-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "sweeping-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "guide-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      }
+    ],
+    "population": {
+      "realCount": 1,
+      "target": 19,
+      "active": 19,
+      "capacity": 20,
+      "revision": 61
+    }
+  },
+  "walkingB": {
+    "actors": [
+      {
+        "id": "hall-a",
+        "appearance": "refined-human",
+        "activity": "합장 참배",
+        "phase": 16.66649999999992,
+        "p": [
+          -6,
+          1.7429999834299088,
+          32.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-achest",
+            [
+              0.12271359597047977,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.09,
+              0.03411843631899932,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.34936083044182253,
+              0,
+              -0.03677557129160917,
+              0.9362662909179075
+            ]
+          ],
+          [
+            "ambient-visitor-hall-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.34936083044182253,
+              0,
+              0.03677557129160917,
+              0.9362662909179075
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "hall-b",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 19.366499999999913,
+        "p": [
+          6,
+          1.7429999834299088,
+          34.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-bchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              -0.01286995299224327,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-hall-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "hall-c",
+        "appearance": "refined-human",
+        "p": [
+          -4.05,
+          1.7429999834299088,
+          36.3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-cchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.06666666666666667,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-cshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              -0.17129717711111764,
+              0.9785947073684406
+            ]
+          ],
+          [
+            "ambient-visitor-hall-cshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              0.17129717711111764,
+              0.9785947073684406
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "gwaneum",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 24.76649999999994,
+        "p": [
+          -25.4075,
+          1.1418750190734863,
+          12.45
+        ],
+        "rotation": [
+          0,
+          -1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-gwaneumchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              -0.10539134006287136,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-gwaneumshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-gwaneumshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "jijang",
+        "appearance": "refined-human",
+        "activity": "합장 참배",
+        "phase": 27.466499999999936,
+        "p": [
+          25.127499999999998,
+          1.1418750190734863,
+          14.335
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-jijangchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.06666666666666667,
+              0.012726087350311638,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-jijangshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              -0.17129717711111764,
+              0.9785947073684406
+            ]
+          ],
+          [
+            "ambient-visitor-jijangshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              0.17129717711111764,
+              0.9785947073684406
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "yaksa",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 30.16649999999993,
+        "p": [
+          -41.5,
+          1.240049952417612,
+          54.563043478260866
+        ],
+        "rotation": [
+          0,
+          -1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-yaksachest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-yaksashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-yaksashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "munsu",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 32.86649999999993,
+        "p": [
+          -22.43695652173913,
+          1.240049952417612,
+          96.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-munsuchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              -0.13316719418160802,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-munsushoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-munsushoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "bohyeon",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 35.583399999856866,
+        "p": [
+          39.563043478260866,
+          1.240049952417612,
+          99.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-bohyeonchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              -0.13867275986828334,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-bohyeonshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-bohyeonshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "geukrak",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 38.26649999999992,
+        "p": [
+          79.5,
+          1.240049952417612,
+          69.43695652173913
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-geukrakchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-geukrakshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-geukrakshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "votive",
+        "appearance": "refined-human",
+        "activity": "인등 감상",
+        "phase": 40.86669999980921,
+        "p": [
+          -20.1875,
+          0.01,
+          -32.2
+        ],
+        "rotation": [
+          0,
+          -1.017502001472604,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-votivechest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.04,
+              -0.14320696650160333,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-votiveshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-votiveshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "lantern-a",
+        "appearance": "refined-human",
+        "activity": "연등 감상",
+        "phase": 43.56669999980918,
+        "p": [
+          -7,
+          0.01,
+          -32
+        ],
+        "rotation": [
+          0,
+          0.4,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-lantern-achest",
+            [
+              0.0005435582174810405,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.28,
+              -0.12693683210497472,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-ashoulder",
+            [
+              -0.006423869842957751,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "lantern-b",
+        "appearance": "refined-human",
+        "activity": "연등 감상",
+        "phase": 46.26669999980917,
+        "p": [
+          7,
+          0.01,
+          -15
+        ],
+        "rotation": [
+          0,
+          -0.4,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-lantern-bchest",
+            [
+              0.055,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.28,
+              -0.021658816096187906,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-bshoulder",
+            [
+              -0.65,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pagoda-a",
+        "appearance": "refined-human",
+        "activity": "소원 빌기",
+        "phase": 48.96669999980916,
+        "p": [
+          23.5,
+          0.11000000074505806,
+          -25.6
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pagoda-achest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.13,
+              0.09880632335802027,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.34936083044182253,
+              0,
+              -0.03677557129160917,
+              0.9362662909179075
+            ]
+          ],
+          [
+            "ambient-visitor-pagoda-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.34936083044182253,
+              0,
+              0.03677557129160917,
+              0.9362662909179075
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "pagoda-b",
+        "appearance": "refined-human",
+        "activity": "산책",
+        "phase": 51.76649999999994,
+        "p": [
+          67,
+          0.01,
+          -31.021929999999973
+        ],
+        "rotation": [
+          0,
+          -3.141592653589793,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pagoda-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pond-a",
+        "appearance": "refined-human",
+        "activity": "연못 감상",
+        "phase": 54.46649999999994,
+        "p": [
+          43,
+          0.01,
+          -66
+        ],
+        "rotation": [
+          0,
+          0.6659692373791098,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pond-achest",
+            [
+              0.0002373725651981352,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.17,
+              0.09661375267651408,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pond-b",
+        "appearance": "refined-human",
+        "activity": "산책",
+        "phase": 57.16649999999993,
+        "p": [
+          74.5,
+          0.01,
+          -52.28992999999997
+        ],
+        "rotation": [
+          0,
+          -3.141592653589793,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pond-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "tea",
+        "appearance": "refined-human",
+        "activity": "가벼운 스트레칭",
+        "phase": 59.86649999999993,
+        "p": [
+          58,
+          0.01,
+          -73.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-teachest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0.08972113676394547,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-teashoulder",
+            [
+              0,
+              0,
+              0.15
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-teashoulder",
+            [
+              0,
+              0,
+              -0.15
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "walk-a",
+        "appearance": "refined-human",
+        "activity": "산책",
+        "phase": 62.58339999985685,
+        "p": [
+          13.18552726010098,
+          0.01,
+          90.61108545549243
+        ],
+        "rotation": [
+          0,
+          1.6456561745056628,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-walk-achest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0.1385264623428,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-ashoulder",
+            [
+              -0.12149732214779257,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-ashoulder",
+            [
+              0.12149732214779257,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "walk-b",
+        "appearance": "refined-human",
+        "activity": "산책",
+        "phase": 65.28339999985687,
+        "p": [
+          -12.417395448372117,
+          0.01,
+          87.59710075860465
+        ],
+        "rotation": [
+          0,
+          4.547240302970062,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-walk-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0.13371242709616207,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-bshoulder",
+            [
+              0.01630267788583348,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-bshoulder",
+            [
+              -0.01630267788583348,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "statue",
+        "appearance": "refined-human",
+        "activity": "석상 참배",
+        "phase": 67.96649999999993,
+        "p": [
+          55,
+          0.09999999910593033,
+          45
+        ],
+        "rotation": [
+          0,
+          0.38,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-statuechest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-statueshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-statueshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      }
+    ],
+    "monks": [
+      {
+        "name": "tea-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "walking-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "sweeping-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "guide-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      }
+    ],
+    "population": {
+      "realCount": 1,
+      "target": 19,
+      "active": 19,
+      "capacity": 20,
+      "revision": 103
+    }
+  },
+  "final": {
+    "actors": [
+      {
+        "id": "hall-a",
+        "appearance": "refined-human",
+        "activity": "합장 참배",
+        "phase": 35.03319999980916,
+        "p": [
+          -6,
+          1.7429999834299088,
+          32.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-achest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.06666666666666667,
+              -0.14654486804885528,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              -0.17129717711111764,
+              0.9785947073684406
+            ]
+          ],
+          [
+            "ambient-visitor-hall-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              0.17129717711111764,
+              0.9785947073684406
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "hall-b",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 37.733199999809166,
+        "p": [
+          6,
+          1.7429999834299088,
+          34.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-bchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              -0.07082493972327579,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-hall-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "hall-c",
+        "appearance": "refined-human",
+        "p": [
+          -4.05,
+          1.7429999834299088,
+          36.3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-hall-cchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.06666666666666667,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-hall-cshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              -0.17129717711111764,
+              0.9785947073684406
+            ]
+          ],
+          [
+            "ambient-visitor-hall-cshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.11405996591371745,
+              0,
+              0.17129717711111764,
+              0.9785947073684406
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "gwaneum",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 43.03219999980918,
+        "p": [
+          -25.4075,
+          1.1418750190734863,
+          12.45
+        ],
+        "rotation": [
+          0,
+          -1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-gwaneumchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0.1400185747553686,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-gwaneumshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-gwaneumshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "jijang",
+        "appearance": "refined-human",
+        "activity": "절하기",
+        "phase": 45.73219999980918,
+        "p": [
+          25.127499999999998,
+          1.1418750190734863,
+          14.335
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-jijangchest",
+            [
+              0.07552672240076495,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.09,
+              0.13184272959431828,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-jijangshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.34936083044182253,
+              0,
+              -0.03677557129160917,
+              0.9362662909179075
+            ]
+          ],
+          [
+            "ambient-visitor-jijangshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.34936083044182253,
+              0,
+              0.03677557129160917,
+              0.9362662909179075
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "yaksa",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 48.4321999998092,
+        "p": [
+          -41.5,
+          1.240049952417612,
+          54.563043478260866
+        ],
+        "rotation": [
+          0,
+          -1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-yaksachest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0.031218996199769287,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-yaksashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-yaksashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "munsu",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 51.08279999995222,
+        "p": [
+          -22.43695652173913,
+          1.240049952417612,
+          96.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-munsuchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              -0.14920228503377672,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-munsushoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-munsushoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "bohyeon",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 53.83219999980915,
+        "p": [
+          39.563043478260866,
+          1.240049952417612,
+          99.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-bohyeonchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              -0.0877833978752766,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-bohyeonshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-bohyeonshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "geukrak",
+        "appearance": "refined-human",
+        "activity": "명상",
+        "phase": 56.53219999980918,
+        "p": [
+          79.5,
+          1.240049952417612,
+          69.43695652173913
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-geukrakchest",
+            [
+              0.035,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.08,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-geukrakshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              -0.09202000204176662,
+              0.9831800847801142
+            ]
+          ],
+          [
+            "ambient-visitor-geukrakshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              -0.15776324069947503,
+              0,
+              0.09202000204176662,
+              0.9831800847801142
+            ]
+          ]
+        ]
+      },
+      {
+        "id": "votive",
+        "appearance": "refined-human",
+        "activity": "인등 감상",
+        "phase": 59.2321999998092,
+        "p": [
+          -20.1875,
+          0.01,
+          -32.2
+        ],
+        "rotation": [
+          0,
+          -1.017502001472604,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-votivechest",
+            [
+              0.0165,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.04,
+              0.11288957196866084,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-votiveshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-votiveshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "lantern-a",
+        "appearance": "refined-human",
+        "activity": "연등 감상",
+        "phase": 61.93219999980916,
+        "p": [
+          -7,
+          0.01,
+          -32
+        ],
+        "rotation": [
+          0,
+          0.4,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-lantern-achest",
+            [
+              0.055,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.28,
+              0.14704466188548282,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-ashoulder",
+            [
+              -0.65,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "lantern-b",
+        "appearance": "refined-human",
+        "activity": "연등 감상",
+        "phase": 64.63219999980916,
+        "p": [
+          7,
+          0.01,
+          -15
+        ],
+        "rotation": [
+          0,
+          -0.4,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-lantern-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.28,
+              0.1448829570633837,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-lantern-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pagoda-a",
+        "appearance": "refined-human",
+        "activity": "소원 빌기",
+        "phase": 67.33219999980915,
+        "p": [
+          23.5,
+          0.11000000074505806,
+          -25.6
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pagoda-achest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.04,
+              0.06454763805160556,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pagoda-b",
+        "appearance": "refined-human",
+        "activity": "주변 감상",
+        "phase": 70.03219999980917,
+        "p": [
+          67,
+          0.01,
+          -28
+        ],
+        "rotation": [
+          0,
+          -3.1415818999912815,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pagoda-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pagoda-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pond-a",
+        "appearance": "refined-human",
+        "activity": "연못 감상",
+        "phase": 72.73219999980915,
+        "p": [
+          43,
+          0.01,
+          -66
+        ],
+        "rotation": [
+          0,
+          0.6659692373791098,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pond-achest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0.17,
+              -0.13261047163434184,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-ashoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "pond-b",
+        "appearance": "refined-human",
+        "activity": "산책",
+        "phase": 75.43219999980914,
+        "p": [
+          74.5,
+          0.01,
+          -51.71847600008016
+        ],
+        "rotation": [
+          0,
+          -4.952746664509996e-26,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-pond-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-pond-bshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "tea",
+        "appearance": "refined-human",
+        "activity": "가벼운 스트레칭",
+        "phase": 78.13219999980916,
+        "p": [
+          58,
+          0.01,
+          -73.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-teachest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0.08999987635827325,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-teashoulder",
+            [
+              0,
+              0,
+              0.15
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-teashoulder",
+            [
+              0,
+              0,
+              -0.15
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "walk-a",
+        "appearance": "refined-human",
+        "activity": "산책",
+        "phase": 80.83219999980912,
+        "p": [
+          12.846737458688786,
+          0.01,
+          90.63649469059834
+        ],
+        "rotation": [
+          0,
+          -1.4959364790841305,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-walk-achest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0.10042804243582532,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-ashoulder",
+            [
+              -0.09819756003539672,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-ashoulder",
+            [
+              0.09819756003539672,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "walk-b",
+        "appearance": "refined-human",
+        "activity": "산책",
+        "phase": 83.53219999980917,
+        "p": [
+          -13.679534060049875,
+          0.01,
+          87.38674432332502
+        ],
+        "rotation": [
+          0,
+          1.4056476493802699,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-walk-bchest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              0,
+              0.14994627001694588,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-bshoulder",
+            [
+              -0.01818048856011097,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-walk-bshoulder",
+            [
+              0.01818048856011097,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      },
+      {
+        "id": "statue",
+        "appearance": "refined-human",
+        "activity": "석상 참배",
+        "phase": 86.23219999980918,
+        "p": [
+          55,
+          0.09999999910593033,
+          45
+        ],
+        "rotation": [
+          0,
+          0.38,
+          0
+        ],
+        "pose": [
+          [
+            "ambient-visitor-statuechest",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "visitor face joint",
+            [
+              -0.14,
+              0.09432243891791749,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-statueshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ],
+          [
+            "ambient-visitor-statueshoulder",
+            [
+              0,
+              0,
+              0
+            ],
+            null
+          ]
+        ]
+      }
+    ],
+    "monks": [
+      {
+        "name": "tea-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "walking-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "sweeping-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      },
+      {
+        "name": "guide-monk",
+        "appearance": "refined-human",
+        "hair": 0
+      }
+    ],
+    "population": {
+      "realCount": 1,
+      "target": 19,
+      "active": 19,
+      "capacity": 20,
+      "revision": 215
+    }
+  },
+  "faces": [
+    "rat",
+    "ox",
+    "tiger",
+    "rabbit",
+    "dragon",
+    "snake",
+    "horse",
+    "sheep",
+    "monkey",
+    "rooster",
+    "dog",
+    "pig",
+    "human"
+  ],
+  "monksRefinedAndBald": true,
+  "hallMonkRefined": true,
+  "robeRoundTrip": true,
+  "guestBowAndMeditation": true,
+  "mobileTouch": true,
+  "errors": [],
+  "video": "/Users/hjunnn/Documents/ChatGPT/Metaverse/sasa-sites-trial/evidence/characters-applied/recording/page@138b2591156be53b77be5c762a4bff46.webm"
+}

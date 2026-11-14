@@ -27,7 +27,7 @@ export function sweepingMonk(scene:Scene,camera:ArcRotateCamera,canvas:HTMLCanva
   const bristle=MeshBuilder.CreateCylinder('broom-straw',{diameterTop:.01,diameterBottom:.019,height:.27,tessellation:5},scene);bristle.parent=broom;bristle.position.set((i-7)*.014,.055,Math.sin(i*2.1)*.018);bristle.rotation.z=-(i-7)*.037;bristle.material=straw;
  }
  for(const y of [.12,.16]){const binding=MeshBuilder.CreateTorus('broom-binding',{diameter:.065,thickness:.014,tessellation:10},scene);binding.parent=broom;binding.position.y=y;binding.material=thread;}
- const mouth=MeshBuilder.CreateSphere('sweeper-speaking-lips',{diameter:1,segments:8},scene);mouth.parent=body.head;mouth.position.set(0,-.106,.171);mouth.scaling.set(.063,.008,.015);mouth.material=material('lips','#86554b');
+ const mouth=MeshBuilder.CreateSphere('sweeper-speaking-lips',{diameter:1,segments:8},scene);mouth.parent=body.head;mouth.position.set(0,-.114,.204);mouth.scaling.set(.063,.008,.015);mouth.material=material('lips','#86554b');
  for(const mesh of [...body.root.getChildMeshes(),...broom.getChildMeshes()]){mesh.isPickable=true;mesh.metadata={sweeperNpc:true,blocksOfferingPick:true};}
  const leaves=Array.from({length:34},(_,i)=>{
   const leaf=MeshBuilder.CreateDisc('swept-leaf',{radius:.065+(i%4)*.012,tessellation:5},scene);leaf.material=i%3?brown:gold;leaf.rotation.set(Math.PI/2,0,i*2.4);leaf.scaling.y=.55;leaf.isPickable=false;
@@ -63,6 +63,7 @@ export function sweepingMonk(scene:Scene,camera:ArcRotateCamera,canvas:HTMLCanva
   if(f.phase!==lastPhase){lastPhase=f.phase;button.dataset.phase=f.phase;}button.dataset.audio=sound.playing?'playing':'idle';
   if(utter)void sound.speak(()=>cycle.active&&cycle.frame().speech&&!privateSpace);
   body.root.rotation.y=turnTo*f.turn;body.bow(f.palms*.105);body.chest.rotation.x=.10*(1-f.release);body.head.rotation.x=.055*(1-f.release)+.07*f.palms;
+  body.head.getChildMeshes().find(m=>m.name==='sweeping-monk-quiet-smile')?.setEnabled(!sound.playing);
   mouth.scaling.y=.008+(sound.playing?.014*Math.max(0,Math.sin(performance.now()*.009)):0);
   const bottom=new Vector3(.43+.30*f.stroke,.12,.79),top=new Vector3(.11,1.39,.22);
   body.root.computeWorldMatrix(true);const matrix=body.root.getWorldMatrix();
