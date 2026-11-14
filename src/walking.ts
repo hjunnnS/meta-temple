@@ -1,3 +1,6 @@
+import{walkingPose}from'./locomotion';
+import{turnTowards}from'./motion-timing';
+import{BOW_SECONDS}from'./motion-timing';
 import {refinedVisitor as visitorMesh} from './refined-visitor';
 import {touchStick,touchPinch} from './touch-controls';
 import {practiceEvent} from './practice-events';
@@ -90,7 +93,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  const keys=new Set<string>();let route:WalkPoint[]=[];let stuck=0;
  const pad=document.querySelector<HTMLElement>('#walk-pad')!;
  const directions=new Set(['KeyW','KeyS','KeyA','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight']);
- let active=false,first=false,step=0,moving=false;
+ let active=false,first=false,step=0,moving=false,walkBlend=0,walkSpeed=0,lastDX=0,lastDZ=1;
  let followDistance=3.2,firstPersonFov=.92;
  const stick=touchStick(canvas,'public-touch-stick');
  const pointers=camera.inputs.attached.pointers as unknown as {onMultiTouch:()=>void;onTouch:(...args:unknown[])=>void};pointers.onMultiTouch=()=>{};const orbitTouch=pointers.onTouch.bind(pointers);pointers.onTouch=(...args)=>{if(canvas.dataset.touchPinch!=='true')orbitTouch(...args);};
@@ -131,7 +134,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  const bows=bowPractice(scene,avatar.root.position,()=>{
   if(!prayer)return;
   if(prayer.name==='대웅전')avatar.root.position.set(practiceSeat.x,world.floor(practiceSeat.x,practiceSeat.z)+.088,practiceSeat.z);
-  finishWorship();camera.alpha=prayer.alpha;camera.beta=1.48;
+  finishWorship();
   avatar.root.rotation.y=-Math.PI/2-prayer.alpha;canvas.focus();
  },avatar.bow);
  prayerButton.onclick=()=>{
@@ -174,7 +177,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  };
  document.addEventListener('pointerlockchange',()=>{if(!document.pointerLockElement&&first)changePerspective(false);});
  canvas.addEventListener('keydown',e=>{if(e.key==='Escape'){route=[];canvas.dataset.pointWalk='idle';}if(e.key==='Escape'&&bows.active)bows.cancel();if(e.key==='Escape'&&worship)finishWorship();if(e.key==='Escape'&&meditating)finishMeditation();if(e.key==='Escape'&&first)changePerspective(false);if(e.key==='Escape'&&tea.seated)tea.stop();if(e.key==='Escape'&&bell.active)bell.cancel();});
- function clear(){stick.reset();keys.clear();moving=false;route=[];canvas.dataset.pointWalk='idle';}
+ function clear(){walkBlend=0;walkSpeed=0;stick.reset();keys.clear();moving=false;route=[];canvas.dataset.pointWalk='idle';}
  canvas.addEventListener('keydown',e=>{if(active&&directions.has(e.code)){e.preventDefault();route=[];keys.add(e.code);}});
  window.addEventListener('keyup',e=>keys.delete(e.code));
  canvas.addEventListener('blur',clear);window.addEventListener('blur',clear);document.addEventListener('visibilitychange',clear);
@@ -183,7 +186,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   button.onpointerdown=e=>{e.preventDefault();canvas.focus();button.setPointerCapture(e.pointerId);keys.add(code);};
   button.onlostpointercapture=()=>keys.delete(code);
  }
- const tea=teaBreak(scene,avatar,canvas);
+ const tea=teaBreak(scene,avatar,canvas,world);
  const bell=bellRinging(scene,avatar,canvas,bellVisual,()=>{
   if(bows.active)bows.cancel();finishWorship();tea.stop();changePerspective(false);camera.alpha=.2;camera.beta=1.35;
  });
@@ -246,13 +249,15 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    if(length){finishWorship();}
    else{
     elapsed+=Math.min(.1,dt);
-    avatar.bow(Math.min(1,elapsed/4.8));
-    if(elapsed>=4.8&&worshipRun){const id=worshipRun;worshipRun='';practiceEvent({kind:'bow',status:'completed',id,place:prayer?.name});finishWorship();}
+    avatar.bow(Math.min(1,elapsed/BOW_SECONDS));
+    if(elapsed>=BOW_SECONDS&&worshipRun){const id=worshipRun;worshipRun='';practiceEvent({kind:'bow',status:'completed',id,place:prayer?.name});finishWorship();}
    }
   }
-  if(length && document.activeElement===canvas && !document.querySelector('dialog[open]')){
-   const a=camera.alpha,scale=3.3*Math.min(.05,dt)*(auto?1:Math.min(1,length))/length;
-   const dx=auto?auto[0]*scale:(x*-Math.sin(a)-z*Math.cos(a))*scale,dz=auto?auto[1]*scale:(x*Math.cos(a)-z*Math.sin(a))*scale;
+  if((length||walkSpeed>.01&&!bows.active&&!worship&&!meditating) && document.activeElement===canvas && !document.querySelector('dialog[open]')){
+   walkSpeed+=( (length?2.2:0)-walkSpeed)*(1-Math.exp(-Math.min(.1,dt)*(length?9:15)));
+   const a=camera.alpha,scale=walkSpeed*Math.min(.05,dt)*(auto?1:Math.min(1,length))/Math.max(.0001,length);
+   let dx=auto?auto[0]*scale:(x*-Math.sin(a)-z*Math.cos(a))*scale,dz=auto?auto[1]*scale:(x*Math.cos(a)-z*Math.sin(a))*scale;
+   if(length){const v=Math.hypot(dx,dz);lastDX=dx/Math.max(.0001,v);lastDZ=dz/Math.max(.0001,v);}else{dx=lastDX*walkSpeed*Math.min(.05,dt);dz=lastDZ*walkSpeed*Math.min(.05,dt);}
    const ox=p.x,oz=p.z;
    function move(nx:number,nz:number){
     const y=world.floor(nx,nz);
@@ -261,9 +266,10 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    move(p.x+dx,p.z);move(p.x,p.z+dz);
    const distance=Math.hypot(p.x-ox,p.z-oz);
    moving=distance>.00001;if(auto){stuck=moving?0:stuck+dt;if(stuck>.5){route=[];canvas.dataset.pointWalk='idle';}}
-   if(moving){avatar.root.rotation.y=Math.atan2(p.x-ox,p.z-oz);step+=distance*4.8;}
-   avatar.legs.forEach((leg,i)=>leg.rotation.x=distance>.00001?.35*Math.sin(step+i*Math.PI):0);
-  }else if(!bows.bowing&&!worship&&!meditating)avatar.legs.forEach((leg,i)=>leg.rotation.x=moving?.35*Math.sin(step+i*Math.PI):0);
+   if(moving){avatar.root.rotation.y=turnTowards(avatar.root.rotation.y,Math.atan2(p.x-ox,p.z-oz),dt);step+=distance*4.5;}
+   walkBlend+=(Math.min(1,distance/Math.max(.0001,dt*2.0))-walkBlend)*(1-Math.exp(-dt*14));
+  }else{walkSpeed=0;walkBlend*=Math.exp(-dt*14);}
+  if(!bows.active&&!worship&&!meditating)walkingPose(avatar,step,walkBlend);
   if(bell.framed&&!first){frameBellCamera();return;}
   camera.target.copyFromFloats(p.x,p.y+(first?1.56:1.2),p.z);
   camera.radius=first?.045:world.cameraLimit(camera.target,camera.alpha,camera.beta,followDistance);
@@ -271,7 +277,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  function visit(x:number,z:number){
   const candidates=[[x,z],...Array.from({length:32},(_,i)=>{const a=(i%8)*Math.PI/4,r=1+Math.floor(i/8);return [x+r*Math.cos(a),z+r*Math.sin(a)];})];
   const next=candidates.find(([cx,cz])=>!world.blocked(cx,world.floor(cx,cz),cz));if(!next)return false;
-  if(bows.active)bows.cancel();finishWorship();tea.stop();bell.cancel();mode(true);clear();avatar.root.position.set(next[0],world.floor(next[0],next[1]),next[1]);const office=templePlaces.find(p=>p.id==='office')!;
+  if(bows.active)bows.cancel();finishWorship();tea.stop(true);bell.cancel();mode(true);clear();avatar.root.position.set(next[0],world.floor(next[0],next[1]),next[1]);const office=templePlaces.find(p=>p.id==='office')!;
   const officeArrival=Math.abs(x-office.x)<.5&&Math.abs(z-(office.z+6.1))<.5;
   camera.alpha=officeArrival?Math.PI/2:-Math.PI/2;camera.beta=1.26;
   if(officeArrival)avatar.root.rotation.y=Math.PI;
@@ -281,15 +287,15 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
   if(!active||!prayer)visit(practiceSeat.x,practiceSeat.z);
   const p=avatar.root.position;prayer=prayerSites.find(site=>Math.hypot(p.x-site.x,p.z-site.z)<=site.radius&&p.y>.8);
   if(!prayer)return;prayerButton.hidden=false;bows.show(practicing);
-  if(kind==='108'){finishMeditation();document.querySelector<HTMLButtonElement>('#bow-start')!.click();return;}
+  if(kind==='108'){if(!bows.active){camera.alpha=prayer.alpha;camera.beta=1.48;}finishMeditation();document.querySelector<HTMLButtonElement>('#bow-start')!.click();return;}
   if(bows.active)bows.cancel();finishWorship();
   if(kind==='bow'){prayerButton.click();return;}
   meditating=true;meditationTime=0;meditationRun='guide-meditation-'+(++practiceSerial);practiceEvent({kind:'meditation',status:'started',id:meditationRun,place:prayer.name});meditationStop.hidden=false;meditationStatus.hidden=false;camera.alpha=prayer.alpha;avatar.root.rotation.y=-Math.PI/2-prayer.alpha;canvas.focus();
  }
  function captureView(){return {position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,alpha:camera.alpha,beta:camera.beta,followDistance,first,firstPersonFov,bellFramed:bell.framed};}
  function restoreView(saved:ReturnType<typeof captureView>){
-  mode(true);clear();finishWorship();bell.cancel();tea.stop();if(saved.bellFramed)bell.approach();avatar.root.position.set(...saved.position as [number,number,number]);avatar.root.rotation.y=saved.yaw;
+  mode(true);clear();finishWorship();bell.cancel();tea.stop(true);if(saved.bellFramed)bell.approach();avatar.root.position.set(...saved.position as [number,number,number]);avatar.root.rotation.y=saved.yaw;
   followDistance=saved.followDistance;firstPersonFov=saved.firstPersonFov;changePerspective(saved.first);camera.alpha=saved.alpha;camera.beta=saved.beta;update(0);canvas.focus();
  }
- return {get practiceDestination(){return active&&prayer?prayer.name:"대웅전";},stopPractice(){bows.cancel();finishWorship();},captureView,restoreView,mode,update,visit,startPractice,returnFromPrivateRoom(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=-Math.PI/2;camera.alpha=0;camera.beta=1.26;},approachPersonalGate(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=Math.PI/2;camera.alpha=Math.PI;camera.beta=1.26;},approachBell(){mode(true);bell.approach();},sitAtTea(index=0){bell.cancel();mode(true);if(bows.active)bows.cancel();finishWorship();tea.sitAt(index);camera.alpha=-Math.PI/2;camera.beta=1.42;},setFace:avatar.setFace,get pose(){return {meditating,face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,bowProgress:worship?Math.min(1,elapsed/4.8):bows.progress,bellProgress:bell.progress,bellHit:bell.hit,drinkLift:tea.lift,beverage:tea.beverage,animation:bell.active?'bell':tea.seated||meditating?'sit':worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
+ return {get practiceDestination(){return active&&prayer?prayer.name:"대웅전";},stopPractice(){bows.cancel();finishWorship();},captureView,restoreView,mode,update,visit,startPractice,returnFromPrivateRoom(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=-Math.PI/2;camera.alpha=0;camera.beta=1.26;},approachPersonalGate(){mode(true);clear();avatar.root.position.set(personalGate.x-2.5,world.floor(personalGate.x-2.5,personalGate.z),personalGate.z);avatar.root.rotation.y=Math.PI/2;camera.alpha=Math.PI;camera.beta=1.26;},approachBell(){mode(true);bell.approach();},sitAtTea(index=0){bell.cancel();mode(true);if(bows.active)bows.cancel();finishWorship();tea.sitAt(index,true);camera.alpha=-Math.PI/2;camera.beta=1.42;},setFace:avatar.setFace,get pose(){return {meditating,face:avatar.face,wearingRobe:robe.wearing,position:avatar.root.position.asArray(),yaw:avatar.root.rotation.y,bowProgress:worship?Math.min(1,elapsed/BOW_SECONDS):bows.progress,bellProgress:bell.progress,bellHit:bell.hit,drinkLift:tea.lift,beverage:tea.beverage,animation:bell.active?'bell':tea.travelling?'walk':tea.seated||meditating?'sit':worship||bows.bowing?'worship':active&&moving?'walk':'idle'};},get position(){return active?avatar.root.position.asArray():null;}};
 }

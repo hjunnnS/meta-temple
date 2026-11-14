@@ -1,3 +1,4 @@
+import{walkingPose}from'./locomotion';
 import type{Mesh}from'@babylonjs/core/Meshes/mesh';
 import type{Scene}from'@babylonjs/core/scene';
 import{MeshBuilder}from'@babylonjs/core/Meshes/meshBuilder';import{StandardMaterial}from'@babylonjs/core/Materials/standardMaterial';
@@ -24,7 +25,7 @@ export function quietMonks(scene:Scene,visitor:()=>readonly number[]|null,timber
   const walkNear=Math.hypot(camera.globalPosition.x-walker.root.position.x,camera.globalPosition.z-walker.root.position.z)<55;
   const giveWay=!!p&&Math.hypot(p[0]-walker.root.position.x,p[2]-walker.root.position.z)<1.6;
   if(walkNear&&!giveWay)walkAge+=dt;const f=walkingMonkFrame(walkAge);walker.root.position.set(f.x,.01,f.z);walker.root.rotation.y=f.yaw;walker.bow(f.walking&&!giveWay?.09:.12);
-  const stepping=walkNear&&!giveWay&&f.walking;for(const[i,limb]of walker.legs.entries())limb.rotation.x=stepping?(reducedMotion()?.10:.17)*Math.sin(walkAge*3.6+i*Math.PI):0;
+  const stepping=walkNear&&!giveWay&&f.walking;walkingPose(walker,walkAge*3.6,stepping?(reducedMotion()?.25:.6):0,true);
  });
  scene.onDisposeObservable.addOnce(()=>{scene.onBeforeRenderObservable.remove(observer);window.removeEventListener('sasa:space',publicSpace);cup.dispose();});
  return{tea,walker,furniture,obstacles(){return[{x:teaMonkSite.x,z:teaMonkSite.z,radius:.36},{x:teaMonkSite.x,z:teaMonkSite.tableZ,radius:.53},{x:walker.root.position.x,z:walker.root.position.z,radius:.34}];}};

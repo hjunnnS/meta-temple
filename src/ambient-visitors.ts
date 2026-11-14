@@ -1,3 +1,4 @@
+import{walkingPose}from'./locomotion';
 import type {Scene} from '@babylonjs/core/scene';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
@@ -6,7 +7,9 @@ import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
 import {Color3} from '@babylonjs/core/Maths/math.color';
 import {visitorMesh} from './walking';
 import {privateMeditationPose} from './private-practice';
-import {ambientPlaces,ambientBudget,ambientWalk,ambientActivity} from './ambient-layout';
+import {ambientPlaces,ambientBudget} from './ambient-layout';
+import{visitorJourney,visitorWalkSpeed,stopPose}from'./ambient-journeys';
+import{walkingPath,type WalkPoint}from'./point-navigation';
 import {reducedMotion} from './practice-light';
 import {t} from './locales';
 interface World{floor:(x:number,z:number)=>number;blocked:(x:number,y:number,z:number)=>boolean}
@@ -27,13 +30,10 @@ export function ambientVisitors(scene:Scene,visitor:()=>readonly number[]|null,w
   }
   const site={...place,x,z};
   body.root.position.set(x,world.floor(x,z)+(place.seatLift??(['prayer','meditation'].includes(place.role)?.06:0)),z);body.root.rotation.y=place.yaw;
-  if(place.role==='meditation')privateMeditationPose(body,1,i);else body.bow(place.role==='prayer'?.07:0);
-  body.root.computeWorldMatrix(true);
-  const parts=body.root.getChildMeshes() as Mesh[];for(const m of parts)m.computeWorldMatrix(true);
-  // A baked pose reduces distant actor draw calls while retaining the same model/materials.
-  const distant=Mesh.MergeMeshes(parts,false,true,undefined,false,true)!;distant.name='ambient-distant-'+place.id;distant.setParent(body.root);distant.isPickable=false;distant.metadata={ambientVisitor:true};distant.setEnabled(false);
+  body.bow(0);
+  const parts=body.root.getChildMeshes() as Mesh[];
   const label=MeshBuilder.CreatePlane('ambient-label-'+place.id,{width:1.8,height:.34},scene);label.material=labelMaterial;label.parent=body.root;label.position.y=place.role==='meditation'?1.35:1.98;label.billboardMode=Mesh.BILLBOARDMODE_ALL;label.isPickable=false;label.setEnabled(false);
-  return{body,parts,distant,label,place:site,fade:0,desired:i!==2,time:i*2.7,timeUpdated:0,until:0};
+  return{body,parts,label,place:site,fade:0,desired:i!==2,time:i*2.7,timeUpdated:0,until:0,stops:visitorJourney(site),stop:0,elapsed:Math.min(7,i*.71),route:[] as WalkPoint[],next:0,travelling:false,wait:0,steps:0,skipped:0,completed:0,skipOffset:1};
  });
  function publish(){scene.metadata??={};scene.metadata.ambientPopulation={realCount,target,active:actors.filter(a=>a.desired).length,capacity:20,revision:++revision};}
  function population(event:Event){const value=(event as CustomEvent<{count:number}>).detail?.count;if(!Number.isSafeInteger(value)||value<1)return;realCount=value;const next=ambientBudget(value);if(next===target){publish();return;}target=next;
@@ -46,37 +46,50 @@ export function ambientVisitors(scene:Scene,visitor:()=>readonly number[]|null,w
   if(privateSpace||document.hidden)return;if(labelText!==t('가상 방문객'))paintLabel();const dt=Math.min(.1,scene.getEngine().getDeltaTime()/1000);age+=dt;const p=visitor(),camera=scene.activeCamera;if(!camera)return;
   for(const a of actors){
    a.fade=Math.max(0,Math.min(1,a.fade+(a.desired?dt:-dt)*.8));a.body.root.setEnabled(a.fade>0);if(!a.fade)continue;
-   const distance=Math.hypot(camera.globalPosition.x-a.body.root.position.x,camera.globalPosition.z-a.body.root.position.z),near=distance<65;
-   for(const mesh of a.parts){mesh.isVisible=near;mesh.visibility=a.fade;}a.distant.setEnabled(!near);a.distant.visibility=a.fade;
-   const labelNear=near&&distance<9&&!document.querySelector('dialog[open]');a.label.setEnabled(labelNear);a.label.visibility=a.fade;
-   if(age<a.until)continue;
-   const step=Math.min(.5,age-a.timeUpdated);a.timeUpdated=age;a.until=age+(distance<30?.05:.2);
-   const yielding=!!p&&Math.hypot(p[0]-a.body.root.position.x,p[2]-a.body.root.position.z)<1.5;
-   const previousTime=a.time;a.time+=step;let f=ambientWalk(a.place,a.time),stopped=false;
-   if(a.place.role==='walk'){
-    const y=world.floor(f.x,f.z);if(!yielding&&!world.blocked(f.x,y,f.z)&&!actors.some(other=>other!==a&&other.desired&&Math.hypot(f.x-other.body.root.position.x,f.z-other.body.root.position.z)<.75)){
-     a.body.root.position.set(f.x,y,f.z);
-     const delta=Math.atan2(Math.sin(f.yaw-a.body.root.rotation.y),Math.cos(f.yaw-a.body.root.rotation.y));a.body.root.rotation.y+=delta*(1-Math.exp(-step*5));
-    }else{a.time=previousTime;f=ambientWalk(a.place,a.time);stopped=true;}
+   const distance=Math.hypot(camera.globalPosition.x-a.body.root.position.x,camera.globalPosition.z-a.body.root.position.z);
+   for(const mesh of a.parts){mesh.isVisible=true;mesh.visibility=a.fade;}
+   a.label.setEnabled(distance<7&&!document.querySelector('dialog[open]'));a.label.visibility=a.fade;
+   if(age<a.until)continue;const step=Math.min(.3,age-a.timeUpdated);a.timeUpdated=age;a.until=age+(distance<35?.04:.12);a.time+=step;
+   const stop=a.stops[a.stop],position=a.body.root.position;let moving=false,yielding=false;
+   const canStep=(from:WalkPoint,to:WalkPoint)=>{const y=world.floor(to[0],to[1]);return Math.abs(y-world.floor(from[0],from[1]))<=.36&&!world.blocked(to[0],y,to[1]);};
+   if(!a.travelling){
+    a.elapsed+=step;const delta=Math.atan2(Math.sin(stop.yaw-a.body.root.rotation.y),Math.cos(stop.yaw-a.body.root.rotation.y));a.body.root.rotation.y+=delta*(1-Math.exp(-step*4));
+    if(a.elapsed>=stop.seconds&&a.stops.length>1){
+     a.next=(a.stop+a.skipOffset)%a.stops.length;const goal=a.stops[a.next];a.route=walkingPath([position.x,position.z],[goal.x,goal.z],canStep,.65,2500);a.elapsed=0;
+     if(a.route.length){a.travelling=true;a.wait=0;a.skipOffset=1;}else{a.skipped++;a.skipOffset=a.skipOffset+1<a.stops.length?a.skipOffset+1:1;a.elapsed=Math.max(0,stop.seconds-2);/* Stay at the last safe stop; never pretend an unreachable destination was reached. */}
+    }
    }
-   const activity=ambientActivity(a.place,a.time);
-   a.body.root.metadata={...a.body.root.metadata,activity:stopped?'잠시 양보':activity.action,phase:a.time,walking:f.walking&&!stopped};
-   if(!near)continue;
+   if(a.travelling){
+    const target=a.route[0],dx=target[0]-position.x,dz=target[1]-position.z,length=Math.hypot(dx,dz),travel=Math.min(length,visitorWalkSpeed*step),x=position.x+dx/Math.max(.0001,length)*travel,z=position.z+dz/Math.max(.0001,length)*travel;
+    yielding=!!p&&Math.hypot(p[0]-x,p[2]-z)<.90||actors.some(other=>other!==a&&other.desired&&Math.hypot(x-other.body.root.position.x,z-other.body.root.position.z)<.70);
+    if(!yielding&&canStep([position.x,position.z],[x,z])){
+     position.set(x,world.floor(x,z),z);a.steps+=travel;a.wait=0;moving=travel>.0001;
+     const yaw=Math.atan2(dx,dz),delta=Math.atan2(Math.sin(yaw-a.body.root.rotation.y),Math.cos(yaw-a.body.root.rotation.y));a.body.root.rotation.y+=delta*(1-Math.exp(-step*7));
+     if(length<=travel+.015)a.route.shift();
+     if(!a.route.length){a.stop=a.next;a.elapsed=0;a.travelling=false;a.completed++;}
+    }else{a.wait+=step;if(a.wait>2.5){
+     const goal=a.stops[a.next],avoid=(from:WalkPoint,to:WalkPoint)=>canStep(from,to)&&(!p||Math.hypot(to[0]-p[0],to[1]-p[2])>.95)&&!actors.some(other=>other!==a&&other.desired&&Math.hypot(to[0]-other.body.root.position.x,to[1]-other.body.root.position.z)<.76);
+     const detour=walkingPath([position.x,position.z],[goal.x,goal.z],avoid,.65,1500);if(detour.length)a.route=detour;a.wait=0;
+    }}
+   }
+   const current=a.stops[a.stop],pose=stopPose(current,a.elapsed);
    a.body.bow(0);a.body.chest.scaling.y=1;a.body.chest.rotation.z=0;
-   if(activity.pose==='bow')a.body.bow(activity.progress);
-   else if(activity.pose==='meditation')privateMeditationPose(a.body,1,a.time);
-   else if(activity.pose==='walk'&&!stopped){
-    const stride=(reducedMotion()?.10:.25)*Math.sin(a.time*3.8);
-    for(let i=0;i<2;i++){a.body.legs[i].rotation.x=(i?1:-1)*stride;a.body.shins[i].rotation.x=Math.max(0,(i?-1:1)*stride)*.7;a.body.arms[i].rotation.x=(i?-1:1)*stride*.6;}
-    a.body.hips.position.y+=reducedMotion()?0:.006*Math.sin(a.time*7.6);
-   }else if(activity.pose==='stretch'){
-    const amount=reducedMotion()?.3:1;for(let i=0;i<2;i++){a.body.arms[i].rotation.z=(i?-1:1)*(.15+activity.gesture*.75)*amount;a.body.forearms[i].rotation.x=-.2*activity.gesture;}
-    a.body.chest.rotation.z=(reducedMotion()?0:.055)*Math.sin(a.time*.35)*activity.gesture;
-   }else{
-    a.body.chest.rotation.x=activity.gesture*.055;
-    if(activity.action==='연등 감상'){a.body.arms[1].rotation.x=-.65*activity.gesture;a.body.forearms[1].rotation.x=-.65*activity.gesture;}
+   let activity='산책';
+   if(moving){
+    walkingPose(a.body,a.steps*6.4,reducedMotion()?.5:1);
+   }else if(a.travelling){activity='길을 양보하는 중';a.body.head.rotation.y=.18*Math.sin(a.time*.7);}
+   else{
+    activity={prayer:'참배',meditation:'명상',lantern:'연등 감상',wish:'소원 빌기',look:'주변 감상',rest:'휴식',stretch:'스트레칭'}[current.action];
+    if(current.action==='meditation')privateMeditationPose(a.body,pose.seated,a.time);
+    else if(current.action==='prayer'||current.action==='wish')a.body.bow(pose.bow);
+    else if(current.action==='stretch')for(let i=0;i<2;i++){a.body.arms[i].rotation.z=(i?-1:1)*(.1+.85*pose.gesture);a.body.forearms[i].rotation.x=-.25*pose.gesture;}
+    else if(current.action==='lantern'){
+     a.body.head.rotation.x=-.36*pose.gesture;a.body.arms[1].rotation.x=-.95*pose.gesture;a.body.forearms[1].rotation.x=-.65*pose.gesture;
+    }else{a.body.chest.rotation.x=.06*pose.gesture;a.body.head.rotation.x=current.action==='look'?.1:0;}
+    a.body.head.rotation.y=reducedMotion()?0:.20*Math.sin(a.time*.65);
+    position.y=world.floor(position.x,position.z)+(current.seatLift??0)*(current.action==='meditation'?pose.seated:1);
    }
-   a.body.head.rotation.x+=activity.pitch*(reducedMotion()?.4:1);a.body.head.rotation.y=reducedMotion()?0:.15*Math.sin(a.time*.32);
+   a.body.root.metadata={...a.body.root.metadata,activity,phase:a.time,walking:moving,destination:a.next,journeyStop:a.stop,metresWalked:a.steps,completedStops:a.completed,skippedStops:a.skipped};
 
   }
  });

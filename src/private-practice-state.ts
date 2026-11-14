@@ -1,4 +1,5 @@
-export const PRIVATE_BOW_DURATION=4.8;
+import{BOW_SECONDS}from'./motion-timing.ts';
+export const PRIVATE_BOW_DURATION=BOW_SECONDS;
 export type PrivatePracticeMode='idle'|'bow'|'lowering'|'meditating'|'rising';
 const ease=(value:number)=>{const x=Math.max(0,Math.min(1,value));return x*x*(3-2*x);};
 export function privatePracticeState(){

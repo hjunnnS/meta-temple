@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "geometry": {
+    "meshes": 58,
+    "vertices": 11800,
+    "triangles": 18420,
+    "style": {
+      "appearance": "refined-human",
+      "monk": false,
+      "productionApplied": true
+    },
+    "oldTriangles": 20946
+  },
+  "contacts": [
+    {
+      "progress": 0,
+      "palmY": 0.48284999495744707,
+      "faceY": 1.1190150418877602,
+      "shoeY": 0.006452973172068596
+    },
+    {
+      "progress": 0.105,
+      "palmY": 0.906755250497861,
+      "faceY": 1.1126512637585402,
+      "shoeY": 0.006452973172068596
+    },
+    {
+      "progress": 0.33,
+      "palmY": 0.45365736143923063,
+      "faceY": 0.6836962682604568,
+      "shoeY": 0.006453014691574888
+    },
+    {
+      "progress": 0.54,
+      "palmY": 0.011811528971735284,
+      "faceY": 0.009095539036869271,
+      "shoeY": 0.006453007627270302
+    },
+    {
+      "progress": 0.82,
+      "palmY": 0.49756053973724407,
+      "faceY": 0.7113398117329974,
+      "shoeY": 0.006453020771238891
+    },
+    {
+      "progress": 1,
+      "palmY": 0.48284999495744707,
+      "faceY": 1.1190150418877602,
+      "shoeY": 0.006452973172068596
+    }
+  ],
+  "video": "/Users/hjunnn/Documents/ChatGPT/Metaverse/sasa-sites-trial/evidence/practice-motion/pose/recording/page@172c2958d5c0d18fcac9702092c7f8b3.webm",
+  "mobileNoOverflow": true,
+  "pageErrors": [],
+  "comparisonOnly": true,
+  "productionApplied": true
+}

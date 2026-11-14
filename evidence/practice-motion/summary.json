@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "canonicalTests": 109,
+  "trialTests": 48,
+  "confirmedCounts": [
+    0,
+    1,
+    2
+  ],
+  "countOnlyAfterCompletion": true,
+  "chairAreas": [
+    "terrace",
+    "garden",
+    "indoor"
+  ],
+  "interruptedSeating": true,
+  "bowFloorContact": true,
+  "cameraPreservedAcrossBows": true,
+  "mobileViewport": true,
+  "realMobileDevice": false,
+  "publishedVersion": 37,
+  "publicCapturePassed": true,
+  "normalSpeed": true,
+  "publicPageErrors": []
+}

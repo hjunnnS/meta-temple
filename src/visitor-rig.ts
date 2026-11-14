@@ -1,3 +1,4 @@
+import{bowPhase}from'./motion-timing';
 import {visitorFace} from './visitor-face';
 import type {Face} from './face-types';
 import {Quaternion,Vector3} from '@babylonjs/core/Maths/math.vector';
@@ -61,6 +62,7 @@ export function legacyVisitorMesh(scene:Scene,name:string,monk=false){
   const u=Math.min(1,Math.max(0,(phase-start)/(end-start)));return u*u*(3-2*u);
  }
  function bow(phase:number){
+  phase=bowPhase(phase);chest.rotation.y=0;
   for(const limb of [...legs,...shins])limb.rotationQuaternion=null;
   // Give the hands time to take weight before lowering the forehead.
   const joined=ease(phase,0,.105)*(1-ease(phase,.89,1));
@@ -100,6 +102,6 @@ export function legacyVisitorMesh(scene:Scene,name:string,monk=false){
    hands[i].scaling.set(1,1-.19*planted,1+.15*planted);
   }
  }
- return {root,hips,head,legs,shins,arms,forearms,hands,chest,coat,sleeves,bow,setFace,get face(){return face;}};
+ return {root,hips,head,legs,shins,arms,forearms,hands,chest,coat,sleeves,bow,plantFeet:()=>{},setFace,get face(){return face;}};
 }
 
