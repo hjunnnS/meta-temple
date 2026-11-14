@@ -7,7 +7,7 @@ export default defineConfig(({mode})=>({server:{fs:{deny:['.env','.env.*','*.{cr
 }]:mode==='service'?[{
  name:'local-service',
  configureServer:attachService,configurePreviewServer:attachService
-}]:[],build:{rolldownOptions:{input:{auth:'auth.html',practicePreview:'practice-preview.html',faceStudy:'face-study.html',main:'index.html',shared:'shared.html',staff:'staff.html',hanji:'hanji.html',daylight:'daylight.html',colors:'hanji-colors.html',sunlight:'hanji-sunlight.html'}}}}));
+}]:[],build:{rolldownOptions:{input:{characterStudy:'character-study.html',auth:'auth.html',practicePreview:'practice-preview.html',faceStudy:'face-study.html',main:'index.html',shared:'shared.html',staff:'staff.html',hanji:'hanji.html',daylight:'daylight.html',colors:'hanji-colors.html',sunlight:'hanji-sunlight.html'}}}}));
 
 async function attachService(server){const {serviceApi}=await import('./server/service/api.mjs');server.middlewares.use(await serviceApi({...loadEnv("service",process.cwd(),"SASA_AUTH_"),...process.env}));
   const {startMaintenance}=await import('./server/service/maintenance.mjs');

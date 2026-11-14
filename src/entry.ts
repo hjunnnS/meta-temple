@@ -59,7 +59,8 @@ enter.onclick=async()=>{
   root.classList.add('revealing-temple');
   await new Promise(resolve=>setTimeout(resolve,matchMedia('(prefers-reduced-motion: reduce)').matches?0:450));
   root.remove();if(!loginReturn)window.dispatchEvent(new Event('sasa:lotus-entry'));document.querySelector<HTMLCanvasElement>('#world')?.focus();
- }catch{
+ }catch(error){
+  console.error('Temple entry failed',error);
   if(root.contains(enter)){
    prompt.textContent=t('다시 불러오기');enter.disabled=false;enter.onclick=()=>location.reload();
   }

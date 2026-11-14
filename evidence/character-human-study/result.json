@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "geometry": {
+    "meshes": 58,
+    "vertices": 11800,
+    "triangles": 18420,
+    "style": {
+      "characterStudy": true,
+      "style": "refined-human",
+      "productionApplied": false
+    },
+    "oldTriangles": 20946
+  },
+  "contacts": [
+    {
+      "progress": 0,
+      "palmY": 0.48284999495744707,
+      "faceY": 1.1190150418877602,
+      "shoeY": 0.006452973172068596
+    },
+    {
+      "progress": 0.105,
+      "palmY": 0.9172932259338608,
+      "faceY": 1.1125047230571508,
+      "shoeY": 0.006452973172068596
+    },
+    {
+      "progress": 0.33,
+      "palmY": 0.31324602745167873,
+      "faceY": 0.5992283825493419,
+      "shoeY": 0.006453007538623878
+    },
+    {
+      "progress": 0.54,
+      "palmY": 0.011811528971735284,
+      "faceY": 0.009095539036869271,
+      "shoeY": 0.006453007627270302
+    },
+    {
+      "progress": 0.82,
+      "palmY": 0.677582635358316,
+      "faceY": 0.8875722379517857,
+      "shoeY": 0.00645300970084417
+    },
+    {
+      "progress": 1,
+      "palmY": 0.48284999495744707,
+      "faceY": 1.1190150418877602,
+      "shoeY": 0.006452973172068596
+    }
+  ],
+  "video": "/Users/hjunnn/Documents/ChatGPT/Metaverse/sasa-sites-trial/evidence/character-human-study/recording/page@3fdf54f6f90ae40c4035f938a517b37c.webm",
+  "mobileNoOverflow": true,
+  "pageErrors": [],
+  "prototypeOnly": true
+}

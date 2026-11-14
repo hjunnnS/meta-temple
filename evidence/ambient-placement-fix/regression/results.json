@@ -1,0 +1,1783 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "touch": false,
+      "before": {
+        "population": {
+          "realCount": 1,
+          "target": 19,
+          "active": 19,
+          "capacity": 20,
+          "revision": 27
+        },
+        "actors": [
+          {
+            "name": "ambient-visitor-hall-a",
+            "ambientVisitor": true,
+            "id": "hall-a",
+            "place": "대웅전",
+            "role": "prayer",
+            "enabled": true,
+            "p": [
+              -6,
+              1.7429999834299088,
+              32.2
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-hall-b",
+            "ambientVisitor": true,
+            "id": "hall-b",
+            "place": "대웅전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              6,
+              1.7429999834299088,
+              34.25
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-hall-c",
+            "ambientVisitor": true,
+            "id": "hall-c",
+            "place": "대웅전",
+            "role": "prayer",
+            "enabled": false,
+            "p": [
+              -4.05,
+              1.7429999834299088,
+              36.3
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-gwaneum",
+            "ambientVisitor": true,
+            "id": "gwaneum",
+            "place": "관음전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -25.4075,
+              1.1418750190734863,
+              12.45
+            ],
+            "yaw": -1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-jijang",
+            "ambientVisitor": true,
+            "id": "jijang",
+            "place": "지장전",
+            "role": "prayer",
+            "enabled": true,
+            "p": [
+              25.127499999999998,
+              1.1418750190734863,
+              14.335
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-yaksa",
+            "ambientVisitor": true,
+            "id": "yaksa",
+            "place": "약사전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -41.5,
+              1.240049952417612,
+              54.563043478260866
+            ],
+            "yaw": -1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-munsu",
+            "ambientVisitor": true,
+            "id": "munsu",
+            "place": "문수전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -22.43695652173913,
+              1.240049952417612,
+              96.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-bohyeon",
+            "ambientVisitor": true,
+            "id": "bohyeon",
+            "place": "보현전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              39.563043478260866,
+              1.240049952417612,
+              99.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-geukrak",
+            "ambientVisitor": true,
+            "id": "geukrak",
+            "place": "극락전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              79.5,
+              1.240049952417612,
+              69.43695652173913
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-votive",
+            "ambientVisitor": true,
+            "id": "votive",
+            "place": "인등전 앞",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              -20.1875,
+              0.01,
+              -32.2
+            ],
+            "yaw": -1.017502001472604
+          },
+          {
+            "name": "ambient-visitor-lantern-a",
+            "ambientVisitor": true,
+            "id": "lantern-a",
+            "place": "연등길",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              -7,
+              0.01,
+              -32
+            ],
+            "yaw": 0.4
+          },
+          {
+            "name": "ambient-visitor-lantern-b",
+            "ambientVisitor": true,
+            "id": "lantern-b",
+            "place": "연등길",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              7,
+              0.01,
+              -15
+            ],
+            "yaw": -0.4
+          },
+          {
+            "name": "ambient-visitor-pagoda-a",
+            "ambientVisitor": true,
+            "id": "pagoda-a",
+            "place": "소원패 정원",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              23.5,
+              0.11000000074505806,
+              -25.6
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-pagoda-b",
+            "ambientVisitor": true,
+            "id": "pagoda-b",
+            "place": "구름탑",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              67,
+              0.01,
+              -28.450000000000006
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-pond-a",
+            "ambientVisitor": true,
+            "id": "pond-a",
+            "place": "연못 남쪽",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              43,
+              0.01,
+              -66
+            ],
+            "yaw": 0.6659692373791098
+          },
+          {
+            "name": "ambient-visitor-pond-b",
+            "ambientVisitor": true,
+            "id": "pond-b",
+            "place": "연못 동쪽",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              74.5,
+              0.01,
+              -51.18200000000001
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-tea",
+            "ambientVisitor": true,
+            "id": "tea",
+            "place": "쉼터 옆마당",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              58,
+              0.01,
+              -73.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-walk-a",
+            "ambientVisitor": true,
+            "id": "walk-a",
+            "place": "뒤 산책길",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              8.040948098865705,
+              0.01,
+              90.99692889258507
+            ],
+            "yaw": 1.6456561745056628
+          },
+          {
+            "name": "ambient-visitor-walk-b",
+            "ambientVisitor": true,
+            "id": "walk-b",
+            "place": "뒤 산책길",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              -11.014296631610486,
+              0.01,
+              87.83095056139825
+            ],
+            "yaw": 1.4056476493802699
+          },
+          {
+            "name": "ambient-visitor-statue",
+            "ambientVisitor": true,
+            "id": "statue",
+            "place": "미륵보살 석상 앞",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              55,
+              0.09999999910593033,
+              45
+            ],
+            "yaw": 0.38
+          }
+        ],
+        "fps": 60.000000000000085,
+        "drawCalls": 271591
+      },
+      "hall": {
+        "population": {
+          "realCount": 1,
+          "target": 19,
+          "active": 19,
+          "capacity": 20,
+          "revision": 37
+        },
+        "actors": [
+          {
+            "name": "ambient-visitor-hall-a",
+            "ambientVisitor": true,
+            "id": "hall-a",
+            "place": "대웅전",
+            "role": "prayer",
+            "enabled": true,
+            "p": [
+              -6,
+              1.7429999834299088,
+              32.2
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-hall-b",
+            "ambientVisitor": true,
+            "id": "hall-b",
+            "place": "대웅전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              6,
+              1.7429999834299088,
+              34.25
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-hall-c",
+            "ambientVisitor": true,
+            "id": "hall-c",
+            "place": "대웅전",
+            "role": "prayer",
+            "enabled": false,
+            "p": [
+              -4.05,
+              1.7429999834299088,
+              36.3
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-gwaneum",
+            "ambientVisitor": true,
+            "id": "gwaneum",
+            "place": "관음전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -25.4075,
+              1.1418750190734863,
+              12.45
+            ],
+            "yaw": -1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-jijang",
+            "ambientVisitor": true,
+            "id": "jijang",
+            "place": "지장전",
+            "role": "prayer",
+            "enabled": true,
+            "p": [
+              25.127499999999998,
+              1.1418750190734863,
+              14.335
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-yaksa",
+            "ambientVisitor": true,
+            "id": "yaksa",
+            "place": "약사전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -41.5,
+              1.240049952417612,
+              54.563043478260866
+            ],
+            "yaw": -1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-munsu",
+            "ambientVisitor": true,
+            "id": "munsu",
+            "place": "문수전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -22.43695652173913,
+              1.240049952417612,
+              96.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-bohyeon",
+            "ambientVisitor": true,
+            "id": "bohyeon",
+            "place": "보현전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              39.563043478260866,
+              1.240049952417612,
+              99.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-geukrak",
+            "ambientVisitor": true,
+            "id": "geukrak",
+            "place": "극락전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              79.5,
+              1.240049952417612,
+              69.43695652173913
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-votive",
+            "ambientVisitor": true,
+            "id": "votive",
+            "place": "인등전 앞",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              -20.1875,
+              0.01,
+              -32.2
+            ],
+            "yaw": -1.017502001472604
+          },
+          {
+            "name": "ambient-visitor-lantern-a",
+            "ambientVisitor": true,
+            "id": "lantern-a",
+            "place": "연등길",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              -7,
+              0.01,
+              -32
+            ],
+            "yaw": 0.4
+          },
+          {
+            "name": "ambient-visitor-lantern-b",
+            "ambientVisitor": true,
+            "id": "lantern-b",
+            "place": "연등길",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              7,
+              0.01,
+              -15
+            ],
+            "yaw": -0.4
+          },
+          {
+            "name": "ambient-visitor-pagoda-a",
+            "ambientVisitor": true,
+            "id": "pagoda-a",
+            "place": "소원패 정원",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              23.5,
+              0.11000000074505806,
+              -25.6
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-pagoda-b",
+            "ambientVisitor": true,
+            "id": "pagoda-b",
+            "place": "구름탑",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              67,
+              0.01,
+              -28
+            ],
+            "yaw": -3.141592653589793
+          },
+          {
+            "name": "ambient-visitor-pond-a",
+            "ambientVisitor": true,
+            "id": "pond-a",
+            "place": "연못 남쪽",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              43,
+              0.01,
+              -66
+            ],
+            "yaw": 0.6659692373791098
+          },
+          {
+            "name": "ambient-visitor-pond-b",
+            "ambientVisitor": true,
+            "id": "pond-b",
+            "place": "연못 동쪽",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              74.5,
+              0.01,
+              -50.51000000000001
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-tea",
+            "ambientVisitor": true,
+            "id": "tea",
+            "place": "쉼터 옆마당",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              58,
+              0.01,
+              -73.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-walk-a",
+            "ambientVisitor": true,
+            "id": "walk-a",
+            "place": "뒤 산책길",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              8.711066035110745,
+              0.01,
+              90.9466700473667
+            ],
+            "yaw": 1.6456561745056628
+          },
+          {
+            "name": "ambient-visitor-walk-b",
+            "ambientVisitor": true,
+            "id": "walk-b",
+            "place": "뒤 산책길",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              -10.35143991479529,
+              0.01,
+              87.94142668086745
+            ],
+            "yaw": 1.4056476493802699
+          },
+          {
+            "name": "ambient-visitor-statue",
+            "ambientVisitor": true,
+            "id": "statue",
+            "place": "미륵보살 석상 앞",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              55,
+              0.09999999910593033,
+              45
+            ],
+            "yaw": 0.38
+          }
+        ],
+        "fps": 60.01200238903154,
+        "drawCalls": 323174
+      },
+      "ten": {
+        "population": {
+          "realCount": 10,
+          "target": 10,
+          "active": 10,
+          "capacity": 20,
+          "revision": 62
+        },
+        "actors": [
+          {
+            "name": "ambient-visitor-hall-a",
+            "ambientVisitor": true,
+            "id": "hall-a",
+            "place": "대웅전",
+            "role": "prayer",
+            "enabled": true,
+            "p": [
+              -6,
+              1.7429999834299088,
+              32.2
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-hall-b",
+            "ambientVisitor": true,
+            "id": "hall-b",
+            "place": "대웅전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              6,
+              1.7429999834299088,
+              34.25
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-hall-c",
+            "ambientVisitor": true,
+            "id": "hall-c",
+            "place": "대웅전",
+            "role": "prayer",
+            "enabled": false,
+            "p": [
+              -4.05,
+              1.7429999834299088,
+              36.3
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-gwaneum",
+            "ambientVisitor": true,
+            "id": "gwaneum",
+            "place": "관음전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -25.4075,
+              1.1418750190734863,
+              12.45
+            ],
+            "yaw": -1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-jijang",
+            "ambientVisitor": true,
+            "id": "jijang",
+            "place": "지장전",
+            "role": "prayer",
+            "enabled": true,
+            "p": [
+              25.127499999999998,
+              1.1418750190734863,
+              14.335
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-yaksa",
+            "ambientVisitor": true,
+            "id": "yaksa",
+            "place": "약사전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -41.5,
+              1.240049952417612,
+              54.563043478260866
+            ],
+            "yaw": -1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-munsu",
+            "ambientVisitor": true,
+            "id": "munsu",
+            "place": "문수전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -22.43695652173913,
+              1.240049952417612,
+              96.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-bohyeon",
+            "ambientVisitor": true,
+            "id": "bohyeon",
+            "place": "보현전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              39.563043478260866,
+              1.240049952417612,
+              99.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-geukrak",
+            "ambientVisitor": true,
+            "id": "geukrak",
+            "place": "극락전",
+            "role": "meditation",
+            "enabled": false,
+            "p": [
+              79.5,
+              1.240049952417612,
+              69.43695652173913
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-votive",
+            "ambientVisitor": true,
+            "id": "votive",
+            "place": "인등전 앞",
+            "role": "look",
+            "enabled": false,
+            "p": [
+              -20.1875,
+              0.01,
+              -32.2
+            ],
+            "yaw": -1.017502001472604
+          },
+          {
+            "name": "ambient-visitor-lantern-a",
+            "ambientVisitor": true,
+            "id": "lantern-a",
+            "place": "연등길",
+            "role": "look",
+            "enabled": false,
+            "p": [
+              -7,
+              0.01,
+              -32
+            ],
+            "yaw": 0.4
+          },
+          {
+            "name": "ambient-visitor-lantern-b",
+            "ambientVisitor": true,
+            "id": "lantern-b",
+            "place": "연등길",
+            "role": "look",
+            "enabled": false,
+            "p": [
+              7,
+              0.01,
+              -15
+            ],
+            "yaw": -0.4
+          },
+          {
+            "name": "ambient-visitor-pagoda-a",
+            "ambientVisitor": true,
+            "id": "pagoda-a",
+            "place": "소원패 정원",
+            "role": "look",
+            "enabled": false,
+            "p": [
+              23.5,
+              0.11000000074505806,
+              -25.6
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-pagoda-b",
+            "ambientVisitor": true,
+            "id": "pagoda-b",
+            "place": "구름탑",
+            "role": "walk",
+            "enabled": false,
+            "p": [
+              67,
+              0.01,
+              -28
+            ],
+            "yaw": -3.141592653589793
+          },
+          {
+            "name": "ambient-visitor-pond-a",
+            "ambientVisitor": true,
+            "id": "pond-a",
+            "place": "연못 남쪽",
+            "role": "look",
+            "enabled": false,
+            "p": [
+              43,
+              0.01,
+              -66
+            ],
+            "yaw": 0.6659692373791098
+          },
+          {
+            "name": "ambient-visitor-pond-b",
+            "ambientVisitor": true,
+            "id": "pond-b",
+            "place": "연못 동쪽",
+            "role": "walk",
+            "enabled": false,
+            "p": [
+              74.5,
+              0.01,
+              -50
+            ],
+            "yaw": -3.141592653589793
+          },
+          {
+            "name": "ambient-visitor-tea",
+            "ambientVisitor": true,
+            "id": "tea",
+            "place": "쉼터 옆마당",
+            "role": "look",
+            "enabled": false,
+            "p": [
+              58,
+              0.01,
+              -73.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-walk-a",
+            "ambientVisitor": true,
+            "id": "walk-a",
+            "place": "뒤 산책길",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              10.030360722093098,
+              0.01,
+              90.84772294584302
+            ],
+            "yaw": 1.6456561745056628
+          },
+          {
+            "name": "ambient-visitor-walk-b",
+            "ambientVisitor": true,
+            "id": "walk-b",
+            "place": "뒤 산책길",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              -10,
+              0.01,
+              88
+            ],
+            "yaw": -1.7359450042095235
+          },
+          {
+            "name": "ambient-visitor-statue",
+            "ambientVisitor": true,
+            "id": "statue",
+            "place": "미륵보살 석상 앞",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              55,
+              0.09999999910593033,
+              45
+            ],
+            "yaw": 0.38
+          }
+        ],
+        "fps": 60.000000000000114,
+        "drawCalls": 413152
+      },
+      "walkingMoves": true,
+      "realCount10": 10,
+      "realCount20": 0,
+      "privateHiddenAndRestored": true,
+      "groundTapStillWorks": true,
+      "errors": []
+    },
+    {
+      "touch": true,
+      "before": {
+        "population": {
+          "realCount": 1,
+          "target": 19,
+          "active": 19,
+          "capacity": 20,
+          "revision": 28
+        },
+        "actors": [
+          {
+            "name": "ambient-visitor-hall-a",
+            "ambientVisitor": true,
+            "id": "hall-a",
+            "place": "대웅전",
+            "role": "prayer",
+            "enabled": true,
+            "p": [
+              -6,
+              1.7429999834299088,
+              32.2
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-hall-b",
+            "ambientVisitor": true,
+            "id": "hall-b",
+            "place": "대웅전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              6,
+              1.7429999834299088,
+              34.25
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-hall-c",
+            "ambientVisitor": true,
+            "id": "hall-c",
+            "place": "대웅전",
+            "role": "prayer",
+            "enabled": false,
+            "p": [
+              -4.05,
+              1.7429999834299088,
+              36.3
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-gwaneum",
+            "ambientVisitor": true,
+            "id": "gwaneum",
+            "place": "관음전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -25.4075,
+              1.1418750190734863,
+              12.45
+            ],
+            "yaw": -1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-jijang",
+            "ambientVisitor": true,
+            "id": "jijang",
+            "place": "지장전",
+            "role": "prayer",
+            "enabled": true,
+            "p": [
+              25.127499999999998,
+              1.1418750190734863,
+              14.335
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-yaksa",
+            "ambientVisitor": true,
+            "id": "yaksa",
+            "place": "약사전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -41.5,
+              1.240049952417612,
+              54.563043478260866
+            ],
+            "yaw": -1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-munsu",
+            "ambientVisitor": true,
+            "id": "munsu",
+            "place": "문수전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -22.43695652173913,
+              1.240049952417612,
+              96.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-bohyeon",
+            "ambientVisitor": true,
+            "id": "bohyeon",
+            "place": "보현전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              39.563043478260866,
+              1.240049952417612,
+              99.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-geukrak",
+            "ambientVisitor": true,
+            "id": "geukrak",
+            "place": "극락전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              79.5,
+              1.240049952417612,
+              69.43695652173913
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-votive",
+            "ambientVisitor": true,
+            "id": "votive",
+            "place": "인등전 앞",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              -20.1875,
+              0.01,
+              -32.2
+            ],
+            "yaw": -1.017502001472604
+          },
+          {
+            "name": "ambient-visitor-lantern-a",
+            "ambientVisitor": true,
+            "id": "lantern-a",
+            "place": "연등길",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              -7,
+              0.01,
+              -32
+            ],
+            "yaw": 0.4
+          },
+          {
+            "name": "ambient-visitor-lantern-b",
+            "ambientVisitor": true,
+            "id": "lantern-b",
+            "place": "연등길",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              7,
+              0.01,
+              -15
+            ],
+            "yaw": -0.4
+          },
+          {
+            "name": "ambient-visitor-pagoda-a",
+            "ambientVisitor": true,
+            "id": "pagoda-a",
+            "place": "소원패 정원",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              23.5,
+              0.11000000074505806,
+              -25.6
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-pagoda-b",
+            "ambientVisitor": true,
+            "id": "pagoda-b",
+            "place": "구름탑",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              67,
+              0.01,
+              -28.450000000000006
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-pond-a",
+            "ambientVisitor": true,
+            "id": "pond-a",
+            "place": "연못 남쪽",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              43,
+              0.01,
+              -66
+            ],
+            "yaw": 0.6659692373791098
+          },
+          {
+            "name": "ambient-visitor-pond-b",
+            "ambientVisitor": true,
+            "id": "pond-b",
+            "place": "연못 동쪽",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              74.5,
+              0.01,
+              -51.18200000000001
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-tea",
+            "ambientVisitor": true,
+            "id": "tea",
+            "place": "쉼터 옆마당",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              58,
+              0.01,
+              -73.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-walk-a",
+            "ambientVisitor": true,
+            "id": "walk-a",
+            "place": "뒤 산책길",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              8.040948098865705,
+              0.01,
+              90.99692889258507
+            ],
+            "yaw": 1.6456561745056628
+          },
+          {
+            "name": "ambient-visitor-walk-b",
+            "ambientVisitor": true,
+            "id": "walk-b",
+            "place": "뒤 산책길",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              -11.014296631610486,
+              0.01,
+              87.83095056139825
+            ],
+            "yaw": 1.4056476493802699
+          },
+          {
+            "name": "ambient-visitor-statue",
+            "ambientVisitor": true,
+            "id": "statue",
+            "place": "미륵보살 석상 앞",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              55,
+              0.09999999910593033,
+              45
+            ],
+            "yaw": 0.38
+          }
+        ],
+        "fps": 59.999999999999986,
+        "drawCalls": 165019
+      },
+      "hall": {
+        "population": {
+          "realCount": 1,
+          "target": 19,
+          "active": 19,
+          "capacity": 20,
+          "revision": 38
+        },
+        "actors": [
+          {
+            "name": "ambient-visitor-hall-a",
+            "ambientVisitor": true,
+            "id": "hall-a",
+            "place": "대웅전",
+            "role": "prayer",
+            "enabled": true,
+            "p": [
+              -6,
+              1.7429999834299088,
+              32.2
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-hall-b",
+            "ambientVisitor": true,
+            "id": "hall-b",
+            "place": "대웅전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              6,
+              1.7429999834299088,
+              34.25
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-hall-c",
+            "ambientVisitor": true,
+            "id": "hall-c",
+            "place": "대웅전",
+            "role": "prayer",
+            "enabled": false,
+            "p": [
+              -4.05,
+              1.7429999834299088,
+              36.3
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-gwaneum",
+            "ambientVisitor": true,
+            "id": "gwaneum",
+            "place": "관음전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -25.4075,
+              1.1418750190734863,
+              12.45
+            ],
+            "yaw": -1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-jijang",
+            "ambientVisitor": true,
+            "id": "jijang",
+            "place": "지장전",
+            "role": "prayer",
+            "enabled": true,
+            "p": [
+              25.127499999999998,
+              1.1418750190734863,
+              14.335
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-yaksa",
+            "ambientVisitor": true,
+            "id": "yaksa",
+            "place": "약사전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -41.5,
+              1.240049952417612,
+              54.563043478260866
+            ],
+            "yaw": -1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-munsu",
+            "ambientVisitor": true,
+            "id": "munsu",
+            "place": "문수전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -22.43695652173913,
+              1.240049952417612,
+              96.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-bohyeon",
+            "ambientVisitor": true,
+            "id": "bohyeon",
+            "place": "보현전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              39.563043478260866,
+              1.240049952417612,
+              99.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-geukrak",
+            "ambientVisitor": true,
+            "id": "geukrak",
+            "place": "극락전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              79.5,
+              1.240049952417612,
+              69.43695652173913
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-votive",
+            "ambientVisitor": true,
+            "id": "votive",
+            "place": "인등전 앞",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              -20.1875,
+              0.01,
+              -32.2
+            ],
+            "yaw": -1.017502001472604
+          },
+          {
+            "name": "ambient-visitor-lantern-a",
+            "ambientVisitor": true,
+            "id": "lantern-a",
+            "place": "연등길",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              -7,
+              0.01,
+              -32
+            ],
+            "yaw": 0.4
+          },
+          {
+            "name": "ambient-visitor-lantern-b",
+            "ambientVisitor": true,
+            "id": "lantern-b",
+            "place": "연등길",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              7,
+              0.01,
+              -15
+            ],
+            "yaw": -0.4
+          },
+          {
+            "name": "ambient-visitor-pagoda-a",
+            "ambientVisitor": true,
+            "id": "pagoda-a",
+            "place": "소원패 정원",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              23.5,
+              0.11000000074505806,
+              -25.6
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-pagoda-b",
+            "ambientVisitor": true,
+            "id": "pagoda-b",
+            "place": "구름탑",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              67,
+              0.01,
+              -28
+            ],
+            "yaw": -3.141592653589793
+          },
+          {
+            "name": "ambient-visitor-pond-a",
+            "ambientVisitor": true,
+            "id": "pond-a",
+            "place": "연못 남쪽",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              43,
+              0.01,
+              -66
+            ],
+            "yaw": 0.6659692373791098
+          },
+          {
+            "name": "ambient-visitor-pond-b",
+            "ambientVisitor": true,
+            "id": "pond-b",
+            "place": "연못 동쪽",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              74.5,
+              0.01,
+              -50.51000000000001
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-tea",
+            "ambientVisitor": true,
+            "id": "tea",
+            "place": "쉼터 옆마당",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              58,
+              0.01,
+              -73.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-walk-a",
+            "ambientVisitor": true,
+            "id": "walk-a",
+            "place": "뒤 산책길",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              8.711066035110745,
+              0.01,
+              90.9466700473667
+            ],
+            "yaw": 1.6456561745056628
+          },
+          {
+            "name": "ambient-visitor-walk-b",
+            "ambientVisitor": true,
+            "id": "walk-b",
+            "place": "뒤 산책길",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              -10.35143991479529,
+              0.01,
+              87.94142668086745
+            ],
+            "yaw": 1.4056476493802699
+          },
+          {
+            "name": "ambient-visitor-statue",
+            "ambientVisitor": true,
+            "id": "statue",
+            "place": "미륵보살 석상 앞",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              55,
+              0.09999999910593033,
+              45
+            ],
+            "yaw": 0.38
+          }
+        ],
+        "fps": 59.976009619031416,
+        "drawCalls": 197730
+      },
+      "ten": {
+        "population": {
+          "realCount": 10,
+          "target": 10,
+          "active": 10,
+          "capacity": 20,
+          "revision": 63
+        },
+        "actors": [
+          {
+            "name": "ambient-visitor-hall-a",
+            "ambientVisitor": true,
+            "id": "hall-a",
+            "place": "대웅전",
+            "role": "prayer",
+            "enabled": true,
+            "p": [
+              -6,
+              1.7429999834299088,
+              32.2
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-hall-b",
+            "ambientVisitor": true,
+            "id": "hall-b",
+            "place": "대웅전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              6,
+              1.7429999834299088,
+              34.25
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-hall-c",
+            "ambientVisitor": true,
+            "id": "hall-c",
+            "place": "대웅전",
+            "role": "prayer",
+            "enabled": false,
+            "p": [
+              -4.05,
+              1.7429999834299088,
+              36.3
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-gwaneum",
+            "ambientVisitor": true,
+            "id": "gwaneum",
+            "place": "관음전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -25.4075,
+              1.1418750190734863,
+              12.45
+            ],
+            "yaw": -1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-jijang",
+            "ambientVisitor": true,
+            "id": "jijang",
+            "place": "지장전",
+            "role": "prayer",
+            "enabled": true,
+            "p": [
+              25.127499999999998,
+              1.1418750190734863,
+              14.335
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-yaksa",
+            "ambientVisitor": true,
+            "id": "yaksa",
+            "place": "약사전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -41.5,
+              1.240049952417612,
+              54.563043478260866
+            ],
+            "yaw": -1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-munsu",
+            "ambientVisitor": true,
+            "id": "munsu",
+            "place": "문수전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              -22.43695652173913,
+              1.240049952417612,
+              96.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-bohyeon",
+            "ambientVisitor": true,
+            "id": "bohyeon",
+            "place": "보현전",
+            "role": "meditation",
+            "enabled": true,
+            "p": [
+              39.563043478260866,
+              1.240049952417612,
+              99.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-geukrak",
+            "ambientVisitor": true,
+            "id": "geukrak",
+            "place": "극락전",
+            "role": "meditation",
+            "enabled": false,
+            "p": [
+              79.5,
+              1.240049952417612,
+              69.43695652173913
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-votive",
+            "ambientVisitor": true,
+            "id": "votive",
+            "place": "인등전 앞",
+            "role": "look",
+            "enabled": false,
+            "p": [
+              -20.1875,
+              0.01,
+              -32.2
+            ],
+            "yaw": -1.017502001472604
+          },
+          {
+            "name": "ambient-visitor-lantern-a",
+            "ambientVisitor": true,
+            "id": "lantern-a",
+            "place": "연등길",
+            "role": "look",
+            "enabled": false,
+            "p": [
+              -7,
+              0.01,
+              -32
+            ],
+            "yaw": 0.4
+          },
+          {
+            "name": "ambient-visitor-lantern-b",
+            "ambientVisitor": true,
+            "id": "lantern-b",
+            "place": "연등길",
+            "role": "look",
+            "enabled": false,
+            "p": [
+              7,
+              0.01,
+              -15
+            ],
+            "yaw": -0.4
+          },
+          {
+            "name": "ambient-visitor-pagoda-a",
+            "ambientVisitor": true,
+            "id": "pagoda-a",
+            "place": "소원패 정원",
+            "role": "look",
+            "enabled": false,
+            "p": [
+              23.5,
+              0.11000000074505806,
+              -25.6
+            ],
+            "yaw": 1.5707963267948966
+          },
+          {
+            "name": "ambient-visitor-pagoda-b",
+            "ambientVisitor": true,
+            "id": "pagoda-b",
+            "place": "구름탑",
+            "role": "walk",
+            "enabled": false,
+            "p": [
+              67,
+              0.01,
+              -28.053999999999988
+            ],
+            "yaw": -3.141592653589793
+          },
+          {
+            "name": "ambient-visitor-pond-a",
+            "ambientVisitor": true,
+            "id": "pond-a",
+            "place": "연못 남쪽",
+            "role": "look",
+            "enabled": false,
+            "p": [
+              43,
+              0.01,
+              -66
+            ],
+            "yaw": 0.6659692373791098
+          },
+          {
+            "name": "ambient-visitor-pond-b",
+            "ambientVisitor": true,
+            "id": "pond-b",
+            "place": "연못 동쪽",
+            "role": "walk",
+            "enabled": false,
+            "p": [
+              74.5,
+              0.01,
+              -50
+            ],
+            "yaw": -3.141592653589793
+          },
+          {
+            "name": "ambient-visitor-tea",
+            "ambientVisitor": true,
+            "id": "tea",
+            "place": "쉼터 옆마당",
+            "role": "look",
+            "enabled": false,
+            "p": [
+              58,
+              0.01,
+              -73.5
+            ],
+            "yaw": 0
+          },
+          {
+            "name": "ambient-visitor-walk-a",
+            "ambientVisitor": true,
+            "id": "walk-a",
+            "place": "뒤 산책길",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              10.030360722093098,
+              0.01,
+              90.84772294584302
+            ],
+            "yaw": 1.6456561745056628
+          },
+          {
+            "name": "ambient-visitor-walk-b",
+            "ambientVisitor": true,
+            "id": "walk-b",
+            "place": "뒤 산책길",
+            "role": "walk",
+            "enabled": true,
+            "p": [
+              -10,
+              0.01,
+              88
+            ],
+            "yaw": -1.7359450042095235
+          },
+          {
+            "name": "ambient-visitor-statue",
+            "ambientVisitor": true,
+            "id": "statue",
+            "place": "미륵보살 석상 앞",
+            "role": "look",
+            "enabled": true,
+            "p": [
+              55,
+              0.09999999910593033,
+              45
+            ],
+            "yaw": 0.38
+          }
+        ],
+        "fps": 59.98800238236088,
+        "drawCalls": 273576
+      },
+      "walkingMoves": true,
+      "realCount10": 10,
+      "realCount20": 0,
+      "privateHiddenAndRestored": true,
+      "groundTapStillWorks": true,
+      "errors": []
+    }
+  ],
+  "realMultiplayerServer": false,
+  "populationResponseSimulation": true
+}
