@@ -42,6 +42,7 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
     if(remote.robe.wearing!==!!peer.wearingRobe)remote.robe.setWearing(!!peer.wearingRobe);
     remote.target.set(...peer.position as [number,number,number]);}
   }
+  window.dispatchEvent(new CustomEvent('sasa:population',{detail:{count:s.count??1+s.participants.length,channelId:s.channelId}}));
   box.textContent=t('같은 공간 방문자')+' '+(s.count??1+avatars.size)+(locale==='ko'?'명':'');
  }
  scene.onBeforeRenderObservable.add(()=>{

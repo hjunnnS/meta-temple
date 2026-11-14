@@ -1,3 +1,4 @@
+import {ambientVisitors} from './ambient-visitors';
 import {mobileDevice,renderProfile,type Quality} from './mobile-profile';
 export type {Quality} from './mobile-profile';
 import{quietMonks}from'./quiet-monks';import{guideMonkSite}from'./quiet-npc-layout';
@@ -1045,9 +1046,12 @@ export function createTemple(canvas:HTMLCanvasElement) {
  const restingDog=templeDog(scene);for(const mesh of restingDog.getChildMeshes())shadows.addShadowCaster(mesh);
  let npcVisitor:()=>readonly number[]|null=()=>null;
  const quiet=quietMonks(scene,()=>npcVisitor(),wood);
- const walkWorld=pedestrianWorld(staticMeshes,()=>[...quiet.obstacles(),...(serviceMode?[{...guideMonkSite,radius:.38}]:[])]);
+ let crowd:ReturnType<typeof ambientVisitors>|undefined;
+ const walkWorld=pedestrianWorld(staticMeshes,()=>[...(crowd?.obstacles()??[]),...quiet.obstacles(),...(serviceMode?[{...guideMonkSite,radius:.38}]:[])]);
  const walking=walkingController(scene,camera,canvas,walkWorld,bellVisual);
  npcVisitor=()=>walking.position;
+ const ambientWorld=pedestrianWorld(staticMeshes,()=>[...quiet.obstacles(),...(serviceMode?[{...guideMonkSite,radius:.38}]:[])]);
+ crowd=ambientVisitors(scene,()=>walking.position,ambientWorld);
  const sweeper=sweepingMonk(scene,camera,canvas,()=>walking.position);
  const entryTexture=new DynamicTexture('door-direction',128,scene,false);
  const pen=entryTexture.getContext() as CanvasRenderingContext2D;
@@ -1687,5 +1691,5 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const mesh of displayBatches)mesh.setEnabled(value!=='empty');
   for(const [id,slot] of applicationSlots)if(displayKinds.has(slot.kind))refreshApplication(id);
  }
- return {get practiceDestination(){return walking.practiceDestination;},captureWalkView:walking.captureView,restoreWalkView:walking.restoreView,visit:walking.visit,stopPractice:walking.stopPractice,startPractice:walking.startPractice,setWalking:walking.mode,returnFromPrivateRoom:walking.returnFromPrivateRoom,pondLife,setFace:walking.setFace,beginArrival,selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,time:currentTime,quality,mobile,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ return {get practiceDestination(){return walking.practiceDestination;},captureWalkView:walking.captureView,restoreWalkView:walking.restoreView,visit:walking.visit,stopPractice:walking.stopPractice,startPractice:walking.startPractice,setWalking:walking.mode,returnFromPrivateRoom:walking.returnFromPrivateRoom,pondLife,setFace:walking.setFace,beginArrival,selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,virtualVisitors:crowd?.count??0,time:currentTime,quality,mobile,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }
