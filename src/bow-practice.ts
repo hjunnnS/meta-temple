@@ -56,11 +56,12 @@ export function rainbow(scene:Scene,position:Vector3){
 export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose:(depth:number)=>void){
  const button=document.querySelector<HTMLButtonElement>('#bow-start')!,stop=document.querySelector<HTMLButtonElement>('#bow-stop')!;
  const status=document.querySelector<HTMLElement>('#bow-count')!;
- let id='',count=0,elapsed=-1,busy=false,generation=0,visible=false;
+ let id='',count=0,elapsed=-1,busy=false,generation=0,visible=false,paused=false;
  let light:ReturnType<typeof prayerLight>|undefined;
  function draw(){
-  button.hidden=!visible;button.disabled=busy||elapsed>=0;
-  button.textContent=t(id?'절하기':'108배 시작');stop.hidden=!visible||!id;stop.textContent=t('수행 마치기');
+  button.hidden=!visible;button.disabled=!id&&busy;
+  button.textContent=t(id?(paused?'계속하기':'일시정지'):'108배 시작');button.setAttribute('aria-pressed',String(!!id&&paused));stop.hidden=!visible||!id;stop.textContent=t('그만하기');
+  status.dataset.state=!id?'idle':elapsed>=0?(paused?'pausing':'running'):busy?'confirming':paused?'paused':'running';
  }
  async function request(action:string,data:object){
   const result=await fetch('/api/service/practice/'+action,{signal:action==='bow'?AbortSignal.timeout(8000):undefined,method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
@@ -68,7 +69,7 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
  }
  function cancel(){
   light?.cancel();light=undefined;
-  const old=id;generation++;id='';count=0;elapsed=-1;busy=false;status.textContent='';pose(0);draw();
+  const old=id;generation++;id='';count=0;elapsed=-1;busy=false;paused=false;status.dataset.count='0';status.textContent='';pose(0);draw();
   if(old){practiceEvent({kind:'108',status:'cancelled',id:old});void request('cancel',{id:old}).catch(()=>{});}
  }
  function failed(error:unknown){
@@ -79,13 +80,14 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
   status.textContent=t(error instanceof Error&&error.message==='401'?'계정 메뉴에서 먼저 로그인하세요.':'다시 시도해 주세요.');
  }
  button.onclick=async()=>{
-  if(!visible||busy||elapsed>=0)return;
-  if(id){faceAltar();elapsed=0;draw();return;}
+  if(!visible)return;
+  if(id){paused=!paused;if(!paused&&!busy&&elapsed<0){faceAltar();elapsed=0;}draw();return;}
+  if(busy)return;
   const version=generation;busy=true;draw();
   try{
    const run=await request('start',{});
    if(version!==generation){void request('cancel',{id:run.id}).catch(()=>{});return;}
-   faceAltar();light=prayerLight(scene,position);id=run.id;count=run.count;status.dataset.count=String(count);status.textContent=count+' / 108';practiceEvent({kind:'108',status:'started',id});
+   faceAltar();light=prayerLight(scene,position);id=run.id;count=run.count;paused=false;elapsed=0;status.dataset.count=String(count);status.textContent=count+' / 108';practiceEvent({kind:'108',status:'started',id});
   }catch(error){if(version===generation)failed(error);}
   finally{if(version===generation){busy=false;draw();}}
  };
@@ -107,8 +109,8 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
      await new Promise(resolve=>window.setTimeout(resolve,2000));
     }
    }
-  }catch(error){if(version===generation)failed(error);}
-  finally{if(version===generation){busy=false;draw();}}
+  }catch(error){if(version===generation){paused=true;failed(error);}}
+  finally{if(version===generation){busy=false;if(id&&!paused){faceAltar();elapsed=0;}draw();}}
  }
  window.addEventListener('sasa:resume-practice',()=>{if(visible&&!id&&!busy)button.click();});
  stop.onclick=cancel;window.addEventListener('sasa:account',cancel);

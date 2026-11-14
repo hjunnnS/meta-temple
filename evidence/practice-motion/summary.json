@@ -17,5 +17,9 @@
   "bowFloorContact": true,
   "cameraPreservedAcrossBows": true,
   "mobileViewport": true,
-  "realMobileDevice": false
+  "realMobileDevice": false,
+  "publishedVersion": 37,
+  "publicCapturePassed": true,
+  "normalSpeed": true,
+  "publicPageErrors": []
 }

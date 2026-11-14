@@ -437,5 +437,12 @@
   "참배 중": "Em oração",
   "108배 수행 중": "108 prostrações em andamento",
   "경과 시간": "Tempo decorrido",
-  "완료한 절": "Prostrações concluídas"
+  "완료한 절": "Prostrações concluídas",
+  "일시정지": "Pausar",
+  "계속하기": "Continuar",
+  "그만하기": "Encerrar",
+  "108배 일시정지": "108 prostrações em pausa",
+  "계속하기를 누르면 이어집니다.": "Toque em Continuar para retomar.",
+  "이번 절을 마친 뒤 잠시 쉽니다.": "Pausa após esta prostração.",
+  "완료 횟수를 확인하고 있습니다.": "Confirmando as prostrações concluídas."
 }

@@ -1,17 +1,35 @@
 {
-  "id": "appgdep_6af864e88b588191947c71827fc3bebd",
-  "project_id": "appgprj_6af41a312ffc81919a17690097a9a9a3",
-  "title": "사사 · 온라인 사찰 체험판",
-  "version_id": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_6dc514d872408191a111870949e40cca",
-  "type": "publish",
-  "status": "succeeded",
-  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
-  "has_mcp": false,
-  "screenshot_asset_pointer": null,
-  "provider_deployment_id": "site---6af41a312ffc81919a17690097a9a9a3",
-  "failure_message": null,
-  "env_set_revision": 0,
-  "updated_at": "2026-11-14T13:41:10.318734+00:00",
-  "version_number": 36,
-  "commit_sha": "19d54fc81269e01dd870ef1191a169fecd3a3c7a"
+  "version": 37,
+  "source": {
+    "id": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_dc7256a0dc4c8191bdc233fa56404eed",
+    "project_id": "appgprj_6af41a312ffc81919a17690097a9a9a3",
+    "version_number": 37,
+    "source": {
+      "commit_sha": "4c72ec9473d09896fe70dc8c6b07c0f026d3afa2"
+    },
+    "archive_storage": {
+      "archive_format": "tar",
+      "sediment_file_id": "file_000000002ff8820699847f39ed00ff8d",
+      "content_hash": "sha256:742835e5b311659b56f2d3f32b9429df14bd9b8719e7b3568a8e40c6af30748e",
+      "size_bytes": 15769600,
+      "file_count": 182
+    },
+    "screenshot_url": null,
+    "deployment_id": null
+  },
+  "deployment": {
+    "id": "appgdep_6af8663fa2548191a3500122b245281f",
+    "project_id": "appgprj_6af41a312ffc81919a17690097a9a9a3",
+    "title": "사사 · 온라인 사찰 체험판",
+    "version_id": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_dc7256a0dc4c8191bdc233fa56404eed",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6af41a312ffc81919a17690097a9a9a3",
+    "failure_message": null,
+    "env_set_revision": 0,
+    "updated_at": "2026-11-14T13:46:52.049700+00:00"
+  }
 }
