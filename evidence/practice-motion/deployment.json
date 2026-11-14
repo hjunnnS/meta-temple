@@ -1,0 +1,17 @@
+{
+  "id": "appgdep_6af864e88b588191947c71827fc3bebd",
+  "project_id": "appgprj_6af41a312ffc81919a17690097a9a9a3",
+  "title": "사사 · 온라인 사찰 체험판",
+  "version_id": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_6dc514d872408191a111870949e40cca",
+  "type": "publish",
+  "status": "succeeded",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "has_mcp": false,
+  "screenshot_asset_pointer": null,
+  "provider_deployment_id": "site---6af41a312ffc81919a17690097a9a9a3",
+  "failure_message": null,
+  "env_set_revision": 0,
+  "updated_at": "2026-11-14T13:41:10.318734+00:00",
+  "version_number": 36,
+  "commit_sha": "19d54fc81269e01dd870ef1191a169fecd3a3c7a"
+}

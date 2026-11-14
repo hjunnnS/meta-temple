@@ -58,11 +58,11 @@ export function teaBreak(scene:Scene,body:ReturnType<typeof visitorMesh>,canvas:
  const front=()=>{const s=teaSeats[currentSeat];return new Vector3(s.x+Math.sin(s.yaw)*.62,s.ground,s.z+Math.cos(s.yaw)*.62);};
  function reset(){time=-1;lift=0;sip.disabled=true;beverage.disabled=false;}
  function hardStop(){phase='idle';pendingSeat=null;route=[];reset();cup.update(false,0,false);body.bow(0);}
- function sitAt(index:number){
+ function sitAt(index:number,arrive=false){
   if(!Number.isInteger(index)||!teaSeats[index])return;
   if(phase!=='idle'){stop();pendingSeat=index;return;}
   reset();currentSeat=index;const s=teaSeats[index];seat.value=String(index);const goal=front();
-  if(Vector3.Distance(body.root.position,goal)>12)body.root.position.copyFrom(goal.add(new Vector3(0,0,-1.2)));
+  if(arrive&&Vector3.Distance(body.root.position,goal)>12)body.root.position.copyFrom(goal.add(new Vector3(0,0,-1.2)));
   const p=body.root.position;route=walkingPath([p.x,p.z],[goal.x,goal.z],(a,b)=>!world||Math.abs(world.floor(a[0],a[1])-world.floor(b[0],b[1]))<=.5&&!world.blocked(b[0],world.floor(b[0],b[1]),b[1]));
   if(!route.length&&Vector3.Distance(p,goal)>.25){status.textContent=t('다시 시도해 주세요.');return;}
   phase='approaching';elapsed=0;panel.hidden=false;sit.textContent=t('자리 옮기기');sip.hidden=stand.hidden=false;status.textContent=t('앉기')+'…';canvas.focus();
