@@ -432,5 +432,10 @@
   "명상을 마쳤어요.": "Hai concluso la meditazione.",
   "108배를 마쳤어요.": "Hai concluso le 108 prostrazioni.",
   "균형 있게": "Bilanciata",
-  "가상 방문객": "Visitatore virtuale"
+  "가상 방문객": "Visitatore virtuale",
+  "명상 중": "Meditazione in corso",
+  "참배 중": "Preghiera in corso",
+  "108배 수행 중": "108 prostrazioni in corso",
+  "경과 시간": "Tempo trascorso",
+  "완료한 절": "Prostrazioni completate"
 }

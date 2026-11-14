@@ -1,3 +1,4 @@
+import{walkingPose}from'./locomotion';
 import type {Scene} from '@babylonjs/core/scene';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
@@ -75,8 +76,7 @@ export function ambientVisitors(scene:Scene,visitor:()=>readonly number[]|null,w
    a.body.bow(0);a.body.chest.scaling.y=1;a.body.chest.rotation.z=0;
    let activity='산책';
    if(moving){
-    const stride=(reducedMotion()?.16:.38)*Math.sin(a.steps*6.4);
-    for(let i=0;i<2;i++){a.body.legs[i].rotation.x=(i?1:-1)*stride;a.body.shins[i].rotation.x=Math.max(0,(i?-1:1)*stride)*.75;a.body.arms[i].rotation.x=(i?-1:1)*stride*.75;}
+    walkingPose(a.body,a.steps*6.4,reducedMotion()?.5:1);
    }else if(a.travelling){activity='길을 양보하는 중';a.body.head.rotation.y=.18*Math.sin(a.time*.7);}
    else{
     activity={prayer:'참배',meditation:'명상',lantern:'연등 감상',wish:'소원 빌기',look:'주변 감상',rest:'휴식',stretch:'스트레칭'}[current.action];

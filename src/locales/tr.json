@@ -432,5 +432,10 @@
   "명상을 마쳤어요.": "Meditasyon tamamlandı.",
   "108배를 마쳤어요.": "108 secde tamamlandı.",
   "균형 있게": "Dengeli",
-  "가상 방문객": "Sanal ziyaretçi"
+  "가상 방문객": "Sanal ziyaretçi",
+  "명상 중": "Meditasyon yapılıyor",
+  "참배 중": "Dua ediliyor",
+  "108배 수행 중": "108 secde devam ediyor",
+  "경과 시간": "Geçen süre",
+  "완료한 절": "Tamamlanan secdeler"
 }

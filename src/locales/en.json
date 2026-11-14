@@ -432,5 +432,10 @@
   "명상을 마쳤어요.": "You have finished meditating.",
   "108배를 마쳤어요.": "You have finished 108 bows.",
   "균형 있게": "Balanced",
-  "가상 방문객": "Virtual visitor"
+  "가상 방문객": "Virtual visitor",
+  "명상 중": "Meditating",
+  "참배 중": "Praying",
+  "108배 수행 중": "108 bows in progress",
+  "경과 시간": "Elapsed time",
+  "완료한 절": "Completed bows"
 }

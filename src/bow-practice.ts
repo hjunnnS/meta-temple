@@ -1,3 +1,4 @@
+import{BOW_SECONDS}from'./motion-timing';
 import {practiceEvent} from './practice-events';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
 import {DynamicTexture} from '@babylonjs/core/Materials/Textures/dynamicTexture';
@@ -84,7 +85,7 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
   try{
    const run=await request('start',{});
    if(version!==generation){void request('cancel',{id:run.id}).catch(()=>{});return;}
-   faceAltar();light=prayerLight(scene,position);id=run.id;count=run.count;status.textContent=count+' / 108';practiceEvent({kind:'108',status:'started',id});
+   faceAltar();light=prayerLight(scene,position);id=run.id;count=run.count;status.dataset.count=String(count);status.textContent=count+' / 108';practiceEvent({kind:'108',status:'started',id});
   }catch(error){if(version===generation)failed(error);}
   finally{if(version===generation){busy=false;draw();}}
  };
@@ -96,7 +97,7 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
     try{
      const result=await request('bow',completed);
      if(version!==generation)return;
-     count=result.count;status.textContent=count+' / 108';
+     count=result.count;status.dataset.count=String(count);status.textContent=count+' / 108';
      if(count===108){id='';status.textContent=t('108배 완료');light?.fade();light=undefined;rainbow(scene,position);practiceEvent({kind:'108',status:'completed',id:completed.id,count});}
      return;
     }catch(error){
@@ -111,10 +112,10 @@ export function bowPractice(scene:Scene,position:Vector3,faceAltar:()=>void,pose
  }
  window.addEventListener('sasa:resume-practice',()=>{if(visible&&!id&&!busy)button.click();});
  stop.onclick=cancel;window.addEventListener('sasa:account',cancel);
- return {cancel,get active(){return !!id||busy;},get progress(){return Math.max(0,Math.min(1,elapsed/4.8));},get bowing(){return elapsed>=0;},
+ return {cancel,get active(){return !!id||busy;},get progress(){return Math.max(0,Math.min(1,elapsed/BOW_SECONDS));},get bowing(){return elapsed>=0;},
   show(value:boolean){if(value===visible)return;visible=value;if(!value)cancel();else draw();},
   update(dt:number){if(elapsed<0)return;elapsed+=Math.min(.1,dt);
-   const phase=Math.min(1,elapsed/4.8);pose(phase);
+   const phase=Math.min(1,elapsed/BOW_SECONDS);pose(phase);
    if(phase===1){elapsed=-1;pose(0);void record();}
   }};
 }

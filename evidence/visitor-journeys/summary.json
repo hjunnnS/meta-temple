@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "version": 35,
+  "canonicalTests": 107,
+  "trialTests": 46,
+  "normalSpeedPublishedVideo": true,
+  "liveVideoErrors": [],
+  "localJourneyClockAccelerated": true,
+  "visibleUnfocusedMotion": true,
+  "mobileRealDevice": false,
+  "fpsSamplesMean": 60.004124442915966
+}

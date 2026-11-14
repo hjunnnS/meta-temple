@@ -47,9 +47,10 @@ export function refinedVisitor(scene:Scene,name:string,monk=false){
  rig.head.position.y=.80;for(const child of rig.head.getChildren())child.dispose();
  let faceKind:Face='human',faceModel=refinedHumanFace(scene,rig.head,name,monk);
  function setFace(next:Face){if(next===faceKind)return;const replacement=next==='human'?refinedHumanFace(scene,rig.head,name,monk):visitorFace(scene,rig.head,next,monk);faceModel.dispose(false,true);faceModel=replacement;faceKind=next;}
- const originalBow=rig.bow;rig.bow=(phase:number)=>{originalBow(phase);for(let i=0;i<2;i++)ankles[i].rotation.x=-(rig.legs[i].rotation.x+rig.shins[i].rotation.x);};
+ const plantFeet=()=>{for(let i=0;i<2;i++)ankles[i].rotation.x=-(rig.legs[i].rotation.x+rig.shins[i].rotation.x);};
+ const originalBow=rig.bow;rig.bow=(phase:number)=>{originalBow(phase);plantFeet();};
  rig.bow(0);rig.root.metadata={appearance:'refined-human',monk,productionApplied:true};
- return {...rig,setFace,get face(){return faceKind;}};
+ return {...rig,setFace,plantFeet,get face(){return faceKind;}};
 }
 
 export function refinedHumanFace(scene:Scene,parent:TransformNode,name:string,monk=false){

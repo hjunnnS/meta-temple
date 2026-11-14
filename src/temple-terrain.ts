@@ -128,8 +128,8 @@ export const teaGardenTables=[{x:55,z:-67.8},{x:54,z:-72},{x:50,z:-68},{x:49,z:-
 export const teaSeats=[...Array.from({length:12},(_,i)=>({
  x:teaPavilion.x-5+Math.floor((i%6)/2)*5+(i%2? .5:-.5),
  z:i<6?teaTerrace.z+.15:teaPavilion.z+1.8,y:.18,yaw:0,outdoors:i<6,ground:.32,area:i<6?'테라스':'실내',
-})),...teaGardenTables.flatMap(table=>[-.5,.5].map(dx=>({x:table.x+dx,z:table.z-.9,y:-.13,yaw:0,outdoors:true,ground:.01,area:'옆마당'})))];
-export const teaTables=teaSeats.slice(0,12).filter((_,i)=>i%2===0).map(seat=>({x:seat.x+.5,z:seat.z+.85}));
+})),...teaGardenTables.flatMap(table=>[-.5,.5].map(dx=>({x:table.x+dx,z:table.z-.9,y:-.13,yaw:0,outdoors:true,ground:.01,area:'옆마당'})))].map(seat=>({...seat,z:seat.z-.65}));
+export const teaTables=teaSeats.slice(0,12).filter((_,i)=>i%2===0).map(seat=>({x:seat.x+.5,z:seat.z+1.50}));
 export const teaApproach=roundedRoute([[35,-34],[35,-64.25],[58.7,-64.25]]);
 // A continuous dry route joins the terrace, east shore and pagoda approach.
 export const teaGardenWalk=roundedRoute([[73.8,-64.25],[74.8,-61.5],[74.5,-51],[73,-40],[69,-34]]);

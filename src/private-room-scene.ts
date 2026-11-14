@@ -1,3 +1,5 @@
+import{walkingPose}from'./locomotion';
+import{turnTowards}from'./motion-timing';
 import {touchStick,touchPinch} from './touch-controls';
 import {mobileDevice} from './mobile-profile';
 import {practiceExperience} from './practice-experience';
@@ -99,14 +101,14 @@ export function privateRoomScene(engine:Engine,canvas:HTMLCanvasElement,face:Fac
   if(length&&view!=='walk')changeView('walk');
   const practicing=practice!.update(dt,!!length);
   if(length&&!practicing&&!document.querySelector('dialog[open]')){
-   const speed=3.0*Math.min(.05,dt)*(auto?1:Math.min(1,length))/length,a=camera.alpha,dx=auto?auto[0]*speed:(x*-Math.sin(a)-z*Math.cos(a))*speed,dz=auto?auto[1]*speed:(x*Math.cos(a)-z*Math.sin(a))*speed;
+   const speed=2.1*Math.min(.05,dt)*(auto?1:Math.min(1,length))/length,a=camera.alpha,dx=auto?auto[0]*speed:(x*-Math.sin(a)-z*Math.cos(a))*speed,dz=auto?auto[1]*speed:(x*Math.cos(a)-z*Math.sin(a))*speed;
    const ox=p.x,oz=p.z;
    const blocked=(nx:number,nz:number)=>!canWalkPrivateRoom(nx,nz);
    if(!blocked(p.x+dx,p.z))p.x+=dx;if(!blocked(p.x,p.z+dz))p.z+=dz;
-   distance=Math.hypot(p.x-ox,p.z-oz);if(auto){stuck=distance?0:stuck+dt;if(stuck>.5)route=[];}if(distance){p.y=.12;avatar.root.rotation.y=Math.atan2(p.x-ox,p.z-oz);stride+=distance*4.8;}
+   distance=Math.hypot(p.x-ox,p.z-oz);if(auto){stuck=distance?0:stuck+dt;if(stuck>.5)route=[];}if(distance){p.y=.12;avatar.root.rotation.y=turnTowards(avatar.root.rotation.y,Math.atan2(p.x-ox,p.z-oz),dt);stride+=distance*4.5;}
    if(p.z< -7.1&&Math.abs(p.x)<1.1){onExit();return;}
   }
-  if(!practicing)avatar.legs.forEach((leg,i)=>leg.rotation.x=distance?.35*Math.sin(stride+i*Math.PI):0);
+  if(!practicing)walkingPose(avatar,stride,Math.min(1,distance/Math.max(.0001,dt*2.0)));
   practiceCameraHeight+=(practice!.cameraHeight-practiceCameraHeight)*(1-Math.exp(-9*Math.min(.1,dt)));
   if(returnBlend&&displayReturn){const b=returnBlend;b.time+=Math.min(.1,dt);const q=Math.min(1,b.time/.65),e=q*q*(3-2*q);const delta=Math.atan2(Math.sin(displayReturn.alpha-b.alpha),Math.cos(displayReturn.alpha-b.alpha));camera.alpha=b.alpha+delta*e;camera.beta=b.beta+(displayReturn.beta-b.beta)*e;requestedRadius=b.radius+(displayReturn.radius-b.radius)*e;camera.target.copyFrom(Vector3.Lerp(b.target,new Vector3(p.x,p.y+practiceCameraHeight,p.z),e));if(q===1||length)returnBlend=null;}else if(view==='walk')camera.target.copyFromFloats(p.x,p.y+practiceCameraHeight,p.z);scene.render();
  },dispose(){stick.dispose();disposePinch();returnDoor.remove();disposePoint();route=[];canvas.dataset.pointWalk='idle';practice?.dispose();display.dispose();canvas.removeEventListener('wheel',zoom,true);canvas.removeEventListener('keydown',down);window.removeEventListener('keyup',up);canvas.removeEventListener('blur',clear);window.removeEventListener('blur',clear);camera.detachControl();scene.dispose();}};

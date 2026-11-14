@@ -432,5 +432,10 @@
   "명상을 마쳤어요.": "Meditasi selesai.",
   "108배를 마쳤어요.": "108 sujud selesai.",
   "균형 있게": "Seimbang",
-  "가상 방문객": "Pelawat maya"
+  "가상 방문객": "Pelawat maya",
+  "명상 중": "Sedang bermeditasi",
+  "참배 중": "Sedang berdoa",
+  "108배 수행 중": "108 sujud sedang berlangsung",
+  "경과 시간": "Masa berlalu",
+  "완료한 절": "Sujud selesai"
 }

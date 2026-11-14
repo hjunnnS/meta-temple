@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "seats": [
+    0,
+    12,
+    6
+  ],
+  "interruptLowering": true,
+  "errors": []
+}

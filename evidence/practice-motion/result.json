@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "visibleTimer": true,
+  "confirmed108Counts": [
+    0,
+    1,
+    2
+  ],
+  "noEarlyCount": true,
+  "chairApproachLowerRise": true,
+  "walking": true,
+  "mobileHUDWithinViewport": true,
+  "pageErrors": []
+}

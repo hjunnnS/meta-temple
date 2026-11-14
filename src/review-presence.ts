@@ -1,3 +1,5 @@
+import{walkingPose}from'./locomotion';
+import{BOW_SECONDS}from'./motion-timing';
 import {privateMeditationPose} from './private-practice';
 import {bellPose} from './bell-ringing';
 import {BELL_DURATION} from './bell-cycle';
@@ -32,7 +34,7 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
     remote={body,cup:teaCup(scene,body),robe:visitorRobe(scene,body),peer,bowTime:0,bellTime:(peer.bellProgress??0)*BELL_DURATION,target:body.root.position.clone()};avatars.set(peer.sessionId,remote);
    }
    if(peer.sequence>=remote.peer.sequence){
-    if(peer.bowProgress!==undefined&&(peer.sequence!==remote.peer.sequence||remote.bowTime===0))remote.bowTime=peer.bowProgress*4.8;
+    if(peer.bowProgress!==undefined&&(peer.sequence!==remote.peer.sequence||remote.bowTime===0))remote.bowTime=peer.bowProgress*BOW_SECONDS;
     if(peer.sequence!==remote.peer.sequence){
      remote.bellTime=(peer.bellProgress??0)*BELL_DURATION;
      window.dispatchEvent(new CustomEvent('sasa:bell-remote',{detail:{id:peer.sessionId,hit:peer.bellHit??0,progress:peer.animation==='bell'?peer.bellProgress:undefined}}));
@@ -51,12 +53,12 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
    const {body,target,peer}=remote;
    Vector3.LerpToRef(body.root.position,target,1-Math.exp(-18*dt),body.root.position);
    body.root.rotation.y=peer.yaw;
-   remote.bowTime=peer.animation==='worship'?Math.min(4.8,remote.bowTime+dt):0;
-   if(!peer.meditating){for(const leg of [...body.legs,...body.shins])leg.rotationQuaternion=null;body.chest.scaling.y=1;}body.bow(remote.bowTime/4.8);
+   remote.bowTime=peer.animation==='worship'?Math.min(BOW_SECONDS,remote.bowTime+dt):0;
+   if(!peer.meditating){for(const leg of [...body.legs,...body.shins])leg.rotationQuaternion=null;body.chest.scaling.y=1;}body.bow(remote.bowTime/BOW_SECONDS);
    if(peer.animation==='bell'){remote.bellTime=Math.min(BELL_DURATION,remote.bellTime+dt);bellPose(body,remote.bellTime/BELL_DURATION);}
    if(peer.animation==='sit'){if(peer.meditating)privateMeditationPose(body,1,performance.now()/1000);else teaGesture(body,peer.drinkLift??0);}else{for(const leg of [...body.legs,...body.shins])leg.rotationQuaternion=null;body.chest.scaling.y=1;}
    remote.cup.update(peer.animation==='sit'&&!peer.meditating,peer.drinkLift??0,peer.beverage==='coffee');
-   if(peer.animation==='walk')body.legs.forEach((leg,i)=>leg.rotation.x=.35*Math.sin(performance.now()*.01+i*Math.PI));
+   if(peer.animation==='walk')walkingPose(body,performance.now()*.007,1);
   }
  });
  async function sync(generation:number){
