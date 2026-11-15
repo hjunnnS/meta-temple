@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "realIndependentSessions": 3,
+  "peersPerSession": 2,
+  "movement": true,
+  "face": true,
+  "robe": true,
+  "prayer": true,
+  "privateIsolation": true,
+  "returnWithoutDuplicate": true,
+  "leaveAndReconnect": true,
+  "ambientAtThree": 17,
+  "actualSharedBackend": true,
+  "macServerRequired": false,
+  "errors": [],
+  "failures": []
+}

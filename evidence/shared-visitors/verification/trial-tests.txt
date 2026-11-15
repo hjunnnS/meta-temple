@@ -1,0 +1,64 @@
+
+> meta-temple@0.1.0 test
+> node --experimental-strip-types --test tests/*.test.ts
+
+✔ nineteen visitors alternate destinations and activities without moving the reserved meditation visitor (0.898583ms)
+✔ meditating visitors rise before leaving and a prayer cycle reaches the full bow (0.25125ms)
+✔ twenty virtual places are dispersed without taking the user or monk seat (0.586375ms)
+✔ real channel population replaces fillers but never alters real admission (0.088583ms)
+✔ walking loops stay continuous and slow within their assigned short route (8.996625ms)
+✔ relocated viewers leave the tea connection, coin bank and wish rack approach clear (2.576042ms)
+✔ every actor has a place-appropriate activity and worship reaches a full bow (3.055917ms)
+✔ narration takes priority; ending one owner preserves other active sounds (1.709375ms)
+✔ sparse forest lights keep walking routes, trunks and wall clearance without rows of dense lamps (1.775916ms)
+✔ five proposed courses reuse distinct existing halls and all five approved prototype routes are enabled (0.920917ms)
+✔ free course requires real arrival and prayer result, and optional stages can be skipped (0.4805ms)
+✔ old stage results and course changes do not complete a new step (0.103ms)
+✔ all fourteen languages have complete guide keys, placeholders and every course stage (4.462709ms)
+✔ lower drape keeps gate start, gradually lowers plaza .85–1m, and keeps other offering anchors (6.623125ms)
+✔ all five item kinds offer 7/21/49 days, install exact durations, expire and preserve old 30-day holds (52.958958ms)
+✔ M6 authored practice, arrangement and seat status messages exist in every supported language (3.866667ms)
+✔ relocation preserves every lantern coordinate and all five item identities and quantities (4.151459ms)
+✔ approved destinations and garden routes stay reachable without crossing walls or water (1.785875ms)
+✔ desktop high and low preserve the approved render settings (0.575791ms)
+✔ portrait mobile actually reduces render size and preserves glow (0.077959ms)
+✔ mobile orientation respects the same pixel budget (0.994792ms)
+✔ supported bow poses remain ordered with a held ground contact and a complete return (2.140458ms)
+✔ practice clock is readable over minute/hour boundaries and turns take the short arc (0.127541ms)
+✔ removing the bridge restores the full U-shaped throwing bank and blocks the former water crossing (1.055292ms)
+✔ visible preview keeps animating without focus and pauses only when hidden or absent (0.524708ms)
+✔ an offscreen canvas pauses and resumes without requiring keyboard focus (0.178833ms)
+✔ new planting remains outside the open central courtyard and safe for seats, coin throwing and routes (2.806875ms)
+✔ guide and tea monk stay on dry ground without occupying any visitor seat or table (0.915458ms)
+✔ slow walking loop is continuous, remains at the path edge, and pauses for turning (7.984084ms)
+✔ tea lift has a rest, a sip and a smooth return without abrupt loop restart (0.58475ms)
+✔ approved four rear halls have distinct deities, correct door direction and clear wall margins (0.98ms)
+✔ the new loop and each hall approach are continuous dry routes with wall and pedestal clearance (2.82725ms)
+✔ northward point navigation and pose validation accept the new grounds but reject invalid positions (0.263333ms)
+✔ all five existing offering types retain their complete approved slot geometry (2.827542ms)
+BJS - [12:00:00]: Babylon.js v9.34.0 - Null engine
+✔ autumn canopy uses opaque folded leaves and far LOD reduces leaf geometry (24.054458ms)
+✔ only channel requests go to the shared server with cancellation and session auth preserved (12.755292ms)
+BJS - [18:55:37]: Babylon.js v9.34.0 - Null engine
+BJS - [18:55:37]: Babylon.js v9.34.0 - Null engine
+✔ separate indoor/outdoor labels keep the original lettered face and remove every projecting backing triangle (5.624042ms)
+✔ ordinary two-sided gate signs keep their complete geometry (0.534ms)
+✔ shared gesture gate rejects drags, multi-touch, cancelled gestures and modal interaction (0.59875ms)
+✔ trial gates personal actions, keeps original slot geometry, installs all five kinds once and persists locally (30.305584ms)
+✔ private display persists, rejects stale edits and incompatible placements, and reset removes only this browser data (3.100083ms)
+✔ hold expires, practice counts are idempotent through completion and unsupported server actions fail explicitly (3.35475ms)
+✔ every supported trial language has authored messages and preserves count placeholders (4.91175ms)
+✔ interruption cannot use completion wording for any practice kind (0.322292ms)
+✔ all supported languages preserve destination placeholders and distinct outcome messages (3.712416ms)
+✔ distant views distinguish nearby soil and valley depths without changing close camera clipping (0.436958ms)
+✔ court flagstones clear the court top while all ordinary paths retain their existing height (0.117375ms)
+✔ expanded groves keep species separate and concentrate five additional maples around the sweeper (0.617666ms)
+✔ grouped plants retain open centre, paid-item approaches and safe walking clearances (4.712083ms)
+ℹ tests 49
+ℹ suites 0
+ℹ pass 49
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 229.649666

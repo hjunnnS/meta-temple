@@ -1,0 +1,62 @@
+Loading first {
+  navigationToFirstRenderedFrameMs: 8559.900000095367,
+  sceneConstructionToFirstFrameMs: 7807
+}
+Loading return {
+  navigationToFirstRenderedFrameMs: 4739.100000143051,
+  sceneConstructionToFirstFrameMs: 4319.5
+}
+Warming 120 seconds
+Warmup remaining 90
+Warmup remaining 60
+Warmup remaining 30
+Warmup remaining 0
+Walking day 30 seconds
+Walking day 60 seconds
+Walking day 90 seconds
+Walking day 120 seconds
+Walking day 150 seconds
+Walking day 180 seconds
+Walking day 210 seconds
+Walking day 240 seconds
+Walking day 270 seconds
+Walking day 300 seconds
+PASS walk day {
+  samples: 18006,
+  meanFps: 59.998940371938986,
+  onePercentLowFps: 52.86523738625029,
+  maxFrameMs: 50.799999952316284
+}
+Walking dusk 30 seconds
+Walking dusk 60 seconds
+Walking dusk 90 seconds
+Walking dusk 120 seconds
+Walking dusk 150 seconds
+Walking dusk 180 seconds
+Walking dusk 210 seconds
+Walking dusk 240 seconds
+Walking dusk 270 seconds
+Walking dusk 300 seconds
+PASS walk dusk {
+  samples: 17997,
+  meanFps: 59.998939842046,
+  onePercentLowFps: 52.45978076835089,
+  maxFrameMs: 38.700000047683716
+}
+Walking night 30 seconds
+Walking night 60 seconds
+Walking night 90 seconds
+Walking night 120 seconds
+Walking night 150 seconds
+Walking night 180 seconds
+Walking night 210 seconds
+Walking night 240 seconds
+Walking night 270 seconds
+Walking night 300 seconds
+PASS walk night {
+  samples: 18008,
+  meanFps: 60.00234571588891,
+  onePercentLowFps: 52.27738781748031,
+  maxFrameMs: 23.40000009536743
+}
+PASS hosted performance {"loading":[{"visit":"first","ms":8559.900000095367},{"visit":"return","ms":4739.100000143051}],"walks":[{"time":"day","durationSeconds":300.145,"route":{"minZ":-64.33514769868795,"maxZ":37.3081523023617,"distanceMetres":659.9982052283065,"turns":6},"samples":18006,"meanFps":59.998940371938986,"onePercentLowFps":52.86523738625029,"maxFrameMs":50.799999952316284,"jsHeapBytes":512335472},{"time":"dusk","durationSeconds":300.05,"route":{"minZ":-64.0670080243682,"maxZ":37.20845197552695,"distanceMetres":659.6699651961533,"turns":7},"samples":17997,"meanFps":59.998939842046,"onePercentLowFps":52.45978076835089,"maxFrameMs":38.700000047683716,"jsHeapBytes":497017825},{"time":"night","durationSeconds":300.167,"route":{"minZ":-64.32586533309177,"maxZ":37.343394667327935,"distanceMetres":660.0355497382895,"turns":6},"samples":18008,"meanFps":60.00234571588891,"onePercentLowFps":52.27738781748031,"maxFrameMs":23.40000009536743,"jsHeapBytes":503153335}],"privateRooms":{"entries":10,"jsHeapBeforeBytes":477663968,"jsHeapAfterBytes":479373336,"heapMeaning":"JavaScript heap after GC; excludes GPU/process memory"}}

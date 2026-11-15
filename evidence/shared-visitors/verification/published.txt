@@ -1,0 +1,14 @@
+Opening independent browser 1
+Browser 1 console: Failed to load resource: the server responded with a status of 404 ()
+Joined channel 3: 1
+Opening independent browser 2
+Browser 2 console: Failed to load resource: the server responded with a status of 404 ()
+Joined channel 3: 2
+Opening independent browser 3
+Browser 3 console: Failed to load resource: the server responded with a status of 404 ()
+Joined channel 3: 3
+PASS 3 real sessions, 2 peers each, 17 ambient visitors
+PASS movement and zodiac face propagated
+Browser 1 console: Failed to load resource: the server responded with a status of 404 ()
+PASS private room hidden, return rejoins without duplicate
+PASS shared visitor journey

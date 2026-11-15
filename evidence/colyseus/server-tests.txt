@@ -1,0 +1,19 @@
+
+> meta-temple@0.1.0 colyseus:test
+> npm --prefix server/colyseus test
+
+
+> test
+> node --test tests/*.test.mjs
+
+✔ validation rejects invalid motion and channel/layout/origin; no transaction APIs (10.22225ms)
+✔ 3 real SDK sessions synchronize movement, bow, robe, face, bell and tea; reject stale and impossible movement (894.722291ms)
+✔ one fixed room per channel, capacity20 and 21st denied; releases seats on leave (162.077166ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4277.815

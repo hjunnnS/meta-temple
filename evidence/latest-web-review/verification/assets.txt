@@ -1,0 +1,1 @@
+PASS static entry files, 42 declared asset records, hashes and hosting manifest

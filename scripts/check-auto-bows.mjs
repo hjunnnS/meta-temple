@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {launchBrowser} from './browser.mjs';
 import {enterTrial,exposeScene,go} from './trial-helpers.mjs';
-const out='evidence/auto-bows';await mkdir(out,{recursive:true});const b=await launchBrowser({channel:'chrome'});
+const out=process.env.AUTO_BOW_EVIDENCE??'evidence/auto-bows';await mkdir(out,{recursive:true});const b=await launchBrowser({channel:'chrome'});
 try{
  const p=await b.newPage({viewport:{width:1280,height:850}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await enterTrial(p);if(await p.locator('#guide-free').isVisible())await p.locator('#guide-free').click();await exposeScene(p);await go(p,'daeung');await p.locator('#practice-open').click();await p.locator('#practice-108').click();await p.locator('#trial-start').click();await p.evaluate(()=>trialScene.activeCamera.alpha=.15);
  // One activation must start the first bow and all subsequent bows without clicks.

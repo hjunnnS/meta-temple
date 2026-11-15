@@ -1,0 +1,29 @@
+Loading first {
+  navigationToFirstRenderedFrameMs: 9160.700000047684,
+  sceneConstructionToFirstFrameMs: 7785.400000095367
+}
+Loading return {
+  navigationToFirstRenderedFrameMs: 5045.799999952316,
+  sceneConstructionToFirstFrameMs: 4310.899999856949
+}
+Warming 3 seconds
+Warmup remaining 0
+PASS walk day {
+  samples: 605,
+  meanFps: 60.00674455943531,
+  onePercentLowFps: 56.31536596346497,
+  maxFrameMs: 17.800000190734863
+}
+PASS walk dusk {
+  samples: 605,
+  meanFps: 60.00436395289075,
+  onePercentLowFps: 56.36070818840734,
+  maxFrameMs: 17.90000009536743
+}
+PASS walk night {
+  samples: 605,
+  meanFps: 60.00555423255152,
+  onePercentLowFps: 55.51149874749418,
+  maxFrameMs: 18.5
+}
+PASS hosted performance {"loading":[{"visit":"first","ms":9160.700000047684},{"visit":"return","ms":5045.799999952316}],"walks":[{"time":"day","durationSeconds":10.08,"route":{"minZ":-51.99493192070714,"maxZ":-30.045738343082494,"distanceMetres":21.949193577624644,"turns":0},"samples":605,"meanFps":60.00674455943531,"onePercentLowFps":56.31536596346497,"maxFrameMs":17.800000190734863,"jsHeapBytes":1979216410},{"time":"dusk","durationSeconds":10.079,"route":{"minZ":-29.990000779909597,"maxZ":-8.03961575708663,"distanceMetres":21.950385022822992,"turns":0},"samples":605,"meanFps":60.00436395289075,"onePercentLowFps":56.36070818840734,"maxFrameMs":17.90000009536743,"jsHeapBytes":1978377454},{"time":"night","durationSeconds":10.081,"route":{"minZ":-7.984423221119352,"maxZ":13.965311776846852,"distanceMetres":21.94973499796622,"turns":0},"samples":605,"meanFps":60.00555423255152,"onePercentLowFps":55.51149874749418,"maxFrameMs":18.5,"jsHeapBytes":1989704527}],"privateRooms":{"entries":10,"jsHeapBeforeBytes":477481928,"jsHeapAfterBytes":479643896,"heapMeaning":"JavaScript heap after GC; excludes GPU/process memory"}}

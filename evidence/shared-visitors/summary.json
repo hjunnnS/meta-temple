@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "frontendVersion": 40,
+  "backendVersion": 1,
+  "issues": [
+    53,
+    54,
+    68
+  ],
+  "milestones": [
+    "M3",
+    "M4"
+  ],
+  "epic": 3,
+  "independentBrowsers": 3,
+  "otherCharactersPerBrowser": 2,
+  "activeVirtualVisitors": 17,
+  "localPreviewStoppedForPublicTest": true,
+  "movement": true,
+  "faceAndRobe": true,
+  "prayer": true,
+  "privateRoomIsolation": true,
+  "leaveAndReconnect": true,
+  "tests": {
+    "original": 110,
+    "trial": 49,
+    "backend": 3
+  },
+  "assetRecords": 42,
+  "pricePaymentChanges": false,
+  "itemsRemainBrowserLocal": true,
+  "publicTest": {
+    "passed": true,
+    "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+    "realIndependentSessions": 3,
+    "peersPerSession": 2,
+    "movement": true,
+    "face": true,
+    "robe": true,
+    "prayer": true,
+    "privateIsolation": true,
+    "returnWithoutDuplicate": true,
+    "leaveAndReconnect": true,
+    "ambientAtThree": 17,
+    "actualSharedBackend": true,
+    "macServerRequired": false,
+    "errors": [],
+    "failures": []
+  }
+}

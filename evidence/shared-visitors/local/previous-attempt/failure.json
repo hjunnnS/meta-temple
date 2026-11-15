@@ -1,0 +1,5 @@
+{
+  "error": "TimeoutError: locator.waitFor: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.entry-overlay') to be detached\u001b[22m\n\u001b[2m    60 × locator resolved to visible <div aria-busy=\"true\" class=\"entry-overlay opening-lotus\">…</div>\u001b[22m\n\u001b[2m    60 × locator resolved to visible <div class=\"entry-overlay\">…</div>\u001b[22m\n",
+  "errors": [],
+  "failures": []
+}

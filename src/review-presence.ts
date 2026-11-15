@@ -1,3 +1,4 @@
+import {colyseusEndpoint,connectColyseus} from './colyseus-presence';
 import{walkingPose}from'./locomotion';
 import{BOW_SECONDS}from'./motion-timing';
 import {privateMeditationPose} from './private-practice';
@@ -12,11 +13,12 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { visitorMesh } from './walking.ts';
 import { layoutDraft } from './contracts.ts';
 
-interface Motion {meditating?:boolean;bellProgress?:number;bellHit?:number;drinkLift?:number;beverage?:string;bowProgress?:number;face?:Face;wearingRobe?:boolean;position:number[];yaw:number;animation:string}
+export interface Motion {meditating?:boolean;bellProgress?:number;bellHit?:number;drinkLift?:number;beverage?:string;bowProgress?:number;face?:Face;wearingRobe?:boolean;position:number[];yaw:number;animation:string}
 interface Peer extends Motion {sessionId:string;sequence:number}
-interface Snapshot {self:string;key?:string;layoutVersion:string;schemaVersion:number;channelId:string;count?:number;participants:Peer[]}
+export interface Snapshot {self:string;key?:string;layoutVersion:string;schemaVersion:number;channelId:string;count?:number;participants:Peer[]}
 
 export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,channel?:HTMLSelectElement){
+ box.id||='visit-presence-status';
  const avatars=new Map<string,{body:ReturnType<typeof visitorMesh>;robe:ReturnType<typeof visitorRobe>;target:Vector3;peer:Peer;bowTime:number;bellTime:number;cup:ReturnType<typeof teaCup>}>();
  let session:{id:string;key:string}|null=null,sequence=0,epoch=0,timer=0,paused=false;
  let pending:AbortController|undefined;
@@ -30,7 +32,7 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
   for(const peer of s.participants){
    let remote=avatars.get(peer.sessionId);
    if(!remote){
-    const body=visitorMesh(scene,peer.sessionId);body.root.position.set(...peer.position as [number,number,number]);
+    const body=visitorMesh(scene,peer.sessionId);body.root.metadata={...body.root.metadata,presencePeer:true,sessionId:peer.sessionId};body.root.position.set(...peer.position as [number,number,number]);
     remote={body,cup:teaCup(scene,body),robe:visitorRobe(scene,body),peer,bowTime:0,bellTime:(peer.bellProgress??0)*BELL_DURATION,target:body.root.position.clone()};avatars.set(peer.sessionId,remote);
    }
    if(peer.sequence>=remote.peer.sequence){
@@ -45,6 +47,7 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
     remote.target.set(...peer.position as [number,number,number]);}
   }
   window.dispatchEvent(new CustomEvent('sasa:population',{detail:{count:s.count??1+s.participants.length,channelId:s.channelId}}));
+  box.dataset.self=s.self;box.dataset.count=String(s.count??1+avatars.size);box.dataset.peers=JSON.stringify(s.participants.map(p=>p.sessionId));
   box.textContent=t('같은 공간 방문자')+' '+(s.count??1+avatars.size)+(locale==='ko'?'명':'');
  }
  scene.onBeforeRenderObservable.add(()=>{
@@ -61,13 +64,18 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
    if(peer.animation==='walk')walkingPose(body,performance.now()*.007,1);
   }
  });
+ if(channel&&colyseusEndpoint){
+  const clear=()=>{for(const id of avatars.keys())clearPeer(id);};
+  const dispose=connectColyseus(colyseusEndpoint,pose,channel,reconcile,clear,box);
+  scene.onDisposeObservable.addOnce(dispose);return;
+ }
  async function sync(generation:number){
   if(paused)return;
   pending=new AbortController();
   const signal=AbortSignal.any([pending.signal,AbortSignal.timeout(3000)]);
   try{
    const current=session;
-   const response=channel?await fetch('/api/service/channel/'+(current?'move':'join'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(current?{...pose(),sequence:++sequence,self:current.id}:{channel:Number(channel.value)}),signal}):await fetch('/api/review/sessions'+(current?'/'+current.id:''),{
+   const response=channel?await fetch('/api/service/channel/'+(current?'move':'join'),{method:'POST',headers:{'Content-Type':'application/json',...(current?.key?{Authorization:'Bearer '+current.key}:{})},body:JSON.stringify(current?{...pose(),sequence:++sequence,self:current.id}:{...pose(),channel:Number(channel.value),layoutVersion:layoutDraft.version}),signal}):await fetch('/api/review/sessions'+(current?'/'+current.id:''),{
     method:current?'PUT':'POST',headers:current?{'Content-Type':'application/json',Authorization:'Bearer '+current.key}:{},
     body:current?JSON.stringify({...pose(),sequence:++sequence}):undefined,signal
    });
@@ -91,7 +99,7 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
  }
  window.addEventListener('pagehide',()=>{
   epoch++;clearTimeout(timer);
-  if(channel&&session)void fetch('/api/service/channel/leave',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({self:session.id}),keepalive:true}).catch(()=>{});
+  if(channel&&session)void fetch('/api/service/channel/leave',{method:'POST',headers:{'Content-Type':'application/json',...(session.key?{Authorization:'Bearer '+session.key}:{})},body:JSON.stringify({self:session.id}),keepalive:true}).catch(()=>{});
   else if(session)void fetch('/api/review/sessions/'+session.id,{method:'DELETE',headers:{Authorization:'Bearer '+session.key},keepalive:true}).catch(()=>{});
   session=null;sequence=0;
  });
@@ -101,22 +109,22 @@ export function reviewPresence(scene:Scene,pose:()=>Motion,box:HTMLElement,chann
   paused=next;epoch++;clearTimeout(timer);pending?.abort();
   const old=session;session=null;sequence=0;for(const id of avatars.keys())clearPeer(id);
   if(old){
-   if(channel)void fetch('/api/service/channel/leave',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({self:old.id}),keepalive:true}).catch(()=>{});
+   if(channel)void fetch('/api/service/channel/leave',{method:'POST',headers:{'Content-Type':'application/json',...(old.key?{Authorization:'Bearer '+old.key}:{})},body:JSON.stringify({self:old.id}),keepalive:true}).catch(()=>{});
    else void fetch('/api/review/sessions/'+old.id,{method:'DELETE',headers:{Authorization:'Bearer '+old.key},keepalive:true}).catch(()=>{});
   }
   box.textContent=paused?'개인 공간 · 나만 입장':t('방문자 연결 재시도 중');
   if(!paused)void sync(epoch);
  });
  let relocation=Promise.resolve();
- window.addEventListener('sasa:relocate',()=>{
+ const restart=()=>{
   if(paused)return;const generation=++epoch;clearTimeout(timer);pending?.abort();const old=session;session=null;sequence=0;for(const id of avatars.keys())clearPeer(id);
   relocation=relocation.then(async()=>{
-   if(old)try{if(channel)await fetch('/api/service/channel/leave',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({self:old.id}),signal:AbortSignal.timeout(3000)});else await fetch('/api/review/sessions/'+old.id,{method:'DELETE',headers:{Authorization:'Bearer '+old.key},signal:AbortSignal.timeout(3000)});}catch{/* Join still revalidates the session. */}
+   if(old)try{if(channel)await fetch('/api/service/channel/leave',{method:'POST',headers:{'Content-Type':'application/json',...(old.key?{Authorization:'Bearer '+old.key}:{})},body:JSON.stringify({self:old.id}),signal:AbortSignal.timeout(3000)});else await fetch('/api/review/sessions/'+old.id,{method:'DELETE',headers:{Authorization:'Bearer '+old.key},signal:AbortSignal.timeout(3000)});}catch{/* Join still revalidates the session. */}
    if(generation===epoch&&!paused)void sync(generation);
   });
- });
+ };
+ window.addEventListener('sasa:relocate',restart);
  if(channel){
-  const restart=()=>{if(paused)return;epoch++;clearTimeout(timer);session=null;sequence=0;for(const id of avatars.keys())clearPeer(id);void sync(epoch);};
   channel.onchange=restart;window.addEventListener('sasa:account',restart);
  }
  void sync(epoch);

@@ -3,3 +3,20 @@
 body:has(#practice-feedback:is([data-state=active],[data-state=paused]):not([hidden])) #bow-count{display:none!important}
 @media(max-width:650px){#practice-feedback.practice-feedback,#private-practice-feedback.practice-feedback{left:12px;top:94px;width:min(242px,calc(100vw - 24px));padding:10px 12px}.practice-timer{font-size:21px}.practice-counter{font-size:25px}}
 .practice-feedback .practice-metrics output{display:block;margin:0;padding:0;border:0;background:none;color:inherit}
+
+/* Metric visibility must win over the shared output/progress display rules. */
+.practice-feedback .practice-counter[hidden],.practice-feedback .practice-progress[hidden]{display:none!important}
+
+/* Short touch screens keep practice actions beside the status, never beneath it. */
+@media(pointer:coarse) and (max-height:500px) and (min-width:501px){
+ #practice-feedback.practice-feedback,#private-practice-feedback.practice-feedback{left:12px;top:70px;width:242px;padding:8px 12px;max-height:calc(100dvh - 82px);overflow-y:auto;pointer-events:auto}
+ .practice-feedback .practice-breath{display:none}
+ .practice-feedback .practice-detail{margin:4px 0}
+ body:has(#walk-pad[data-practice="108"]) #context-actions{left:270px;right:12px;width:auto}
+}
+
+@media(pointer:coarse) and (max-height:500px) and (min-width:501px){
+ .service-ui.in-private-room .private-room-heading{top:16px;left:20px;right:20px}
+ .service-ui.in-private-room #private-room-controls .private-room-heading strong{font-size:20px;line-height:1.2;max-width:calc(100vw - 180px)}
+ .service-ui.in-private-room .private-room-heading small{display:none!important}
+}

@@ -1,0 +1,43 @@
+{
+  "siteVersion": 41,
+  "commit": "b265a9d8a30b25ec240ff500b12a02fa48c1ec20",
+  "deployment": "appgdep_6af997de00f08191bd3493232b39b3ec",
+  "sites": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "backend": "https://landscape-scanner-ate-amongst.trycloudflare.com",
+  "macServerRequired": true,
+  "transport": "Colyseus 0.16 / WebSocket",
+  "tests": {
+    "original": 110,
+    "trial": 48,
+    "serverIntegration": 3
+  },
+  "originalIssues": [
+    53,
+    54,
+    68
+  ],
+  "publishedBrowserResult": {
+    "passed": true,
+    "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+    "realIndependentSessions": 3,
+    "peersPerSession": 2,
+    "movement": true,
+    "face": true,
+    "robe": true,
+    "prayer": true,
+    "privateIsolation": true,
+    "returnWithoutDuplicate": true,
+    "leaveAndReconnect": true,
+    "ambientAtThree": 17,
+    "actualSharedBackend": true,
+    "webSocketConnections": 14,
+    "webSocketHosts": [
+      "landscape-scanner-ate-amongst.trycloudflare.com"
+    ],
+    "offlineRecovery": true,
+    "macServerRequired": true,
+    "transport": "Colyseus 0.16 / WebSocket",
+    "errors": [],
+    "failures": []
+  }
+}
