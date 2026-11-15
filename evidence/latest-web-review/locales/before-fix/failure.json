@@ -1,0 +1,85 @@
+{
+  "completed": [
+    {
+      "locale": "ko",
+      "passed": true,
+      "portrait": {
+        "width": 320,
+        "height": 740
+      },
+      "landscape": {
+        "width": 740,
+        "height": 320
+      },
+      "automaticBow": true,
+      "pausedAt": 1,
+      "keyboardResume": true,
+      "translated": true,
+      "controlsUncovered": true,
+      "guideAndPrivate": true,
+      "languageRestored": true,
+      "errors": []
+    },
+    {
+      "locale": "ja",
+      "passed": true,
+      "portrait": {
+        "width": 320,
+        "height": 740
+      },
+      "landscape": {
+        "width": 740,
+        "height": 320
+      },
+      "automaticBow": true,
+      "pausedAt": 1,
+      "keyboardResume": true,
+      "translated": true,
+      "controlsUncovered": true,
+      "guideAndPrivate": true,
+      "languageRestored": true,
+      "errors": []
+    },
+    {
+      "locale": "en",
+      "passed": true,
+      "portrait": {
+        "width": 320,
+        "height": 740
+      },
+      "landscape": {
+        "width": 740,
+        "height": 320
+      },
+      "automaticBow": true,
+      "pausedAt": 1,
+      "keyboardResume": true,
+      "translated": true,
+      "controlsUncovered": true,
+      "guideAndPrivate": true,
+      "languageRestored": true,
+      "errors": []
+    },
+    {
+      "locale": "zh-Hans",
+      "passed": true,
+      "portrait": {
+        "width": 320,
+        "height": 740
+      },
+      "landscape": {
+        "width": 740,
+        "height": 320
+      },
+      "automaticBow": true,
+      "pausedAt": 1,
+      "keyboardResume": true,
+      "translated": true,
+      "controlsUncovered": true,
+      "guideAndPrivate": true,
+      "languageRestored": true,
+      "errors": []
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Practice status covers bottom controls"
+}

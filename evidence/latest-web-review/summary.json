@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "milestone": "M4",
+  "epics": {
+    "64": 1,
+    "77": 74,
+    "66": 4
+  },
+  "issues": [
+    64,
+    77,
+    66
+  ],
+  "version": 39,
+  "sourceCommit": "036ea502c9433f310788ab2d9e020c86dda645da",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "functional": {
+    "pcAndTouch": true,
+    "fiveGuestItemSelections": true,
+    "tradeWrites": [],
+    "guidedPrayerCompletions": 10,
+    "automaticBows": true,
+    "allLocales": 14,
+    "privateLandscapeLocales": 3
+  },
+  "unitTests": {
+    "canonical": 109,
+    "trial": 48
+  },
+  "assetRecords": 42,
+  "buildsPassed": true,
+  "performance": {
+    "device": "Apple M5 Pro / Mac17,8 / 48 GiB / macOS 26.6.2",
+    "network": {
+      "Mbps": 20,
+      "latencyMs": 80
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "quality": "high",
+    "lanterns": 440,
+    "activeSimulatedVisitors": 19,
+    "loadingSeconds": {
+      "first": 8.559900000095368,
+      "return": 4.739100000143051
+    },
+    "warmSeconds": 120,
+    "walks": [
+      {
+        "time": "day",
+        "durationSeconds": 300.145,
+        "route": {
+          "minZ": -64.33514769868795,
+          "maxZ": 37.3081523023617,
+          "distanceMetres": 659.9982052283065,
+          "turns": 6
+        },
+        "samples": 18006,
+        "meanFps": 59.998940371938986,
+        "onePercentLowFps": 52.86523738625029,
+        "maxFrameMs": 50.799999952316284,
+        "jsHeapBytes": 512335472
+      },
+      {
+        "time": "dusk",
+        "durationSeconds": 300.05,
+        "route": {
+          "minZ": -64.0670080243682,
+          "maxZ": 37.20845197552695,
+          "distanceMetres": 659.6699651961533,
+          "turns": 7
+        },
+        "samples": 17997,
+        "meanFps": 59.998939842046,
+        "onePercentLowFps": 52.45978076835089,
+        "maxFrameMs": 38.700000047683716,
+        "jsHeapBytes": 497017825
+      },
+      {
+        "time": "night",
+        "durationSeconds": 300.167,
+        "route": {
+          "minZ": -64.32586533309177,
+          "maxZ": 37.343394667327935,
+          "distanceMetres": 660.0355497382895,
+          "turns": 6
+        },
+        "samples": 18008,
+        "meanFps": 60.00234571588891,
+        "onePercentLowFps": 52.27738781748031,
+        "maxFrameMs": 23.40000009536743,
+        "jsHeapBytes": 503153335
+      }
+    ],
+    "privateRoomEntries": 10,
+    "gcNormalizedJsHeapGrowthMiB": 1.6301803588867188,
+    "sameBuildFingerprint": "a4196feff5459a17bc24cf8038b48608b3474fc53e6f21dc4e202707aab76e76",
+    "pageErrors": [],
+    "apiNetworkRequests": []
+  },
+  "exclusions": {
+    "fiveParticipantEvaluation": "deferred",
+    "physicalPhoneValidation": false,
+    "pricePaymentChanges": false,
+    "realMultiplayerLoadTest": false,
+    "gpuAndProcessMemoryMeasured": false
+  }
+}

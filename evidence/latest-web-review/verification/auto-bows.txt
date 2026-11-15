@@ -1,0 +1,1 @@
+PASS automatic repetition, pause, timer, resume, stop and 108 boundary

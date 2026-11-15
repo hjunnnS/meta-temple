@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:4355",
+  "realIndependentSessions": 3,
+  "peersPerSession": 2,
+  "movement": true,
+  "face": true,
+  "robe": true,
+  "prayer": true,
+  "privateIsolation": true,
+  "returnWithoutDuplicate": true,
+  "leaveAndReconnect": true,
+  "ambientAtThree": 17,
+  "actualSharedBackend": true,
+  "macServerRequired": false,
+  "errors": [],
+  "failures": []
+}

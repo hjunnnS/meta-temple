@@ -1,0 +1,28 @@
+Checking ko
+PASS latest locale ko
+Checking ja
+PASS latest locale ja
+Checking en
+PASS latest locale en
+Checking zh-Hans
+PASS latest locale zh-Hans
+Checking pt-PT
+PASS latest locale pt-PT
+Checking es
+PASS latest locale es
+Checking fr
+PASS latest locale fr
+Checking it
+PASS latest locale it
+Checking pt-BR
+PASS latest locale pt-BR
+Checking ms
+PASS latest locale ms
+Checking de
+PASS latest locale de
+Checking vi
+PASS latest locale vi
+Checking ru
+PASS latest locale ru
+Checking tr
+PASS latest locale tr

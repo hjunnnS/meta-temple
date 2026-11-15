@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "url": "https://landscape-scanner-ate-amongst.trycloudflare.com",
+  "realIndependentSessions": 3,
+  "peersPerSession": 2,
+  "movement": true,
+  "face": true,
+  "robe": true,
+  "prayer": true,
+  "privateIsolation": true,
+  "returnWithoutDuplicate": true,
+  "leaveAndReconnect": true,
+  "ambientAtThree": 17,
+  "actualSharedBackend": true,
+  "webSocketConnections": 14,
+  "webSocketHosts": [
+    "landscape-scanner-ate-amongst.trycloudflare.com"
+  ],
+  "offlineRecovery": true,
+  "macServerRequired": true,
+  "transport": "Colyseus 0.16 / WebSocket",
+  "errors": [],
+  "failures": []
+}

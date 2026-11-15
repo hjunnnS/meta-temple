@@ -1,0 +1,2 @@
+PASS latest journey desktop
+PASS latest journey touch

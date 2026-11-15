@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "locale": "pt-PT",
+      "controlsUncovered": true,
+      "privateMeditationExit": true
+    },
+    {
+      "locale": "de",
+      "controlsUncovered": true,
+      "privateMeditationExit": true
+    },
+    {
+      "locale": "ru",
+      "controlsUncovered": true,
+      "privateMeditationExit": true
+    }
+  ]
+}
