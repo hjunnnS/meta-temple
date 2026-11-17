@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "id": "pond-keeper",
+      "touch": false,
+      "clockAdvances": true,
+      "bodyTap": true,
+      "greetingFinished": true
+    },
+    {
+      "id": "lamp-keeper",
+      "touch": false,
+      "clockAdvances": true,
+      "bodyTap": true,
+      "greetingFinished": true
+    },
+    {
+      "id": "garden-keeper",
+      "touch": false,
+      "clockAdvances": true,
+      "bodyTap": true,
+      "greetingFinished": true
+    },
+    {
+      "id": "scripture-reader",
+      "touch": false,
+      "clockAdvances": true,
+      "bodyTap": true,
+      "greetingFinished": true
+    },
+    {
+      "id": "pond-keeper",
+      "touch": true,
+      "clockAdvances": true,
+      "bodyTap": true,
+      "greetingFinished": true
+    },
+    {
+      "id": "lamp-keeper",
+      "touch": true,
+      "clockAdvances": true,
+      "bodyTap": true,
+      "greetingFinished": true
+    },
+    {
+      "id": "garden-keeper",
+      "touch": true,
+      "clockAdvances": true,
+      "bodyTap": true,
+      "greetingFinished": true
+    },
+    {
+      "id": "scripture-reader",
+      "touch": true,
+      "clockAdvances": true,
+      "bodyTap": true,
+      "greetingFinished": true
+    }
+  ],
+  "privateIsolation": true,
+  "returnRestores": true,
+  "errors": []
+}

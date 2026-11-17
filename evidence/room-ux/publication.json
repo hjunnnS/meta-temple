@@ -1,0 +1,16 @@
+{
+  "version": 48,
+  "sourceCommit": "81527a7118d9c9b97da1876b0f055e3343e1f429",
+  "savedVersion": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_6b4e1435d20c8191aae619029091230f",
+  "deployment": "appgdep_6afaf5e223bc8191b146d6671bebea55",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "status": "succeeded",
+  "localPCAndTouch": "passed",
+  "publicSmoke": "passed",
+  "unitTests": {
+    "canonical": 120,
+    "trial": 59
+  },
+  "physicalMobile": "not tested",
+  "pricingAndPayments": "unchanged"
+}

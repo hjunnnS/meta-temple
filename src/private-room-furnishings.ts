@@ -83,7 +83,7 @@ export function furnishPrivateRetreat(scene:Scene){
  for(const [x,z] of [[10,-2],[16.5,7.7],[10.5,7],[16.8,0]]){oval('garden-rock',.7,.45,.6,x,.29,z,stone);for(let i=0;i<4;i++)oval('garden-shrub',.45,.36,.42,x+Math.sin(i)*.5,.28,z+Math.cos(i)*.4,leaf);}
  box('garden-east-wall',.14,1.55,14,17.9,.88,2,jade);box('garden-north-wall',12,1.55,.14,12,.88,8.9,jade);box('garden-south-wall',12,1.55,.14,12,.88,-4.9,jade);
  for(let i=0;i<9;i++)box('garden-fence-cap',.25,.10,14,17.9,.25+i*.16,2,dark);
- const groups=new Map<string,Mesh[]>();for(const mesh of parts){mesh.computeWorldMatrix(true);const key=mesh.material!.uniqueId+':'+mesh.getVerticesDataKinds().sort().join(',');if(!groups.has(key))groups.set(key,[]);groups.get(key)!.push(mesh);}
- const merged:Mesh[]=[];for(const group of groups.values()){if(group.length===1){merged.push(group[0]);continue;}const mesh=Mesh.MergeMeshes(group,true,true,undefined,false,true);if(mesh){mesh.receiveShadows=true;merged.push(mesh);}}
+ const groups=new Map<string,Mesh[]>();for(const mesh of parts){mesh.computeWorldMatrix(true);mesh.metadata={privateLandscape:mesh.position.x>=9};const key=String(mesh.metadata.privateLandscape)+':'+mesh.material!.uniqueId+':'+mesh.getVerticesDataKinds().sort().join(',');if(!groups.has(key))groups.set(key,[]);groups.get(key)!.push(mesh);}
+ const merged:Mesh[]=[];for(const group of groups.values()){if(group.length===1){merged.push(group[0]);continue;}const metadata=group[0].metadata;const mesh=Mesh.MergeMeshes(group,true,true,undefined,false,true);if(mesh){mesh.metadata=metadata;mesh.receiveShadows=true;merged.push(mesh);}}
  return merged;
 }

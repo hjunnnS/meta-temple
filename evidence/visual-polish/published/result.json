@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "version": 45,
+  "city": true,
+  "river": true,
+  "noStopButton": true,
+  "errors": []
+}

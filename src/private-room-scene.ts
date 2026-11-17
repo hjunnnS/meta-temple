@@ -1,3 +1,4 @@
+import{privateScenery}from'./private-scenery';
 import{walkingPose}from'./locomotion';
 import{turnTowards}from'./motion-timing';
 import {touchStick,touchPinch} from './touch-controls';
@@ -28,18 +29,20 @@ import type {Face} from './face-types';
 export function privateRoomScene(engine:Engine,canvas:HTMLCanvasElement,face:Face,wearingRobe:boolean,onExit:()=>void,roomId:string){
  const scene=new Scene(engine);scene.imageProcessingConfiguration.toneMappingEnabled=true;scene.imageProcessingConfiguration.toneMappingType=1;scene.imageProcessingConfiguration.exposure=1.0;scene.imageProcessingConfiguration.contrast=1.05;scene.clearColor=new Color4(.77,.86,.84,1);
  const camera=new ArcRotateCamera('private-room-camera',-Math.PI/2,1.24,3.2,new Vector3(0,1.3,-4.5),scene);
- camera.attachControl(canvas,true);camera.lowerRadiusLimit=.08;camera.minZ=.025;camera.maxZ=60;camera.upperRadiusLimit=7;camera.lowerBetaLimit=.35;camera.upperBetaLimit=1.6;camera.wheelDeltaPercentage=.012;camera.panningSensibility=0;
+ camera.attachControl(canvas,true);camera.lowerRadiusLimit=.08;camera.minZ=.025;camera.maxZ=1200;camera.upperRadiusLimit=7;camera.lowerBetaLimit=.35;camera.upperBetaLimit=1.6;camera.wheelDeltaPercentage=.012;camera.panningSensibility=0;
  const keyboard=camera.inputs.attached.keyboard;if(keyboard)camera.inputs.remove(keyboard);
  const sky=new HemisphericLight('private-room-daylight',new Vector3(0,1,.3),scene);sky.intensity=.78;sky.groundColor=new Color3(.35,.28,.20);
  const light=new PointLight('private-room-warm-light',new Vector3(0,3.5,3),scene);light.diffuse=Color3.FromHexString('#ffe2aa');light.intensity=.7;light.range=14;
- const furnishings=furnishPrivateRetreat(scene);personalGateEffects(scene,{x:0,z:-7.7,yaw:Math.PI/2});
+ const furnishings=furnishPrivateRetreat(scene);const scenery=privateScenery(scene,furnishings,()=>{if(!practice?.active&&view!=='walk')changeView('walk');},()=>changeView('walk'));const walkable=(x:number,z:number)=>canWalkPrivateRoom(x,z)&&(scenery.current==='pond'||x<8.85);personalGateEffects(scene,{x:0,z:-7.7,yaw:Math.PI/2});
  const returnDoor=document.createElement('button');returnDoor.id='private-return-door';returnDoor.textContent=t('사찰로 돌아가기');returnDoor.hidden=true;returnDoor.onclick=onExit;document.querySelector('#private-room-actions')!.append(returnDoor);
  const sun=new DirectionalLight('private-garden-sun',new Vector3(-.85,-1.3,-.35),scene);sun.position.set(15,16,8);sun.intensity=1.2;sun.diffuse=Color3.FromHexString('#fff0d1');
  const shadows=new ShadowGenerator(mobileDevice()?512:1024,sun);shadows.usePercentageCloserFiltering=true;shadows.filteringQuality=ShadowGenerator.QUALITY_LOW;shadows.bias=.001;shadows.normalBias=.025;
  for(const mesh of furnishings)shadows.addShadowCaster(mesh);
  const avatar=visitorMesh(scene,'private-visitor');avatar.setFace(face);visitorRobe(scene,avatar).setWearing(wearingRobe);avatar.root.position.set(0,.12,-4.5);
  for(const mesh of avatar.root.getChildMeshes())shadows.addShadowCaster(mesh);
- let view:'walk'|'overview'|'garden'|'display'='walk';
+ let view:'walk'|'overview'|'garden'|'display'='walk',firstPerson=false;
+ const cameraToggle=document.createElement('button');cameraToggle.id='private-camera-toggle';cameraToggle.textContent=t('1인칭 보기');cameraToggle.setAttribute('aria-pressed','false');document.querySelector('#private-room-actions')!.append(cameraToggle);
+ cameraToggle.onclick=()=>{const alpha=camera.alpha,beta=camera.beta;firstPerson=!firstPerson;changeView('walk');camera.alpha=alpha;camera.beta=beta;cameraToggle.textContent=t(firstPerson?'3인칭 보기':'1인칭 보기');cameraToggle.setAttribute('aria-pressed',String(firstPerson));};
  // Retain the requested zoom while temporarily shortening the camera arm at walls.
  let requestedRadius=3.2,lastSafeRadius=3.2;
  const mouseWheel=camera.inputs.attached.mousewheel;if(mouseWheel)camera.inputs.remove(mouseWheel);
@@ -53,10 +56,11 @@ export function privateRoomScene(engine:Engine,canvas:HTMLCanvasElement,face:Fac
  camera.onAfterCheckInputsObservable.add(()=>{
   const delta=camera.radius-lastSafeRadius;
   if(Math.abs(delta)>.00001)requestedRadius=Math.max(1.2,Math.min(7,requestedRadius+delta));
-  camera.radius=privateCameraRadius(camera.target.asArray(),camera.alpha,camera.beta,requestedRadius);
+  camera.radius=firstPerson&&view==='walk'?.08:privateCameraRadius(camera.target.asArray(),camera.alpha,camera.beta,requestedRadius);
   lastSafeRadius=camera.radius;
   // Avoid looking through the avatar's head when a wall pushes the camera very close.
-  avatar.root.setEnabled(view==='walk'&&camera.radius>=.75);
+  avatar.root.setEnabled(!firstPerson||view!=='walk');
+  avatar.root.getChildMeshes().forEach(m=>m.visibility=!firstPerson&&view==='walk'&&camera.radius<.75?.25:1);
  });
  const stick=touchStick(canvas,'private-touch-stick');
  const pointers=camera.inputs.attached.pointers as unknown as {onMultiTouch:()=>void;onTouch:(...args:unknown[])=>void};pointers.onMultiTouch=()=>{};const orbitTouch=pointers.onTouch.bind(pointers);pointers.onTouch=(...args)=>{if(canvas.dataset.touchPinch!=='true')orbitTouch(...args);};
@@ -70,22 +74,22 @@ export function privateRoomScene(engine:Engine,canvas:HTMLCanvasElement,face:Fac
  const panel=document.querySelector('#private-room-controls')!;
  function changeView(next:'walk'|'overview'|'garden'|'display'){
   route=[];if(next!=='walk')practice?.stop();
-  view=next;keys.clear();camera.fov=next==='walk'?.8:next==='overview'?1.02:.9;
+  if(next==='garden')next='walk';view=next;canvas.dataset.privateView=view;canvas.dataset.privateCamera=firstPerson?'first':'third';scenery.setLooking(false);keys.clear();camera.fov=next==='walk'?.8:next==='overview'?1.02:.9;
   if(next==='walk'){camera.alpha=-Math.PI/2;camera.beta=1.24;requestedRadius=3.2;camera.radius=lastSafeRadius=3.2;}
   else if(next==='overview'){camera.setTarget(new Vector3(1,1.35,1.2));camera.setPosition(new Vector3(-2.5,2.5,-4.5));requestedRadius=lastSafeRadius=camera.radius;}
   else if(next==='display'){camera.setTarget(new Vector3(-4.2,1.35,0));camera.setPosition(new Vector3(1.8,2,-2.4));requestedRadius=lastSafeRadius=camera.radius;}
-  else{camera.setTarget(new Vector3(12,1.1,3));camera.setPosition(new Vector3(6.6,1.9,-.1));requestedRadius=lastSafeRadius=camera.radius;}
+  else{camera.setTarget(new Vector3(12,1.05,2.6));camera.setPosition(new Vector3(6.8,2,2.6));requestedRadius=lastSafeRadius=camera.radius;}
   canvas.focus();
  }
- for(const next of ['walk','overview','garden','display'] as const)panel.querySelector<HTMLButtonElement>('[data-room-view='+next+']')!.onclick=()=>changeView(next);
+ for(const next of ['walk','overview','garden','display'] as const)panel.querySelector<HTMLButtonElement>('[data-room-view='+next+']')!.onclick=()=>next==='garden'?document.querySelector<HTMLButtonElement>('#private-scenery-open')?.click():changeView(next);
  for(const button of panel.querySelectorAll<HTMLButtonElement>('[data-room-key]')){
   button.onpointerdown=event=>{event.preventDefault();canvas.focus();button.setPointerCapture(event.pointerId);keys.add(button.dataset.roomKey!);};button.onlostpointercapture=()=>keys.delete(button.dataset.roomKey!);
  }
  practice=privatePractice(avatar,canvas,()=>{changeView('walk');camera.alpha=.12;camera.beta=1.35;requestedRadius=camera.radius=lastSafeRadius=4.3;});
  practiceExperience(scene,()=>({position:avatar.root.position.asArray(),bowProgress:practice?.active?Number(document.querySelector('#private-practice')?.getAttribute('data-bow-progress')??0):0}),()=>document.querySelector<HTMLInputElement>('#master-mute')?.checked?0:Number(document.querySelector<HTMLInputElement>('#audio-volume')?.value??35)/100,'private',()=>document.querySelector<HTMLButtonElement>('#private-practice-stop')?.click());
  const disposePoint=pointInput(scene,canvas,()=>view==='walk',point=>{
-  if(point[1]>.5||!canWalkPrivateRoom(point[0],point[2]))return;
-  route=walkingPath([avatar.root.position.x,avatar.root.position.z],[point[0],point[2]],(a,b)=>canWalkPrivateRoom(b[0],b[1]));stuck=0;canvas.dataset.pointWalk=route.length?'moving':'idle';
+  if(point[1]>.5||!walkable(point[0],point[2]))return;
+  route=walkingPath([avatar.root.position.x,avatar.root.position.z],[point[0],point[2]],(a,b)=>walkable(b[0],b[1]));stuck=0;canvas.dataset.pointWalk=route.length?'moving':'idle';
  });
  let displayReturn:{alpha:number;beta:number;radius:number}|null=null,returnBlend:{alpha:number;beta:number;radius:number;target:Vector3;time:number}|null=null;
  const display=privateDisplays(scene,roomId,position=>{
@@ -95,21 +99,21 @@ export function privateRoomScene(engine:Engine,canvas:HTMLCanvasElement,face:Fac
  return {scene,render(dt:number){
   stick.show(view==='walk'&&!practice?.active);
   display.update(dt);
-  const p=avatar.root.position;returnDoor.hidden=view!=='walk'||Math.hypot(p.x,p.z+7.7)>3.5;
+  const p=avatar.root.position;if(scenery.current!=='pond'&&p.x>=8.85)p.x=8.4;returnDoor.hidden=view!=='walk'||Math.hypot(p.x,p.z+7.7)>3.5;
   let x=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'))+stick.vector.x,z=Number(keys.has('KeyW')||keys.has('ArrowUp'))-Number(keys.has('KeyS')||keys.has('ArrowDown'))+stick.vector.z;if(x||z)route=[];while(route.length&&Math.hypot(p.x-route[0][0],p.z-route[0][1])<.18)route.shift();const auto=route[0]?[route[0][0]-p.x,route[0][1]-p.z]:null,length=auto?Math.hypot(...auto):Math.hypot(x,z);if(!route.length)canvas.dataset.pointWalk='idle';
   let distance=0;
   if(length&&view!=='walk')changeView('walk');
   const practicing=practice!.update(dt,!!length);
   if(length&&!practicing&&!document.querySelector('dialog[open]')){
-   const speed=2.1*Math.min(.05,dt)*(auto?1:Math.min(1,length))/length,a=camera.alpha,dx=auto?auto[0]*speed:(x*-Math.sin(a)-z*Math.cos(a))*speed,dz=auto?auto[1]*speed:(x*Math.cos(a)-z*Math.sin(a))*speed;
+   const speed=2.8*Math.min(.05,dt)*(auto?1:Math.min(1,length))/length,a=camera.alpha,dx=auto?auto[0]*speed:(x*-Math.sin(a)-z*Math.cos(a))*speed,dz=auto?auto[1]*speed:(x*Math.cos(a)-z*Math.sin(a))*speed;
    const ox=p.x,oz=p.z;
-   const blocked=(nx:number,nz:number)=>!canWalkPrivateRoom(nx,nz);
+   const blocked=(nx:number,nz:number)=>!walkable(nx,nz);
    if(!blocked(p.x+dx,p.z))p.x+=dx;if(!blocked(p.x,p.z+dz))p.z+=dz;
    distance=Math.hypot(p.x-ox,p.z-oz);if(auto){stuck=distance?0:stuck+dt;if(stuck>.5)route=[];}if(distance){p.y=.12;avatar.root.rotation.y=turnTowards(avatar.root.rotation.y,Math.atan2(p.x-ox,p.z-oz),dt);stride+=distance*4.5;}
    if(p.z< -7.1&&Math.abs(p.x)<1.1){onExit();return;}
   }
-  if(!practicing)walkingPose(avatar,stride,Math.min(1,distance/Math.max(.0001,dt*2.0)));
+  if(!practicing)walkingPose(avatar,stride,Math.min(1,distance/Math.max(.0001,dt*2.8)));
   practiceCameraHeight+=(practice!.cameraHeight-practiceCameraHeight)*(1-Math.exp(-9*Math.min(.1,dt)));
-  if(returnBlend&&displayReturn){const b=returnBlend;b.time+=Math.min(.1,dt);const q=Math.min(1,b.time/.65),e=q*q*(3-2*q);const delta=Math.atan2(Math.sin(displayReturn.alpha-b.alpha),Math.cos(displayReturn.alpha-b.alpha));camera.alpha=b.alpha+delta*e;camera.beta=b.beta+(displayReturn.beta-b.beta)*e;requestedRadius=b.radius+(displayReturn.radius-b.radius)*e;camera.target.copyFrom(Vector3.Lerp(b.target,new Vector3(p.x,p.y+practiceCameraHeight,p.z),e));if(q===1||length)returnBlend=null;}else if(view==='walk')camera.target.copyFromFloats(p.x,p.y+practiceCameraHeight,p.z);scene.render();
- },dispose(){stick.dispose();disposePinch();returnDoor.remove();disposePoint();route=[];canvas.dataset.pointWalk='idle';practice?.dispose();display.dispose();canvas.removeEventListener('wheel',zoom,true);canvas.removeEventListener('keydown',down);window.removeEventListener('keyup',up);canvas.removeEventListener('blur',clear);window.removeEventListener('blur',clear);camera.detachControl();scene.dispose();}};
+  if(returnBlend&&displayReturn){const b=returnBlend;b.time+=Math.min(.1,dt);const q=Math.min(1,b.time/.65),e=q*q*(3-2*q);const delta=Math.atan2(Math.sin(displayReturn.alpha-b.alpha),Math.cos(displayReturn.alpha-b.alpha));camera.alpha=b.alpha+delta*e;camera.beta=b.beta+(displayReturn.beta-b.beta)*e;requestedRadius=b.radius+(displayReturn.radius-b.radius)*e;camera.target.copyFrom(Vector3.Lerp(b.target,new Vector3(p.x,p.y+(firstPerson?1.52:practiceCameraHeight),p.z),e));if(q===1||length)returnBlend=null;}else if(view==='walk')camera.target.copyFromFloats(p.x,p.y+(firstPerson?1.52:practiceCameraHeight),p.z);scene.render();
+ },dispose(){scenery.dispose();cameraToggle.remove();delete canvas.dataset.privateCamera;delete canvas.dataset.privateView;stick.dispose();disposePinch();returnDoor.remove();disposePoint();route=[];canvas.dataset.pointWalk='idle';practice?.dispose();display.dispose();canvas.removeEventListener('wheel',zoom,true);canvas.removeEventListener('keydown',down);window.removeEventListener('keyup',up);canvas.removeEventListener('blur',clear);window.removeEventListener('blur',clear);camera.detachControl();scene.dispose();}};
 }

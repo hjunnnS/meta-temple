@@ -138,7 +138,7 @@ export function furnishPond(scene:Scene,staticParts:Mesh[],shore:(a:number)=>Vec
  // A low stone shelf on the visitor side holds the two carved bowls.
  oval('coin-ledge',target.x+1,.305,target.z-.2,4.4,.28,3.0,rocks[1]);
  basin(target.x,target.z,0);basin(target.x+2.05,target.z-.65,.15);
- const thrown=MeshBuilder.CreateCylinder('wish-coin',{diameter:.11,height:.018,tessellation:20},scene);thrown.material=coinMetal;thrown.setEnabled(false);
+ const thrown=MeshBuilder.CreateCylinder('wish-coin',{diameter:.20,height:.026,tessellation:20},scene);const flightMetal=coinMetal.clone('wish-flight-brass');flightMetal.emissiveColor=new Color3(.22,.12,.025);thrown.material=flightMetal;thrown.setEnabled(false);
  const tossState=wishToss();
  const landing=descendingLight(scene,10,2.6),rising=goldRing(scene,2.0,true),aura=descendingLight(scene,12,1.6);
  landing.mesh.setEnabled(false);rising.mesh.setEnabled(false);aura.mesh.setEnabled(false);
@@ -156,7 +156,7 @@ export function furnishPond(scene:Scene,staticParts:Mesh[],shore:(a:number)=>Vec
  let elapsed=0,wishAge=0,phase='idle',source=access.clone(),hit=false;
  const end=target.clone();
 
- return {target,access,sites,canToss:canThrowCoin,get countdown(){return Math.max(1,3-Math.floor(wishAge));},get busy(){return phase!=='idle';},get wishing(){return phase==='wishing';},
+ return {target,access,sites,get phase(){return phase;},get flightSource(){return source.clone();},get flightEnd(){return end.clone();},canToss:canThrowCoin,get countdown(){return Math.max(1,3-Math.floor(wishAge));},get busy(){return phase!=='idle';},get wishing(){return phase==='wishing';},
  toss(visitor?:readonly number[],site=0){
   if(visitor&&!canThrowCoin(visitor[0],visitor[2]))return;
   const draw=crypto.getRandomValues(new Uint32Array(1))[0]/4294967296;
@@ -174,7 +174,7 @@ export function furnishPond(scene:Scene,staticParts:Mesh[],shore:(a:number)=>Vec
   const state=tossState.frame(performance.now());phase=state.phase;wishAge=state.age;
   thrown.setEnabled(phase==='flying'||phase==='miss'||phase==='success');
   landing.mesh.setEnabled(phase==='success');rising.mesh.setEnabled(phase==='success');aura.mesh.setEnabled(phase==='success');
-  const impactAge=state.age-3.85;
+  const impactAge=state.age-4.5;
   const splash=phase==='miss'&&impactAge>=0&&impactAge<1.6;
   for(const [i,ripple] of ripples.entries()){
    const age=Math.max(0,impactAge-i*.20);
@@ -188,11 +188,11 @@ export function furnishPond(scene:Scene,staticParts:Mesh[],shore:(a:number)=>Vec
    drop.position.set(end.x+Math.cos(angle)*age*.5,.50+age*1.1-age*age*1.7,end.z+Math.sin(angle)*age*.5);
   }
   if(phase==='wishing'||phase==='idle')return;
-  const u=Math.min(1,Math.max(0,(state.age-3)/.85));
+  const u=Math.min(1,Math.max(0,(state.age-3)/1.5));
   thrown.position.copyFrom(Vector3.Lerp(source,end,u));thrown.position.y+=reduced?0:5.5*u*(1-u);
   thrown.rotation.x=reduced?0:Math.PI*4*u;
   if(phase!=='success')return;
-  const age=state.age-3.85,fade=Math.min(1,age*2)*Math.min(1,(7.1-state.age)/.8);
+  const age=state.age-4.5,fade=Math.min(1,age*2)*Math.min(1,(7.75-state.age)/.8);
   landing.draw(reduced?1:Math.min(1,age/.55),.90*fade,reduced);
   landing.mesh.position.x=target.x;landing.mesh.position.z=target.z;landing.mesh.position.y+=.66;
   rising.mesh.position.set(visitor?.[0]??source.x,(visitor?.[1]??source.y-1.18)+.08+(reduced?1:Math.min(1,age/2.4)*12),visitor?.[2]??source.z);

@@ -54,3 +54,6 @@ body.in-private-room #public-touch-stick,body:has(#walk-pad:not([data-practice=i
 body:has(dialog[open]) .touch-stick{display:none!important}
 
 @media(pointer:coarse) and (max-height:500px){#public-touch-stick{bottom:calc(20px + env(safe-area-inset-bottom))}#guide-card{max-height:calc(100dvh - 180px)}}
+
+/* The persistent corner exit already serves the same private-room action. */
+body.service-ui #private-return-door{display:none!important}

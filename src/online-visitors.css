@@ -1,0 +1,7 @@
+.service-ui #online-visitors{display:inline-flex;align-items:center;gap:7px;flex:0 1 auto;min-width:0;max-width:190px;margin:0;padding:6px 11px;border:1px solid #bac9be54;border-radius:24px;background:#172c2ce8;color:#f3f4e9;box-shadow:0 2px 9px #0b151d22;font:12px/1.45 system-ui,sans-serif;font-variant-numeric:tabular-nums;pointer-events:none}
+#online-visitors i{display:block;width:8px;height:8px;flex:none;border-radius:50%;background:#b0b4b2}
+#online-visitors[data-state=online] i{background:#8be79a;box-shadow:0 0 0 3px #8be79a22}
+#online-visitors span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.in-private-room #online-visitors{display:none!important}
+@media(max-width:700px){.service-ui #online-visitors{max-width:calc(100vw - 206px);gap:6px;padding:5px 9px;font-size:11px}.service-ui #app>header{column-gap:9px}}
+@media(pointer:coarse) and (max-height:500px){.service-ui #online-visitors{padding:4px 9px;font-size:11px}}

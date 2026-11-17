@@ -1,0 +1,69 @@
+
+> meta-temple@0.1.0 test
+> node --experimental-strip-types --test tests/*.test.ts
+
+✔ nineteen visitors alternate destinations and activities without moving the reserved meditation visitor (0.902666ms)
+✔ meditating visitors rise before leaving and a prayer cycle reaches the full bow (0.267334ms)
+✔ twenty virtual places are dispersed without taking the user or monk seat (0.578125ms)
+✔ real channel population replaces fillers but never alters real admission (0.116292ms)
+✔ walking loops stay continuous and slow within their assigned short route (9.383167ms)
+✔ relocated viewers leave the tea connection, coin bank and wish rack approach clear (3.169417ms)
+✔ every actor has a place-appropriate activity and worship reaches a full bow (3.404375ms)
+✔ narration takes priority; ending one owner preserves other active sounds (0.349625ms)
+✔ four daily monks use separate dry sites and keep the coin bank, paths, trees and paid lamps clear (46.499541ms)
+✔ daily routes alternate work and walking with smooth bounded steps, while reader stays seated (2.587375ms)
+✔ greeting raises palms once, holds and returns to the paused activity (0.1845ms)
+✔ sparse forest lights keep walking routes, trunks and wall clearance without rows of dense lamps (1.040875ms)
+✔ five proposed courses reuse distinct existing halls and all five approved prototype routes are enabled (0.847916ms)
+✔ free course requires real arrival and prayer result, and optional stages can be skipped (0.436375ms)
+✔ old stage results and course changes do not complete a new step (0.096917ms)
+✔ all fourteen languages have complete guide keys, placeholders and every course stage (5.375167ms)
+BJS - [13:27:48]: Babylon.js v9.34.0 - Null engine
+✔ paired stone haetae have horns and paws and keep a wide clear gate approach (29.064125ms)
+✔ lower drape keeps gate start, gradually lowers plaza .85–1m, and keeps other offering anchors (7.084125ms)
+✔ all five item kinds offer 7/21/49 days, install exact durations, expire and preserve old 30-day holds (57.268667ms)
+✔ M6 authored practice, arrangement and seat status messages exist in every supported language (8.837708ms)
+✔ relocation preserves every lantern coordinate and all five item identities and quantities (4.964583ms)
+✔ approved destinations and garden routes stay reachable without crossing walls or water (3.085083ms)
+✔ desktop high and low preserve the approved render settings (0.767875ms)
+✔ portrait mobile actually reduces render size and preserves glow (0.111917ms)
+✔ mobile orientation respects the same pixel budget (0.067792ms)
+✔ supported bow poses remain ordered with a held ground contact and a complete return (3.774542ms)
+✔ practice clock is readable over minute/hour boundaries and turns take the short arc (0.126167ms)
+✔ removing the bridge restores the full U-shaped throwing bank and blocks the former water crossing (2.332334ms)
+✔ visible preview keeps animating without focus and pauses only when hidden or absent (0.482209ms)
+✔ an offscreen canvas pauses and resumes without requiring keyboard focus (0.168125ms)
+✔ new planting remains outside the open central courtyard and safe for seats, coin throwing and routes (2.597083ms)
+✔ guide and tea monk stay on dry ground without occupying any visitor seat or table (0.485833ms)
+✔ slow walking loop is continuous, remains at the path edge, and pauses for turning (7.062625ms)
+✔ tea lift has a rest, a sip and a smooth return without abrupt loop restart (0.735125ms)
+✔ approved four rear halls have distinct deities, correct door direction and clear wall margins (0.902083ms)
+✔ the new loop and each hall approach are continuous dry routes with wall and pedestal clearance (2.86725ms)
+✔ northward point navigation and pose validation accept the new grounds but reject invalid positions (0.359959ms)
+✔ all five existing offering types retain their complete approved slot geometry (3.376084ms)
+BJS - [12:00:00]: Babylon.js v9.34.0 - Null engine
+✔ autumn canopy uses opaque folded leaves and far LOD reduces leaf geometry (30.012667ms)
+BJS - [13:27:48]: Babylon.js v9.34.0 - Null engine
+BJS - [13:27:48]: Babylon.js v9.34.0 - Null engine
+✔ separate indoor/outdoor labels keep the original lettered face and remove every projecting backing triangle (8.0285ms)
+✔ ordinary two-sided gate signs keep their complete geometry (0.658958ms)
+✔ shared gesture gate rejects drags, multi-touch, cancelled gestures and modal interaction (0.592625ms)
+✔ trial gates personal actions, keeps original slot geometry, installs all five kinds once and persists locally (33.080375ms)
+✔ private display persists, rejects stale edits and incompatible placements, and reset removes only this browser data (3.420209ms)
+✔ hold expires, practice counts are idempotent through completion and unsupported server actions fail explicitly (3.904333ms)
+✔ every supported trial language has authored messages and preserves count placeholders (5.217041ms)
+✔ interruption cannot use completion wording for any practice kind (0.399625ms)
+✔ all supported languages preserve destination placeholders and distinct outcome messages (3.570791ms)
+✔ distant views distinguish nearby soil and valley depths without changing close camera clipping (0.430875ms)
+✔ court flagstones clear the court top while all ordinary paths retain their existing height (0.103417ms)
+✔ wish waits three seconds, samples one outcome, and locks until the result ends (0.345292ms)
+✔ expanded groves keep species separate and concentrate five additional maples around the sweeper (0.768708ms)
+✔ grouped plants retain open centre, paid-item approaches and safe walking clearances (5.92875ms)
+ℹ tests 53
+ℹ suites 0
+ℹ pass 53
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 245.73275

@@ -254,7 +254,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
    }
   }
   if((length||walkSpeed>.01&&!bows.active&&!worship&&!meditating) && document.activeElement===canvas && !document.querySelector('dialog[open]')){
-   walkSpeed+=( (length?2.2:0)-walkSpeed)*(1-Math.exp(-Math.min(.1,dt)*(length?9:15)));
+   walkSpeed+=( (length?3.4:0)-walkSpeed)*(1-Math.exp(-Math.min(.1,dt)*(length?9:15)));
    const a=camera.alpha,scale=walkSpeed*Math.min(.05,dt)*(auto?1:Math.min(1,length))/Math.max(.0001,length);
    let dx=auto?auto[0]*scale:(x*-Math.sin(a)-z*Math.cos(a))*scale,dz=auto?auto[1]*scale:(x*Math.cos(a)-z*Math.sin(a))*scale;
    if(length){const v=Math.hypot(dx,dz);lastDX=dx/Math.max(.0001,v);lastDZ=dz/Math.max(.0001,v);}else{dx=lastDX*walkSpeed*Math.min(.05,dt);dz=lastDZ*walkSpeed*Math.min(.05,dt);}

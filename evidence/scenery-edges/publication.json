@@ -1,0 +1,20 @@
+{
+  "version": 47,
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "sourceCommit": "6f5dfdfa80ea17f81d2b38331147c756210e856f",
+  "deploymentId": "appgdep_6afac59ddb48819181e487d6088fb139",
+  "status": "succeeded",
+  "publicBrowserCheck": "passed",
+  "scope": [
+    "haetae facing",
+    "city balcony edges",
+    "river land and water",
+    "autumn foliage",
+    "snow branches"
+  ],
+  "unitTests": {
+    "canonical": 120,
+    "trial": 59
+  },
+  "mobileCheck": "touch emulation; physical device not tested"
+}

@@ -1,0 +1,182 @@
+{
+  "version": 43,
+  "source": "8810eb957264af88ee8fcb8f0a017ecdbcbb7abe",
+  "deployment": "appgdep_6afa7adb85e88191b1f86e4a72c8c5a9",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "presence": "https://promptly-sussex-cst-editorial.trycloudflare.com",
+  "roles": [
+    "pond-keeper",
+    "lamp-keeper",
+    "garden-keeper",
+    "scripture-reader"
+  ],
+  "publicMonksTotal": 9,
+  "tests": {
+    "original": 113,
+    "trial": 51
+  },
+  "npcResult": {
+    "passed": true,
+    "results": [
+      {
+        "id": "pond-keeper",
+        "touch": false,
+        "clockAdvances": true,
+        "bodyTap": true,
+        "greetingFinished": true
+      },
+      {
+        "id": "lamp-keeper",
+        "touch": false,
+        "clockAdvances": true,
+        "bodyTap": true,
+        "greetingFinished": true
+      },
+      {
+        "id": "garden-keeper",
+        "touch": false,
+        "clockAdvances": true,
+        "bodyTap": true,
+        "greetingFinished": true
+      },
+      {
+        "id": "scripture-reader",
+        "touch": false,
+        "clockAdvances": true,
+        "bodyTap": true,
+        "greetingFinished": true
+      },
+      {
+        "id": "pond-keeper",
+        "touch": true,
+        "clockAdvances": true,
+        "bodyTap": true,
+        "greetingFinished": true
+      },
+      {
+        "id": "lamp-keeper",
+        "touch": true,
+        "clockAdvances": true,
+        "bodyTap": true,
+        "greetingFinished": true
+      },
+      {
+        "id": "garden-keeper",
+        "touch": true,
+        "clockAdvances": true,
+        "bodyTap": true,
+        "greetingFinished": true
+      },
+      {
+        "id": "scripture-reader",
+        "touch": true,
+        "clockAdvances": true,
+        "bodyTap": true,
+        "greetingFinished": true
+      }
+    ],
+    "privateIsolation": true,
+    "returnRestores": true,
+    "errors": []
+  },
+  "presenceResult": {
+    "passed": true,
+    "counts": [
+      1,
+      2,
+      3,
+      2,
+      1
+    ],
+    "ambientExcluded": true,
+    "includesSelf": true,
+    "offlineShowsStatus": true,
+    "reconnect": true,
+    "privateHidden": true,
+    "privateReturn": true,
+    "mobile": [
+      {
+        "size": {
+          "width": 320,
+          "height": 740
+        },
+        "boxes": {
+          "badge": {
+            "x": 150.890625,
+            "y": 28.03125,
+            "right": 234.4375,
+            "bottom": 55.96875
+          },
+          "brand": {
+            "x": 18,
+            "y": 21,
+            "right": 138.890625,
+            "bottom": 63
+          },
+          "menu": {
+            "x": 254,
+            "y": 18,
+            "right": 302,
+            "bottom": 66
+          },
+          "width": 320
+        }
+      },
+      {
+        "size": {
+          "width": 390,
+          "height": 844
+        },
+        "boxes": {
+          "badge": {
+            "x": 150.890625,
+            "y": 28.03125,
+            "right": 234.4375,
+            "bottom": 55.96875
+          },
+          "brand": {
+            "x": 18,
+            "y": 21,
+            "right": 138.890625,
+            "bottom": 63
+          },
+          "menu": {
+            "x": 324,
+            "y": 18,
+            "right": 372,
+            "bottom": 66
+          },
+          "width": 390
+        }
+      },
+      {
+        "size": {
+          "width": 740,
+          "height": 320
+        },
+        "boxes": {
+          "badge": {
+            "x": 290.796875,
+            "y": 34.796875,
+            "right": 383.640625,
+            "bottom": 66.1875
+          },
+          "brand": {
+            "x": 32,
+            "y": 24,
+            "right": 278.796875,
+            "bottom": 77
+          },
+          "menu": {
+            "x": 660,
+            "y": 26.5,
+            "right": 708,
+            "bottom": 74.5
+          },
+          "width": 740
+        }
+      }
+    ],
+    "errors": []
+  }
+}

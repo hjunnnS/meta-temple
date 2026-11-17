@@ -12,7 +12,7 @@ export function pointInput(scene:Scene,canvas:HTMLCanvasElement,active:()=>boole
   if(info.type!==PointerEventTypes.POINTERTAP||!active()||!worldTapAllowed(canvas,e)||dragged||!start||e.button!==0||document.querySelector('dialog[open]'))return;
   start=null;const pick=scene.pick(scene.pointerX,scene.pointerY,m=>m.isEnabled()&&m.isVisible&&m.isPickable);
   if(!pick?.hit||!pick.pickedPoint||pick.pickedMesh?.metadata?.applicationId||pick.pickedMesh?.metadata?.applicationIds)return;
-  if(pick.pickedMesh?.metadata?.guideMonk||pick.pickedMesh?.metadata?.sweeperNpc)return;
+  if(pick.pickedMesh?.metadata?.conversationNpc||pick.pickedMesh?.metadata?.communityProject||pick.pickedMesh?.metadata?.dailyMonkId||pick.pickedMesh?.metadata?.guideMonk||pick.pickedMesh?.metadata?.sweeperNpc)return;
   const normal=pick.getNormal(true);if(!normal||normal.y<.65)return;
   canvas.focus();choose(pick.pickedPoint.asArray() as[number,number,number]);
  });
