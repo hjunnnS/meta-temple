@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "touch": false,
+      "id": "city",
+      "thirdPerson": true,
+      "firstPersonToggle": true
+    },
+    {
+      "touch": false,
+      "id": "river",
+      "thirdPerson": true,
+      "firstPersonToggle": true
+    },
+    {
+      "touch": false,
+      "id": "sea",
+      "thirdPerson": true,
+      "firstPersonToggle": true
+    },
+    {
+      "touch": false,
+      "id": "mountain",
+      "thirdPerson": true,
+      "firstPersonToggle": true
+    },
+    {
+      "touch": false,
+      "id": "snow",
+      "thirdPerson": true,
+      "firstPersonToggle": true
+    },
+    {
+      "touch": false,
+      "id": "pond",
+      "thirdPerson": true,
+      "firstPersonToggle": true
+    },
+    {
+      "touch": true,
+      "id": "city",
+      "thirdPerson": true,
+      "firstPersonToggle": true
+    },
+    {
+      "touch": true,
+      "id": "river",
+      "thirdPerson": true,
+      "firstPersonToggle": true
+    },
+    {
+      "touch": true,
+      "id": "sea",
+      "thirdPerson": true,
+      "firstPersonToggle": true
+    },
+    {
+      "touch": true,
+      "id": "mountain",
+      "thirdPerson": true,
+      "firstPersonToggle": true
+    },
+    {
+      "touch": true,
+      "id": "snow",
+      "thirdPerson": true,
+      "firstPersonToggle": true
+    },
+    {
+      "touch": true,
+      "id": "pond",
+      "thirdPerson": true,
+      "firstPersonToggle": true
+    }
+  ],
+  "errors": []
+}

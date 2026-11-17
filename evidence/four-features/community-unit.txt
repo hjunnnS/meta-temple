@@ -1,0 +1,10 @@
+✔ shared virtual project persists, deduplicates retries, gates names by consent and finishes once (3.655208ms)
+✔ virtual project rejects invalid amounts, malformed identifiers and names without writing (0.234917ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 39.124042

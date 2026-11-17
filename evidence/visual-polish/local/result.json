@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "walkingDistanceOver1_5s": 4.750704426303901
+    },
+    {
+      "id": "city",
+      "mobile": false,
+      "renderContrast": 215
+    },
+    {
+      "id": "river",
+      "mobile": false,
+      "renderContrast": 191
+    },
+    {
+      "mobile": false,
+      "scenery": 4,
+      "sideViews": true,
+      "noStopButton": true,
+      "lowerWish": true,
+      "haetaeInside": true
+    },
+    {
+      "id": "city",
+      "mobile": true,
+      "renderContrast": 221.33333333333334
+    },
+    {
+      "id": "river",
+      "mobile": true,
+      "renderContrast": 171.66666666666666
+    },
+    {
+      "mobile": true,
+      "scenery": 4,
+      "sideViews": false,
+      "noStopButton": true,
+      "lowerWish": true,
+      "haetaeInside": true
+    }
+  ],
+  "errors": []
+}

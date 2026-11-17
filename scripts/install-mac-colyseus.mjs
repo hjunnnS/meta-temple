@@ -5,7 +5,7 @@ const source=fileURLToPath(new URL('../',import.meta.url));
 const root=resolve(process.argv[2]??''),cloudflared=resolve(process.argv[3]??''),dist=resolve(process.argv[4]??'');
 if(process.argv.length!==5||root===source||root==='/'||!existsSync(join(dist,'index.html')))throw Error('Use: install-mac-colyseus.mjs <separate-runtime-directory> <cloudflared-binary> <built-trial-dist>');
 mkdirSync(join(root,'.local'),{recursive:true,mode:0o700});
-for(const file of['package.json','package-lock.json','bootstrap.mjs','nanoid.mjs','contract.mjs','temple-room.mjs','server.mjs','mac-supervisor.mjs'])copyFileSync(join(source,'server/colyseus',file),join(root,file));
+for(const file of['package.json','package-lock.json','bootstrap.mjs','nanoid.mjs','contract.mjs','temple-room.mjs','community.mjs','server.mjs','mac-supervisor.mjs'])copyFileSync(join(source,'server/colyseus',file),join(root,file));
 cpSync(join(source,'server/colyseus/node_modules'),join(root,'node_modules'),{recursive:true});
 cpSync(dist,join(root,'dist'),{recursive:true});copyFileSync(cloudflared,join(root,'cloudflared'));chmodSync(join(root,'cloudflared'),0o755);
 mkdirSync(join(source,'.local'),{recursive:true,mode:0o700});writeFileSync(join(source,'.local/colyseus-runtime.json'),JSON.stringify({root}),{mode:0o600});

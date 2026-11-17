@@ -1,0 +1,73 @@
+
+> meta-temple@0.1.0 test
+> node --experimental-strip-types --test tests/*.test.ts
+
+✔ nineteen visitors alternate destinations and activities without moving the reserved meditation visitor (3.925416ms)
+✔ meditating visitors rise before leaving and a prayer cycle reaches the full bow (2.60925ms)
+✔ twenty virtual places are dispersed without taking the user or monk seat (0.895375ms)
+✔ real channel population replaces fillers but never alters real admission (0.066917ms)
+✔ walking loops stay continuous and slow within their assigned short route (8.538458ms)
+✔ relocated viewers leave the tea connection, coin bank and wish rack approach clear (1.999167ms)
+✔ every actor has a place-appropriate activity and worship reaches a full bow (2.936959ms)
+✔ narration takes priority; ending one owner preserves other active sounds (0.4895ms)
+✔ four daily monks use separate dry sites and keep the coin bank, paths, trees and paid lamps clear (42.987417ms)
+✔ daily routes alternate work and walking with smooth bounded steps, while reader stays seated (3.926875ms)
+✔ greeting raises palms once, holds and returns to the paused activity (0.221917ms)
+✔ sparse forest lights keep walking routes, trunks and wall clearance without rows of dense lamps (1.176041ms)
+✔ five proposed courses reuse distinct existing halls and all five approved prototype routes are enabled (0.963209ms)
+✔ free course requires real arrival and prayer result, and optional stages can be skipped (0.440125ms)
+✔ old stage results and course changes do not complete a new step (0.106709ms)
+✔ all fourteen languages have complete guide keys, placeholders and every course stage (6.209042ms)
+BJS - [16:21:47]: Babylon.js v9.34.0 - Null engine
+✔ paired stone haetae have horns and paws and keep a wide clear gate approach (27.728375ms)
+✔ lower drape keeps gate start, gradually lowers plaza .85–1m, and keeps other offering anchors (8.2325ms)
+✔ all five item kinds offer 7/21/49 days, install exact durations, expire and preserve old 30-day holds (57.072375ms)
+✔ M6 authored practice, arrangement and seat status messages exist in every supported language (4.320625ms)
+✔ relocation preserves every lantern coordinate and all five item identities and quantities (5.955375ms)
+✔ approved destinations and garden routes stay reachable without crossing walls or water (2.96075ms)
+✔ desktop high and low preserve the approved render settings (0.971875ms)
+✔ portrait mobile actually reduces render size and preserves glow (0.117541ms)
+✔ mobile orientation respects the same pixel budget (0.067625ms)
+✔ supported bow poses remain ordered with a held ground contact and a complete return (2.346292ms)
+✔ practice clock is readable over minute/hour boundaries and turns take the short arc (0.135709ms)
+✔ removing the bridge restores the full U-shaped throwing bank and blocks the former water crossing (1.29375ms)
+✔ visible preview keeps animating without focus and pauses only when hidden or absent (0.414375ms)
+✔ an offscreen canvas pauses and resumes without requiring keyboard focus (0.131542ms)
+✔ new planting remains outside the open central courtyard and safe for seats, coin throwing and routes (5.208208ms)
+✔ guide and tea monk stay on dry ground without occupying any visitor seat or table (0.767584ms)
+✔ slow walking loop is continuous, remains at the path edge, and pauses for turning (8.299792ms)
+✔ tea lift has a rest, a sip and a smooth return without abrupt loop restart (0.687709ms)
+✔ approved four rear halls have distinct deities, correct door direction and clear wall margins (0.8795ms)
+✔ the new loop and each hall approach are continuous dry routes with wall and pedestal clearance (3.251125ms)
+✔ northward point navigation and pose validation accept the new grounds but reject invalid positions (0.30925ms)
+✔ all five existing offering types retain their complete approved slot geometry (3.802458ms)
+✔ six scenery choices retain the saved mountain identifier and offer an independent snow view (0.460292ms)
+✔ repeat city selections preserve deterministic varied real building positions without colliding with the private room (11.303166ms)
+✔ riverside buildings stay wholly on the two banks, leaving the river clear for its bridges (0.424375ms)
+✔ mountain terrain remains finite around the veranda and has several distant ridges (5.767375ms)
+BJS - [12:00:00]: Babylon.js v9.34.0 - Null engine
+✔ autumn canopy uses opaque folded leaves and far LOD reduces leaf geometry (24.960583ms)
+BJS - [16:21:47]: Babylon.js v9.34.0 - Null engine
+BJS - [16:21:47]: Babylon.js v9.34.0 - Null engine
+✔ separate indoor/outdoor labels keep the original lettered face and remove every projecting backing triangle (5.683083ms)
+✔ ordinary two-sided gate signs keep their complete geometry (0.53725ms)
+✔ shared gesture gate rejects drags, multi-touch, cancelled gestures and modal interaction (0.601084ms)
+✔ trial gates personal actions, keeps original slot geometry, installs all five kinds once and persists locally (33.310417ms)
+✔ private display persists, rejects stale edits and incompatible placements, and reset removes only this browser data (3.428916ms)
+✔ hold expires, practice counts are idempotent through completion and unsupported server actions fail explicitly (3.655625ms)
+✔ every supported trial language has authored messages and preserves count placeholders (5.941ms)
+✔ interruption cannot use completion wording for any practice kind (0.4765ms)
+✔ all supported languages preserve destination placeholders and distinct outcome messages (8.762959ms)
+✔ distant views distinguish nearby soil and valley depths without changing close camera clipping (0.4355ms)
+✔ court flagstones clear the court top while all ordinary paths retain their existing height (0.104708ms)
+✔ wish waits three seconds, samples one outcome, and locks until the result ends (0.42375ms)
+✔ expanded groves keep species separate and concentrate five additional maples around the sweeper (0.677792ms)
+✔ grouped plants retain open centre, paid-item approaches and safe walking clearances (5.928834ms)
+ℹ tests 57
+ℹ suites 0
+ℹ pass 57
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 266.633792

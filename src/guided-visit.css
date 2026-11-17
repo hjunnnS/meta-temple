@@ -19,7 +19,6 @@ body.guide-active :is(#meditation-stop,#meditation-status){display:none!importan
 
 .guide-brief{display:flex;align-items:center;gap:8px;margin:12px 0;font-size:14px}.guide-brief input{width:18px;height:18px}.practice-feedback button{border:1px solid #8b996e;border-radius:9px;background:#fffaf0;padding:8px 12px;color:#31503d;font:inherit;cursor:pointer}body.guide-active #public-practice-return{display:none}
 
-#walk-cancel{position:fixed;left:50%;transform:translateX(-50%);bottom:104px;z-index:19;border:1px solid #a7b08e;border-radius:20px;background:#f7f1dce8;padding:9px 16px;color:#31503d}#walk-cancel[hidden]{display:none}@media(max-width:650px){#walk-cancel{bottom:152px}}
 
 body:has(#practice-feedback[data-state=active]:not([hidden])) :is(#meditation-stop,#meditation-status),body:has(#private-practice-feedback[data-state=active]:not([hidden])) #private-practice-stop{display:none!important}
 
@@ -28,3 +27,10 @@ body:has(#practice-feedback[data-state=active]:not([hidden])) :is(#meditation-st
 @media(max-width:650px){#guide-card[data-compact=true]{left:12px;top:108px;width:calc(100vw - 24px);max-height:30dvh;padding:10px 14px}#guide-card[data-compact=true] .guide-actions button{padding:7px 10px}.practice-outcome{bottom:185px;width:max-content}}
 
 button#guide-monk-caption{width:max-content;max-width:min(210px,calc(100vw - 24px));pointer-events:auto;cursor:pointer;min-height:44px;line-height:1.5}button#guide-monk-caption:focus-visible{outline:3px solid #d3ac55;outline-offset:3px}
+
+#pond-wish{max-width:calc(100vw - 40px);box-sizing:border-box} @media(max-height:500px){#pond-wish{inset:48% auto auto 50%!important;padding:10px 24px!important;font-size:18px!important}#pond-count{font-size:30px!important;margin-top:4px!important}}
+
+/* Welcome is a content-sized card, not a stretched global aside. */
+#guide-welcome{inset:auto auto 105px 24px;height:max-content;min-height:0;max-height:calc(100dvh - 135px);box-sizing:border-box;overflow:auto}
+@media(max-width:650px){#guide-welcome{inset:99px auto auto 12px;max-height:38dvh}}
+@media(max-height:500px){#guide-welcome{top:70px;bottom:auto;max-height:calc(100dvh - 150px)}}

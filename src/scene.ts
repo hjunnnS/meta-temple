@@ -1,3 +1,8 @@
+import{cafeCounter}from'./cafe-counter';
+import{monkConversations}from'./monk-conversation';
+import{communityProject}from'./community-project';
+import{placeHaetae,haetaeSites}from'./haetae';
+import {dailyMonks} from './daily-monks';
 import {ambientVisitors} from './ambient-visitors';
 import {mobileDevice,renderProfile,type Quality} from './mobile-profile';
 export type {Quality} from './mobile-profile';
@@ -1028,7 +1033,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  const outerGate=templePlaces.find(p=>p.id==='ilju')!;
  const innerGate=templePlaces.find(p=>p.id==='cheonwang')!;
  for(const wall of boundaries)tiledWall(wall.from[0],wall.from[1],wall.to[0],wall.to[1],wall.height);
- placeGuardians(scene,staticMeshes,innerGate.z);
+ placeGuardians(scene,staticMeshes,innerGate.z);placeHaetae(scene,staticMeshes,masonry);
  let seed=42;function rand(){seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;}
  for(const side of [-1,1])for(let i=0;i<18;i++){
   const rock=MeshBuilder.CreateIcoSphere('garden-granite',{radius:1,subdivisions:1},scene);rock.position.set(side<0?-35.6+rand()*.3:75.5+rand()*.3,.11,-20+i*2+.7*Math.sin(i*2.4));rock.scaling.set(.35+rand()*.25,.12+rand()*.11,.25+rand()*.3);rock.rotation.y=i*1.7;rock.material=masonry;staticMeshes.push(rock);
@@ -1045,14 +1050,19 @@ export function createTemple(canvas:HTMLCanvasElement) {
  const forestLighting=forestLamps(scene,staticMeshes);
  const restingDog=templeDog(scene);for(const mesh of restingDog.getChildMeshes())shadows.addShadowCaster(mesh);
  let npcVisitor:()=>readonly number[]|null=()=>null;
+ const cafe=cafeCounter(scene,staticMeshes,wood);
  const quiet=quietMonks(scene,()=>npcVisitor(),wood);
+ const daily=dailyMonks(scene,canvas,()=>npcVisitor(),wood);
+ const community=communityProject(scene,canvas,wood,masonry,roofMat,()=>npcVisitor());
  let crowd:ReturnType<typeof ambientVisitors>|undefined;
- const walkWorld=pedestrianWorld(staticMeshes,()=>[...(crowd?.obstacles()??[]),...quiet.obstacles(),...(serviceMode?[{...guideMonkSite,radius:.38}]:[])]);
+ const walkWorld=pedestrianWorld(staticMeshes,()=>[...(crowd?.obstacles()??[]),cafe.obstacle,...quiet.obstacles(),...daily.obstacles(),...haetaeSites,...community.obstacles(),...(serviceMode?[{...guideMonkSite,radius:.38}]:[])]);
  const walking=walkingController(scene,camera,canvas,walkWorld,bellVisual);
  npcVisitor=()=>walking.position;
- const ambientWorld=pedestrianWorld(staticMeshes,()=>[...quiet.obstacles(),...(serviceMode?[{...guideMonkSite,radius:.38}]:[])]);
+ const ambientWorld=pedestrianWorld(staticMeshes,()=>[cafe.obstacle,...quiet.obstacles(),...daily.obstacles(),...haetaeSites,...community.obstacles(),...(serviceMode?[{...guideMonkSite,radius:.38}]:[])]);
  crowd=ambientVisitors(scene,()=>walking.position,ambientWorld);
  const sweeper=sweepingMonk(scene,camera,canvas,()=>walking.position);
+ monkConversations(scene,canvas,()=>walking.position);
+ for(const mesh of cafe.body.root.getChildMeshes())shadows.addShadowCaster(mesh);
  const entryTexture=new DynamicTexture('door-direction',128,scene,false);
  const pen=entryTexture.getContext() as CanvasRenderingContext2D;
  pen.strokeStyle='#ffe1a3';pen.shadowColor='#ffcb75';pen.shadowBlur=7;pen.lineWidth=3;pen.lineCap='round';
@@ -1097,6 +1107,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
  batchArchitecture(staticMeshes.filter(mesh=>mesh.isVisible),false);batchArchitecture(displayFixtures,true);
  for(const mesh of sweeper.getChildMeshes())shadows.addShadowCaster(mesh);
  for(const mesh of [...quiet.tea.root.getChildMeshes(),...quiet.walker.root.getChildMeshes(),...quiet.furniture])shadows.addShadowCaster(mesh);
+ for(const mesh of daily.shadowCasters)shadows.addShadowCaster(mesh);
+ for(const mesh of community.shadowCasters)shadows.addShadowCaster(mesh);
  const updateTrees=distanceTrees(scene,shadows);
  forestLighting.bind();
  const forestLampWindows=scene.meshes.find(m=>m.material===forestLighting.paper);if(forestLampWindows instanceof Mesh)glow.addIncludedOnlyMesh(forestLampWindows);

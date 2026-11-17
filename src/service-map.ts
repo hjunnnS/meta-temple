@@ -7,6 +7,7 @@ import {prayerPlaceInfo} from './prayer-place-info';
 export interface ServicePlace {id:string;label:string;description:string;x:number;z:number;arrival:readonly[number,number];view:string}
 const site=(id:string)=>templePlaces.find(p=>p.id===id)!;
 export const servicePlaces:ServicePlace[]=[
+ {id:'community',label:'함께 만드는 작은 전각',description:'공동 모금 · 시험 체험',x:83,z:95,arrival:[83,89],view:'walk'},
  ...(['daeung','gwaneum','jijang','indeung','office','bell','cheonwang','ilju'] as const).map(id=>{const p=site(id);const views={daeung:'entrance',gwaneum:'gwaneumDoor',jijang:'jijangPlaza',indeung:'votiveShelves',office:'officeReception',bell:'bellRing',cheonwang:'gatePassage',ilju:'gateArrival'};const descriptions={daeung:'참배와 기도',gwaneum:'소원 기도',jijang:'추모 기도',indeung:'인등',office:'등·소원 접수처',bell:'종치기',cheonwang:'다음 일정',ilju:'사찰 둘러보기'};return {id,label:p.name,description:descriptions[id],x:p.x,z:p.z,arrival:(id==='daeung'?[practiceSeat.x,practiceSeat.z]:id==='jijang'?[p.x,p.z-1.125]:id==='office'?[p.x,p.z+6.1]:[p.x,p.z]) as [number,number],view:views[id]};}),
  {id:'lantern',label:'연등광장',description:'연등 배치도',x:0,z:-24,arrival:[0,-24],view:'lanternReception'},
  {id:'wish',label:'소원패 정원',description:'소원패',x:wishGarden.x,z:wishGarden.z,arrival:[wishGarden.x-6,wishGarden.z],view:'wishGarden'},

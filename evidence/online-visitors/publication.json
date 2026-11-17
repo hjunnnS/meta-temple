@@ -1,0 +1,206 @@
+{
+  "version": 42,
+  "source": "fe00faa2b9eaae75f2789cca946e09453098e83e",
+  "deployment": "appgdep_6af9aa041cf0819194e71eea317f8c51",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "local": {
+    "passed": true,
+    "counts": [
+      1,
+      2,
+      3,
+      2,
+      1
+    ],
+    "ambientExcluded": true,
+    "includesSelf": true,
+    "offlineShowsStatus": true,
+    "reconnect": true,
+    "privateHidden": true,
+    "privateReturn": true,
+    "mobile": [
+      {
+        "size": {
+          "width": 320,
+          "height": 740
+        },
+        "boxes": {
+          "badge": {
+            "x": 150.890625,
+            "y": 28.03125,
+            "right": 234.4375,
+            "bottom": 55.96875
+          },
+          "brand": {
+            "x": 18,
+            "y": 21,
+            "right": 138.890625,
+            "bottom": 63
+          },
+          "menu": {
+            "x": 254,
+            "y": 18,
+            "right": 302,
+            "bottom": 66
+          },
+          "width": 320
+        }
+      },
+      {
+        "size": {
+          "width": 390,
+          "height": 844
+        },
+        "boxes": {
+          "badge": {
+            "x": 150.890625,
+            "y": 28.03125,
+            "right": 234.4375,
+            "bottom": 55.96875
+          },
+          "brand": {
+            "x": 18,
+            "y": 21,
+            "right": 138.890625,
+            "bottom": 63
+          },
+          "menu": {
+            "x": 324,
+            "y": 18,
+            "right": 372,
+            "bottom": 66
+          },
+          "width": 390
+        }
+      },
+      {
+        "size": {
+          "width": 740,
+          "height": 320
+        },
+        "boxes": {
+          "badge": {
+            "x": 290.796875,
+            "y": 34.796875,
+            "right": 383.640625,
+            "bottom": 66.1875
+          },
+          "brand": {
+            "x": 32,
+            "y": 24,
+            "right": 278.796875,
+            "bottom": 77
+          },
+          "menu": {
+            "x": 660,
+            "y": 26.5,
+            "right": 708,
+            "bottom": 74.5
+          },
+          "width": 740
+        }
+      }
+    ],
+    "errors": []
+  },
+  "published": {
+    "passed": true,
+    "counts": [
+      1,
+      2,
+      3,
+      2,
+      1
+    ],
+    "ambientExcluded": true,
+    "includesSelf": true,
+    "offlineShowsStatus": true,
+    "reconnect": true,
+    "privateHidden": true,
+    "privateReturn": true,
+    "mobile": [
+      {
+        "size": {
+          "width": 320,
+          "height": 740
+        },
+        "boxes": {
+          "badge": {
+            "x": 150.890625,
+            "y": 28.03125,
+            "right": 234.4375,
+            "bottom": 55.96875
+          },
+          "brand": {
+            "x": 18,
+            "y": 21,
+            "right": 138.890625,
+            "bottom": 63
+          },
+          "menu": {
+            "x": 254,
+            "y": 18,
+            "right": 302,
+            "bottom": 66
+          },
+          "width": 320
+        }
+      },
+      {
+        "size": {
+          "width": 390,
+          "height": 844
+        },
+        "boxes": {
+          "badge": {
+            "x": 150.890625,
+            "y": 28.03125,
+            "right": 234.4375,
+            "bottom": 55.96875
+          },
+          "brand": {
+            "x": 18,
+            "y": 21,
+            "right": 138.890625,
+            "bottom": 63
+          },
+          "menu": {
+            "x": 324,
+            "y": 18,
+            "right": 372,
+            "bottom": 66
+          },
+          "width": 390
+        }
+      },
+      {
+        "size": {
+          "width": 740,
+          "height": 320
+        },
+        "boxes": {
+          "badge": {
+            "x": 290.796875,
+            "y": 34.796875,
+            "right": 383.640625,
+            "bottom": 66.1875
+          },
+          "brand": {
+            "x": 32,
+            "y": 24,
+            "right": 278.796875,
+            "bottom": 77
+          },
+          "menu": {
+            "x": 660,
+            "y": 26.5,
+            "right": 708,
+            "bottom": 74.5
+          },
+          "width": 740
+        }
+      }
+    ],
+    "errors": []
+  }
+}

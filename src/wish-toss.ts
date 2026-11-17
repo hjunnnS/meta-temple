@@ -9,8 +9,8 @@ export function wishToss(){
   frame(now:number){
    if(started===null)return {phase:'idle',age:0,success};
    const age=Math.max(0,(now-started)/1000);
-   if(age>=7.1){started=null;return {phase:'idle',age,success};}
-   return {phase:age<3?'wishing':age<3.85?'flying':success?'success':'miss',age,success};
+   if(age>=7.75){started=null;return {phase:'idle',age,success};}
+   return {phase:age<3?'wishing':age<4.5?'flying':success?'success':'miss',age,success};
   }
  };
 }

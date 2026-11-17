@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "haetae": true,
+  "coinVisible": true,
+  "cameraRestored": true,
+  "scenery": 5,
+  "sceneryPersists": true,
+  "sharedProject": true,
+  "completion": true,
+  "consent": true,
+  "mobile": true,
+  "errors": []
+}

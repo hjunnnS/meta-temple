@@ -8,8 +8,8 @@ test('wish waits three seconds, samples one outcome, and locks until the result 
   assert.equal(toss.start(1500,0),false);
   assert.equal(toss.frame(3999).phase,'wishing');
   assert.equal(toss.frame(4000).phase,'flying');
-  assert.equal(toss.frame(4850).phase,draw<.25?'success':'miss');
-  assert.equal(toss.frame(8100).phase,'idle');
-  assert.ok(toss.start(8101,0));
+  assert.equal(toss.frame(5500).phase,draw<.25?'success':'miss');
+  assert.equal(toss.frame(8750).phase,'idle');
+  assert.ok(toss.start(8751,0));
  }
 });

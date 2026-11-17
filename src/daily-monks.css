@@ -1,0 +1,2 @@
+#daily-monk-caption{position:fixed;inset:0 auto auto 0;z-index:34;pointer-events:none;max-width:calc(100vw - 32px);padding:9px 15px;border:1px solid #cdbb8d;border-radius:14px;background:#faf6e9f2;color:#354d3d;font:14px/1.5 system-ui;box-shadow:0 3px 14px #10251b24;white-space:nowrap}
+#daily-monk-caption[hidden]{display:none}

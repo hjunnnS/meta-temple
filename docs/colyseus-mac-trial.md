@@ -17,7 +17,7 @@
 
 ## 실행과 접속
 
-- 임시 체험 주소: https://landscape-scanner-ate-amongst.trycloudflare.com
+- 임시 체험 주소: https://promptly-sussex-cst-editorial.trycloudflare.com
 - 기존 Sites: https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site
 - 같은 채널을 선택하면 서로 보인다. 첫 채널은 1이다. 로그인 없이 탐방할 수 있다.
 - Mac의 서버는 127.0.0.1:18831, 통로 상태 확인은 18832를 사용한다. 일반 LAN 포트를 열지 않는다.
@@ -68,3 +68,5 @@ Node 서버의 기본 실행은 로컬 주소만 연다. `SASA_ALLOWED_ORIGINS`�
 임시 주소는 시험용이며 재생성 시 바뀐다. 상시 운영 호스팅이나 50명 성능을 승인한 결과는 아니다.
 
 최종 결과: Sites v41에서 외부 Colyseus WebSocket 14회(채널 이동·복귀 포함), 독립 Chrome 3개, 네트워크 단절 복귀까지 통과했다. JavaScript 예외 및 방문자 API 실패는 0건이었다. 검수 브라우저는 모두 종료했다. 게시/검수 원본은 `evidence/colyseus/publication.json`에 기록했다.
+
+2026-11-16 기존 임시 통로 만료를 확인해 새 통로로 복구했다. 현재 주소와 생활 NPC 추가 검수는 docs/daily-monks.md 및 evidence/daily-monks에 기록한다. 기존 v41 검수 영수증의 옛 주소는 당시 증거로 보존한다.

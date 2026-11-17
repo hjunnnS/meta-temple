@@ -16,7 +16,7 @@ function stop(){if(stopping)return;stopping=true;status();tunnel?.kill('SIGTERM'
 for(const signal of['SIGTERM','SIGINT'])process.once(signal,stop);
 while(!stopping){
  origin='';tunnel=spawn(join(root,'cloudflared'),['tunnel','--no-autoupdate','--url','http://127.0.0.1:'+port,'--protocol','http2','--metrics','127.0.0.1:18832'],{stdio:['ignore','pipe','pipe']});
- const receive=d=>{const line=d.toString();record(line.trim());const match=line.match(/https:\/\/[a-z0-9-]+\.trycloudflare\.com/);if(match&&!origin){origin=match[0];status();startServer();}};
+ const receive=d=>{const line=d.toString();record(line.trim());if(line.includes('Unauthorized: Tunnel not found')){record('Expired temporary tunnel; creating a new address');tunnel.kill('SIGTERM');return;}const match=line.match(/https:\/\/[a-z0-9-]+\.trycloudflare\.com/);if(match&&!origin){origin=match[0];status();startServer();}};
  tunnel.stdout.on('data',receive);tunnel.stderr.on('data',receive);tunnel.on('error',e=>record(e.message));
  await new Promise(resolve=>{tunnel.once('exit',resolve);tunnel.once('error',resolve);});
  const old=server;server=undefined;old?.kill('SIGTERM');if(!stopping){record('Recreating temporary address; Sites endpoint needs republishing if it changes');await delay(4000);}
