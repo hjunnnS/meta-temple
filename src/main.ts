@@ -23,6 +23,7 @@ import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import { offerings, readApplication, storagePrefix, type Offering } from './reception.ts';
 import { renderWhileViewing } from './preview-rendering.ts';
 import './style.css';
+import './mobile-readability.css';
 import { templePlaces } from './temple-layout.ts';
 import { createTemple, type TimeOfDay, type Quality } from './scene.ts';
 import { Measurement } from './metrics.ts';
@@ -52,13 +53,15 @@ const canvas=$<HTMLCanvasElement>('#world');
 const initStart=performance.now();
 let preparationError=false;
 Texture.OnTextureLoadErrorObservable.add(()=>{preparationError=true;});
-const app=createTemple(canvas);
-app.scene.render();
-const warm=app.scene.whenReadyAsync();
-export async function start(){
+let app:Awaited<ReturnType<typeof createTemple>>;
+const prepared=createTemple(canvas,value=>window.dispatchEvent(new CustomEvent('sasa:preparation',{detail:value}))).then(value=>{app=value;});
+void prepared.catch(()=>{});
+let startPromise:Promise<void>|undefined;
+export function start(){return startPromise??=startOnce();}
+async function startOnce(){
  let timeout=0;
  try{
-  await Promise.race([warm,new Promise<never>((_,reject)=>{timeout=window.setTimeout(()=>reject(Error('scene timeout')),30000);})]);
+  await Promise.race([prepared.then(async()=>{app.scene.render();await app.scene.whenReadyAsync();}),new Promise<never>((_,reject)=>{timeout=window.setTimeout(()=>reject(Error('scene timeout')),30000);})]);
   if(preparationError)throw Error('scene texture failed');
  }finally{clearTimeout(timeout);}
  const firstFrame= new Promise<void>((resolve,reject)=>{enterReady=resolve;enterFailed=reject;});

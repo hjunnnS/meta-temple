@@ -1,0 +1,47 @@
+{
+  "milestone": "M4",
+  "epics": [
+    1,
+    4,
+    74
+  ],
+  "implementationIssues": [
+    66,
+    77,
+    64
+  ],
+  "localValidation": "passed",
+  "performanceVersion": 50,
+  "performanceSource": "614f26080a8263cd99cdb96c5741eccf1df8426f",
+  "performanceArtifactHash": "sha256:6f1629491f506227bd9c671b8f6fb52a991da7f02d76c6b77379b19f8119062c",
+  "loadingSeconds": {
+    "first": 7.4207,
+    "return": 4.0808
+  },
+  "fullWalkSecondsPerTime": 300,
+  "warmupSeconds": 120,
+  "privateEntries": 10,
+  "privateHeapGrowthBytes": 2628200,
+  "languages": 14,
+  "guidedCourses": 5,
+  "courseCompletions": 10,
+  "unitTests": {
+    "canonical": 120,
+    "trial": 59
+  },
+  "pricesAndPayments": "unchanged; no trade writes in journey checks",
+  "fiveParticipants": "deferred",
+  "physicalMobile": "not tested",
+  "boundary108": "107-start fixture verifies one 108 completion; not a full 108-repetition endurance run",
+  "republish": "succeeded",
+  "publishedVersion": 51,
+  "finalPublishedLoadingSeconds": {
+    "first": 7.3766,
+    "return": 4.1607
+  },
+  "publicInterfaceLanguages": [
+    "ja",
+    "pt-PT",
+    "fr"
+  ]
+}

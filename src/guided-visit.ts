@@ -3,7 +3,7 @@ import{guideCourses,guideCourse,guideDestination,atGuideDestination,enabledGuide
 import{GuideSession}from'./guide-session';import{guideContent}from'./guide-content';
 import{guideMonk}from'./guide-monk';import{guideVoice}from'./guide-voice';
 import type{PracticeEvent,PracticeKind}from'./practice-events';import{t,locale}from'./locales';import'./guided-visit.css';
-interface Options{app:ReturnType<typeof createTemple>;canvas:HTMLCanvasElement;walk:()=>void;map:(id:string)=>void;offering:()=>void;volume:()=>number;stopOtherAudio:()=>void}
+interface Options{app:Awaited<ReturnType<typeof createTemple>>;canvas:HTMLCanvasElement;walk:()=>void;map:(id:string)=>void;offering:()=>void;volume:()=>number;stopOtherAudio:()=>void}
 export function guidedVisit(o:Options){
  const session=new GuideSession(),voice=guideVoice(o.volume);let arrived=false,suspended=false,lastPoll=0,pending:'prayer'|PracticeKind|null=null,run='',offeringPending=false,travelExpanded=false;
  const welcome=document.createElement('aside');welcome.id='guide-welcome';welcome.hidden=true;

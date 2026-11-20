@@ -1,4 +1,5 @@
 import{walkingPose}from'./locomotion';
+import{preparation}from'./preparation';
 import type {Scene} from '@babylonjs/core/scene';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
@@ -14,12 +15,13 @@ import {reducedMotion} from './practice-light';
 import {t} from './locales';
 interface World{floor:(x:number,z:number)=>number;blocked:(x:number,y:number,z:number)=>boolean}
 /** Ambient actors are never network members, buyers or counted as human visitors. */
-export function ambientVisitors(scene:Scene,visitor:()=>readonly number[]|null,world:World){
+export async function ambientVisitors(scene:Scene,visitor:()=>readonly number[]|null,world:World){
+ const checkpoint=preparation();
  let privateSpace=false,realCount=1,target=ambientBudget(1),age=0,revision=0;
  const texture=new DynamicTexture('virtual-visitor-label',{width:512,height:96},scene,false);texture.hasAlpha=true;
  let labelText='';function paintLabel(){labelText=t('가상 방문객');const ctx=texture.getContext() as CanvasRenderingContext2D;ctx.clearRect(0,0,512,96);ctx.fillStyle='#183f34dd';ctx.fillRect(4,6,504,84);ctx.font='32px sans-serif';ctx.textAlign='center';ctx.fillStyle='#f6efda';ctx.fillText(labelText,256,62,476);texture.update();}paintLabel();
  const labelMaterial=new StandardMaterial('virtual-visitor-label',scene);labelMaterial.diffuseTexture=texture;labelMaterial.emissiveTexture=texture;labelMaterial.disableLighting=true;labelMaterial.backFaceCulling=false;
- const actors=ambientPlaces.map((place,i)=>{
+ function actor(place:typeof ambientPlaces[number],i:number){
   const body=visitorMesh(scene,'ambient-visitor-'+place.id);body.root.metadata={...body.root.metadata,ambientVisitor:true,id:place.id,place:place.place,role:place.role};
   const cloth=body.coat.material as StandardMaterial;cloth.diffuseColor=Color3.FromHexString(['#658380','#9a826b','#6c7890','#83738a','#a18e6a'][i%5]).toLinearSpace();
   for(const mesh of body.root.getChildMeshes()){mesh.isPickable=false;mesh.metadata={ambientVisitor:true};mesh.receiveShadows=false;}
@@ -34,7 +36,9 @@ export function ambientVisitors(scene:Scene,visitor:()=>readonly number[]|null,w
   const parts=body.root.getChildMeshes() as Mesh[];
   const label=MeshBuilder.CreatePlane('ambient-label-'+place.id,{width:1.8,height:.34},scene);label.material=labelMaterial;label.parent=body.root;label.position.y=place.role==='meditation'?1.35:1.98;label.billboardMode=Mesh.BILLBOARDMODE_ALL;label.isPickable=false;label.setEnabled(false);
   return{body,parts,label,place:site,fade:0,desired:i!==2,time:i*2.7,timeUpdated:0,until:0,stops:visitorJourney(site),stop:0,elapsed:Math.min(7,i*.71),route:[] as WalkPoint[],next:0,travelling:false,wait:0,steps:0,skipped:0,completed:0,skipOffset:1};
- });
+ }
+ const actors:ReturnType<typeof actor>[]=[];
+ for(const [i,place] of ambientPlaces.entries()){actors.push(actor(place,i));await checkpoint();}
  function publish(){scene.metadata??={};scene.metadata.ambientPopulation={realCount,target,active:actors.filter(a=>a.desired).length,capacity:20,revision:++revision};}
  function population(event:Event){const value=(event as CustomEvent<{count:number}>).detail?.count;if(!Number.isSafeInteger(value)||value<1)return;realCount=value;const next=ambientBudget(value);if(next===target){publish();return;}target=next;
   const p=visitor();const sorted=[...actors].sort((a,b)=>Number(b.desired)-Number(a.desired)||(p?Math.hypot(a.body.root.position.x-p[0],a.body.root.position.z-p[2])-Math.hypot(b.body.root.position.x-p[0],b.body.root.position.z-p[2]):a.place.id.localeCompare(b.place.id)));

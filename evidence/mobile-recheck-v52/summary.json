@@ -1,0 +1,179 @@
+{
+  "date": "2026-11-20",
+  "siteVersion": 52,
+  "sourceCommit": "ae13ac94bc89d117b293900124ffd43ef91cf603",
+  "existingScope": {
+    "milestone": "M4",
+    "epics": [
+      4,
+      74,
+      1
+    ],
+    "implementationIssues": [
+      66,
+      77,
+      64
+    ]
+  },
+  "productCodeChanged": false,
+  "redeployed": false,
+  "testScopePassed": true,
+  "loads": [
+    {
+      "visit": "first",
+      "totalMs": 5516
+    },
+    {
+      "visit": "return",
+      "totalMs": 4971
+    },
+    {
+      "visit": "first",
+      "totalMs": 5493
+    },
+    {
+      "visit": "return",
+      "totalMs": 4834
+    },
+    {
+      "visit": "first",
+      "totalMs": 5492
+    },
+    {
+      "visit": "return",
+      "totalMs": 4081
+    }
+  ],
+  "network": {
+    "Mbps": 20,
+    "latencyMs": 80
+  },
+  "loadingRanges": {
+    "first": {
+      "minMs": 5492,
+      "maxMs": 5516,
+      "samples": 3
+    },
+    "return": {
+      "minMs": 4081,
+      "maxMs": 4971,
+      "samples": 3
+    }
+  },
+  "slowCpuRate": 4,
+  "languageDeliveryMs": [
+    139,
+    166,
+    4,
+    6
+  ],
+  "startDeliveryMs": 7,
+  "recovery": {
+    "failedImport": true,
+    "languageUnlocked": true,
+    "reloadedLocale": "ja",
+    "entered": true
+  },
+  "mobileViewports": [
+    {
+      "width": 320,
+      "height": 740
+    },
+    {
+      "width": 390,
+      "height": 844
+    },
+    {
+      "width": 740,
+      "height": 320
+    },
+    {
+      "width": 844,
+      "height": 390
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "dpr": 3
+    }
+  ],
+  "locales": [
+    "ko",
+    "ja",
+    "en",
+    "pt-PT",
+    "de",
+    "ru"
+  ],
+  "touchControlsPassed": true,
+  "touchJourneyPassed": true,
+  "pcGraphicsUnchanged": true,
+  "frameSamples": [
+    {
+      "scene": "temple",
+      "time": "day",
+      "seconds": 30,
+      "turns": 4,
+      "distanceMetres": 101.92629415090877,
+      "render": {
+        "width": 358,
+        "height": 795
+      },
+      "samples": 1807,
+      "meanFps": 60.0041176040976,
+      "onePercentLowFps": 53.9313085557165,
+      "maxFrameMs": 19
+    },
+    {
+      "scene": "temple",
+      "time": "night",
+      "seconds": 30,
+      "turns": 4,
+      "distanceMetres": 101.98883956848385,
+      "render": {
+        "width": 358,
+        "height": 795
+      },
+      "samples": 1809,
+      "meanFps": 60.00059702088961,
+      "onePercentLowFps": 54.069436524882,
+      "maxFrameMs": 18.600000023841858
+    },
+    {
+      "scene": "private city",
+      "seconds": 30,
+      "samples": 1800,
+      "meanFps": 60.003600215977194,
+      "onePercentLowFps": 49.792531103912225,
+      "maxFrameMs": 36.20000001788139
+    }
+  ],
+  "realPhone": false,
+  "unverified": [
+    "iOS Safari on physical iPhone",
+    "physical Android GPU and thermals",
+    "battery drain",
+    "long-duration mobile endurance",
+    "real software keyboard behavior"
+  ],
+  "additionalFinding": {
+    "scope": "Epic #3 / #54; M4 #68",
+    "type": "shared-server endpoint stale",
+    "oldEndpoint": "https://untitled-january-productivity-suggestions.trycloudflare.com",
+    "oldHealth": "DNS resolution failed",
+    "currentEndpoint": "https://romance-vinyl-challenged-wash.trycloudflare.com",
+    "currentHealthHttp": 200,
+    "symptom": "접속 확인 중 지속 / 기존 주소로 실시간 공동 방문 연결 불가",
+    "fixed": false,
+    "next": "공개 체험판의 주소 갱신 후 동시 접속 재검수"
+  },
+  "testHarnessCorrection": {
+    "legacyCheck": "release-to-350ms displacement < 2cm",
+    "reason": "existing natural walk deceleration is intentional",
+    "measuredRelease": {
+      "settlingDistance": 0.198160807217846,
+      "continuedDistance": 0.0005475166549473443
+    },
+    "newCheck": "bounded coast below 30cm, then stationary within 2cm over the next 350ms; stick reset confirmed"
+  }
+}

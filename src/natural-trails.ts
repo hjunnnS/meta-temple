@@ -1,4 +1,5 @@
 import type {Scene} from '@babylonjs/core/scene';
+import{preparation}from'./preparation';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
 import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
 import {DynamicTexture} from '@babylonjs/core/Materials/Textures/dynamicTexture';
@@ -6,7 +7,8 @@ import {Color3} from '@babylonjs/core/Maths/math.color';
 import {sanctuaryWalk,rearPrayerWalk,prayerHallApproaches,teaApproach,teaGardenWalk,gateApproach,paving,insideGround,distanceToSegment,type GroundPoint} from './temple-terrain';
 import {courtHalfWidth,courtSouthEdge,courtDepth} from './temple-layout';
 /** Visual only: retain every route centre and the existing flat pedestrian floor. */
-export function naturalTrails(scene:Scene){
+export async function naturalTrails(scene:Scene){
+ const checkpoint=preparation();
  const west=-60,south=-81,width=158,depth=200,w=1024,h=1280;
  const mask=new DynamicTexture('natural-trail-union-mask',{width:w,height:h},scene,false),c=mask.getContext() as CanvasRenderingContext2D;
  c.clearRect(0,0,w,h);c.setTransform(w/width,0,0,h/depth,-west*w/width,-south*h/depth);c.lineCap='round';c.lineJoin='round';
@@ -14,6 +16,7 @@ export function naturalTrails(scene:Scene){
  // Paint the union once, so crossings cannot create stacked coplanar ribbons.
  c.strokeStyle='#ffffff';c.filter='blur(2.8px)';
  for(const route of routes){
+  await checkpoint();
   let along=0;
   for(let i=1;i<route.points.length;i++){
    const a=route.points[i-1],b=route.points[i],length=Math.hypot(b[0]-a[0],b[1]-a[1]),steps=Math.max(1,Math.ceil(length));
@@ -27,7 +30,9 @@ export function naturalTrails(scene:Scene){
   }
  }
  c.resetTransform();c.filter='none';const pixels=c.getImageData(0,0,w,h);
- for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+ for(let y=0;y<h;y++){
+ if(y%16===0)await checkpoint();
+ for(let x=0;x<w;x++){
   const k=(y*w+x)*4;if(!pixels.data[k+3])continue;
   const px=west+(x+.5)/w*width,pz=south+(y+.5)/h*depth;
   const court=Math.abs(px)<=courtHalfWidth&&pz>=courtSouthEdge&&pz<=courtSouthEdge+courtDepth;
@@ -35,6 +40,7 @@ export function naturalTrails(scene:Scene){
   if(court||slab||!insideGround(px,pz,0)){pixels.data[k+3]=0;continue;}
   const noise=.93+.07*Math.sin(px*8.7+pz*5.9)*Math.sin(pz*10.3-px*4.1);
   pixels.data[k+3]=Math.round(pixels.data[k+3]*noise*.86);
+ }
  }
  c.putImageData(pixels,0,0);mask.hasAlpha=true;mask.update(false);
  const grain=new DynamicTexture('natural-trail-worn-earth',256,scene,true),g=grain.getContext() as CanvasRenderingContext2D;

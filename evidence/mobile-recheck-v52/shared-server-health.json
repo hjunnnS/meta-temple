@@ -1,0 +1,11 @@
+{
+  "scope": "Epic #3 / #54; M4 #68",
+  "type": "shared-server endpoint stale",
+  "oldEndpoint": "https://untitled-january-productivity-suggestions.trycloudflare.com",
+  "oldHealth": "DNS resolution failed",
+  "currentEndpoint": "https://romance-vinyl-challenged-wash.trycloudflare.com",
+  "currentHealthHttp": 200,
+  "symptom": "접속 확인 중 지속 / 기존 주소로 실시간 공동 방문 연결 불가",
+  "fixed": false,
+  "next": "공개 체험판의 주소 갱신 후 동시 접속 재검수"
+}

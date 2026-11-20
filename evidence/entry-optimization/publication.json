@@ -1,0 +1,17 @@
+{
+  "site": "appgprj_6af41a312ffc81919a17690097a9a9a3",
+  "version": 52,
+  "savedVersionId": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_054de492ff58819186a0e5ca106f00a3",
+  "sourceCommit": "ae13ac94bc89d117b293900124ffd43ef91cf603",
+  "archiveHash": "sha256:62937d0f9c13887a7d14f1ce13b15b44e04dc225e5a9b3f3c09343214d1356ab",
+  "deploymentId": "appgdep_6affabafc4b481918d1af22368fc68b5",
+  "status": "succeeded",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "approvedScope": [
+    "PC loading",
+    "entry responsiveness and recovery",
+    "mobile readability"
+  ],
+  "pricePaymentChanges": false,
+  "physicalPhone": false
+}

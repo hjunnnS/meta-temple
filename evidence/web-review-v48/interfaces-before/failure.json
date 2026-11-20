@@ -1,0 +1,14 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: ja untranslated: ←\n休憩所の係員\n\nようこそ。お茶かコーヒーを選んでおくつろぎください。\n\nお茶・コーヒーを選ぶ\n닫기",
+  "completed": [
+    {
+      "locale": "ko",
+      "passed": true,
+      "welcomeHeight": 164.984375,
+      "dialogTranslated": true,
+      "privateControlsUncovered": true,
+      "explicitCamera": true,
+      "persists": true
+    }
+  ]
+}

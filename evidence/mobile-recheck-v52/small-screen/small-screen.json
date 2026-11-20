@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "locale": "de",
+      "width": 320,
+      "passed": true,
+      "destinationAndMapAndCompactGuideTranslated": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    },
+    {
+      "locale": "ru",
+      "width": 320,
+      "passed": true,
+      "destinationAndMapAndCompactGuideTranslated": true,
+      "noHorizontalOverflow": true,
+      "errors": []
+    }
+  ]
+}
