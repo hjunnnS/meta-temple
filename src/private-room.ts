@@ -5,7 +5,7 @@ import {privateRoomScene} from './private-room-scene';
 import './private-room.css';
 import {privateRoomAccess} from './private-access';
 
-export function personalSpace(app:ReturnType<typeof createTemple>,canvas:HTMLCanvasElement,onEnter:()=>void){
+export function personalSpace(app:Awaited<ReturnType<typeof createTemple>>,canvas:HTMLCanvasElement,onEnter:()=>void){
  const panel=document.createElement('section');panel.id='private-room-controls';panel.hidden=true;
  panel.innerHTML=`<style>
  body.in-private-room header,body.in-private-room .place-picker,body.in-private-room footer,body.in-private-room #walk-pad,body.in-private-room #pond-toss,body.in-private-room #pond-wish,body.in-private-room #reception-panel,body.in-private-room #tea-break,body.in-private-room .ceremony-board,body.in-private-room #private-gate-action{display:none!important}

@@ -1,0 +1,178 @@
+{
+  "smoke": true,
+  "acceptanceRun": false,
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "network": {
+    "Mbps": 20,
+    "latencyMs": 80
+  },
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "warmSeconds": 3,
+  "walkSeconds": 75,
+  "walkingSpeedMetresPerSecond": 3.4,
+  "routeAcceptance": {
+    "minimumDistanceMetres": 600,
+    "minimumTurns": 5,
+    "minZ": -64,
+    "maxZ": 37
+  },
+  "loading": [
+    {
+      "visit": "first",
+      "navigationToFirstRenderedFrameMs": 7401.60000000149,
+      "sceneConstructionToFirstFrameMs": 6683.10000000149,
+      "clickMs": 410.6000000014901,
+      "readyMs": 8529.89999999851,
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "settings": {
+        "visitor": null,
+        "virtualVisitors": 19,
+        "time": "day",
+        "quality": "high",
+        "mobile": false,
+        "density": 1000,
+        "canopyCapacity": 440,
+        "visibleLanternCount": 440,
+        "nameTagCount": 0,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      }
+    },
+    {
+      "visit": "return",
+      "navigationToFirstRenderedFrameMs": 4157,
+      "sceneConstructionToFirstFrameMs": 3756.60000000149,
+      "clickMs": 3145,
+      "readyMs": 5398.10000000149,
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "settings": {
+        "visitor": null,
+        "virtualVisitors": 19,
+        "time": "day",
+        "quality": "high",
+        "mobile": false,
+        "density": 1000,
+        "canopyCapacity": 440,
+        "visibleLanternCount": 440,
+        "nameTagCount": 0,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      }
+    }
+  ],
+  "walks": [
+    {
+      "time": "day",
+      "durationSeconds": 75.052,
+      "route": {
+        "minZ": -64.19454737798554,
+        "maxZ": 37.40595262201445,
+        "distanceMetres": 254.6824065592954,
+        "turns": 2
+      },
+      "samples": 4500,
+      "meanFps": 59.962183849382086,
+      "onePercentLowFps": 51.5227845168374,
+      "maxFrameMs": 85.20000000298023,
+      "jsHeapBytes": 1013638298
+    }
+  ],
+  "buildFingerprint": "a0ba1f41675917b6d1fd8293acb7dd8ad9858e4a90922d55463d13e5f26aa083",
+  "resources": [
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/bakedVertexAnimation-e--Ra-by.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/baseTexture.pure-DT21jRcN.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/clipPlaneFragment-DVK0wgyZ.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/clipPlaneVertex-C59BO8JS.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/color.fragment-CxH-oW8C.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/color.vertex-jpU_xhjL.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/decorators-CbDmSM3x.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/default.fragment-BanzkWOr.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/default.vertex-3oYLdASR.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/depthBoxBlur.fragment-CLEAG5DG.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/dumpTools.pure-d3uvBrZt.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/effectRenderer.pure-D0QBbfnG.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/engineStore-Bn2tApal.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/fogFragment-CISE_m3s.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/fogVertex-NHlgMcT2.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/glowBlurPostProcess.fragment-DDN2NxnB.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/glowMapGeneration.fragment-CeHLhtIJ.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/glowMapGeneration.vertex-BibtXSpF.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/glowMapMerge.fragment-E4YwFGds.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/glowMapMerge.vertex-XcoH38fZ.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/halfFloat-Cfx5m4ll.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/helperFunctions-D89zo_74.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/instancesDeclaration-CJBvtBV5.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/instancesVertex-C-FoRQR1.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/internalTexture-B3djGrls.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/kernelBlur.fragment-BvT73mHN.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/kernelBlur.vertex-C2dESVl-.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/kernelBlurVaryingDeclaration-DP2Wr9Oc.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/locales-pLpZhjQc.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/logDepthDeclaration-3gXGtHbI.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/logDepthFragment-Cr-Stg0k.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/logDepthVertex-D5IUM6qd.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/logger-CuBYPcDK.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/main-B8OJb_Jh.css",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/main-D_wZiJi3.css",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/main-Dt_19K4-.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/main-OPoGootz.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/mainUVVaryingDeclaration-CTlfbA_R.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/math.color.pure-BTk1mVkY.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/math.scalar.functions-lnL7TJ7T.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/meshUboDeclaration-DYEo1Glw.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/morphTargetsVertex-6N5r7oF1.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/packingFunctions-DpGwbupU.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/particles.fragment-DWnvwF1S.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/particles.vertex-D_BLnDsG.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/performanceConfigurator-UtxC_Odd.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/precisionDate-DtwGAGfs.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/preview-rendering-C6DImY7K.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/rolldown-runtime-CNTWBRIl.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/shaderStore-D-XQlhUT.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/shadowMap.fragment-Di-kbM2R.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/shadowMap.vertex--dtFj9fX.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/shadowMapFragmentSoftTransparentShadow-R_iOKnyx.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/thinEngine.pure-BFma1L-r.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/tools.pure-DHyFOoqx.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/vertexColorMixing-DPW6Is9y.js"
+  ],
+  "ambient": {
+    "population": {
+      "realCount": 1,
+      "target": 19,
+      "active": 19,
+      "capacity": 20,
+      "revision": 16
+    },
+    "active": 19
+  },
+  "routeSmoke": true,
+  "passed": true
+}

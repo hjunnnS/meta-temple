@@ -57,3 +57,7 @@ body:has(dialog[open]) .touch-stick{display:none!important}
 
 /* The persistent corner exit already serves the same private-room action. */
 body.service-ui #private-return-door{display:none!important}
+
+/* Long localized practice labels must wrap inside their grid cells. */
+@media(max-width:700px),(pointer:coarse){.service-ui #private-room-controls .private-room-actions button{min-width:0;white-space:normal;overflow-wrap:anywhere;line-height:1.35}}
+@media(pointer:coarse) and (max-height:500px){.service-ui .private-room-actions{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:calc(100vw - 132px);left:auto;right:12px;transform:none;gap:3px;padding:5px;max-height:calc(100dvh - 110px);overflow:auto}.service-ui #private-room-controls .private-room-actions button{min-height:44px;padding:7px 5px!important}.service-ui .private-room-actions:has(#private-practice:not([data-mode=idle])){width:calc(100vw - 284px);grid-template-columns:minmax(0,1fr) auto}}

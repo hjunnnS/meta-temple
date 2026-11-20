@@ -1,0 +1,94 @@
+{
+  "smoke": false,
+  "acceptanceRun": false,
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "network": {
+    "Mbps": 20,
+    "latencyMs": 80
+  },
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "warmSeconds": 120,
+  "walkSeconds": 300,
+  "walkingSpeedMetresPerSecond": 3.4,
+  "routeAcceptance": {
+    "minimumDistanceMetres": 600,
+    "minimumTurns": 5,
+    "minZ": -64,
+    "maxZ": 37
+  },
+  "loading": [
+    {
+      "visit": "first",
+      "navigationToFirstRenderedFrameMs": 7376.60000000149,
+      "sceneConstructionToFirstFrameMs": 6647.69999999553,
+      "clickMs": 421,
+      "readyMs": 8542.80000000447,
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "settings": {
+        "visitor": null,
+        "virtualVisitors": 19,
+        "time": "day",
+        "quality": "high",
+        "mobile": false,
+        "density": 1000,
+        "canopyCapacity": 440,
+        "visibleLanternCount": 440,
+        "nameTagCount": 0,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      }
+    },
+    {
+      "visit": "return",
+      "navigationToFirstRenderedFrameMs": 4160.69999999553,
+      "sceneConstructionToFirstFrameMs": 3742.39999999851,
+      "clickMs": 3162.2999999970198,
+      "readyMs": 5413.39999999851,
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "settings": {
+        "visitor": null,
+        "virtualVisitors": 19,
+        "time": "day",
+        "quality": "high",
+        "mobile": false,
+        "density": 1000,
+        "canopyCapacity": 440,
+        "visibleLanternCount": 440,
+        "nameTagCount": 0,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      }
+    }
+  ],
+  "walks": [],
+  "buildFingerprint": "6cf3528da5a41d23b8a874f2ce497570985d13f6189efb3ea7bb81acfca71aa1",
+  "loadingOnly": true,
+  "passed": true
+}

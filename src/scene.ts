@@ -1,3 +1,5 @@
+import{copyStaticArchitecture}from'./static-architecture-copy';
+import{preparation}from'./preparation';
 import{cafeCounter}from'./cafe-counter';
 import{monkConversations}from'./monk-conversation';
 import{communityProject}from'./community-project';
@@ -66,7 +68,9 @@ import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
 import { fixedSlots, ownedOfferingSamples, candleCabinets, candleSlot, plaqueSlot, rackSpacing, gateCanopyAnchor, hallLampSlots, lanternSlots, canopyLanternSlots, OWNED_INDICES, LANTERN_PALETTE, lanternColourIndex, normalizeLanternName } from './contracts.ts';
 export type TimeOfDay = 'day' | 'dusk' | 'night';
 
-export function createTemple(canvas:HTMLCanvasElement) {
+export async function createTemple(canvas:HTMLCanvasElement,onProgress?:(value:number)=>void) {
+ const checkpoint=preparation(onProgress);
+ await checkpoint(8);
  const mobile=mobileDevice();
  const engine=new Engine(canvas,true,{preserveDrawingBuffer:!mobile,stencil:true},false);
  const scene=new Scene(engine); scene.imageProcessingConfiguration.toneMappingEnabled=true;scene.imageProcessingConfiguration.toneMappingType=1;scene.imageProcessingConfiguration.exposure=1.3;scene.imageProcessingConfiguration.contrast=1.12; scene.clearColor=new Color4(.64,.7,.68,1);
@@ -100,9 +104,10 @@ export function createTemple(canvas:HTMLCanvasElement) {
   const random=()=>{state=(Math.imul(state,1664525)+1013904223)>>>0;return state/4294967296;};
   for(let i=0;i<16000;i++){const x=random()*512,y=random()*512,v=80+random()*150;c.fillStyle=`rgba(${v},${v},${v},${kind==='wood'?.13:.23})`;c.fillRect(x,y,kind==='wood'?1:random()*3,kind==='wood'?12+random()*60:random()*3);}
   if(kind==='wood'){for(let x=0;x<512;x+=5){c.beginPath();c.strokeStyle='rgba(45,21,10,.22)';c.lineWidth=.8;for(let y=0;y<520;y+=8){const xx=x+3*Math.sin(y/43+x);if(y===0)c.moveTo(xx,y);else c.lineTo(xx,y);}c.stroke();}}
-  t.update();m.diffuseTexture=t;const bump=t.clone();if(bump){(bump.getContext() as CanvasRenderingContext2D).putImageData(c.getImageData(0,0,512,512),0,0);bump.update();bump.level=kind==='wood'?.14:.23;m.bumpTexture=bump;}
+  t.update();m.diffuseTexture=t;const bump=t.clone();if(bump){(bump.getContext() as CanvasRenderingContext2D).drawImage(c.canvas,0,0);bump.update();bump.level=kind==='wood'?.14:.23;m.bumpTexture=bump;}
  }
- surface(wood,'wood');surface(stone,'stone');surface(stoneDark,'stone');surface(roofMat,'tile');surface(roofEdge,'tile');
+ // Wood, stone and roof receive scanned maps below; skip the discarded temporary maps.
+ surface(stoneDark,'stone');await checkpoint(12);surface(roofEdge,'tile');
  function scanned(m:StandardMaterial,asset:string,u=1,v=1){
   m.diffuseTexture?.dispose();m.bumpTexture?.dispose();
   const diffuse=new Texture(`/textures/${asset}_diff_1k.jpg`,scene);diffuse.uScale=u;diffuse.vScale=v;diffuse.anisotropicFilteringLevel=8;m.diffuseTexture=diffuse;
@@ -240,10 +245,12 @@ export function createTemple(canvas:HTMLCanvasElement) {
   const local=mesh.rotationQuaternion??Quaternion.FromEulerVector(mesh.rotation);
   mesh.rotationQuaternion=Quaternion.RotationAxis(new Vector3(0,1,0),site.yaw).multiply(local);
  }
+ await checkpoint(20);
  for(const place of templePlaces.filter(p=>p.kind==='hall' && p.id!=='daeung')){
-  for(const original of hallTemplate){
+  for(const [index,original] of hallTemplate.entries()){
+   if(index%32===0)await checkpoint();
    if(original.name==='hall-sign')continue;
-   const copy=original.clone(`${place.id}-${original.name}`,null)!;
+   const copy=copyStaticArchitecture(original,`${place.id}-${original.name}`);
    const dimensions=rearPrayerHalls.some(h=>h.id===place.id)?prayerHallDimensions:{x:place.scale,y:place.scale,z:place.scale};
    copy.scaling.multiplyInPlace(new Vector3(dimensions.x,dimensions.y,dimensions.z));
    copy.position.set(original.position.x*dimensions.x+place.x,original.position.y*dimensions.y,(original.position.z-8)*dimensions.z+place.z);
@@ -287,7 +294,8 @@ export function createTemple(canvas:HTMLCanvasElement) {
   pad.material=cushionCloth;staticMeshes.push(pad);
  }
  for(const fitting of staticMeshes.slice(fittingsStart))faceCourtyard(fitting,prayerHall);
- for(const hall of rearPrayerHalls)furnishPrayerHall(scene,staticMeshes,hall,wood,cushionCloth);
+ await checkpoint(30);
+ for(const hall of rearPrayerHalls){furnishPrayerHall(scene,staticMeshes,hall,wood,cushionCloth);await checkpoint();}
  const memorialHall=templePlaces.find(p=>p.id==='jijang')!;
  const memorialStart=staticMeshes.length;
  // Centre the aisle on an open bay between the structural front columns.
@@ -455,7 +463,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   box(`${place.id}-base`,w+2,.25,d+2,place.x,.12,place.z,stone);
   for(const x of [-w/2,w/2])for(const z of [-d/2,d/2])cylinder(`${place.id}-pillar`,kingGate?.65:.45,4.5+lift,new Vector3(place.x+x,2.5+lift/2,place.z+z),wood);
   box(`${place.id}-beam`,w+1,.5,d,place.x,4.7+lift,place.z,painted);
-  const gateRoof=roof.clone(`${place.id}-roof`,null)!;const sx=(w+3)/23,sz=(d+3)/11.8;gateRoof.scaling.set(sx,.65,sz);gateRoof.position.set(place.x,1+lift,place.z-8*sz);staticMeshes.push(gateRoof);
+  const gateRoof=copyStaticArchitecture(roof,`${place.id}-roof`);const sx=(w+3)/23,sz=(d+3)/11.8;gateRoof.scaling.set(sx,.65,sz);gateRoof.position.set(place.x,1+lift,place.z-8*sz);staticMeshes.push(gateRoof);
   plaque(place.name,place.x,4.3+lift,place.z-d/2-.2);
   if(kingGate)for(const side of [-1,1]){
    box('guardian-gallery-back',.22,6.6,d,place.x+side*(w/2-.12),3.55,place.z,wood);
@@ -470,7 +478,9 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  // Central court and southern entrance axis remain distinct from the fixed lantern slots.
  box('central-court',2*courtHalfWidth,.12,courtDepth,0,.03,courtSouthEdge+courtDepth/2,stone,false);
+ await checkpoint(40);
  furnishGardens(scene,staticMeshes,masonry);
+ await checkpoint();
  const pathSoil=mat('path-soil','#524d48');
  surface(pathSoil,'stone');pathSoil.specularColor=Color3.Black();
  const slabs=['#a4a8a4','#acaeaa','#a8aba7'].map((shade,index)=>{
@@ -543,7 +553,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  earth.diffuseTexture=grit;earth.bumpTexture=relief;
  ground.material=groundMat;
- mountainLandscape(scene,groundMat);ground.setEnabled(false);
+ await checkpoint(46);mountainLandscape(scene,groundMat);ground.setEnabled(false);await checkpoint();
  // The soil ends at the court's north edge; grass continues around the hall and outside the walls.
  const southGate=templePlaces.find(p=>p.id==='ilju')!,northGate=templePlaces.find(p=>p.id==='cheonwang')!;
  const southWall=northGate.z-5.5;
@@ -631,7 +641,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   waveNormal.uOffset=performance.now()*.000006;
   waveNormal.vOffset=performance.now()*.000002;
  });
- const pondLife=furnishPond(scene,staticMeshes,shorePoint,waterBrush,pondTexture);
+ await checkpoint();const pondLife=furnishPond(scene,staticMeshes,shorePoint,waterBrush,pondTexture);
  const towerGranite=mat('pagoda-towerGranite','#c5c1af');surface(towerGranite,'stone');
  // A square open pavilion carries progressively lighter octagonal galleries.
  const paleStone=mat('east-pagoda-cut-granite','#e4d9bf',.18);
@@ -683,6 +693,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    }
   }
  }
+ await checkpoint();
  // Stair podium: four flights separated by battered cheek stones and entry posts.
  const platformY=3.12;
  block('foot',0,.14,0,6.8,.28,6.8);
@@ -718,6 +729,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  block('architrave',0,6.69,0,7.18,.34,6.99,insetStone);
  block('square-canopy',0,firstSlab+.22,0,8.46,.44,8.46);
+ await checkpoint();
  // A low square terrace surrounds a narrower, raised octagonal balcony.
  let level=firstSlab+.44;
  gallery(4,4.27,level,1.04);
@@ -757,6 +769,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  })),sideOrientation:Mesh.DOUBLESIDE},scene);
  canopy.position.set(tower.x,level,tower.z);canopy.material=paleStone;staticMeshes.push(canopy);
  level+=.54;
+ await checkpoint();
  // Six compact upper storeys spring from the completed reference pavilion.
  for(const [i,diameter] of [3.94,3.44,2.98,2.52,2.08,1.68].entries()){
   const height=.82-i*.073;
@@ -783,7 +796,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
  }
  graniteGrain.wrapU=graniteGrain.wrapV=Texture.WRAP_ADDRESSMODE;
  standingStoneFigure(scene,staticMeshes,buddha.x,buddha.z,1.3);
- placeExperienceSpaces(scene,staticMeshes,wood,roofMat,stone);
+ await checkpoint(54);await placeExperienceSpaces(scene,staticMeshes,wood,roofMat,stone);await checkpoint();
  const garden=wishGarden;
  const gravel=mat('warm-garden-gravel','#c6b899');
  box('wish-garden-ground',garden.width,.12,garden.depth,garden.x,.05,garden.z,gravel,false);
@@ -1045,22 +1058,27 @@ export function createTemple(canvas:HTMLCanvasElement) {
   collision.position.set(x,2.4,z);collision.isVisible=false;
   staticMeshes.push(collision);
  }
- furnishHall(scene,staticMeshes,wood,painted);
+ await checkpoint(62);furnishHall(scene,staticMeshes,wood,painted);await checkpoint();
  // Merge static geometry by material. Shadow lists are rebuilt to avoid disposed casters.
  const forestLighting=forestLamps(scene,staticMeshes);
  const restingDog=templeDog(scene);for(const mesh of restingDog.getChildMeshes())shadows.addShadowCaster(mesh);
  let npcVisitor:()=>readonly number[]|null=()=>null;
  const cafe=cafeCounter(scene,staticMeshes,wood);
+ await checkpoint();
  const quiet=quietMonks(scene,()=>npcVisitor(),wood);
+ await checkpoint();
  const daily=dailyMonks(scene,canvas,()=>npcVisitor(),wood);
+ await checkpoint();
  const community=communityProject(scene,canvas,wood,masonry,roofMat,()=>npcVisitor());
- let crowd:ReturnType<typeof ambientVisitors>|undefined;
+ await checkpoint();
+ let crowd:Awaited<ReturnType<typeof ambientVisitors>>|undefined;
  const walkWorld=pedestrianWorld(staticMeshes,()=>[...(crowd?.obstacles()??[]),cafe.obstacle,...quiet.obstacles(),...daily.obstacles(),...haetaeSites,...community.obstacles(),...(serviceMode?[{...guideMonkSite,radius:.38}]:[])]);
  const walking=walkingController(scene,camera,canvas,walkWorld,bellVisual);
  npcVisitor=()=>walking.position;
  const ambientWorld=pedestrianWorld(staticMeshes,()=>[cafe.obstacle,...quiet.obstacles(),...daily.obstacles(),...haetaeSites,...community.obstacles(),...(serviceMode?[{...guideMonkSite,radius:.38}]:[])]);
- crowd=ambientVisitors(scene,()=>walking.position,ambientWorld);
+ await checkpoint();crowd=await ambientVisitors(scene,()=>walking.position,ambientWorld);await checkpoint(68);
  const sweeper=sweepingMonk(scene,camera,canvas,()=>walking.position);
+ await checkpoint();
  monkConversations(scene,canvas,()=>walking.position);
  for(const mesh of cafe.body.root.getChildMeshes())shadows.addShadowCaster(mesh);
  const entryTexture=new DynamicTexture('door-direction',128,scene,false);
@@ -1086,7 +1104,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
   return {x,z,yaw,marks};
  });
  shadows.getShadowMap()!.renderList=[];
- function batchArchitecture(meshes:Mesh[],display:boolean){
+ async function batchArchitecture(meshes:Mesh[],display:boolean){
   const groups=new Map<string,Mesh[]>();
   for(const mesh of meshes){
    const material=mesh.material as StandardMaterial;
@@ -1095,6 +1113,7 @@ export function createTemple(canvas:HTMLCanvasElement) {
    groups.get(key)!.push(mesh);
   }
   for(const parts of groups.values()){
+   await checkpoint();
    const material=parts[0].material as StandardMaterial;
    const merged=Mesh.MergeMeshes(parts,true,true);
    if(!merged)continue;
@@ -1104,12 +1123,13 @@ export function createTemple(canvas:HTMLCanvasElement) {
    if(display)displayBatches.push(merged);
   }
  }
- batchArchitecture(staticMeshes.filter(mesh=>mesh.isVisible),false);batchArchitecture(displayFixtures,true);
+ await checkpoint(72);
+ await batchArchitecture(staticMeshes.filter(mesh=>mesh.isVisible),false);await batchArchitecture(displayFixtures,true);
  for(const mesh of sweeper.getChildMeshes())shadows.addShadowCaster(mesh);
  for(const mesh of [...quiet.tea.root.getChildMeshes(),...quiet.walker.root.getChildMeshes(),...quiet.furniture])shadows.addShadowCaster(mesh);
  for(const mesh of daily.shadowCasters)shadows.addShadowCaster(mesh);
  for(const mesh of community.shadowCasters)shadows.addShadowCaster(mesh);
- const updateTrees=distanceTrees(scene,shadows);
+ await checkpoint(78);const updateTrees=distanceTrees(scene,shadows);await checkpoint();
  forestLighting.bind();
  const forestLampWindows=scene.meshes.find(m=>m.material===forestLighting.paper);if(forestLampWindows instanceof Mesh)glow.addIncludedOnlyMesh(forestLampWindows);
  pondMirror.renderList=scene.meshes.filter(mesh=>mesh.material===paleStone||mesh.material===insetStone||mesh.name==='open-sky');
@@ -1703,5 +1723,6 @@ export function createTemple(canvas:HTMLCanvasElement) {
   for(const mesh of displayBatches)mesh.setEnabled(value!=='empty');
   for(const [id,slot] of applicationSlots)if(displayKinds.has(slot.kind))refreshApplication(id);
  }
+ await checkpoint(85);
  return {get practiceDestination(){return walking.practiceDestination;},captureWalkView:walking.captureView,restoreWalkView:walking.restoreView,visit:walking.visit,stopPractice:walking.stopPractice,startPractice:walking.startPractice,setWalking:walking.mode,returnFromPrivateRoom:walking.returnFromPrivateRoom,pondLife,setFace:walking.setFace,beginArrival,selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,virtualVisitors:crowd?.count??0,time:currentTime,quality,mobile,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
 }

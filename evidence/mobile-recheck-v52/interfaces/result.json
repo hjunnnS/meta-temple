@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "locale": "ko",
+      "passed": true,
+      "welcomeHeight": 169.984375,
+      "dialogTranslated": true,
+      "privateControlsUncovered": true,
+      "explicitCamera": true,
+      "persists": true
+    },
+    {
+      "locale": "ja",
+      "passed": true,
+      "welcomeHeight": 169.984375,
+      "dialogTranslated": true,
+      "privateControlsUncovered": true,
+      "explicitCamera": true,
+      "persists": true
+    },
+    {
+      "locale": "en",
+      "passed": true,
+      "welcomeHeight": 193.78125,
+      "dialogTranslated": true,
+      "privateControlsUncovered": true,
+      "explicitCamera": true,
+      "persists": true
+    },
+    {
+      "locale": "pt-PT",
+      "passed": true,
+      "welcomeHeight": 219.984375,
+      "dialogTranslated": true,
+      "privateControlsUncovered": true,
+      "explicitCamera": true,
+      "persists": true
+    },
+    {
+      "locale": "de",
+      "passed": true,
+      "welcomeHeight": 219.375,
+      "dialogTranslated": true,
+      "privateControlsUncovered": true,
+      "explicitCamera": true,
+      "persists": true
+    },
+    {
+      "locale": "ru",
+      "passed": true,
+      "welcomeHeight": 243.78125,
+      "dialogTranslated": true,
+      "privateControlsUncovered": true,
+      "explicitCamera": true,
+      "persists": true
+    }
+  ],
+  "realPhone": false
+}

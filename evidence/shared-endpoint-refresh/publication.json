@@ -1,0 +1,14 @@
+{
+  "projectId": "appgprj_6af41a312ffc81919a17690097a9a9a3",
+  "version": 53,
+  "savedVersionId": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_cbe53789d7808191990b7fd2e1236330",
+  "sourceCommit": "4908cce3d67c395a742d7a22a368635a6fb6b027",
+  "archiveHash": "sha256:2db077503475e83fb23896412ac86a13e8447aa320e50b7b2a7f26aa029f4e80",
+  "deploymentId": "appgdep_6affb63a59908191a13f348ffdcca045",
+  "status": "succeeded",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "sharedEndpoint": "https://romance-vinyl-challenged-wash.trycloudflare.com",
+  "audience": "public",
+  "macServerRequired": true,
+  "pricePaymentChanges": false
+}

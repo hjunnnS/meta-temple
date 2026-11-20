@@ -10,12 +10,12 @@ import {Color3} from '@babylonjs/core/Maths/math.color';
 import {Vector3,Vector4} from '@babylonjs/core/Maths/math.vector';
 import {teaPavilion,teaTerrace,teaSeats,teaTables,teaGardenTables,teaGardenWalk,personalGate,sanctuaryWalk,rearPrayerWalk,prayerHallApproaches,teaApproach,gateApproach,type GroundPoint} from './temple-terrain';
 
-export function placeExperienceSpaces(scene:Scene,parts:Mesh[],wood:StandardMaterial,roof:StandardMaterial,stone:StandardMaterial){
+export async function placeExperienceSpaces(scene:Scene,parts:Mesh[],wood:StandardMaterial,roof:StandardMaterial,stone:StandardMaterial){
  function box(name:string,w:number,h:number,d:number,x:number,y:number,z:number,material:StandardMaterial){
   const mesh=MeshBuilder.CreateBox(name,{width:w,height:h,depth:d},scene);
   mesh.position.set(x,y,z);mesh.material=material;mesh.receiveShadows=true;parts.push(mesh);return mesh;
  }
- naturalTrails(scene);
+ await naturalTrails(scene);
  function plaque(text:string,x:number,y:number,z:number,yaw:number,width:number){
   const texture=new DynamicTexture('place-sign-'+text,{width:1024,height:256},scene,true),brush=texture.getContext() as CanvasRenderingContext2D;
   brush.fillStyle='#203d32';brush.fillRect(0,0,1024,256);brush.strokeStyle='#bca16c';brush.lineWidth=10;brush.strokeRect(12,12,1000,232);

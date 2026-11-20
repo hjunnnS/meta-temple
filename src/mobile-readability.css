@@ -1,0 +1,26 @@
+/* Keep type readable in narrow and short touch layouts; wrap or scroll instead of shrinking. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media(max-width:700px),(pointer:coarse){
+ body.service-ui{font-size:1rem}
+ body.service-ui :is(.service-panel,.account-panel,#guide-welcome,#guide-card,#npc-conversation,#settings-panel){font-size:1rem;line-height:1.6}
+ body.service-ui :is(.service-panel,.account-panel,#guide-welcome,#guide-card,#npc-conversation,#settings-panel) p{font-size:1rem;line-height:1.6}
+ body.service-ui :is(button,select,input),body.service-ui #service-dock button,body.service-ui #private-room-controls button,body.service-ui #guide-card button,body.service-ui #guide-welcome button{font-size:.875rem;line-height:1.5}
+ body.service-ui :is(input,select),body.service-ui #settings-panel :is(input,select){font-size:1rem}
+ body.service-ui :is(.note,small,.service-prayer-topic,.service-map-categories button,#practice-lock-reason,.practice-detail),body.service-ui .service-panel .note{font-size:.875rem;line-height:1.5}
+ body.service-ui #online-visitors{font-size:.875rem;max-width:calc(100vw - 190px)}
+ body.service-ui #guide-monk-caption{font-size:.875rem!important}
+ body.service-ui #trial-notice.compact{font-size:.875rem;max-width:min(230px,calc(100vw - 24px));line-height:1.4;top:76px;bottom:auto}
+ body.service-ui:has(#guide-welcome:not([hidden])) #trial-notice.compact,body.service-ui:has(#guide-card:not([hidden])) #trial-notice.compact{display:none}
+ body.service-ui #guide-card .guide-tools button,body.service-ui .practice-feedback button{font-size:.875rem}
+ body.service-ui #private-room-controls .private-room-heading small{font-size:.875rem}
+ body.service-ui #app>header .brand small{display:none}
+ body.service-ui .service-place-detail p{font-size:1rem}
+ body.service-ui #guide-welcome{max-height:min(296px,calc(100dvh - 205px));overflow:auto}
+ body.service-ui #practice-lock-reason{max-width:none}
+}
+@media(pointer:coarse) and (max-height:500px){
+ body.service-ui #guide-welcome,body.service-ui #guide-card{max-height:calc(100dvh - 150px)}
+ body.service-ui #guide-welcome{width:min(600px,calc(100vw - 24px));max-width:none;max-height:calc(100dvh - 140px)}
+ body.service-ui #service-dock button{font-size:.875rem}
+ body.service-ui #trial-notice.compact{max-width:230px;top:70px;bottom:auto}
+}

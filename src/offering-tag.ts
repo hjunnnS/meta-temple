@@ -4,7 +4,7 @@ import type{createTemple}from'./scene';
 import{offerings}from'./reception';
 import{t}from'./locales';
 /** Display only the inscription already authorized and returned by the slots API. */
-export function offeringTag(app:ReturnType<typeof createTemple>,canvas:HTMLCanvasElement){
+export function offeringTag(app:Awaited<ReturnType<typeof createTemple>>,canvas:HTMLCanvasElement){
  const tag=document.createElement('aside');tag.id='offering-tag';tag.hidden=true;tag.setAttribute('role','region');tag.setAttribute('aria-label',t('공개 봉헌'));
  const close=document.createElement('button');close.type='button';close.textContent='×';close.setAttribute('aria-label',t('닫기'));
  const kind=document.createElement('small'),name=document.createElement('strong'),text=document.createElement('p');text.setAttribute('aria-live','polite');tag.append(close,kind,name,text);document.querySelector('#app')!.append(tag);

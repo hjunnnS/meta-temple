@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "id": "city",
+      "meanFps": 60.001532521100124,
+      "onePercentLowFps": 55.76753742124537,
+      "instances": 60925
+    },
+    {
+      "id": "river",
+      "meanFps": 60.00333166749959,
+      "onePercentLowFps": 56.14657210550234,
+      "instances": 41699
+    },
+    {
+      "id": "mountain",
+      "meanFps": 60.000732935111216,
+      "onePercentLowFps": 53.74823196265526,
+      "instances": 69120
+    },
+    {
+      "id": "snow",
+      "meanFps": 60.00213222457357,
+      "onePercentLowFps": 51.323608859662464,
+      "instances": 40562
+    }
+  ],
+  "threshold": "Report measurements; no new acceptance FPS threshold invented",
+  "errors": []
+}

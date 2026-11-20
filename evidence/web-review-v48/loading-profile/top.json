@@ -1,0 +1,127 @@
+[
+  {
+    "function": "(idle)",
+    "url": "",
+    "ms": 1316.78
+  },
+  {
+    "function": "se",
+    "url": "tools.pure-DHyFOoqx.js",
+    "ms": 914.001
+  },
+  {
+    "function": "getImageData",
+    "url": "",
+    "ms": 397.458
+  },
+  {
+    "function": "(program)",
+    "url": "",
+    "ms": 319.507
+  },
+  {
+    "function": "(garbage collector)",
+    "url": "",
+    "ms": 226.457
+  },
+  {
+    "function": "DeepCopy",
+    "url": "tools.pure-DHyFOoqx.js",
+    "ms": 155.847
+  },
+  {
+    "function": "_MergeElement",
+    "url": "preview-rendering-C6DImY7K.js",
+    "ms": 105.624
+  },
+  {
+    "function": "removeMesh",
+    "url": "preview-rendering-C6DImY7K.js",
+    "ms": 102.005
+  },
+  {
+    "function": "_evaluateActiveMeshes",
+    "url": "preview-rendering-C6DImY7K.js",
+    "ms": 96.638
+  },
+  {
+    "function": "texImage2D",
+    "url": "",
+    "ms": 86.603
+  },
+  {
+    "function": "getImageData",
+    "url": "",
+    "ms": 60.54
+  },
+  {
+    "function": "_prepareRenderingManager",
+    "url": "preview-rendering-C6DImY7K.js",
+    "ms": 56.465
+  },
+  {
+    "function": "render",
+    "url": "preview-rendering-C6DImY7K.js",
+    "ms": 54.943
+  },
+  {
+    "function": "_copySource",
+    "url": "preview-rendering-C6DImY7K.js",
+    "ms": 51.351
+  },
+  {
+    "function": "N",
+    "url": "main-CShS8dsc.js",
+    "ms": 49.83
+  },
+  {
+    "function": "_markAllSubMeshesAsDirty",
+    "url": "preview-rendering-C6DImY7K.js",
+    "ms": 36.449
+  },
+  {
+    "function": "_renderForCamera",
+    "url": "preview-rendering-C6DImY7K.js",
+    "ms": 33.473
+  },
+  {
+    "function": "yf",
+    "url": "main-CShS8dsc.js",
+    "ms": 32.643
+  },
+  {
+    "function": "fd",
+    "url": "main-CShS8dsc.js",
+    "ms": 29.981
+  },
+  {
+    "function": "_mergeCoroutine",
+    "url": "preview-rendering-C6DImY7K.js",
+    "ms": 29.861
+  },
+  {
+    "function": "_mayRenderWithMaterial",
+    "url": "preview-rendering-C6DImY7K.js",
+    "ms": 26.433
+  },
+  {
+    "function": "qn",
+    "url": "main-CShS8dsc.js",
+    "ms": 25.178
+  },
+  {
+    "function": "_markAllSubMeshesAsDirty",
+    "url": "preview-rendering-C6DImY7K.js",
+    "ms": 23.884
+  },
+  {
+    "function": "render",
+    "url": "preview-rendering-C6DImY7K.js",
+    "ms": 23.857
+  },
+  {
+    "function": "_markAllSubMeshesAsDirty",
+    "url": "preview-rendering-C6DImY7K.js",
+    "ms": 21.346
+  }
+]

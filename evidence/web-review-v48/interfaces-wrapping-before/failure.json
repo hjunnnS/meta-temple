@@ -1,0 +1,41 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: Bounds {\"x\":208.65625,\"y\":478,\"right\":302,\"bottom\":530,\"w\":320,\"h\":740,\"overflow\":true,\"uncovered\":true}",
+  "completed": [
+    {
+      "locale": "ko",
+      "passed": true,
+      "welcomeHeight": 164.984375,
+      "dialogTranslated": true,
+      "privateControlsUncovered": true,
+      "explicitCamera": true,
+      "persists": true
+    },
+    {
+      "locale": "ja",
+      "passed": true,
+      "welcomeHeight": 164.984375,
+      "dialogTranslated": true,
+      "privateControlsUncovered": true,
+      "explicitCamera": true,
+      "persists": true
+    },
+    {
+      "locale": "en",
+      "passed": true,
+      "welcomeHeight": 188.78125,
+      "dialogTranslated": true,
+      "privateControlsUncovered": true,
+      "explicitCamera": true,
+      "persists": true
+    },
+    {
+      "locale": "zh-Hans",
+      "passed": true,
+      "welcomeHeight": 141.890625,
+      "dialogTranslated": true,
+      "privateControlsUncovered": true,
+      "explicitCamera": true,
+      "persists": true
+    }
+  ]
+}

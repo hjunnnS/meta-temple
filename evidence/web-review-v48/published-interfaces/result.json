@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "locale": "ja",
+      "passed": true,
+      "welcomeHeight": 164.984375,
+      "dialogTranslated": true,
+      "privateControlsUncovered": true,
+      "explicitCamera": true,
+      "persists": true
+    },
+    {
+      "locale": "pt-PT",
+      "passed": true,
+      "welcomeHeight": 214.984375,
+      "dialogTranslated": true,
+      "privateControlsUncovered": true,
+      "explicitCamera": true,
+      "persists": true
+    },
+    {
+      "locale": "fr",
+      "passed": true,
+      "welcomeHeight": 188.78125,
+      "dialogTranslated": true,
+      "privateControlsUncovered": true,
+      "explicitCamera": true,
+      "persists": true
+    }
+  ],
+  "realPhone": false
+}

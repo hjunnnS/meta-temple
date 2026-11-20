@@ -1,0 +1,96 @@
+{
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "realPhone": false,
+  "physicalLowEndPC": false,
+  "loads": [
+    {
+      "pair": 0,
+      "visit": "first",
+      "totalMs": 5493,
+      "firstSceneMs": 4937.800000011921,
+      "withinPriorFirstSceneTarget": true
+    },
+    {
+      "pair": 0,
+      "visit": "return",
+      "totalMs": 4834,
+      "firstSceneMs": 4328.300000011921,
+      "withinPriorFirstSceneTarget": true
+    },
+    {
+      "pair": 1,
+      "visit": "first",
+      "totalMs": 5492,
+      "firstSceneMs": 4839.5,
+      "withinPriorFirstSceneTarget": true
+    },
+    {
+      "pair": 1,
+      "visit": "return",
+      "totalMs": 4081,
+      "firstSceneMs": 3618.2000000178814,
+      "withinPriorFirstSceneTarget": true
+    }
+  ],
+  "frames": [
+    {
+      "scene": "temple",
+      "time": "day",
+      "seconds": 30,
+      "turns": 4,
+      "distanceMetres": 101.92629415090877,
+      "render": {
+        "width": 358,
+        "height": 795
+      },
+      "samples": 1807,
+      "meanFps": 60.0041176040976,
+      "onePercentLowFps": 53.9313085557165,
+      "maxFrameMs": 19
+    },
+    {
+      "scene": "temple",
+      "time": "night",
+      "seconds": 30,
+      "turns": 4,
+      "distanceMetres": 101.98883956848385,
+      "render": {
+        "width": 358,
+        "height": 795
+      },
+      "samples": 1809,
+      "meanFps": 60.00059702088961,
+      "onePercentLowFps": 54.069436524882,
+      "maxFrameMs": 18.600000023841858
+    },
+    {
+      "scene": "private city",
+      "seconds": 30,
+      "samples": 1800,
+      "meanFps": 60.003600215977194,
+      "onePercentLowFps": 49.792531103912225,
+      "maxFrameMs": 36.20000001788139
+    }
+  ],
+  "mobileEnvironment": {
+    "viewport": {
+      "width": 412,
+      "height": 915
+    },
+    "devicePixelRatio": 3,
+    "renderer": {
+      "vendor": "Google Inc. (Apple)",
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+      "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+    },
+    "render": {
+      "width": 358,
+      "height": 795
+    },
+    "profile": "balanced"
+  },
+  "errors": [],
+  "failedAssets": [],
+  "completed": true,
+  "performanceScope": "30-second samples in desktop Chrome with mobile viewport/DPR; not physical phone thermal, GPU, battery or long-duration acceptance"
+}

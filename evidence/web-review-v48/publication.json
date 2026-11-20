@@ -1,0 +1,25 @@
+{
+  "version": 51,
+  "sourceCommit": "88ab0f3c9f20840d7908c7b430df5a7664f80f3d",
+  "savedVersion": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_4fdf0ccdb8948191aee5c5ed2cd3a200",
+  "deployment": "appgdep_6afcfe1c86588191924c2a742eeef929",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "status": "succeeded",
+  "publicInterfaceLanguages": [
+    "ja",
+    "pt-PT",
+    "fr"
+  ],
+  "publicLoadingPassed": true,
+  "fullPerformanceVersion": 50,
+  "fullPerformanceSource": "614f26080a8263cd99cdb96c5741eccf1df8426f",
+  "subsequentChanges": "NPC close-label localization and responsive private-room controls only; no geometry or rendering-quality change",
+  "issues": [
+    66,
+    77,
+    64
+  ],
+  "realPhone": false,
+  "fiveParticipants": "deferred",
+  "pricePaymentChanges": false
+}

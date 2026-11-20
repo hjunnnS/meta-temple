@@ -1,0 +1,231 @@
+{
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "network": {
+    "Mbps": 20,
+    "latencyMs": 80
+  },
+  "realPhone": false,
+  "loads": [
+    {
+      "visit": "first",
+      "ms": 6580,
+      "maxTaskMs": 231,
+      "cpuRate": 1
+    },
+    {
+      "visit": "return",
+      "ms": 4366,
+      "maxTaskMs": 284,
+      "cpuRate": 1
+    }
+  ],
+  "inputs": [
+    {
+      "locale": "en",
+      "deliveryMs": 136,
+      "cpuRate": 4
+    },
+    {
+      "locale": "ja",
+      "deliveryMs": 88,
+      "cpuRate": 4
+    },
+    {
+      "locale": "ko",
+      "deliveryMs": 213,
+      "cpuRate": 4
+    },
+    {
+      "locale": "en",
+      "deliveryMs": 4,
+      "cpuRate": 4
+    }
+  ],
+  "fonts": [
+    {
+      "viewport": {
+        "width": 320,
+        "height": 740
+      },
+      "fonts": [
+        {
+          "id": "#guide-welcome p",
+          "px": 16,
+          "overflow": false,
+          "x": 27,
+          "right": 293
+        },
+        {
+          "id": "#guide-free",
+          "px": 14,
+          "overflow": false,
+          "x": 27,
+          "right": 151.671875
+        },
+        {
+          "id": "#guide-with-monk",
+          "px": 14,
+          "overflow": false,
+          "x": 157.671875,
+          "right": 282.34375
+        },
+        {
+          "id": "#spaces-open",
+          "px": 14,
+          "overflow": false,
+          "x": 18,
+          "right": 112.65625
+        },
+        {
+          "id": "#practice-open",
+          "px": 14,
+          "overflow": false,
+          "x": 112.65625,
+          "right": 207.328125
+        },
+        {
+          "id": "#appearance-open",
+          "px": 14,
+          "overflow": false,
+          "x": 207.328125,
+          "right": 301.984375
+        },
+        {
+          "id": "#online-visitors",
+          "px": 14,
+          "overflow": false,
+          "x": 144.328125,
+          "right": 242
+        }
+      ],
+      "actionsReachable": true
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fonts": [
+        {
+          "id": "#guide-welcome p",
+          "px": 16,
+          "overflow": false,
+          "x": 27,
+          "right": 363
+        },
+        {
+          "id": "#guide-free",
+          "px": 14,
+          "overflow": false,
+          "x": 27,
+          "right": 151.671875
+        },
+        {
+          "id": "#guide-with-monk",
+          "px": 14,
+          "overflow": false,
+          "x": 157.671875,
+          "right": 282.34375
+        },
+        {
+          "id": "#spaces-open",
+          "px": 14,
+          "overflow": false,
+          "x": 18,
+          "right": 136
+        },
+        {
+          "id": "#practice-open",
+          "px": 14,
+          "overflow": false,
+          "x": 136,
+          "right": 254
+        },
+        {
+          "id": "#appearance-open",
+          "px": 14,
+          "overflow": false,
+          "x": 254,
+          "right": 372
+        },
+        {
+          "id": "#online-visitors",
+          "px": 14,
+          "overflow": false,
+          "x": 150.890625,
+          "right": 253.015625
+        }
+      ],
+      "actionsReachable": true
+    },
+    {
+      "viewport": {
+        "width": 740,
+        "height": 320
+      },
+      "fonts": [
+        {
+          "id": "#guide-welcome p",
+          "px": 16,
+          "overflow": false,
+          "x": 25,
+          "right": 599
+        },
+        {
+          "id": "#guide-free",
+          "px": 14,
+          "overflow": false,
+          "x": 25,
+          "right": 155.671875
+        },
+        {
+          "id": "#guide-with-monk",
+          "px": 14,
+          "overflow": false,
+          "x": 162.671875,
+          "right": 293.34375
+        },
+        {
+          "id": "#spaces-open",
+          "px": 14,
+          "overflow": false,
+          "x": 227.703125,
+          "right": 333.9375
+        },
+        {
+          "id": "#practice-open",
+          "px": 14,
+          "overflow": false,
+          "x": 336.9375,
+          "right": 415.171875
+        },
+        {
+          "id": "#appearance-open",
+          "px": 14,
+          "overflow": false,
+          "x": 418.171875,
+          "right": 512.296875
+        },
+        {
+          "id": "#online-visitors",
+          "px": 14,
+          "overflow": false,
+          "x": 140.5,
+          "right": 243.625
+        }
+      ],
+      "actionsReachable": true
+    }
+  ],
+  "recovery": {
+    "failedImport": true,
+    "languageUnlocked": true,
+    "reloadedLocale": "ja",
+    "entered": true
+  },
+  "startInput": {
+    "cpuRate": 4,
+    "deliveryMs": 5
+  },
+  "passed": true
+}

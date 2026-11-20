@@ -1,0 +1,215 @@
+{
+  "smoke": true,
+  "acceptanceRun": false,
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "network": {
+    "Mbps": 20,
+    "latencyMs": 80
+  },
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "warmSeconds": 3,
+  "walkSeconds": 10,
+  "walkingSpeedMetresPerSecond": 3.4,
+  "routeAcceptance": {
+    "minimumDistanceMetres": 600,
+    "minimumTurns": 5,
+    "minZ": -64,
+    "maxZ": 37
+  },
+  "loading": [
+    {
+      "visit": "first",
+      "navigationToFirstRenderedFrameMs": 11011.89999999851,
+      "sceneConstructionToFirstFrameMs": 8701.29999999702,
+      "clickMs": 1022.8000000044703,
+      "readyMs": 12180.39999999851,
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "settings": {
+        "visitor": null,
+        "virtualVisitors": 19,
+        "time": "day",
+        "quality": "high",
+        "mobile": false,
+        "density": 1000,
+        "canopyCapacity": 440,
+        "visibleLanternCount": 440,
+        "nameTagCount": 0,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      }
+    },
+    {
+      "visit": "return",
+      "navigationToFirstRenderedFrameMs": 4917.70000000298,
+      "sceneConstructionToFirstFrameMs": 4453.5,
+      "clickMs": 437.1000000014901,
+      "readyMs": 5897.5,
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "settings": {
+        "visitor": null,
+        "virtualVisitors": 19,
+        "time": "day",
+        "quality": "high",
+        "mobile": false,
+        "density": 1000,
+        "canopyCapacity": 440,
+        "visibleLanternCount": 440,
+        "nameTagCount": 0,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      }
+    }
+  ],
+  "walks": [
+    {
+      "time": "day",
+      "durationSeconds": 10.08,
+      "route": {
+        "minZ": -51.99243810750327,
+        "maxZ": -18.069403337879045,
+        "distanceMetres": 33.92303476962424,
+        "turns": 0
+      },
+      "samples": 605,
+      "meanFps": 60.00436395373322,
+      "onePercentLowFps": 56.044835876050016,
+      "maxFrameMs": 17.899999998509884,
+      "jsHeapBytes": 1013177923
+    },
+    {
+      "time": "dusk",
+      "durationSeconds": 10.082,
+      "route": {
+        "minZ": -17.984285615696095,
+        "maxZ": 15.939587194983666,
+        "distanceMetres": 33.92387281067977,
+        "turns": 0
+      },
+      "samples": 605,
+      "meanFps": 60.0037688317436,
+      "onePercentLowFps": 56.31536604785399,
+      "maxFrameMs": 17.899999998509884,
+      "jsHeapBytes": 1037207727
+    },
+    {
+      "time": "night",
+      "durationSeconds": 10.081,
+      "route": {
+        "minZ": -17.915909381393302,
+        "maxZ": 16.009367716421643,
+        "distanceMetres": 33.92527709781497,
+        "turns": 0
+      },
+      "samples": 605,
+      "meanFps": 59.99960330841674,
+      "onePercentLowFps": 56.72609401077644,
+      "maxFrameMs": 17.69999999552965,
+      "jsHeapBytes": 1048350646
+    }
+  ],
+  "buildFingerprint": "c1ec4a969eff7666a0a5319d6c98fef3edeaf1dca00c21c3df0a82ac4a3270f9",
+  "resources": [
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/bakedVertexAnimation-e--Ra-by.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/baseTexture.pure-DT21jRcN.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/clipPlaneFragment-DVK0wgyZ.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/clipPlaneVertex-C59BO8JS.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/color.fragment-CxH-oW8C.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/color.vertex-jpU_xhjL.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/decorators-CbDmSM3x.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/default.fragment-BanzkWOr.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/default.vertex-3oYLdASR.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/depthBoxBlur.fragment-CLEAG5DG.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/dumpTools.pure-d3uvBrZt.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/effectRenderer.pure-D0QBbfnG.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/engineStore-Bn2tApal.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/fogFragment-CISE_m3s.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/fogVertex-NHlgMcT2.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/glowBlurPostProcess.fragment-DDN2NxnB.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/glowMapGeneration.fragment-CeHLhtIJ.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/glowMapGeneration.vertex-BibtXSpF.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/glowMapMerge.fragment-E4YwFGds.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/glowMapMerge.vertex-XcoH38fZ.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/halfFloat-Cfx5m4ll.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/helperFunctions-D89zo_74.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/instancesDeclaration-CJBvtBV5.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/instancesVertex-C-FoRQR1.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/internalTexture-B3djGrls.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/kernelBlur.fragment-BvT73mHN.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/kernelBlur.vertex-C2dESVl-.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/kernelBlurVaryingDeclaration-DP2Wr9Oc.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/locales-pLpZhjQc.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/logDepthDeclaration-3gXGtHbI.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/logDepthFragment-Cr-Stg0k.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/logDepthVertex-D5IUM6qd.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/logger-CuBYPcDK.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/main-B8OJb_Jh.css",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/main-CLlAl7-u.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/main-CShS8dsc.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/main-D_wZiJi3.css",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/mainUVVaryingDeclaration-CTlfbA_R.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/math.color.pure-BTk1mVkY.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/math.scalar.functions-lnL7TJ7T.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/meshUboDeclaration-DYEo1Glw.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/morphTargetsVertex-6N5r7oF1.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/packingFunctions-DpGwbupU.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/particles.fragment-DWnvwF1S.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/particles.vertex-D_BLnDsG.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/performanceConfigurator-UtxC_Odd.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/precisionDate-DtwGAGfs.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/preview-rendering-C6DImY7K.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/rolldown-runtime-CNTWBRIl.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/shaderStore-D-XQlhUT.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/shadowMap.fragment-Di-kbM2R.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/shadowMap.vertex--dtFj9fX.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/shadowMapFragmentSoftTransparentShadow-R_iOKnyx.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/thinEngine.pure-BFma1L-r.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/tools.pure-DHyFOoqx.js",
+    "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/vertexColorMixing-DPW6Is9y.js"
+  ],
+  "ambient": {
+    "population": {
+      "realCount": 1,
+      "target": 19,
+      "active": 19,
+      "capacity": 20,
+      "revision": 14
+    },
+    "active": 19
+  },
+  "privateRooms": {
+    "entries": 10,
+    "jsHeapBeforeBytes": 498994480,
+    "jsHeapAfterBytes": 500646468,
+    "heapMeaning": "JavaScript heap after GC; excludes GPU/process memory"
+  },
+  "pageErrors": [],
+  "apiNetworkRequests": [],
+  "passed": true
+}

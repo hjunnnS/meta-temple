@@ -1,0 +1,94 @@
+{
+  "smoke": false,
+  "acceptanceRun": false,
+  "url": "https://untitled-january-productivity-suggestions.trycloudflare.com",
+  "network": {
+    "Mbps": 20,
+    "latencyMs": 80
+  },
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "warmSeconds": 120,
+  "walkSeconds": 300,
+  "walkingSpeedMetresPerSecond": 3.4,
+  "routeAcceptance": {
+    "minimumDistanceMetres": 600,
+    "minimumTurns": 5,
+    "minZ": -64,
+    "maxZ": 37
+  },
+  "loading": [
+    {
+      "visit": "first",
+      "navigationToFirstRenderedFrameMs": 7876.0999999940395,
+      "sceneConstructionToFirstFrameMs": 6861.19999999553,
+      "clickMs": 972,
+      "readyMs": 9096.69999999553,
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "settings": {
+        "visitor": null,
+        "virtualVisitors": 19,
+        "time": "day",
+        "quality": "high",
+        "mobile": false,
+        "density": 1000,
+        "canopyCapacity": 440,
+        "visibleLanternCount": 440,
+        "nameTagCount": 0,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      }
+    },
+    {
+      "visit": "return",
+      "navigationToFirstRenderedFrameMs": 4972.70000000298,
+      "sceneConstructionToFirstFrameMs": 4279.39999999851,
+      "clickMs": 387.6000000014901,
+      "readyMs": 6263.30000000447,
+      "renderer": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Pro, Unspecified Version)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "settings": {
+        "visitor": null,
+        "virtualVisitors": 19,
+        "time": "day",
+        "quality": "high",
+        "mobile": false,
+        "density": 1000,
+        "canopyCapacity": 440,
+        "visibleLanternCount": 440,
+        "nameTagCount": 0,
+        "selected": 23,
+        "reduced": false,
+        "owned": [
+          23,
+          37,
+          58
+        ],
+        "renderWidth": 1280,
+        "renderHeight": 720
+      }
+    }
+  ],
+  "walks": [],
+  "buildFingerprint": "a0ba1f41675917b6d1fd8293acb7dd8ad9858e4a90922d55463d13e5f26aa083",
+  "loadingOnly": true,
+  "passed": true
+}

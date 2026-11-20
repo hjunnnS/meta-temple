@@ -17,11 +17,21 @@ root.innerHTML=`<main class="language-entry"><div class="language-panel">
  <button class="enter-temple" type="button"><span class="lotus-medallion" aria-hidden="true">${entryLotus}</span><span class="entry-prompt"></span></button>
  <div class="flag-strip" role="group" aria-label="언어 선택 · Language"></div>
  <output class="selected-language" aria-live="polite"></output>
+ <div class="entry-preparation" hidden><p role="status" aria-live="polite"></p><progress max="100"></progress><span class="entry-elapsed" aria-hidden="true"></span></div>
  </div></main>`;
 const strip=root.querySelector<HTMLElement>('.flag-strip')!;
 const enter=root.querySelector<HTMLButtonElement>('.enter-temple')!;
 const prompt=root.querySelector<HTMLElement>('.entry-prompt')!;
 const language=root.querySelector<HTMLElement>('.selected-language')!;
+const preparation=root.querySelector<HTMLElement>('.entry-preparation')!;
+const status=preparation.querySelector<HTMLElement>('[role=status]')!;
+const progress=preparation.querySelector<HTMLProgressElement>('progress')!;
+const elapsed=preparation.querySelector<HTMLElement>('.entry-elapsed')!;
+let progressValue=0,failed=false,opening=false;
+window.addEventListener('sasa:preparation',event=>{
+ progressValue=(event as CustomEvent<number>).detail;
+ if(progressValue<85)progress.value=progressValue;else progress.removeAttribute('value');
+});
 let selected=preferredLocale();
 function choose(id:Locale){
  selected=id;
@@ -34,6 +44,7 @@ function choose(id:Locale){
   }
  }
  prompt.lang=id;prompt.textContent=prompts[id];
+ if(failed)void selectLocale(id).then(()=>{if(selected===id){prompt.textContent=t('다시 불러오기');status.textContent=t('연결 상태를 확인해 주세요.');}}).catch(()=>{});
 }
 for(const [id,flag,name] of languages){
  const button=document.createElement('button');button.type='button';button.lang=id;button.title=name;
@@ -47,14 +58,26 @@ const prepared=new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnima
  .then(()=>import('./main'));
 void prepared.catch(()=>{});
 enter.onclick=async()=>{
+ if(opening)return;
+ if(failed){try{localStorage.setItem('sasa:language',selected);}catch{}location.reload();return;}
+ opening=true;
  enter.disabled=true;
  for(const button of strip.querySelectorAll('button'))button.disabled=true;
  root.setAttribute('aria-busy','true');
+ preparation.hidden=false;progress.value=progressValue;
+ const began=performance.now();
+ const clock=window.setInterval(()=>{elapsed.textContent=Math.floor((performance.now()-began)/1000)+'s';},1000);
+ const deadline=began+45000;
+ async function withinDeadline<T>(work:Promise<T>):Promise<T>{
+  let timer=0;
+  try{return await Promise.race([work,new Promise<never>((_,reject)=>{timer=window.setTimeout(()=>reject(Error('entry timeout')),Math.max(0,deadline-performance.now()));})]);}
+  finally{clearTimeout(timer);}
+ }
  try{
   root.classList.add('opening-lotus');
-  await Promise.all([selectLocale(selected),new Promise(resolve=>setTimeout(resolve,matchMedia('(prefers-reduced-motion: reduce)').matches?0:820))]);
-  const temple=await prepared;
-  await temple.start();
+  await withinDeadline(Promise.all([selectLocale(selected).then(()=>{status.textContent=t('사찰을 준비하고 있어요…');prompt.textContent=t('준비 중');}),new Promise(resolve=>setTimeout(resolve,matchMedia('(prefers-reduced-motion: reduce)').matches?0:820))]));
+  const temple=await withinDeadline(prepared);
+  await withinDeadline(temple.start());
   game.inert=false;
   root.classList.add('revealing-temple');
   await new Promise(resolve=>setTimeout(resolve,matchMedia('(prefers-reduced-motion: reduce)').matches?0:450));
@@ -62,9 +85,11 @@ enter.onclick=async()=>{
  }catch(error){
   console.error('Temple entry failed',error);
   if(root.contains(enter)){
-   prompt.textContent=t('다시 불러오기');enter.disabled=false;enter.onclick=()=>location.reload();
+   failed=true;status.textContent=t('연결 상태를 확인해 주세요.');progress.hidden=true;
+   prompt.textContent=t('다시 불러오기');enter.disabled=false;
+   for(const button of strip.querySelectorAll('button'))button.disabled=false;
   }
- }finally{root.classList.remove('opening-lotus');root.removeAttribute('aria-busy');}
+ }finally{window.clearInterval(clock);opening=false;root.classList.remove('opening-lotus');root.removeAttribute('aria-busy');}
 };
 
 // A login link returns to the language already selected for the visit.
