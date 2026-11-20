@@ -1,0 +1,91 @@
+{
+  "siteVersion": 53,
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "productChanges": false,
+  "realPhone": false,
+  "viewports": [
+    {
+      "name": "pc",
+      "width": 1440,
+      "height": 900,
+      "touch": false
+    },
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "touch": true
+    },
+    {
+      "name": "small",
+      "width": 320,
+      "height": 740,
+      "touch": true
+    },
+    {
+      "name": "landscape",
+      "width": 740,
+      "height": 320,
+      "touch": true
+    }
+  ],
+  "panelStatesPerViewport": 35,
+  "totalPanelStates": 140,
+  "allFlowsCompleted": true,
+  "pageErrors": [],
+  "findings": [
+    {
+      "priority": 1,
+      "scope": "mobile 320x740",
+      "menu": "연등 줄 선택",
+      "problem": "이동 조이스틱이 줄 선택 버튼 위에 겹침",
+      "existingIssues": [
+        39,
+        64
+      ],
+      "evidence": "small/offering-lantern.jpg"
+    },
+    {
+      "priority": 1,
+      "scope": "mobile landscape 740x320",
+      "menu": "소원패·인등·추모등·봉헌초 접수",
+      "problem": "신청 내용 확인 고정 버튼이 기간·선택·내 예약 확인 등을 덮음",
+      "existingIssues": [
+        64,
+        77
+      ],
+      "evidence": "landscape-reservation-covered.jpg"
+    },
+    {
+      "priority": 2,
+      "scope": "PC and mobile",
+      "menu": "사찰 지도",
+      "problem": "지도 번호의 실제 표시 크기 PC 약7.24px, 모바일 약2.95px",
+      "existingIssues": [
+        77
+      ],
+      "evidence": "small/map.jpg"
+    },
+    {
+      "priority": 3,
+      "scope": "PC",
+      "menu": "연등 자리 선택",
+      "problem": "선택 가능 등 보조 상태 글자가10px",
+      "existingIssues": [
+        77
+      ],
+      "evidence": "pc/lantern-seats.jpg"
+    }
+  ],
+  "opaqueContrastNote": "일부 보조 텍스트 약4.41~4.46:1; 동적/반투명 배경은 수치 판정에서 제외하고 화면으로 확인. 정식 접근성 인증 아님.",
+  "harnessCorrections": [
+    "private display selector corrected to private-display-item",
+    "HUD finish cancels directly; inspected confirmation with separate bow-stop control",
+    "waited for account refresh, then used explicit close control",
+    "used DOM scroll and a centered retry to separate normal scrolling from persistent coverage"
+  ],
+  "githubProductCommits": {
+    "main": "fd5fc8f018bad65b4d408ab396a37d8b05ef1202",
+    "trial": "29d06a3447e4021d72e08c4952802e7e4a3db177"
+  }
+}

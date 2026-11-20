@@ -1,0 +1,12 @@
+{
+  "wanted": "내 예약 확인",
+  "hit": "신청 내용 확인",
+  "covered": true,
+  "rect": {
+    "x": 333,
+    "y": 232.28125,
+    "width": 364,
+    "height": 44
+  },
+  "hitClass": "offer-main-action"
+}
