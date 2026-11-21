@@ -1,0 +1,32 @@
+[
+  {
+    "locale": "fr",
+    "scheduleBounds": {
+      "x": 32,
+      "y": 68,
+      "width": 149.5625,
+      "height": 44
+    },
+    "passed": true
+  },
+  {
+    "locale": "de",
+    "scheduleBounds": {
+      "x": 32,
+      "y": 68,
+      "width": 127.390625,
+      "height": 44
+    },
+    "passed": true
+  },
+  {
+    "locale": "ru",
+    "scheduleBounds": {
+      "x": 32,
+      "y": 68,
+      "width": 150,
+      "height": 57.1875
+    },
+    "passed": true
+  }
+]

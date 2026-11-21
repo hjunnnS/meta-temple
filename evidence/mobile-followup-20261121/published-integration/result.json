@@ -1,0 +1,98 @@
+[
+  {
+    "kind": "chromium",
+    "realPhone": false,
+    "temperatureMeasured": false,
+    "errors": [],
+    "entryElapsedMs": 5701,
+    "initial": {
+      "vertices": 1464671,
+      "lazy": 27,
+      "tasks": [
+        57,
+        69,
+        96,
+        62,
+        182,
+        204,
+        172,
+        67,
+        103,
+        60,
+        105,
+        86,
+        124
+      ]
+    },
+    "farRoof": {
+      "fine": false,
+      "vertices": 26521
+    },
+    "nearRoof": {
+      "fine": true,
+      "vertices": 40272,
+      "indices": 186060,
+      "drawn": 186060
+    },
+    "nearActor": {
+      "visible": 53,
+      "far": 0,
+      "phase": 9.208099999904627
+    },
+    "farActor": {
+      "visible": 6,
+      "far": 6,
+      "phase": 11.50759999984503
+    },
+    "restoredActor": {
+      "visible": 53,
+      "far": 0,
+      "phase": 14.207499999821213
+    },
+    "shadow": {
+      "all": 818,
+      "near": 77
+    },
+    "selected": "선택한 장소 · 19 · 시간과 공간의 방",
+    "brief": {
+      "x": 35,
+      "y": 326.859375,
+      "width": 323,
+      "height": 44
+    },
+    "schedule": {
+      "x": 32,
+      "y": 68,
+      "width": 90.34375,
+      "height": 44
+    },
+    "beforePrivate": {
+      "vertices": 2072033,
+      "fine": 6,
+      "meshes": 3127
+    },
+    "privateMemory": {
+      "vertices": 1230223,
+      "fine": 0,
+      "meshes": 3127
+    },
+    "city": {
+      "glows": 0,
+      "traffic": [
+        {
+          "name": "scenery-moving-traffic-batch",
+          "instances": 18
+        }
+      ]
+    },
+    "afterPrivate": {
+      "vertices": 1230223,
+      "fine": 0,
+      "meshes": 3127
+    },
+    "privateRoundTrips": 3,
+    "invalid": [],
+    "sdkDiagnostics": [],
+    "passed": true
+  }
+]

@@ -38,7 +38,7 @@ export async function ambientVisitors(scene:Scene,visitor:()=>readonly number[]|
   body.bow(0);
   const parts=body.root.getChildMeshes() as Mesh[];
   const label=MeshBuilder.CreatePlane('ambient-label-'+place.id,{width:1.8,height:.34},scene);label.material=labelMaterial;label.parent=body.root;label.position.y=place.role==='meditation'?1.35:1.98;label.billboardMode=Mesh.BILLBOARDMODE_ALL;label.isPickable=false;label.setEnabled(false);
-  return{body,parts,proxy:mobile?mobileVisitorProxy(parts):[],detailParts:parts.map(p=>visitorDetailPart(p.name)),detail:0,lastFade:-1,label,place:site,fade:0,desired:i!==2,time:i*2.7,timeUpdated:0,until:0,stops:visitorJourney(site),stop:0,elapsed:Math.min(7,i*.71),route:[] as WalkPoint[],next:0,travelling:false,wait:0,steps:0,skipped:0,completed:0,skipOffset:1};
+  return{body,parts,proxy:mobile?mobileVisitorProxy(parts,[body.head,body.chest,...body.arms,...body.legs]):[],detailParts:parts.map(p=>visitorDetailPart(p.name)),detail:0,lastFade:-1,label,place:site,fade:0,desired:i!==2,time:i*2.7,timeUpdated:0,until:0,stops:visitorJourney(site),stop:0,elapsed:Math.min(7,i*.71),route:[] as WalkPoint[],next:0,travelling:false,wait:0,steps:0,skipped:0,completed:0,skipOffset:1};
  }
  const actors:ReturnType<typeof actor>[]=[];
  for(const [i,place] of ambientPlaces.entries()){actors.push(actor(place,i));await checkpoint();}
@@ -55,8 +55,7 @@ export async function ambientVisitors(scene:Scene,visitor:()=>readonly number[]|
    a.fade=Math.max(0,Math.min(1,a.fade+(a.desired?dt:-dt)*.8));a.body.root.setEnabled(a.fade>0);if(!a.fade)continue;
    const distance=Math.hypot(camera.globalPosition.x-a.body.root.position.x,camera.globalPosition.z-a.body.root.position.z);
    const detail=mobile?visitorDetail(distance,a.detail):0;
-   if(detail!==a.detail||a.lastFade!==a.fade){a.detail=detail;a.lastFade=a.fade;for(const[i,mesh]of a.parts.entries()){mesh.isVisible=!mobile||detail===0;mesh.visibility=a.fade;}}
-   for(const mesh of a.proxy){mesh.isVisible=detail>0;mesh.visibility=a.fade;}
+   if(detail!==a.detail||a.lastFade!==a.fade){a.detail=detail;a.lastFade=a.fade;for(const[i,mesh]of a.parts.entries()){mesh.isVisible=!mobile||detail===0;mesh.visibility=a.fade;}for(const mesh of a.proxy){mesh.isVisible=detail>0;mesh.visibility=a.fade;}}
    a.label.setEnabled(distance<7&&labelsAllowed);a.label.visibility=a.fade;
    if(age<a.until)continue;const step=Math.min(.3,age-a.timeUpdated);a.timeUpdated=age;a.until=age+(mobile?(detail===0?.04:detail===1?.12:.28):(distance<35?.04:.12));a.time+=step;
    const stop=a.stops[a.stop],position=a.body.root.position;let moving=false,yielding=false;

@@ -1,3 +1,5 @@
+import{deferStaticGeometry,estimatedStaticVertices,lazyStaticBatch}from'./lazy-static-geometry';
+import{releaseFineDetail}from'./mobile-fine-detail';
 import{mergeStaticBatch}from'./merge-static-batch';
 import{updateFineDetail}from'./mobile-fine-detail';
 import{mobileArchitecture}from'./mobile-architecture';
@@ -106,7 +108,13 @@ export async function createTemple(canvas:HTMLCanvasElement,onProgress?:(value:n
  const sun=new DirectionalLight('sun',new Vector3(-.45,-.85,.45),scene);sun.position=new Vector3(20,35,-20);sun.intensity=1.6;
  const shadows=new ShadowGenerator(mobile?startupProfile.shadow:2048,sun);shadows.usePercentageCloserFiltering=true;shadows.bias=.002;shadows.normalBias=.035;
  if(mobile){shadows.filteringQuality=ShadowGenerator.QUALITY_LOW;shadows.getShadowMap()!.refreshRate=2;}
- if(mobile)shadows.getShadowMap()!.getCustomRenderList=(_layer,list)=>{const target=camera.target;return list?.filter(mesh=>{if(mesh.metadata?.mobileDeferredDetail)return !!mesh.metadata.mobileFine;if(!mesh.name.startsWith('architecture-'))return true;const b=mesh.getBoundingInfo().boundingSphere;return Math.hypot(b.centerWorld.x-target.x,b.centerWorld.z-target.z)<=65+b.radiusWorld;})??null;};
+ if(mobile)shadows.getShadowMap()!.getCustomRenderList=(_layer,list)=>{const target=camera.target,eye=camera.globalPosition,forward=target.subtract(eye).normalize();return list?.filter(mesh=>{
+  if(!mesh.isEnabled()||!mesh.isVisible)return false;
+  if(mesh.metadata?.mobileDeferredDetail&&!mesh.metadata.mobileFine)return false;
+  const b=mesh.getBoundingInfo().boundingSphere,near=Math.hypot(b.centerWorld.x-target.x,b.centerWorld.z-target.z);
+  if(near>(mesh.name.startsWith('architecture-')?36:24)+b.radiusWorld)return false;
+  return Vector3.Dot(b.centerWorld.subtract(eye),forward)>=-b.radiusWorld-8;
+ })??null;};
  const glow=new GlowLayer('lantern-glow',scene,{mainTextureFixedSize:mobile?(startupQuality==='low'?256:512):1024,blurKernelSize:48});glow.intensity=.35;
  const colors:Record<string,StandardMaterial>={};
  function mat(name:string,hex:string,emissive=0){const m=new StandardMaterial(name,scene);m.diffuseColor=Color3.FromHexString(hex);m.specularColor=new Color3(.06,.06,.06);m.emissiveColor=m.diffuseColor.scale(emissive);colors[name]=m;return m;}
@@ -200,20 +208,26 @@ export async function createTemple(canvas:HTMLCanvasElement,onProgress?:(value:n
  texture.update();const painted=mat('dancheong','#ffffff');painted.diffuseTexture=texture;
  box('painted-beam',20,.65,.3,0,5.5,3.65,painted);box('rear-painted-beam',20,.65,.3,0,5.5,12.35,painted);
  for(let i=0;i<49;i++){let a=cylinder('rafter',.15,11,new Vector3(-10+i*.416,5.85,8),jade);a.rotation.x=Math.PI/2;}
+ function detailTube(name:string,options:Parameters<typeof MeshBuilder.CreateTube>[1]){
+  if(!mobile)return MeshBuilder.CreateTube(name,options,scene);
+  const original=options.path,step=Math.max(1,Math.ceil((original.length-1)/6)),path=original.filter((_,i)=>i%step===0||i===original.length-1);
+  const mesh=MeshBuilder.CreateTube(name,{...options,path,tessellation:Math.min(4,options.tessellation??64)},scene);
+  return deferStaticGeometry(mesh,()=>MeshBuilder.CreateTube(name+'-fine-source',options,scene),(original.length+4)*((options.tessellation??64)+1)*2);
+ }
  function roofY(x:number,z:number){return 8.9-2.8*Math.pow(Math.abs(z)/5.9,.7)+.65*Math.pow(Math.abs(x)/11.5,5)+.25*Math.pow(Math.abs(z)/5.9,6);}
  const positions:number[]=[],uvs:number[]=[],indices:number[]=[];const nx=46,nz=24;
  for(let j=0;j<=nz;j++)for(let i=0;i<=nx;i++){const x=-11.5+i*23/nx,z=-5.9+j*11.8/nz;positions.push(x,roofY(x,z),z+8);uvs.push(i/nx,j/nz);}
  for(let j=0;j<nz;j++)for(let i=0;i<nx;i++){const a=j*(nx+1)+i;indices.push(a,a+1,a+nx+1,a+1,a+nx+2,a+nx+1);}
  const roof=new Mesh('curved-roof',scene);const vd=new VertexData();vd.positions=positions;vd.indices=indices;vd.uvs=uvs;const normals:number[]=[];VertexData.ComputeNormals(positions,indices,normals);vd.normals=normals;vd.applyToMesh(roof);roof.material=roofMat;roofMat.backFaceCulling=false;staticMeshes.push(roof);shadows.addShadowCaster(roof);
  // Curved tile ribs and raised eave edges.
- for(let i=0;i<=57;i++)for(const sign of [-1,1]){const x=-11.4+i*.4;const path=Array.from({length:15},(_,j)=>{const z=sign*(.05+j*5.85/14);return new Vector3(x,roofY(x,z)+.07,z+8);});const rib=MeshBuilder.CreateTube('tile-rib',{path,radius:.065,tessellation:5},scene);rib.material=roofEdge;staticMeshes.push(rib);}
- for(const z of [-5.9,0,5.9]){const path=Array.from({length:48},(_,i)=>{const x=-11.5+i*23/47;return new Vector3(x,roofY(x,z)+.13,z+8);});const edge=MeshBuilder.CreateTube('ridge',{path,radius:z===0?.2:.12,tessellation:8},scene);edge.material=roofEdge;staticMeshes.push(edge);}
+ for(let i=0;i<=57;i++)for(const sign of [-1,1]){const x=-11.4+i*.4;const path=Array.from({length:15},(_,j)=>{const z=sign*(.05+j*5.85/14);return new Vector3(x,roofY(x,z)+.07,z+8);});const rib=detailTube('tile-rib',{path,radius:.065,tessellation:5});rib.material=roofEdge;staticMeshes.push(rib);}
+ for(const z of [-5.9,0,5.9]){const path=Array.from({length:48},(_,i)=>{const x=-11.5+i*23/47;return new Vector3(x,roofY(x,z)+.13,z+8);});const edge=detailTube('ridge',{path,radius:z===0?.2:.12,tessellation:8});edge.material=roofEdge;staticMeshes.push(edge);}
  const signTexture=new DynamicTexture('sign',{width:512,height:192},scene,false);const sc=signTexture.getContext() as CanvasRenderingContext2D;sc.fillStyle='#202c29';sc.fillRect(0,0,512,192);sc.strokeStyle='#bb9b60';sc.lineWidth=8;sc.strokeRect(10,10,492,172);sc.fillStyle='#ddc592';sc.font='bold 100px serif';sc.textAlign='center';sc.fillText('대웅전',256,133);signTexture.update();const signMat=mat('sign-material','#ffffff');signMat.diffuseTexture=signTexture;const hallSign=box('hall-sign',3.4,1.25,.18,0,4.35,3.35,signMat);
  uprightBoxLettering(hallSign,'front');
  // Roof tile courses and lotus end-caps give the eaves an articulated silhouette.
  for(const side of [-1,1])for(let row=1;row<15;row++){
   const z=side*row*5.9/14;const path=Array.from({length:47},(_,i)=>{const x=-11.5+i*.5;return new Vector3(x,roofY(x,z)+.028,z+8);});
-  const seam=MeshBuilder.CreateTube('tile-course',{path,radius:.022,tessellation:4},scene);seam.material=roofEdge;staticMeshes.push(seam);
+  const seam=detailTube('tile-course',{path,radius:.022,tessellation:4});seam.material=roofEdge;staticMeshes.push(seam);
  }
  for(const side of [-1,1])for(let i=0;i<58;i++){
   const x=-11.4+i*.4,z=side*5.9;
@@ -431,10 +445,10 @@ export async function createTemple(canvas:HTMLCanvasElement,onProgress?:(value:n
     return eavePoint(endX-flare*(1-t),side*(3.32+2.59*t),.245);
    }
    const path=Array.from({length:9},(_,n)=>rafterPoint(n/8));
-   const tail=MeshBuilder.CreateTube('main-eave-rafter',{path,radius:.154,tessellation:12,cap:Mesh.CAP_ALL},scene);
+   const tail=detailTube('main-eave-rafter',{path,radius:.154,tessellation:12,cap:Mesh.CAP_ALL});
    tail.material=eaveTimber;staticMeshes.push(tail);
    for(const t of [.80,.94]){
-    const band=MeshBuilder.CreateTube('rafter-painted-band',{path:[rafterPoint(t),rafterPoint(t+.024)],radius:.158,tessellation:12},scene);
+    const band=detailTube('rafter-painted-band',{path:[rafterPoint(t),rafterPoint(t+.024)],radius:.158,tessellation:12});
     band.material=eaveBand;staticMeshes.push(band);
    }
   }
@@ -1129,23 +1143,24 @@ export async function createTemple(canvas:HTMLCanvasElement,onProgress?:(value:n
   }
   for(const group of groups.values()){
   // Partition only dense materials: splitting tiny fixtures increases draw work.
-  const partitioned=mobile&&group.reduce((n,m)=>n+m.getTotalVertices(),0)>30000;
+  const partitioned=mobile&&group.reduce((n,m)=>n+estimatedStaticVertices(m),0)>30000;
   const regions=new Map<string,Mesh[]>();
   for(const mesh of group){let cell='all';if(partitioned){mesh.computeWorldMatrix(true);const c=mesh.getBoundingInfo().boundingBox.centerWorld;let site=landmarks[0],distance=Infinity;for(const candidate of landmarks){const d=(candidate.x-c.x)**2+(candidate.z-c.z)**2;if(d<distance){site=candidate;distance=d;}}cell=site&&distance<(25*site.scale)**2?'site:'+site.id:Math.floor(c.x/48)+':'+Math.floor(c.z/48);}if(!regions.has(cell))regions.set(cell,[]);regions.get(cell)!.push(mesh);}
   for(const region of regions.values()){
   // Bound temporary merge arrays on phones; never expand a whole material at once.
   const batches:Mesh[][]=[];let batch:Mesh[]=[],vertices=0;
-  for(const part of region){if(mobile&&vertices+part.getTotalVertices()>65536&&batch.length){batches.push(batch);batch=[];vertices=0;}batch.push(part);vertices+=part.getTotalVertices();}
+  for(const part of region){if(mobile&&vertices+estimatedStaticVertices(part)>65536&&batch.length){batches.push(batch);batch=[];vertices=0;}batch.push(part);vertices+=estimatedStaticVertices(part);}
   if(batch.length)batches.push(batch);
   for(const parts of batches){
    await checkpoint();
    const material=parts[0].material as StandardMaterial;
+   const prepareFine=mobile?lazyStaticBatch(parts):undefined;
    const merged=mergeStaticBatch(parts,mobile);
    if(!merged)continue;
    merged.metadata={blocksOfferingPick:material.alpha>=1&&!material.opacityTexture};
    merged.name='architecture-'+material.name;merged.metadata={...merged.metadata,mobileSpatialBatch:partitioned};merged.receiveShadows=true;
    if(!material.name.startsWith('garden-'))shadows.addShadowCaster(merged);merged.freezeWorldMatrix();
-   if(display)displayBatches.push(merged);else architectureLOD?.add(merged);
+   if(display)displayBatches.push(merged);else architectureLOD?.add(merged,prepareFine);
   }
   }
   }
@@ -1766,6 +1781,6 @@ export async function createTemple(canvas:HTMLCanvasElement,onProgress?:(value:n
   for(const [id,slot] of applicationSlots)if(displayKinds.has(slot.kind))refreshApplication(id);
  }
  await checkpoint(85);
- return {wakeRendering(){if(adaptive?.resume(performance.now()))applyQuality();},get practiceDestination(){return walking.practiceDestination;},captureWalkView:walking.captureView,restoreWalkView:walking.restoreView,visit:walking.visit,stopPractice:walking.stopPractice,startPractice:walking.startPractice,setWalking:walking.mode,returnFromPrivateRoom:walking.returnFromPrivateRoom,pondLife,setFace:walking.setFace,beginArrival,selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,virtualVisitors:crowd?.count??0,time:currentTime,quality,mobile,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ return {releaseMobileDetail(){if(mobile){architectureLOD?.release();releaseFineDetail(scene);}},wakeRendering(){if(adaptive?.resume(performance.now()))applyQuality();},get practiceDestination(){return walking.practiceDestination;},captureWalkView:walking.captureView,restoreWalkView:walking.restoreView,visit:walking.visit,stopPractice:walking.stopPractice,startPractice:walking.startPractice,setWalking:walking.mode,returnFromPrivateRoom:walking.returnFromPrivateRoom,pondLife,setFace:walking.setFace,beginArrival,selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,virtualVisitors:crowd?.count??0,time:currentTime,quality,mobile,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
  }catch(error){engine.dispose();throw error;}
 }

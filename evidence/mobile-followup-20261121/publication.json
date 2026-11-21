@@ -1,0 +1,13 @@
+{
+  "project_id": "appgprj_6af41a312ffc81919a17690097a9a9a3",
+  "version": 61,
+  "version_id": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_9579d3c4caec8191b48841ac8e821409",
+  "deployment_id": "appgdep_6b0170b85ce08191b11c7b723dd44a10",
+  "status": "succeeded",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "source_commit": "eb05f50877e966db3108497c0c132e8a4b54b4eb",
+  "archive_hash": "sha256:9a9b443514f1c9f112a9e8062502c489a55baec2005bf49988d10afa835c2b87",
+  "updated_at": "2026-11-21T10:21:56.358008+00:00",
+  "realPhoneTested": false,
+  "temperatureMeasured": false
+}

@@ -34,3 +34,5 @@ button#guide-monk-caption{width:max-content;max-width:min(210px,calc(100vw - 24p
 #guide-welcome{inset:auto auto 105px 24px;height:max-content;min-height:0;max-height:calc(100dvh - 135px);box-sizing:border-box;overflow:auto}
 @media(max-width:650px){#guide-welcome{inset:99px auto auto 12px;max-height:38dvh}}
 @media(max-height:500px){#guide-welcome{top:70px;bottom:auto;max-height:calc(100dvh - 150px)}}
+
+@media(pointer:coarse){.guide-brief{min-height:44px;box-sizing:border-box;padding:8px 0;cursor:pointer}.guide-brief input{flex:0 0 22px;width:22px;height:22px;margin-inline:0}}

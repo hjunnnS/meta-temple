@@ -3,8 +3,9 @@ import type{Scene}from'@babylonjs/core/scene';import{Mesh}from'@babylonjs/core/M
 import{clusteredGeometry}from'./cluster-geometry';
 /** Upload fine distant geometry only on approach; coarse silhouettes remain present at all distances. */
 export function mobileArchitecture(scene:Scene){
- const items:{mesh:Mesh;fine:VertexData;coarse:Geometry;high:Geometry|null;center:Vector3;radius:number;near:boolean;lastNear:number}[]=[];let last=-Infinity;
- function add(mesh:Mesh){
+ const items:{mesh:Mesh;fine:VertexData|null;build?:()=>VertexData;coarse:Geometry;high:Geometry|null;center:Vector3;radius:number;near:boolean;lastNear:number}[]=[];let last=-Infinity;
+ function add(mesh:Mesh,build?:()=>VertexData){
+  if(build){if(mesh.getTotalVertices()>2000){const original=mesh.geometry!,source=VertexData.ExtractFromMesh(mesh),coarseData=clusteredGeometry({positions:source.positions!,indices:source.indices!,normals:source.normals,uvs:source.uvs,colors:source.colors},.065);if(coarseData.indices.length<source.indices!.length*.85){const data=new VertexData();Object.assign(data,coarseData);switchStaticGeometry(mesh,new Geometry(mesh.name+'-lazy-coarse',scene,data));original.dispose();}}const sphere=mesh.getBoundingInfo().boundingSphere;items.push({mesh,fine:null,build,coarse:mesh.geometry!,high:null,center:sphere.centerWorld.clone(),radius:sphere.radiusWorld,near:false,lastNear:0});mesh.metadata={...mesh.metadata,mobileCoarseIndices:mesh.getTotalIndices(),mobileFine:false,mobileLazyArchitecture:true};return;}
   if(mesh.getTotalVertices()<12000||mesh.material?.alpha!==1)return;
   const fine=VertexData.ExtractFromMesh(mesh);if(!fine.positions||!fine.indices)return;
   // MergeMeshes may share a large index buffer. Keep only this mesh's actual submesh ranges.
@@ -15,8 +16,8 @@ export function mobileArchitecture(scene:Scene){
   const sphere=mesh.getBoundingInfo().boundingSphere;items.push({mesh,fine,coarse,high:null,center:sphere.centerWorld.clone(),radius:sphere.radiusWorld,near:false,lastNear:0});mesh.metadata={...mesh.metadata,mobileFineIndices:fine.indices.length,mobileCoarseIndices:coarseData.indices.length,mobileFine:false};
  }
  function update(eye:Vector3,now:number){if(now-last<200)return;last=now;let uploaded=false;
-  for(const a of items){const distance=Math.hypot(eye.x-a.center.x,eye.y-a.center.y,eye.z-a.center.z)-a.radius,wanted=distance<(a.near?34:27);if(wanted){a.lastNear=now;if(!a.near&&!uploaded){a.high??=new Geometry(a.mesh.name+'-mobile-fine',scene,a.fine);switchStaticGeometry(a.mesh,a.high);a.near=true;uploaded=true;}}else if(a.near){switchStaticGeometry(a.mesh,a.coarse);a.near=false;}if(!wanted&&a.high&&now-a.lastNear>15000){a.high.dispose();a.high=null;}a.mesh.metadata.mobileFine=a.near;}
+  for(const a of items){const distance=Math.hypot(eye.x-a.center.x,eye.y-a.center.y,eye.z-a.center.z)-a.radius,wanted=distance<(a.near?34:27);if(wanted){a.lastNear=now;if(!a.near&&!uploaded){if(!a.high){a.fine??=a.build!();a.mesh.metadata.mobileFineIndices=a.fine.indices?.length??0;a.high=new Geometry(a.mesh.name+'-mobile-fine',scene,a.fine);}switchStaticGeometry(a.mesh,a.high);a.near=true;uploaded=true;}}else if(a.near){switchStaticGeometry(a.mesh,a.coarse);a.near=false;}if(!wanted&&a.high&&now-a.lastNear>15000){a.high.dispose();a.high=null;if(a.build)a.fine=null;}a.mesh.metadata.mobileFine=a.near;}
   scene.metadata??={};scene.metadata.mobileArchitecture={groups:items.length,fine:items.filter(x=>x.near).length,residentFine:items.filter(x=>x.high).length,coarseIndices:items.reduce((n,x)=>n+(x.mesh.metadata.mobileCoarseIndices??0),0),fineIndices:items.reduce((n,x)=>n+(x.mesh.metadata.mobileFineIndices??0),0)};
  }
- scene.onDisposeObservable.addOnce(()=>{for(const a of items){a.high?.dispose();a.coarse.dispose();}items.length=0;});return{add,update};
+ scene.onDisposeObservable.addOnce(()=>{for(const a of items){a.high?.dispose();a.coarse.dispose();}items.length=0;});return{add,update,release(){for(const a of items){switchStaticGeometry(a.mesh,a.coarse);a.high?.dispose();a.high=null;if(a.build)a.fine=null;a.near=false;a.mesh.metadata.mobileFine=false;}last=-Infinity;scene.metadata??={};scene.metadata.mobileArchitecture={...scene.metadata.mobileArchitecture,fine:0,residentFine:0};}};
 }

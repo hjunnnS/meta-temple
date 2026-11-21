@@ -1,0 +1,556 @@
+{
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "realPhone": false,
+  "temperatureMeasured": false,
+  "panels": [
+    {
+      "name": "welcome",
+      "viewport": [
+        393,
+        660
+      ],
+      "bounds": {
+        "x": 12,
+        "y": 99,
+        "width": 369,
+        "height": 144.390625
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "guide-free",
+          "label": "자유롭게 둘러보기",
+          "width": 124.671875,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-with-monk",
+          "label": "스님에게 안내받기",
+          "width": 124.671875,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "private-compact",
+      "viewport": [
+        393,
+        660
+      ],
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "private-menu-open",
+          "label": "공간 메뉴",
+          "width": 101.8125,
+          "height": 48,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "private-menu",
+      "viewport": [
+        393,
+        660
+      ],
+      "bounds": {
+        "x": 12,
+        "y": 163,
+        "width": 369,
+        "height": 334
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "닫기",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "private-room-settings",
+          "label": "환경 설정",
+          "width": 159.5,
+          "height": 52,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "private-scenery-open",
+          "label": "창밖 풍경",
+          "width": 159.5,
+          "height": 52,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "private-camera-toggle",
+          "label": "1인칭 보기",
+          "width": 159.5,
+          "height": 52,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "private-bow",
+          "label": "절하기",
+          "width": 159.5,
+          "height": 52,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "private-meditate",
+          "label": "명상하기",
+          "width": 159.5,
+          "height": 52,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "private-display-open",
+          "label": "내 아이템 배치",
+          "width": 159.5,
+          "height": 52,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "private-room-exit",
+          "label": "사찰로 돌아가기",
+          "width": 327,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "scenery-picker",
+      "viewport": [
+        393,
+        660
+      ],
+      "bounds": {
+        "x": 16,
+        "y": 131.796875,
+        "width": 361,
+        "height": 396.40625
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "뒤로",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "연못",
+          "width": 50.234375,
+          "height": 47,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "도심 야경",
+          "width": 78.234375,
+          "height": 47,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "한강뷰",
+          "width": 62.34375,
+          "height": 47,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "밤바다",
+          "width": 62.34375,
+          "height": 47,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "단풍 산",
+          "width": 66.125,
+          "height": 47,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "눈 덮인 산",
+          "width": 82.015625,
+          "height": 47,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "닫기",
+          "width": 68.234375,
+          "height": 45,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    }
+  ],
+  "privateProfiles": [
+    {
+      "label": "연못",
+      "frames": 40,
+      "publicFrames": 0,
+      "sceneCount": 2,
+      "meshes": 87,
+      "materials": 34,
+      "drawCalls": 84.5,
+      "indices": 162820.5,
+      "mainThreadSubmitMs": 1.7950000032782554,
+      "retainedPublicMeshes": 3236,
+      "retainedPublicVertices": 1793755,
+      "vertices": 41343,
+      "glow": [],
+      "topActive": [
+        {
+          "name": "retreat-altar-brass-edge_merged",
+          "indices": 28650
+        },
+        {
+          "name": "retreat-flower_merged",
+          "indices": 17280
+        },
+        {
+          "name": "retreat-candle_merged",
+          "indices": 3936
+        },
+        {
+          "name": "private-visitor-face",
+          "indices": 3600
+        },
+        {
+          "name": "private-visitor-hair-cap",
+          "indices": 1920
+        },
+        {
+          "name": "retreat-flame",
+          "indices": 1728
+        },
+        {
+          "name": "retreat-flame",
+          "indices": 1728
+        },
+        {
+          "name": "private-visitor-cloth-button",
+          "indices": 1728
+        }
+      ]
+    },
+    {
+      "label": "도심 야경",
+      "frames": 40,
+      "publicFrames": 0,
+      "sceneCount": 2,
+      "meshes": 139,
+      "materials": 57,
+      "drawCalls": 210.25,
+      "indices": 4292074.5,
+      "mainThreadSubmitMs": 3.4025000050663947,
+      "retainedPublicMeshes": 3236,
+      "retainedPublicVertices": 1793755,
+      "vertices": 44928,
+      "glow": [
+        {
+          "name": "scenery-city-glow",
+          "enabled": true
+        }
+      ],
+      "topActive": [
+        {
+          "name": "retreat-altar-brass-edge_merged",
+          "indices": 28650
+        },
+        {
+          "name": "retreat-flower_merged",
+          "indices": 17280
+        },
+        {
+          "name": "scenery-sky-dome",
+          "indices": 8112
+        },
+        {
+          "name": "retreat-candle_merged",
+          "indices": 3936
+        },
+        {
+          "name": "private-visitor-face",
+          "indices": 3600
+        },
+        {
+          "name": "private-visitor-hair-cap",
+          "indices": 1920
+        },
+        {
+          "name": "retreat-flame",
+          "indices": 1728
+        },
+        {
+          "name": "retreat-flame",
+          "indices": 1728
+        }
+      ]
+    },
+    {
+      "label": "한강뷰",
+      "frames": 40,
+      "publicFrames": 0,
+      "sceneCount": 2,
+      "meshes": 152,
+      "materials": 68,
+      "drawCalls": 119.875,
+      "indices": 1690701,
+      "mainThreadSubmitMs": 2.654999998211861,
+      "retainedPublicMeshes": 3236,
+      "retainedPublicVertices": 1793755,
+      "vertices": 54625,
+      "glow": [],
+      "topActive": [
+        {
+          "name": "scenery-water-surface",
+          "indices": 55296
+        },
+        {
+          "name": "retreat-altar-brass-edge_merged",
+          "indices": 28650
+        },
+        {
+          "name": "retreat-flower_merged",
+          "indices": 17280
+        },
+        {
+          "name": "scenery-sky-dome",
+          "indices": 8112
+        },
+        {
+          "name": "retreat-candle_merged",
+          "indices": 3936
+        },
+        {
+          "name": "private-visitor-face",
+          "indices": 3600
+        },
+        {
+          "name": "private-visitor-hair-cap",
+          "indices": 1920
+        },
+        {
+          "name": "retreat-flame",
+          "indices": 1728
+        }
+      ]
+    },
+    {
+      "label": "단풍 산",
+      "frames": 40,
+      "publicFrames": 0,
+      "sceneCount": 2,
+      "meshes": 104,
+      "materials": 49,
+      "drawCalls": 96.25,
+      "indices": 2351074.5,
+      "mainThreadSubmitMs": 1.99500000923872,
+      "retainedPublicMeshes": 3236,
+      "retainedPublicVertices": 1793755,
+      "vertices": 66895,
+      "glow": [],
+      "topActive": [
+        {
+          "name": "scenery-mountain-terrain",
+          "indices": 135000
+        },
+        {
+          "name": "retreat-altar-brass-edge_merged",
+          "indices": 28650
+        },
+        {
+          "name": "retreat-flower_merged",
+          "indices": 17280
+        },
+        {
+          "name": "scenery-sky-dome",
+          "indices": 8112
+        },
+        {
+          "name": "retreat-candle_merged",
+          "indices": 3936
+        },
+        {
+          "name": "private-visitor-face",
+          "indices": 3600
+        },
+        {
+          "name": "private-visitor-hair-cap",
+          "indices": 1920
+        },
+        {
+          "name": "retreat-flame",
+          "indices": 1728
+        }
+      ]
+    },
+    {
+      "label": "눈 덮인 산",
+      "frames": 40,
+      "publicFrames": 0,
+      "sceneCount": 2,
+      "meshes": 107,
+      "materials": 45,
+      "drawCalls": 98.25,
+      "indices": 2031058.5,
+      "mainThreadSubmitMs": 2.035000003874302,
+      "retainedPublicMeshes": 3236,
+      "retainedPublicVertices": 1793755,
+      "vertices": 67235,
+      "glow": [],
+      "topActive": [
+        {
+          "name": "scenery-mountain-terrain",
+          "indices": 135000
+        },
+        {
+          "name": "retreat-altar-brass-edge_merged",
+          "indices": 28650
+        },
+        {
+          "name": "retreat-flower_merged",
+          "indices": 17280
+        },
+        {
+          "name": "scenery-sky-dome",
+          "indices": 8112
+        },
+        {
+          "name": "retreat-candle_merged",
+          "indices": 3936
+        },
+        {
+          "name": "private-visitor-face",
+          "indices": 3600
+        },
+        {
+          "name": "private-visitor-hair-cap",
+          "indices": 1920
+        },
+        {
+          "name": "retreat-flame",
+          "indices": 1728
+        }
+      ]
+    },
+    {
+      "label": "연못",
+      "frames": 40,
+      "publicFrames": 0,
+      "sceneCount": 2,
+      "meshes": 87,
+      "materials": 34,
+      "drawCalls": 84.5,
+      "indices": 162820.5,
+      "mainThreadSubmitMs": 1.7125000059604645,
+      "retainedPublicMeshes": 3236,
+      "retainedPublicVertices": 1793755,
+      "vertices": 41343,
+      "glow": [],
+      "topActive": [
+        {
+          "name": "retreat-altar-brass-edge_merged",
+          "indices": 28650
+        },
+        {
+          "name": "retreat-flower_merged",
+          "indices": 17280
+        },
+        {
+          "name": "retreat-candle_merged",
+          "indices": 3936
+        },
+        {
+          "name": "private-visitor-face",
+          "indices": 3600
+        },
+        {
+          "name": "private-visitor-hair-cap",
+          "indices": 1920
+        },
+        {
+          "name": "retreat-flame",
+          "indices": 1728
+        },
+        {
+          "name": "retreat-flame",
+          "indices": 1728
+        },
+        {
+          "name": "private-visitor-cloth-button",
+          "indices": 1728
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "reloads": 0,
+  "entryElapsedMs": 6227,
+  "scenesAfterExit": 1,
+  "completed": true
+}

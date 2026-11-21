@@ -1,0 +1,151 @@
+{
+  "kind": "webkit",
+  "url": "http://127.0.0.1:4355",
+  "realIPhone": false,
+  "temperatureMeasured": false,
+  "gpuTimeMeasured": false,
+  "rows": [
+    {
+      "time": "day",
+      "mode": "baseline",
+      "budget": {
+        "level": 0,
+        "idle": false,
+        "fps": 20,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true
+      },
+      "frames": 60,
+      "mainThreadSubmitMsMean": 8.25,
+      "mainThreadSubmitMsP95": 11,
+      "drawCallsMean": 388.8333333333333,
+      "activeMeshesMean": 368,
+      "activeTriangleIndicesMean": 4573771,
+      "totalMeshes": 3127,
+      "materials": 690,
+      "geometryVertices": 1600779,
+      "ambientRoots": 20,
+      "architectureVertices": 1065350,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    },
+    {
+      "time": "day",
+      "mode": "baseline",
+      "budget": {
+        "level": 0,
+        "idle": false,
+        "fps": 20,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true
+      },
+      "frames": 60,
+      "mainThreadSubmitMsMean": 8.5,
+      "mainThreadSubmitMsP95": 11,
+      "drawCallsMean": 388.8333333333333,
+      "activeMeshesMean": 368,
+      "activeTriangleIndicesMean": 4573771,
+      "totalMeshes": 3127,
+      "materials": 690,
+      "geometryVertices": 1400019,
+      "ambientRoots": 20,
+      "architectureVertices": 1065350,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    },
+    {
+      "time": "night",
+      "mode": "baseline",
+      "budget": {
+        "level": 0,
+        "idle": false,
+        "fps": 20,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true
+      },
+      "frames": 60,
+      "mainThreadSubmitMsMean": 7.4,
+      "mainThreadSubmitMsP95": 11,
+      "drawCallsMean": 401.3333333333333,
+      "activeMeshesMean": 381,
+      "activeTriangleIndicesMean": 4575241,
+      "totalMeshes": 3127,
+      "materials": 690,
+      "geometryVertices": 1400019,
+      "ambientRoots": 20,
+      "architectureVertices": 1065350,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    },
+    {
+      "time": "night",
+      "mode": "baseline",
+      "budget": {
+        "level": 0,
+        "idle": false,
+        "fps": 20,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true
+      },
+      "frames": 60,
+      "mainThreadSubmitMsMean": 8.6,
+      "mainThreadSubmitMsP95": 12,
+      "drawCallsMean": 401.3333333333333,
+      "activeMeshesMean": 381,
+      "activeTriangleIndicesMean": 4575241,
+      "totalMeshes": 3127,
+      "materials": 690,
+      "geometryVertices": 1400019,
+      "ambientRoots": 20,
+      "architectureVertices": 1065350,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "completed": true
+}

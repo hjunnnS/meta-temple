@@ -1,0 +1,36 @@
+import{chromium,devices}from'playwright';
+import{mkdir,writeFile}from'node:fs/promises';
+import{enterTrial,exposeScene,go}from'./trial-helpers.mjs';
+const out=process.env.REVIEW_OUT??'evidence/mobile-review-20261121/ui-private';await mkdir(out,{recursive:true});
+process.env.TRIAL_URL??='https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site';
+const browser=await chromium.launch({channel:'chrome'}),context=await browser.newContext({...devices['iPhone 14 Pro'],reducedMotion:'no-preference'}),page=await context.newPage();
+const report={url:process.env.TRIAL_URL,realPhone:false,temperatureMeasured:false,panels:[],privateProfiles:[],errors:[],reloads:0};let navigations=0;
+page.on('pageerror',e=>report.errors.push(e.message));page.on('framenavigated',f=>{if(f===page.mainFrame())navigations++;});page.setDefaultTimeout(20000);
+async function capture(name,selector){await page.locator(selector).first().waitFor({state:'visible'});await page.waitForTimeout(250);const data=await page.locator(selector).first().evaluate(root=>{
+ const shown=e=>{const r=e.getBoundingClientRect(),s=getComputedStyle(e);return r.width>0&&r.height>0&&s.visibility!=='hidden'&&s.display!=='none';};
+ const controls=[...root.querySelectorAll('button,input,select,summary,a')].filter(shown).map(e=>{const r=e.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2,hit=document.elementFromPoint(x,y);return{id:e.id,label:(e.getAttribute('aria-label')||e.textContent||e.type).trim().slice(0,65),width:r.width,height:r.height,small:r.width<43||r.height<43,centerOnScreen:x>=0&&y>=0&&x<innerWidth&&y<innerHeight,covered:x>=0&&y>=0&&x<innerWidth&&y<innerHeight&&!e.contains(hit)&&!hit?.contains(e)};});
+ const tiny=[];const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);while(w.nextNode()){const e=w.currentNode.parentElement,text=w.currentNode.textContent.trim();if(text&&shown(e)&&!e.closest('option,script,style,svg')&&parseFloat(getComputedStyle(e).fontSize)<14)tiny.push({text:text.slice(0,90),px:getComputedStyle(e).fontSize});}
+ const r=root.getBoundingClientRect();return{viewport:[innerWidth,innerHeight],bounds:{x:r.x,y:r.y,width:r.width,height:r.height},pageOverflow:document.documentElement.scrollWidth>innerWidth+1,rootOverflow:root.scrollWidth>root.clientWidth+2,controls,tiny};});
+ report.panels.push({name,...data});await page.screenshot({path:out+'/'+name+'.jpg',quality:83});console.log('panel',name,JSON.stringify({small:data.controls.filter(x=>x.small).length,covered:data.controls.filter(x=>x.covered).length,tiny:data.tiny.length,overflow:data.pageOverflow||data.rootOverflow}));
+}
+async function esc(){await page.keyboard.press('Escape');}
+try{
+ const began=Date.now();await enterTrial(page);report.entryElapsedMs=Date.now()-began;await capture('welcome','#guide-welcome');await page.locator('#guide-free').click();await exposeScene(page);
+ if(!process.env.REVIEW_PRIVATE_ONLY){
+ for(const [name,width,height]of[['portrait',393,852],['small',320,740],['landscape',852,393]]){
+  await page.setViewportSize({width,height});await capture(name+'-dock','#service-dock');
+  await page.locator('#spaces-open').tap();await capture(name+'-map','#spaces-panel');await esc();
+  await page.locator('#practice-open').tap();await capture(name+'-practice','#practice-panel');await esc();
+  await page.locator('#menu-open').tap();await capture(name+'-menu','#menu-panel');await page.locator('#settings').click();await capture(name+'-settings','#settings-panel');await esc();
+ }
+ await page.setViewportSize({width:393,height:852});await page.locator('#menu-open').tap();await page.locator('#guide-open').click();await capture('guide-picker','#guide-picker');await page.locator('#guide-course-health').click();await capture('guide-course','#guide-card');await page.locator('#guide-exit').click();
+ await page.locator('#place').evaluate(e=>{e.value='teaSeated';e.dispatchEvent(new Event('change'));});await page.waitForFunction(()=>document.querySelector('#tea-break')?.dataset.phase==='seated');await capture('coffee-compact','#tea-break');await page.locator('#tea-order-open').tap();await capture('coffee-order','#tea-order-dialog');await page.locator('#tea-order-close').tap();await page.locator('#tea-stand').tap();await page.waitForFunction(()=>document.querySelector('#tea-break')?.dataset.phase==='idle');
+ }
+ await go(page,'private');await page.locator('#private-gate-action').click();await page.locator('#private-menu-open:visible,#trial-start:visible').first().waitFor();if(await page.locator('#trial-start').isVisible())await page.locator('#trial-start').click();await page.locator('#private-menu-open').waitFor();await capture('private-compact','#private-room-controls');
+ await page.locator('#private-menu-open').tap();await capture('private-menu','#private-room-menu');await page.locator('#private-scenery-open').click();await capture('scenery-picker','#private-scenery-dialog');await esc();
+ for(const label of ['연못','도심 야경','한강뷰','단풍 산','눈 덮인 산','연못']){
+  await page.locator('#private-menu-open').tap();await page.locator('#private-scenery-open').click();await page.locator('#private-scenery-dialog button').filter({hasText:new RegExp('^'+label+'$')}).click();await page.waitForTimeout(2000);
+  const metrics=await page.evaluate(async()=>{const e=trialScene.getEngine(),s=e.scenes.at(-1),rows=[];let begin=0,draw=0,publicFrames=0;const publicObs=trialScene.onAfterRenderObservable.add(()=>publicFrames++),a=s.onBeforeRenderObservable.add(()=>{begin=performance.now();draw=e._drawCalls.current;},-1,true),b=s.onAfterRenderObservable.add(()=>rows.push({cpu:performance.now()-begin,draw:e._drawCalls.current-draw,indices:s.getActiveIndices()}));await new Promise(r=>setTimeout(r,2000));s.onBeforeRenderObservable.remove(a);s.onAfterRenderObservable.remove(b);trialScene.onAfterRenderObservable.remove(publicObs);const avg=k=>rows.reduce((n,x)=>n+x[k],0)/rows.length;return{frames:rows.length,publicFrames,sceneCount:e.scenes.length,meshes:s.meshes.length,materials:s.materials.length,drawCalls:avg('draw'),indices:avg('indices'),mainThreadSubmitMs:avg('cpu'),retainedPublicMeshes:trialScene.meshes.length,retainedPublicVertices:trialScene.geometries.reduce((n,g)=>n+g.getTotalVertices(),0),vertices:s.geometries.reduce((n,g)=>n+g.getTotalVertices(),0),glow:s.effectLayers.map(x=>({name:x.name,enabled:x.isEnabled})),topActive:s.getActiveMeshes().data.slice(0,s.getActiveMeshes().length).map(m=>({name:m.name,indices:m.subMeshes?.reduce((n,x)=>n+x.indexCount,0)||0})).sort((a,b)=>b.indices-a.indices).slice(0,8)};});report.privateProfiles.push({label,...metrics});console.log('private',label,JSON.stringify(metrics));await page.screenshot({path:out+'/scenery-'+report.privateProfiles.length+'.jpg',quality:83});
+ }
+ await page.locator('#private-menu-open').tap();await page.locator('#private-room-exit').click();report.scenesAfterExit=await page.evaluate(()=>trialScene.getEngine().scenes.length);report.reloads=navigations-1;report.completed=true;
+}catch(e){report.failure=String(e);console.log('FAIL',String(e));await page.screenshot({path:out+'/failure.jpg'}).catch(()=>{});}finally{await writeFile(out+'/result.json',JSON.stringify(report,null,2));await context.close();await browser.close();}

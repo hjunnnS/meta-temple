@@ -111,3 +111,17 @@ body.offering-visible:not(.in-private-room) #public-touch-stick{display:none!imp
  body.service-ui[data-compact-viewport=true] .service-map-layout{grid-template-columns:1fr}
  body.service-ui[data-compact-viewport=true] .service-place-list{max-height:114px}
 }
+
+/* Mobile follow-up: retain readable controls without permanent landscape overlays. */
+.ceremony-compact{display:none}
+.service-map-scroll-hint{margin:5px 0 8px;color:#526b50;font-size:14px;line-height:1.5}
+.service-map-scroll-hint[hidden]{display:none}
+.service-place-list{scrollbar-width:thin;scrollbar-color:#73866a #e8eddd;scroll-padding-block:5px}
+.service-group-items button[aria-pressed=true]{color:#294737;background:#e1ead8;border:2px solid #466742;font-weight:600}
+@media(pointer:coarse) and (max-height:500px){
+ body.service-ui .ceremony-board{padding:0;border:0;background:transparent;max-width:150px;box-shadow:none}
+ body.service-ui .ceremony-board>:not(.ceremony-compact){display:none!important}
+ body.service-ui .ceremony-compact{display:block;min-height:44px;max-width:150px;margin:0;padding:8px 12px;border:1px solid #b9c1a3;border-radius:22px;background:#f7f4e9;color:#294737;font:inherit;font-size:14px;line-height:1.4}
+}
+
+@media(pointer:coarse) and (max-width:360px){.service-map-categories{grid-template-columns:repeat(2,minmax(0,1fr))}.service-map-categories>button:last-child{grid-column:1/-1}.service-map-categories button{overflow-wrap:normal;hyphens:auto}}

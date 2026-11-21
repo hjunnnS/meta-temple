@@ -1,0 +1,40 @@
+{
+  "realPhone": false,
+  "scrolledMapButtonWorks": "천왕문",
+  "mapPosition": "선택한 장소 · 천왕문",
+  "brief": {
+    "input": [
+      18,
+      18
+    ],
+    "label": [
+      323,
+      24
+    ],
+    "checked": false,
+    "labelTapToggles": true
+  },
+  "settingsLabels": [
+    {
+      "text": "전체 무음",
+      "width": 327,
+      "height": 50
+    },
+    {
+      "text": "공간음 켜기",
+      "width": 327,
+      "height": 50
+    },
+    {
+      "text": "반짝임 완화",
+      "width": 327,
+      "height": 50
+    }
+  ],
+  "sea": {
+    "frames": 40,
+    "drawCalls": 89.25,
+    "meshes": 96
+  },
+  "completed": true
+}

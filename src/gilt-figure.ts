@@ -1,3 +1,6 @@
+import{characterShape}from'./shared-character-geometry';
+import{mobileDevice}from'./mobile-profile';
+import{deferStaticGeometry}from'./lazy-static-geometry';
 import { sculptedFace } from './sculpted-face.ts';
 import { Scene } from '@babylonjs/core/scene';
 import { Curve3 } from '@babylonjs/core/Maths/math.path';
@@ -17,12 +20,13 @@ export function seatedFigure(scene:Scene, meshes:Mesh[], x:number,y:number,z:num
   mesh.receiveShadows=true;meshes.push(mesh);return mesh;
  };
  const bead=(name:string,px:number,py:number,pz:number,w:number,h:number,d:number,m=gold)=>{
-  const mesh=place(MeshBuilder.CreateSphere(name,{diameter:1,segments:12},scene),m);
+  const build=()=>MeshBuilder.CreateSphere(name,{diameter:1,segments:12},scene);const mesh=place(mobileDevice()?characterShape(scene,'gilt-bead-12',name,build):build(),m);
   mesh.position.addInPlace(new Vector3(px,py,pz).scale(scale));mesh.scaling.set(w*scale,h*scale,d*scale);return mesh;
  };
  function casting(name:string,profile:Profile,sections:number,rings:number,
   shape:(px:number,py:number,pz:number,a:number)=>number[],material:StandardMaterial){
-  const positions:number[]=[],indices:number[]=[],uvs:number[]=[];
+  function build(columns:number,rows:number){
+  const sections=columns,rings=rows;const positions:number[]=[],indices:number[]=[],uvs:number[]=[];
   for(let j=0;j<=rings;j++){
    const h=profile[0][0]+(profile.at(-1)![0]-profile[0][0])*j/rings;
    let k=0;while(k<profile.length-2&&h>profile[k+1][0])k++;
@@ -34,8 +38,11 @@ export function seatedFigure(scene:Scene, meshes:Mesh[], x:number,y:number,z:num
     if(j<rings){const v=j*sections+i,n=j*sections+(i+1)%sections;indices.push(v,n,v+sections,n,n+sections,v+sections);}
    }
   }
-  const mesh=place(new Mesh(name,scene),material),data=new VertexData(),normals:number[]=[];
-  data.uvs=uvs;data.positions=positions;data.indices=indices;VertexData.ComputeNormals(positions,indices,normals);data.normals=normals;data.applyToMesh(mesh);
+  const mesh=new Mesh(name,scene),data=new VertexData(),normals:number[]=[];
+  data.uvs=uvs;data.positions=positions;data.indices=indices;VertexData.ComputeNormals(positions,indices,normals);data.normals=normals;data.applyToMesh(mesh);return mesh;
+  }
+  const deferred=mobileDevice(),mesh=place(build(deferred?Math.min(48,sections):sections,deferred?Math.min(28,rings):rings),material);
+  if(deferred)deferStaticGeometry(mesh,()=>build(sections,rings),sections*(rings+1));
  }
  place(sculptedFace(scene,faceGold),faceGold);
  for(const sign of [-1,1]){

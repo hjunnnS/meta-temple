@@ -1,0 +1,185 @@
+[
+  {
+    "kind": "webkit",
+    "realPhone": false,
+    "temperatureMeasured": false,
+    "errors": [],
+    "entryElapsedMs": 6198,
+    "initial": {
+      "vertices": 1464671,
+      "lazy": 27,
+      "tasks": []
+    },
+    "farRoof": {
+      "fine": false,
+      "vertices": 26521
+    },
+    "nearRoof": {
+      "fine": true,
+      "vertices": 40272,
+      "indices": 186060,
+      "drawn": 186060
+    },
+    "nearActor": {
+      "visible": 53,
+      "far": 0,
+      "phase": 9.192999999999998
+    },
+    "farActor": {
+      "visible": 6,
+      "far": 6,
+      "phase": 11.49200000000001
+    },
+    "restoredActor": {
+      "visible": 53,
+      "far": 0,
+      "phase": 14.175000000000034
+    },
+    "shadow": {
+      "all": 818,
+      "near": 77
+    },
+    "selected": "선택한 장소 · 19 · 시간과 공간의 방",
+    "brief": {
+      "x": 35,
+      "y": 326.859375,
+      "width": 323,
+      "height": 44
+    },
+    "schedule": {
+      "x": 32,
+      "y": 68,
+      "width": 90.34375,
+      "height": 44
+    },
+    "beforePrivate": {
+      "vertices": 2072033,
+      "fine": 6,
+      "meshes": 3127
+    },
+    "privateMemory": {
+      "vertices": 1230223,
+      "fine": 0,
+      "meshes": 3127
+    },
+    "city": {
+      "glows": 0,
+      "traffic": [
+        {
+          "name": "scenery-moving-traffic-batch",
+          "instances": 18
+        }
+      ]
+    },
+    "afterPrivate": {
+      "vertices": 1270495,
+      "fine": 1,
+      "meshes": 3127
+    },
+    "privateRoundTrips": 3,
+    "invalid": [],
+    "sdkDiagnostics": [
+      "Wrong protocol for WebSocket '[object Object]'",
+      "Wrong protocol for WebSocket '[object Object]'",
+      "Wrong protocol for WebSocket '[object Object]'",
+      "Wrong protocol for WebSocket '[object Object]'"
+    ],
+    "passed": true
+  },
+  {
+    "kind": "chromium",
+    "realPhone": false,
+    "temperatureMeasured": false,
+    "errors": [],
+    "entryElapsedMs": 5651,
+    "initial": {
+      "vertices": 1464671,
+      "lazy": 27,
+      "tasks": [
+        57,
+        71,
+        95,
+        67,
+        213,
+        208,
+        184,
+        76,
+        151,
+        61,
+        106,
+        103,
+        126
+      ]
+    },
+    "farRoof": {
+      "fine": false,
+      "vertices": 26521
+    },
+    "nearRoof": {
+      "fine": true,
+      "vertices": 40272,
+      "indices": 186060,
+      "drawn": 186060
+    },
+    "nearActor": {
+      "visible": 53,
+      "far": 0,
+      "phase": 9.181800000011918
+    },
+    "farActor": {
+      "visible": 6,
+      "far": 6,
+      "phase": 11.481500000059608
+    },
+    "restoredActor": {
+      "visible": 53,
+      "far": 0,
+      "phase": 14.181500000059623
+    },
+    "shadow": {
+      "all": 818,
+      "near": 77
+    },
+    "selected": "선택한 장소 · 19 · 시간과 공간의 방",
+    "brief": {
+      "x": 35,
+      "y": 326.859375,
+      "width": 323,
+      "height": 44
+    },
+    "schedule": {
+      "x": 32,
+      "y": 68,
+      "width": 90.34375,
+      "height": 44
+    },
+    "beforePrivate": {
+      "vertices": 2072033,
+      "fine": 6,
+      "meshes": 3127
+    },
+    "privateMemory": {
+      "vertices": 1230223,
+      "fine": 0,
+      "meshes": 3127
+    },
+    "city": {
+      "glows": 0,
+      "traffic": [
+        {
+          "name": "scenery-moving-traffic-batch",
+          "instances": 18
+        }
+      ]
+    },
+    "afterPrivate": {
+      "vertices": 1230223,
+      "fine": 0,
+      "meshes": 3127
+    },
+    "privateRoundTrips": 3,
+    "invalid": [],
+    "sdkDiagnostics": [],
+    "passed": true
+  }
+]
