@@ -1,0 +1,1041 @@
+{
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "results": [
+    {
+      "kind": "webkit",
+      "idle": {
+        "canvas": 1,
+        "engineLoaded": true
+      },
+      "entryMs": 2540,
+      "settings": {
+        "mobile": true,
+        "cap": null,
+        "antialias": true,
+        "shadow": [
+          {
+            "size": 4096,
+            "refresh": 1,
+            "filter": 0
+          }
+        ],
+        "render": {
+          "width": 393,
+          "height": 660
+        },
+        "architecture": [
+          {
+            "vertices": 34664
+          },
+          {
+            "vertices": 55374
+          },
+          {
+            "vertices": 72198
+          },
+          {
+            "vertices": 27768
+          },
+          {
+            "vertices": 1464
+          },
+          {
+            "vertices": 14696
+          },
+          {
+            "vertices": 397920
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 3888
+          },
+          {
+            "vertices": 792
+          },
+          {
+            "vertices": 1083
+          },
+          {
+            "vertices": 19023
+          },
+          {
+            "vertices": 25640
+          },
+          {
+            "vertices": 1089
+          },
+          {
+            "vertices": 1062
+          },
+          {
+            "vertices": 31050
+          },
+          {
+            "vertices": 612
+          },
+          {
+            "vertices": 66270
+          },
+          {
+            "vertices": 144
+          },
+          {
+            "vertices": 53984
+          },
+          {
+            "vertices": 27528
+          },
+          {
+            "vertices": 672
+          },
+          {
+            "vertices": 2070
+          },
+          {
+            "vertices": 612
+          },
+          {
+            "vertices": 93627
+          },
+          {
+            "vertices": 171
+          },
+          {
+            "vertices": 53984
+          },
+          {
+            "vertices": 27528
+          },
+          {
+            "vertices": 696
+          },
+          {
+            "vertices": 2070
+          },
+          {
+            "vertices": 612
+          },
+          {
+            "vertices": 94662
+          },
+          {
+            "vertices": 171
+          },
+          {
+            "vertices": 53984
+          },
+          {
+            "vertices": 27528
+          },
+          {
+            "vertices": 672
+          },
+          {
+            "vertices": 2070
+          },
+          {
+            "vertices": 612
+          },
+          {
+            "vertices": 65682
+          },
+          {
+            "vertices": 144
+          },
+          {
+            "vertices": 53984
+          },
+          {
+            "vertices": 27528
+          },
+          {
+            "vertices": 672
+          },
+          {
+            "vertices": 2070
+          },
+          {
+            "vertices": 21711
+          },
+          {
+            "vertices": 53984
+          },
+          {
+            "vertices": 435
+          },
+          {
+            "vertices": 1035
+          },
+          {
+            "vertices": 204
+          },
+          {
+            "vertices": 2070
+          },
+          {
+            "vertices": 1632
+          },
+          {
+            "vertices": 48
+          },
+          {
+            "vertices": 470
+          },
+          {
+            "vertices": 19942
+          },
+          {
+            "vertices": 6136
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 2268
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 2548
+          },
+          {
+            "vertices": 24813
+          },
+          {
+            "vertices": 752
+          },
+          {
+            "vertices": 11535
+          },
+          {
+            "vertices": 208
+          },
+          {
+            "vertices": 7500
+          },
+          {
+            "vertices": 224
+          },
+          {
+            "vertices": 43276
+          },
+          {
+            "vertices": 14652
+          },
+          {
+            "vertices": 40392
+          },
+          {
+            "vertices": 35640
+          },
+          {
+            "vertices": 360
+          },
+          {
+            "vertices": 1480
+          },
+          {
+            "vertices": 1408
+          },
+          {
+            "vertices": 1456
+          },
+          {
+            "vertices": 31809
+          },
+          {
+            "vertices": 31647
+          },
+          {
+            "vertices": 31185
+          },
+          {
+            "vertices": 30954
+          },
+          {
+            "vertices": 448
+          },
+          {
+            "vertices": 3240
+          },
+          {
+            "vertices": 3600
+          },
+          {
+            "vertices": 2160
+          },
+          {
+            "vertices": 1800
+          },
+          {
+            "vertices": 1800
+          },
+          {
+            "vertices": 448
+          },
+          {
+            "vertices": 3240
+          },
+          {
+            "vertices": 3600
+          },
+          {
+            "vertices": 2160
+          },
+          {
+            "vertices": 1800
+          },
+          {
+            "vertices": 1800
+          },
+          {
+            "vertices": 4620
+          },
+          {
+            "vertices": 7392
+          },
+          {
+            "vertices": 7392
+          },
+          {
+            "vertices": 924
+          },
+          {
+            "vertices": 2716
+          },
+          {
+            "vertices": 35424
+          },
+          {
+            "vertices": 7042
+          },
+          {
+            "vertices": 410
+          },
+          {
+            "vertices": 47356
+          },
+          {
+            "vertices": 53984
+          },
+          {
+            "vertices": 4168
+          },
+          {
+            "vertices": 480
+          },
+          {
+            "vertices": 8
+          },
+          {
+            "vertices": 8
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 2760
+          },
+          {
+            "vertices": 15292
+          },
+          {
+            "vertices": 76
+          },
+          {
+            "vertices": 6792
+          },
+          {
+            "vertices": 1120
+          },
+          {
+            "vertices": 13420
+          },
+          {
+            "vertices": 7590
+          },
+          {
+            "vertices": 72417
+          },
+          {
+            "vertices": 8948
+          },
+          {
+            "vertices": 81723
+          },
+          {
+            "vertices": 4513
+          },
+          {
+            "vertices": 5271
+          },
+          {
+            "vertices": 669
+          },
+          {
+            "vertices": 4513
+          },
+          {
+            "vertices": 4513
+          },
+          {
+            "vertices": 4513
+          },
+          {
+            "vertices": 1497
+          },
+          {
+            "vertices": 115827
+          },
+          {
+            "vertices": 1080
+          },
+          {
+            "vertices": 161952
+          },
+          {
+            "vertices": 82584
+          },
+          {
+            "vertices": 4674
+          },
+          {
+            "vertices": 7680
+          },
+          {
+            "vertices": 1632
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 1176
+          },
+          {
+            "vertices": 384
+          },
+          {
+            "vertices": 2304
+          },
+          {
+            "vertices": 384
+          },
+          {
+            "vertices": 352
+          },
+          {
+            "vertices": 282
+          },
+          {
+            "vertices": 190
+          },
+          {
+            "vertices": 420
+          },
+          {
+            "vertices": 70
+          },
+          {
+            "vertices": 24
+          }
+        ],
+        "quality": "high"
+      },
+      "sample": {
+        "frames": 360,
+        "engineFrames": 360,
+        "fps": 60
+      },
+      "consecutiveEntries": 3,
+      "errors": [],
+      "sdkDiagnostics": [
+        "Wrong protocol for WebSocket '[object Object]'",
+        "Wrong protocol for WebSocket '[object Object]'",
+        "Wrong protocol for WebSocket '[object Object]'"
+      ]
+    },
+    {
+      "kind": "chromium",
+      "idle": {
+        "canvas": 1,
+        "engineLoaded": true
+      },
+      "entryMs": 2472,
+      "settings": {
+        "mobile": true,
+        "cap": null,
+        "antialias": true,
+        "shadow": [
+          {
+            "size": 1024,
+            "refresh": 1,
+            "filter": 0
+          }
+        ],
+        "render": {
+          "width": 341,
+          "height": 573
+        },
+        "architecture": [
+          {
+            "vertices": 34664
+          },
+          {
+            "vertices": 55374
+          },
+          {
+            "vertices": 72198
+          },
+          {
+            "vertices": 27768
+          },
+          {
+            "vertices": 1464
+          },
+          {
+            "vertices": 14696
+          },
+          {
+            "vertices": 397920
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 3888
+          },
+          {
+            "vertices": 792
+          },
+          {
+            "vertices": 1083
+          },
+          {
+            "vertices": 19023
+          },
+          {
+            "vertices": 25640
+          },
+          {
+            "vertices": 1089
+          },
+          {
+            "vertices": 1062
+          },
+          {
+            "vertices": 31050
+          },
+          {
+            "vertices": 612
+          },
+          {
+            "vertices": 66270
+          },
+          {
+            "vertices": 144
+          },
+          {
+            "vertices": 53984
+          },
+          {
+            "vertices": 27528
+          },
+          {
+            "vertices": 672
+          },
+          {
+            "vertices": 2070
+          },
+          {
+            "vertices": 612
+          },
+          {
+            "vertices": 93627
+          },
+          {
+            "vertices": 171
+          },
+          {
+            "vertices": 53984
+          },
+          {
+            "vertices": 27528
+          },
+          {
+            "vertices": 696
+          },
+          {
+            "vertices": 2070
+          },
+          {
+            "vertices": 612
+          },
+          {
+            "vertices": 94662
+          },
+          {
+            "vertices": 171
+          },
+          {
+            "vertices": 53984
+          },
+          {
+            "vertices": 27528
+          },
+          {
+            "vertices": 672
+          },
+          {
+            "vertices": 2070
+          },
+          {
+            "vertices": 612
+          },
+          {
+            "vertices": 65682
+          },
+          {
+            "vertices": 144
+          },
+          {
+            "vertices": 53984
+          },
+          {
+            "vertices": 27528
+          },
+          {
+            "vertices": 672
+          },
+          {
+            "vertices": 2070
+          },
+          {
+            "vertices": 21711
+          },
+          {
+            "vertices": 53984
+          },
+          {
+            "vertices": 435
+          },
+          {
+            "vertices": 1035
+          },
+          {
+            "vertices": 204
+          },
+          {
+            "vertices": 2070
+          },
+          {
+            "vertices": 1632
+          },
+          {
+            "vertices": 48
+          },
+          {
+            "vertices": 470
+          },
+          {
+            "vertices": 19942
+          },
+          {
+            "vertices": 6136
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 2268
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 2548
+          },
+          {
+            "vertices": 24813
+          },
+          {
+            "vertices": 752
+          },
+          {
+            "vertices": 11535
+          },
+          {
+            "vertices": 208
+          },
+          {
+            "vertices": 7500
+          },
+          {
+            "vertices": 224
+          },
+          {
+            "vertices": 43276
+          },
+          {
+            "vertices": 14652
+          },
+          {
+            "vertices": 40392
+          },
+          {
+            "vertices": 35640
+          },
+          {
+            "vertices": 360
+          },
+          {
+            "vertices": 1480
+          },
+          {
+            "vertices": 1408
+          },
+          {
+            "vertices": 1456
+          },
+          {
+            "vertices": 31809
+          },
+          {
+            "vertices": 31647
+          },
+          {
+            "vertices": 31185
+          },
+          {
+            "vertices": 30954
+          },
+          {
+            "vertices": 448
+          },
+          {
+            "vertices": 3240
+          },
+          {
+            "vertices": 3600
+          },
+          {
+            "vertices": 2160
+          },
+          {
+            "vertices": 1800
+          },
+          {
+            "vertices": 1800
+          },
+          {
+            "vertices": 448
+          },
+          {
+            "vertices": 3240
+          },
+          {
+            "vertices": 3600
+          },
+          {
+            "vertices": 2160
+          },
+          {
+            "vertices": 1800
+          },
+          {
+            "vertices": 1800
+          },
+          {
+            "vertices": 4620
+          },
+          {
+            "vertices": 7392
+          },
+          {
+            "vertices": 7392
+          },
+          {
+            "vertices": 924
+          },
+          {
+            "vertices": 2716
+          },
+          {
+            "vertices": 35424
+          },
+          {
+            "vertices": 7042
+          },
+          {
+            "vertices": 410
+          },
+          {
+            "vertices": 47356
+          },
+          {
+            "vertices": 53984
+          },
+          {
+            "vertices": 4168
+          },
+          {
+            "vertices": 480
+          },
+          {
+            "vertices": 8
+          },
+          {
+            "vertices": 8
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 2760
+          },
+          {
+            "vertices": 15292
+          },
+          {
+            "vertices": 76
+          },
+          {
+            "vertices": 6792
+          },
+          {
+            "vertices": 1120
+          },
+          {
+            "vertices": 13420
+          },
+          {
+            "vertices": 7590
+          },
+          {
+            "vertices": 72417
+          },
+          {
+            "vertices": 8948
+          },
+          {
+            "vertices": 81723
+          },
+          {
+            "vertices": 4513
+          },
+          {
+            "vertices": 5271
+          },
+          {
+            "vertices": 669
+          },
+          {
+            "vertices": 4513
+          },
+          {
+            "vertices": 4513
+          },
+          {
+            "vertices": 4513
+          },
+          {
+            "vertices": 1497
+          },
+          {
+            "vertices": 115827
+          },
+          {
+            "vertices": 1080
+          },
+          {
+            "vertices": 161952
+          },
+          {
+            "vertices": 82584
+          },
+          {
+            "vertices": 4674
+          },
+          {
+            "vertices": 7680
+          },
+          {
+            "vertices": 1632
+          },
+          {
+            "vertices": 24
+          },
+          {
+            "vertices": 1176
+          },
+          {
+            "vertices": 384
+          },
+          {
+            "vertices": 2304
+          },
+          {
+            "vertices": 384
+          },
+          {
+            "vertices": 352
+          },
+          {
+            "vertices": 282
+          },
+          {
+            "vertices": 190
+          },
+          {
+            "vertices": 420
+          },
+          {
+            "vertices": 70
+          },
+          {
+            "vertices": 24
+          }
+        ],
+        "quality": "balanced"
+      },
+      "sample": {
+        "frames": 359,
+        "engineFrames": 359,
+        "fps": 59.833333333333336
+      },
+      "consecutiveEntries": 3,
+      "errors": [],
+      "sdkDiagnostics": []
+    }
+  ],
+  "realIPhone": false,
+  "thermalSensorMeasured": false
+}

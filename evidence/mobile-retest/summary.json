@@ -1,0 +1,34 @@
+{
+  "version": 57,
+  "overallPassed": false,
+  "entry": {
+    "webkit": 3,
+    "chromium": 3,
+    "passed": true
+  },
+  "basicMapCyclesPerEngine": 20,
+  "reducedMotionWebKit": {
+    "rapidMaps": 100,
+    "seconds": 309.406,
+    "passed": true
+  },
+  "reducedMotionChrome": {
+    "rapidMaps": 100,
+    "seconds": 309.766,
+    "flowCompleted": true,
+    "finalHarnessAssertionPassed": false,
+    "assertion": "dynamic mesh count changed; not a reload or crash"
+  },
+  "normalMotionWebKit": {
+    "passed": false,
+    "issue": "Map touch hit target becomes HTML after walk/map/menu cycle",
+    "reproducedWithKeyboardAndStickPointer": true,
+    "closedDialogs": true,
+    "entryOverlayPresent": false,
+    "focusBlurDidNotRecover": true
+  },
+  "reportedEntryScreenReloadReproduced": false,
+  "actualIPhoneTested": false,
+  "temperatureMeasured": false,
+  "productChanged": false
+}

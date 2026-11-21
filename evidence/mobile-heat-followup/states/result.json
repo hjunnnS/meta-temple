@@ -1,0 +1,169 @@
+{
+  "temperatureMeasured": false,
+  "realPhone": false,
+  "errors": [
+    "Wrong protocol for WebSocket '[object Object]'",
+    "Wrong protocol for WebSocket '[object Object]'"
+  ],
+  "requests": [],
+  "states": [
+    {
+      "label": "entry-active",
+      "frames": 100,
+      "seconds": 5.001,
+      "cap": 20,
+      "budget": {
+        "level": 0,
+        "idle": false,
+        "fps": 20,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true
+      }
+    },
+    {
+      "label": "idle",
+      "frames": 75,
+      "seconds": 5.001,
+      "cap": 15,
+      "budget": {
+        "level": 0,
+        "idle": true,
+        "fps": 15,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true
+      }
+    },
+    {
+      "label": "map-open",
+      "frames": 0,
+      "seconds": 5.001,
+      "cap": 20,
+      "budget": {
+        "level": 0,
+        "idle": false,
+        "fps": 20,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true
+      }
+    },
+    {
+      "label": "meditation",
+      "frames": 101,
+      "seconds": 5,
+      "cap": 20,
+      "budget": {
+        "level": 0,
+        "idle": false,
+        "fps": 20,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true
+      }
+    }
+  ],
+  "initial": {
+    "quality": "low",
+    "cap": 20,
+    "budget": {
+      "level": 0,
+      "idle": false,
+      "fps": 20,
+      "scale": 1,
+      "shadowFactor": 1,
+      "reflectionFactor": 1,
+      "softGlow": true
+    },
+    "canvas": [
+      280,
+      471
+    ],
+    "scripts": [
+      "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site/assets/main-FBUzXoPZ.js"
+    ],
+    "topMeshes": [
+      {
+        "name": "architecture-ridge",
+        "indices": 1413588,
+        "vertices": 41508
+      },
+      {
+        "name": "architecture-ridge",
+        "indices": 1413588,
+        "vertices": 44208
+      },
+      {
+        "name": "architecture-ridge",
+        "indices": 1413588,
+        "vertices": 44184
+      },
+      {
+        "name": "architecture-ridge",
+        "indices": 1413588,
+        "vertices": 44184
+      },
+      {
+        "name": "architecture-ridge",
+        "indices": 1413588,
+        "vertices": 44184
+      },
+      {
+        "name": "architecture-ridge",
+        "indices": 1413588,
+        "vertices": 44208
+      },
+      {
+        "name": "architecture-ridge",
+        "indices": 401544,
+        "vertices": 45522
+      },
+      {
+        "name": "architecture-ridge",
+        "indices": 401544,
+        "vertices": 45522
+      },
+      {
+        "name": "architecture-munsu-gilded-bronze",
+        "indices": 362556,
+        "vertices": 64674
+      },
+      {
+        "name": "architecture-bohyeon-gilded-bronze",
+        "indices": 362556,
+        "vertices": 64674
+      },
+      {
+        "name": "architecture-guardian-jade",
+        "indices": 357756,
+        "vertices": 65454
+      },
+      {
+        "name": "architecture-guardian-gilt",
+        "indices": 354780,
+        "vertices": 65345
+      },
+      {
+        "name": "architecture-gilded-bronze",
+        "indices": 340452,
+        "vertices": 63896
+      },
+      {
+        "name": "architecture-hair",
+        "indices": 327360,
+        "vertices": 55056
+      },
+      {
+        "name": "architecture-munsu-satin-gilt-face",
+        "indices": 322560,
+        "vertices": 53984
+      }
+    ]
+  },
+  "finished": true
+}

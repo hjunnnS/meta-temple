@@ -10,6 +10,7 @@ export function renderWhileViewing(
   onPause?: () => void,
   onResume?: () => void,
   firstFrameReady?: () => boolean,
+  viewUncovered: () => boolean = () => true,
 ) {
   let running = false;
   let pagePresent = true;
@@ -25,7 +26,7 @@ export function renderWhileViewing(
   } : render;
 
   function sync() {
-    const shouldRender = pagePresent && !document.hidden && canvasVisible;
+    const shouldRender = pagePresent && !document.hidden && canvasVisible && (preparing || viewUncovered());
     if (shouldRender === running) return;
     running = shouldRender;
     if (running) {
@@ -43,6 +44,12 @@ export function renderWhileViewing(
     observer.observe(canvas);
     window.addEventListener('pageshow',()=>observer.observe(canvas));
     window.addEventListener('pagehide',()=>observer.disconnect(),{once:true});
+  }
+  if(typeof MutationObserver!=='undefined'){
+    const observer=new MutationObserver(records=>{if(records.some(r=>(r.target as Element).matches('dialog,#offering-drawer,#practice-feedback,#private-practice-feedback')))sync();});
+    observer.observe(document.body,{subtree:true,attributes:true,attributeFilter:['open','hidden','data-state']});
+    window.addEventListener('pagehide',()=>observer.disconnect(),{once:true});
+    window.addEventListener('pageshow',()=>observer.observe(document.body,{subtree:true,attributes:true,attributeFilter:['open','hidden','data-state']}));
   }
   document.addEventListener('visibilitychange', sync);
   window.addEventListener('blur', sync);

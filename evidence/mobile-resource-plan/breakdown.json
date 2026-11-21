@@ -1,0 +1,253 @@
+{
+  "activeCount": 475,
+  "activeMaterialTotals": [
+    {
+      "material": "ridge",
+      "meshes": 6,
+      "vertices": 174132,
+      "indices": 2803716
+    },
+    {
+      "material": "satin-gilt-face",
+      "meshes": 3,
+      "vertices": 161952,
+      "indices": 967680
+    },
+    {
+      "material": "gilded-bronze",
+      "meshes": 2,
+      "vertices": 114957,
+      "indices": 621516
+    },
+    {
+      "material": "munsu-gilded-bronze",
+      "meshes": 2,
+      "vertices": 93627,
+      "indices": 524292
+    },
+    {
+      "material": "hair",
+      "meshes": 2,
+      "vertices": 82584,
+      "indices": 491040
+    },
+    {
+      "material": "munsu-satin-gilt-face",
+      "meshes": 1,
+      "vertices": 53984,
+      "indices": 322560
+    },
+    {
+      "material": "rough-masonry",
+      "meshes": 1,
+      "vertices": 43276,
+      "indices": 194112
+    },
+    {
+      "material": "gwaneum-cushion",
+      "meshes": 1,
+      "vertices": 31050,
+      "indices": 174240
+    },
+    {
+      "material": "munsu-coiffure",
+      "meshes": 1,
+      "vertices": 27528,
+      "indices": 163680
+    },
+    {
+      "material": "mountain-forest-and-earth",
+      "meshes": 1,
+      "vertices": 25921,
+      "indices": 153600
+    },
+    {
+      "material": "jade",
+      "meshes": 1,
+      "vertices": 65490,
+      "indices": 151560
+    },
+    {
+      "material": "main-hall-rafter",
+      "meshes": 1,
+      "vertices": 19942,
+      "indices": 101952
+    },
+    {
+      "material": "aged-redwood",
+      "meshes": 1,
+      "vertices": 55374,
+      "indices": 100476
+    },
+    {
+      "material": "garden-bamboo-joint",
+      "meshes": 1,
+      "vertices": 40392,
+      "indices": 99792
+    },
+    {
+      "material": "roof",
+      "meshes": 1,
+      "vertices": 14696,
+      "indices": 80412
+    },
+    {
+      "material": "lantern-granite",
+      "meshes": 1,
+      "vertices": 15292,
+      "indices": 78336
+    },
+    {
+      "material": "stone",
+      "meshes": 1,
+      "vertices": 34664,
+      "indices": 74652
+    },
+    {
+      "material": "daily-flowers",
+      "meshes": 84,
+      "vertices": 12852,
+      "indices": 64512
+    }
+  ],
+  "largestActive": [
+    {
+      "name": "architecture-ridge",
+      "vertices": 41508,
+      "indices": 1413588,
+      "subMeshes": [
+        {
+          "vertices": 41508,
+          "indices": 191856
+        }
+      ]
+    },
+    {
+      "name": "architecture-ridge",
+      "vertices": 44208,
+      "indices": 1413588,
+      "subMeshes": [
+        {
+          "vertices": 44208,
+          "indices": 395496
+        }
+      ]
+    },
+    {
+      "name": "architecture-ridge",
+      "vertices": 44184,
+      "indices": 1413588,
+      "subMeshes": [
+        {
+          "vertices": 44184,
+          "indices": 1006344
+        }
+      ]
+    },
+    {
+      "name": "architecture-ridge",
+      "vertices": 44184,
+      "indices": 1413588,
+      "subMeshes": [
+        {
+          "vertices": 44184,
+          "indices": 1209948
+        }
+      ]
+    },
+    {
+      "name": "architecture-munsu-gilded-bronze",
+      "vertices": 64674,
+      "indices": 362556,
+      "subMeshes": [
+        {
+          "vertices": 64674,
+          "indices": 362556
+        }
+      ]
+    },
+    {
+      "name": "architecture-gilded-bronze",
+      "vertices": 63896,
+      "indices": 340452,
+      "subMeshes": [
+        {
+          "vertices": 63896,
+          "indices": 340452
+        }
+      ]
+    },
+    {
+      "name": "architecture-hair",
+      "vertices": 55056,
+      "indices": 327360,
+      "subMeshes": [
+        {
+          "vertices": 55056,
+          "indices": 327360
+        }
+      ]
+    },
+    {
+      "name": "architecture-munsu-satin-gilt-face",
+      "vertices": 53984,
+      "indices": 322560,
+      "subMeshes": [
+        {
+          "vertices": 53984,
+          "indices": 322560
+        }
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "name": "sun_shadowMap",
+      "size": {
+        "width": 512,
+        "height": 512
+      },
+      "renderTarget": true,
+      "refresh": 6
+    },
+    {
+      "name": "EffectLayerMainRTT",
+      "size": {
+        "width": 512,
+        "height": 512
+      },
+      "renderTarget": true,
+      "refresh": 1
+    },
+    {
+      "name": "GlowLayerBlurRTT",
+      "size": {
+        "width": 512,
+        "height": 512
+      },
+      "renderTarget": true,
+      "refresh": 1
+    },
+    {
+      "name": "GlowLayerBlurRTT2",
+      "size": {
+        "width": 256,
+        "height": 256
+      },
+      "renderTarget": true,
+      "refresh": 1
+    },
+    {
+      "name": "pond-pagoda-reflection",
+      "size": {
+        "width": 512,
+        "height": 512
+      },
+      "renderTarget": true,
+      "refresh": 12
+    }
+  ],
+  "totalTextures": 96,
+  "totalMaterials": 688,
+  "totalVertices": 2803344
+}

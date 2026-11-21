@@ -1,0 +1,64 @@
+{
+  "kind": "webkit",
+  "url": "http://127.0.0.1:4355",
+  "realIPhone": false,
+  "temperatureMeasured": false,
+  "gpuTimeMeasured": false,
+  "rows": [
+    {
+      "time": "day",
+      "mode": "baseline",
+      "frames": 60,
+      "mainThreadSubmitMsMean": 6.5,
+      "mainThreadSubmitMsP95": 8,
+      "drawCallsMean": 562,
+      "activeMeshesMean": 477,
+      "activeTriangleIndicesMean": 15258251,
+      "totalMeshes": 2930,
+      "materials": 704,
+      "geometryVertices": 2806087,
+      "ambientRoots": 20,
+      "architectureVertices": 2585130,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    },
+    {
+      "time": "night",
+      "mode": "baseline",
+      "frames": 60,
+      "mainThreadSubmitMsMean": 6.883333333333334,
+      "mainThreadSubmitMsP95": 9,
+      "drawCallsMean": 571.8333333333334,
+      "activeMeshesMean": 490,
+      "activeTriangleIndicesMean": 14770926,
+      "totalMeshes": 2930,
+      "materials": 704,
+      "geometryVertices": 2806087,
+      "ambientRoots": 20,
+      "architectureVertices": 2585130,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    }
+  ],
+  "errors": [
+    "Wrong protocol for WebSocket '[object Object]'"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "interruptedVisitFallback": true,
+  "completedMarkerCleared": true,
+  "contextLossInjected": true,
+  "retryAvailable": true,
+  "reloadedInLowQuality": true,
+  "state": {
+    "engines": 1,
+    "maxFPS": 30,
+    "shadow": [
+      512
+    ]
+  },
+  "realPhone": false
+}

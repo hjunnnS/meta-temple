@@ -1,0 +1,120 @@
+{
+  "appLoaded": false,
+  "webGL": false,
+  "states": [
+    {
+      "stage": "before",
+      "inner": [
+        393,
+        660
+      ],
+      "visual": [
+        393,
+        660,
+        1
+      ],
+      "screen": [
+        393,
+        852
+      ],
+      "dvh": 660,
+      "bottom": 637,
+      "hit": "bottom"
+    },
+    {
+      "stage": "resized",
+      "inner": [
+        393,
+        852
+      ],
+      "visual": [
+        393,
+        660,
+        1
+      ],
+      "screen": [
+        393,
+        852
+      ],
+      "dvh": 660,
+      "bottom": 637,
+      "hit": "bottom"
+    },
+    {
+      "stage": "dialog-0",
+      "inner": [
+        393,
+        852
+      ],
+      "visual": [
+        393,
+        852,
+        1
+      ],
+      "screen": [
+        393,
+        852
+      ],
+      "dvh": 660,
+      "bottom": 637,
+      "hit": "bottom"
+    },
+    {
+      "stage": "dialog-1",
+      "inner": [
+        393,
+        852
+      ],
+      "visual": [
+        393,
+        852,
+        1
+      ],
+      "screen": [
+        393,
+        852
+      ],
+      "dvh": 660,
+      "bottom": 637,
+      "hit": "bottom"
+    },
+    {
+      "stage": "dialog-2",
+      "inner": [
+        393,
+        852
+      ],
+      "visual": [
+        393,
+        852,
+        1
+      ],
+      "screen": [
+        393,
+        852
+      ],
+      "dvh": 660,
+      "bottom": 637,
+      "hit": "bottom"
+    },
+    {
+      "stage": "dialog-3",
+      "inner": [
+        393,
+        852
+      ],
+      "visual": [
+        393,
+        852,
+        1
+      ],
+      "screen": [
+        393,
+        852
+      ],
+      "dvh": 660,
+      "bottom": 637,
+      "hit": "bottom"
+    }
+  ]
+}

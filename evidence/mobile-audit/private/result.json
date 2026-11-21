@@ -1,0 +1,110 @@
+{
+  "realIPhone": false,
+  "temperatureMeasured": false,
+  "rows": [
+    {
+      "scenery": "연못",
+      "frames": 40,
+      "sceneCount": 2,
+      "publicRetainedMeshes": 2860,
+      "privateMeshes": 87,
+      "privateMaterials": 34,
+      "drawCallsMean": 137,
+      "mainThreadSubmitMsMean": 1.825,
+      "indicesMean": 335436,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 1
+        }
+      ]
+    },
+    {
+      "scenery": "도심 야경",
+      "frames": 40,
+      "sceneCount": 2,
+      "publicRetainedMeshes": 2860,
+      "privateMeshes": 139,
+      "privateMaterials": 57,
+      "drawCallsMean": 259,
+      "mainThreadSubmitMsMean": 2.15,
+      "indicesMean": 4370946,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 1
+        }
+      ]
+    },
+    {
+      "scenery": "한강뷰",
+      "frames": 40,
+      "sceneCount": 2,
+      "publicRetainedMeshes": 2860,
+      "privateMeshes": 152,
+      "privateMaterials": 68,
+      "drawCallsMean": 168.85,
+      "mainThreadSubmitMsMean": 2.925,
+      "indicesMean": 1769580.6,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 1
+        }
+      ]
+    },
+    {
+      "scenery": "단풍 산",
+      "frames": 40,
+      "sceneCount": 2,
+      "publicRetainedMeshes": 2860,
+      "privateMeshes": 104,
+      "privateMaterials": 49,
+      "drawCallsMean": 145,
+      "mainThreadSubmitMsMean": 2.225,
+      "indicesMean": 2429946,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 1
+        }
+      ]
+    },
+    {
+      "scenery": "눈 덮인 산",
+      "frames": 40,
+      "sceneCount": 2,
+      "publicRetainedMeshes": 2860,
+      "privateMeshes": 107,
+      "privateMaterials": 45,
+      "drawCallsMean": 147,
+      "mainThreadSubmitMsMean": 2.6,
+      "indicesMean": 2109930,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 1
+        }
+      ]
+    },
+    {
+      "scenery": "연못",
+      "frames": 40,
+      "sceneCount": 2,
+      "publicRetainedMeshes": 2860,
+      "privateMeshes": 87,
+      "privateMaterials": 34,
+      "drawCallsMean": 137,
+      "mainThreadSubmitMsMean": 1.975,
+      "indicesMean": 335436,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 1
+        }
+      ]
+    }
+  ],
+  "scenesAfterExit": 1,
+  "completed": true
+}

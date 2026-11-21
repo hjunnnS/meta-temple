@@ -1,0 +1,39 @@
+{
+  "screens": [
+    {
+      "name": "pc",
+      "completed": true,
+      "states": 35,
+      "pageErrors": 0,
+      "coveredControls": 0
+    },
+    {
+      "name": "mobile",
+      "completed": true,
+      "states": 35,
+      "pageErrors": 0,
+      "coveredControls": 0
+    },
+    {
+      "name": "small",
+      "completed": true,
+      "states": 35,
+      "pageErrors": 0,
+      "coveredControls": 0
+    },
+    {
+      "name": "landscape",
+      "completed": true,
+      "states": 35,
+      "pageErrors": 0,
+      "coveredControls": 0
+    }
+  ],
+  "unitTests": {
+    "canonical": 120,
+    "trial": 59,
+    "failed": 0
+  },
+  "realPhone": false,
+  "graphics": true
+}

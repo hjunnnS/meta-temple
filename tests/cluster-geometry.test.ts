@@ -1,0 +1,5 @@
+import test from'node:test';import assert from'node:assert/strict';import{clusteredGeometry}from'../src/cluster-geometry.ts';
+test('far clustering removes tiny duplicate detail but keeps valid triangles and vertex attributes',()=>{const r=clusteredGeometry({positions:[0,0,0,1,0,0,0,1,0,.001,0,0],indices:[0,1,2,3,1,2,0,3,1],normals:[0,0,1,0,0,1,0,0,1,0,0,1],uvs:[0,0,1,0,0,1,0,0],colors:Array(16).fill(1)},.05);assert.equal(r.indices.length,3);assert.equal(r.positions.length,9);assert.equal(r.normals?.length,9);assert.equal(r.uvs?.length,6);assert.equal(r.colors?.length,12);assert(Math.max(...r.indices)<r.positions.length/3);});
+test('opposing hard surfaces keep separate vertices',()=>{const r=clusteredGeometry({positions:[0,0,0,0,0,0],indices:[],normals:[0,0,1,0,0,-1]},.1);assert.equal(r.positions.length,6);});
+
+test('scaled normals cannot alias vertices in different spatial cells',()=>{const r=clusteredGeometry({positions:[0,0,0,0,0,.1],indices:[],normals:[0,0,1,0,0,-61.5]},.1);assert.equal(r.positions.length,6);});

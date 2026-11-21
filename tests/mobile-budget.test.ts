@@ -1,0 +1,6 @@
+import test from'node:test';import assert from'node:assert/strict';import{MobileBudget}from'../src/mobile-budget.ts';
+test('idle rendering stays animated and interaction restores the chosen frame cap',()=>{const b=new MobileBudget();b.observe(0,50,'low');b.observe(46000,50,'low');assert.equal(b.settings('low').fps,8);assert(b.input(46001));assert.equal(b.settings('low').fps,20);assert.equal(b.settings('high').fps,30);});
+test('sustained slow frames step down gradually and good frames recover with hysteresis',()=>{const b=new MobileBudget();for(let t=0;t<=42000;t+=100){b.input(t);b.observe(t,100,'low');}assert.equal(b.level,2);for(let t=42100;t<=110000;t+=50){b.input(t);b.observe(t,50,'low');}assert.equal(b.level,0);});
+test('practice avoids idle throttling and resume does not treat time away as slow frames',()=>{const b=new MobileBudget();b.observe(0,50,'low');b.observe(60000,50,'low',true);assert.equal(b.idle,false);b.resume(120000);b.observe(120010,50000,'low');assert.equal(b.level,0);assert.equal(b.idle,false);b.reset(120020);assert.equal(b.settings('low').scale,1);});
+
+test('quiet meditation has a separate cap and active bowing immediately restores it',()=>{const b=new MobileBudget();b.observe(0,50,'low',true,true);assert.equal(b.settings('low').fps,15);assert(b.observe(50,50,'low',true,false));assert.equal(b.settings('low').fps,20);});

@@ -1,0 +1,96 @@
+{
+  "checks": [
+    {
+      "mobile": true,
+      "initial": {
+        "position": [
+          0,
+          0.09,
+          -65
+        ],
+        "radius": 3.2,
+        "alpha": -1.5707963267948966,
+        "width": 278,
+        "height": 602,
+        "shadow": [
+          512
+        ],
+        "glow": true
+      },
+      "moved": {
+        "position": [
+          -1.1022837996897144e-16,
+          0.09,
+          -63.199833943211765
+        ],
+        "radius": 3.2,
+        "alpha": -1.5707963267948966,
+        "width": 278,
+        "height": 602,
+        "shadow": [
+          512
+        ],
+        "glow": true
+      },
+      "zoomed": {
+        "position": [
+          -1.1951298764029874e-16,
+          0.09,
+          -63.048204793030806
+        ],
+        "radius": 2.0210526315789474,
+        "alpha": -1.5707963267948966,
+        "width": 278,
+        "height": 602,
+        "shadow": [
+          512
+        ],
+        "glow": true
+      },
+      "release": {
+        "settlingDistance": 0.15120825570539864,
+        "continuedDistance": 0.00042089447556037385
+      },
+      "privateRoom": {
+        "before": {
+          "p": [
+            0,
+            0.12,
+            -4.5
+          ],
+          "radius": 3.1777040019753433
+        },
+        "after": {
+          "p": [
+            -6.814130733698474e-17,
+            0.12,
+            -3.3871680000400546
+          ],
+          "radius": 2.0210526315789474
+        },
+        "disposed": true
+      },
+      "qualityPreferencesSeparate": true
+    },
+    {
+      "mobile": false,
+      "initial": {
+        "position": [
+          0,
+          0.09,
+          -65
+        ],
+        "radius": 3.2,
+        "alpha": -1.5707963267948966,
+        "width": 1280,
+        "height": 900,
+        "shadow": [
+          4096
+        ],
+        "glow": true
+      }
+    }
+  ],
+  "errors": [],
+  "note": "Chrome touch emulation, not a physical phone"
+}

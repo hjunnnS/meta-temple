@@ -1,0 +1,47 @@
+{
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "results": [
+    {
+      "kind": "webkit",
+      "mapCycles": 20,
+      "reloads": 0,
+      "walkingFrames": 20,
+      "mapFrames": 0,
+      "menuFrames": 0,
+      "resumedFrames": 20,
+      "practiceFrames": 21,
+      "chrome": {
+        "border": "0px",
+        "outline": "none",
+        "radius": "50%",
+        "appearance": "none"
+      },
+      "keyboard": "solid",
+      "errors": [],
+      "sdkDiagnostics": [
+        "Wrong protocol for WebSocket '[object Object]'"
+      ]
+    },
+    {
+      "kind": "chromium",
+      "mapCycles": 20,
+      "reloads": 0,
+      "walkingFrames": 20,
+      "mapFrames": 0,
+      "menuFrames": 0,
+      "resumedFrames": 20,
+      "practiceFrames": 20,
+      "chrome": {
+        "border": "0px",
+        "outline": "none",
+        "radius": "50%",
+        "appearance": "none"
+      },
+      "keyboard": "solid",
+      "errors": [],
+      "sdkDiagnostics": []
+    }
+  ],
+  "realIPhone": false,
+  "temperatureMeasured": false
+}

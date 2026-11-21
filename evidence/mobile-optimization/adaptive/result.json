@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "syntheticSlowTiming": true,
+  "temperatureMeasured": false,
+  "rows": [
+    {
+      "budget": {
+        "level": 0,
+        "idle": false,
+        "fps": 20,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true
+      },
+      "size": [
+        280,
+        608
+      ],
+      "quality": "low"
+    },
+    {
+      "budget": {
+        "level": 1,
+        "idle": false,
+        "fps": 20,
+        "scale": 1.15,
+        "shadowFactor": 2,
+        "reflectionFactor": 2,
+        "softGlow": true
+      },
+      "size": [
+        244,
+        529
+      ],
+      "quality": "low"
+    },
+    {
+      "budget": {
+        "level": 2,
+        "idle": false,
+        "fps": 20,
+        "scale": 1.35,
+        "shadowFactor": 3,
+        "reflectionFactor": 3,
+        "softGlow": false
+      },
+      "size": [
+        207,
+        450
+      ],
+      "quality": "low"
+    }
+  ],
+  "restored": {
+    "budget": {
+      "level": 0,
+      "idle": false,
+      "fps": 20,
+      "scale": 1,
+      "shadowFactor": 1,
+      "reflectionFactor": 1,
+      "softGlow": true
+    },
+    "size": [
+      341,
+      740
+    ],
+    "quality": "balanced"
+  }
+}

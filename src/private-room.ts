@@ -1,3 +1,4 @@
+import{privateRoomMenu}from'./private-room-menu';
 import {t,translateMarkup} from './locales';
 import type {createTemple} from './scene';
 import {personalGate} from './temple-terrain';
@@ -17,7 +18,8 @@ export function personalSpace(app:Awaited<ReturnType<typeof createTemple>>,canva
  translateMarkup(panel);document.body.append(panel);
  const settings=document.createElement('button');settings.id='private-room-settings';settings.textContent=t('환경 설정');panel.querySelector('#private-room-exit')!.after(settings);
  settings.onclick=()=>document.querySelector<HTMLButtonElement>('#settings')?.click();
- document.querySelector<HTMLDialogElement>('#settings-panel')!.addEventListener('close',()=>{if(!panel.hidden)settings.focus();});
+ document.querySelector<HTMLDialogElement>('#settings-panel')!.addEventListener('close',()=>{if(!panel.hidden)document.querySelector<HTMLButtonElement>('#private-menu-open')?.focus();});
+ const compact=privateRoomMenu(panel,canvas);
  const gate=document.createElement('button');gate.id='private-gate-action';gate.hidden=true;gate.textContent=t('시간과 공간의 방 입장');document.body.append(gate);
  const access=privateRoomAccess(gate,()=>{void enter();});
  let room:ReturnType<typeof privateRoomScene>|undefined,roomId='',pending=false,armed=true,generation=0,heartbeat=0,leaving=false;
@@ -27,7 +29,7 @@ export function personalSpace(app:Awaited<ReturnType<typeof createTemple>>,canva
  function scope(value:'private'|'public'){window.dispatchEvent(new CustomEvent('sasa:space',{detail:value}));}
  async function exit(message=''){
   if(leaving||!room)return;leaving=true;generation++;clearInterval(heartbeat);
-  const id=roomId;roomId='';room.dispose();room=undefined;panel.hidden=true;document.body.classList.remove('in-private-room');
+  const id=roomId;roomId='';room.dispose();room=undefined;compact.hide();panel.hidden=true;document.body.classList.remove('in-private-room');
   canvas.setAttribute('aria-label',previousLabel);stage.textContent=previousStage;
   app.camera.attachControl(canvas,true);app.returnFromPrivateRoom();
   document.querySelector<HTMLSelectElement>('#place')!.value='walk';
@@ -49,7 +51,7 @@ export function personalSpace(app:Awaited<ReturnType<typeof createTemple>>,canva
    roomId=data.roomId;scope('private');onEnter();app.setWalking(false);app.camera.detachControl();
    previousStage=stage.textContent??'';previousLabel=canvas.getAttribute('aria-label')??'';
    room=privateRoomScene(app.engine,canvas,app.visitorPose.face,app.visitorPose.wearingRobe,()=>{void exit();},roomId);
-   panel.hidden=false;document.body.classList.add('in-private-room');stage.textContent=t('시간과 공간의 방 · 나만의 공간');canvas.setAttribute('aria-label',t('시간과 공간의 방')+' · '+t('WASD · 방향키로 걷기'));
+   compact.prepare();panel.hidden=false;document.body.classList.add('in-private-room');stage.textContent=t('시간과 공간의 방 · 나만의 공간');canvas.setAttribute('aria-label',t('시간과 공간의 방')+' · '+t('WASD · 방향키로 걷기'));
    heartbeat=window.setInterval(async()=>{
     if(!room)return;const id=roomId,version=generation;
     try{const check=await request('heartbeat',{roomId:id});if(room&&roomId===id&&generation===version&&!check.ok)await exit('세션이 끝났습니다. 다시 입장해 주세요.');}

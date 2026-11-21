@@ -1,0 +1,702 @@
+{
+  "kind": "webkit",
+  "url": "http://127.0.0.1:4355",
+  "realIPhone": false,
+  "temperatureMeasured": false,
+  "errors": [],
+  "crashes": 0,
+  "contextLosses": 0,
+  "rapidMapCycles": 20,
+  "movement": "touch",
+  "motion": "no-preference",
+  "rounds": [
+    {
+      "round": 1,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 3337,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3337,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3276,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 2,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 3276,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3276,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 3,
+      "walk": {
+        "frames": 200,
+        "seconds": 10,
+        "fps": 20,
+        "entryVisible": false,
+        "meshes": 3276,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3276,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3276,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 4,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 3276,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3276,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 5,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.002,
+        "fps": 19.99600079984003,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 6,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 7,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 8,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 9,
+      "walk": {
+        "frames": 200,
+        "seconds": 10,
+        "fps": 20,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 10,
+      "walk": {
+        "frames": 200,
+        "seconds": 10,
+        "fps": 20,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 11,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 12,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 13,
+      "walk": {
+        "frames": 200,
+        "seconds": 10,
+        "fps": 20,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 14,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.002,
+        "fps": 19.99600079984003,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 15,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3276,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 16,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.002,
+        "fps": 19.99600079984003,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 17,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.002,
+        "fps": 19.99600079984003,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 18,
+      "walk": {
+        "frames": 200,
+        "seconds": 10,
+        "fps": 20,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 19,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 20,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    }
+  ],
+  "reloads": 0,
+  "before": {
+    "frames": 20,
+    "seconds": 1.002,
+    "fps": 19.960079840319363,
+    "entryVisible": false,
+    "meshes": 3276,
+    "architectureMeshes": 283,
+    "nodes": 571,
+    "contextLosses": 0
+  },
+  "heapBefore": null,
+  "soakSeconds": 618.792,
+  "after": {
+    "frames": 21,
+    "seconds": 1.001,
+    "fps": 20.97902097902098,
+    "entryVisible": false,
+    "meshes": 3215,
+    "architectureMeshes": 283,
+    "nodes": 773,
+    "contextLosses": 0
+  },
+  "heapAfter": null,
+  "sdkDiagnostics": [
+    "Wrong protocol for WebSocket '[object Object]'"
+  ],
+  "passed": true
+}

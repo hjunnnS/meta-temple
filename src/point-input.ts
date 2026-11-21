@@ -1,8 +1,9 @@
 import{guardWorldTap,worldTapAllowed}from'./tap-guard';
+import type{PickingInfo}from'@babylonjs/core/Collisions/pickingInfo';
 import type{Scene}from'@babylonjs/core/scene';
 import{PointerEventTypes}from'@babylonjs/core/Events/pointerEvents';
 /** A tap is movement only on a visible upward-facing walk surface, never an item or drag. */
-export function pointInput(scene:Scene,canvas:HTMLCanvasElement,active:()=>boolean,choose:(point:readonly[number,number,number])=>void){
+export function pointInput(scene:Scene,canvas:HTMLCanvasElement,active:()=>boolean,choose:(point:readonly[number,number,number])=>void,interact?:(pick:PickingInfo)=>boolean){
  guardWorldTap(canvas);
  let start:{x:number;y:number;id:number}|null=null,dragged=false;const pointers=new Set<number>();
  const observer=scene.onPointerObservable.add(info=>{const e=info.event as PointerEvent;
@@ -10,7 +11,8 @@ export function pointInput(scene:Scene,canvas:HTMLCanvasElement,active:()=>boole
   if(info.type===PointerEventTypes.POINTERMOVE&&start&&Math.hypot(e.clientX-start.x,e.clientY-start.y)>7)dragged=true;
   if(info.type===PointerEventTypes.POINTERUP)pointers.delete(e.pointerId);
   if(info.type!==PointerEventTypes.POINTERTAP||!active()||!worldTapAllowed(canvas,e)||dragged||!start||e.button!==0||document.querySelector('dialog[open]'))return;
-  start=null;const pick=scene.pick(scene.pointerX,scene.pointerY,m=>m.isEnabled()&&m.isVisible&&m.isPickable);
+  start=null;const pick=scene.pick(scene.pointerX,scene.pointerY,m=>m.isEnabled()&&(m.isVisible||Number.isInteger(m.metadata?.teaSeatIndex))&&m.isPickable);
+  if(pick?.hit&&interact?.(pick))return;
   if(!pick?.hit||!pick.pickedPoint||pick.pickedMesh?.metadata?.applicationId||pick.pickedMesh?.metadata?.applicationIds)return;
   if(pick.pickedMesh?.metadata?.conversationNpc||pick.pickedMesh?.metadata?.communityProject||pick.pickedMesh?.metadata?.dailyMonkId||pick.pickedMesh?.metadata?.guideMonk||pick.pickedMesh?.metadata?.sweeperNpc)return;
   const normal=pick.getNormal(true);if(!normal||normal.y<.65)return;

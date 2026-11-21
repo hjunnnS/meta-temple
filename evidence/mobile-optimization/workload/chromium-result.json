@@ -1,0 +1,323 @@
+{
+  "kind": "chromium",
+  "url": "http://127.0.0.1:4355",
+  "realIPhone": false,
+  "temperatureMeasured": false,
+  "gpuTimeMeasured": false,
+  "rows": [
+    {
+      "time": "day",
+      "mode": "baseline",
+      "frames": 60,
+      "mainThreadSubmitMsMean": 8.373333331942558,
+      "mainThreadSubmitMsP95": 11.699999988079071,
+      "drawCallsMean": 661.5666666666667,
+      "activeMeshesMean": 543.0666666666667,
+      "activeTriangleIndicesMean": 17015625.6,
+      "totalMeshes": 3710,
+      "materials": 768,
+      "geometryVertices": 2817059,
+      "ambientRoots": 20,
+      "architectureVertices": 2585130,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    },
+    {
+      "time": "day",
+      "mode": "no-glow",
+      "frames": 60,
+      "mainThreadSubmitMsMean": 6.950000006953875,
+      "mainThreadSubmitMsP95": 9.300000011920929,
+      "drawCallsMean": 646.2333333333333,
+      "activeMeshesMean": 538.7333333333333,
+      "activeTriangleIndicesMean": 16673163.6,
+      "totalMeshes": 3527,
+      "materials": 720,
+      "geometryVertices": 2808830,
+      "ambientRoots": 20,
+      "architectureVertices": 2585130,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": false,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    },
+    {
+      "time": "day",
+      "mode": "no-shadow",
+      "frames": 60,
+      "mainThreadSubmitMsMean": 6.010000000397365,
+      "mainThreadSubmitMsP95": 6.699999988079071,
+      "drawCallsMean": 551,
+      "activeMeshesMean": 540,
+      "activeTriangleIndicesMean": 14490929,
+      "totalMeshes": 3588,
+      "materials": 736,
+      "geometryVertices": 2811573,
+      "ambientRoots": 20,
+      "architectureVertices": 2585130,
+      "renderSize": [
+        244,
+        409
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 12
+        }
+      ]
+    },
+    {
+      "time": "day",
+      "mode": "no-reflection",
+      "frames": 60,
+      "mainThreadSubmitMsMean": 6.793333336214224,
+      "mainThreadSubmitMsP95": 8.599999994039536,
+      "drawCallsMean": 604.75,
+      "activeMeshesMean": 540,
+      "activeTriangleIndicesMean": 15985427.5,
+      "totalMeshes": 3588,
+      "materials": 736,
+      "geometryVertices": 2811573,
+      "ambientRoots": 20,
+      "architectureVertices": 2585130,
+      "renderSize": [
+        244,
+        409
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 12
+        }
+      ]
+    },
+    {
+      "time": "day",
+      "mode": "no-ambient",
+      "frames": 60,
+      "mainThreadSubmitMsMean": 5.653333343565464,
+      "mainThreadSubmitMsP95": 7.4000000059604645,
+      "drawCallsMean": 469.75,
+      "activeMeshesMean": 405,
+      "activeTriangleIndicesMean": 15849947.5,
+      "totalMeshes": 3588,
+      "materials": 736,
+      "geometryVertices": 2811573,
+      "ambientRoots": 20,
+      "architectureVertices": 2585130,
+      "renderSize": [
+        244,
+        409
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 12
+        }
+      ]
+    },
+    {
+      "time": "day",
+      "mode": "baseline",
+      "frames": 61,
+      "mainThreadSubmitMsMean": 6.549180337640106,
+      "mainThreadSubmitMsP95": 8.100000023841858,
+      "drawCallsMean": 603.8688524590164,
+      "activeMeshesMean": 540,
+      "activeTriangleIndicesMean": 15960927.524590164,
+      "totalMeshes": 3588,
+      "materials": 736,
+      "geometryVertices": 2811573,
+      "ambientRoots": 20,
+      "architectureVertices": 2585130,
+      "renderSize": [
+        244,
+        409
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 12
+        }
+      ]
+    },
+    {
+      "time": "night",
+      "mode": "baseline",
+      "frames": 60,
+      "mainThreadSubmitMsMean": 7.2216666579246525,
+      "mainThreadSubmitMsP95": 8.799999982118607,
+      "drawCallsMean": 616.1666666666666,
+      "activeMeshesMean": 553,
+      "activeTriangleIndicesMean": 15742824,
+      "totalMeshes": 3588,
+      "materials": 736,
+      "geometryVertices": 2811573,
+      "ambientRoots": 20,
+      "architectureVertices": 2585130,
+      "renderSize": [
+        244,
+        409
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 12
+        }
+      ]
+    },
+    {
+      "time": "night",
+      "mode": "no-glow",
+      "frames": 60,
+      "mainThreadSubmitMsMean": 6.796666671335697,
+      "mainThreadSubmitMsP95": 8.900000005960464,
+      "drawCallsMean": 605.1666666666666,
+      "activeMeshesMean": 553,
+      "activeTriangleIndicesMean": 15404496,
+      "totalMeshes": 3588,
+      "materials": 736,
+      "geometryVertices": 2811573,
+      "ambientRoots": 20,
+      "architectureVertices": 2585130,
+      "renderSize": [
+        244,
+        409
+      ],
+      "glow": false,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 12
+        }
+      ]
+    },
+    {
+      "time": "night",
+      "mode": "no-shadow",
+      "frames": 59,
+      "mainThreadSubmitMsMean": 5.40169491656756,
+      "mainThreadSubmitMsP95": 5.9000000059604645,
+      "drawCallsMean": 564,
+      "activeMeshesMean": 553,
+      "activeTriangleIndicesMean": 14493047,
+      "totalMeshes": 3588,
+      "materials": 736,
+      "geometryVertices": 2811573,
+      "ambientRoots": 20,
+      "architectureVertices": 2585130,
+      "renderSize": [
+        244,
+        409
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 12
+        }
+      ]
+    },
+    {
+      "time": "night",
+      "mode": "no-reflection",
+      "frames": 60,
+      "mainThreadSubmitMsMean": 6.19166665673256,
+      "mainThreadSubmitMsP95": 7.699999988079071,
+      "drawCallsMean": 665.3333333333334,
+      "activeMeshesMean": 550,
+      "activeTriangleIndicesMean": 16522513,
+      "totalMeshes": 3588,
+      "materials": 736,
+      "geometryVertices": 2811573,
+      "ambientRoots": 20,
+      "architectureVertices": 2585130,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    },
+    {
+      "time": "night",
+      "mode": "no-ambient",
+      "frames": 60,
+      "mainThreadSubmitMsMean": 5.431666657328606,
+      "mainThreadSubmitMsP95": 6.899999976158142,
+      "drawCallsMean": 530.3333333333334,
+      "activeMeshesMean": 415,
+      "activeTriangleIndicesMean": 16387033,
+      "totalMeshes": 3588,
+      "materials": 736,
+      "geometryVertices": 2811573,
+      "ambientRoots": 20,
+      "architectureVertices": 2585130,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    },
+    {
+      "time": "night",
+      "mode": "baseline",
+      "frames": 60,
+      "mainThreadSubmitMsMean": 6.444999992350737,
+      "mainThreadSubmitMsP95": 7.799999982118607,
+      "drawCallsMean": 665.3333333333334,
+      "activeMeshesMean": 550,
+      "activeTriangleIndicesMean": 16522513,
+      "totalMeshes": 3588,
+      "materials": 736,
+      "geometryVertices": 2811573,
+      "ambientRoots": 20,
+      "architectureVertices": 2585130,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "completed": true
+}

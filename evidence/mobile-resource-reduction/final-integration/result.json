@@ -1,0 +1,100 @@
+[
+  {
+    "kind": "webkit",
+    "errors": [],
+    "realPhone": false,
+    "temperatureMeasured": false,
+    "entryMs": 6743,
+    "initial": {
+      "architecture": {
+        "groups": 38,
+        "fine": 7,
+        "residentFine": 7,
+        "coarseIndices": 2253861,
+        "fineIndices": 7465230
+      },
+      "details": {
+        "total": 9,
+        "prepared": 0,
+        "near": 0
+      },
+      "vertices": 1688750
+    },
+    "farFace": {
+      "vertices": 3416,
+      "fine": false
+    },
+    "nearFace": {
+      "vertices": 53984,
+      "fine": true
+    },
+    "nearActor": {
+      "visible": 53,
+      "proxy": 0,
+      "phase": 7.2289999999999965
+    },
+    "farActor": {
+      "visible": 12,
+      "proxy": 12,
+      "phase": 8.925999999999997
+    },
+    "restoredActor": {
+      "visible": 53,
+      "proxy": 0,
+      "phase": 10.827
+    },
+    "invalidGeometry": [],
+    "sdkDiagnostics": [
+      "Wrong protocol for WebSocket '[object Object]'"
+    ],
+    "passed": true
+  },
+  {
+    "kind": "chromium",
+    "errors": [],
+    "realPhone": false,
+    "temperatureMeasured": false,
+    "entryMs": 9422,
+    "initial": {
+      "architecture": {
+        "groups": 38,
+        "fine": 7,
+        "residentFine": 7,
+        "coarseIndices": 2253861,
+        "fineIndices": 7465230
+      },
+      "details": {
+        "total": 9,
+        "prepared": 0,
+        "near": 0
+      },
+      "vertices": 1686007
+    },
+    "farFace": {
+      "vertices": 3416,
+      "fine": false
+    },
+    "nearFace": {
+      "vertices": 53984,
+      "fine": true
+    },
+    "nearActor": {
+      "visible": 53,
+      "proxy": 0,
+      "phase": 8.00070000001788
+    },
+    "farActor": {
+      "visible": 12,
+      "proxy": 12,
+      "phase": 9.670099999994044
+    },
+    "restoredActor": {
+      "visible": 53,
+      "proxy": 0,
+      "phase": 11.570000000000006
+    },
+    "invalidGeometry": [],
+    "sdkDiagnostics": [],
+    "passed": true
+  }
+]

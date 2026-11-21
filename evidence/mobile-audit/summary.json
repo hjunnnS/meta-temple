@@ -1,0 +1,50 @@
+{
+  "version": 57,
+  "productChanged": false,
+  "physicalIPhoneTested": false,
+  "temperatureMeasured": false,
+  "gpuTimeMeasured": false,
+  "nativeViewportNormalMotionWebKit": {
+    "passed": true,
+    "seconds": 310.065,
+    "reloads": 0,
+    "crashes": 0,
+    "contextLosses": 0
+  },
+  "viewportResizeHitIssue": "Still observed under forced viewport resize; emulation/layout/visual viewport interaction unresolved; not established as animation-only defect",
+  "publicDayDrawCalls": {
+    "baselineMatched": 629.5,
+    "ambientDisabled": 421.5,
+    "shadowDisabled": 539,
+    "glowDisabled": 621.5,
+    "reflectionDetached": 629.5
+  },
+  "private": {
+    "mobileShadowSize": 512,
+    "refreshRate": 1,
+    "meshCounts": [
+      87,
+      139,
+      152,
+      104,
+      107,
+      87
+    ],
+    "materialCounts": [
+      34,
+      57,
+      68,
+      49,
+      45,
+      34
+    ],
+    "scenesAfterExit": 1
+  },
+  "priorities": [
+    "Viewport-aware touch layout and device verification",
+    "Near/far NPC detail, animation scheduling and common geometry reuse",
+    "Avoid legacy character mesh construction and stage static regions",
+    "Shadow work near camera and private-room update frequency",
+    "Adaptive display budget from sustained frame delay, not temperature sensing"
+  ]
+}

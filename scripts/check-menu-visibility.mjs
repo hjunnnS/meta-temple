@@ -1,6 +1,6 @@
 import {mkdir,writeFile,readFile} from 'node:fs/promises';
 import {launchBrowser} from './browser.mjs';import {exposeScene,go} from './trial-helpers.mjs';
-const url=process.env.TRIAL_URL??'https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site',out='evidence/menu-visibility-v53';
+const url=process.env.TRIAL_URL??'https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site',out=process.env.MENU_EVIDENCE??'evidence/menu-visibility-v53';
 await mkdir(out,{recursive:true});const b=await launchBrowser({channel:'chrome'}),results=[];
 const views=[{name:'pc',width:1440,height:900,touch:false},{name:'mobile',width:390,height:844,touch:true},{name:'small',width:320,height:740,touch:true},{name:'landscape',width:740,height:320,touch:true}].filter(x=>!process.env.AUDIT_VIEW||process.env.AUDIT_VIEW.split(',').includes(x.name));
 try{for(const view of views){

@@ -1,0 +1,4 @@
+{
+  "results": [],
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   \"Wrong protocol for WebSocket '[object Object]'\",\n+   \"Wrong protocol for WebSocket '[object Object]'\",\n+   \"Wrong protocol for WebSocket '[object Object]'\"\n+ ]\n- []\n"
+}

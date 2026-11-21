@@ -1,3 +1,4 @@
+import {mobileDevice} from './mobile-profile';
 import {entryLotus} from './entry-lotus';
 import {flagUrl,languages,preferredLocale,selectLocale,t} from './locales';
 import type {Locale} from './locales/languages';
@@ -54,13 +55,16 @@ for(const [id,flag,name] of languages){
 }
 choose(selected);
 // Let the entry artwork paint before constructing the scene behind it.
-const prepared=new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve())))
- .then(()=>import('./main'));
-void prepared.catch(()=>{});
+let prepared:Promise<typeof import('./main')>|undefined;
+function prepare(){return prepared??=new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))).then(()=>import('./main'));}
+// A phone must not allocate the whole 3D scene while choosing a language.
+if(!mobileDevice())void prepare().catch(()=>{});
 enter.onclick=async()=>{
  if(opening)return;
- if(failed){try{localStorage.setItem('sasa:language',selected);}catch{}location.reload();return;}
+ if(failed){try{localStorage.setItem('sasa:language',selected);if(mobileDevice())localStorage.setItem('sasa:display:mobile-quality','low');}catch{}location.reload();return;}
  opening=true;
+ // Safari may terminate a memory-heavy page without delivering a catchable error.
+ if(mobileDevice())try{if(localStorage.getItem('sasa:entry:mobile-pending')==='1')localStorage.setItem('sasa:display:mobile-quality','low');localStorage.setItem('sasa:entry:mobile-pending','1');}catch{}
  enter.disabled=true;
  for(const button of strip.querySelectorAll('button'))button.disabled=true;
  root.setAttribute('aria-busy','true');
@@ -76,8 +80,9 @@ enter.onclick=async()=>{
  try{
   root.classList.add('opening-lotus');
   await withinDeadline(Promise.all([selectLocale(selected).then(()=>{status.textContent=t('사찰을 준비하고 있어요…');prompt.textContent=t('준비 중');}),new Promise(resolve=>setTimeout(resolve,matchMedia('(prefers-reduced-motion: reduce)').matches?0:820))]));
-  const temple=await withinDeadline(prepared);
+  const temple=await withinDeadline(prepare());
   await withinDeadline(temple.start());
+  if(mobileDevice())try{localStorage.removeItem('sasa:entry:mobile-pending');}catch{}
   game.inert=false;
   root.classList.add('revealing-temple');
   await new Promise(resolve=>setTimeout(resolve,matchMedia('(prefers-reduced-motion: reduce)').matches?0:450));
@@ -85,7 +90,7 @@ enter.onclick=async()=>{
  }catch(error){
   console.error('Temple entry failed',error);
   if(root.contains(enter)){
-   failed=true;status.textContent=t('연결 상태를 확인해 주세요.');progress.hidden=true;
+   failed=true;status.textContent=t(error instanceof Error&&/graphics|webgl/i.test(error.message)?'그래픽 연결이 중단되었습니다. 다시 불러와 주세요.':'연결 상태를 확인해 주세요.');progress.hidden=true;
    prompt.textContent=t('다시 불러오기');enter.disabled=false;
    for(const button of strip.querySelectorAll('button'))button.disabled=false;
   }

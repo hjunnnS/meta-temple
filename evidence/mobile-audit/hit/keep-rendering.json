@@ -1,0 +1,279 @@
+{
+  "mode": "keep-rendering",
+  "states": [
+    {
+      "label": "entry",
+      "items": [
+        {
+          "id": "spaces-open",
+          "hit": "spaces-open",
+          "clickable": true,
+          "rect": [
+            18,
+            566,
+            119,
+            70
+          ],
+          "pointerEvents": "auto"
+        },
+        {
+          "id": "menu-open",
+          "hit": "path",
+          "clickable": true,
+          "rect": [
+            327,
+            18,
+            48,
+            48
+          ],
+          "pointerEvents": "auto"
+        }
+      ],
+      "bodyRect": [
+        393,
+        0
+      ],
+      "appRect": [
+        393,
+        0
+      ],
+      "modals": [],
+      "entry": false
+    },
+    {
+      "label": "walk-0",
+      "items": [
+        {
+          "id": "spaces-open",
+          "hit": "spaces-open",
+          "clickable": true,
+          "rect": [
+            18,
+            566,
+            119,
+            70
+          ],
+          "pointerEvents": "auto"
+        },
+        {
+          "id": "menu-open",
+          "hit": "path",
+          "clickable": true,
+          "rect": [
+            327,
+            18,
+            48,
+            48
+          ],
+          "pointerEvents": "auto"
+        }
+      ],
+      "bodyRect": [
+        393,
+        0
+      ],
+      "appRect": [
+        393,
+        0
+      ],
+      "modals": [],
+      "entry": false
+    },
+    {
+      "label": "map-close-0",
+      "items": [
+        {
+          "id": "spaces-open",
+          "hit": "spaces-open",
+          "clickable": true,
+          "rect": [
+            18,
+            566,
+            119,
+            70
+          ],
+          "pointerEvents": "auto"
+        },
+        {
+          "id": "menu-open",
+          "hit": "path",
+          "clickable": true,
+          "rect": [
+            327,
+            18,
+            48,
+            48
+          ],
+          "pointerEvents": "auto"
+        }
+      ],
+      "bodyRect": [
+        393,
+        0
+      ],
+      "appRect": [
+        393,
+        0
+      ],
+      "modals": [],
+      "entry": false
+    },
+    {
+      "label": "menu-close-0",
+      "items": [
+        {
+          "id": "spaces-open",
+          "hit": "spaces-open",
+          "clickable": true,
+          "rect": [
+            18,
+            566,
+            119,
+            70
+          ],
+          "pointerEvents": "auto"
+        },
+        {
+          "id": "menu-open",
+          "hit": "path",
+          "clickable": true,
+          "rect": [
+            327,
+            18,
+            48,
+            48
+          ],
+          "pointerEvents": "auto"
+        }
+      ],
+      "bodyRect": [
+        393,
+        0
+      ],
+      "appRect": [
+        393,
+        0
+      ],
+      "modals": [],
+      "entry": false
+    },
+    {
+      "label": "walk-1",
+      "items": [
+        {
+          "id": "spaces-open",
+          "hit": "spaces-open",
+          "clickable": true,
+          "rect": [
+            18,
+            566,
+            119,
+            70
+          ],
+          "pointerEvents": "auto"
+        },
+        {
+          "id": "menu-open",
+          "hit": "path",
+          "clickable": true,
+          "rect": [
+            327,
+            18,
+            48,
+            48
+          ],
+          "pointerEvents": "auto"
+        }
+      ],
+      "bodyRect": [
+        393,
+        0
+      ],
+      "appRect": [
+        393,
+        0
+      ],
+      "modals": [],
+      "entry": false
+    },
+    {
+      "label": "map-close-1",
+      "items": [
+        {
+          "id": "spaces-open",
+          "hit": "spaces-open",
+          "clickable": true,
+          "rect": [
+            18,
+            566,
+            119,
+            70
+          ],
+          "pointerEvents": "auto"
+        },
+        {
+          "id": "menu-open",
+          "hit": "path",
+          "clickable": true,
+          "rect": [
+            327,
+            18,
+            48,
+            48
+          ],
+          "pointerEvents": "auto"
+        }
+      ],
+      "bodyRect": [
+        393,
+        0
+      ],
+      "appRect": [
+        393,
+        0
+      ],
+      "modals": [],
+      "entry": false
+    },
+    {
+      "label": "menu-close-1",
+      "items": [
+        {
+          "id": "spaces-open",
+          "hit": "spaces-open",
+          "clickable": true,
+          "rect": [
+            18,
+            566,
+            119,
+            70
+          ],
+          "pointerEvents": "auto"
+        },
+        {
+          "id": "menu-open",
+          "hit": "path",
+          "clickable": true,
+          "rect": [
+            327,
+            18,
+            48,
+            48
+          ],
+          "pointerEvents": "auto"
+        }
+      ],
+      "bodyRect": [
+        393,
+        0
+      ],
+      "appRect": [
+        393,
+        0
+      ],
+      "modals": [],
+      "entry": false
+    }
+  ],
+  "probes": []
+}

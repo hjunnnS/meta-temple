@@ -1,0 +1,61 @@
+{
+  "kind": "webkit",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "realIPhone": false,
+  "temperatureMeasured": false,
+  "errors": [
+    "Wrong protocol for WebSocket '[object Object]'"
+  ],
+  "crashes": 0,
+  "contextLosses": 0,
+  "rapidMapCycles": 0,
+  "movement": "keyboard",
+  "motion": "no-preference",
+  "rounds": [
+    {
+      "round": 1,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.002,
+        "fps": 19.99600079984003,
+        "entryVisible": false,
+        "meshes": 2921,
+        "architectureMeshes": 177,
+        "nodes": 572,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "architectureMeshes": 177,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2860,
+        "architectureMeshes": 177,
+        "nodes": 774,
+        "contextLosses": 0
+      }
+    }
+  ],
+  "reloads": 0,
+  "before": {
+    "frames": 20,
+    "seconds": 1,
+    "fps": 20,
+    "entryVisible": false,
+    "meshes": 2921,
+    "architectureMeshes": 177,
+    "nodes": 572,
+    "contextLosses": 0
+  },
+  "heapBefore": null
+}

@@ -1,0 +1,3 @@
+import test from'node:test';import assert from'node:assert/strict';import{viewportBounds}from'../src/viewport-bounds.ts';
+test('stale dynamic viewport cannot push controls below the touchable screen',()=>{assert.deepEqual(viewportBounds(852,852,660),{height:660,top:0,bottom:192});assert.deepEqual(viewportBounds(852,660,852),{height:660,top:0,bottom:192});});
+test('keyboard panning and restored orientation share the same visible bounds',()=>{assert.deepEqual(viewportBounds(852,320,852,100),{height:320,top:100,bottom:432});assert.deepEqual(viewportBounds(393,393,393),{height:393,top:0,bottom:0});assert.deepEqual(viewportBounds(852,852,852),{height:852,top:0,bottom:0});});
