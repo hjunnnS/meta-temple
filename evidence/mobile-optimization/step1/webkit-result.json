@@ -1,0 +1,108 @@
+{
+  "kind": "webkit",
+  "url": "http://127.0.0.1:4355",
+  "realIPhone": false,
+  "temperatureMeasured": false,
+  "errors": [],
+  "crashes": 0,
+  "contextLosses": 0,
+  "rapidMapCycles": 0,
+  "movement": "stick",
+  "motion": "no-preference",
+  "rounds": [
+    {
+      "round": 1,
+      "walk": {
+        "frames": 200,
+        "seconds": 10,
+        "fps": 20,
+        "entryVisible": false,
+        "meshes": 2860,
+        "architectureMeshes": 177,
+        "nodes": 571,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2860,
+        "architectureMeshes": 177,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2860,
+        "architectureMeshes": 177,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 2,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 2860,
+        "architectureMeshes": 177,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2860,
+        "architectureMeshes": 177,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2860,
+        "architectureMeshes": 177,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    }
+  ],
+  "reloads": 0,
+  "before": {
+    "frames": 20,
+    "seconds": 1,
+    "fps": 20,
+    "entryVisible": false,
+    "meshes": 2860,
+    "architectureMeshes": 177,
+    "nodes": 571,
+    "contextLosses": 0
+  },
+  "heapBefore": null,
+  "soakSeconds": 62.02,
+  "after": {
+    "frames": 21,
+    "seconds": 1,
+    "fps": 21,
+    "entryVisible": false,
+    "meshes": 2860,
+    "architectureMeshes": 177,
+    "nodes": 773,
+    "contextLosses": 0
+  },
+  "heapAfter": null,
+  "sdkDiagnostics": [
+    "Wrong protocol for WebSocket '[object Object]'"
+  ],
+  "passed": true
+}

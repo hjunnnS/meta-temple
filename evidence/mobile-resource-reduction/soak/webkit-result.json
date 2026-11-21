@@ -1,0 +1,131 @@
+{
+  "kind": "webkit",
+  "url": "http://127.0.0.1:4355",
+  "realIPhone": false,
+  "temperatureMeasured": false,
+  "errors": [
+    "Wrong protocol for WebSocket '[object Object]'"
+  ],
+  "crashes": 0,
+  "contextLosses": 0,
+  "rapidMapCycles": 20,
+  "movement": "touch",
+  "motion": "no-preference",
+  "rounds": [
+    {
+      "round": 1,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 3276,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3276,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 2,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 3276,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3276,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.003,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3276,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 3,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 3337,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 3215,
+        "architectureMeshes": 283,
+        "nodes": 773,
+        "contextLosses": 0
+      }
+    }
+  ],
+  "reloads": 0,
+  "before": {
+    "frames": 20,
+    "seconds": 1.001,
+    "fps": 19.980019980019982,
+    "entryVisible": false,
+    "meshes": 3276,
+    "architectureMeshes": 283,
+    "nodes": 571,
+    "contextLosses": 0
+  },
+  "heapBefore": null,
+  "passed": false,
+  "failure": "Error: page.evaluate: Target page, context or browser has been closed",
+  "debug": null,
+  "focusProbe": null
+}

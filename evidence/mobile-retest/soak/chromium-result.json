@@ -1,0 +1,336 @@
+{
+  "kind": "chromium",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "realIPhone": false,
+  "temperatureMeasured": false,
+  "errors": [],
+  "crashes": 0,
+  "contextLosses": 0,
+  "rapidMapCycles": 100,
+  "rounds": [
+    {
+      "round": 1,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001299999982118,
+        "fps": 19.99740033799182,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.000600000023843,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.00159999999404,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 2,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.000900000005961,
+        "fps": 19.9982001619735,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.00109999999404,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.00109999999404,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 3,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.000900000005961,
+        "fps": 19.9982001619735,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 4,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.00140000000596,
+        "fps": 19.997200391933212,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.000599999994039,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.000299999982118,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 5,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.00159999999404,
+        "fps": 19.996800511930008,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.00180000001192,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001699999988078,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 6,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.00159999999404,
+        "fps": 19.996800511930008,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.00190000000596,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2982,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.002,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2982,
+        "nodes": 774,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 7,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.0015,
+        "fps": 19.99700044993251,
+        "entryVisible": false,
+        "meshes": 2982,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.000799999982119,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2982,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.0015,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2982,
+        "nodes": 774,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 8,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001700000017882,
+        "fps": 19.996600577866005,
+        "entryVisible": false,
+        "meshes": 2982,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.001600000023842,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2982,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001699999988078,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 9,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.000699999988079,
+        "fps": 19.99860009801698,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.002099999994039,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.000299999982118,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      }
+    },
+    {
+      "round": 10,
+      "walk": {
+        "frames": 200,
+        "seconds": 10.001,
+        "fps": 19.99800019998,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "map": {
+        "frames": 0,
+        "seconds": 10.000200000017882,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2921,
+        "nodes": 774,
+        "contextLosses": 0
+      },
+      "menu": {
+        "frames": 0,
+        "seconds": 10.001,
+        "fps": 0,
+        "entryVisible": false,
+        "meshes": 2860,
+        "nodes": 774,
+        "contextLosses": 0
+      }
+    }
+  ],
+  "reloads": 0,
+  "before": {
+    "frames": 20,
+    "seconds": 1.0013999999761583,
+    "fps": 19.972039145672227,
+    "entryVisible": false,
+    "meshes": 2921,
+    "nodes": 572,
+    "contextLosses": 0
+  },
+  "heapBefore": 345624336,
+  "soakSeconds": 309.766,
+  "after": {
+    "frames": 21,
+    "seconds": 1.001800000011921,
+    "fps": 20.96226791749861,
+    "entryVisible": false,
+    "meshes": 2860,
+    "nodes": 774,
+    "contextLosses": 0
+  },
+  "heapAfter": 345725556,
+  "passed": false,
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n2860 !== 2921\n"
+}

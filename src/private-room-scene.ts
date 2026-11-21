@@ -37,6 +37,7 @@ export function privateRoomScene(engine:Engine,canvas:HTMLCanvasElement,face:Fac
  const returnDoor=document.createElement('button');returnDoor.id='private-return-door';returnDoor.textContent=t('사찰로 돌아가기');returnDoor.hidden=true;returnDoor.onclick=onExit;document.querySelector('#private-room-actions')!.append(returnDoor);
  const sun=new DirectionalLight('private-garden-sun',new Vector3(-.85,-1.3,-.35),scene);sun.position.set(15,16,8);sun.intensity=1.2;sun.diffuse=Color3.FromHexString('#fff0d1');
  const shadows=new ShadowGenerator(mobileDevice()?512:1024,sun);shadows.usePercentageCloserFiltering=true;shadows.filteringQuality=ShadowGenerator.QUALITY_LOW;shadows.bias=.001;shadows.normalBias=.025;
+ if(mobileDevice())shadows.getShadowMap()!.refreshRate=4*(1+(engine.scenes[0]?.metadata?.mobileBudget?.level??0));
  for(const mesh of furnishings)shadows.addShadowCaster(mesh);
  const avatar=visitorMesh(scene,'private-visitor');avatar.setFace(face);visitorRobe(scene,avatar).setWearing(wearingRobe);avatar.root.position.set(0,.12,-4.5);
  for(const mesh of avatar.root.getChildMeshes())shadows.addShadowCaster(mesh);

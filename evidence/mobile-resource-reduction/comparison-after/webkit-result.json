@@ -1,0 +1,63 @@
+{
+  "kind": "webkit",
+  "url": "http://127.0.0.1:4355",
+  "realIPhone": false,
+  "temperatureMeasured": false,
+  "gpuTimeMeasured": false,
+  "rows": [
+    {
+      "time": "day",
+      "mode": "baseline",
+      "frames": 60,
+      "mainThreadSubmitMsMean": 7.483333333333333,
+      "mainThreadSubmitMsP95": 13,
+      "drawCallsMean": 486.5,
+      "activeMeshesMean": 396,
+      "activeTriangleIndicesMean": 5744146.5,
+      "totalMeshes": 3215,
+      "materials": 708,
+      "geometryVertices": 1789600,
+      "ambientRoots": 20,
+      "architectureVertices": 1171551,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    },
+    {
+      "time": "night",
+      "mode": "baseline",
+      "frames": 60,
+      "mainThreadSubmitMsMean": 6.05,
+      "mainThreadSubmitMsP95": 8,
+      "drawCallsMean": 496.3333333333333,
+      "activeMeshesMean": 409,
+      "activeTriangleIndicesMean": 5256821.5,
+      "totalMeshes": 3215,
+      "materials": 708,
+      "geometryVertices": 1584904,
+      "ambientRoots": 20,
+      "architectureVertices": 1171551,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "completed": true
+}

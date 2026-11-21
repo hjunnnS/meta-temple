@@ -29,8 +29,9 @@ export function ceremonyBoard(root:HTMLElement,position:()=>number[]|null,view:(
  const schedule=document.createElement('dialog');schedule.id='schedule-panel';schedule.className='service-panel';schedule.setAttribute('aria-labelledby','schedule-title');root.append(schedule);schedule.addEventListener('close',()=>document.querySelector<HTMLElement>('#menu-open')?.focus());
  function openSchedule(){
   schedule.replaceChildren();const heading=document.createElement('div');heading.className='panel-title';const h=document.createElement('h2');h.id='schedule-title';h.textContent=t('오늘의 일정');const close=document.createElement('button');close.textContent='×';close.setAttribute('aria-label',t('닫기'));close.onclick=()=>schedule.close();heading.append(h,close);schedule.append(heading);
+  const zoneNote=document.createElement('p');zoneNote.className='note';zoneNote.textContent=t('한국 시간 기준');schedule.append(zoneNote);
   const {current,next}=scheduleAt(now());const currentText=document.createElement('p');currentText.textContent=t(current?'함께 듣기':'자율 수행')+' · '+(current?t(current.title):t('다음 일정')+' '+t(next.title));schedule.append(currentText);
-  for(const entry of services){const line=document.createElement('div');line.className='schedule-row';const time=document.createElement('strong'),label=document.createElement('span');time.textContent=String(entry.hour).padStart(2,'0')+':00 KST';label.textContent=t(entry.title);line.append(time,label);schedule.append(line);}
+  for(const entry of services){const line=document.createElement('div');line.className='schedule-row';const time=document.createElement('strong'),label=document.createElement('span');time.textContent=String(entry.hour).padStart(2,'0')+':00';label.textContent=t(entry.title);line.append(time,label);schedule.append(line);}
   if(current){const listen=document.createElement('button');listen.className='service-primary';listen.textContent=t(attending?'듣기 중지':'함께 듣기');listen.disabled=import.meta.env.MODE==='service'&&!synced;listen.onclick=()=>{schedule.close();action.click();};schedule.append(listen);}
   schedule.showModal();
  }
@@ -59,7 +60,7 @@ export function ceremonyBoard(root:HTMLElement,position:()=>number[]|null,view:(
   if(document.hidden)return;
   void syncClock();
   const {current,next}=scheduleAt(now());
-  const until=next.start-now();if(until>0&&until<=5*60000&&notified!==next.start){notified=next.start;notification.textContent=String(next.hour).padStart(2,'0')+':00 KST · '+t(next.title);notification.hidden=false;setTimeout(()=>notification.hidden=true,7000);}
+  const until=next.start-now();if(until>0&&until<=5*60000&&notified!==next.start){notified=next.start;notification.textContent=String(next.hour).padStart(2,'0')+':00 · '+t(next.title);notification.hidden=false;setTimeout(()=>notification.hidden=true,7000);}
   panel.dataset.listening=String(!!attending);
   if(attending&&current?.start!==attending)stop();
   const p=position(),atGate=p?Math.abs(p[0])<11&&p[2]>=-70&&p[2]<=-44:['gatePassage','gateWalk','gateEave','guardianGallery','cheonwang','gateExitOffice'].includes(view());
@@ -67,7 +68,7 @@ export function ceremonyBoard(root:HTMLElement,position:()=>number[]|null,view:(
   panel.hidden=!document.body.classList.contains('exploring')||!(atGate||inHall||attending);
   if(panel.hidden&&!attending)return;
   currentLine.textContent=current?t(current.title)+' · '+t('대웅전')+' · '+t('{time} 남음').replace('{time}',minutes.format(Math.max(0,Math.ceil((current.start+current.minutes*60000-now())/60000)))):t('자율 수행');
-  nextLine.textContent=t('다음 일정')+' · '+String(next.hour).padStart(2,'0')+':00 KST · '+t(next.title)+(localZone==='Asia/Seoul'?'':' ('+localTime.format(next.start)+')');
+  nextLine.textContent=t('다음 일정')+' · '+String(next.hour).padStart(2,'0')+':00 · '+t(next.title)+(localZone==='Asia/Seoul'?'':' ('+localTime.format(next.start)+')');
   action.hidden=!current;action.disabled=import.meta.env.MODE==='service'&&!synced;
   action.textContent=t(attending?'듣기 중지':failed?'다시 시도해 주세요.':'함께 듣기');
   if(attending&&current&&context?.state==='running'){

@@ -1,3 +1,5 @@
+import{mobileDevice}from'./mobile-profile';
+import{deferFineDetail}from'./mobile-fine-detail';
 import { Scene } from '@babylonjs/core/scene';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData';
@@ -7,9 +9,9 @@ const gaussian = (x:number,y:number)=>Math.exp(-x*x-y*y);
 const clamp = (v:number)=>Math.min(1,Math.max(0,v));
 
 // All facial relief and traces of pigment follow a single closed casting.
-export function sculptedFace(scene:Scene, material:StandardMaterial):Mesh {
+export function sculptedFace(scene:Scene, material:StandardMaterial,forceFine=false):Mesh {
  const positions:number[]=[], indices:number[]=[], colors:number[]=[], uvs:number[]=[];
- const columns=224, rows=240;
+ const deferred=mobileDevice()&&!forceFine;const columns=deferred?56:224, rows=deferred?60:240;
  for(let j=0;j<=rows;j++){
   const latitude=(j/rows-.5)*Math.PI;
   const h=2.277+.404*Math.sin(latitude);
@@ -63,5 +65,5 @@ export function sculptedFace(scene:Scene, material:StandardMaterial):Mesh {
  const mesh=new Mesh('cast-gilt-face',scene),data=new VertexData(),normals:number[]=[];
  VertexData.ComputeNormals(positions,indices,normals);
  data.positions=positions;data.normals=normals;data.indices=indices;data.colors=colors;data.uvs=uvs;
- data.applyToMesh(mesh);mesh.material=material;return mesh;
+ data.applyToMesh(mesh);mesh.material=material;if(deferred)deferFineDetail(mesh,()=>sculptedFace(scene,material,true));return mesh;
 }

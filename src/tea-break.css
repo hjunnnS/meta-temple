@@ -1,0 +1,14 @@
+#context-actions>#tea-break,#tea-break{width:auto!important;max-width:calc(100vw - 24px);padding:0!important;border:0!important;background:transparent!important;overflow:visible!important}
+.tea-compact{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.tea-compact>button{max-width:100%;min-height:44px;border:1px solid #c7b68a;border-radius:24px;padding:10px 16px;background:#f5eedc;color:#294737;font:inherit;font-size:15px;cursor:pointer}
+.tea-compact>span{flex-basis:100%;max-width:300px;padding:8px 12px;border-radius:12px;background:#193f33ed;color:#fff5db;font-size:14px}
+#tea-order-dialog{box-sizing:border-box;position:fixed;inset:0;margin:auto;width:min(380px,calc(var(--usable-width,100vw) - 24px));max-height:calc(var(--usable-height,100dvh) - 24px);overflow:auto;padding:20px;border:1px solid #c7b68a;border-radius:18px;background:#f5eedc;color:#294737;font-size:16px}
+#tea-order-dialog:not([open]){display:none!important}#tea-order-dialog::backdrop{background:#071c1959}
+.tea-order-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.tea-order-heading h2{margin:0;font-size:20px}
+#tea-order-dialog #tea-order-close{min-width:44px;min-height:44px;padding:4px;border:0;background:transparent;color:inherit;font-size:28px;border-radius:50%}
+#tea-order-dialog label{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:12px 0}#tea-order-dialog :is(select,button){font:inherit;min-height:44px;max-width:100%}#tea-order-dialog select{padding:8px;border:1px solid #acb89f;border-radius:8px;background:#fffdf5;color:#294737}#tea-order-dialog :is(#tea-sip,#tea-sit){width:100%;padding:10px;border:0;border-radius:12px;background:#294d3a;color:#fff5db}
+#tea-break button:focus-visible,#tea-order-dialog select:focus-visible{outline:3px solid #e5b958;outline-offset:3px}
+#tea-break button:disabled{opacity:.6}
+#tea-break [hidden]{display:none!important}
+body.in-private-room #tea-break{display:none!important}
+@media(pointer:coarse){#context-actions:has(>#tea-break:not([hidden])){left:150px;right:12px;margin-inline:0;width:calc(var(--usable-width,100vw) - 162px);align-items:flex-end;bottom:calc(var(--mobile-bottom-gap,0px) + 110px)}}

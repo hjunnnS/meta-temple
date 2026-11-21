@@ -7,3 +7,9 @@ test('visible preview keeps animating without focus and pauses only when hidden 
 test('an offscreen canvas pauses and resumes without requiring keyboard focus',()=>{
  const page=Object.assign(new EventTarget(),{hidden:false,hasFocus:()=>false}),win=new EventTarget();let changed:(v:{isIntersecting:boolean}[])=>void=()=>{};const old=globalThis.IntersectionObserver;Object.assign(globalThis,{document:page,window:win,IntersectionObserver:class{constructor(cb:typeof changed){changed=cb;}observe(){}disconnect(){}}});const frames=new Set<()=>void>();renderWhileViewing({runRenderLoop:f=>frames.add(f),stopRenderLoop:f=>frames.delete(f),getRenderingCanvas:()=>({}as HTMLCanvasElement)},()=>{});changed([{isIntersecting:false}]);assert.equal(frames.size,0);changed([{isIntersecting:true}]);assert.equal(frames.size,1);if(old)globalThis.IntersectionObserver=old;else Reflect.deleteProperty(globalThis,'IntersectionObserver');
 });
+
+test('UI occlusion pauses a ready renderer and closing it resumes without navigation',()=>{
+ const page=Object.assign(new EventTarget(),{hidden:false}),win=new EventTarget();Object.assign(globalThis,{document:page,window:win});const frames=new Set<()=>void>();let uncovered=false,ready=false;
+ renderWhileViewing({runRenderLoop:f=>frames.add(f),stopRenderLoop:f=>frames.delete(f)},()=>{},undefined,undefined,()=>ready,()=>uncovered);
+ assert.equal(frames.size,1);ready=true;[...frames][0]();assert.equal(frames.size,0);uncovered=true;win.dispatchEvent(new Event('focus'));assert.equal(frames.size,1);uncovered=false;win.dispatchEvent(new Event('focus'));assert.equal(frames.size,0);
+});

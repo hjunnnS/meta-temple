@@ -6,6 +6,8 @@ const icon=(name:keyof typeof icons)=>`<svg viewBox="0 0 24 24" aria-hidden="tru
 interface ServiceUIOptions{position:()=>readonly number[]|null;navigate:(place:ServicePlace)=>void;practice:(kind:'bow'|'meditation'|'108')=>void;schedule?:()=>void;practiceLocation?:()=>string}
 export function serviceUI(canvas:HTMLCanvasElement,go:(view:string)=>void,closeOffering:()=>void,options:ServiceUIOptions){
  document.body.classList.add('service-ui');
+ document.addEventListener('pointerdown',()=>{document.body.dataset.input='pointer';},{passive:true,capture:true});
+ document.addEventListener('keydown',e=>{if(e.key==='Tab')document.body.dataset.input='keyboard';},true);
  const root=document.querySelector('#app')!,settings=document.querySelector<HTMLDialogElement>('#settings-panel')!;
  let lastControl:HTMLElement|null=null;let accountReturn:'menu'|'offer'|'practice'|'external'='external';
  function dialog(id:string,title:string){const panel=document.createElement('dialog');panel.id=id;panel.className='service-panel';panel.setAttribute('aria-labelledby',id+'-title');const heading=document.createElement('div');heading.className='panel-title';const h=document.createElement('h2');h.id=id+'-title';h.textContent=t(title);const close=document.createElement('button');close.type='button';close.textContent='×';close.setAttribute('aria-label',t('닫기'));close.onclick=()=>panel.close();heading.append(h,close);panel.append(heading);root.append(panel);return panel;}
@@ -15,7 +17,8 @@ export function serviceUI(canvas:HTMLCanvasElement,go:(view:string)=>void,closeO
  const menuOpen=action(document.querySelector('header')!,'menu-open','전체 메뉴',()=>open(menu));menuOpen.className='circle';menuOpen.innerHTML=icon('menu');menuOpen.setAttribute('aria-haspopup','dialog');menuOpen.setAttribute('aria-controls',menu.id);
  const dock=document.createElement('nav');dock.id='service-dock';dock.setAttribute('aria-label',t('사찰 둘러보기'));
  function dockButton(id:string,label:string,name:keyof typeof icons,handler:()=>void){const b=action(dock,id,label,handler);b.replaceChildren();b.innerHTML=icon(name);const text=document.createElement('span');text.textContent=t(label);b.append(text);b.setAttribute('aria-haspopup','dialog');return b;}
- function showMap(guidePlace=document.body.dataset.guidePlace){spaces.querySelector('.service-map-body')?.remove();const body=document.createElement('div');body.className='service-map-body';spaces.append(body);serviceMap(body,options.position,place=>{spaces.close();closeOffering();options.navigate(place);canvas.focus();},guidePlace);open(spaces);}
+ let disposeMap:()=>void=()=>{};
+ function showMap(guidePlace=document.body.dataset.guidePlace){if(spaces.open)return;disposeMap();spaces.querySelector('.service-map-body')?.remove();const body=document.createElement('div');body.className='service-map-body';spaces.append(body);disposeMap=serviceMap(body,options.position,place=>{spaces.close();closeOffering();options.navigate(place);canvas.focus();},guidePlace);open(spaces);}
  dockButton('spaces-open','사찰 지도','places',()=>showMap());
  dockButton('practice-open','수행','offer',()=>{if(!document.body.classList.contains('guide-active'))openPractice();});
  dockButton('appearance-open','내 모습','avatar',()=>{closeOffering();go('walk');const camera=document.querySelector<HTMLButtonElement>('#walk-camera')!;if(camera.getAttribute('aria-pressed')==='true')camera.click();open(appearance);});root.append(dock);
@@ -62,7 +65,7 @@ export function serviceUI(canvas:HTMLCanvasElement,go:(view:string)=>void,closeO
  function rootMenu(){if(document.body.classList.contains('in-private-room')){canvas.focus();return;}menu.showModal();}
  function backButton(parent:HTMLElement,run:()=>void){const b=document.createElement('button');b.type='button';b.className='service-back';b.textContent='←';b.setAttribute('aria-label',t('뒤로'));b.onclick=run;parent.prepend(b);}
  function addBacks(){for(const panel of document.querySelectorAll<HTMLDialogElement>('dialog')){
-  if(panel===menu||panel===stop||panel.querySelector('.service-back'))continue;
+  if(panel===menu||panel===stop||panel.hasAttribute('data-compact-menu')||panel.querySelector('.service-back'))continue;
   const heading=panel.querySelector<HTMLElement>('.panel-title,header')??panel;
   backButton(heading,()=>{panel.close();if(panel===review||panel===privateViews){settings.showModal();return;}if(panel.classList.contains('face-dialog')){appearance.showModal();return;}if(panel.id==='diagnostic-dialog'){review.showModal();return;}if(panel===accountPanel){if(accountReturn==='menu')rootMenu();else if(accountReturn==='practice')practice.showModal();else canvas.focus();return;}if(['private-display-dialog','private-access-dialog'].includes(panel.id)){canvas.focus();return;}rootMenu();});
  }}

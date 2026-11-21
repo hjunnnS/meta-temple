@@ -1,0 +1,129 @@
+{
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "realPhone": false,
+  "temperatureMeasured": false,
+  "results": [
+    {
+      "kind": "webkit",
+      "errors": [],
+      "viewports": [
+        {
+          "size": {
+            "width": 393,
+            "height": 852
+          },
+          "metrics": {
+            "hit": true,
+            "bottom": 636,
+            "usableHeight": 660,
+            "usableWidth": 393,
+            "left": 18,
+            "right": 137
+          }
+        },
+        {
+          "size": {
+            "width": 852,
+            "height": 393
+          },
+          "metrics": {
+            "hit": true,
+            "bottom": 378,
+            "usableHeight": 393,
+            "usableWidth": 852,
+            "left": 283.66668701171875,
+            "right": 389.90106201171875
+          }
+        },
+        {
+          "size": {
+            "width": 320,
+            "height": 740
+          },
+          "metrics": {
+            "hit": true,
+            "bottom": 716,
+            "usableHeight": 740,
+            "usableWidth": 320,
+            "left": 18,
+            "right": 112.65625
+          }
+        },
+        {
+          "size": {
+            "width": 393,
+            "height": 660
+          },
+          "metrics": {
+            "hit": true,
+            "bottom": 636,
+            "usableHeight": 660,
+            "usableWidth": 393,
+            "left": 18,
+            "right": 137
+          }
+        }
+      ],
+      "npc": {
+        "near": {
+          "level": 0,
+          "visible": 52,
+          "phase": 4.589999999999997,
+          "metres": 0
+        },
+        "far": {
+          "level": 2,
+          "visible": 27,
+          "phase": 5.090999999999997,
+          "metres": 0
+        },
+        "nearAgain": {
+          "level": 0,
+          "visible": 52,
+          "phase": 5.790999999999995,
+          "metres": 0
+        }
+      },
+      "resources": {
+        "shirts": 31,
+        "shirtGeometryCount": 1,
+        "oldJackets": 0,
+        "geometryVertices": 2806087,
+        "architectureVertices": 2585130,
+        "spatialBatches": 23,
+        "population": {
+          "realCount": 2,
+          "target": 18,
+          "active": 18,
+          "capacity": 20,
+          "revision": 59
+        }
+      },
+      "idle": {
+        "level": 0,
+        "idle": true,
+        "fps": 15,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true,
+        "engineFPS": 15
+      },
+      "active": {
+        "level": 0,
+        "idle": false,
+        "fps": 20,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true,
+        "engineFPS": 20
+      },
+      "sdkDiagnostics": [
+        "Wrong protocol for WebSocket '[object Object]'",
+        "Wrong protocol for WebSocket '[object Object]'"
+      ],
+      "passed": true
+    }
+  ]
+}

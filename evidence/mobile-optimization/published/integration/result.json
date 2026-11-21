@@ -1,0 +1,132 @@
+{
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "realPhone": false,
+  "temperatureMeasured": false,
+  "results": [
+    {
+      "kind": "webkit",
+      "errors": [],
+      "viewports": [],
+      "failure": "TimeoutError: locator.click: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-locale=\"ko\"]')\u001b[22m\n"
+    },
+    {
+      "kind": "chromium",
+      "errors": [],
+      "viewports": [
+        {
+          "size": {
+            "width": 393,
+            "height": 852
+          },
+          "metrics": {
+            "hit": true,
+            "bottom": 828,
+            "usableHeight": 852,
+            "usableWidth": 393,
+            "left": 18,
+            "right": 137
+          }
+        },
+        {
+          "size": {
+            "width": 852,
+            "height": 393
+          },
+          "metrics": {
+            "hit": true,
+            "bottom": 378,
+            "usableHeight": 393,
+            "usableWidth": 852,
+            "left": 283.703125,
+            "right": 389.9375
+          }
+        },
+        {
+          "size": {
+            "width": 320,
+            "height": 740
+          },
+          "metrics": {
+            "hit": true,
+            "bottom": 716,
+            "usableHeight": 740,
+            "usableWidth": 320,
+            "left": 18,
+            "right": 112.65625
+          }
+        },
+        {
+          "size": {
+            "width": 393,
+            "height": 660
+          },
+          "metrics": {
+            "hit": true,
+            "bottom": 636,
+            "usableHeight": 660,
+            "usableWidth": 393,
+            "left": 18,
+            "right": 137
+          }
+        }
+      ],
+      "npc": {
+        "near": {
+          "level": 0,
+          "visible": 52,
+          "phase": 5.3625000000298,
+          "metres": 0
+        },
+        "far": {
+          "level": 2,
+          "visible": 27,
+          "phase": 5.878200000017879,
+          "metres": 0
+        },
+        "nearAgain": {
+          "level": 0,
+          "visible": 52,
+          "phase": 6.578400000005957,
+          "metres": 0
+        }
+      },
+      "resources": {
+        "shirts": 30,
+        "shirtGeometryCount": 1,
+        "oldJackets": 0,
+        "geometryVertices": 2803344,
+        "architectureVertices": 2585130,
+        "spatialBatches": 23,
+        "population": {
+          "realCount": 1,
+          "target": 19,
+          "active": 19,
+          "capacity": 20,
+          "revision": 71
+        }
+      },
+      "idle": {
+        "level": 0,
+        "idle": true,
+        "fps": 15,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true,
+        "engineFPS": 15
+      },
+      "active": {
+        "level": 0,
+        "idle": false,
+        "fps": 20,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true,
+        "engineFPS": 20
+      },
+      "sdkDiagnostics": [],
+      "passed": true
+    }
+  ]
+}

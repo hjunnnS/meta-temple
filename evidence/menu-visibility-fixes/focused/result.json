@@ -1,0 +1,157 @@
+{
+  "results": [
+    {
+      "view": {
+        "name": "pc",
+        "width": 1440,
+        "height": 900,
+        "touch": false,
+        "locale": "ko"
+      },
+      "map": {
+        "count": 23,
+        "minPixels": 13.99999619047619,
+        "overlaps": 0
+      },
+      "forms": [
+        {
+          "offering": 0,
+          "reachableControls": 21
+        },
+        {
+          "offering": 1,
+          "reachableControls": 9
+        },
+        {
+          "offering": 2,
+          "reachableControls": 9
+        },
+        {
+          "offering": 3,
+          "reachableControls": 9
+        },
+        {
+          "offering": 4,
+          "reachableControls": 9
+        }
+      ],
+      "joystickRestored": true,
+      "errors": []
+    },
+    {
+      "view": {
+        "name": "small",
+        "width": 320,
+        "height": 740,
+        "touch": true,
+        "locale": "ko"
+      },
+      "map": {
+        "count": 23,
+        "minPixels": 14,
+        "overlaps": 0
+      },
+      "forms": [
+        {
+          "offering": 0,
+          "reachableControls": 21
+        },
+        {
+          "offering": 1,
+          "reachableControls": 9
+        },
+        {
+          "offering": 2,
+          "reachableControls": 9
+        },
+        {
+          "offering": 3,
+          "reachableControls": 9
+        },
+        {
+          "offering": 4,
+          "reachableControls": 9
+        }
+      ],
+      "joystickRestored": true,
+      "errors": []
+    },
+    {
+      "view": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844,
+        "touch": true,
+        "locale": "de"
+      },
+      "map": {
+        "count": 23,
+        "minPixels": 14,
+        "overlaps": 0
+      },
+      "forms": [
+        {
+          "offering": 0,
+          "reachableControls": 21
+        },
+        {
+          "offering": 1,
+          "reachableControls": 9
+        },
+        {
+          "offering": 2,
+          "reachableControls": 9
+        },
+        {
+          "offering": 3,
+          "reachableControls": 9
+        },
+        {
+          "offering": 4,
+          "reachableControls": 9
+        }
+      ],
+      "joystickRestored": true,
+      "errors": []
+    },
+    {
+      "view": {
+        "name": "landscape",
+        "width": 740,
+        "height": 320,
+        "touch": true,
+        "locale": "ru"
+      },
+      "map": {
+        "count": 23,
+        "minPixels": 14,
+        "overlaps": 0
+      },
+      "forms": [
+        {
+          "offering": 0,
+          "reachableControls": 21
+        },
+        {
+          "offering": 1,
+          "reachableControls": 9
+        },
+        {
+          "offering": 2,
+          "reachableControls": 9
+        },
+        {
+          "offering": 3,
+          "reachableControls": 9
+        },
+        {
+          "offering": 4,
+          "reachableControls": 9
+        }
+      ],
+      "joystickRestored": true,
+      "errors": []
+    }
+  ],
+  "realPhone": false
+}

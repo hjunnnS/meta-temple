@@ -1,6 +1,6 @@
 import{coinCamera}from'./coin-camera';
 import {onlineVisitors} from './online-visitors';
-import {mobileDevice} from './mobile-profile';
+import {mobileDevice,initialQuality as preferredQuality} from './mobile-profile';
 import {mobileViewport} from './touch-controls';
 import {practiceExperience} from './practice-experience';
 import {guidedVisit} from './guided-visit';
@@ -128,7 +128,7 @@ renderWhileViewing(app.engine,()=>{const now=performance.now();const dt=now-last
  $('#pond-count').textContent=String(app.pondLife.countdown);
  measure.frame(dt);if(++tick%30===0){$('#live').textContent=`${app.engine.getFps().toFixed(0)} FPS · 연등 ${app.settings.visibleLanternCount}/${app.settings.canopyCapacity}자리 · ${app.scene.getActiveMeshes().length} 활성 메시 · ${app.engine.getRenderWidth()}×${app.engine.getRenderHeight()}`;if(measure.active)$('#report').textContent=JSON.stringify(measure.report(),null,2);}}, () => {
  if(measure.active) invalidate('측정 중 미리보기 일시 정지');
-}, () => { last=performance.now(); }, () => firstFrameMs !== null);
+}, () => { last=performance.now();app.wakeRendering(); }, () => firstFrameMs !== null,()=>!mobileDevice()||!document.querySelector('dialog[open],#offering-drawer:not([hidden])')||!!document.querySelector('#practice-feedback[data-state=active]:not([hidden]),#private-practice-feedback[data-state=active]:not([hidden])'));
 function invalidate(reason:string){measure.invalidate(reason);if(measure.invalidReason)$('#report').textContent=JSON.stringify(measure.report(),null,2);}
 window.addEventListener('resize',()=>{invalidate('측정 중 화면 크기 변경');app.engine.resize();});
 
@@ -153,7 +153,7 @@ mobileViewport();
 const qualityKey=mobileDevice()?'mobile-quality':'quality';
 if(mobileDevice()){const option=new Option(t('균형 있게'),'balanced');qualityField.add(option,1);}
 const savedQuality=displayPreference(qualityKey);
-const initialQuality:Quality=mobileDevice()?(savedQuality==='high'||savedQuality==='low'?savedQuality:'balanced'):(savedQuality==='low'?'low':'high');
+const initialQuality:Quality=preferredQuality(mobileDevice());
 qualityField.value=initialQuality;app.setQuality(initialQuality);
 let motionOverride=displayPreference('reduced');
 function syncMotion(){

@@ -1,0 +1,36 @@
+{
+  "rows": [
+    {
+      "label": "before",
+      "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+      "longTasks": {
+        "count": 14,
+        "maxMs": 1251
+      },
+      "heapBytes": 303689692,
+      "meshes": 2871,
+      "geometries": 1440,
+      "geometryVertices": 2803344,
+      "realCount": 1,
+      "capacity": 20
+    },
+    {
+      "label": "after",
+      "url": "http://127.0.0.1:4355",
+      "longTasks": {
+        "count": 25,
+        "maxMs": 326
+      },
+      "heapBytes": 292357776,
+      "meshes": 3215,
+      "geometries": 1791,
+      "geometryVertices": 1683264,
+      "realCount": 1,
+      "capacity": 20
+    }
+  ],
+  "networkPresenceIsolated": true,
+  "forcedGC": true,
+  "realIPhone": false,
+  "temperatureMeasured": false
+}

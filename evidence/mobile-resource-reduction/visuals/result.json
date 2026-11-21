@@ -1,0 +1,50 @@
+[
+  {
+    "label": "after",
+    "view": "plazaHall",
+    "fine": {
+      "groups": 38,
+      "fine": 5,
+      "residentFine": 10,
+      "coarseIndices": 2253861,
+      "fineIndices": 7465230
+    },
+    "deferred": {
+      "total": 9,
+      "prepared": 0,
+      "near": 0
+    }
+  },
+  {
+    "label": "after",
+    "view": "face",
+    "fine": {
+      "groups": 38,
+      "fine": 8,
+      "residentFine": 14,
+      "coarseIndices": 2253861,
+      "fineIndices": 7465230
+    },
+    "deferred": {
+      "total": 9,
+      "prepared": 3,
+      "near": 3
+    }
+  },
+  {
+    "label": "after",
+    "view": "yaksaInterior",
+    "fine": {
+      "groups": 38,
+      "fine": 6,
+      "residentFine": 17,
+      "coarseIndices": 2253861,
+      "fineIndices": 7465230
+    },
+    "deferred": {
+      "total": 9,
+      "prepared": 4,
+      "near": 1
+    }
+  }
+]

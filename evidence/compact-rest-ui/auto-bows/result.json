@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "automaticAtLeastTwo": true,
+  "pauseCount": 3,
+  "pauseTimerFrozen": true,
+  "resumed": true,
+  "cancelStops": true,
+  "only108AtBoundary": true,
+  "cameraPreserved": true,
+  "errors": []
+}

@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "realIndependentSessions": 3,
+  "onlineCountBadge": true,
+  "peersPerSession": 2,
+  "movement": true,
+  "face": true,
+  "robe": true,
+  "prayer": true,
+  "privateIsolation": true,
+  "returnWithoutDuplicate": true,
+  "leaveAndReconnect": true,
+  "ambientAtThree": 17,
+  "actualSharedBackend": true,
+  "webSocketConnections": 14,
+  "webSocketHosts": [
+    "database-tip-swap-charter.trycloudflare.com"
+  ],
+  "offlineRecovery": true,
+  "macServerRequired": true,
+  "transport": "Colyseus 0.16 / WebSocket",
+  "errors": [],
+  "failures": [],
+  "httpErrors": []
+}

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';import {mkdir,writeFile} from 'node:fs/promises';
 import {launchBrowser} from './browser.mjs';import {enterTrial,exposeScene} from './trial-helpers.mjs';
-const out='evidence/entry-optimization/quality';await mkdir(out,{recursive:true});const b=await launchBrowser({channel:'chrome'}),results=[];
+const out=process.env.QUALITY_EVIDENCE??'evidence/entry-optimization/quality';await mkdir(out,{recursive:true});const b=await launchBrowser({channel:'chrome'}),results=[];
 try{for(const [label,url] of [['before',process.env.BEFORE_URL??'https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site'],['after',process.env.AFTER_URL??'http://127.0.0.1:4355']]){
  const c=await b.newContext({viewport:{width:1280,height:720}}),p=await c.newPage();process.env.TRIAL_URL=url;await enterTrial(p);await exposeScene(p);
  const scene=await p.evaluate(()=>{const s=trialScene;function hash(a){let h=2166136261;for(const v of new Uint8Array(a.buffer,a.byteOffset,a.byteLength))h=Math.imul(h^v,16777619)>>>0;return h.toString(16);}

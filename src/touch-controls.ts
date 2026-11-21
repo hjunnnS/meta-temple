@@ -1,3 +1,4 @@
+import {viewportFrame} from './viewport-bounds';
 import {mobileDevice} from './mobile-profile';
 import {t} from './locales';
 export function stickVector(x:number,y:number,radius=35){const length=Math.hypot(x,y);if(length<radius*.15)return {x:0,z:0};const scale=Math.min(1,length/radius)/length;return{x:x*scale,z:-y*scale};}
@@ -9,7 +10,7 @@ export function touchStick(canvas:HTMLCanvasElement,id:string){
  function move(e:PointerEvent){if(e.pointerId!==pointer)return;const r=element.getBoundingClientRect();vector=stickVector(e.clientX-r.x-r.width/2,e.clientY-r.y-r.height/2);(element.firstElementChild as HTMLElement).style.transform=`translate(${vector.x*30}px,${-vector.z*30}px)`;}
  element.onpointermove=move;element.onpointerup=reset;element.onpointercancel=reset;element.onlostpointercapture=reset;
  window.addEventListener('blur',reset);document.addEventListener('visibilitychange',reset);
- return {get vector(){return vector;},reset,show(visible:boolean){element.hidden=!touchEnabled||!visible||!!document.querySelector('dialog[open]')||document.body.classList.contains('keyboard-open');if(element.hidden)reset();},dispose(){reset();element.remove();window.removeEventListener('blur',reset);document.removeEventListener('visibilitychange',reset);}};
+ return {get vector(){return vector;},reset,show(visible:boolean){const offeringOpen=document.body.classList.contains('offering-visible')&&!document.body.classList.contains('in-private-room');element.hidden=!touchEnabled||!visible||offeringOpen||!!document.querySelector('dialog[open]')||document.body.classList.contains('keyboard-open');if(element.hidden)reset();},dispose(){reset();element.remove();window.removeEventListener('blur',reset);document.removeEventListener('visibilitychange',reset);}};
 }
 export function touchPinch(canvas:HTMLCanvasElement,zoom:(factor:number)=>void,enabled:()=>boolean=()=>true){
  const points=new Map<number,{x:number;y:number}>();let previous=0;
@@ -20,6 +21,10 @@ export function touchPinch(canvas:HTMLCanvasElement,zoom:(factor:number)=>void,e
  return ()=>{clear();canvas.removeEventListener('pointerdown',down,true);canvas.removeEventListener('pointermove',move);window.removeEventListener('pointerup',up);window.removeEventListener('pointercancel',up);window.removeEventListener('blur',clear);document.removeEventListener('visibilitychange',clear);};
 }
 export function mobileViewport(){
- const update=()=>{const v=window.visualViewport;document.documentElement.style.setProperty('--usable-height',`${v?.height??innerHeight}px`);document.documentElement.style.setProperty('--viewport-top',`${v?.offsetTop??0}px`);const input=document.activeElement?.matches('input:not([type=checkbox]):not([type=range]),textarea');document.body.classList.toggle('keyboard-open',!!input&&innerHeight-(v?.height??innerHeight)>120);};
- window.visualViewport?.addEventListener('resize',update);window.visualViewport?.addEventListener('scroll',update);window.addEventListener('resize',update);document.addEventListener('focusin',update);document.addEventListener('focusout',()=>requestAnimationFrame(update));update();
+ if(!mobileDevice()||document.getElementById('mobile-viewport-probe'))return;
+ const probe=document.createElement('div');probe.id='mobile-viewport-probe';probe.setAttribute('aria-hidden','true');probe.style.cssText='position:fixed;width:100dvw;height:100dvh;visibility:hidden;pointer-events:none';document.body.append(probe);
+ document.body.dataset.mobileViewport='true';let pending=0,last='';
+ const update=()=>{pending=0;const v=window.visualViewport,rect=probe.getBoundingClientRect(),b=viewportFrame(innerWidth,v?.width??innerWidth,rect.width,innerHeight,v?.height??innerHeight,rect.height,v?.offsetLeft??0,v?.offsetTop??0);const key=[b.height,b.top,b.bottom,b.width,b.left,b.right].join(':');if(last!==key){last=key;document.documentElement.style.setProperty('--usable-height',`${b.height}px`);document.documentElement.style.setProperty('--viewport-top',`${b.top}px`);document.documentElement.style.setProperty('--mobile-bottom-gap',`${b.bottom}px`);document.documentElement.style.setProperty('--usable-width',`${b.width}px`);document.documentElement.style.setProperty('--viewport-left',`${b.left}px`);document.documentElement.style.setProperty('--mobile-right-gap',`${b.right}px`);document.body.dataset.compactViewport=String(b.width<=700);window.dispatchEvent(new Event('sasa:viewport'));}const input=document.activeElement?.matches('input:not([type=checkbox]):not([type=range]),textarea');document.body.classList.toggle('keyboard-open',!!input&&innerHeight-b.height>120);};
+ const schedule=()=>{if(!pending)pending=requestAnimationFrame(update);};
+ new ResizeObserver(schedule).observe(probe);window.visualViewport?.addEventListener('resize',schedule);window.visualViewport?.addEventListener('scroll',schedule);window.addEventListener('resize',schedule);document.addEventListener('focusin',schedule);document.addEventListener('focusout',schedule);update();
 }

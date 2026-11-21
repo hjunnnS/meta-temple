@@ -1,4 +1,5 @@
 import {rearPrayerHalls,prayerHallPoint,prayerAisleX} from './prayer-halls';
+import {readableMapLabels} from './map-labels';
 import {locale,t} from './locales';
 import {templePlaces,wishGarden,courtSouthEdge,courtDepth,candleCourt,memorialGarden} from './temple-layout';
 import {boundaries,paving,sanctuaryWalk,rearPrayerWalk,prayerHallApproaches,teaApproach,teaGardenWalk,eastCourts,pond,teaPavilion,personalGate,sweepingMonkSite,coinThrowBank} from './temple-terrain';
@@ -40,13 +41,17 @@ export function serviceMap(parent:HTMLElement,position:()=>readonly number[]|nul
  const sidebar=document.createElement('div');sidebar.append(categories,list,detail);layout.append(mapFigure,sidebar);parent.append(hint,layout);
  title.setAttribute('aria-live','polite');title.setAttribute('aria-atomic','true');
  const labels=new Map<string,SVGElement>(),nodes=new Map<string,SVGElement>(),markers=new Map<string,SVGElement>(),buttons=new Map<string,HTMLButtonElement>();let selected=servicePlaces[0];
+ const leaderLayer=svg('g',{'pointer-events':'none','aria-hidden':'true'});
+ const mapLabels:Parameters<typeof readableMapLabels>[1]=[];
+ function leader(x:number,y:number){const line=svg('line',{stroke:'#7e9178','stroke-width':'1','vector-effect':'non-scaling-stroke'}),anchor=svg('circle',{cx:String(x),cy:String(y),r:'1.1',fill:'#718468'});leaderLayer.append(line,anchor);return{leader:line,anchor};}
  const placeLabel=(place:ServicePlace)=>t(place.label)+(prayerPlaceInfo[place.id]?' · '+t(prayerPlaceInfo[place.id].topic):'');
  function choose(place:ServicePlace){selected=place;mapSelection.textContent=t('선택한 장소')+' · '+t(place.label);for(const[id,group]of groups){const on=groupFor(place)===id;group.panel.hidden=!on;group.tab.setAttribute('aria-pressed',String(on));}list.scrollTop=0;for(const[id,node]of nodes)node.setAttribute('fill',id===place.id?'#355b42':'#bdc7aa');for(const[id,label]of labels)label.setAttribute('fill',id===place.id?'#fff8e2':'#314b34');for(const controls of [markers,buttons])for(const[id,control]of controls)control.setAttribute('aria-pressed',String(id===place.id));const info=prayerPlaceInfo[place.id];title.textContent=t(place.label)+(info?' · '+t(info.deity):'');topic.hidden=!info;topic.textContent=info?t('대표적인 기도 주제')+' · '+t(info.topic):'';description.textContent=t(info?.description??place.description);}
  for(const place of servicePlaces){
   const number=String(servicePlaces.indexOf(place)+1).padStart(2,'0');
   const marker=svg('g',{role:'button',tabindex:'0','aria-label':number+' · '+placeLabel(place),'data-map-place':place.id,class:'service-map-marker'});
   const node=svg('rect',{x:String(place.x-4.3),y:String(-place.z-2.8),width:'8.6',height:'5.6',rx:'1',fill:'#bdc7aa'});nodes.set(place.id,node);
-  const text=svg('text',{x:String(place.x),y:String(-place.z+1),'text-anchor':'middle',fill:'#314b34','font-size':'4'},number);labels.set(place.id,text);text.style.pointerEvents='none';
+  const text=svg('text',{x:String(place.x),y:String(-place.z+1),'text-anchor':'middle',fill:'#314b34','font-size':'4','data-map-number':place.id},number);labels.set(place.id,text);text.style.pointerEvents='none';
+  mapLabels.push({x:place.x,y:-place.z,text,box:node,...leader(place.x,-place.z)});
   marker.append(node,text);if(place.id===guidePlace)marker.classList.add('guide-map-target');markers.set(place.id,marker);
   marker.addEventListener('click',()=>choose(place));
   marker.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();choose(place);}});
@@ -55,6 +60,7 @@ export function serviceMap(parent:HTMLElement,position:()=>readonly number[]|nul
  for(const[id,label]of [['prayer','기도 공간'],['rest','쉼터·산책'],['facilities','기타 시설']]){const tab=document.createElement('button');tab.type='button';tab.dataset.mapGroup=id;tab.textContent=t(label);const items=document.createElement('div');items.className='service-group-items';items.dataset.mapItems=id;items.id='map-group-'+id;tab.setAttribute('aria-controls',items.id);categories.append(tab);list.append(items);groups.set(id,{tab,panel:items});
  const places=servicePlaces.filter(p=>groupFor(p)===id).sort((a,b)=>t(a.label).localeCompare(t(b.label),locale));tab.onclick=()=>choose(groupFor(selected)===id?selected:places[0]);
  for(const place of places){const b=document.createElement('button');b.type='button';b.dataset.destination=place.view;b.dataset.place=place.id;b.textContent=String(servicePlaces.indexOf(place)+1).padStart(2,'0')+' · '+placeLabel(place);b.onclick=()=>choose(place);buttons.set(place.id,b);items.append(b);}}
- const at=position();if(at){const dot=svg('circle',{cx:String(at[0]),cy:String(-at[2]),r:'1.8',fill:'#d1a847',stroke:'#fff9e9','stroke-width':'.65'});const label=svg('text',{x:String(at[0]+3),y:String(-at[2]+1),'font-size':'4',fill:'#4c603f'},t('현재 위치'));label.setAttribute('aria-hidden','true');dot.setAttribute('aria-label',t('현재 위치'));dot.style.pointerEvents=label.style.pointerEvents='none';}
+ const at=position();if(at){const dot=svg('circle',{cx:String(at[0]),cy:String(-at[2]),r:'1.8',fill:'#d1a847',stroke:'#fff9e9','stroke-width':'.65'});const box=svg('rect',{fill:'#f5e8c6','pointer-events':'none'});const label=svg('text',{x:String(at[0]+3),y:String(-at[2]+1),'font-size':'4',fill:'#4c603f','text-anchor':'middle'},t('현재 위치'));label.setAttribute('aria-hidden','true');dot.setAttribute('aria-label',t('현재 위치'));dot.style.pointerEvents=label.style.pointerEvents='none';mapLabels.unshift({x:at[0],y:-at[2],text:label,box,...leader(at[0],-at[2])});}
  move.onclick=()=>navigate(selected);choose(servicePlaces.find(p=>p.id===guidePlace)??selected);
+ return readableMapLabels(image,mapLabels);
 }

@@ -1,3 +1,4 @@
+import{attachCharacterGeometry,keepCharacterGeometry,characterShape}from'./shared-character-geometry';
 import type{Scene}from'@babylonjs/core/scene';
 import{Mesh}from'@babylonjs/core/Meshes/mesh';import{MeshBuilder as B}from'@babylonjs/core/Meshes/meshBuilder';import{VertexData}from'@babylonjs/core/Meshes/mesh.vertexData';
 import{TransformNode}from'@babylonjs/core/Meshes/transformNode';import{StandardMaterial}from'@babylonjs/core/Materials/standardMaterial';import{Color3}from'@babylonjs/core/Maths/math.color';import{Vector3}from'@babylonjs/core/Maths/math.vector';
@@ -6,23 +7,23 @@ import{visitorFace}from'./visitor-face';
 import type{Face}from'./face-types';
 /** Shared rounded human appearance; retains the approved rig, poses and zodiac faces. */
 export function refinedVisitor(scene:Scene,name:string,monk=false){
- const rig=legacyVisitorMesh(scene,name,monk);for(const mesh of rig.root.getChildMeshes())mesh.dispose(false,true);
+ const rig=legacyVisitorMesh(scene,name,monk,false);for(const mesh of rig.root.getChildMeshes())mesh.dispose(false,true);
  const material=(suffix:string,hex:string)=>{const m=new StandardMaterial(name+'-'+suffix,scene);m.diffuseColor=Color3.FromHexString(hex);m.specularColor=new Color3(.045,.04,.035);m.specularPower=30;return m;};
  const skin=material('skin','#e7b99a'),cloth=material('linen','#6a8679'),trim=material('seam','#537266'),pants=material('trousers','#414b50'),shoe=material('shoes','#555b61'),sole=material('soles','#d5d5ca');
  function finish(m:Mesh,parent:TransformNode,mat:StandardMaterial,x=0,y=0,z=0){m.parent=parent;m.material=mat;m.position.set(x,y,z);m.isPickable=false;m.metadata={appearance:'refined-human'};return m;}
  function rounded(label:string,parent:TransformNode,mat:StandardMaterial,w:number,h:number,d:number,r:number,x:number,y:number,z:number,n=4){
-  const m=new Mesh(name+'-'+label,scene),positions:number[]=[],normals:number[]=[],indices:number[]=[],uvs:number[]=[];const half=[w/2,h/2,d/2],radius=Math.min(r,...half),core=half.map(v=>v-radius);
+  const m=new Mesh(name+'-'+label,scene),key=['rounded',w,h,d,r,n,label==='soft-shirt'].join(':');if(attachCharacterGeometry(m,key))return finish(m,parent,mat,x,y,z);const positions:number[]=[],normals:number[]=[],indices:number[]=[],uvs:number[]=[];const half=[w/2,h/2,d/2],radius=Math.min(r,...half),core=half.map(v=>v-radius);
   for(let face=0;face<6;face++){const axis=Math.floor(face/2),sign=face%2?1:-1,u=(axis+1)%3,v=(axis+2)%3,start=positions.length/3;
    for(let j=0;j<=n;j++)for(let i=0;i<=n;i++){const q=[0,0,0];q[axis]=half[axis]*sign;q[u]=(i/n*2-1)*half[u];q[v]=(j/n*2-1)*half[v];const c=q.map((a,k)=>Math.max(-core[k],Math.min(core[k],a))),delta=q.map((a,k)=>a-c[k]),length=Math.hypot(...delta);positions.push(...c.map((a,k)=>a+delta[k]/length*radius));normals.push(...delta.map(a=>a/length));uvs.push(i/n,j/n);}
    for(let j=0;j<n;j++)for(let i=0;i<n;i++){const a=start+j*(n+1)+i,b=a+1,c=a+n+1,d=c+1;if(sign>0)indices.push(a,c,b,b,c,d);else indices.push(a,b,c,b,d,c);}
   }
-  const data=new VertexData();data.positions=positions;data.indices=indices;data.normals=normals;data.uvs=uvs;data.applyToMesh(m);return finish(m,parent,mat,x,y,z);
+  if(label==='soft-shirt')for(let i=0;i<positions.length;i+=3)positions[i]*=.88+.12*Math.max(0,Math.min(1,positions[i+1]/.51+.5));const data=new VertexData();data.positions=positions;data.indices=indices;data.normals=normals;data.uvs=uvs;data.applyToMesh(m);keepCharacterGeometry(m,key);return finish(m,parent,mat,x,y,z);
  }
- function oval(label:string,parent:TransformNode,mat:StandardMaterial,w:number,h:number,d:number,x:number,y:number,z:number){const m=finish(B.CreateSphere(name+'-'+label,{diameter:1,segments:10},scene),parent,mat,x,y,z);m.scaling.set(w,h,d);return m;}
- function line(label:string,parent:TransformNode,mat:StandardMaterial,points:number[][],radius:number){return finish(B.CreateTube(name+'-'+label,{path:points.map(p=>Vector3.FromArray(p)),radius,tessellation:8,cap:Mesh.CAP_ALL},scene),parent,mat);}
+ function oval(label:string,parent:TransformNode,mat:StandardMaterial,w:number,h:number,d:number,x:number,y:number,z:number){const m=finish(characterShape(scene,'sphere:10',name+'-'+label,()=>B.CreateSphere(name+'-'+label,{diameter:1,segments:10},scene)),parent,mat,x,y,z);m.scaling.set(w,h,d);return m;}
+ function line(label:string,parent:TransformNode,mat:StandardMaterial,points:number[][],radius:number){return finish(characterShape(scene,'tube:'+radius+':'+JSON.stringify(points),name+'-'+label,()=>B.CreateTube(name+'-'+label,{path:points.map(p=>Vector3.FromArray(p)),radius,tessellation:8,cap:Mesh.CAP_ALL},scene)),parent,mat);}
  // Keep the approved limb lengths so the same planted hands and feet still work.
  rig.coat=rounded('soft-shirt',rig.chest,cloth,.45,.51,.295,.085,0,.235,0,6);
- const shirtPositions=rig.coat.getVerticesData('position')!;for(let i=0;i<shirtPositions.length;i+=3)shirtPositions[i]*=.88+.12*Math.max(0,Math.min(1,shirtPositions[i+1]/.51+.5));rig.coat.updateVerticesData('position',shirtPositions);
+ // The shared shirt is deformed once, before its geometry enters the cache.
  rounded('shirt-hem',rig.coat,trim,.396,.025,.291,.011,0,-.242,0);
  rounded('shirt-placket',rig.coat,trim,.026,.35,.014,.007,0,.04,.151);
  for(const y of [.16,.06,-.04])oval('cloth-button',rig.coat,sole,.013,.013,.008,0,y,.161);
@@ -58,15 +59,15 @@ export function refinedHumanFace(scene:Scene,parent:TransformNode,name:string,mo
  const skin=material('face-skin','#e7b99a'),ink=material('features','#382c29'),light=material('eye-glint','#fff3de');
  function finish(m:Mesh,parent:TransformNode,mat:StandardMaterial,x=0,y=0,z=0){m.parent=parent;m.material=mat;m.position.set(x,y,z);m.isPickable=false;m.metadata={appearance:'refined-human'};return m;}
  function rounded(label:string,parent:TransformNode,mat:StandardMaterial,w:number,h:number,d:number,r:number,x:number,y:number,z:number,n=4){
-  const m=new Mesh(name+'-'+label,scene),positions:number[]=[],normals:number[]=[],indices:number[]=[],uvs:number[]=[];const half=[w/2,h/2,d/2],radius=Math.min(r,...half),core=half.map(v=>v-radius);
+  const m=new Mesh(name+'-'+label,scene),key=['rounded',w,h,d,r,n,label==='soft-shirt'].join(':');if(attachCharacterGeometry(m,key))return finish(m,parent,mat,x,y,z);const positions:number[]=[],normals:number[]=[],indices:number[]=[],uvs:number[]=[];const half=[w/2,h/2,d/2],radius=Math.min(r,...half),core=half.map(v=>v-radius);
   for(let face=0;face<6;face++){const axis=Math.floor(face/2),sign=face%2?1:-1,u=(axis+1)%3,v=(axis+2)%3,start=positions.length/3;
    for(let j=0;j<=n;j++)for(let i=0;i<=n;i++){const q=[0,0,0];q[axis]=half[axis]*sign;q[u]=(i/n*2-1)*half[u];q[v]=(j/n*2-1)*half[v];const c=q.map((a,k)=>Math.max(-core[k],Math.min(core[k],a))),delta=q.map((a,k)=>a-c[k]),length=Math.hypot(...delta);positions.push(...c.map((a,k)=>a+delta[k]/length*radius));normals.push(...delta.map(a=>a/length));uvs.push(i/n,j/n);}
    for(let j=0;j<n;j++)for(let i=0;i<n;i++){const a=start+j*(n+1)+i,b=a+1,c=a+n+1,d=c+1;if(sign>0)indices.push(a,c,b,b,c,d);else indices.push(a,b,c,b,d,c);}
   }
-  const data=new VertexData();data.positions=positions;data.indices=indices;data.normals=normals;data.uvs=uvs;data.applyToMesh(m);return finish(m,parent,mat,x,y,z);
+  if(label==='soft-shirt')for(let i=0;i<positions.length;i+=3)positions[i]*=.88+.12*Math.max(0,Math.min(1,positions[i+1]/.51+.5));const data=new VertexData();data.positions=positions;data.indices=indices;data.normals=normals;data.uvs=uvs;data.applyToMesh(m);keepCharacterGeometry(m,key);return finish(m,parent,mat,x,y,z);
  }
- function oval(label:string,parent:TransformNode,mat:StandardMaterial,w:number,h:number,d:number,x:number,y:number,z:number){const m=finish(B.CreateSphere(name+'-'+label,{diameter:1,segments:10},scene),parent,mat,x,y,z);m.scaling.set(w,h,d);return m;}
- function line(label:string,parent:TransformNode,mat:StandardMaterial,points:number[][],radius:number){return finish(B.CreateTube(name+'-'+label,{path:points.map(p=>Vector3.FromArray(p)),radius,tessellation:8,cap:Mesh.CAP_ALL},scene),parent,mat);}
+ function oval(label:string,parent:TransformNode,mat:StandardMaterial,w:number,h:number,d:number,x:number,y:number,z:number){const m=finish(characterShape(scene,'sphere:10',name+'-'+label,()=>B.CreateSphere(name+'-'+label,{diameter:1,segments:10},scene)),parent,mat,x,y,z);m.scaling.set(w,h,d);return m;}
+ function line(label:string,parent:TransformNode,mat:StandardMaterial,points:number[][],radius:number){return finish(characterShape(scene,'tube:'+radius+':'+JSON.stringify(points),name+'-'+label,()=>B.CreateTube(name+'-'+label,{path:points.map(p=>Vector3.FromArray(p)),radius,tessellation:8,cap:Mesh.CAP_ALL},scene)),parent,mat);}
  const face=new TransformNode(name+'-refined-face',scene);face.parent=parent;
  rounded('face',face,skin,.465,.435,.39,monk?.17:.115,0,0,0,10);
  for(const side of[-1,1]){

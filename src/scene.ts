@@ -1,3 +1,7 @@
+import{mergeStaticBatch}from'./merge-static-batch';
+import{updateFineDetail}from'./mobile-fine-detail';
+import{mobileArchitecture}from'./mobile-architecture';
+import{MobileBudget}from'./mobile-budget';
 import{copyStaticArchitecture}from'./static-architecture-copy';
 import{preparation}from'./preparation';
 import{cafeCounter}from'./cafe-counter';
@@ -6,7 +10,7 @@ import{communityProject}from'./community-project';
 import{placeHaetae,haetaeSites}from'./haetae';
 import {dailyMonks} from './daily-monks';
 import {ambientVisitors} from './ambient-visitors';
-import {mobileDevice,renderProfile,type Quality} from './mobile-profile';
+import {mobileDevice,renderProfile,initialQuality,type Quality} from './mobile-profile';
 export type {Quality} from './mobile-profile';
 import{quietMonks}from'./quiet-monks';import{guideMonkSite}from'./quiet-npc-layout';
 import {templeDog} from './temple-dog';
@@ -69,11 +73,19 @@ import { fixedSlots, ownedOfferingSamples, candleCabinets, candleSlot, plaqueSlo
 export type TimeOfDay = 'day' | 'dusk' | 'night';
 
 export async function createTemple(canvas:HTMLCanvasElement,onProgress?:(value:number)=>void) {
- const checkpoint=preparation(onProgress);
+ let contextLost=false;
+ const yieldPreparation=preparation(onProgress,mobileDevice()?5:12);
+ const checkpoint=async(value?:number)=>{if(contextLost)throw Error('graphics context lost');await yieldPreparation(value);if(contextLost)throw Error('graphics context lost');};
  await checkpoint(8);
  const mobile=mobileDevice();
- const engine=new Engine(canvas,true,{preserveDrawingBuffer:!mobile,stencil:true},false);
- const scene=new Scene(engine); scene.imageProcessingConfiguration.toneMappingEnabled=true;scene.imageProcessingConfiguration.toneMappingType=1;scene.imageProcessingConfiguration.exposure=1.3;scene.imageProcessingConfiguration.contrast=1.12; scene.clearColor=new Color4(.64,.7,.68,1);
+ const adaptive=mobile?new MobileBudget():undefined;
+ const startupQuality=initialQuality(mobile),startupProfile=renderProfile(mobile,startupQuality,canvas.clientWidth,canvas.clientHeight,false);
+ const engine=new Engine(canvas,!mobile,{preserveDrawingBuffer:!mobile,stencil:true,powerPreference:mobile?'low-power':'high-performance'},false);
+ engine.onContextLostObservable.add(()=>{contextLost=true;});
+ try{
+ if(mobile)engine.maxFPS=startupQuality==='high'?30:20;
+ engine.setHardwareScalingLevel(startupProfile.scale);
+ const scene=new Scene(engine);const architectureLOD=mobile?mobileArchitecture(scene):undefined; scene.imageProcessingConfiguration.toneMappingEnabled=true;scene.imageProcessingConfiguration.toneMappingType=1;scene.imageProcessingConfiguration.exposure=1.3;scene.imageProcessingConfiguration.contrast=1.12; scene.clearColor=new Color4(.64,.7,.68,1);
  scene.fogMode=Scene.FOGMODE_EXP2;scene.fogDensity=.0025;scene.fogColor=new Color3(.64,.7,.68);
  const skyTexture=new DynamicTexture('sunlit-sky',{width:2048,height:1024},scene,false);
  const skyMaterial=new StandardMaterial('sky-gradient',scene);skyMaterial.disableLighting=true;skyMaterial.emissiveTexture=skyTexture;skyMaterial.diffuseColor=Color3.Black();skyMaterial.fogEnabled=false;skyMaterial.imageProcessingConfiguration=new ImageProcessingConfiguration();
@@ -92,8 +104,10 @@ export async function createTemple(canvas:HTMLCanvasElement,onProgress?:(value:n
  camera.minZ=.1;camera.wheelPrecision=18;camera.panningSensibility=70;camera.attachControl(canvas,true);
  const hemi=new HemisphericLight('sky',new Vector3(0,1,0),scene);hemi.intensity=.8;hemi.groundColor=new Color3(.22,.27,.24);
  const sun=new DirectionalLight('sun',new Vector3(-.45,-.85,.45),scene);sun.position=new Vector3(20,35,-20);sun.intensity=1.6;
- const shadows=new ShadowGenerator(2048,sun);shadows.usePercentageCloserFiltering=true;shadows.bias=.002;shadows.normalBias=.035;
- const glow=new GlowLayer('lantern-glow',scene,{mainTextureFixedSize:mobile?512:1024,blurKernelSize:48});glow.intensity=.35;
+ const shadows=new ShadowGenerator(mobile?startupProfile.shadow:2048,sun);shadows.usePercentageCloserFiltering=true;shadows.bias=.002;shadows.normalBias=.035;
+ if(mobile){shadows.filteringQuality=ShadowGenerator.QUALITY_LOW;shadows.getShadowMap()!.refreshRate=2;}
+ if(mobile)shadows.getShadowMap()!.getCustomRenderList=(_layer,list)=>{const target=camera.target;return list?.filter(mesh=>{if(mesh.metadata?.mobileDeferredDetail)return !!mesh.metadata.mobileFine;if(!mesh.name.startsWith('architecture-'))return true;const b=mesh.getBoundingInfo().boundingSphere;return Math.hypot(b.centerWorld.x-target.x,b.centerWorld.z-target.z)<=65+b.radiusWorld;})??null;};
+ const glow=new GlowLayer('lantern-glow',scene,{mainTextureFixedSize:mobile?(startupQuality==='low'?256:512):1024,blurKernelSize:48});glow.intensity=.35;
  const colors:Record<string,StandardMaterial>={};
  function mat(name:string,hex:string,emissive=0){const m=new StandardMaterial(name,scene);m.diffuseColor=Color3.FromHexString(hex);m.specularColor=new Color3(.06,.06,.06);m.emissiveColor=m.diffuseColor.scale(emissive);colors[name]=m;return m;}
  const stone=mat('stone','#a59b88'),stoneDark=mat('dark-stone','#494955'),wood=mat('aged-redwood','#783021'),roofMat=mat('roof','#202a39'),roofEdge=mat('ridge','#394757'),jade=mat('jade','#275c48'),red=mat('red','#97402e'),ochre=mat('gold','#a58950'),paper=mat('paper','#a2957a',.1),leaves=mat('leaves','#123f32'),trunk=mat('trunk','#555245'),groundMat=mat('earth','#253e32');
@@ -636,8 +650,9 @@ export async function createTemple(canvas:HTMLCanvasElement,onProgress?:(value:n
  const pondMirror=new MirrorTexture('pond-pagoda-reflection',512,scene,true);
  pondMirror.mirrorPlane=new Plane(0,-1,0,.50);pondMirror.level=1.1;
  pondMirror.blurKernel=5;pondMirror.refreshRate=2;
- surfaceTint.reflectionTexture=pondMirror;
+ surfaceTint.reflectionTexture=pondMirror;let mirrorLastPosition=camera.position.clone(),mirrorMovedAt=performance.now();
  scene.onBeforeRenderObservable.add(()=>{
+  if(mobile){const now=performance.now();if(Vector3.DistanceSquared(camera.globalPosition,mirrorLastPosition)>.000004){mirrorLastPosition.copyFrom(camera.globalPosition);mirrorMovedAt=now;}const rate=now-mirrorMovedAt>500?0:renderProfile(true,quality,canvas.clientWidth,canvas.clientHeight,currentTime!=='day').reflection*(adaptive?.settings(quality).reflectionFactor??1);if(pondMirror.refreshRate!==rate){pondMirror.refreshRate=rate;pondMirror.resetRefreshCounter();}}
   waveNormal.uOffset=performance.now()*.000006;
   waveNormal.vOffset=performance.now()*.000002;
  });
@@ -1105,36 +1120,49 @@ export async function createTemple(canvas:HTMLCanvasElement,onProgress?:(value:n
  });
  shadows.getShadowMap()!.renderList=[];
  async function batchArchitecture(meshes:Mesh[],display:boolean){
-  const groups=new Map<string,Mesh[]>();
+  const groups=new Map<string,Mesh[]>(),landmarks=templePlaces.filter(p=>p.kind!=='forest');
   for(const mesh of meshes){
    const material=mesh.material as StandardMaterial;
    const key=material.uniqueId+":"+mesh.getVerticesDataKinds().sort().join(",");
    if(!groups.has(key))groups.set(key,[]);
    groups.get(key)!.push(mesh);
   }
-  for(const parts of groups.values()){
+  for(const group of groups.values()){
+  // Partition only dense materials: splitting tiny fixtures increases draw work.
+  const partitioned=mobile&&group.reduce((n,m)=>n+m.getTotalVertices(),0)>30000;
+  const regions=new Map<string,Mesh[]>();
+  for(const mesh of group){let cell='all';if(partitioned){mesh.computeWorldMatrix(true);const c=mesh.getBoundingInfo().boundingBox.centerWorld;let site=landmarks[0],distance=Infinity;for(const candidate of landmarks){const d=(candidate.x-c.x)**2+(candidate.z-c.z)**2;if(d<distance){site=candidate;distance=d;}}cell=site&&distance<(25*site.scale)**2?'site:'+site.id:Math.floor(c.x/48)+':'+Math.floor(c.z/48);}if(!regions.has(cell))regions.set(cell,[]);regions.get(cell)!.push(mesh);}
+  for(const region of regions.values()){
+  // Bound temporary merge arrays on phones; never expand a whole material at once.
+  const batches:Mesh[][]=[];let batch:Mesh[]=[],vertices=0;
+  for(const part of region){if(mobile&&vertices+part.getTotalVertices()>65536&&batch.length){batches.push(batch);batch=[];vertices=0;}batch.push(part);vertices+=part.getTotalVertices();}
+  if(batch.length)batches.push(batch);
+  for(const parts of batches){
    await checkpoint();
    const material=parts[0].material as StandardMaterial;
-   const merged=Mesh.MergeMeshes(parts,true,true);
+   const merged=mergeStaticBatch(parts,mobile);
    if(!merged)continue;
    merged.metadata={blocksOfferingPick:material.alpha>=1&&!material.opacityTexture};
-   merged.name='architecture-'+material.name;merged.receiveShadows=true;
+   merged.name='architecture-'+material.name;merged.metadata={...merged.metadata,mobileSpatialBatch:partitioned};merged.receiveShadows=true;
    if(!material.name.startsWith('garden-'))shadows.addShadowCaster(merged);merged.freezeWorldMatrix();
-   if(display)displayBatches.push(merged);
+   if(display)displayBatches.push(merged);else architectureLOD?.add(merged);
+  }
+  }
   }
  }
  await checkpoint(72);
- await batchArchitecture(staticMeshes.filter(mesh=>mesh.isVisible),false);await batchArchitecture(displayFixtures,true);
+ await batchArchitecture(staticMeshes.filter(mesh=>mesh.isVisible&&!mesh.metadata?.mobileDeferredDetail),false);await batchArchitecture(displayFixtures,true);
+ if(mobile){let kept=0;for(const mesh of staticMeshes)if(!mesh.isDisposed())staticMeshes[kept++]=mesh;staticMeshes.length=kept;displayFixtures.length=0;}
+ if(mobile)for(const mesh of staticMeshes.filter(m=>!m.isDisposed()&&m.metadata?.mobileDeferredDetail))shadows.addShadowCaster(mesh);
  for(const mesh of sweeper.getChildMeshes())shadows.addShadowCaster(mesh);
  for(const mesh of [...quiet.tea.root.getChildMeshes(),...quiet.walker.root.getChildMeshes(),...quiet.furniture])shadows.addShadowCaster(mesh);
  for(const mesh of daily.shadowCasters)shadows.addShadowCaster(mesh);
  for(const mesh of community.shadowCasters)shadows.addShadowCaster(mesh);
  await checkpoint(78);const updateTrees=distanceTrees(scene,shadows);await checkpoint();
  forestLighting.bind();
- const forestLampWindows=scene.meshes.find(m=>m.material===forestLighting.paper);if(forestLampWindows instanceof Mesh)glow.addIncludedOnlyMesh(forestLampWindows);
+ for(const windows of scene.meshes.filter(m=>m.material===forestLighting.paper))if(windows instanceof Mesh)glow.addIncludedOnlyMesh(windows);
  pondMirror.renderList=scene.meshes.filter(mesh=>mesh.material===paleStone||mesh.material===insetStone||mesh.name==='open-sky');
- const luminousWindows=scene.meshes.find(mesh=>mesh.material===lampCore);
- if(luminousWindows instanceof Mesh)glow.addIncludedOnlyMesh(luminousWindows);
+ for(const windows of scene.meshes.filter(mesh=>mesh.material===lampCore))if(windows instanceof Mesh)glow.addIncludedOnlyMesh(windows);
  const candleReceivers=scene.meshes.filter(mesh=>[stone,stoneDark,wood,ochre,wax].some(material=>mesh.material===material));
  for(const light of candleLights)light.includedOnlyMeshes=candleReceivers;
  stone.maxSimultaneousLights=7;
@@ -1363,7 +1391,7 @@ export async function createTemple(canvas:HTMLCanvasElement,onProgress?:(value:n
  function selectedPosition(index:number){const sample=lanternSlots(1000)[index];return lanternDisplayPosition(reviewSlots.get(sample.id)?.position??sample.position);}
  function setSelected(index:number){selected=index;if(marker){const p=selectedPosition(index);marker.position.set(p[0],p[1]-.65,p[2]);}}
  let reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
- let currentTime:TimeOfDay='day';let quality:Quality=mobile?'balanced':'high';
+ let currentTime:TimeOfDay='day';let quality:Quality=startupQuality;
  function updateCandleLights(value:TimeOfDay){
   candleLights.forEach((light,index)=>{
    const count=offeringFlames.slice(index*7,index*7+7).filter(flame=>flame.isEnabled()).length;
@@ -1387,9 +1415,22 @@ export async function createTemple(canvas:HTMLCanvasElement,onProgress?:(value:n
   lampCore.emissiveColor=Color3.FromHexString('#ffb161').scale(value==='night'?2.65:value==='dusk'?.65:.06);
   updateCandleLights(value);
   currentTime=value;shadows.bias=value==='day'?.00015:.002;shadows.normalBias=value==='day'?.008:.035;applyQuality();for(const caster of lanternCasters){shadows.removeShadowCaster(caster);if(value==='day')shadows.addShadowCaster(caster);}paintSky(value);for(const m of [...lanternMaterials,...ownedMaterials])m.setFloat('night',value==='night'?1:value==='dusk'?.45:0);const skies={day:'#a6dbfa',dusk:'#354865',night:'#080f24'};const c=Color3.FromHexString(skies[value]);scene.clearColor=new Color4(c.r,c.g,c.b,1);scene.fogColor=c;hemi.intensity=value==='night'?.35:value==='dusk'?.95:1.1;hemi.diffuse=Color3.FromHexString('#e4f2ff');sun.intensity=value==='day'?1.4:value==='dusk'?1.1:.25;sun.diffuse=Color3.FromHexString(value==='day'?'#fff3db':value==='dusk'?'#ffc17b':'#c1d5ec');sun.direction=value==='day'?new Vector3(-.35,-1.8,.25):new Vector3(-.65,-.5,.45);glow.intensity=value==='night'?.65:value==='dusk'?.5:.4;paper.emissiveColor=paper.diffuseColor.scale(value==='night'?.08:value==='dusk'?.025:0);}
- function applyQuality(){const profile=renderProfile(mobile,quality,canvas.clientWidth,canvas.clientHeight,currentTime!=='day');engine.setHardwareScalingLevel(profile.scale);if(shadows.getShadowMap()!.getSize().width!==profile.shadow)shadows.getShadowMap()!.resize(profile.shadow);glow.isEnabled=profile.glow;pondMirror.refreshRate=profile.reflection;}
- function setQuality(value:Quality){quality=value;applyQuality();}
+ function applyQuality(){
+  const profile=renderProfile(mobile,quality,canvas.clientWidth,canvas.clientHeight,currentTime!=='day'),automatic=adaptive?.settings(quality);
+  engine.setHardwareScalingLevel(profile.scale*(automatic?.scale??1));
+  if(automatic){engine.maxFPS=automatic.fps;shadows.getShadowMap()!.refreshRate=(quality==='low'?6:quality==='balanced'?4:2)*automatic.shadowFactor*(adaptive!.idle?2:1);for(const room of engine.scenes)if(room!==scene){for(const light of room.lights)for(const generator of light.getShadowGenerators()?.values()??[])generator.getShadowMap()!.refreshRate=4*automatic.shadowFactor;for(const layer of room.effectLayers??[])if(layer.name==='scenery-city-glow')layer.isEnabled=automatic.softGlow;}scene.metadata??={};scene.metadata.mobileBudget={level:adaptive!.level,idle:adaptive!.idle,...automatic};}
+  if(shadows.getShadowMap()!.getSize().width!==profile.shadow)shadows.getShadowMap()!.resize(profile.shadow);
+  glow.isEnabled=profile.glow&&(automatic?.softGlow??true);pondMirror.refreshRate=profile.reflection*(automatic?.reflectionFactor??1);pondMirror.resetRefreshCounter();
+ }
+ function setQuality(value:Quality){quality=value;adaptive?.reset(performance.now());applyQuality();}
+ const performanceInput=(event:Event)=>{if(event instanceof PointerEvent&&event.type==='pointermove'&&!event.buttons)return;if(adaptive?.input(performance.now()))applyQuality();};
+ if(adaptive){
+  for(const type of ['pointerdown','pointermove','wheel','keydown','sasa:space'])window.addEventListener(type,performanceInput,{passive:true});
+  const observer=engine.onEndFrameObservable.add(()=>{const practice=!!document.querySelector('#practice-feedback[data-state=active]:not([hidden]),#private-practice-feedback[data-state=active]:not([hidden])');if(adaptive.observe(performance.now(),engine.getDeltaTime(),quality,practice,!!document.querySelector('#practice-feedback[data-kind=meditation][data-state=active]:not([hidden]),#private-practice-feedback[data-kind=meditation][data-state=active]:not([hidden])')))applyQuality();});
+  engine.onDisposeObservable.addOnce(()=>{engine.onEndFrameObservable.remove(observer);for(const type of ['pointerdown','pointermove','wheel','keydown','sasa:space'])window.removeEventListener(type,performanceInput);});
+ }
  window.addEventListener('resize',applyQuality);
+ window.addEventListener('sasa:viewport',()=>{applyQuality();engine.resize();});
  const startZ=outerGate.z+3;
  const exitZ=innerGate.z+7.2;
  let arrivalTime:number|null=null;
@@ -1653,6 +1694,7 @@ export async function createTemple(canvas:HTMLCanvasElement,onProgress?:(value:n
   walking.update(engine.getDeltaTime()/1000);
   if(inspectInside&&!walking.position)camera.radius=walkWorld.cameraLimit(camera.target,camera.alpha,camera.beta,camera.radius);
   camera.minZ=sceneNearPlane(camera.radius);
+  architectureLOD?.update(camera.globalPosition,performance.now());if(mobile)updateFineDetail(scene,camera.globalPosition,performance.now());
   updateTrees(camera.position,performance.now());
   forestLighting.update(camera.position,performance.now());
   pondLife.update(Math.min(.08,engine.getDeltaTime()/1000),reduced,walking.position??undefined);
@@ -1724,5 +1766,6 @@ export async function createTemple(canvas:HTMLCanvasElement,onProgress?:(value:n
   for(const [id,slot] of applicationSlots)if(displayKinds.has(slot.kind))refreshApplication(id);
  }
  await checkpoint(85);
- return {get practiceDestination(){return walking.practiceDestination;},captureWalkView:walking.captureView,restoreWalkView:walking.restoreView,visit:walking.visit,stopPractice:walking.stopPractice,startPractice:walking.startPractice,setWalking:walking.mode,returnFromPrivateRoom:walking.returnFromPrivateRoom,pondLife,setFace:walking.setFace,beginArrival,selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,virtualVisitors:crowd?.count??0,time:currentTime,quality,mobile,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ return {wakeRendering(){if(adaptive?.resume(performance.now()))applyQuality();},get practiceDestination(){return walking.practiceDestination;},captureWalkView:walking.captureView,restoreWalkView:walking.restoreView,visit:walking.visit,stopPractice:walking.stopPractice,startPractice:walking.startPractice,setWalking:walking.mode,returnFromPrivateRoom:walking.returnFromPrivateRoom,pondLife,setFace:walking.setFace,beginArrival,selectOffering,showOccupancy,get visitorPose(){return walking.pose;},applyReviewSlots,reviewSlots,applicationSlots,refreshApplication,onSlotClick:(callback:(id:string)=>void)=>{onSlotClick=callback;},engine,scene,camera,time,setQuality,view,setSelected,rebuildLanterns,setName,setReduced:(v:boolean)=>{reduced=v;},get settings(){return {visitor:walking.position,virtualVisitors:crowd?.count??0,time:currentTime,quality,mobile,density,canopyCapacity,visibleLanternCount,nameTagCount:tagTextures.size,selected,reduced,owned:OWNED_INDICES,renderWidth:engine.getRenderWidth(),renderHeight:engine.getRenderHeight()};}};
+ }catch(error){engine.dispose();throw error;}
 }

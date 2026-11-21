@@ -61,3 +61,53 @@ body.service-ui #private-return-door{display:none!important}
 /* Long localized practice labels must wrap inside their grid cells. */
 @media(max-width:700px),(pointer:coarse){.service-ui #private-room-controls .private-room-actions button{min-width:0;white-space:normal;overflow-wrap:anywhere;line-height:1.35}}
 @media(pointer:coarse) and (max-height:500px){.service-ui .private-room-actions{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:calc(100vw - 132px);left:auto;right:12px;transform:none;gap:3px;padding:5px;max-height:calc(100dvh - 110px);overflow:auto}.service-ui #private-room-controls .private-room-actions button{min-height:44px;padding:7px 5px!important}.service-ui .private-room-actions:has(#private-practice:not([data-mode=idle])){width:calc(100vw - 284px);grid-template-columns:minmax(0,1fr) auto}}
+
+/* A shop drawer owns touch input while it is open. */
+body.offering-visible:not(.in-private-room) #public-touch-stick{display:none!important}
+#offering-drawer .lantern-seats button small{font-size:.875rem;line-height:1.4}
+/* Short screens scroll every form action instead of stacking a sticky action over it. */
+@media(pointer:coarse) and (max-height:500px){
+ body.service-ui #offering-drawer{top:8px;bottom:8px;left:auto;right:12px;width:min(500px,calc(100vw - 24px));height:auto;max-height:calc(var(--usable-height,100dvh) - 16px);border-radius:16px;scroll-padding-top:76px;scroll-padding-bottom:16px}
+ #offering-drawer .offer-controls>.offer-main-action{position:static}
+}
+@media(pointer:coarse),(max-width:700px){#spaces-panel .service-map-figure>svg{height:320px;min-height:320px;max-height:none}}
+
+/* Native Safari button chrome must not surround navigation icons. */
+.service-ui :is(.panel-title,.offering-heading,dialog>header)>button,.service-ui .service-back{appearance:none;-webkit-appearance:none;border:0;border-radius:50%;background:transparent;box-shadow:none;min-width:44px;min-height:44px}
+.service-ui[data-input=pointer] :is(.panel-title,.offering-heading,dialog>header)>button:focus,.service-ui[data-input=pointer] .service-back:focus{outline:none;box-shadow:none}
+.service-ui[data-input=keyboard] :is(.panel-title,.offering-heading,dialog>header)>button:focus-visible,.service-ui[data-input=keyboard] .service-back:focus-visible{outline:2px solid #967332;outline-offset:1px}
+@media(pointer:coarse){#service-dock{backdrop-filter:none;-webkit-backdrop-filter:none}body:has(dialog[open]) .touch-stick{display:none!important}}
+
+/* One visible viewport for Safari toolbar, rotation and keyboard changes. */
+@media(pointer:coarse){
+ body[data-mobile-viewport] #world{top:var(--viewport-top,0px);height:var(--usable-height,100dvh)}
+ body.service-ui[data-mobile-viewport] #service-dock{bottom:calc(var(--mobile-bottom-gap,0px) + max(18px,env(safe-area-inset-bottom)))}
+ body.service-ui[data-mobile-viewport] .touch-stick{bottom:calc(var(--mobile-bottom-gap,0px) + 116px + env(safe-area-inset-bottom))}
+ body.service-ui[data-mobile-viewport] #private-touch-stick{bottom:calc(var(--mobile-bottom-gap,0px) + 22px + env(safe-area-inset-bottom))}
+ body.service-ui[data-mobile-viewport] #context-actions{bottom:calc(var(--mobile-bottom-gap,0px) + 114px)}
+ body.service-ui[data-mobile-viewport] #context-actions:has(#walk-pad:not([data-practice=idle])){bottom:calc(var(--mobile-bottom-gap,0px) + 28px)}
+ body.service-ui[data-mobile-viewport] .private-room-actions{bottom:calc(var(--mobile-bottom-gap,0px) + 90px)}
+ body.service-ui[data-mobile-viewport] #private-room-exit{bottom:calc(var(--mobile-bottom-gap,0px) + 26px)}
+ body.service-ui[data-mobile-viewport] dialog{top:var(--viewport-top,0px);bottom:var(--mobile-bottom-gap,0px);max-height:calc(var(--usable-height,100dvh) - 24px);margin-block:auto}
+ body.service-ui[data-mobile-viewport] #offering-drawer{bottom:var(--mobile-bottom-gap,0px);max-height:calc(var(--usable-height,100dvh) - 12px)}
+}
+@media(pointer:coarse) and (max-height:500px){
+ body.service-ui[data-mobile-viewport] #service-dock{bottom:calc(var(--mobile-bottom-gap,0px) + 8px)}
+ body.service-ui[data-mobile-viewport] #public-touch-stick{bottom:calc(var(--mobile-bottom-gap,0px) + 20px + env(safe-area-inset-bottom))}
+ body.service-ui[data-mobile-viewport] #context-actions{bottom:calc(var(--mobile-bottom-gap,0px) + 85px)}
+ body.service-ui[data-mobile-viewport] #offering-drawer{bottom:calc(var(--mobile-bottom-gap,0px) + 8px)}
+}
+
+@media(pointer:coarse){
+ body[data-mobile-viewport] #world{left:var(--viewport-left,0px);width:var(--usable-width,100vw)}
+ body.service-ui[data-mobile-viewport] #app>header{left:var(--viewport-left,0px);right:var(--mobile-right-gap,0px)}
+ body.service-ui[data-mobile-viewport] #online-visitors{max-width:calc(var(--usable-width,100vw) - 190px)}
+ body.service-ui[data-mobile-viewport] #service-dock{left:calc(var(--viewport-left,0px) + var(--usable-width,100vw)/2);max-width:calc(var(--usable-width,100vw) - 24px)}
+ body.service-ui[data-mobile-viewport] dialog{left:var(--viewport-left,0px);right:var(--mobile-right-gap,0px);max-width:calc(var(--usable-width,100vw) - 24px)}
+ body.service-ui[data-mobile-viewport] #offering-drawer{left:var(--viewport-left,0px);right:var(--mobile-right-gap,0px);width:min(500px,var(--usable-width,100vw));max-width:var(--usable-width,100vw)}
+ body.service-ui[data-mobile-viewport] .touch-stick{left:calc(var(--viewport-left,0px) + max(16px,env(safe-area-inset-left)))}
+ body.service-ui[data-mobile-viewport] #context-actions{right:calc(var(--mobile-right-gap,0px) + 12px);max-width:calc(var(--usable-width,100vw) - 24px)}
+ body.service-ui[data-mobile-viewport] #private-room-exit{right:calc(var(--mobile-right-gap,0px) + 18px)}
+ body.service-ui[data-compact-viewport=true] .service-map-layout{grid-template-columns:1fr}
+ body.service-ui[data-compact-viewport=true] .service-place-list{max-height:114px}
+}

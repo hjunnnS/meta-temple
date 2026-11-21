@@ -1,0 +1,115 @@
+[
+  {
+    "kind": "webkit",
+    "errors": [
+      "Wrong protocol for WebSocket '[object Object]'",
+      "Wrong protocol for WebSocket '[object Object]'"
+    ],
+    "realPhone": false,
+    "temperatureMeasured": false,
+    "entryMs": 6710,
+    "initial": {
+      "architecture": {
+        "groups": 38,
+        "fine": 7,
+        "residentFine": 7,
+        "coarseIndices": 2253861,
+        "fineIndices": 12051102
+      },
+      "details": {
+        "total": 9,
+        "prepared": 0,
+        "near": 0
+      },
+      "vertices": 1683228
+    },
+    "farFace": {
+      "vertices": 3416,
+      "fine": false
+    },
+    "nearFace": {
+      "vertices": 53984,
+      "fine": true
+    },
+    "nearActor": {
+      "visible": 53,
+      "proxy": 0,
+      "phase": 7.316999999999997
+    },
+    "farActor": {
+      "visible": 12,
+      "proxy": 12,
+      "phase": 9.015999999999998
+    },
+    "restoredActor": {
+      "visible": 53,
+      "proxy": 0,
+      "phase": 10.958000000000009
+    },
+    "invalidGeometry": [
+      "architecture-aged-redwood",
+      "architecture-aged-redwood",
+      "architecture-aged-redwood",
+      "architecture-aged-redwood",
+      "architecture-aged-redwood",
+      "architecture-aged-redwood",
+      "architecture-aged-redwood"
+    ],
+    "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'architecture-aged-redwood',\n+   'architecture-aged-redwood',\n+   'architecture-aged-redwood',\n+   'architecture-aged-redwood',\n+   'architecture-aged-redwood',\n+   'architecture-aged-redwood',\n+   'architecture-aged-redwood'\n+ ]\n- []\n"
+  },
+  {
+    "kind": "chromium",
+    "errors": [],
+    "realPhone": false,
+    "temperatureMeasured": false,
+    "entryMs": 6502,
+    "initial": {
+      "architecture": {
+        "groups": 38,
+        "fine": 7,
+        "residentFine": 7,
+        "coarseIndices": 2253861,
+        "fineIndices": 12051102
+      },
+      "details": {
+        "total": 9,
+        "prepared": 0,
+        "near": 0
+      },
+      "vertices": 1685971
+    },
+    "farFace": {
+      "vertices": 3416,
+      "fine": false
+    },
+    "nearFace": {
+      "vertices": 53984,
+      "fine": true
+    },
+    "nearActor": {
+      "visible": 53,
+      "proxy": 0,
+      "phase": 7.110499999970196
+    },
+    "farActor": {
+      "visible": 12,
+      "proxy": 12,
+      "phase": 8.809499999970196
+    },
+    "restoredActor": {
+      "visible": 53,
+      "proxy": 0,
+      "phase": 10.708699999988085
+    },
+    "invalidGeometry": [
+      "architecture-aged-redwood",
+      "architecture-aged-redwood",
+      "architecture-aged-redwood",
+      "architecture-aged-redwood",
+      "architecture-aged-redwood",
+      "architecture-aged-redwood",
+      "architecture-aged-redwood"
+    ],
+    "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'architecture-aged-redwood',\n+   'architecture-aged-redwood',\n+   'architecture-aged-redwood',\n+   'architecture-aged-redwood',\n+   'architecture-aged-redwood',\n+   'architecture-aged-redwood',\n+   'architecture-aged-redwood'\n+ ]\n- []\n"
+  }
+]

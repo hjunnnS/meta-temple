@@ -193,7 +193,7 @@ export function walkingController(scene:Scene,camera:ArcRotateCamera,canvas:HTML
  pointInput(scene,canvas,()=>active,point=>{
   const p=avatar.root.position;if(Math.abs(point[1]-world.floor(point[0],point[2]))>.35||world.blocked(point[0],world.floor(point[0],point[2]),point[2]))return;
   route=walkingPath([p.x,p.z],[point[0],point[2]],(a,b)=>Math.abs(world.floor(a[0],a[1])-world.floor(b[0],b[1]))<=.5&&!world.blocked(b[0],world.floor(b[0],b[1]),b[1]));stuck=0;canvas.dataset.pointWalk=route.length?'moving':'idle';
- });
+ },pick=>{const index=pick.pickedMesh?.metadata?.teaSeatIndex;if(!Number.isInteger(index))return false;clear();if(bows.active)bows.cancel();finishWorship();bell.cancel();tea.sitAt(index);return true;});
  const orbitKeys=camera.inputs.attached.keyboard;
  function mode(on:boolean){
   if(!on){bows.show(false);tea.hide();bell.cancel();}

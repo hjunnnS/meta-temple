@@ -1,0 +1,69 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "label": "near-0",
+      "architecture": {
+        "groups": 38,
+        "fine": 5,
+        "residentFine": 11,
+        "coarseIndices": 2253861,
+        "fineIndices": 7465230
+      },
+      "details": {
+        "total": 9,
+        "prepared": 1,
+        "near": 1
+      },
+      "geometries": 1796
+    },
+    {
+      "label": "far-0",
+      "architecture": {
+        "groups": 38,
+        "fine": 2,
+        "residentFine": 2,
+        "coarseIndices": 2253861,
+        "fineIndices": 7465230
+      },
+      "details": {
+        "total": 9,
+        "prepared": 0,
+        "near": 0
+      },
+      "geometries": 1786
+    },
+    {
+      "label": "near-1",
+      "architecture": {
+        "groups": 38,
+        "fine": 5,
+        "residentFine": 6,
+        "coarseIndices": 2253861,
+        "fineIndices": 7465230
+      },
+      "details": {
+        "total": 9,
+        "prepared": 1,
+        "near": 1
+      },
+      "geometries": 1791
+    },
+    {
+      "label": "far-1",
+      "architecture": {
+        "groups": 38,
+        "fine": 2,
+        "residentFine": 2,
+        "coarseIndices": 2253861,
+        "fineIndices": 7465230
+      },
+      "details": {
+        "total": 9,
+        "prepared": 0,
+        "near": 0
+      },
+      "geometries": 1786
+    }
+  ]
+}
