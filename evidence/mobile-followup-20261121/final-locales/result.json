@@ -1,0 +1,35 @@
+[
+  {
+    "locale": "fr",
+    "selectedContrast": 8.271240458888757,
+    "scheduleBounds": {
+      "x": 32,
+      "y": 68,
+      "width": 149.5625,
+      "height": 44
+    },
+    "passed": true
+  },
+  {
+    "locale": "de",
+    "selectedContrast": 8.271240458888757,
+    "scheduleBounds": {
+      "x": 32,
+      "y": 68,
+      "width": 127.390625,
+      "height": 44
+    },
+    "passed": true
+  },
+  {
+    "locale": "ru",
+    "selectedContrast": 8.271240458888757,
+    "scheduleBounds": {
+      "x": 32,
+      "y": 68,
+      "width": 150,
+      "height": 57.1875
+    },
+    "passed": true
+  }
+]

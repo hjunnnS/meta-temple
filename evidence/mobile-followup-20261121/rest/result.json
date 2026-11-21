@@ -1,0 +1,61 @@
+[
+  {
+    "kind": "webkit",
+    "errors": [],
+    "realPhone": false,
+    "stage": "chair-tap",
+    "dragDoesNotSit": true,
+    "chair": {
+      "x": 227.84554941900964,
+      "y": 451.88005381723053
+    },
+    "chairTap": true,
+    "orderOnDemand": true,
+    "mobile108Counter": true,
+    "privateMenuOnDemand": true,
+    "practiceStatusAndTimer": true,
+    "returnToTemple": true,
+    "sdkDiagnostics": [
+      "Wrong protocol for WebSocket '[object Object]'",
+      "Wrong protocol for WebSocket '[object Object]'"
+    ],
+    "passed": true
+  },
+  {
+    "kind": "chromium",
+    "errors": [],
+    "realPhone": false,
+    "stage": "chair-tap",
+    "dragDoesNotSit": true,
+    "chair": {
+      "x": 228.35286395469723,
+      "y": 451.8453706722962
+    },
+    "chairTap": true,
+    "orderOnDemand": true,
+    "mobile108Counter": true,
+    "privateMenuOnDemand": true,
+    "practiceStatusAndTimer": true,
+    "returnToTemple": true,
+    "sdkDiagnostics": [],
+    "passed": true
+  },
+  {
+    "kind": "desktop",
+    "errors": [],
+    "realPhone": false,
+    "stage": "chair-tap",
+    "dragDoesNotSit": true,
+    "chair": {
+      "x": 678.7473200504032,
+      "y": 547.676650605204
+    },
+    "chairTap": true,
+    "orderOnDemand": true,
+    "privateMenuOnDemand": true,
+    "practiceStatusAndTimer": true,
+    "returnToTemple": true,
+    "sdkDiagnostics": [],
+    "passed": true
+  }
+]

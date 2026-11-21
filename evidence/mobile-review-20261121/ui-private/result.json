@@ -1,0 +1,1704 @@
+{
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "realPhone": false,
+  "temperatureMeasured": false,
+  "panels": [
+    {
+      "name": "welcome",
+      "viewport": [
+        393,
+        660
+      ],
+      "bounds": {
+        "x": 12,
+        "y": 99,
+        "width": 369,
+        "height": 144.390625
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "guide-free",
+          "label": "자유롭게 둘러보기",
+          "width": 124.671875,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-with-monk",
+          "label": "스님에게 안내받기",
+          "width": 124.671875,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "portrait-dock",
+      "viewport": [
+        393,
+        852
+      ],
+      "bounds": {
+        "x": 12,
+        "y": 752,
+        "width": 369,
+        "height": 82
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "spaces-open",
+          "label": "사찰 지도",
+          "width": 119,
+          "height": 70,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "practice-open",
+          "label": "수행안내창에서 선택",
+          "width": 119,
+          "height": 70,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "appearance-open",
+          "label": "내 모습",
+          "width": 119,
+          "height": 70,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "portrait-map",
+      "viewport": [
+        393,
+        852
+      ],
+      "bounds": {
+        "x": 12,
+        "y": 12,
+        "width": 369,
+        "height": 828
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "뒤로",
+          "width": 44,
+          "height": 47,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "닫기",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "기도 공간",
+          "width": 109.65625,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "쉼터·산책",
+          "width": 109.671875,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "기타 시설",
+          "width": 109.65625,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "14 · 구름탑",
+          "width": 161.5,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "07 · 범종각",
+          "width": 161.5,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "12 · 석탑 촛불함",
+          "width": 161.5,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "11 · 소원패 정원",
+          "width": 161.5,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "19 · 시간과 공간의 방",
+          "width": 161.5,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "10 · 연등광장",
+          "width": 161.5,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "09 · 일주문",
+          "width": 161.5,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "06 · 종무소",
+          "width": 161.5,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "08 · 천왕문",
+          "width": 161.5,
+          "height": 60,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": true
+        },
+        {
+          "id": "",
+          "label": "01 · 함께 만드는 작은 전각",
+          "width": 161.5,
+          "height": 60,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": true
+        },
+        {
+          "id": "",
+          "label": "이곳으로 이동",
+          "width": 339,
+          "height": 45,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "portrait-practice",
+      "viewport": [
+        393,
+        852
+      ],
+      "bounds": {
+        "x": 16,
+        "y": 217.359375,
+        "width": 361,
+        "height": 417.28125
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "뒤로",
+          "width": 44,
+          "height": 47,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "닫기",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "practice-bow",
+          "label": "대웅전에서 참배하기",
+          "width": 323,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "practice-meditate",
+          "label": "대웅전에서 명상하기",
+          "width": 323,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "practice-108",
+          "label": "대웅전에서 108배 시작",
+          "width": 323,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "portrait-menu",
+      "viewport": [
+        393,
+        852
+      ],
+      "bounds": {
+        "x": 16,
+        "y": 202.5,
+        "width": 361,
+        "height": 447
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "닫기",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "menu-map",
+          "label": "사찰 지도",
+          "width": 323,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "schedule-open",
+          "label": "오늘의 일정",
+          "width": 323,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "offering-open",
+          "label": "등·소원 접수처",
+          "width": 323,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "service-account",
+          "label": "계정",
+          "width": 323,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "settings",
+          "label": "환경 설정 열기",
+          "width": 323,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-open",
+          "label": "스님 안내",
+          "width": 323,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "portrait-settings",
+      "viewport": [
+        393,
+        852
+      ],
+      "bounds": {
+        "x": 12,
+        "y": 12,
+        "width": 369,
+        "height": 828
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "뒤로",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "close-settings",
+          "label": "환경 설정 닫기",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "master-mute",
+          "label": "checkbox",
+          "width": 20,
+          "height": 44,
+          "small": true,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "audio-on",
+          "label": "checkbox",
+          "width": 20,
+          "height": 44,
+          "small": true,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "audio-volume",
+          "label": "range",
+          "width": 147,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "time",
+          "label": "햇살 가득한 낮해질녘밤",
+          "width": 126,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "quality",
+          "label": "섬세하게균형 있게가볍게",
+          "width": 94,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "reduced",
+          "label": "checkbox",
+          "width": 20,
+          "height": 44,
+          "small": true,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "🇰🇷 언어 선택",
+          "width": 96.015625,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "1채널2채널3채널",
+          "width": 72,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "visit-guide-open",
+          "label": "조작 안내 다시 보기",
+          "width": 130.25,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "review-open",
+          "label": "검수 도구",
+          "width": 327,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "small-dock",
+      "viewport": [
+        320,
+        740
+      ],
+      "bounds": {
+        "x": 12,
+        "y": 640,
+        "width": 296,
+        "height": 82
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "spaces-open",
+          "label": "사찰 지도",
+          "width": 94.65625,
+          "height": 70,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "practice-open",
+          "label": "수행안내창에서 선택",
+          "width": 94.671875,
+          "height": 70,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "appearance-open",
+          "label": "내 모습",
+          "width": 94.65625,
+          "height": 70,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "small-map",
+      "viewport": [
+        320,
+        740
+      ],
+      "bounds": {
+        "x": 12,
+        "y": 12,
+        "width": 296,
+        "height": 716
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "뒤로",
+          "width": 44,
+          "height": 47,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "닫기",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "기도 공간",
+          "width": 85.328125,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "쉼터·산책",
+          "width": 85.328125,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "기타 시설",
+          "width": 85.34375,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "14 · 구름탑",
+          "width": 125,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "07 · 범종각",
+          "width": 125,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "12 · 석탑 촛불함",
+          "width": 125,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "11 · 소원패 정원",
+          "width": 125,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "19 · 시간과 공간의 방",
+          "width": 125,
+          "height": 60,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "10 · 연등광장",
+          "width": 125,
+          "height": 60,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "09 · 일주문",
+          "width": 125,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "06 · 종무소",
+          "width": 125,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "08 · 천왕문",
+          "width": 125,
+          "height": 60,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "01 · 함께 만드는 작은 전각",
+          "width": 125,
+          "height": 60,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "이곳으로 이동",
+          "width": 266,
+          "height": 45,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "small-practice",
+      "viewport": [
+        320,
+        740
+      ],
+      "bounds": {
+        "x": 16,
+        "y": 135.765625,
+        "width": 288,
+        "height": 468.46875
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "뒤로",
+          "width": 44,
+          "height": 47,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "닫기",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "practice-bow",
+          "label": "대웅전에서 참배하기",
+          "width": 250,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "practice-meditate",
+          "label": "대웅전에서 명상하기",
+          "width": 250,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "practice-108",
+          "label": "대웅전에서 108배 시작",
+          "width": 250,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "small-menu",
+      "viewport": [
+        320,
+        740
+      ],
+      "bounds": {
+        "x": 16,
+        "y": 146.5,
+        "width": 288,
+        "height": 447
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "닫기",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "menu-map",
+          "label": "사찰 지도",
+          "width": 250,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "schedule-open",
+          "label": "오늘의 일정",
+          "width": 250,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "offering-open",
+          "label": "등·소원 접수처",
+          "width": 250,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "service-account",
+          "label": "계정",
+          "width": 250,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "settings",
+          "label": "환경 설정 열기",
+          "width": 250,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-open",
+          "label": "스님 안내",
+          "width": 250,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "small-settings",
+      "viewport": [
+        320,
+        740
+      ],
+      "bounds": {
+        "x": 12,
+        "y": 12,
+        "width": 296,
+        "height": 716
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "뒤로",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "close-settings",
+          "label": "환경 설정 닫기",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "master-mute",
+          "label": "checkbox",
+          "width": 20,
+          "height": 44,
+          "small": true,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "audio-on",
+          "label": "checkbox",
+          "width": 20,
+          "height": 44,
+          "small": true,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "audio-volume",
+          "label": "range",
+          "width": 147,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "time",
+          "label": "햇살 가득한 낮해질녘밤",
+          "width": 126,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "quality",
+          "label": "섬세하게균형 있게가볍게",
+          "width": 94,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "reduced",
+          "label": "checkbox",
+          "width": 20,
+          "height": 44,
+          "small": true,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "🇰🇷 언어 선택",
+          "width": 96.015625,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "1채널2채널3채널",
+          "width": 72,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "visit-guide-open",
+          "label": "조작 안내 다시 보기",
+          "width": 130.25,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        },
+        {
+          "id": "review-open",
+          "label": "검수 도구",
+          "width": 254,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "landscape-dock",
+      "viewport": [
+        852,
+        393
+      ],
+      "bounds": {
+        "x": 276.703125,
+        "y": 323,
+        "width": 298.59375,
+        "height": 62
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "spaces-open",
+          "label": "사찰 지도",
+          "width": 106.234375,
+          "height": 48,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "practice-open",
+          "label": "수행안내창에서 선택",
+          "width": 78.234375,
+          "height": 48,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "appearance-open",
+          "label": "내 모습",
+          "width": 94.125,
+          "height": 48,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "landscape-map",
+      "viewport": [
+        852,
+        393
+      ],
+      "bounds": {
+        "x": 16,
+        "y": 12,
+        "width": 820,
+        "height": 369
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "뒤로",
+          "width": 44,
+          "height": 47,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "닫기",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "기도 공간",
+          "width": 90,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "쉼터·산책",
+          "width": 90,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "기타 시설",
+          "width": 90,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "14 · 구름탑",
+          "width": 270,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "07 · 범종각",
+          "width": 270,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "12 · 석탑 촛불함",
+          "width": 270,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "11 · 소원패 정원",
+          "width": 270,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "19 · 시간과 공간의 방",
+          "width": 270,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "10 · 연등광장",
+          "width": 270,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "09 · 일주문",
+          "width": 270,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "06 · 종무소",
+          "width": 270,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "08 · 천왕문",
+          "width": 270,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "01 · 함께 만드는 작은 전각",
+          "width": 270,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "이곳으로 이동",
+          "width": 280,
+          "height": 45,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "landscape-practice",
+      "viewport": [
+        852,
+        393
+      ],
+      "bounds": {
+        "x": 176,
+        "y": 12,
+        "width": 500,
+        "height": 369
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "뒤로",
+          "width": 44,
+          "height": 47,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "닫기",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "practice-bow",
+          "label": "대웅전에서 참배하기",
+          "width": 450,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "practice-meditate",
+          "label": "대웅전에서 명상하기",
+          "width": 450,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "practice-108",
+          "label": "대웅전에서 108배 시작",
+          "width": 450,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "landscape-menu",
+      "viewport": [
+        852,
+        393
+      ],
+      "bounds": {
+        "x": 176,
+        "y": 12,
+        "width": 500,
+        "height": 369
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "닫기",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "menu-map",
+          "label": "사찰 지도",
+          "width": 450,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "schedule-open",
+          "label": "오늘의 일정",
+          "width": 450,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "offering-open",
+          "label": "등·소원 접수처",
+          "width": 450,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "service-account",
+          "label": "계정",
+          "width": 450,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "settings",
+          "label": "환경 설정 열기",
+          "width": 450,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-open",
+          "label": "스님 안내",
+          "width": 450,
+          "height": 48.5,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "landscape-settings",
+      "viewport": [
+        852,
+        393
+      ],
+      "bounds": {
+        "x": 231,
+        "y": 12,
+        "width": 390,
+        "height": 369
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "뒤로",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "close-settings",
+          "label": "환경 설정 닫기",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "master-mute",
+          "label": "checkbox",
+          "width": 20,
+          "height": 44,
+          "small": true,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "audio-on",
+          "label": "checkbox",
+          "width": 20,
+          "height": 44,
+          "small": true,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "audio-volume",
+          "label": "range",
+          "width": 147,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "time",
+          "label": "햇살 가득한 낮해질녘밤",
+          "width": 126,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "quality",
+          "label": "섬세하게균형 있게가볍게",
+          "width": 94,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        },
+        {
+          "id": "reduced",
+          "label": "checkbox",
+          "width": 20,
+          "height": 44,
+          "small": true,
+          "centerOnScreen": false,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "🇰🇷 언어 선택",
+          "width": 96.015625,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        },
+        {
+          "id": "",
+          "label": "1채널2채널3채널",
+          "width": 72,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        },
+        {
+          "id": "visit-guide-open",
+          "label": "조작 안내 다시 보기",
+          "width": 130.25,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        },
+        {
+          "id": "review-open",
+          "label": "검수 도구",
+          "width": 340,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": false,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "guide-picker",
+      "viewport": [
+        393,
+        852
+      ],
+      "bounds": {
+        "x": 16,
+        "y": 218.765625,
+        "width": 361,
+        "height": 414.46875
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "",
+          "label": "뒤로",
+          "width": 44.1875,
+          "height": 47.59375,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-brief",
+          "label": "checkbox",
+          "width": 18,
+          "height": 18,
+          "small": true,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-course-health",
+          "label": "건강",
+          "width": 157,
+          "height": 47.59375,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-course-family",
+          "label": "가족",
+          "width": 157,
+          "height": 47.59375,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-course-exam",
+          "label": "시험",
+          "width": 157,
+          "height": 47.59375,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-course-relationship",
+          "label": "관계",
+          "width": 157,
+          "height": 47.59375,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-course-loss",
+          "label": "상실",
+          "width": 157,
+          "height": 47.59375,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-picker-free",
+          "label": "자유롭게 둘러보기",
+          "width": 144.921875,
+          "height": 47.59375,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "guide-course",
+      "viewport": [
+        393,
+        852
+      ],
+      "bounds": {
+        "x": 12,
+        "y": 99,
+        "width": 369,
+        "height": 308.765625
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "guide-next",
+          "label": "다음 안내",
+          "width": 76.234375,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-repeat",
+          "label": "다시 듣기",
+          "width": 60.234375,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-change",
+          "label": "다른 고민 선택",
+          "width": 88.234375,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "guide-exit",
+          "label": "안내 종료·자유 탐방",
+          "width": 116.46875,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "coffee-compact",
+      "viewport": [
+        393,
+        852
+      ],
+      "bounds": {
+        "x": 204.3125,
+        "y": 698,
+        "width": 176.6875,
+        "height": 44
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "tea-order-open",
+          "label": "커피 주문",
+          "width": 86.234375,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "tea-stand",
+          "label": "일어나기",
+          "width": 82.453125,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "coffee-order",
+      "viewport": [
+        393,
+        852
+      ],
+      "bounds": {
+        "x": 12,
+        "y": 327,
+        "width": 369,
+        "height": 198
+      },
+      "pageOverflow": false,
+      "rootOverflow": false,
+      "controls": [
+        {
+          "id": "tea-order-close",
+          "label": "닫기",
+          "width": 44,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "tea-beverage",
+          "label": "차커피",
+          "width": 59,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        },
+        {
+          "id": "tea-sip",
+          "label": "마시기",
+          "width": 327,
+          "height": 44,
+          "small": false,
+          "centerOnScreen": true,
+          "covered": false
+        }
+      ],
+      "tiny": []
+    }
+  ],
+  "privateProfiles": [],
+  "errors": [],
+  "reloads": 0,
+  "entryElapsedMs": 6465,
+  "failure": "TimeoutError: locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#private-active-controls').first() to be visible\u001b[22m\n"
+}

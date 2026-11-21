@@ -1,0 +1,2350 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Material colors, texture settings and generated pixels must be unchanged
++ actual - expected
+... Skipped lines
+
+  [
+    {
+      diffuse: [
+        0.6901960784313725,
+        0.47058823529411764,
+...
+          name: 'cut-granite-crystals',
++         pixels: 'cd1d4780',
+-         pixels: '8d71c1e8',
+          size: {
+            height: 512,
+            width: 512
+          },
+          u: 1,
+...
+          name: 'cut-granite-crystals',
++         pixels: 'cd1d4780',
+-         pixels: '8d71c1e8',
+          size: {
+            height: 512,
+            width: 512
+          },
+          u: 1,
+
+    at file:///Users/hjunnn/Documents/ChatGPT/Metaverse/sasa-sites-trial/scripts/check-entry-quality.mjs:11:96 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [
+    {
+      name: 'aged-redwood',
+      diffuse: [ 0.6901960784313725, 0.47058823529411764, 0.33725490196078434 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: '/textures/wood_planks_dirt_diff_1k.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: '/textures/wood_planks_dirt_nor_gl_1k.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 0.55,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'altar-jade',
+      diffuse: [ 0.1411764705882353, 0.34901960784313724, 0.3137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'antique-bronze',
+      diffuse: [ 0.2980392156862745, 0.25098039215686274, 0.2 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'bohyeon-altar-lacquer',
+      diffuse: [ 0.4627450980392157, 0.22745098039215686, 0.19607843137254902 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'bohyeon-beeswax',
+      diffuse: [ 0.9568627450980393, 0.9019607843137255, 0.7803921568627451 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'bohyeon-candle-flame',
+      diffuse: [ 1, 0.7490196078431373, 0.40784313725490196 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'bohyeon-coiffure',
+      diffuse: [ 0.17254901960784313, 0.18823529411764706, 0.16470588235294117 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'bohyeon-gilded-bronze',
+      diffuse: [ 0.788235294117647, 0.611764705882353, 0.2823529411764706 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'bohyeon-satin-gilt-face',
+      diffuse: [ 0.8666666666666667, 0.7411764705882353, 0.48627450980392156 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'bohyeon-shrine-jade',
+      diffuse: [ 0.17647058823529413, 0.34901960784313724, 0.3137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'burnished-relief',
+      diffuse: [ 0.6784313725490196, 0.5843137254901961, 0.3843137254901961 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cafe-apron',
+      diffuse: [ 0.2631747163984916, 0.18354899846495082, 0.10363409665513738 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cafe-brushed-metal',
+      diffuse: [ 0.34402566130218676, 0.39408312608282897, 0.3837746464879752 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cafe-coffee-beans',
+      diffuse: [
+        0.08464151072542946,
+        0.05284162552287903,
+        0.028991186547107816
+      ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cafe-machine-body',
+      diffuse: [ 0.03155139140022645, 0.06772458968542432, 0.05818717747368543 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cafe-porcelain',
+      diffuse: [ 0.8277257944550337, 0.7742273142184416, 0.6455552724449345 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'candle-flame',
+      diffuse: [ 1, 0.7450980392156863, 0.3764705882352941 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'candle-wax',
+      diffuse: [ 1, 0.9176470588235294, 0.7647058823529411 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cast-bronze',
+      diffuse: [ 0.6745098039215687, 0.6, 0.44313725490196076 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'bronze-patina',
+          size: { width: 512, height: 256 },
+          pixels: '389951bc',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cinnabar',
+      diffuse: [ 0.5647058823529412, 0.24705882352941178, 0.21176470588235294 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cushion',
+      diffuse: [ 0.6823529411764706, 0.2823529411764706, 0.2549019607843137 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'dancheong',
+      diffuse: [ 1, 1, 1 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'original-dancheong',
+          size: { width: 1024, height: 128 },
+          pixels: 'a0ddc324',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'dark-stone',
+      diffuse: [ 0.28627450980392155, 0.28627450980392155, 0.3333333333333333 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 0.23,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'east-pagoda-cut-granite',
+      diffuse: [ 0.8941176470588236, 0.8509803921568627, 0.7490196078431373 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'cut-granite-crystals',
+          size: { width: 512, height: 512 },
+          pixels: 'cd1d4780',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: '/textures/rock_face_nor_gl_1k.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 0.15,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'forest-walk-earth',
+      diffuse: [ 0.3607843137254902, 0.34509803921568627, 0.3176470588235294 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'natural-trail-worn-earth',
+          size: { width: 256, height: 256 },
+          pixels: '8fbf033a',
+          level: 1,
+          u: 56.42857142857143,
+          v: 71.42857142857143
+        },
+        { key: 'bumpTexture' },
+        {
+          key: 'opacityTexture',
+          name: 'natural-trail-union-mask',
+          size: { width: 1024, height: 1280 },
+          pixels: '5828b5b6',
+          level: 1,
+          u: 1,
+          v: 1
+        }
+      ]
+    },
+    {
+      name: 'garden-bamboo',
+      diffuse: [ 0.34509803921568627, 0.4823529411764706, 0.21176470588235294 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-bamboo-joint',
+      diffuse: [ 0.6196078431372549, 0.6588235294117647, 0.41568627450980394 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-bamboo-leaf',
+      diffuse: [ 0.30196078431372547, 0.47058823529411764, 0.21176470588235294 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-bark',
+      diffuse: [ 0.4745098039215686, 0.4470588235294118, 0.35294117647058826 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-grove-litter',
+      diffuse: [ 0.4627450980392157, 0.3843137254901961, 0.27450980392156865 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'shared-grove-litter',
+          size: { width: 256, height: 256 },
+          pixels: '74e89468',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-leaf',
+      diffuse: [ 0.1411764705882353, 0.2627450980392157, 0.1607843137254902 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-meadow',
+      diffuse: [ 0.1607843137254902, 0.2627450980392157, 0.14901960784313725 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-moss',
+      diffuse: [ 0.18823529411764706, 0.2235294117647059, 0.13725490196078433 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'soft-moss-edge',
+          size: { width: 256, height: 256 },
+          pixels: 'dd503e9c',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-path-lamp-frame',
+      diffuse: [ 0.18823529411764706, 0.17647058823529413, 0.15294117647058825 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-path-lamp-paper',
+      diffuse: [ 0.9254901960784314, 0.8745098039215686, 0.7490196078431373 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-path-lamp-roof',
+      diffuse: [ 0.3333333333333333, 0.33725490196078434, 0.30196078431372547 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-path-lamp-stone',
+      diffuse: [ 0.5450980392156862, 0.5294117647058824, 0.4823529411764706 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'geukrak-altar-lacquer',
+      diffuse: [ 0.4627450980392157, 0.22745098039215686, 0.19607843137254902 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'geukrak-beeswax',
+      diffuse: [ 0.9568627450980393, 0.9019607843137255, 0.7803921568627451 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'geukrak-candle-flame',
+      diffuse: [ 1, 0.7490196078431373, 0.40784313725490196 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'geukrak-coiffure',
+      diffuse: [ 0.17254901960784313, 0.18823529411764706, 0.16470588235294117 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'geukrak-gilded-bronze',
+      diffuse: [ 0.788235294117647, 0.611764705882353, 0.2823529411764706 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'geukrak-satin-gilt-face',
+      diffuse: [ 0.8666666666666667, 0.7411764705882353, 0.48627450980392156 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'geukrak-shrine-jade',
+      diffuse: [ 0.17647058823529413, 0.34901960784313724, 0.3137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gilded-bronze',
+      diffuse: [ 0.7490196078431373, 0.5098039215686274, 0.18823529411764706 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gold',
+      diffuse: [ 0.6470588235294118, 0.5372549019607843, 0.3137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-gilt',
+      diffuse: [ 0.8235294117647058, 0.6431372549019608, 0.2823529411764706 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-indigo',
+      diffuse: [ 0.20392156862745098, 0.27450980392156865, 0.38823529411764707 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-ink',
+      diffuse: [ 0.20784313725490197, 0.16862745098039217, 0.1568627450980392 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-ivory',
+      diffuse: [ 0.9333333333333333, 0.8784313725490196, 0.7137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-jade',
+      diffuse: [ 0.25882352941176473, 0.4745098039215686, 0.403921568627451 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-lacquer',
+      diffuse: [ 0.5882352941176471, 0.1843137254901961, 0.1411764705882353 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-pearwood',
+      diffuse: [ 0.6509803921568628, 0.4, 0.1568627450980392 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-plinth',
+      diffuse: [ 0.3176470588235294, 0.27450980392156865, 0.23529411764705882 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-skin-0',
+      diffuse: [ 0.8235294117647058, 0.6, 0.3137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-skin-1',
+      diffuse: [ 0.5137254901960784, 0.6078431372549019, 0.7019607843137254 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-skin-2',
+      diffuse: [ 0.5725490196078431, 0.6588235294117647, 0.5294117647058824 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-skin-3',
+      diffuse: [ 0.8352941176470589, 0.6666666666666666, 0.47058823529411764 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gwaneum-cushion',
+      diffuse: [ 0.6823529411764706, 0.3254901960784314, 0.2823529411764706 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'woven-cushion-cover',
+          size: { width: 256, height: 256 },
+          pixels: 'a8ee7bc5',
+          level: 1,
+          u: 2,
+          v: 2
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gwaneum-gilding',
+      diffuse: [ 0.8470588235294118, 0.6666666666666666, 0.3333333333333333 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gwaneum-hair',
+      diffuse: [ 0.22745098039215686, 0.19215686274509805, 0.1568627450980392 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gwaneum-jade',
+      diffuse: [ 0.27058823529411763, 0.4588235294117647, 0.4 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gwaneum-lacquer',
+      diffuse: [ 0.44313725490196076, 0.22745098039215686, 0.19607843137254902 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gwaneum-white-robe',
+      diffuse: [ 0.8823529411764706, 0.8549019607843137, 0.792156862745098 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'hair',
+      diffuse: [ 0.18823529411764706, 0.1568627450980392, 0.1411764705882353 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'hall-lamp-bronze',
+      diffuse: [ 0.7176470588235294, 0.5647058823529412, 0.32941176470588235 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'jade',
+      diffuse: [ 0.15294117647058825, 0.3607843137254902, 0.2823529411764706 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'jijang-face',
+      diffuse: [ 0.9411764705882353, 0.7764705882352941, 0.48627450980392156 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'jijang-gold',
+      diffuse: [ 0.8862745098039215, 0.6784313725490196, 0.3254901960784314 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'jijang-jewel',
+      diffuse: [ 0.5686274509803921, 0.8745098039215686, 0.8 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'jijang-scalp',
+      diffuse: [ 0.6196078431372549, 0.6705882352941176, 0.5215686274509804 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'lantern-granite',
+      diffuse: [ 0.7019607843137254, 0.6705882352941176, 0.6274509803921569 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 0.23,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'lantern-lamplight',
+      diffuse: [ 0.8705882352941177, 0.6980392156862745, 0.47843137254901963 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'leaves',
+      diffuse: [ 0.07058823529411765, 0.24705882352941178, 0.19607843137254902 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'lotus-heart',
+      diffuse: [ 0.9254901960784314, 0.7176470588235294, 0.3137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'lotus-ivory',
+      diffuse: [ 1, 0.8745098039215686, 0.807843137254902 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'lotus-leaves',
+      diffuse: [ 0.3215686274509804, 0.49019607843137253, 0.2627450980392157 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'lotus-shell-pink',
+      diffuse: [ 0.9686274509803922, 0.6431372549019608, 0.7254901960784313 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'main-hall-rafter',
+      diffuse: [ 0.5098039215686274, 0.3215686274509804, 0.23137254901960785 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'main-hall-rafter-band',
+      diffuse: [ 0.2627450980392157, 0.43137254901960786, 0.39215686274509803 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'main-hall-soffit',
+      diffuse: [ 0.3137254901960784, 0.38823529411764707, 0.30980392156862746 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'memorial-stand-granite',
+      diffuse: [ 0.6431372549019608, 0.6313725490196078, 0.5803921568627451 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 0.23,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'monk-cushion',
+      diffuse: [ 0.9215686274509803, 0.6823529411764706, 0.27450980392156865 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'munsu-altar-lacquer',
+      diffuse: [ 0.4627450980392157, 0.22745098039215686, 0.19607843137254902 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'munsu-beeswax',
+      diffuse: [ 0.9568627450980393, 0.9019607843137255, 0.7803921568627451 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'munsu-candle-flame',
+      diffuse: [ 1, 0.7490196078431373, 0.40784313725490196 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'munsu-coiffure',
+      diffuse: [ 0.17254901960784313, 0.18823529411764706, 0.16470588235294117 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'munsu-gilded-bronze',
+      diffuse: [ 0.788235294117647, 0.611764705882353, 0.2823529411764706 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'munsu-satin-gilt-face',
+      diffuse: [ 0.8666666666666667, 0.7411764705882353, 0.48627450980392156 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'munsu-shrine-jade',
+      diffuse: [ 0.17647058823529413, 0.34901960784313724, 0.3137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'pagoda-weathered-recess',
+      diffuse: [ 0.7725490196078432, 0.7333333333333333, 0.6666666666666666 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'cut-granite-crystals',
+          size: { width: 512, height: 512 },
+          pixels: 'cd1d4780',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: '/textures/rock_face_nor_gl_1k.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 0.15,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'paper',
+      diffuse: [ 0.6352941176470588, 0.5843137254901961, 0.47843137254901963 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'path-flagstone-0',
+      diffuse: [ 0.6431372549019608, 0.6588235294117647, 0.6431372549019608 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: '/textures/flagstone-gray.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: '/textures/rock_face_nor_gl_1k.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 0.16,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'path-flagstone-1',
+      diffuse: [ 0.6745098039215687, 0.6823529411764706, 0.6666666666666666 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: '/textures/flagstone-gray.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: '/textures/rock_face_nor_gl_1k.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 0.16,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'path-flagstone-2',
+      diffuse: [ 0.6588235294117647, 0.6705882352941176, 0.6549019607843137 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: '/textures/flagstone-gray.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: '/textures/rock_face_nor_gl_1k.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 0.16,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'path-soil',
+      diffuse: [ 0.3215686274509804, 0.30196078431372547, 0.2823529411764706 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 0.23,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'place-sign-시간과 공간의 방',
+      diffuse: [ 1, 1, 1 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'place-sign-시간과 공간의 방',
+          size: { width: 1024, height: 256 },
+          pixels: 'e1419c7e',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'place-sign-차 · 커피 쉼터',
+      diffuse: [ 1, 1, 1 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'place-sign-차 · 커피 쉼터',
+          size: { width: 1024, height: 256 },
+          pixels: '9f159631',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'plaque-관음전',
+      diffuse: [ 1, 1, 1 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'label-관음전',
+          size: { width: 512, height: 128 },
+          pixels: 'e85a56f3',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'plaque-관음전-inside',
+      diffuse: [ 1, 1, 1 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'label-관음전',
+          size: { width: 512, height: 128 },
+          pixels: 'e85a56f3',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    ... 60 more items
+  ],
+  expected: [
+    {
+      name: 'aged-redwood',
+      diffuse: [ 0.6901960784313725, 0.47058823529411764, 0.33725490196078434 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: '/textures/wood_planks_dirt_diff_1k.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: '/textures/wood_planks_dirt_nor_gl_1k.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 0.55,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'altar-jade',
+      diffuse: [ 0.1411764705882353, 0.34901960784313724, 0.3137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'antique-bronze',
+      diffuse: [ 0.2980392156862745, 0.25098039215686274, 0.2 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'bohyeon-altar-lacquer',
+      diffuse: [ 0.4627450980392157, 0.22745098039215686, 0.19607843137254902 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'bohyeon-beeswax',
+      diffuse: [ 0.9568627450980393, 0.9019607843137255, 0.7803921568627451 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'bohyeon-candle-flame',
+      diffuse: [ 1, 0.7490196078431373, 0.40784313725490196 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'bohyeon-coiffure',
+      diffuse: [ 0.17254901960784313, 0.18823529411764706, 0.16470588235294117 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'bohyeon-gilded-bronze',
+      diffuse: [ 0.788235294117647, 0.611764705882353, 0.2823529411764706 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'bohyeon-satin-gilt-face',
+      diffuse: [ 0.8666666666666667, 0.7411764705882353, 0.48627450980392156 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'bohyeon-shrine-jade',
+      diffuse: [ 0.17647058823529413, 0.34901960784313724, 0.3137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'burnished-relief',
+      diffuse: [ 0.6784313725490196, 0.5843137254901961, 0.3843137254901961 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cafe-apron',
+      diffuse: [ 0.2631747163984916, 0.18354899846495082, 0.10363409665513738 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cafe-brushed-metal',
+      diffuse: [ 0.34402566130218676, 0.39408312608282897, 0.3837746464879752 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cafe-coffee-beans',
+      diffuse: [
+        0.08464151072542946,
+        0.05284162552287903,
+        0.028991186547107816
+      ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cafe-machine-body',
+      diffuse: [ 0.03155139140022645, 0.06772458968542432, 0.05818717747368543 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cafe-porcelain',
+      diffuse: [ 0.8277257944550337, 0.7742273142184416, 0.6455552724449345 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'candle-flame',
+      diffuse: [ 1, 0.7450980392156863, 0.3764705882352941 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'candle-wax',
+      diffuse: [ 1, 0.9176470588235294, 0.7647058823529411 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cast-bronze',
+      diffuse: [ 0.6745098039215687, 0.6, 0.44313725490196076 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'bronze-patina',
+          size: { width: 512, height: 256 },
+          pixels: '389951bc',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cinnabar',
+      diffuse: [ 0.5647058823529412, 0.24705882352941178, 0.21176470588235294 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'cushion',
+      diffuse: [ 0.6823529411764706, 0.2823529411764706, 0.2549019607843137 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'dancheong',
+      diffuse: [ 1, 1, 1 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'original-dancheong',
+          size: { width: 1024, height: 128 },
+          pixels: 'a0ddc324',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'dark-stone',
+      diffuse: [ 0.28627450980392155, 0.28627450980392155, 0.3333333333333333 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 0.23,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'east-pagoda-cut-granite',
+      diffuse: [ 0.8941176470588236, 0.8509803921568627, 0.7490196078431373 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'cut-granite-crystals',
+          size: { width: 512, height: 512 },
+          pixels: '8d71c1e8',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: '/textures/rock_face_nor_gl_1k.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 0.15,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'forest-walk-earth',
+      diffuse: [ 0.3607843137254902, 0.34509803921568627, 0.3176470588235294 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'natural-trail-worn-earth',
+          size: { width: 256, height: 256 },
+          pixels: '8fbf033a',
+          level: 1,
+          u: 56.42857142857143,
+          v: 71.42857142857143
+        },
+        { key: 'bumpTexture' },
+        {
+          key: 'opacityTexture',
+          name: 'natural-trail-union-mask',
+          size: { width: 1024, height: 1280 },
+          pixels: '5828b5b6',
+          level: 1,
+          u: 1,
+          v: 1
+        }
+      ]
+    },
+    {
+      name: 'garden-bamboo',
+      diffuse: [ 0.34509803921568627, 0.4823529411764706, 0.21176470588235294 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-bamboo-joint',
+      diffuse: [ 0.6196078431372549, 0.6588235294117647, 0.41568627450980394 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-bamboo-leaf',
+      diffuse: [ 0.30196078431372547, 0.47058823529411764, 0.21176470588235294 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-bark',
+      diffuse: [ 0.4745098039215686, 0.4470588235294118, 0.35294117647058826 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-grove-litter',
+      diffuse: [ 0.4627450980392157, 0.3843137254901961, 0.27450980392156865 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'shared-grove-litter',
+          size: { width: 256, height: 256 },
+          pixels: '74e89468',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-leaf',
+      diffuse: [ 0.1411764705882353, 0.2627450980392157, 0.1607843137254902 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-meadow',
+      diffuse: [ 0.1607843137254902, 0.2627450980392157, 0.14901960784313725 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-moss',
+      diffuse: [ 0.18823529411764706, 0.2235294117647059, 0.13725490196078433 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'soft-moss-edge',
+          size: { width: 256, height: 256 },
+          pixels: 'dd503e9c',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-path-lamp-frame',
+      diffuse: [ 0.18823529411764706, 0.17647058823529413, 0.15294117647058825 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-path-lamp-paper',
+      diffuse: [ 0.9254901960784314, 0.8745098039215686, 0.7490196078431373 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-path-lamp-roof',
+      diffuse: [ 0.3333333333333333, 0.33725490196078434, 0.30196078431372547 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'garden-path-lamp-stone',
+      diffuse: [ 0.5450980392156862, 0.5294117647058824, 0.4823529411764706 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'geukrak-altar-lacquer',
+      diffuse: [ 0.4627450980392157, 0.22745098039215686, 0.19607843137254902 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'geukrak-beeswax',
+      diffuse: [ 0.9568627450980393, 0.9019607843137255, 0.7803921568627451 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'geukrak-candle-flame',
+      diffuse: [ 1, 0.7490196078431373, 0.40784313725490196 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'geukrak-coiffure',
+      diffuse: [ 0.17254901960784313, 0.18823529411764706, 0.16470588235294117 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'geukrak-gilded-bronze',
+      diffuse: [ 0.788235294117647, 0.611764705882353, 0.2823529411764706 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'geukrak-satin-gilt-face',
+      diffuse: [ 0.8666666666666667, 0.7411764705882353, 0.48627450980392156 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'geukrak-shrine-jade',
+      diffuse: [ 0.17647058823529413, 0.34901960784313724, 0.3137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gilded-bronze',
+      diffuse: [ 0.7490196078431373, 0.5098039215686274, 0.18823529411764706 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gold',
+      diffuse: [ 0.6470588235294118, 0.5372549019607843, 0.3137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-gilt',
+      diffuse: [ 0.8235294117647058, 0.6431372549019608, 0.2823529411764706 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-indigo',
+      diffuse: [ 0.20392156862745098, 0.27450980392156865, 0.38823529411764707 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-ink',
+      diffuse: [ 0.20784313725490197, 0.16862745098039217, 0.1568627450980392 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-ivory',
+      diffuse: [ 0.9333333333333333, 0.8784313725490196, 0.7137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-jade',
+      diffuse: [ 0.25882352941176473, 0.4745098039215686, 0.403921568627451 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-lacquer',
+      diffuse: [ 0.5882352941176471, 0.1843137254901961, 0.1411764705882353 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-pearwood',
+      diffuse: [ 0.6509803921568628, 0.4, 0.1568627450980392 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-plinth',
+      diffuse: [ 0.3176470588235294, 0.27450980392156865, 0.23529411764705882 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-skin-0',
+      diffuse: [ 0.8235294117647058, 0.6, 0.3137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-skin-1',
+      diffuse: [ 0.5137254901960784, 0.6078431372549019, 0.7019607843137254 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-skin-2',
+      diffuse: [ 0.5725490196078431, 0.6588235294117647, 0.5294117647058824 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'guardian-skin-3',
+      diffuse: [ 0.8352941176470589, 0.6666666666666666, 0.47058823529411764 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gwaneum-cushion',
+      diffuse: [ 0.6823529411764706, 0.3254901960784314, 0.2823529411764706 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'woven-cushion-cover',
+          size: { width: 256, height: 256 },
+          pixels: 'a8ee7bc5',
+          level: 1,
+          u: 2,
+          v: 2
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gwaneum-gilding',
+      diffuse: [ 0.8470588235294118, 0.6666666666666666, 0.3333333333333333 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gwaneum-hair',
+      diffuse: [ 0.22745098039215686, 0.19215686274509805, 0.1568627450980392 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gwaneum-jade',
+      diffuse: [ 0.27058823529411763, 0.4588235294117647, 0.4 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gwaneum-lacquer',
+      diffuse: [ 0.44313725490196076, 0.22745098039215686, 0.19607843137254902 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'gwaneum-white-robe',
+      diffuse: [ 0.8823529411764706, 0.8549019607843137, 0.792156862745098 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'hair',
+      diffuse: [ 0.18823529411764706, 0.1568627450980392, 0.1411764705882353 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'hall-lamp-bronze',
+      diffuse: [ 0.7176470588235294, 0.5647058823529412, 0.32941176470588235 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'jade',
+      diffuse: [ 0.15294117647058825, 0.3607843137254902, 0.2823529411764706 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'jijang-face',
+      diffuse: [ 0.9411764705882353, 0.7764705882352941, 0.48627450980392156 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'jijang-gold',
+      diffuse: [ 0.8862745098039215, 0.6784313725490196, 0.3254901960784314 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'jijang-jewel',
+      diffuse: [ 0.5686274509803921, 0.8745098039215686, 0.8 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'jijang-scalp',
+      diffuse: [ 0.6196078431372549, 0.6705882352941176, 0.5215686274509804 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'lantern-granite',
+      diffuse: [ 0.7019607843137254, 0.6705882352941176, 0.6274509803921569 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 0.23,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'lantern-lamplight',
+      diffuse: [ 0.8705882352941177, 0.6980392156862745, 0.47843137254901963 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'leaves',
+      diffuse: [ 0.07058823529411765, 0.24705882352941178, 0.19607843137254902 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'lotus-heart',
+      diffuse: [ 0.9254901960784314, 0.7176470588235294, 0.3137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'lotus-ivory',
+      diffuse: [ 1, 0.8745098039215686, 0.807843137254902 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'lotus-leaves',
+      diffuse: [ 0.3215686274509804, 0.49019607843137253, 0.2627450980392157 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'lotus-shell-pink',
+      diffuse: [ 0.9686274509803922, 0.6431372549019608, 0.7254901960784313 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'main-hall-rafter',
+      diffuse: [ 0.5098039215686274, 0.3215686274509804, 0.23137254901960785 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'main-hall-rafter-band',
+      diffuse: [ 0.2627450980392157, 0.43137254901960786, 0.39215686274509803 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'main-hall-soffit',
+      diffuse: [ 0.3137254901960784, 0.38823529411764707, 0.30980392156862746 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'memorial-stand-granite',
+      diffuse: [ 0.6431372549019608, 0.6313725490196078, 0.5803921568627451 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 0.23,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'monk-cushion',
+      diffuse: [ 0.9215686274509803, 0.6823529411764706, 0.27450980392156865 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'munsu-altar-lacquer',
+      diffuse: [ 0.4627450980392157, 0.22745098039215686, 0.19607843137254902 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'munsu-beeswax',
+      diffuse: [ 0.9568627450980393, 0.9019607843137255, 0.7803921568627451 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'munsu-candle-flame',
+      diffuse: [ 1, 0.7490196078431373, 0.40784313725490196 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'munsu-coiffure',
+      diffuse: [ 0.17254901960784313, 0.18823529411764706, 0.16470588235294117 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'munsu-gilded-bronze',
+      diffuse: [ 0.788235294117647, 0.611764705882353, 0.2823529411764706 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'munsu-satin-gilt-face',
+      diffuse: [ 0.8666666666666667, 0.7411764705882353, 0.48627450980392156 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'munsu-shrine-jade',
+      diffuse: [ 0.17647058823529413, 0.34901960784313724, 0.3137254901960784 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'pagoda-weathered-recess',
+      diffuse: [ 0.7725490196078432, 0.7333333333333333, 0.6666666666666666 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'cut-granite-crystals',
+          size: { width: 512, height: 512 },
+          pixels: '8d71c1e8',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: '/textures/rock_face_nor_gl_1k.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 0.15,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'paper',
+      diffuse: [ 0.6352941176470588, 0.5843137254901961, 0.47843137254901963 ],
+      maps: [
+        { key: 'diffuseTexture' },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'path-flagstone-0',
+      diffuse: [ 0.6431372549019608, 0.6588235294117647, 0.6431372549019608 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: '/textures/flagstone-gray.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: '/textures/rock_face_nor_gl_1k.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 0.16,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'path-flagstone-1',
+      diffuse: [ 0.6745098039215687, 0.6823529411764706, 0.6666666666666666 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: '/textures/flagstone-gray.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: '/textures/rock_face_nor_gl_1k.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 0.16,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'path-flagstone-2',
+      diffuse: [ 0.6588235294117647, 0.6705882352941176, 0.6549019607843137 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: '/textures/flagstone-gray.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: '/textures/rock_face_nor_gl_1k.jpg',
+          size: { width: 1024, height: 1024 },
+          pixels: null,
+          level: 0.16,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'path-soil',
+      diffuse: [ 0.3215686274509804, 0.30196078431372547, 0.2823529411764706 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        {
+          key: 'bumpTexture',
+          name: 'stone-surface',
+          size: { width: 512, height: 512 },
+          pixels: '251dc66a',
+          level: 0.23,
+          u: 1,
+          v: 1
+        },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'place-sign-시간과 공간의 방',
+      diffuse: [ 1, 1, 1 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'place-sign-시간과 공간의 방',
+          size: { width: 1024, height: 256 },
+          pixels: 'e1419c7e',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'place-sign-차 · 커피 쉼터',
+      diffuse: [ 1, 1, 1 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'place-sign-차 · 커피 쉼터',
+          size: { width: 1024, height: 256 },
+          pixels: '9f159631',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'plaque-관음전',
+      diffuse: [ 1, 1, 1 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'label-관음전',
+          size: { width: 512, height: 128 },
+          pixels: 'e85a56f3',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    {
+      name: 'plaque-관음전-inside',
+      diffuse: [ 1, 1, 1 ],
+      maps: [
+        {
+          key: 'diffuseTexture',
+          name: 'label-관음전',
+          size: { width: 512, height: 128 },
+          pixels: 'e85a56f3',
+          level: 1,
+          u: 1,
+          v: 1
+        },
+        { key: 'bumpTexture' },
+        { key: 'opacityTexture' }
+      ]
+    },
+    ... 60 more items
+  ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.2

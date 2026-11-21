@@ -48,7 +48,7 @@ export function personalSpace(app:Awaited<ReturnType<typeof createTemple>>,canva
    if(response.status===403){gate.textContent=t('개인 공간 이용권');access.open();return;}
    if(!response.ok)throw Error('개인 공간에 연결하지 못했습니다. 다시 시도해 주세요.');
    const data=await response.json();if(typeof data.roomId!=='string')throw Error('개인 공간을 확인하지 못했습니다.');
-   roomId=data.roomId;scope('private');onEnter();app.setWalking(false);app.camera.detachControl();
+   roomId=data.roomId;scope('private');app.releaseMobileDetail();onEnter();app.setWalking(false);app.camera.detachControl();
    previousStage=stage.textContent??'';previousLabel=canvas.getAttribute('aria-label')??'';
    room=privateRoomScene(app.engine,canvas,app.visitorPose.face,app.visitorPose.wearingRobe,()=>{void exit();},roomId);
    compact.prepare();panel.hidden=false;document.body.classList.add('in-private-room');stage.textContent=t('시간과 공간의 방 · 나만의 공간');canvas.setAttribute('aria-label',t('시간과 공간의 방')+' · '+t('WASD · 방향키로 걷기'));

@@ -10,3 +10,6 @@ export function updateFineDetail(scene:Scene,eye:Vector3,now:number){let prepare
  }
  scene.metadata??={};scene.metadata.mobileDeferredDetails={total:items.length,prepared:items.filter(a=>!!a.fine).length,near:items.filter(a=>a.near).length};
 }
+
+/** Private rooms retain the temple layout, not its unused detailed GPU buffers. */
+export function releaseFineDetail(scene:Scene){for(const a of pending.get(scene)??[]){switchStaticGeometry(a.mesh,a.coarse);a.fine?.dispose();a.fine=null;a.near=false;a.mesh.metadata.mobileFine=false;}}

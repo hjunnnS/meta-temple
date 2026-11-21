@@ -6,7 +6,7 @@ export function ceremonyBoard(root:HTMLElement,position:()=>number[]|null,view:(
  const panel=document.createElement('aside');
  panel.className='ceremony-board';panel.hidden=true;
  const currentLine=document.createElement('strong'),nextLine=document.createElement('small'),action=document.createElement('button');
- panel.append(currentLine,nextLine,action);root.append(panel);
+ const compact=document.createElement('button');compact.className='ceremony-compact';compact.textContent=t('오늘의 일정');compact.setAttribute('aria-haspopup','dialog');compact.onclick=()=>openSchedule();panel.append(currentLine,nextLine,action,compact);root.append(panel);
  const minutes=new Intl.NumberFormat(locale,{style:'unit',unit:'minute',unitDisplay:'long'});
  const localTime=new Intl.DateTimeFormat(locale,{hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
  const localZone=localTime.resolvedOptions().timeZone;
@@ -61,7 +61,7 @@ export function ceremonyBoard(root:HTMLElement,position:()=>number[]|null,view:(
   void syncClock();
   const {current,next}=scheduleAt(now());
   const until=next.start-now();if(until>0&&until<=5*60000&&notified!==next.start){notified=next.start;notification.textContent=String(next.hour).padStart(2,'0')+':00 · '+t(next.title);notification.hidden=false;setTimeout(()=>notification.hidden=true,7000);}
-  panel.dataset.listening=String(!!attending);
+  panel.dataset.listening=String(!!attending);compact.textContent=t(attending?'듣기 중지':'오늘의 일정');compact.onclick=()=>attending?action.click():openSchedule();
   if(attending&&current?.start!==attending)stop();
   const p=position(),atGate=p?Math.abs(p[0])<11&&p[2]>=-70&&p[2]<=-44:['gatePassage','gateWalk','gateEave','guardianGallery','cheonwang','gateExitOffice'].includes(view());
   const inHall=p?Math.abs(p[0])<17&&Math.abs(p[2]-38)<12:['daeung','sanctuary','shrine','seating'].includes(view());

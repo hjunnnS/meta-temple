@@ -1,0 +1,151 @@
+{
+  "kind": "webkit",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "realIPhone": false,
+  "temperatureMeasured": false,
+  "gpuTimeMeasured": false,
+  "rows": [
+    {
+      "time": "day",
+      "mode": "baseline",
+      "budget": {
+        "level": 0,
+        "idle": false,
+        "fps": 20,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true
+      },
+      "frames": 60,
+      "mainThreadSubmitMsMean": 8.633333333333333,
+      "mainThreadSubmitMsP95": 12,
+      "drawCallsMean": 486.5,
+      "activeMeshesMean": 396,
+      "activeTriangleIndicesMean": 5922280.5,
+      "totalMeshes": 3236,
+      "materials": 709,
+      "geometryVertices": 1790705,
+      "ambientRoots": 20,
+      "architectureVertices": 1171551,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    },
+    {
+      "time": "day",
+      "mode": "baseline",
+      "budget": {
+        "level": 0,
+        "idle": false,
+        "fps": 20,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true
+      },
+      "frames": 60,
+      "mainThreadSubmitMsMean": 8.65,
+      "mainThreadSubmitMsP95": 13,
+      "drawCallsMean": 486.5,
+      "activeMeshesMean": 396,
+      "activeTriangleIndicesMean": 5922280.5,
+      "totalMeshes": 3236,
+      "materials": 709,
+      "geometryVertices": 1586009,
+      "ambientRoots": 20,
+      "architectureVertices": 1171551,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    },
+    {
+      "time": "night",
+      "mode": "baseline",
+      "budget": {
+        "level": 0,
+        "idle": false,
+        "fps": 20,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true
+      },
+      "frames": 60,
+      "mainThreadSubmitMsMean": 8.4,
+      "mainThreadSubmitMsP95": 12,
+      "drawCallsMean": 496.28333333333336,
+      "activeMeshesMean": 408.95,
+      "activeTriangleIndicesMean": 5434926.7,
+      "totalMeshes": 3236,
+      "materials": 709,
+      "geometryVertices": 1586009,
+      "ambientRoots": 20,
+      "architectureVertices": 1171551,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    },
+    {
+      "time": "night",
+      "mode": "baseline",
+      "budget": {
+        "level": 0,
+        "idle": false,
+        "fps": 20,
+        "scale": 1,
+        "shadowFactor": 1,
+        "reflectionFactor": 1,
+        "softGlow": true
+      },
+      "frames": 60,
+      "mainThreadSubmitMsMean": 8.55,
+      "mainThreadSubmitMsP95": 12,
+      "drawCallsMean": 495.3333333333333,
+      "activeMeshesMean": 408,
+      "activeTriangleIndicesMean": 5434379.5,
+      "totalMeshes": 3236,
+      "materials": 709,
+      "geometryVertices": 1586009,
+      "ambientRoots": 20,
+      "architectureVertices": 1171551,
+      "renderSize": [
+        280,
+        471
+      ],
+      "glow": true,
+      "shadow": [
+        {
+          "size": 512,
+          "refresh": 6
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "completed": true
+}

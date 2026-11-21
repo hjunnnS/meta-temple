@@ -1,0 +1,14 @@
+[
+  {
+    "locale": "fr",
+    "failure": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(a&&a.width<=151&&a.height>=44)\n"
+  },
+  {
+    "locale": "de",
+    "failure": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(a&&a.width<=151&&a.height>=44)\n"
+  },
+  {
+    "locale": "ru",
+    "failure": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(a&&a.width<=151&&a.height>=44)\n"
+  }
+]

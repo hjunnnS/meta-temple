@@ -1,3 +1,5 @@
+import{mobileDevice}from'./mobile-profile';
+import{deferStaticGeometry}from'./lazy-static-geometry';
 import type {Scene} from '@babylonjs/core/scene';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
@@ -64,8 +66,8 @@ export function standingStoneFigure(scene:Scene,parts:Mesh[],x:number,z:number,s
  }
  // Continuous standing robe with U-shaped folds across the front.
  const profile=[[.12,.92,.52],[.45,1.12,.60],[1.5,1.08,.58],[3,1.07,.58],[4.6,1.12,.63],[6.1,1.19,.67],[7.3,1.40,.61],[7.72,1.25,.53],[8.10,.77,.40],[8.32,.35,.29]];
+ function buildRobe(columns:number,rows:number){
  const positions:number[]=[],uvs:number[]=[],indices:number[]=[],normals:number[]=[];
- const columns=128,rows=180;
  for(let j=0;j<=rows;j++){
   const y=.12+(8.32-.12)*j/rows;let k=0;while(k<profile.length-2&&y>profile[k+1][0])k++;
   const t=(y-profile[k][0])/(profile[k+1][0]-profile[k][0]);
@@ -80,7 +82,9 @@ export function standingStoneFigure(scene:Scene,parts:Mesh[],x:number,z:number,s
  }
  VertexData.ComputeNormals(positions,indices,normals);
  const data=new VertexData();data.positions=positions;data.indices=indices;data.normals=normals;data.uvs=uvs;
- const robe=new Mesh('standing-stone-robe',scene);data.applyToMesh(robe);place(robe);
+ const mesh=new Mesh('standing-stone-robe',scene);data.applyToMesh(mesh);return mesh;
+ }
+ const deferred=mobileDevice(),robe=place(buildRobe(deferred?48:128,deferred?48:180));if(deferred)deferStaticGeometry(robe,()=>buildRobe(128,180),129*181);
  oval('neck',0,base+8.28,0,.65,.84,.63);
  // Reuse the approved facial sculpt, with stone pigment and a taller oval silhouette.
  const face=sculptedFace(scene,stone);
