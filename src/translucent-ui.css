@@ -1,0 +1,77 @@
+/* Shared temple UI: every dialog and registered contextual surface uses one tint.
+   Input controls and diagrams retain opaque reading surfaces; no live blur. */
+body.service-ui{
+ --glass-surface:rgba(8,21,16,.68);--glass-dock:rgba(8,21,16,.65);
+ --glass-text:#fff8e9;--glass-muted:#e0eae0;--glass-control:rgba(8,21,16,.16);
+ --glass-selected:#e4d5a4;--glass-line:rgba(231,237,218,.55);
+}
+body.service-ui :is(dialog,.service-panel,[data-ui-surface],#offering-drawer,#guide-welcome,#guide-card,#trial-notice,.ceremony-board,#schedule-notification,#guide-monk-caption,#pond-toss,#sweeper-greet,#private-gate-action,#community-open,#inspection-exit,#npc-conversation-bubble,#daily-monk-caption,#sweeper-caption,#pond-wish,#practice-feedback,#private-practice-feedback,.practice-outcome,#visit-guide,#offering-tag,#tea-status,#application-status,#walk-pad:where(:not([data-practice=idle]))){
+ background:var(--glass-surface)!important;color:var(--glass-text)!important;
+ border-color:var(--glass-line)!important;box-shadow:none!important;
+ -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+body.service-ui dialog::backdrop{background:rgba(5,16,12,.18)!important}
+body.service-ui :is(dialog,.service-panel,[data-ui-surface],#offering-drawer,#guide-welcome,#guide-card,#trial-notice,.ceremony-board,#schedule-notification,#guide-monk-caption,#pond-toss,#sweeper-greet,#private-gate-action,#community-open,#inspection-exit,#npc-conversation-bubble,#daily-monk-caption,#sweeper-caption,#pond-wish,#practice-feedback,#private-practice-feedback,.practice-outcome,#visit-guide,#offering-tag,#tea-status,#application-status,#walk-pad:where(:not([data-practice=idle]))) :is(h1,h2,h3,p,label,small,output,strong,span,dl,dt,dd,li){color:inherit!important}
+body.service-ui :is(dialog,.service-panel,[data-ui-surface],#offering-drawer,#guide-welcome,#guide-card,#trial-notice,.ceremony-board,#schedule-notification,#guide-monk-caption,#pond-toss,#sweeper-greet,#private-gate-action,#community-open,#inspection-exit,#npc-conversation-bubble,#daily-monk-caption,#sweeper-caption,#pond-wish,#practice-feedback,#private-practice-feedback,.practice-outcome,#visit-guide,#offering-tag,#tea-status,#application-status,#walk-pad:where(:not([data-practice=idle]))) :is(.note,.practice-detail,.map-intro,.service-prayer-topic){color:var(--glass-muted)!important}
+body.service-ui :is(dialog,.service-panel,[data-ui-surface],#offering-drawer,#guide-welcome,#guide-card,#trial-notice,.ceremony-board,#schedule-notification,#guide-monk-caption,#pond-toss,#sweeper-greet,#private-gate-action,#community-open,#inspection-exit,#npc-conversation-bubble,#daily-monk-caption,#sweeper-caption,#pond-wish,#practice-feedback,#private-practice-feedback,.practice-outcome,#visit-guide,#offering-tag,#tea-status,#application-status,#walk-pad:where(:not([data-practice=idle]))) button{
+ background:var(--glass-control)!important;color:var(--glass-text)!important;
+ border-color:var(--glass-line)!important;opacity:1;
+}
+body.service-ui :is(dialog,.service-panel,[data-ui-surface],#offering-drawer,#guide-welcome,#guide-card,#trial-notice,.ceremony-board,#schedule-notification,#guide-monk-caption,#pond-toss,#sweeper-greet,#private-gate-action,#community-open,#inspection-exit,#npc-conversation-bubble,#daily-monk-caption,#sweeper-caption,#pond-wish,#practice-feedback,#private-practice-feedback,.practice-outcome,#visit-guide,#offering-tag,#tea-status,#application-status,#walk-pad:where(:not([data-practice=idle]))) button:hover{background:rgba(8,21,16,.28)!important}
+body.service-ui :is(dialog,.service-panel,[data-ui-surface],#offering-drawer,#guide-welcome,#guide-card,#trial-notice,.ceremony-board,#schedule-notification,#guide-monk-caption,#pond-toss,#sweeper-greet,#private-gate-action,#community-open,#inspection-exit,#npc-conversation-bubble,#daily-monk-caption,#sweeper-caption,#pond-wish,#practice-feedback,#private-practice-feedback,.practice-outcome,#visit-guide,#offering-tag,#tea-status,#application-status,#walk-pad:where(:not([data-practice=idle]))) button:disabled{opacity:1!important;color:var(--glass-muted)!important;background:rgba(8,21,16,.20)!important;border-color:#728b77!important}
+body.service-ui :is(dialog,.service-panel,[data-ui-surface],#offering-drawer,#guide-welcome,#guide-card,#trial-notice,.ceremony-board,#schedule-notification,#guide-monk-caption,#pond-toss,#sweeper-greet,#private-gate-action,#community-open,#inspection-exit,#npc-conversation-bubble,#daily-monk-caption,#sweeper-caption,#pond-wish,#practice-feedback,#private-practice-feedback,.practice-outcome,#visit-guide,#offering-tag,#tea-status,#application-status,#walk-pad:where(:not([data-practice=idle]))) :is(input:not([type=checkbox]):not([type=radio]):not([type=range]),select,textarea){
+ color:#294737!important;background:#fffdf5!important;border-color:#acb89f!important;
+}
+/* Content-heavy diagrams and summaries are readable islands inside translucent shells. */
+body.service-ui :is(.lantern-map,.lantern-seat-preview,.offer-summary){background:#f7f4e9!important;color:#294737!important;border-color:#acb89f!important}
+body.service-ui :is(.lantern-map,.lantern-seat-preview,.offer-summary) :is(h2,h3,p,small,strong,span,label,dt,dd){color:inherit!important}
+body.service-ui #offering-drawer #reception-panel{background:transparent!important;color:inherit!important;border:0;box-shadow:none}
+body.service-ui #offering-drawer .lantern-map :is(p,small){color:#294737!important}
+body.service-ui #offering-drawer :is(.lantern-plan button,.lantern-seats button){background:#fffdf5!important;color:#294737!important;opacity:1!important}
+body.service-ui #offering-drawer .lantern-seats button[data-status=reserved]{background:repeating-linear-gradient(135deg,#e5e5de,#e5e5de 5px,#d6d9d1 5px,#d6d9d1 8px)!important;color:#294737!important}
+body.service-ui #offering-drawer .lantern-seats button[data-status=occupied]{background:#d6dbd5!important;color:#294737!important}
+body.service-ui #offering-drawer :is(.lantern-plan button,.lantern-seats button)[aria-pressed=true]{background:var(--glass-selected)!important;color:#193c2e!important;border-color:#d2ab53!important}
+body.service-ui #offering-drawer #offering-steps li[aria-current=step]{color:var(--glass-text)!important;text-decoration:underline;text-underline-offset:4px}
+body.service-ui #offering-drawer #offering-steps li::before{color:inherit}
+body.service-ui #spaces-panel .service-map-figure>svg{background:#e8eddd}
+body.service-ui :is(dialog,.service-panel) :is(.service-map-selection,.map-intro,.service-prayer-topic){color:var(--glass-muted)!important}
+body.service-ui :is(dialog,.service-panel) :is(button[aria-pressed=true],.service-primary,.offer-main-action),
+body.service-ui :is(#practice-108,#practice-finish,#guide-next,#guide-with-monk,#guide-pray,#tea-sip,#tea-sit,#private-room-exit):not(:disabled){
+ background:var(--glass-selected)!important;color:#193c2e!important;border-color:var(--glass-selected)!important;
+}
+/* Header controls stay light and borderless, including dynamically created dialogs. */
+body.service-ui :is(dialog,.service-panel) :is(.panel-title,.tea-order-heading,header)>button,
+body.service-ui :is(dialog,.service-panel) .service-back,
+body.service-ui :is(#trial-notice,#offering-tag)>button,
+body.service-ui #guide-card .guide-tools>button{
+ background:transparent!important;color:var(--glass-text)!important;border:0!important;box-shadow:none!important;
+}
+body.service-ui #sweeper-caption::after{background:rgba(8,21,16,.68)!important;border-color:var(--glass-line)!important}
+body.service-ui #service-dock{background:var(--glass-dock);border-color:var(--glass-line);-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none}
+body.service-ui #service-dock :is(button,svg){color:var(--glass-text)}
+body.service-ui #service-dock button:hover{background:rgba(8,21,16,.16)}
+body.service-ui #service-dock button:disabled{opacity:1;color:var(--glass-muted)}
+body.service-ui :is(#private-menu-open,#menu-open,.tea-compact>button),
+body.service-ui #context-actions #walk-pad button{background:var(--glass-surface)!important;color:var(--glass-text)!important;border-color:var(--glass-line)!important}
+body.service-ui :is(dialog,.service-panel,#service-dock,#offering-drawer,[data-ui-surface]) :is(button,input,select,textarea):focus-visible,
+body.service-ui :is(#guide-monk-caption,#pond-toss,#sweeper-greet,#private-gate-action,#community-open,#inspection-exit):focus-visible{outline:3px solid #f1cb70;outline-offset:3px}
+@media(pointer:coarse) and (max-height:500px){
+ body.service-ui .ceremony-board{background:transparent!important}
+ body.service-ui .ceremony-compact{background:var(--glass-surface)!important;color:var(--glass-text)!important}
+}
+
+/* Native and legacy dialogs receive the same control shape and touch targets. */
+body.service-ui dialog{border-radius:16px;font-size:1rem}
+body.service-ui :is(dialog,.service-panel) button{font:inherit;min-height:44px;border-radius:10px}
+body.service-ui :is(dialog,.service-panel) :is(input:not([type=checkbox]):not([type=radio]):not([type=range]),select,textarea){font:inherit;font-size:1rem;min-height:44px;max-width:100%;border-radius:8px}
+
+/* Reading islands must override inherited light ink in the offering drawer. */
+body.service-ui #offering-drawer .offering-heading{background:var(--glass-surface)!important;color:var(--glass-text)!important}
+body.service-ui #offering-drawer .offering-heading>button{background:transparent!important;color:var(--glass-text)!important;border:0!important}
+body.service-ui #offering-drawer :is(.lantern-map,.lantern-seat-preview,.offer-selection,.offer-summary){background:#f7f4e9!important;color:#294737!important}
+body.service-ui #offering-drawer :is(.lantern-map,.lantern-seat-preview,.offer-selection,.offer-summary) :is(h2,h3,p,small,strong,span,label,dt,dd,summary){color:#294737!important}
+body.service-ui #offering-drawer .lantern-map button{background:#fffdf5!important;color:#294737!important}
+body.service-ui #offering-drawer button[aria-pressed=true],
+body.service-ui #offering-drawer .offer-controls>.offer-main-action{background:var(--glass-selected)!important;color:#193c2e!important;border-color:var(--glass-selected)!important}
+
+body.service-ui #offering-drawer #offering-steps{color:var(--glass-muted)!important}

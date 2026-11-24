@@ -1,0 +1,20 @@
+{
+  "version": 63,
+  "source": {
+    "commit_sha": "b4e21c8495794e55fa5707c7d8e826d36db07dfe"
+  },
+  "version_id": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_ad750054296081919dcf18929076122c",
+  "deployment_id": "appgdep_6b0505f61c90819186a9d293dd27b0ce",
+  "status": "succeeded",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "archive": {
+    "archive_format": "tar",
+    "sediment_file_id": "file_00000000e08c820699b8601762724529",
+    "content_hash": "sha256:563cf325d62cb14205a7339ebd6775e366053ce3a95174f1d103605991ff5d9f",
+    "size_bytes": 16056320,
+    "file_count": 182
+  },
+  "realPhoneThermalMeasurement": false,
+  "sharedEndpoint": "https://talked-famous-brothers-bright.trycloudflare.com",
+  "runtimeStaticFilesVerified": 181
+}

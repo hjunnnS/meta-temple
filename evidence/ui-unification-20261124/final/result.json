@@ -1,0 +1,1777 @@
+[
+  {
+    "kind": "mobile",
+    "realPhone": false,
+    "panels": [
+      {
+        "name": "welcome",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 369,
+          "height": 144.390625
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "어떻게 머물고 싶으신가요?",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "자유롭게 둘러보거나 스님의 안내를 받을 수 있어요.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "자유롭게 둘러보기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "스님에게 안내받기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "notice",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 220,
+          "height": 127.390625
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "사사 · 공동 방문 체험판",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "같은 채널의 방문자가 함께 보입니다. 실제 결제는 없습니다.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "신청·배치는 이 브라우저에만 저장됩니다.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "schedule",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 192.09375,
+          "height": 71.59375
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "자율 수행",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "다음 일정 · 18:00 · 저녁 예불",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "day-dock",
+        "background": "rgba(8, 21, 16, 0.65)",
+        "alpha": 0.65,
+        "blur": "none",
+        "bounds": {
+          "width": 369,
+          "height": 82
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "사찰 지도",
+            "contrast": 5.516212175716273,
+            "minimum": 4.5
+          },
+          {
+            "text": "수행",
+            "contrast": 5.516212175716273,
+            "minimum": 4.5
+          },
+          {
+            "text": "내 모습",
+            "contrast": 5.516212175716273,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "day-menu",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 361,
+          "height": 456
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "사찰 둘러보기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "사찰 지도",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "오늘의 일정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "등·소원 접수처",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "계정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "환경 설정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "스님 안내",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "day-practice",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 361,
+          "height": 418.78125
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "←",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "수행",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "선택하면 대웅전 수행 자리에서 시작합니다.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "참배와 명상은 로그인 없이 이용할 수 있습니다.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "대웅전에서 참배하기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "대웅전에서 명상하기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "대웅전에서 108배 시작",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "108배는 로그인 후 시작합니다.",
+            "contrast": 5.266758172926041,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "night-dock",
+        "background": "rgba(8, 21, 16, 0.65)",
+        "alpha": 0.65,
+        "blur": "none",
+        "bounds": {
+          "width": 369,
+          "height": 82
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "사찰 지도",
+            "contrast": 5.516212175716273,
+            "minimum": 4.5
+          },
+          {
+            "text": "수행",
+            "contrast": 6.759747630415846,
+            "minimum": 4.5
+          },
+          {
+            "text": "내 모습",
+            "contrast": 5.516212175716273,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "night-menu",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 361,
+          "height": 456
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "사찰 둘러보기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "사찰 지도",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "오늘의 일정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "등·소원 접수처",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "계정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "환경 설정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "스님 안내",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "night-practice",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 361,
+          "height": 418.78125
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "←",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "수행",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "선택하면 대웅전 수행 자리에서 시작합니다.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "참배와 명상은 로그인 없이 이용할 수 있습니다.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "대웅전에서 참배하기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "대웅전에서 명상하기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "대웅전에서 108배 시작",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "108배는 로그인 후 시작합니다.",
+            "contrast": 5.266758172926041,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "appearance",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 361,
+          "height": 293.578125
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "←",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "내 모습",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "법복 입기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "1인칭 보기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "🐭",
+            "contrast": 7.420258468231331,
+            "minimum": 3
+          }
+        ]
+      },
+      {
+        "name": "guide-picker",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 361,
+          "height": 432.46875
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "←",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "오늘 어떤 마음으로 오셨나요?",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "설명 건너뛰기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "건강",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "가족",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "시험",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "관계",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "상실",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "자유롭게 둘러보기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "guide-card",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 369,
+          "height": 308.765625
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "스님 안내 · 건강",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "잠시 마음 준비하기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "몸과 마음의 평안을 바라는 마음으로 약사전을 찾아가 보겠습니다. 모신 분 · 약사여래불. 나와 가족의 건강, 회복과 쾌유를 기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "다음 안내",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "다시 듣기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "다른 고민 선택",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "안내 종료·자유 탐방",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "menu-320",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 288,
+          "height": 456
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "사찰 둘러보기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "사찰 지도",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "오늘의 일정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "등·소원 접수처",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "계정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "환경 설정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "스님 안내",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "menu-852",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 500,
+          "height": 369
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "사찰 둘러보기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "사찰 지도",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "오늘의 일정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "등·소원 접수처",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "계정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "환경 설정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "스님 안내",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "map",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 820,
+          "height": 369
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "←",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "사찰 지도",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "장소를 선택하세요",
+            "contrast": 5.266758172926041,
+            "minimum": 4.5
+          },
+          {
+            "text": "선택한 장소 · 08 · 천왕문",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "기도 공간",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "쉼터·산책",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "기타 시설",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "14 · 구름탑",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "07 · 범종각",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "12 · 석탑 촛불함",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "11 · 소원패 정원",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "19 · 시간과 공간의 방",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "10 · 연등광장",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "09 · 일주문",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "06 · 종무소",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "08 · 천왕문",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "01 · 함께 만드는 작은 전각",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "목록을 위아래로 밀어 더 볼 수 있어요.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "천왕문",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "다음 일정",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "이곳으로 이동",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "settings",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 390,
+          "height": 369
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "←",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "환경 설정",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "전체 무음",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "공간음 켜기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "소리 크기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "공간음 꺼짐",
+            "contrast": 5.266758172926041,
+            "minimum": 4.5
+          },
+          {
+            "text": "시간대",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "화면 품질",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "반짝임 완화",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "내 연등은 모든 품질에서 같은 위치에 표시됩니다.",
+            "contrast": 5.266758172926041,
+            "minimum": 4.5
+          },
+          {
+            "text": "🇰🇷 언어 선택",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "방문 채널",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "같은 공간 방문자 2명",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "조작 안내 다시 보기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "검수 도구",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "coffee",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 380,
+          "height": 176
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "차·커피 쉼터",
+            "contrast": 6.146044511979233,
+            "minimum": 3
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 3
+          },
+          {
+            "text": "음료",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "마시기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "private-menu",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 430,
+          "height": 246
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "공간 메뉴",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "환경 설정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "창밖 풍경",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "1인칭 보기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "절하기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "명상하기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "내 아이템 배치",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "사찰로 돌아가기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      }
+    ],
+    "errors": [
+      "Wrong protocol for WebSocket '[object Object]'"
+    ],
+    "modalFrames": 0,
+    "sdkDiagnostics": [
+      "Wrong protocol for WebSocket '[object Object]'"
+    ],
+    "passed": true
+  },
+  {
+    "kind": "pc",
+    "realPhone": false,
+    "panels": [
+      {
+        "name": "welcome",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 350,
+          "height": 169.09375
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "어떻게 머물고 싶으신가요?",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "자유롭게 둘러보거나 스님의 안내를 받을 수 있어요.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "자유롭게 둘러보기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "스님에게 안내받기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "notice",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 270,
+          "height": 108.171875
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "사사 · 공동 방문 체험판",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "같은 채널의 방문자가 함께 보입니다. 실제 결제는 없습니다.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "신청·배치는 이 브라우저에만 저장됩니다.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "schedule",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 187.203125,
+          "height": 76.6875
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "자율 수행",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "다음 일정 · 18:00 · 저녁 예불",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "day-dock",
+        "background": "rgba(8, 21, 16, 0.65)",
+        "alpha": 0.65,
+        "blur": "none",
+        "bounds": {
+          "width": 340.59375,
+          "height": 60
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "사찰 지도",
+            "contrast": 5.516212175716273,
+            "minimum": 4.5
+          },
+          {
+            "text": "수행",
+            "contrast": 5.516212175716273,
+            "minimum": 4.5
+          },
+          {
+            "text": "내 모습",
+            "contrast": 5.516212175716273,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "day-menu",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 500,
+          "height": 434
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "사찰 둘러보기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "사찰 지도",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "오늘의 일정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "등·소원 접수처",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "계정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "환경 설정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "스님 안내",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "day-practice",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 500,
+          "height": 389.96875
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "←",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "수행",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "선택하면 대웅전 수행 자리에서 시작합니다.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "참배와 명상은 로그인 없이 이용할 수 있습니다.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "대웅전에서 참배하기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "대웅전에서 명상하기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "대웅전에서 108배 시작",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "108배는 로그인 후 시작합니다.",
+            "contrast": 5.266758172926041,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "night-dock",
+        "background": "rgba(8, 21, 16, 0.65)",
+        "alpha": 0.65,
+        "blur": "none",
+        "bounds": {
+          "width": 340.59375,
+          "height": 60
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "사찰 지도",
+            "contrast": 5.516212175716273,
+            "minimum": 4.5
+          },
+          {
+            "text": "수행",
+            "contrast": 6.759747630415846,
+            "minimum": 4.5
+          },
+          {
+            "text": "내 모습",
+            "contrast": 5.516212175716273,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "night-menu",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 500,
+          "height": 434
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "사찰 둘러보기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "사찰 지도",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "오늘의 일정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "등·소원 접수처",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "계정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "환경 설정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "스님 안내",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "night-practice",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 500,
+          "height": 389.96875
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "←",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "수행",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "선택하면 대웅전 수행 자리에서 시작합니다.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "참배와 명상은 로그인 없이 이용할 수 있습니다.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "대웅전에서 참배하기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "대웅전에서 명상하기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "대웅전에서 108배 시작",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "108배는 로그인 후 시작합니다.",
+            "contrast": 5.266758172926041,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "appearance",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 500,
+          "height": 278
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "←",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "내 모습",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "법복 입기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "1인칭 보기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "🐭",
+            "contrast": 7.420258468231331,
+            "minimum": 3
+          }
+        ]
+      },
+      {
+        "name": "guide-picker",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 480,
+          "height": 401.5
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "←",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "오늘 어떤 마음으로 오셨나요?",
+            "contrast": 6.146044511979233,
+            "minimum": 3
+          },
+          {
+            "text": "설명 건너뛰기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "건강",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "가족",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "시험",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "관계",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "상실",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "자유롭게 둘러보기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "guide-card",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 350,
+          "height": 358.84375
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "스님 안내 · 건강",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "잠시 마음 준비하기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "몸과 마음의 평안을 바라는 마음으로 약사전을 찾아가 보겠습니다. 모신 분 · 약사여래불. 나와 가족의 건강, 회복과 쾌유를 기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "다음 안내",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "다시 듣기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "다른 고민 선택",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "안내 종료·자유 탐방",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "map",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 940,
+          "height": 725.5625
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "←",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "사찰 지도",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "장소를 선택하세요",
+            "contrast": 5.266758172926041,
+            "minimum": 4.5
+          },
+          {
+            "text": "선택한 장소 · 08 · 천왕문",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "기도 공간",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "쉼터·산책",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "기타 시설",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "14 · 구름탑",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "07 · 범종각",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "12 · 석탑 촛불함",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "11 · 소원패 정원",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "19 · 시간과 공간의 방",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "10 · 연등광장",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "09 · 일주문",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "06 · 종무소",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "08 · 천왕문",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "01 · 함께 만드는 작은 전각",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "목록을 위아래로 밀어 더 볼 수 있어요.",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "천왕문",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "다음 일정",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "이곳으로 이동",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "settings",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 390,
+          "height": 825.578125
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "←",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "환경 설정",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "전체 무음",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "공간음 켜기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "소리 크기",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "공간음 꺼짐",
+            "contrast": 5.266758172926041,
+            "minimum": 4.5
+          },
+          {
+            "text": "시간대",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "화면 품질",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "반짝임 완화",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "내 연등은 모든 품질에서 같은 위치에 표시됩니다.",
+            "contrast": 5.266758172926041,
+            "minimum": 4.5
+          },
+          {
+            "text": "🇰🇷 언어 선택",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "방문 채널",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "같은 공간 방문자 2명",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "조작 안내 다시 보기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "검수 도구",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "coffee",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 380,
+          "height": 198
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "차·커피 쉼터",
+            "contrast": 6.146044511979233,
+            "minimum": 3
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 3
+          },
+          {
+            "text": "음료",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "마시기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      },
+      {
+        "name": "private-menu",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "alpha": 0.68,
+        "blur": "none",
+        "bounds": {
+          "width": 430,
+          "height": 330
+        },
+        "overflow": false,
+        "texts": [
+          {
+            "text": "공간 메뉴",
+            "contrast": 6.146044511979233,
+            "minimum": 4.5
+          },
+          {
+            "text": "×",
+            "contrast": 7.420258468231331,
+            "minimum": 3
+          },
+          {
+            "text": "환경 설정",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "창밖 풍경",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "1인칭 보기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "절하기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "명상하기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "내 아이템 배치",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          },
+          {
+            "text": "사찰로 돌아가기",
+            "contrast": 7.420258468231331,
+            "minimum": 4.5
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "sdkDiagnostics": [],
+    "passed": true
+  }
+]

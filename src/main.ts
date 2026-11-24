@@ -24,6 +24,7 @@ import { offerings, readApplication, storagePrefix, type Offering } from './rece
 import { renderWhileViewing } from './preview-rendering.ts';
 import './style.css';
 import './mobile-readability.css';
+import './translucent-ui.css';
 import { templePlaces } from './temple-layout.ts';
 import { createTemple, type TimeOfDay, type Quality } from './scene.ts';
 import { Measurement } from './metrics.ts';

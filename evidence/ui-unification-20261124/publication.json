@@ -1,0 +1,18 @@
+{
+  "version": 64,
+  "version_id": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_4a296bfda6dc819187332828a59990c4",
+  "commit_sha": "aed5cdb9bcdfde7ece8df07fd486dc98e35b4620",
+  "deployment_id": "appgdep_6b05298971fc8191b15a29bdc0b20db3",
+  "status": "succeeded",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "archive": {
+    "archive_format": "tar",
+    "sediment_file_id": "file_00000000d96c8206bdf2ec44810b9ef1",
+    "content_hash": "sha256:fc49066ccdefb76301661f64d7637cdb8c35eb44364930b4602d9ac5d97ba3b5",
+    "size_bytes": 16066560,
+    "file_count": 182
+  },
+  "styleCoverage": 28,
+  "runtimeStaticFilesVerified": 181,
+  "realDeviceThermalMeasurement": false
+}

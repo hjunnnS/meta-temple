@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:4355",
+  "realIndependentSessions": 3,
+  "onlineCountBadge": true,
+  "peersPerSession": 2,
+  "movement": true,
+  "face": true,
+  "robe": true,
+  "prayer": true,
+  "privateIsolation": true,
+  "returnWithoutDuplicate": true,
+  "leaveAndReconnect": true,
+  "ambientAtThree": 17,
+  "actualSharedBackend": true,
+  "webSocketConnections": 14,
+  "webSocketHosts": [
+    "nails-states-galaxy-joel.trycloudflare.com"
+  ],
+  "offlineRecovery": true,
+  "macServerRequired": true,
+  "transport": "Colyseus 0.16 / WebSocket",
+  "errors": [],
+  "failures": [],
+  "httpErrors": []
+}
