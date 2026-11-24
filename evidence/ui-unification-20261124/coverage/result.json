@@ -1,0 +1,196 @@
+[
+  {
+    "kind": "mobile",
+    "realPhone": false,
+    "inventory": [
+      {
+        "name": "guide",
+        "selector": "#guide-monk-caption",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "coin",
+        "selector": "#pond-toss",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "sweeper-action",
+        "selector": "#sweeper-greet",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "private-entry",
+        "selector": "#private-gate-action",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "community-action",
+        "selector": "#community-open",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "inspection-exit",
+        "selector": "#inspection-exit",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "npc-bubble",
+        "selector": "#npc-conversation-bubble",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "daily-monk",
+        "selector": "#daily-monk-caption",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "sweeper-bubble",
+        "selector": "#sweeper-caption",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "public-practice",
+        "selector": "#practice-feedback",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      }
+    ],
+    "failure": "TimeoutError: locator.evaluate: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#private-practice-feedback').first()\u001b[22m\n"
+  },
+  {
+    "kind": "pc",
+    "realPhone": false,
+    "inventory": [
+      {
+        "name": "guide",
+        "selector": "#guide-monk-caption",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "coin",
+        "selector": "#pond-toss",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "sweeper-action",
+        "selector": "#sweeper-greet",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "private-entry",
+        "selector": "#private-gate-action",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "community-action",
+        "selector": "#community-open",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "inspection-exit",
+        "selector": "#inspection-exit",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "npc-bubble",
+        "selector": "#npc-conversation-bubble",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "daily-monk",
+        "selector": "#daily-monk-caption",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "sweeper-bubble",
+        "selector": "#sweeper-caption",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "public-practice",
+        "selector": "#practice-feedback",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      }
+    ],
+    "failure": "TimeoutError: locator.evaluate: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#private-practice-feedback').first()\u001b[22m\n"
+  }
+]

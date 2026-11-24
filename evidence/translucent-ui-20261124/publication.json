@@ -1,0 +1,17 @@
+{
+  "version": 62,
+  "version_id": "appgprj_6af41a312ffc81919a17690097a9a9a3~appgver_8c1e29dcc0a081919bd9c6e996156ed8",
+  "commit_sha": "b00f9db3e767c5cae10afd3f07dc53e2eb46cbfd",
+  "deployment_id": "appgdep_6b04f5e4a2988191accf0c01546a39c7",
+  "status": "succeeded",
+  "url": "https://sasa-temple-personal-trial.fond-bell-1966.chatgpt.site",
+  "archive": {
+    "archive_format": "tar",
+    "sediment_file_id": "file_0000000051bc8206bac35ce16278baf0",
+    "content_hash": "sha256:ebc23b3910f57b2c5e3e3b72659f91200e5c3b7eb26b016caedaec9cc06d338d",
+    "size_bytes": 16056320,
+    "file_count": 182
+  },
+  "sharedEndpoint": "https://nails-states-galaxy-joel.trycloudflare.com",
+  "realPhoneThermalMeasurement": false
+}

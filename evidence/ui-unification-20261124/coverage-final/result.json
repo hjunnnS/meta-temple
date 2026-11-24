@@ -1,0 +1,496 @@
+[
+  {
+    "kind": "mobile",
+    "realPhone": false,
+    "inventory": [
+      {
+        "name": "guide",
+        "selector": "#guide-monk-caption",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "coin",
+        "selector": "#pond-toss",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "sweeper-action",
+        "selector": "#sweeper-greet",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "private-entry",
+        "selector": "#private-gate-action",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "community-action",
+        "selector": "#community-open",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "inspection-exit",
+        "selector": "#inspection-exit",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "npc-bubble",
+        "selector": "#npc-conversation-bubble",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "daily-monk",
+        "selector": "#daily-monk-caption",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "sweeper-bubble",
+        "selector": "#sweeper-caption",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "public-practice",
+        "selector": "#practice-feedback",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "public-result",
+        "selector": "#public-practice-outcome",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "practice-controls",
+        "selector": "#walk-pad",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "wish-countdown",
+        "selector": "#pond-wish",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "controls-help",
+        "selector": "#visit-guide",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "offering-tag",
+        "selector": "#offering-tag",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "coffee-status",
+        "selector": "#tea-status",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "zodiac",
+        "selector": ".face-dialog",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "community-dialog",
+        "selector": "#community-dialog",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "room-views",
+        "selector": "#private-views-panel",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "map",
+        "selector": "#spaces-panel",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "settings",
+        "selector": "#settings-panel",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "account",
+        "selector": ".account-panel",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "access",
+        "selector": "#private-access-dialog",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "offering",
+        "selector": "#offering-drawer",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "private-practice",
+        "selector": "#private-practice-feedback",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "private-result",
+        "selector": "#private-practice-outcome",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "scenery",
+        "selector": "#private-scenery-dialog",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "display",
+        "selector": "#private-display-dialog",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      }
+    ],
+    "futureDialog": "rgba(8, 21, 16, 0.68)",
+    "zodiacSelection": true,
+    "accountFlow": true,
+    "sceneryChoice": true,
+    "readableInput": {
+      "background": "rgb(255, 253, 245)",
+      "color": "rgb(41, 71, 55)"
+    },
+    "returnToTemple": true,
+    "passed": true
+  },
+  {
+    "kind": "pc",
+    "realPhone": false,
+    "inventory": [
+      {
+        "name": "guide",
+        "selector": "#guide-monk-caption",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "coin",
+        "selector": "#pond-toss",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "sweeper-action",
+        "selector": "#sweeper-greet",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "private-entry",
+        "selector": "#private-gate-action",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "community-action",
+        "selector": "#community-open",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "inspection-exit",
+        "selector": "#inspection-exit",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "npc-bubble",
+        "selector": "#npc-conversation-bubble",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "daily-monk",
+        "selector": "#daily-monk-caption",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "sweeper-bubble",
+        "selector": "#sweeper-caption",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "public-practice",
+        "selector": "#practice-feedback",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "public-result",
+        "selector": "#public-practice-outcome",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "practice-controls",
+        "selector": "#walk-pad",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "wish-countdown",
+        "selector": "#pond-wish",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "controls-help",
+        "selector": "#visit-guide",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "offering-tag",
+        "selector": "#offering-tag",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "coffee-status",
+        "selector": "#tea-status",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "zodiac",
+        "selector": ".face-dialog",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "community-dialog",
+        "selector": "#community-dialog",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "room-views",
+        "selector": "#private-views-panel",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "map",
+        "selector": "#spaces-panel",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "settings",
+        "selector": "#settings-panel",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "account",
+        "selector": ".account-panel",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "access",
+        "selector": "#private-access-dialog",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      },
+      {
+        "name": "offering",
+        "selector": "#offering-drawer",
+        "background": "rgba(8, 21, 16, 0.68)",
+        "color": "rgb(255, 248, 233)",
+        "alpha": 0.68,
+        "blur": "none",
+        "contrast": 6.146044511979233
+      }
+    ],
+    "futureDialog": "rgba(8, 21, 16, 0.68)",
+    "zodiacSelection": true,
+    "accountFlow": true,
+    "failure": "TimeoutError: locator.click: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#spaces-open')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" id=\"spaces-open\" aria-haspopup=\"dialog\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <dialog open=\"\" class=\"account-panel\" aria-labelledby=\"account-title\">…</dialog> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <dialog open=\"\" class=\"account-panel\" aria-labelledby=\"account-title\">…</dialog> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    46 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <dialog open=\"\" class=\"account-panel\" aria-labelledby=\"account-title\">…</dialog> intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+  }
+]

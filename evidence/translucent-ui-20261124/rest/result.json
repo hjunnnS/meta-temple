@@ -1,0 +1,24 @@
+[
+  {
+    "kind": "webkit",
+    "errors": [],
+    "realPhone": false,
+    "stage": "chair-tap",
+    "dragDoesNotSit": true,
+    "chair": {
+      "x": 227.77482841988422,
+      "y": 451.8849517865213
+    },
+    "chairTap": true,
+    "orderOnDemand": true,
+    "mobile108Counter": true,
+    "privateMenuOnDemand": true,
+    "practiceStatusAndTimer": true,
+    "returnToTemple": true,
+    "sdkDiagnostics": [
+      "Wrong protocol for WebSocket '[object Object]'",
+      "Wrong protocol for WebSocket '[object Object]'"
+    ],
+    "passed": true
+  }
+]
